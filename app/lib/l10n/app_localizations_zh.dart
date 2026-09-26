@@ -11539,4 +11539,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get idleReadyHint => '点按“开始”，你说的话会显示在这里。';
+
+  @override
+  String askTryHint(String question) {
+    return '试试“$question”';
+  }
+
+  @override
+  String get chatHeaderSubtitle => '了解你的对话和任务';
+
+  @override
+  String get answerSources => '来源';
+
+  @override
+  String get homeAppsMore => '更多';
 }

@@ -14075,5 +14075,26 @@
     "idleReadyHint": "Tap Start and what you say appears here.",
     "@idleReadyHint": {
         "description": "Home idle capture card, a device or this phone ready: where the live words will show once listening starts"
+    },
+    "askTryHint": "try “{question}”",
+    "@askTryHint": {
+        "description": "Under \"Ask anything\" on the Home Ask bar: a rotating example question the reader could ask",
+        "placeholders": {
+            "question": {
+                "type": "String"
+            }
+        }
+    },
+    "chatHeaderSubtitle": "Knows your conversations and tasks",
+    "@chatHeaderSubtitle": {
+        "description": "Chat header, under \"Omi\": what Omi answers from"
+    },
+    "answerSources": "From",
+    "@answerSources": {
+        "description": "Chat: small label above the conversations an answer came from (its sources)"
+    },
+    "homeAppsMore": "More",
+    "@homeAppsMore": {
+        "description": "Home: the last tile in the Apps row, which opens every app"
     }
 }

@@ -11687,4 +11687,18 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'แตะเริ่ม แล้วสิ่งที่คุณพูดจะแสดงที่นี่';
+
+  @override
+  String askTryHint(String question) {
+    return 'ลองถาม “$question”';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'รู้จักบทสนทนาและงานของคุณ';
+
+  @override
+  String get answerSources => 'แหล่งที่มา';
+
+  @override
+  String get homeAppsMore => 'เพิ่มเติม';
 }

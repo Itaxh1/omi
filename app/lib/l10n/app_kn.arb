@@ -11233,5 +11233,9 @@
     "audioPartiallySaved": "{saved} ಆಡಿಯೋ ಉಳಿಸಲಾಗಿದೆ ({total} ರಲ್ಲಿ)",
     "voiceIntroTitle": "ನಿಮ್ಮನ್ನು ಪರಿಚಯಿಸಿಕೊಳ್ಳಿ",
     "memoryLabel": "ಸ್ಮೃತಿ",
-    "idleReadyHint": "ಪ್ರಾರಂಭಿಸಿ ಟ್ಯಾಪ್ ಮಾಡಿ, ನೀವು ಹೇಳುವುದು ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ."
+    "idleReadyHint": "ಪ್ರಾರಂಭಿಸಿ ಟ್ಯಾಪ್ ಮಾಡಿ, ನೀವು ಹೇಳುವುದು ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.",
+    "askTryHint": "“{question}” ಕೇಳಿ ನೋಡಿ",
+    "chatHeaderSubtitle": "ನಿಮ್ಮ ಸಂವಾದಗಳು ಮತ್ತು ಕಾರ್ಯಗಳನ್ನು ತಿಳಿದಿದೆ",
+    "answerSources": "ಮೂಲಗಳು",
+    "homeAppsMore": "ಇನ್ನಷ್ಟು"
 }

@@ -25,21 +25,22 @@ class ChatFollowUpChip extends StatelessWidget {
           label: question,
           child: InkWell(
             key: const Key('chat_followup_chip'),
-            borderRadius: OmiRadius.pillAll,
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
             onTap: () {
               PlatformManager.instance.analytics.followUpChipTapped(source: source);
               onSend(question);
             },
+            // v4 Ask follow-up: an outlined suggestion under the answer, in semibold.
             child: Container(
               // 12 + 19.5pt line + 12 reaches the 44pt target; the min height holds it if the text shrinks.
               constraints: const BoxConstraints(minHeight: kOmiMinTapTarget),
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: OmiSpacing.sm),
               decoration: BoxDecoration(
-                color: OmiColors.surface1,
-                borderRadius: OmiRadius.pillAll,
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
                 border: Border.all(color: OmiColors.border),
               ),
-              child: Text(question, style: OmiType.subhead.copyWith(height: 1.3)),
+              child: Text(question,
+                  style: OmiType.subhead.copyWith(fontSize: 14, fontWeight: FontWeight.w600, height: 1.3)),
             ),
           ),
         ),

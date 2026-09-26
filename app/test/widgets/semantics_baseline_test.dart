@@ -34,7 +34,7 @@ import 'package:omi/providers/memories_provider.dart';
 import 'package:omi/providers/task_integration_provider.dart';
 import 'package:omi/models/subscription.dart';
 import 'package:omi/providers/usage_provider.dart';
-import 'package:omi/widgets/bottom_nav_bar.dart';
+import 'package:omi/pages/home/widgets/home_ask_bar.dart';
 import 'package:omi/widgets/conversation_bottom_bar.dart';
 import 'package:omi/widgets/header_circle_button.dart';
 
@@ -292,15 +292,15 @@ Future<SurfaceSemanticsReport> _measureHome(WidgetTester tester) async {
   return _tryMeasure(
     tester,
     surface: 'home',
-    pumpedWidget: 'BottomNavBar + HomeConversationsPreview',
+    pumpedWidget: 'HomeAskBar + HomeConversationsPreview',
     notes: [
       'HomePage / HomeContentPage not pumped: HomePage owns uncancelled Timers; HomeContentPage fetches daily summaries.',
-      'Tabs are icon-only and already wrap Semantics(label) from l10n.',
+      'Home has no tab bar (v2.1): the Ask bar is one labelled button, and its mic another.',
     ],
     app: _app(
       Scaffold(
         body: CustomScrollView(slivers: [HomeConversationsPreview(conversationProvider: conversations)]),
-        bottomNavigationBar: BottomNavBar(onTabTap: (_, __) {}),
+        bottomNavigationBar: HomeAskBar(onOpen: () {}, onVoice: () {}, compact: ValueNotifier(false)),
       ),
       wrap: (child) => _withProviders(child, [
         ChangeNotifierProvider<HomeProvider>.value(value: home),

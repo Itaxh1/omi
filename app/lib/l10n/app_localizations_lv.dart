@@ -11780,4 +11780,18 @@ class AppLocalizationsLv extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Pieskarieties Sākt, un tas, ko sakāt, parādīsies šeit.';
+
+  @override
+  String askTryHint(String question) {
+    return 'izmēģiniet “$question”';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Zina jūsu sarunas un uzdevumus';
+
+  @override
+  String get answerSources => 'Avoti';
+
+  @override
+  String get homeAppsMore => 'Vairāk';
 }

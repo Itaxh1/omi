@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "Saglabāts {saved} no {total} audio",
     "voiceIntroTitle": "Iepazīstiniet ar sevi",
     "memoryLabel": "Atmiņa",
-    "idleReadyHint": "Pieskarieties Sākt, un tas, ko sakāt, parādīsies šeit."
+    "idleReadyHint": "Pieskarieties Sākt, un tas, ko sakāt, parādīsies šeit.",
+    "askTryHint": "izmēģiniet “{question}”",
+    "chatHeaderSubtitle": "Zina jūsu sarunas un uzdevumus",
+    "answerSources": "Avoti",
+    "homeAppsMore": "Vairāk"
 }

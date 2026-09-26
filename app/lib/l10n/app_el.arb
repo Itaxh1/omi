@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "Αποθηκεύτηκαν {saved} από {total} ήχου",
     "voiceIntroTitle": "Συστηθείτε",
     "memoryLabel": "Ανάμνηση",
-    "idleReadyHint": "Πατήστε Έναρξη και ό,τι λέτε θα εμφανίζεται εδώ."
+    "idleReadyHint": "Πατήστε Έναρξη και ό,τι λέτε θα εμφανίζεται εδώ.",
+    "askTryHint": "δοκιμάστε «{question}»",
+    "chatHeaderSubtitle": "Γνωρίζει τις συνομιλίες και τις εργασίες σας",
+    "answerSources": "Πηγές",
+    "homeAppsMore": "Περισσότερα"
 }

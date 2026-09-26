@@ -11818,4 +11818,18 @@ class AppLocalizationsCa extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Toca Inicia i el que diguis apareixerà aquí.';
+
+  @override
+  String askTryHint(String question) {
+    return 'prova «$question»';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Coneix les teves converses i tasques';
+
+  @override
+  String get answerSources => 'Fonts';
+
+  @override
+  String get homeAppsMore => 'Més';
 }

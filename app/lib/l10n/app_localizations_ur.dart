@@ -11766,4 +11766,18 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'شروع کریں پر ٹیپ کریں، آپ جو کہیں گے وہ یہاں نظر آئے گا۔';
+
+  @override
+  String askTryHint(String question) {
+    return 'آزمائیں “$question”';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'آپ کی گفتگو اور کام جانتا ہے';
+
+  @override
+  String get answerSources => 'ذرائع';
+
+  @override
+  String get homeAppsMore => 'مزید';
 }

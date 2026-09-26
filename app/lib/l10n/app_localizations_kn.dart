@@ -11791,4 +11791,18 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'ಪ್ರಾರಂಭಿಸಿ ಟ್ಯಾಪ್ ಮಾಡಿ, ನೀವು ಹೇಳುವುದು ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.';
+
+  @override
+  String askTryHint(String question) {
+    return '“$question” ಕೇಳಿ ನೋಡಿ';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'ನಿಮ್ಮ ಸಂವಾದಗಳು ಮತ್ತು ಕಾರ್ಯಗಳನ್ನು ತಿಳಿದಿದೆ';
+
+  @override
+  String get answerSources => 'ಮೂಲಗಳು';
+
+  @override
+  String get homeAppsMore => 'ಇನ್ನಷ್ಟು';
 }

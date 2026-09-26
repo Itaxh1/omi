@@ -11766,4 +11766,18 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Ketuk Mulai dan ucapan Anda akan muncul di sini.';
+
+  @override
+  String askTryHint(String question) {
+    return 'coba “$question”';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Mengenal percakapan dan tugas Anda';
+
+  @override
+  String get answerSources => 'Sumber';
+
+  @override
+  String get homeAppsMore => 'Lainnya';
 }

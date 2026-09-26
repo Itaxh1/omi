@@ -22,7 +22,7 @@ import 'package:omi/providers/phone_call_provider.dart';
 import 'package:omi/services/wals/wal.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/enums.dart';
-import 'package:omi/widgets/bottom_nav_bar.dart';
+import 'package:omi/pages/home/widgets/home_ask_bar.dart';
 import 'package:omi/widgets/header_circle_button.dart';
 
 import '../fakes.dart';
@@ -173,12 +173,11 @@ final auditPendant = BtDevice(id: 'd1', name: 'Omi Device', type: DeviceType.omi
 /// Home as HomePage lays it out (Rev 3): header (device chip; Search and Settings), content, and the
 /// dock with the round Ask button.
 class _HomeFrame extends StatelessWidget {
-  const _HomeFrame({this.fetchSummaries, this.askable = false});
+  const _HomeFrame({this.fetchSummaries});
 
   final DailySummariesFetcher? fetchSummaries;
 
   /// The dock's Ask opens its field (HomePage passes onAskSubmit) instead of going to Chat.
-  final bool askable;
 
   @override
   Widget build(BuildContext context) {
@@ -211,7 +210,12 @@ class _HomeFrame extends StatelessWidget {
       ),
       body: Stack(children: [
         HomeContentPage(fetchSummaries: fetchSummaries),
-        BottomNavBar(onTabTap: (_, __) {}, onAskTap: () {}, onAskSubmit: askable ? (_) {} : null),
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 0,
+          child: HomeAskBar(onOpen: () {}, onVoice: () {}, compact: ValueNotifier(false)),
+        ),
       ]),
     );
   }
@@ -227,10 +231,8 @@ Future<void> _runHome(
   String action = 'Home',
   bool withData = false,
   bool scroll = false,
-  bool askable = false,
 }) async {
-  await a
-      .pump(_HomeFrame(fetchSummaries: withData ? _seededRecap : null, askable: askable), scaffold: false, providers: [
+  await a.pump(_HomeFrame(fetchSummaries: withData ? _seededRecap : null), scaffold: false, providers: [
     if (withData) ...await _seededHomeData(a),
     ChangeNotifierProvider<DeviceProvider>.value(
         value: pendantConnected
@@ -351,20 +353,6 @@ final captureScenarios = <AuditScenario>[
     page: _home,
     state: 'An Omi pendant connected at 72% battery; nothing recording',
     run: (a) => _runHome(a, withData: true, AuditLive.idle, pendantConnected: true),
-  ),
-  AuditScenario(
-    id: 'home-ask-open',
-    title: 'Ask open over Home',
-    page: _home,
-    state: 'The Omi mark was tapped: everything but the question blurs and dims, the header included',
-    run: (a) => _runHome(
-        a,
-        withData: true,
-        AuditLive.pendant,
-        pendantConnected: true,
-        askable: true,
-        tap: find.byKey(const Key('bottom_nav_ask')),
-        action: 'Tap the Omi mark'),
   ),
   AuditScenario(
     id: 'home-first-day',

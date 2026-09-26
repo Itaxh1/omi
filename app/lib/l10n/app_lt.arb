@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "Išsaugota {saved} iš {total} garso",
     "voiceIntroTitle": "Prisistatykite",
     "memoryLabel": "Prisiminimas",
-    "idleReadyHint": "Palieskite Pradėti, ir tai, ką sakote, pasirodys čia."
+    "idleReadyHint": "Palieskite Pradėti, ir tai, ką sakote, pasirodys čia.",
+    "askTryHint": "pabandykite „{question}“",
+    "chatHeaderSubtitle": "Žino jūsų pokalbius ir užduotis",
+    "answerSources": "Šaltiniai",
+    "homeAppsMore": "Daugiau"
 }

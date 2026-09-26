@@ -11751,4 +11751,18 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'روی شروع بزنید تا آنچه می‌گویید اینجا نمایش داده شود.';
+
+  @override
+  String askTryHint(String question) {
+    return 'امتحان کنید «$question»';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'گفتگوها و کارهای شما را می‌شناسد';
+
+  @override
+  String get answerSources => 'منابع';
+
+  @override
+  String get homeAppsMore => 'بیشتر';
 }

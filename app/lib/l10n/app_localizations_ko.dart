@@ -11565,4 +11565,18 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get idleReadyHint => '시작을 탭하면 말한 내용이 여기에 표시돼요.';
+
+  @override
+  String askTryHint(String question) {
+    return '“$question” 물어보세요';
+  }
+
+  @override
+  String get chatHeaderSubtitle => '대화와 할 일을 알고 있어요';
+
+  @override
+  String get answerSources => '출처';
+
+  @override
+  String get homeAppsMore => '더 보기';
 }

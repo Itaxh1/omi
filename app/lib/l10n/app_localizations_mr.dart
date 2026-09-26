@@ -11765,4 +11765,18 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'सुरू करा वर टॅप करा, तुम्ही जे बोलाल ते इथे दिसेल.';
+
+  @override
+  String askTryHint(String question) {
+    return '“$question” विचारून पाहा';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'तुमची संभाषणे आणि कामे जाणतो';
+
+  @override
+  String get answerSources => 'स्रोत';
+
+  @override
+  String get homeAppsMore => 'अधिक';
 }

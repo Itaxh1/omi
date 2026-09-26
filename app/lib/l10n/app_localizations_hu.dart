@@ -11801,4 +11801,18 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Koppints az Indításra, és amit mondasz, itt jelenik meg.';
+
+  @override
+  String askTryHint(String question) {
+    return 'próbáld: „$question”';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Ismeri a beszélgetéseidet és feladataidat';
+
+  @override
+  String get answerSources => 'Források';
+
+  @override
+  String get homeAppsMore => 'Több';
 }

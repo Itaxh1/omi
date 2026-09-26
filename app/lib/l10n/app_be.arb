@@ -11233,5 +11233,9 @@
     "audioPartiallySaved": "Захавана {saved} аўдыя з {total}",
     "voiceIntroTitle": "Прадстаўцеся",
     "memoryLabel": "Успамін",
-    "idleReadyHint": "Націсніце «Пачаць», і тое, што вы кажаце, з’явіцца тут."
+    "idleReadyHint": "Націсніце «Пачаць», і тое, што вы кажаце, з’явіцца тут.",
+    "askTryHint": "паспрабуйце «{question}»",
+    "chatHeaderSubtitle": "Ведае вашы размовы і задачы",
+    "answerSources": "Крыніцы",
+    "homeAppsMore": "Яшчэ"
 }

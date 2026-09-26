@@ -11774,4 +11774,18 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Торкніться «Почати», і сказане з’явиться тут.';
+
+  @override
+  String askTryHint(String question) {
+    return 'спробуйте «$question»';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Знає ваші розмови й завдання';
+
+  @override
+  String get answerSources => 'Джерела';
+
+  @override
+  String get homeAppsMore => 'Більше';
 }

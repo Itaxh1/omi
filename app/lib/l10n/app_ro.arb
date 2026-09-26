@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "Audio salvat: {saved} din {total}",
     "voiceIntroTitle": "Prezintă-te",
     "memoryLabel": "Amintire",
-    "idleReadyHint": "Atinge Pornește și ce spui va apărea aici."
+    "idleReadyHint": "Atinge Pornește și ce spui va apărea aici.",
+    "askTryHint": "încearcă „{question}”",
+    "chatHeaderSubtitle": "Îți cunoaște conversațiile și sarcinile",
+    "answerSources": "Surse",
+    "homeAppsMore": "Mai multe"
 }

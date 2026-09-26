@@ -21410,6 +21410,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tap Start and what you say appears here.'**
   String get idleReadyHint;
+
+  /// Under "Ask anything" on the Home Ask bar: a rotating example question the reader could ask
+  ///
+  /// In en, this message translates to:
+  /// **'try “{question}”'**
+  String askTryHint(String question);
+
+  /// Chat header, under "Omi": what Omi answers from
+  ///
+  /// In en, this message translates to:
+  /// **'Knows your conversations and tasks'**
+  String get chatHeaderSubtitle;
+
+  /// Chat: small label above the conversations an answer came from (its sources)
+  ///
+  /// In en, this message translates to:
+  /// **'From'**
+  String get answerSources;
+
+  /// Home: the last tile in the Apps row, which opens every app
+  ///
+  /// In en, this message translates to:
+  /// **'More'**
+  String get homeAppsMore;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

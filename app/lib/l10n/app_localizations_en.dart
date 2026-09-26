@@ -11743,4 +11743,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Tap Start and what you say appears here.';
+
+  @override
+  String askTryHint(String question) {
+    return 'try “$question”';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Knows your conversations and tasks';
+
+  @override
+  String get answerSources => 'From';
+
+  @override
+  String get homeAppsMore => 'More';
 }

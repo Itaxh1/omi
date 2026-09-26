@@ -26,6 +26,8 @@ import 'package:omi/pages/action_items/widgets/task_selection_action_bar.dart';
 import 'package:omi/pages/conversations/widgets/merge_action_bar.dart';
 import 'package:omi/pages/conversations/conversation_map_page.dart';
 import 'package:omi/pages/home/home_content.dart';
+import 'package:omi/pages/home/widgets/home_ask_bar.dart';
+import 'package:omi/pages/home/widgets/home_section_stack.dart';
 import 'package:omi/pages/phone_calls/active_call_banner.dart';
 import 'package:omi/pages/settings/settings_drawer.dart';
 import 'package:omi/pages/settings/task_integrations_page.dart';
@@ -265,27 +267,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
     ];
   }
 
-  void _scrollToTop(int pageIndex) {
-    switch (pageIndex) {
-      case 0:
-        _homeContentPageKey.currentState?.scrollToTop();
-        break;
-      case 1:
-        final conversationsState = _conversationsPageKey.currentState;
-        if (conversationsState != null) {
-          (conversationsState as dynamic).scrollToTop();
-        }
-        break;
-      case 2:
-        final actionItemsState = _actionItemsPageKey.currentState;
-        if (actionItemsState != null) {
-          (actionItemsState as dynamic).scrollToTop();
-        }
-        break;
-      case 3:
-        _appsPageKey.currentState?.scrollToTop();
-        break;
-    }
+  /// Back from a pushed section to Today.
+  void _backToToday() {
+    OmiHaptics.selection();
+    _setDockCompact(false);
+    context.read<HomeProvider>().setIndex(0);
   }
 
   void _addGoal() {
@@ -529,11 +515,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
     _initQuickActions();
     _startHomeWidgets();
     // Toasts float above the tab bar (and the chat bar on Home) while this shell is the visible route.
-    OmiFeedback.bottomClearance = (ctx) {
-      final onHome = ctx.read<HomeProvider>().selectedIndex == 0;
-      final clearance = onHome ? homeChatBarClearance(ctx) : bottomNavBarClearance(ctx);
-      return clearance - bottomNavBarReservedInset(ctx);
-    };
+    OmiFeedback.bottomClearance = (ctx) => bottomNavBarClearance(ctx) - bottomNavBarReservedInset(ctx);
     super.initState();
 
     // After init
@@ -781,48 +763,36 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
                           Expanded(
                             child: NotificationListener<ScrollUpdateNotification>(
                               onNotification: _onTabScroll,
-                              child: IndexedStack(index: selectedIndex, children: _buildPages(selectedIndex)),
+                              child: HomeSectionStack(
+                                selectedIndex: selectedIndex,
+                                pages: _buildPages(selectedIndex),
+                                onBack: _backToToday,
+                              ),
                             ),
                           ),
                         ],
                       ),
-                      Consumer<HomeProvider>(
-                        builder: (context, home, child) {
+                      // v2.1: the one bottom control is Ask; search fields and selection bars take the
+                      // bottom while they are up.
+                      Consumer3<HomeProvider, ConversationProvider, ActionItemsProvider>(
+                        builder: (context, home, conversations, tasks, child) {
                           if (home.isChatFieldFocused ||
                               home.isAppsSearchFieldFocused ||
-                              home.isMemoriesSearchFieldFocused) {
+                              home.isMemoriesSearchFieldFocused ||
+                              (selectedIndex == 1 && conversations.isSelectionModeActive) ||
+                              (selectedIndex == 2 && tasks.isSelectionMode)) {
                             return const SizedBox.shrink();
                           }
-
-                          return Stack(
-                            children: [
-                              BottomNavBar(
-                                // Queue page construction after the current
-                                // gesture frame. Building a destination directly
-                                // in onTapDown makes the tap itself feel stuck.
-                                onTabWarmup: _schedulePageInitialization,
-                                onAskTap: _openChat,
-                                onAskHold: _openMemories,
-                                onAskSubmit: (question) => routeToPage(
-                                  context,
-                                  ChatPage(isPivotBottom: false, initialQuestion: question),
-                                ),
-                                compact: _dockCompact,
-                                onTabTap: (index, isRepeat) {
-                                  _setDockCompact(false);
-                                  if (isRepeat) {
-                                    _scrollToTop(index);
-                                  } else {
-                                    // Change tabs immediately. If background
-                                    // prewarming has not completed yet, the
-                                    // destination paints a skeleton for one frame
-                                    // and mounts its real content afterwards.
-                                    home.setIndex(index);
-                                    _schedulePageInitialization(index);
-                                  }
-                                },
-                              ),
-                            ],
+                          return Positioned(
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            child: HomeAskBar(
+                              onOpen: _openChat,
+                              onVoice: () => _openChat(voice: true),
+                              onHold: _openMemories,
+                              compact: _dockCompact,
+                            ),
                           );
                         },
                       ),
@@ -870,7 +840,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
         selector: (_, home) => home.selectedIndex,
         builder: (context, index, _) => Row(
           children: [
-            if (index == 0) const BatteryInfoWidget(),
+            if (index == 0) const BatteryInfoWidget() else _TodayBackButton(onTap: _backToToday),
             const Spacer(),
             // Rev 3 header: the device chip, then Search and Settings.
             if (index == 0) ...[
@@ -1040,6 +1010,51 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
       ForegroundUtil.stopForegroundTask();
     }
     super.dispose();
+  }
+}
+
+/// v4 push: "< Today" on glass at the top of a pushed section.
+class _TodayBackButton extends StatelessWidget {
+  const _TodayBackButton({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final label = context.l10n.today;
+    return Semantics(
+      button: true,
+      label: label,
+      excludeSemantics: true,
+      onTap: onTap,
+      child: GestureDetector(
+        key: const Key('home_back_today'),
+        behavior: HitTestBehavior.opaque,
+        onTap: onTap,
+        child: SizedBox(
+          height: OmiSize.minTap,
+          child: Center(
+            child: SizedBox(
+              height: 40,
+              child: OmiGlass(
+                inHeader: true,
+                borderRadius: const BorderRadius.all(Radius.circular(12)),
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.only(start: 6, end: 14),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.chevron_left_rounded, size: 26, color: OmiColors.textPrimary),
+                      Text(label, style: OmiType.body.copyWith(fontWeight: FontWeight.w600)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 

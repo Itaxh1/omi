@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 
-/// Ask before the first question (v2 Ask): the Omi mark, what you can ask and where answers come
-/// from, then suggestions as chips. Starters stay editable in the composer; choosing one never
-/// sends a message.
+/// Ask before the first question (v4 Ask hello): at the foot of the page, the Omi mark, what you
+/// can ask and where answers come from, then suggestions as a two-column grid of cards. Starters
+/// stay editable in the composer; choosing one never sends a message.
 class ChatStarters extends StatelessWidget {
   final bool hasExistingData;
   final bool isConnected;
@@ -20,42 +21,63 @@ class ChatStarters extends StatelessWidget {
     final l10n = context.l10n;
     // Rev 3 Ask: with something heard, questions about it; before that, what Omi can do.
     final prompts = hasExistingData
-        ? [('today', l10n.askStarterToday), ('people', l10n.askStarterPeople), ('open', l10n.askStarterOpen)]
-        : [('capabilities', l10n.chatStarterPrompt('capabilities')), ('goal', l10n.chatStarterPrompt('goal'))];
-    return Center(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(OmiSpacing.xl),
+        ? [
+            ('today', l10n.askStarterToday, Icons.bolt_rounded),
+            ('open', l10n.askStarterOpen, Icons.checklist_rounded),
+            ('people', l10n.askStarterPeople, Icons.people_alt_outlined),
+            ('improve', l10n.chatStarterPrompt('improve'), Icons.trending_up_rounded),
+          ]
+        : [
+            ('capabilities', l10n.chatStarterPrompt('capabilities'), Icons.auto_awesome_outlined),
+            ('goal', l10n.chatStarterPrompt('goal'), Icons.flag_outlined),
+          ];
+    return LayoutBuilder(
+      builder: (context, constraints) => SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(18, OmiSpacing.md, 18, OmiSpacing.md),
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 400),
+          constraints: BoxConstraints(minHeight: constraints.maxHeight - OmiSpacing.md * 2),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const OmiRingLogo(size: 56, mode: OmiRingMode.orbit, loops: 1),
+              const OmiRingLogo(size: 40, mode: OmiRingMode.orbit, loops: 1),
               const SizedBox(height: 18),
               Semantics(
                 header: true,
-                child: OmiBalancedText(l10n.askEmptyTitle, textAlign: TextAlign.center, style: OmiType.serifTitle),
+                child: OmiBalancedText(
+                  l10n.askEmptyTitle,
+                  style: OmiType.title1.copyWith(fontSize: 30, height: 35 / 30, fontWeight: FontWeight.w700),
+                ),
               ),
               const SizedBox(height: OmiSpacing.xs),
               OmiBalancedText(
                 l10n.askEmptySubtitle,
-                textAlign: TextAlign.center,
-                style: OmiType.subhead.copyWith(color: OmiColors.textSecondary),
+                style: OmiType.subhead.copyWith(color: OmiColors.textSecondary, height: 21 / 15),
               ),
-              const SizedBox(height: OmiSpacing.xl),
-              Wrap(
-                alignment: WrapAlignment.center,
-                spacing: OmiSpacing.xs,
-                runSpacing: OmiSpacing.xs,
-                children: [
-                  for (final (kind, prompt) in prompts)
-                    _SuggestionChip(
-                      key: ValueKey('chat_starter_$kind'),
-                      label: prompt,
-                      onTap: () => onSelected(prompt),
-                    ),
-                ],
-              ),
+              const SizedBox(height: 18),
+              for (var row = 0; row < prompts.length; row += 2) ...[
+                if (row > 0) const SizedBox(height: 10),
+                IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      for (var column = 0; column < 2; column++) ...[
+                        if (column > 0) const SizedBox(width: 10),
+                        Expanded(
+                          child: row + column < prompts.length
+                              ? _SuggestionCard(
+                                  key: ValueKey('chat_starter_${prompts[row + column].$1}'),
+                                  label: prompts[row + column].$2,
+                                  icon: prompts[row + column].$3,
+                                  onTap: () => onSelected(prompts[row + column].$2),
+                                )
+                              : const SizedBox.shrink(),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              ],
             ],
           ),
         ),
@@ -64,11 +86,12 @@ class ChatStarters extends StatelessWidget {
   }
 }
 
-/// A question to start with (v2 Ask suggestions): an outlined 38 pt capsule.
-class _SuggestionChip extends StatelessWidget {
-  const _SuggestionChip({super.key, required this.label, required this.onTap});
+/// A question to start with (v4 Ask suggestion): a card with its icon on a tile and the question.
+class _SuggestionCard extends StatelessWidget {
+  const _SuggestionCard({super.key, required this.label, required this.icon, required this.onTap});
 
   final String label;
+  final IconData icon;
   final VoidCallback onTap;
 
   @override
@@ -84,13 +107,29 @@ class _SuggestionChip extends StatelessWidget {
           onTap();
         },
         child: Container(
-          constraints: const BoxConstraints(minHeight: 38),
-          padding: const EdgeInsets.symmetric(horizontal: OmiSpacing.md, vertical: 9),
+          constraints: const BoxConstraints(minHeight: 104),
+          padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-            borderRadius: OmiRadius.pillAll,
-            border: Border.all(color: OmiColors.textPrimary.withValues(alpha: 0.28), width: 0.5),
+            color: OmiColors.surface1,
+            borderRadius: const BorderRadius.all(Radius.circular(16)),
+            border: Border.all(color: OmiColors.border, width: 0.5),
           ),
-          child: Text(label, style: OmiType.subhead.copyWith(fontWeight: FontWeight.w500)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 32,
+                height: 32,
+                decoration: BoxDecoration(
+                  color: OmiColors.surface2,
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                ),
+                child: Icon(icon, size: 17, color: OmiColors.textPrimary),
+              ),
+              const SizedBox(height: OmiSpacing.sm),
+              Text(label, style: OmiType.subhead.copyWith(fontWeight: FontWeight.w600, height: 20 / 15)),
+            ],
+          ),
         ),
       ),
     );

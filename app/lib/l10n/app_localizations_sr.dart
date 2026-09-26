@@ -11767,4 +11767,18 @@ class AppLocalizationsSr extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Додирните Покрени и оно што кажете појавиће се овде.';
+
+  @override
+  String askTryHint(String question) {
+    return 'пробајте „$question“';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Зна ваше разговоре и задатке';
+
+  @override
+  String get answerSources => 'Извори';
+
+  @override
+  String get homeAppsMore => 'Више';
 }

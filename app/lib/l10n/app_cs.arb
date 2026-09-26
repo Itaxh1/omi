@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "Uloženo {saved} z {total} zvuku",
     "voiceIntroTitle": "Představte se",
     "memoryLabel": "Vzpomínka",
-    "idleReadyHint": "Klepněte na Spustit a to, co řeknete, se objeví tady."
+    "idleReadyHint": "Klepněte na Spustit a to, co řeknete, se objeví tady.",
+    "askTryHint": "zkuste „{question}“",
+    "chatHeaderSubtitle": "Zná vaše konverzace a úkoly",
+    "answerSources": "Zdroje",
+    "homeAppsMore": "Další"
 }

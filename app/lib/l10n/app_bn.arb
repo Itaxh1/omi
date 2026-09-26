@@ -11233,5 +11233,9 @@
     "audioPartiallySaved": "{saved} অডিও সংরক্ষিত ({total} এর মধ্যে)",
     "voiceIntroTitle": "নিজের পরিচয় দিন",
     "memoryLabel": "স্মৃতি",
-    "idleReadyHint": "শুরু-তে ট্যাপ করুন, আপনি যা বলবেন তা এখানে দেখাবে।"
+    "idleReadyHint": "শুরু-তে ট্যাপ করুন, আপনি যা বলবেন তা এখানে দেখাবে।",
+    "askTryHint": "চেষ্টা করুন “{question}”",
+    "chatHeaderSubtitle": "আপনার কথোপকথন ও কাজগুলো জানে",
+    "answerSources": "উৎস",
+    "homeAppsMore": "আরও"
 }

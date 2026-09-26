@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "Ääntä tallennettu {saved}/{total}",
     "voiceIntroTitle": "Esittele itsesi",
     "memoryLabel": "Muisto",
-    "idleReadyHint": "Napauta Aloita, niin sanomasi näkyy tässä."
+    "idleReadyHint": "Napauta Aloita, niin sanomasi näkyy tässä.",
+    "askTryHint": "kokeile ”{question}”",
+    "chatHeaderSubtitle": "Tuntee keskustelusi ja tehtäväsi",
+    "answerSources": "Lähteet",
+    "homeAppsMore": "Lisää"
 }

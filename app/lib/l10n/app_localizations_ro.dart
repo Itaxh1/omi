@@ -11808,4 +11808,18 @@ class AppLocalizationsRo extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Atinge Pornește și ce spui va apărea aici.';
+
+  @override
+  String askTryHint(String question) {
+    return 'încearcă „$question”';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Îți cunoaște conversațiile și sarcinile';
+
+  @override
+  String get answerSources => 'Surse';
+
+  @override
+  String get homeAppsMore => 'Mai multe';
 }

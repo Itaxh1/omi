@@ -11833,4 +11833,18 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Πατήστε Έναρξη και ό,τι λέτε θα εμφανίζεται εδώ.';
+
+  @override
+  String askTryHint(String question) {
+    return 'δοκιμάστε «$question»';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Γνωρίζει τις συνομιλίες και τις εργασίες σας';
+
+  @override
+  String get answerSources => 'Πηγές';
+
+  @override
+  String get homeAppsMore => 'Περισσότερα';
 }

@@ -11856,4 +11856,18 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'I-tap ang Simulan at lalabas dito ang sinasabi mo.';
+
+  @override
+  String askTryHint(String question) {
+    return 'subukan ang “$question”';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Alam ang iyong mga usapan at gawain';
+
+  @override
+  String get answerSources => 'Mga pinagmulan';
+
+  @override
+  String get homeAppsMore => 'Higit pa';
 }

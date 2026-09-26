@@ -11233,5 +11233,9 @@
     "audioPartiallySaved": "{saved} ఆడియో సేవ్ అయింది ({total}లో)",
     "voiceIntroTitle": "మిమ్మల్ని మీరు పరిచయం చేసుకోండి",
     "memoryLabel": "జ్ఞాపకం",
-    "idleReadyHint": "ప్రారంభించు నొక్కండి, మీరు చెప్పేది ఇక్కడ కనిపిస్తుంది."
+    "idleReadyHint": "ప్రారంభించు నొక్కండి, మీరు చెప్పేది ఇక్కడ కనిపిస్తుంది.",
+    "askTryHint": "“{question}” అని అడిగి చూడండి",
+    "chatHeaderSubtitle": "మీ సంభాషణలు మరియు పనులు తెలుసు",
+    "answerSources": "మూలాలు",
+    "homeAppsMore": "మరిన్ని"
 }

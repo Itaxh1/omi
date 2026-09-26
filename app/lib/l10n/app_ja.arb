@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "保存された音声：{saved}（全{total}）",
     "voiceIntroTitle": "自己紹介しましょう",
     "memoryLabel": "記憶",
-    "idleReadyHint": "「開始」をタップすると、話した内容がここに表示されます。"
+    "idleReadyHint": "「開始」をタップすると、話した内容がここに表示されます。",
+    "askTryHint": "「{question}」と聞いてみて",
+    "chatHeaderSubtitle": "あなたの会話とタスクを把握しています",
+    "answerSources": "出典",
+    "homeAppsMore": "その他"
 }

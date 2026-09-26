@@ -11783,4 +11783,18 @@ class AppLocalizationsSl extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Tapnite Začni in to, kar poveste, se bo prikazalo tukaj.';
+
+  @override
+  String askTryHint(String question) {
+    return 'poskusite »$question«';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Pozna vaše pogovore in naloge';
+
+  @override
+  String get answerSources => 'Viri';
+
+  @override
+  String get homeAppsMore => 'Več';
 }

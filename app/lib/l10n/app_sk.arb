@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "Uložené {saved} z {total} zvuku",
     "voiceIntroTitle": "Predstavte sa",
     "memoryLabel": "Spomienka",
-    "idleReadyHint": "Ťuknite na Spustiť a to, čo poviete, sa zobrazí tu."
+    "idleReadyHint": "Ťuknite na Spustiť a to, čo poviete, sa zobrazí tu.",
+    "askTryHint": "skúste „{question}“",
+    "chatHeaderSubtitle": "Pozná vaše konverzácie a úlohy",
+    "answerSources": "Zdroje",
+    "homeAppsMore": "Viac"
 }

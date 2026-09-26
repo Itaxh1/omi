@@ -11750,4 +11750,18 @@ class AppLocalizationsEt extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Puuduta Alusta ja see, mida ütled, ilmub siia.';
+
+  @override
+  String askTryHint(String question) {
+    return 'proovi „$question“';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Tunneb sinu vestlusi ja ülesandeid';
+
+  @override
+  String get answerSources => 'Allikad';
+
+  @override
+  String get homeAppsMore => 'Rohkem';
 }

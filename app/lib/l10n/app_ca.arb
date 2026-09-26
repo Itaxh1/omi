@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "Àudio desat: {saved} de {total}",
     "voiceIntroTitle": "Presenta’t",
     "memoryLabel": "Record",
-    "idleReadyHint": "Toca Inicia i el que diguis apareixerà aquí."
+    "idleReadyHint": "Toca Inicia i el que diguis apareixerà aquí.",
+    "askTryHint": "prova «{question}»",
+    "chatHeaderSubtitle": "Coneix les teves converses i tasques",
+    "answerSources": "Fonts",
+    "homeAppsMore": "Més"
 }

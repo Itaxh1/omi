@@ -11835,4 +11835,18 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'தொடங்கு என்பதைத் தட்டவும், நீங்கள் சொல்வது இங்கே தோன்றும்.';
+
+  @override
+  String askTryHint(String question) {
+    return '“$question” என்று கேட்டுப் பாருங்கள்';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'உங்கள் உரையாடல்களையும் பணிகளையும் அறியும்';
+
+  @override
+  String get answerSources => 'மூலங்கள்';
+
+  @override
+  String get homeAppsMore => 'மேலும்';
 }

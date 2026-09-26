@@ -11561,4 +11561,18 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get idleReadyHint => '「開始」をタップすると、話した内容がここに表示されます。';
+
+  @override
+  String askTryHint(String question) {
+    return '「$question」と聞いてみて';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'あなたの会話とタスクを把握しています';
+
+  @override
+  String get answerSources => '出典';
+
+  @override
+  String get homeAppsMore => 'その他';
 }

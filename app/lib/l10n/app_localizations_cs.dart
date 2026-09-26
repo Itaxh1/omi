@@ -11750,4 +11750,18 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Klepněte na Spustit a to, co řeknete, se objeví tady.';
+
+  @override
+  String askTryHint(String question) {
+    return 'zkuste „$question“';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Zná vaše konverzace a úkoly';
+
+  @override
+  String get answerSources => 'Zdroje';
+
+  @override
+  String get homeAppsMore => 'Další';
 }

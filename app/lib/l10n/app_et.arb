@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "Salvestatud heli: {saved} / {total}",
     "voiceIntroTitle": "Tutvusta end",
     "memoryLabel": "Mälestus",
-    "idleReadyHint": "Puuduta Alusta ja see, mida ütled, ilmub siia."
+    "idleReadyHint": "Puuduta Alusta ja see, mida ütled, ilmub siia.",
+    "askTryHint": "proovi „{question}“",
+    "chatHeaderSubtitle": "Tunneb sinu vestlusi ja ülesandeid",
+    "answerSources": "Allikad",
+    "homeAppsMore": "Rohkem"
 }

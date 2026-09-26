@@ -220,6 +220,9 @@ Future<ServerConversation?> resolveChatCitationConversation({
 }
 
 class AIMessage extends StatefulWidget {
+  /// The answer starts this far in, beside the Omi mark (24 pt) and the gap after it.
+  static const double answerIndent = 24 + OmiSpacing.sm;
+
   final bool showTypingIndicator;
   final bool showThinkingAfterText;
   final ServerMessage message;
@@ -269,31 +272,34 @@ class _AIMessageState extends State<AIMessage> {
   @override
   Widget build(BuildContext context) {
     if (widget.replyFailed) return ChatReplyError(onRetry: widget.onRetry);
-    final answered = !widget.showTypingIndicator &&
-        widget.message.text.trim().isNotEmpty &&
-        widget.message.type != MessageType.daySummary;
-    return Column(
+    // v4 Ask: each answer is a turn beside the Omi mark, which moves while Omi works on it.
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // v2 Ask: who answered, and from how many conversations ("Omi · 3 conversations").
-        if (answered)
-          Padding(
-            padding: const EdgeInsets.only(bottom: OmiSpacing.xs),
-            child: _AnswerByline(appName: widget.appSender?.name, sources: widget.message.memories.length),
+        Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: OmiRingLogo(
+            key: const Key('chat_answer_mark'),
+            size: 24,
+            mode: widget.showTypingIndicator ? OmiRingMode.chase : OmiRingMode.still,
           ),
-        // Selection stays on markdown text only. Wrapping citation
-        // GestureDetectors in SelectionArea eats taps on iOS.
-        buildMessageWidget(
-          widget.message,
-          widget.sendMessage,
-          widget.showTypingIndicator,
-          widget.displayOptions,
-          widget.appSender,
-          widget.updateConversation,
-          widget.setMessageNps,
-          onAskOmi: widget.onAskOmi,
-          showThinkingAfterText: widget.showThinkingAfterText,
-          fetchConversation: widget.fetchConversation,
+        ),
+        const SizedBox(width: OmiSpacing.sm),
+        Expanded(
+          // Selection stays on markdown text only. Wrapping citation
+          // GestureDetectors in SelectionArea eats taps on iOS.
+          child: buildMessageWidget(
+            widget.message,
+            widget.sendMessage,
+            widget.showTypingIndicator,
+            widget.displayOptions,
+            widget.appSender,
+            widget.updateConversation,
+            widget.setMessageNps,
+            onAskOmi: widget.onAskOmi,
+            showThinkingAfterText: widget.showThinkingAfterText,
+            fetchConversation: widget.fetchConversation,
+          ),
         ),
       ],
     );
@@ -558,29 +564,6 @@ class NormalMessageWidget extends StatefulWidget {
 }
 
 class _NormalMessageWidgetState extends State<NormalMessageWidget> {
-  bool _showDots = true;
-  Timer? _dotsTimer;
-
-  @override
-  void initState() {
-    super.initState();
-    if (widget.showTypingIndicator && widget.messageText.isEmpty && widget.message.thinkings.isEmpty) {
-      _dotsTimer = Timer(const Duration(milliseconds: 500), () {
-        if (mounted) {
-          setState(() {
-            _showDots = false;
-          });
-        }
-      });
-    }
-  }
-
-  @override
-  void dispose() {
-    _dotsTimer?.cancel();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     var thinkingTextRaw = widget.message.thinkings.isNotEmpty ? widget.message.thinkings.last.decodeString : null;
@@ -589,9 +572,6 @@ class _NormalMessageWidgetState extends State<NormalMessageWidget> {
     String? currentAppId = thinkingTextRaw != null ? parseAppIdFromThinking(thinkingTextRaw) : null;
     var thinkingText = thinkingTextRaw != null ? getThinkingDisplayText(thinkingTextRaw) : null;
 
-    // Show "thinking" text if we have thinking text, or if dots timer expired and no thinking text yet
-    bool shouldShowThinking =
-        thinkingText != null || (!_showDots && widget.showTypingIndicator && widget.messageText.isEmpty);
     String displayThinkingText = thinkingText ?? context.l10n.thinking;
 
     return Column(
@@ -606,17 +586,7 @@ class _NormalMessageWidgetState extends State<NormalMessageWidget> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    shouldShowThinking
-                        ? Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                _ThinkingLine(text: displayThinkingText, appId: currentAppId),
-                              ],
-                            ),
-                          )
-                        : const TypingIndicator(),
+                    Flexible(child: _ThinkingLine(text: displayThinkingText, appId: currentAppId)),
                   ],
                 ),
               )
@@ -713,28 +683,11 @@ class MemoriesMessageWidget extends StatefulWidget {
 
 class _MemoriesMessageWidgetState extends State<MemoriesMessageWidget> {
   late List<bool> conversationDetailLoading;
-  bool _showDots = true;
-  Timer? _dotsTimer;
 
   @override
   void initState() {
     conversationDetailLoading = List.filled(widget.messageMemories.length, false);
-    if (widget.showTypingIndicator && widget.messageText == '…' && widget.message.thinkings.isEmpty) {
-      _dotsTimer = Timer(const Duration(milliseconds: 500), () {
-        if (mounted) {
-          setState(() {
-            _showDots = false;
-          });
-        }
-      });
-    }
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    _dotsTimer?.cancel();
-    super.dispose();
   }
 
   @override
@@ -745,9 +698,6 @@ class _MemoriesMessageWidgetState extends State<MemoriesMessageWidget> {
     String? currentAppId = thinkingTextRaw != null ? parseAppIdFromThinking(thinkingTextRaw) : null;
     var thinkingText = thinkingTextRaw != null ? getThinkingDisplayText(thinkingTextRaw) : null;
 
-    // Show "thinking" text if we have thinking text, or if dots timer expired and no thinking text yet
-    bool shouldShowThinking =
-        thinkingText != null || (!_showDots && widget.showTypingIndicator && widget.messageText == '…');
     String displayThinkingText = thinkingText ?? context.l10n.thinking;
 
     return Column(
@@ -769,26 +719,14 @@ class _MemoriesMessageWidgetState extends State<MemoriesMessageWidget> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    shouldShowThinking
-                        ? Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                _ThinkingLine(text: displayThinkingText, appId: currentAppId),
-                              ],
-                            ),
-                          )
-                        : const TypingIndicator(),
+                    Flexible(child: _ThinkingLine(text: displayThinkingText, appId: currentAppId)),
                   ],
                 ),
               )
             : widget.showTypingIndicator
-                ? const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [SizedBox(width: 4), TypingIndicator(), Spacer()],
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+                    child: _ThinkingLine(text: displayThinkingText, appId: currentAppId),
                   )
                 : Builder(
                     builder: (context) {
@@ -806,12 +744,6 @@ class _MemoriesMessageWidgetState extends State<MemoriesMessageWidget> {
                       );
                     },
                   ),
-        if (widget.messageText.isNotEmpty && widget.messageText != '…' && !widget.showTypingIndicator)
-          MessageActionBar(
-            messageText: widget.messageText,
-            setMessageNps: widget.setMessageNps,
-            currentNps: widget.message.rating,
-          ),
         if (widget.message.chartData != null)
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -819,42 +751,49 @@ class _MemoriesMessageWidgetState extends State<MemoriesMessageWidget> {
           )
         else if (widget.showTypingIndicator && widget.message.thinkings.any((t) => t.toLowerCase().contains('chart')))
           const _ChartShimmer(),
-        const SizedBox(height: 16),
-        Column(
-          key: const ValueKey('chat-citation-list'),
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            for (var data in widget.messageMemories.indexed)
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 4.0),
-                child: GestureDetector(
-                  key: ValueKey('chat-citation-${data.$2.id}'),
-                  onTap: () => _openCitedConversation(data.$1, data.$2),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
-                    width: double.maxFinite,
-                    decoration: BoxDecoration(color: OmiColors.surface1, borderRadius: OmiRadius.lgAll),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            '${tryDecodeText(data.$2.structured.emoji)} ${data.$2.structured.title}',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        conversationDetailLoading[data.$1]
-                            ? OmiSpinner(size: OmiSpinnerSize.small, color: OmiColors.textSecondary)
-                            : FaIcon(FontAwesomeIcons.chevronRight, size: 16, color: OmiColors.textTertiary),
-                      ],
-                    ),
-                  ),
-                ),
+        // v4 Ask: where the answer came from, as a row of cards that open each conversation.
+        if (widget.messageMemories.isNotEmpty) ...[
+          const SizedBox(height: OmiSpacing.sm),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Text(
+              context.l10n.answerSources.toUpperCase(),
+              style: OmiType.caption.copyWith(
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.5,
+                color: OmiColors.textTertiary,
               ),
-          ],
-        ),
+            ),
+          ),
+          const SizedBox(height: OmiSpacing.xs),
+          SingleChildScrollView(
+            key: const ValueKey('chat-citation-list'),
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (var data in widget.messageMemories.indexed) ...[
+                  if (data.$1 > 0) const SizedBox(width: OmiSpacing.xs),
+                  _SourceCard(
+                    key: ValueKey('chat-citation-${data.$2.id}'),
+                    emoji: tryDecodeText(data.$2.structured.emoji),
+                    title: data.$2.structured.title,
+                    when: data.$2.createdAt,
+                    loading: conversationDetailLoading[data.$1],
+                    onTap: () => _openCitedConversation(data.$1, data.$2),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
+        if (widget.messageText.isNotEmpty && widget.messageText != '…' && !widget.showTypingIndicator)
+          MessageActionBar(
+            messageText: widget.messageText,
+            setMessageNps: widget.setMessageNps,
+            currentNps: widget.message.rating,
+          ),
       ],
     );
   }
@@ -938,8 +877,13 @@ class _ThinkingLine extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         // The icon stays outside the shimmer so an app icon or integration logo keeps its colours.
-        if (appId != null) _buildAppIcon(context, appId, size: 15) else _buildThinkingIconWidget(text, size: 15),
-        const SizedBox(width: 6),
+        if (appId != null) ...[
+          _buildAppIcon(context, appId, size: 15),
+          const SizedBox(width: 6),
+        ] else if (_getIntegrationLogoPath(text) != null) ...[
+          _buildThinkingIconWidget(text, size: 15),
+          const SizedBox(width: 6),
+        ],
         Flexible(
           child: ShimmerWithTimeout(
             baseColor: OmiColors.textPrimary,
@@ -1037,25 +981,82 @@ class ChatReplyError extends StatelessWidget {
   }
 }
 
-/// The line above an answer (v2 Ask): the Omi mark and who answered (Omi, or the app asked), then
-/// how many conversations the answer drew on when it drew on several.
-class _AnswerByline extends StatelessWidget {
-  const _AnswerByline({required this.appName, required this.sources});
+/// A conversation an answer came from (v4 Ask source card): its emoji on a tile, its title, and
+/// when it happened ("Today · 3:14 PM"). Opens the conversation.
+class _SourceCard extends StatelessWidget {
+  const _SourceCard({
+    super.key,
+    required this.emoji,
+    required this.title,
+    required this.when,
+    required this.loading,
+    required this.onTap,
+  });
 
-  final String? appName;
-  final int sources;
+  final String emoji;
+  final String title;
+  final DateTime when;
+  final bool loading;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    final style = OmiType.footnote.copyWith(color: OmiColors.textSecondary);
-    return Row(
-      key: const Key('ai_answer_byline'),
-      children: [
-        const OmiRingLogo(size: 14),
-        const SizedBox(width: OmiSpacing.xs),
-        Text(appName ?? 'Omi', style: style.copyWith(color: OmiColors.textPrimary, fontWeight: FontWeight.w600)),
-        if (sources > 1) Flexible(child: Text(' · ${context.l10n.nConversations(sources)}', style: style, maxLines: 1)),
-      ],
+    final format = OmiDateFormat.of(context);
+    final local = when.toLocal();
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: onTap,
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 230),
+        padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 12, 10),
+        decoration: BoxDecoration(
+          color: OmiColors.surface1,
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
+          border: Border.all(color: OmiColors.border, width: 0.5),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 30,
+              height: 30,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: OmiColors.surface2,
+                borderRadius: const BorderRadius.all(Radius.circular(9)),
+              ),
+              child: emoji.trim().isEmpty
+                  ? Icon(Icons.sticky_note_2_outlined, size: 16, color: OmiColors.textSecondary)
+                  : Text(emoji.trim(), style: const TextStyle(fontSize: 15)),
+            ),
+            const SizedBox(width: 10),
+            Flexible(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: OmiType.subhead.copyWith(fontSize: 14, fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    '${format.dayHeader(local)} · ${format.time(local)}',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: OmiType.caption.copyWith(fontSize: 12, color: OmiColors.textTertiary),
+                  ),
+                ],
+              ),
+            ),
+            if (loading) ...[
+              const SizedBox(width: OmiSpacing.xs),
+              OmiSpinner(size: OmiSpinnerSize.small, color: OmiColors.textSecondary),
+            ],
+          ],
+        ),
+      ),
     );
   }
 }

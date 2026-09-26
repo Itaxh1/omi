@@ -11752,4 +11752,18 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Nhấn Bắt đầu và những gì bạn nói sẽ hiện ở đây.';
+
+  @override
+  String askTryHint(String question) {
+    return 'thử hỏi “$question”';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Biết các cuộc trò chuyện và việc cần làm của bạn';
+
+  @override
+  String get answerSources => 'Nguồn';
+
+  @override
+  String get homeAppsMore => 'Thêm';
 }

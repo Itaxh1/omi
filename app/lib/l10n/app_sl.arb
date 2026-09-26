@@ -11233,5 +11233,9 @@
     "audioPartiallySaved": "Shranjeno {saved} od {total} zvoka",
     "voiceIntroTitle": "Predstavite se",
     "memoryLabel": "Spomin",
-    "idleReadyHint": "Tapnite Začni in to, kar poveste, se bo prikazalo tukaj."
+    "idleReadyHint": "Tapnite Začni in to, kar poveste, se bo prikazalo tukaj.",
+    "askTryHint": "poskusite »{question}«",
+    "chatHeaderSubtitle": "Pozna vaše pogovore in naloge",
+    "answerSources": "Viri",
+    "homeAppsMore": "Več"
 }

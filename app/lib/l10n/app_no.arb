@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "{saved} av {total} lyd lagret",
     "voiceIntroTitle": "Presenter deg",
     "memoryLabel": "Minne",
-    "idleReadyHint": "Trykk på Start, så vises det du sier her."
+    "idleReadyHint": "Trykk på Start, så vises det du sier her.",
+    "askTryHint": "prøv «{question}»",
+    "chatHeaderSubtitle": "Kjenner samtalene og oppgavene dine",
+    "answerSources": "Kilder",
+    "homeAppsMore": "Mer"
 }

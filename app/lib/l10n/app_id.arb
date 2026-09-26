@@ -3738,5 +3738,9 @@
     "audioPartiallySaved": "{saved} dari {total} audio tersimpan",
     "voiceIntroTitle": "Perkenalkan diri Anda",
     "memoryLabel": "Kenangan",
-    "idleReadyHint": "Ketuk Mulai dan ucapan Anda akan muncul di sini."
+    "idleReadyHint": "Ketuk Mulai dan ucapan Anda akan muncul di sini.",
+    "askTryHint": "coba “{question}”",
+    "chatHeaderSubtitle": "Mengenal percakapan dan tugas Anda",
+    "answerSources": "Sumber",
+    "homeAppsMore": "Lainnya"
 }

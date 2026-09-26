@@ -11743,4 +11743,18 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Ťuknite na Spustiť a to, čo poviete, sa zobrazí tu.';
+
+  @override
+  String askTryHint(String question) {
+    return 'skúste „$question“';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Pozná vaše konverzácie a úlohy';
+
+  @override
+  String get answerSources => 'Zdroje';
+
+  @override
+  String get homeAppsMore => 'Viac';
 }

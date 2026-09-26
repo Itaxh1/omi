@@ -11762,4 +11762,18 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Tryck på Starta så visas det du säger här.';
+
+  @override
+  String askTryHint(String question) {
+    return 'prova ”$question”';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Känner till dina samtal och uppgifter';
+
+  @override
+  String get answerSources => 'Källor';
+
+  @override
+  String get homeAppsMore => 'Mer';
 }

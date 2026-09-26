@@ -3738,5 +3738,9 @@
     "audioPartiallySaved": "{saved} ses kaydedildi ({total} içinden)",
     "voiceIntroTitle": "Kendinizi tanıtın",
     "memoryLabel": "Anı",
-    "idleReadyHint": "Başlat’a dokunun, söyledikleriniz burada görünsün."
+    "idleReadyHint": "Başlat’a dokunun, söyledikleriniz burada görünsün.",
+    "askTryHint": "“{question}” diye sorun",
+    "chatHeaderSubtitle": "Görüşmelerini ve görevlerini bilir",
+    "answerSources": "Kaynaklar",
+    "homeAppsMore": "Daha fazla"
 }

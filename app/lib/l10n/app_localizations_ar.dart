@@ -11680,4 +11680,18 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'اضغط «ابدأ» وسيظهر ما تقوله هنا.';
+
+  @override
+  String askTryHint(String question) {
+    return 'جرّب «$question»';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'يعرف محادثاتك ومهامك';
+
+  @override
+  String get answerSources => 'المصادر';
+
+  @override
+  String get homeAppsMore => 'المزيد';
 }

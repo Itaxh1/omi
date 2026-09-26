@@ -11756,4 +11756,18 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'শুরু-তে ট্যাপ করুন, আপনি যা বলবেন তা এখানে দেখাবে।';
+
+  @override
+  String askTryHint(String question) {
+    return 'চেষ্টা করুন “$question”';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'আপনার কথোপকথন ও কাজগুলো জানে';
+
+  @override
+  String get answerSources => 'উৎস';
+
+  @override
+  String get homeAppsMore => 'আরও';
 }

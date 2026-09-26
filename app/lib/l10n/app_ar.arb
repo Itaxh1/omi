@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "تم حفظ {saved} من {total} من الصوت",
     "voiceIntroTitle": "عرّف بنفسك",
     "memoryLabel": "ذكرى",
-    "idleReadyHint": "اضغط «ابدأ» وسيظهر ما تقوله هنا."
+    "idleReadyHint": "اضغط «ابدأ» وسيظهر ما تقوله هنا.",
+    "askTryHint": "جرّب «{question}»",
+    "chatHeaderSubtitle": "يعرف محادثاتك ومهامك",
+    "answerSources": "المصادر",
+    "homeAppsMore": "المزيد"
 }

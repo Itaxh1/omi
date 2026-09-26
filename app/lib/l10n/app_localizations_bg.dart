@@ -11798,4 +11798,18 @@ class AppLocalizationsBg extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Докоснете „Старт“ и казаното от вас ще се появи тук.';
+
+  @override
+  String askTryHint(String question) {
+    return 'опитайте „$question“';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Познава разговорите и задачите ви';
+
+  @override
+  String get answerSources => 'Източници';
+
+  @override
+  String get homeAppsMore => 'Още';
 }

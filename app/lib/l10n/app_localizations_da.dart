@@ -11743,4 +11743,18 @@ class AppLocalizationsDa extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Tryk på Start, så vises det, du siger, her.';
+
+  @override
+  String askTryHint(String question) {
+    return 'prøv “$question”';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Kender dine samtaler og opgaver';
+
+  @override
+  String get answerSources => 'Kilder';
+
+  @override
+  String get homeAppsMore => 'Flere';
 }

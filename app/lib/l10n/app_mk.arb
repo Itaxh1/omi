@@ -11233,5 +11233,9 @@
     "audioPartiallySaved": "Зачувано {saved} од {total} аудио",
     "voiceIntroTitle": "Претставете се",
     "memoryLabel": "Спомен",
-    "idleReadyHint": "Допрете Започни и она што го кажувате ќе се појави тука."
+    "idleReadyHint": "Допрете Започни и она што го кажувате ќе се појави тука.",
+    "askTryHint": "пробајте „{question}“",
+    "chatHeaderSubtitle": "Ги знае вашите разговори и задачи",
+    "answerSources": "Извори",
+    "homeAppsMore": "Повеќе"
 }

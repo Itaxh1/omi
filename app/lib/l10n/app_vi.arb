@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "Đã lưu {saved} trên {total} âm thanh",
     "voiceIntroTitle": "Giới thiệu bản thân",
     "memoryLabel": "Kỷ niệm",
-    "idleReadyHint": "Nhấn Bắt đầu và những gì bạn nói sẽ hiện ở đây."
+    "idleReadyHint": "Nhấn Bắt đầu và những gì bạn nói sẽ hiện ở đây.",
+    "askTryHint": "thử hỏi “{question}”",
+    "chatHeaderSubtitle": "Biết các cuộc trò chuyện và việc cần làm của bạn",
+    "answerSources": "Nguồn",
+    "homeAppsMore": "Thêm"
 }

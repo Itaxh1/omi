@@ -160,6 +160,8 @@ class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliv
                       HomeUpNext(onAllTasks: () => context.read<HomeProvider>().setIndex(2)),
                       const HomeThisWeek(),
                       HomeNewMemories(onTap: () => routeToPage(context, const MemoriesPage())),
+                      // v4: the reader's apps at the end, and + for the app store.
+                      HomeApps(onAllApps: () => context.read<HomeProvider>().setIndex(3)),
                     ],
                   ),
                 ),

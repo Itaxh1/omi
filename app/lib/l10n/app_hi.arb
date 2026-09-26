@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "{saved} ऑडियो सहेजा गया ({total} में से)",
     "voiceIntroTitle": "अपना परिचय दें",
     "memoryLabel": "याद",
-    "idleReadyHint": "शुरू करें पर टैप करें, आप जो कहेंगे वह यहाँ दिखेगा।"
+    "idleReadyHint": "शुरू करें पर टैप करें, आप जो कहेंगे वह यहाँ दिखेगा।",
+    "askTryHint": "आज़माएँ “{question}”",
+    "chatHeaderSubtitle": "आपकी बातचीत और काम जानता है",
+    "answerSources": "स्रोत",
+    "homeAppsMore": "और"
 }

@@ -11803,4 +11803,18 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'ప్రారంభించు నొక్కండి, మీరు చెప్పేది ఇక్కడ కనిపిస్తుంది.';
+
+  @override
+  String askTryHint(String question) {
+    return '“$question” అని అడిగి చూడండి';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'మీ సంభాషణలు మరియు పనులు తెలుసు';
+
+  @override
+  String get answerSources => 'మూలాలు';
+
+  @override
+  String get homeAppsMore => 'మరిన్ని';
 }

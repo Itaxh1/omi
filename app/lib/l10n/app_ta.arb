@@ -11233,5 +11233,9 @@
     "audioPartiallySaved": "{saved} ஆடியோ சேமிக்கப்பட்டது ({total} இல்)",
     "voiceIntroTitle": "உங்களை அறிமுகப்படுத்துங்கள்",
     "memoryLabel": "நினைவு",
-    "idleReadyHint": "தொடங்கு என்பதைத் தட்டவும், நீங்கள் சொல்வது இங்கே தோன்றும்."
+    "idleReadyHint": "தொடங்கு என்பதைத் தட்டவும், நீங்கள் சொல்வது இங்கே தோன்றும்.",
+    "askTryHint": "“{question}” என்று கேட்டுப் பாருங்கள்",
+    "chatHeaderSubtitle": "உங்கள் உரையாடல்களையும் பணிகளையும் அறியும்",
+    "answerSources": "மூலங்கள்",
+    "homeAppsMore": "மேலும்"
 }

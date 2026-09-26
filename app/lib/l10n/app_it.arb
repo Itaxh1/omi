@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "Audio salvato: {saved} su {total}",
     "voiceIntroTitle": "Presentati",
     "memoryLabel": "Ricordo",
-    "idleReadyHint": "Tocca Avvia e ciò che dici apparirà qui."
+    "idleReadyHint": "Tocca Avvia e ciò che dici apparirà qui.",
+    "askTryHint": "prova «{question}»",
+    "chatHeaderSubtitle": "Conosce le tue conversazioni e attività",
+    "answerSources": "Fonti",
+    "homeAppsMore": "Altro"
 }

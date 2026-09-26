@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "{saved} von {total} Audio gespeichert",
     "voiceIntroTitle": "Stell dich vor",
     "memoryLabel": "Erinnerung",
-    "idleReadyHint": "Tippe auf Start und was du sagst, erscheint hier."
+    "idleReadyHint": "Tippe auf Start und was du sagst, erscheint hier.",
+    "askTryHint": "probier „{question}“",
+    "chatHeaderSubtitle": "Kennt deine Unterhaltungen und Aufgaben",
+    "answerSources": "Quellen",
+    "homeAppsMore": "Mehr"
 }

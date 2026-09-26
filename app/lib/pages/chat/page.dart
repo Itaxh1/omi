@@ -1018,19 +1018,35 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
       title: Consumer<AppProvider>(
         builder: (context, appProvider, child) {
           final selectedApp = provider.chatApps.firstWhereOrNull((app) => app.id == appProvider.selectedChatAppId);
-          return Row(
+          // v4 Ask header: who answers, and (for Omi) what it answers from.
+          final name = Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              selectedApp != null ? ChatAppAvatar(app: selectedApp) : const ChatOmiAvatar(),
-              const SizedBox(width: OmiSpacing.xs),
+              selectedApp != null
+                  ? ChatAppAvatar(app: selectedApp)
+                  : const OmiRingLogo(size: 16, mode: OmiRingMode.still),
+              const SizedBox(width: 6),
               ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 140),
+                constraints: const BoxConstraints(maxWidth: 160),
                 child: Text(
                   selectedApp != null ? selectedApp.getName() : l10n.omiAppName,
-                  style: OmiType.callout,
+                  style: OmiType.headline,
                   overflow: TextOverflow.ellipsis,
                 ),
+              ),
+            ],
+          );
+          if (selectedApp != null) return name;
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              name,
+              Text(
+                l10n.chatHeaderSubtitle,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: OmiType.caption.copyWith(fontSize: 12, color: OmiColors.textTertiary),
               ),
             ],
           );

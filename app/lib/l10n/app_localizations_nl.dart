@@ -11790,4 +11790,18 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Tik op Start en wat je zegt verschijnt hier.';
+
+  @override
+  String askTryHint(String question) {
+    return 'probeer ‘$question’';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Kent je gesprekken en taken';
+
+  @override
+  String get answerSources => 'Bronnen';
+
+  @override
+  String get homeAppsMore => 'Meer';
 }

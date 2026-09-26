@@ -122,6 +122,49 @@ void main() {
     await tester.pumpAndSettle();
   }
 
+  // v2.1: the profile button opens Settings as a full screen with a back button, not a sheet.
+  testWidgets('Settings opens as a full screen and Back returns', (tester) async {
+    tester.view.physicalSize = const Size(1200, 4000);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider<DeviceProvider>(create: (_) => _Device()),
+          ChangeNotifierProvider<UsageProvider>(create: (_) => _Usage()),
+          ChangeNotifierProvider<CaptureProvider>(create: (_) => _Capture()),
+          ChangeNotifierProvider<SyncProvider>(create: (_) => _Sync()),
+        ],
+        child: MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: const Locale('en'),
+          home: Builder(
+            builder: (context) => Scaffold(
+              body: Center(
+                child: TextButton(onPressed: () => SettingsDrawer.show(context), child: const Text('profile')),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.text('profile'));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('settings_back')), findsOneWidget);
+    expect(find.byType(OmiCloseButton), findsNothing, reason: 'a screen goes back; it is not a sheet to close');
+    expect(find.byType(BottomSheet), findsNothing);
+    final page = tester.getRect(find.byType(SettingsDrawer));
+    expect(page.top, lessThan(100), reason: 'full height, not a 92% sheet');
+    expect(find.byKey(const Key('settings_account')), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('settings_back')));
+    await tester.pumpAndSettle();
+    expect(find.byType(SettingsDrawer), findsNothing);
+    expect(find.text('profile'), findsOneWidget);
+  });
+
   testWidgets('the sheet is Account, Plan, Referral, the groups and Feedback, in order, and every row is keyed',
       (tester) async {
     await pumpSheet(tester);

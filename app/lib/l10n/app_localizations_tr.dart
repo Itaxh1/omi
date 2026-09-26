@@ -11769,4 +11769,18 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Başlat’a dokunun, söyledikleriniz burada görünsün.';
+
+  @override
+  String askTryHint(String question) {
+    return '“$question” diye sorun';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Görüşmelerini ve görevlerini bilir';
+
+  @override
+  String get answerSources => 'Kaynaklar';
+
+  @override
+  String get homeAppsMore => 'Daha fazla';
 }

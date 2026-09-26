@@ -3738,5 +3738,9 @@
     "audioPartiallySaved": "Сохранено {saved} аудио из {total}",
     "voiceIntroTitle": "Представьтесь",
     "memoryLabel": "Воспоминание",
-    "idleReadyHint": "Нажмите «Старт», и сказанное появится здесь."
+    "idleReadyHint": "Нажмите «Старт», и сказанное появится здесь.",
+    "askTryHint": "попробуйте «{question}»",
+    "chatHeaderSubtitle": "Знает ваши разговоры и задачи",
+    "answerSources": "Источники",
+    "homeAppsMore": "Ещё"
 }

@@ -11737,4 +11737,18 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'शुरू करें पर टैप करें, आप जो कहेंगे वह यहाँ दिखेगा।';
+
+  @override
+  String askTryHint(String question) {
+    return 'आज़माएँ “$question”';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'आपकी बातचीत और काम जानता है';
+
+  @override
+  String get answerSources => 'स्रोत';
+
+  @override
+  String get homeAppsMore => 'और';
 }

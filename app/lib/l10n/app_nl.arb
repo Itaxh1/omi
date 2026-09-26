@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "{saved} van {total} audio bewaard",
     "voiceIntroTitle": "Stel jezelf voor",
     "memoryLabel": "Herinnering",
-    "idleReadyHint": "Tik op Start en wat je zegt verschijnt hier."
+    "idleReadyHint": "Tik op Start en wat je zegt verschijnt hier.",
+    "askTryHint": "probeer ‘{question}’",
+    "chatHeaderSubtitle": "Kent je gesprekken en taken",
+    "answerSources": "Bronnen",
+    "homeAppsMore": "Meer"
 }

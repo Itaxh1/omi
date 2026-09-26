@@ -11233,5 +11233,9 @@
     "audioPartiallySaved": "נשמרו {saved} מתוך {total} של שמע",
     "voiceIntroTitle": "הציגו את עצמכם",
     "memoryLabel": "זיכרון",
-    "idleReadyHint": "הקישו על התחלה ומה שתאמרו יופיע כאן."
+    "idleReadyHint": "הקישו על התחלה ומה שתאמרו יופיע כאן.",
+    "askTryHint": "נסו “{question}”",
+    "chatHeaderSubtitle": "מכיר את השיחות והמשימות שלך",
+    "answerSources": "מקורות",
+    "homeAppsMore": "עוד"
 }

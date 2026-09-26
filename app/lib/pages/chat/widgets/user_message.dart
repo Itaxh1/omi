@@ -27,7 +27,7 @@ class HumanMessage extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.only(left: 40),
+      padding: const EdgeInsetsDirectional.only(start: 40),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -58,12 +58,23 @@ class HumanMessage extends StatelessWidget {
           Wrap(
             alignment: WrapAlignment.end,
             children: [
+              // v4 Ask: the reader's words in a raised bubble on the trailing side, its tail corner
+              // tucked in, at most 80% of the width.
               Container(
-                decoration: BoxDecoration(color: OmiColors.surface1, borderRadius: OmiRadius.lgAll),
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                constraints: BoxConstraints(maxWidth: MediaQuery.sizeOf(context).width * 0.8),
+                decoration: BoxDecoration(
+                  color: OmiColors.surface2,
+                  borderRadius: const BorderRadiusDirectional.only(
+                    topStart: Radius.circular(18),
+                    topEnd: Radius.circular(18),
+                    bottomStart: Radius.circular(18),
+                    bottomEnd: Radius.circular(4),
+                  ).resolve(Directionality.of(context)),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: SelectableText(
                   messageText.trimRight(),
-                  style: OmiType.callout.copyWith(height: 1.4),
+                  style: OmiType.body.copyWith(height: 23 / 17),
                   contextMenuBuilder: (context, editableTextState) {
                     return omiSelectionMenuBuilder(context, editableTextState, (text) {
                       onAskOmi?.call(text);

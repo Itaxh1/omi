@@ -11772,4 +11772,18 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Palieskite Pradėti, ir tai, ką sakote, pasirodys čia.';
+
+  @override
+  String askTryHint(String question) {
+    return 'pabandykite „$question“';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Žino jūsų pokalbius ir užduotis';
+
+  @override
+  String get answerSources => 'Šaltiniai';
+
+  @override
+  String get homeAppsMore => 'Daugiau';
 }

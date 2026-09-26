@@ -27,23 +27,31 @@ import 'package:omi/utils/platform/platform_service.dart';
 /// (settings_groups.dart), whose rows open the same pages the sheet used to open directly.
 /// Developer Settings keeps only developer tools.
 class SettingsDrawer extends StatefulWidget {
-  const SettingsDrawer({super.key});
+  const SettingsDrawer({super.key, this.asScreen = false});
+
+  /// A full screen with a back button (v2.1), rather than a sheet closed with an X.
+  final bool asScreen;
 
   @override
   State<SettingsDrawer> createState() => _SettingsDrawerState();
 
-  /// Opens Settings; resolves when the sheet closes (callers compare settings after that).
+  /// Opens Settings as a full screen; resolves when the reader goes back (callers compare
+  /// settings after that). The page colour is read each time it builds, so Settings follows a
+  /// light/dark switch made on a page opened from it.
   static Future<void> show(BuildContext context) {
-    // Settings is a grouped list: surface1 rows on the black page colour, so the sheet itself is
-    // surface0 (showOmiSheet paints surface1). Same shell otherwise: OmiSheetScaffold content,
-    // framework drag handle, trailing close X.
-    // The colour is read each time the sheet paints, so Settings follows a light/dark switch made
-    // on a page opened from it.
-    return showOmiModalSheet<void>(
-      context: context,
-      color: () => OmiColors.surface0,
-      shape: const RoundedRectangleBorder(borderRadius: OmiRadius.sheetTop),
-      builder: (context) => const FractionallySizedBox(heightFactor: 0.92, child: SettingsDrawer()),
+    return Navigator.of(context).push<void>(omiPageRoute<void>(builder: (_) => const _SettingsScreen()));
+  }
+}
+
+/// Settings on its own screen: the grouped list on the page colour, under the status bar.
+class _SettingsScreen extends StatelessWidget {
+  const _SettingsScreen();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: OmiColors.surface0,
+      body: const SafeArea(bottom: false, child: SettingsDrawer(asScreen: true)),
     );
   }
 }
@@ -245,17 +253,32 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: Semantics(
-                  header: true,
-                  child: Text(l10n.settings, maxLines: 1, overflow: TextOverflow.ellipsis, style: OmiType.largeTitle),
-                ),
+          if (widget.asScreen) ...[
+            // A pushed screen: back on the leading edge, then the large title.
+            const Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: Padding(
+                padding: EdgeInsetsDirectional.only(top: OmiSpacing.xxs),
+                child: OmiBackButton.circled(key: Key('settings_back')),
               ),
-              const OmiCloseButton(),
-            ],
-          ),
+            ),
+            const SizedBox(height: OmiSpacing.xs),
+            Semantics(
+              header: true,
+              child: Text(l10n.settings, maxLines: 1, overflow: TextOverflow.ellipsis, style: OmiType.largeTitle),
+            ),
+          ] else
+            Row(
+              children: [
+                Expanded(
+                  child: Semantics(
+                    header: true,
+                    child: Text(l10n.settings, maxLines: 1, overflow: TextOverflow.ellipsis, style: OmiType.largeTitle),
+                  ),
+                ),
+                const OmiCloseButton(),
+              ],
+            ),
           const SizedBox(height: OmiSpacing.sm),
           // One height whether or not Cancel shows, so the rows below never shift.
           Container(

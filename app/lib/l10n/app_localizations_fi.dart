@@ -11756,4 +11756,18 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Napauta Aloita, niin sanomasi näkyy tässä.';
+
+  @override
+  String askTryHint(String question) {
+    return 'kokeile ”$question”';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Tuntee keskustelusi ja tehtäväsi';
+
+  @override
+  String get answerSources => 'Lähteet';
+
+  @override
+  String get homeAppsMore => 'Lisää';
 }

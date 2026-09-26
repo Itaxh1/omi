@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "Збережено {saved} аудіо з {total}",
     "voiceIntroTitle": "Представтеся",
     "memoryLabel": "Спогад",
-    "idleReadyHint": "Торкніться «Почати», і сказане з’явиться тут."
+    "idleReadyHint": "Торкніться «Почати», і сказане з’явиться тут.",
+    "askTryHint": "спробуйте «{question}»",
+    "chatHeaderSubtitle": "Знає ваші розмови й завдання",
+    "answerSources": "Джерела",
+    "homeAppsMore": "Більше"
 }

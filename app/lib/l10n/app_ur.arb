@@ -11233,5 +11233,9 @@
     "audioPartiallySaved": "{saved} آڈیو محفوظ ہوا ({total} میں سے)",
     "voiceIntroTitle": "اپنا تعارف کرائیں",
     "memoryLabel": "یاد",
-    "idleReadyHint": "شروع کریں پر ٹیپ کریں، آپ جو کہیں گے وہ یہاں نظر آئے گا۔"
+    "idleReadyHint": "شروع کریں پر ٹیپ کریں، آپ جو کہیں گے وہ یہاں نظر آئے گا۔",
+    "askTryHint": "آزمائیں “{question}”",
+    "chatHeaderSubtitle": "آپ کی گفتگو اور کام جانتا ہے",
+    "answerSources": "ذرائع",
+    "homeAppsMore": "مزید"
 }

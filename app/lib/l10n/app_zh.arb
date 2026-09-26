@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "已保存 {saved}／{total} 的音频",
     "voiceIntroTitle": "介绍一下你自己",
     "memoryLabel": "回忆",
-    "idleReadyHint": "点按“开始”，你说的话会显示在这里。"
+    "idleReadyHint": "点按“开始”，你说的话会显示在这里。",
+    "askTryHint": "试试“{question}”",
+    "chatHeaderSubtitle": "了解你的对话和任务",
+    "answerSources": "来源",
+    "homeAppsMore": "更多"
 }

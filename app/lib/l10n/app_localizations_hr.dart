@@ -11790,4 +11790,18 @@ class AppLocalizationsHr extends AppLocalizations {
 
   @override
   String get idleReadyHint => 'Dodirnite Pokreni i ono što kažete pojavit će se ovdje.';
+
+  @override
+  String askTryHint(String question) {
+    return 'probajte „$question”';
+  }
+
+  @override
+  String get chatHeaderSubtitle => 'Poznaje vaše razgovore i zadatke';
+
+  @override
+  String get answerSources => 'Izvori';
+
+  @override
+  String get homeAppsMore => 'Više';
 }

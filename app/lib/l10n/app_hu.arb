@@ -3799,5 +3799,9 @@
     "audioPartiallySaved": "Mentett hang: {saved} / {total}",
     "voiceIntroTitle": "Mutatkozz be",
     "memoryLabel": "Emlék",
-    "idleReadyHint": "Koppints az Indításra, és amit mondasz, itt jelenik meg."
+    "idleReadyHint": "Koppints az Indításra, és amit mondasz, itt jelenik meg.",
+    "askTryHint": "próbáld: „{question}”",
+    "chatHeaderSubtitle": "Ismeri a beszélgetéseidet és feladataidat",
+    "answerSources": "Források",
+    "homeAppsMore": "Több"
 }

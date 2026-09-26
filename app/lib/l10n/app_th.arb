@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "บันทึกเสียงแล้ว {saved} จาก {total}",
     "voiceIntroTitle": "แนะนำตัวเอง",
     "memoryLabel": "ความทรงจำ",
-    "idleReadyHint": "แตะเริ่ม แล้วสิ่งที่คุณพูดจะแสดงที่นี่"
+    "idleReadyHint": "แตะเริ่ม แล้วสิ่งที่คุณพูดจะแสดงที่นี่",
+    "askTryHint": "ลองถาม “{question}”",
+    "chatHeaderSubtitle": "รู้จักบทสนทนาและงานของคุณ",
+    "answerSources": "แหล่งที่มา",
+    "homeAppsMore": "เพิ่มเติม"
 }

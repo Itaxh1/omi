@@ -11233,5 +11233,9 @@
     "audioPartiallySaved": "{saved} از {total} صدا ذخیره شد",
     "voiceIntroTitle": "خودتان را معرفی کنید",
     "memoryLabel": "یادداشت",
-    "idleReadyHint": "روی شروع بزنید تا آنچه می‌گویید اینجا نمایش داده شود."
+    "idleReadyHint": "روی شروع بزنید تا آنچه می‌گویید اینجا نمایش داده شود.",
+    "askTryHint": "امتحان کنید «{question}»",
+    "chatHeaderSubtitle": "گفتگوها و کارهای شما را می‌شناسد",
+    "answerSources": "منابع",
+    "homeAppsMore": "بیشتر"
 }

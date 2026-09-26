@@ -11233,5 +11233,9 @@
     "audioPartiallySaved": "{saved} sa {total} na audio ang na-save",
     "voiceIntroTitle": "Ipakilala ang sarili",
     "memoryLabel": "Alaala",
-    "idleReadyHint": "I-tap ang Simulan at lalabas dito ang sinasabi mo."
+    "idleReadyHint": "I-tap ang Simulan at lalabas dito ang sinasabi mo.",
+    "askTryHint": "subukan ang “{question}”",
+    "chatHeaderSubtitle": "Alam ang iyong mga usapan at gawain",
+    "answerSources": "Mga pinagmulan",
+    "homeAppsMore": "Higit pa"
 }

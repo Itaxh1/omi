@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "{saved} av {total} ljud sparat",
     "voiceIntroTitle": "Presentera dig",
     "memoryLabel": "Minne",
-    "idleReadyHint": "Tryck på Starta så visas det du säger här."
+    "idleReadyHint": "Tryck på Starta så visas det du säger här.",
+    "askTryHint": "prova ”{question}”",
+    "chatHeaderSubtitle": "Känner till dina samtal och uppgifter",
+    "answerSources": "Källor",
+    "homeAppsMore": "Mer"
 }

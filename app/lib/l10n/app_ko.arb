@@ -3703,5 +3703,9 @@
     "audioPartiallySaved": "오디오 {saved} 저장됨 (전체 {total})",
     "voiceIntroTitle": "자기소개하기",
     "memoryLabel": "추억",
-    "idleReadyHint": "시작을 탭하면 말한 내용이 여기에 표시돼요."
+    "idleReadyHint": "시작을 탭하면 말한 내용이 여기에 표시돼요.",
+    "askTryHint": "“{question}” 물어보세요",
+    "chatHeaderSubtitle": "대화와 할 일을 알고 있어요",
+    "answerSources": "출처",
+    "homeAppsMore": "더 보기"
 }
