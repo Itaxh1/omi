@@ -86,10 +86,21 @@ void main() {
     expect(find.byKey(const Key('home_apps_more')), findsOneWidget);
   });
 
-  testWidgets('with no apps at all, + still opens the store', (tester) async {
+  testWidgets('with no apps at all, + comes first and still opens the store', (tester) async {
     final opened = await _pump(tester, _Apps());
 
+    final more = tester.getRect(find.byKey(const Key('home_apps_more')));
+    expect(more.left, lessThan(100), reason: '+ follows the apps, it does not wait in the last place');
     await tester.tap(find.byKey(const Key('home_apps_more')));
     expect(opened, ['store']);
+  });
+
+  testWidgets('with one app, + sits right after it', (tester) async {
+    await _pump(tester, _Apps(apps: [_app('a', enabled: true)]));
+
+    final app = tester.getRect(find.byKey(const Key('home_app_a')));
+    final more = tester.getRect(find.byKey(const Key('home_apps_more')));
+    expect(more.left, greaterThan(app.right));
+    expect(more.left - app.right, lessThan(20));
   });
 }

@@ -702,6 +702,7 @@ class HomeApps extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               HomeSectionHeader(title: l10n.apps),
+              // The apps, then + right after them; the row keeps four equal places.
               Row(
                 children: [
                   for (var i = 0; i < 4; i++) ...[
@@ -722,7 +723,7 @@ class HomeApps extends StatelessWidget {
                               ),
                               onTap: () => routeToPage(context, AppDetailPage(app: apps[i])),
                             )
-                          : i == 3
+                          : i == apps.length
                               ? _HomeAppTile(
                                   key: const Key('home_apps_more'),
                                   label: l10n.homeAppsMore,
