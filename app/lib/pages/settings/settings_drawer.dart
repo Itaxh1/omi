@@ -188,6 +188,10 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
                 title: l10n.notificationsAndDisplay),
             _row(SettingsDestination.apps,
                 key: 'settings_row_apps', icon: FontAwesomeIcons.tableCellsLarge, title: l10n.apps),
+            // Home v5: what Omi learned left Home, so Memories has its own door here (and under
+            // Data & Privacy, and a long press on Ask).
+            _row(SettingsDestination.memories,
+                key: 'settings_row_memories', icon: FontAwesomeIcons.brain, title: l10n.memories),
             _row(SettingsDestination.integrations,
                 key: 'settings_group_integrations',
                 icon: FontAwesomeIcons.networkWired,

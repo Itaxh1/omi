@@ -47,7 +47,7 @@ class IdleCaptureCard extends StatelessWidget {
 
   /// Start for a wearable the reader stopped: it listens again, as a new conversation. Says so when
   /// it does not, rather than leaving the button looking dead.
-  static Future<void> _startWearable(BuildContext context) async {
+  static Future<void> startWearable(BuildContext context) async {
     final capture = context.read<CaptureProvider>();
     OmiHaptics.medium();
     try {
@@ -138,7 +138,7 @@ class IdleCaptureCard extends StatelessWidget {
                     label: l10n.start,
                     icon: Icons.fiber_manual_record_rounded,
                     primary: true,
-                    onPressed: () => stoppedSource != null ? _startWearable(context) : PhoneCapture.start(context),
+                    onPressed: () => stoppedSource != null ? startWearable(context) : PhoneCapture.start(context),
                   ),
                 ),
                 const SizedBox(width: 10),

@@ -14,10 +14,10 @@ import 'package:omi/pages/conversations/widgets/processing_capture.dart';
 import 'package:omi/pages/settings/daily_summary_detail_page.dart';
 import 'package:omi/pages/conversations/auto_sync_page.dart';
 import 'package:omi/pages/conversations/sync_page.dart';
+import 'package:omi/pages/home/widgets/capture_now_row.dart';
 import 'package:omi/pages/home/widgets/home_first_day.dart';
 import 'package:omi/pages/home/widgets/home_sections.dart';
 import 'package:omi/pages/home/widgets/idle_capture_card.dart';
-import 'package:omi/pages/memories/page.dart';
 import 'package:omi/providers/device_provider.dart';
 import 'package:omi/providers/conversation_provider.dart';
 import 'package:omi/providers/home_provider.dart';
@@ -92,26 +92,27 @@ class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliv
             controller: _scrollController,
             physics: const AlwaysScrollableScrollPhysics(),
             slivers: [
-              // v2 Main, top to bottom: greeting, what is live, pendant sync, the latest recap, recent
-              // conversations, what is up next, the week, and what Omi learned. 22pt between sections.
+              // Home v5, top to bottom: greeting, what is listening (one row), what needs the reader
+              // (Up next), the latest conversations (a line each), yesterday's recap. 22pt between
+              // sections. The week lives on the Conversations page, Memories and Apps in Settings.
               // The first day (v2 FirstDay) welcomes instead, shows "Omi is listening" while it
               // is, and adds Getting started and Good to know, so Home is never empty.
               SliverToBoxAdapter(child: firstDay ? const HomeFirstDayHeader() : _buildGreeting(context)),
 
-              // Live capture widget — shows when device or phone mic is recording; its quiet twin
-              // (how to start listening) takes the same place when nothing is.
+              // The Now row: what is recording, with Mute and Stop; its quiet twin (Start) takes the
+              // same place when nothing is. The full card stays on the Live page.
               if (firstDay) ...[
                 const SliverToBoxAdapter(child: FirstDayListeningHero()),
                 const SliverToBoxAdapter(child: IdleCaptureCard()),
               ] else
                 SliverToBoxAdapter(
-                  // Start and Stop swap the idle and live cards: the change eases in rather than
+                  // Start and Stop swap the idle and live rows: the change eases in rather than
                   // jumping everything below.
                   child: AnimatedSize(
                     duration: OmiMotion.of(context).standard,
                     curve: Curves.easeOutCubic,
                     alignment: Alignment.topCenter,
-                    child: const ConversationCaptureWidget(showsCall: true, idle: IdleCaptureCard()),
+                    child: const ConversationCaptureWidget(showsCall: true, compact: true, idle: IdleCaptureRow()),
                   ),
                 ),
 
@@ -122,21 +123,15 @@ class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliv
                 sliver: SliverList.list(
                   children: [
                     HomeSyncCard(onTap: () => _openSync(context)),
-                    if (_recentSummaries.isNotEmpty)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 22),
-                        child: HomeRecapCard(
-                          summary: _recentSummaries.first,
-                          onTap: () => _openRecap(context, _recentSummaries.first),
-                        ),
-                      ),
                     // Until the first few conversations: the setup checklist (folds away when done).
                     if (settled && count < 3) HomeGettingStarted(conversationCount: count),
+                    // What needs the reader, right under what is listening (hides when nothing is due).
+                    if (settled) HomeUpNext(onAllTasks: () => context.read<HomeProvider>().setIndex(2)),
                   ],
                 ),
               ),
 
-              // The latest conversations, short: up to three, from the very first one.
+              // The latest conversations, short: up to three, a line each, from the very first one.
               if (count > 0) ...[
                 SliverPadding(
                   padding: const EdgeInsets.fromLTRB(OmiSize.screenMargin, 22, OmiSize.screenMargin, 0),
@@ -151,22 +146,19 @@ class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliv
                 HomeConversationsPreview(conversationProvider: convoProvider),
               ],
 
-              if (settled) ...[
-                // To do, short, then the week and what Omi learned (each hides when it has nothing).
+              // Yesterday's recap, two lines and the numbers, after today's conversations.
+              if (_recentSummaries.isNotEmpty)
                 SliverPadding(
-                  padding: const EdgeInsets.symmetric(horizontal: OmiSize.screenMargin),
-                  sliver: SliverList.list(
-                    children: [
-                      HomeUpNext(onAllTasks: () => context.read<HomeProvider>().setIndex(2)),
-                      const HomeThisWeek(),
-                      HomeNewMemories(onTap: () => routeToPage(context, const MemoriesPage())),
-                      // v4: the reader's apps at the end, and + for the app store.
-                      HomeApps(onAllApps: () => context.read<HomeProvider>().setIndex(3)),
-                    ],
+                  padding: const EdgeInsets.fromLTRB(OmiSize.screenMargin, 22, OmiSize.screenMargin, 0),
+                  sliver: SliverToBoxAdapter(
+                    child: HomeRecapCard(
+                      summary: _recentSummaries.first,
+                      onTap: () => _openRecap(context, _recentSummaries.first),
+                    ),
                   ),
                 ),
-                if (firstDay) const SliverToBoxAdapter(child: HomeGoodToKnow()),
-              ],
+
+              if (settled && firstDay) const SliverToBoxAdapter(child: HomeGoodToKnow()),
 
               // Bottom padding so content isn't hidden behind chat bar + nav
               SliverToBoxAdapter(child: SizedBox(height: homeChatBarClearance(context))),
@@ -305,6 +297,7 @@ class HomeConversationsPreview extends StatelessWidget {
           date: date,
           conversationIdx: index,
           allowSelection: false,
+          compact: true,
           position: first && last
               ? ConversationRowPosition.only
               : first

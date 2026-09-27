@@ -14,7 +14,6 @@ enum CapturePalette {
     static let secondary = Color(red: 0xA9 / 255, green: 0xAE / 255, blue: 0xB9 / 255)
     static let ink = Color(red: 0x0A / 255, green: 0x0B / 255, blue: 0x0F / 255)
     static let led = Color(red: 0x4C / 255, green: 0x9B / 255, blue: 0xFF / 255)
-    static let ledOff = Color(red: 0x33 / 255, green: 0x38 / 255, blue: 0x42 / 255)
     /// The dock's glass: rgba(20,22,27,.94).
     static let card = Color(red: 20 / 255, green: 22 / 255, blue: 27 / 255).opacity(0.94)
 }
@@ -349,44 +348,24 @@ private struct CaptureClockText: View {
     }
 }
 
-/// The Omi orb (the app's `OmiOrb`): the device's dark dome seen straight on, one LED near its
-/// top, in the live blue with its glow while audio is captured, grey otherwise.
+/// The Omi pendant, as the app shows it: its photo with the light on while audio is captured, its
+/// lights-off photo otherwise. While the mic is on a soft blue halo breathes behind it on alternate
+/// seconds (the app's orb: 1 → .55 → 1 over 2.4 s).
 struct CapturePendant: View {
     let active: Bool
     let size: CGFloat
-    /// While the mic is on, the second of the latest update: the LED breathes between bright and
-    /// soft on alternate seconds, eased across each (the app's orb: 1 → .55 → 1 over 2.4 s).
+    /// While the mic is on, the second of the latest update: the halo is soft on odd seconds.
     var breath: Int? = nil
 
     var body: some View {
-        let led = max(4, size * 0.13)
         let soft = active && (breath ?? 0) % 2 == 1
-        ZStack {
-            Circle()
-                .fill(RadialGradient(stops: [
-                    .init(color: Color(red: 0x7A / 255, green: 0x80 / 255, blue: 0x8A / 255), location: 0),
-                    .init(color: Color(red: 0x40 / 255, green: 0x45 / 255, blue: 0x4E / 255), location: 0.20),
-                    .init(color: Color(red: 0x1B / 255, green: 0x1E / 255, blue: 0x24 / 255), location: 0.52),
-                    .init(color: Color(red: 0x0C / 255, green: 0x0D / 255, blue: 0x10 / 255), location: 0.80),
-                    .init(color: Color(red: 0x08 / 255, green: 0x09 / 255, blue: 0x0B / 255), location: 1),
-                ], center: UnitPoint(x: 0.68, y: 0.24), startRadius: 0, endRadius: size * 0.72))
-                .overlay(Circle().strokeBorder(Color.white.opacity(0.25), lineWidth: 0.5))
-            Group {
-                if active {
-                    Circle()
-                        .fill(CapturePalette.led)
-                        .opacity(soft ? 0.55 : 1)
-                        .shadow(color: CapturePalette.led.opacity(soft ? 0.3 : 0.7), radius: soft ? 2 : 5)
-                } else {
-                    Circle().fill(CapturePalette.ledOff)
-                }
-            }
-            .frame(width: led, height: led)
-            .offset(y: -size * 0.18)
-        }
-        .frame(width: size, height: size)
-        .animation(.easeInOut(duration: 1.0), value: breath)
-        .accessibilityHidden(true)
+        Image(active ? "device-omi" : "device-omi-off")
+            .resizable()
+            .scaledToFit()
+            .frame(width: size, height: size)
+            .shadow(color: CapturePalette.led.opacity(active ? (soft ? 0.25 : 0.5) : 0), radius: size * 0.18)
+            .animation(.easeInOut(duration: 1.0), value: breath)
+            .accessibilityHidden(true)
     }
 }
 
@@ -477,7 +456,7 @@ private struct CaptureWaveform: View {
 }
 
 /// Equal capsules 8 pt apart: secondary rgba(255,255,255,.12/.14), primary
-/// #ECEEF2 with ink text, 15 pt / 600: Mute (or Unmute) and Stop.
+/// #ECEEF2 with ink text, 15 pt / 700: Mute (or Unmute) and Stop.
 @available(iOS 16.1, *)
 private struct CaptureActions: View {
     let snapshot: CaptureSnapshot
@@ -510,8 +489,10 @@ private struct CaptureActions: View {
         return Button(intent: OmiCaptureIntent(recordingId: snapshot.recordingId,
                                                revision: state.conversationRevision, action: value)) {
             Text(label)
-                .font(.subheadline.weight(.semibold))
+                .font(.subheadline.weight(primary ? .bold : .semibold))
                 .lineLimit(1)
+                // Long translations ("Reactivează sunetul") shrink a little rather than cut off.
+                .minimumScaleFactor(0.8)
                 .frame(maxWidth: .infinity, minHeight: height)
                 .foregroundStyle(filled ? CapturePalette.ink : CapturePalette.label.opacity(available ? 1 : 0.5))
                 .background(filled ? CapturePalette.label : Color.white.opacity(secondaryFill), in: Capsule())

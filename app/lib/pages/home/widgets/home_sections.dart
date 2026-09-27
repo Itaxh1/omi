@@ -3,22 +3,17 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'package:omi/backend/schema/daily_summary.dart';
 import 'package:omi/backend/schema/schema.dart';
 import 'package:omi/pages/action_items/widgets/action_item_form_sheet.dart';
-import 'package:omi/pages/apps/app_detail/app_detail.dart';
 import 'package:omi/providers/action_items_provider.dart';
-import 'package:omi/providers/app_provider.dart';
 import 'package:omi/providers/conversation_provider.dart';
-import 'package:omi/providers/memories_provider.dart';
 import 'package:omi/providers/sync_provider.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/l10n_extensions.dart';
-import 'package:omi/utils/other/temp.dart';
 
 /// A Home section heading (v2 Main): the title in 20pt semibold and, trailing, a 15pt semibold
 /// link ("See All", "All Tasks") that switches to the section's tab.
@@ -198,9 +193,10 @@ class HomeRecapCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
+          // Home v5: two lines; the full headline is on the recap page.
           Text(
             summary.headline,
-            maxLines: 4,
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: OmiType.serifCard,
           ),
@@ -622,176 +618,6 @@ class _DayBar extends StatelessWidget {
           style: _letterStyle.copyWith(color: isToday ? OmiColors.textPrimary : OmiColors.textTertiary),
         ),
       ],
-    );
-  }
-}
-
-/// "3 new memories" (v2 Main): what Omi learned in the last day, opening Memories.
-class HomeNewMemories extends StatelessWidget {
-  const HomeNewMemories({super.key, required this.onTap});
-
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<MemoriesProvider>(
-      builder: (context, provider, _) {
-        final since = DateTime.now().subtract(const Duration(days: 1));
-        final fresh = provider.memories.where((m) => m.createdAt.toLocal().isAfter(since)).toList()
-          ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
-        if (fresh.isEmpty) return const SizedBox.shrink();
-        final l10n = context.l10n;
-        final preview = fresh.take(3).map((m) => m.content.trim()).where((t) => t.isNotEmpty).join(', ');
-        return Padding(
-          padding: const EdgeInsets.only(top: 22),
-          child: OmiCard(
-            key: const Key('home_new_memories'),
-            radius: OmiRadius.row,
-            padding: const EdgeInsets.fromLTRB(OmiSpacing.md, 14, OmiSpacing.md, 14),
-            onTap: onTap,
-            child: Row(
-              children: [
-                const OmiIconTile(size: 40, child: OmiGlyph(OmiGlyphs.graph, size: 20)),
-                const SizedBox(width: 14),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(l10n.newMemoriesCount(fresh.length), style: OmiType.headline),
-                      if (preview.isNotEmpty) ...[
-                        const SizedBox(height: 2),
-                        Text(
-                          preview,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: OmiType.footnote.copyWith(color: OmiColors.textSecondary),
-                        ),
-                      ],
-                    ],
-                  ),
-                ),
-                const SizedBox(width: OmiSpacing.xs),
-                OmiGlyph(OmiGlyphs.chevronRight, size: 14, color: OmiColors.textTertiary),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
-
-/// v4 Home, last: the reader's apps. Three enabled apps (before any is enabled, three popular
-/// ones to try), then + for the app store. An app opens its page; + opens Apps.
-class HomeApps extends StatelessWidget {
-  const HomeApps({super.key, required this.onAllApps});
-
-  final VoidCallback onAllApps;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    return Consumer<AppProvider>(
-      builder: (context, provider, _) {
-        final enabled = provider.apps.where((app) => app.enabled).toList();
-        final apps = (enabled.isNotEmpty ? enabled : provider.popularApps).take(3).toList();
-        return Padding(
-          key: const Key('home_apps'),
-          padding: const EdgeInsets.only(top: 22),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              HomeSectionHeader(title: l10n.apps),
-              // The apps, then + right after them; the row keeps four equal places.
-              Row(
-                children: [
-                  for (var i = 0; i < 4; i++) ...[
-                    if (i > 0) const SizedBox(width: 10),
-                    Expanded(
-                      child: i < apps.length
-                          ? _HomeAppTile(
-                              key: Key('home_app_${apps[i].id}'),
-                              label: apps[i].getName(),
-                              icon: ClipRRect(
-                                borderRadius: const BorderRadius.all(Radius.circular(13)),
-                                child: CachedNetworkImage(
-                                  imageUrl: apps[i].getImageUrl(),
-                                  fit: BoxFit.cover,
-                                  placeholder: (_, __) => ColoredBox(color: OmiColors.surface2),
-                                  errorWidget: (_, __, ___) => ColoredBox(color: OmiColors.surface2),
-                                ),
-                              ),
-                              onTap: () => routeToPage(context, AppDetailPage(app: apps[i])),
-                            )
-                          : i == apps.length
-                              ? _HomeAppTile(
-                                  key: const Key('home_apps_more'),
-                                  label: l10n.homeAppsMore,
-                                  icon: DecoratedBox(
-                                    decoration: BoxDecoration(
-                                      color: OmiColors.surface2,
-                                      borderRadius: const BorderRadius.all(Radius.circular(13)),
-                                    ),
-                                    child: Icon(Icons.add_rounded, size: 24, color: OmiColors.textPrimary),
-                                  ),
-                                  onTap: onAllApps,
-                                )
-                              : const SizedBox.shrink(),
-                    ),
-                  ],
-                ],
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-}
-
-/// An app on Home: its 44 pt icon and name on a card.
-class _HomeAppTile extends StatelessWidget {
-  const _HomeAppTile({super.key, required this.label, required this.icon, required this.onTap});
-
-  final String label;
-  final Widget icon;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      button: true,
-      label: label,
-      excludeSemantics: true,
-      onTap: onTap,
-      child: OmiPressable(
-        onTap: () {
-          OmiHaptics.selection();
-          onTap();
-        },
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(OmiSpacing.xxs, 14, OmiSpacing.xxs, OmiSpacing.sm),
-          decoration: BoxDecoration(
-            color: OmiColors.surface1,
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
-            border: Border.all(color: OmiColors.border, width: 0.5),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(width: 44, height: 44, child: icon),
-              const SizedBox(height: OmiSpacing.xs),
-              Text(
-                label,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-                style: OmiType.footnote.copyWith(fontWeight: FontWeight.w600, color: OmiColors.textSecondary),
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

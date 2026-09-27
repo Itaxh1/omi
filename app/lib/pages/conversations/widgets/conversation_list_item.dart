@@ -76,6 +76,9 @@ class ConversationListItem extends StatefulWidget {
   /// The row's place in its day card; a lone row is a whole card.
   final ConversationRowPosition position;
 
+  /// Home v5: the title and one line of the summary, without the tag, device and length chips.
+  final bool compact;
+
   const ConversationListItem({
     super.key,
     required this.conversation,
@@ -85,6 +88,7 @@ class ConversationListItem extends StatefulWidget {
     this.reprocess,
     this.allowSelection = true,
     this.position = ConversationRowPosition.only,
+    this.compact = false,
   });
 
   @override
@@ -544,7 +548,7 @@ class _ConversationListItemState extends State<ConversationListItem> {
                               style: OmiType.headline.copyWith(
                                 color: discarded ? OmiColors.textSecondary : OmiColors.textPrimary,
                               ),
-                              maxLines: 2,
+                              maxLines: widget.compact ? 1 : 2,
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
@@ -562,7 +566,7 @@ class _ConversationListItemState extends State<ConversationListItem> {
                         Text(
                           OmiPlainText.fromMarkdown(widget.conversation.structured.overview),
                           style: OmiType.subhead.copyWith(color: OmiColors.textSecondary, height: 1.3),
-                          maxLines: 2,
+                          maxLines: widget.compact ? 1 : 2,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
@@ -575,8 +579,10 @@ class _ConversationListItemState extends State<ConversationListItem> {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
-                      const SizedBox(height: 8),
-                      _buildMetaRow(context),
+                      if (!widget.compact) ...[
+                        const SizedBox(height: 8),
+                        _buildMetaRow(context),
+                      ],
                       if (widget.conversation.isFailedTitleRecoverable) ...[
                         const SizedBox(height: 8),
                         _buildFailedTitleRecovery(context),

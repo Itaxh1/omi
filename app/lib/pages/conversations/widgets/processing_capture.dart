@@ -25,11 +25,12 @@ import 'package:omi/utils/processing_timeout.dart';
 import 'package:omi/backend/schema/phone_call.dart';
 import 'package:omi/providers/phone_call_provider.dart';
 import 'package:omi/pages/conversations/widgets/live_capture_card.dart';
+import 'package:omi/pages/home/widgets/capture_now_row.dart';
 import 'package:omi/pages/phone_calls/active_call_page.dart';
 import 'package:omi/ui/ui.dart';
 
 class ConversationCaptureWidget extends StatefulWidget {
-  const ConversationCaptureWidget({super.key, this.showsCall = false, this.idle});
+  const ConversationCaptureWidget({super.key, this.showsCall = false, this.idle, this.compact = false});
 
   /// Home shows an Omi call on this card; the Conversations tab has its own call banner.
   final bool showsCall;
@@ -37,6 +38,9 @@ class ConversationCaptureWidget extends StatefulWidget {
   /// Shown when nothing records (Home's "Not listening" card). A pendant that dropped mid-capture
   /// shows its Disconnected card in this place instead, so the two never stack.
   final Widget? idle;
+
+  /// Home v5: the card's inputs drawn as one row ([CaptureNowRow]) in the 22 pt row card.
+  final bool compact;
 
   @override
   State<ConversationCaptureWidget> createState() => _ConversationCaptureWidgetState();
@@ -107,7 +111,7 @@ class _ConversationCaptureWidgetState extends State<ConversationCaptureWidget> {
           onTap: () => routeToPage(context, const ActiveCallPage()),
           child: _cardShell(
             padding: _liveCardPadding,
-            LiveCaptureCard(
+            _capture(LiveCaptureCard(
               source: LiveCaptureCard.callSource,
               // Connecting and ringing say so, with no time: they are not listening yet.
               status: switch (phoneCallState) {
@@ -119,7 +123,7 @@ class _ConversationCaptureWidgetState extends State<ConversationCaptureWidget> {
               live: phoneCallState == PhoneCallState.active,
               elapsed: phoneCallState == PhoneCallState.active ? call.callDuration : null,
               lastLine: call.transcriptSegments.lastOrNull?.text,
-            ),
+            )),
           ),
         ),
       );
@@ -188,15 +192,22 @@ class _ConversationCaptureWidgetState extends State<ConversationCaptureWidget> {
     );
   }
 
+  /// The card's inputs, drawn as the full card or (Home v5) as the Now row.
+  Widget _capture(LiveCaptureCard card) => widget.compact ? CaptureNowRow(card: card) : card;
+
   /// The live card's orb, wave and capsules sit on the design's 16pt card padding.
   static const _liveCardPadding = EdgeInsets.all(OmiSpacing.md);
 
-  /// The live card (Liquid Dock): a 28 pt card with the design's rim and top light.
+  /// The Now row's padding (Home v5): 12 pt, 14 at the leading edge.
+  static const _rowPadding = EdgeInsets.fromLTRB(14, 12, 12, 12);
+
+  /// The live card (Liquid Dock): a 28 pt card with the design's rim and top light. The Now row
+  /// sits in the 22 pt row card instead.
   Widget _cardShell(Widget child, {EdgeInsets? padding}) => Padding(
         padding: const EdgeInsets.fromLTRB(OmiSpacing.md, OmiSpacing.lg, OmiSpacing.md, OmiSpacing.sm),
         child: OmiCard(
-          radius: OmiRadius.cardLarge,
-          padding: padding ?? const EdgeInsets.all(OmiSpacing.md),
+          radius: widget.compact ? OmiRadius.row : OmiRadius.cardLarge,
+          padding: widget.compact ? _rowPadding : (padding ?? const EdgeInsets.all(OmiSpacing.md)),
           child: SizedBox(width: double.maxFinite, child: child),
         ),
       );
@@ -232,7 +243,7 @@ class _ConversationCaptureWidgetState extends State<ConversationCaptureWidget> {
   Widget _buildPendantDroppedUI(CaptureProvider provider, {required bool reconnecting}) {
     final l10n = context.l10n;
     final startedAt = _droppedStartedAt;
-    return LiveCaptureCard(
+    return _capture(LiveCaptureCard(
       source: _droppedSource!,
       status: l10n.disconnected,
       detail: reconnecting ? l10n.reconnecting : null,
@@ -240,7 +251,7 @@ class _ConversationCaptureWidgetState extends State<ConversationCaptureWidget> {
       live: false,
       elapsed: startedAt == null ? null : (_droppedAt ?? DateTime.now()).difference(startedAt),
       lastLine: provider.segments.lastOrNull?.text,
-    );
+    ));
   }
 
   /// Stop: saves this conversation and stops listening until Start ([CaptureController.stopCapture]),
@@ -347,7 +358,7 @@ class _ConversationCaptureWidgetState extends State<ConversationCaptureWidget> {
     // When recording is active: the one capture status and control surface.
     if (isDeviceRecording || isPhoneRecording) {
       final startedAt = provider.liveCaptureStartedAt;
-      final card = LiveCaptureCard(
+      final card = _capture(LiveCaptureCard(
         source: isDeviceRecording ? liveSource : 'phone',
         status: copy.status,
         detail: copy.detail,
@@ -366,7 +377,7 @@ class _ConversationCaptureWidgetState extends State<ConversationCaptureWidget> {
         // Photo-capture devices (OmiGlass) keep capturing photos; there is nothing to mute.
         onPauseToggle: !provider.canMuteLiveSource || micTaken ? null : () => _togglePause(provider, muted: isPaused),
         onFinish: () => _finish(provider),
-      );
+      ));
       return Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -470,7 +481,7 @@ class _ConversationCaptureWidgetState extends State<ConversationCaptureWidget> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        LiveCaptureCard(
+        _capture(LiveCaptureCard(
           source: source,
           status: copy.status,
           detail: copy.detail,
@@ -480,7 +491,7 @@ class _ConversationCaptureWidgetState extends State<ConversationCaptureWidget> {
           elapsed: isLimitless || elapsedSeconds == null ? null : Duration(seconds: elapsedSeconds),
           note: note,
           showsTranscript: false,
-        ),
+        )),
         if (actions.isNotEmpty) ...[
           const SizedBox(height: OmiSpacing.sm),
           Padding(padding: const EdgeInsets.only(right: OmiSpacing.xxs), child: _OfflineControls(actions: actions)),

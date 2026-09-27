@@ -196,7 +196,8 @@ final class LiveActivityManager {
         }
         do {
             try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-                let reply = CaptureIntentReply(continuation)
+                // Fails the tap if Flutter never answers; cancelled by the reply.
+                let reply = CaptureIntentReply(continuation, timeoutNanoseconds: 20_000_000_000)
                 channel.invokeMethod("action", arguments: [
                     "recordingId": id, "conversationRevision": revision,
                     "action": action
@@ -208,10 +209,6 @@ final class LiveActivityManager {
                             reply.finish(nil)
                         }
                     }
-                }
-                Task { @MainActor in
-                    try? await Task.sleep(nanoseconds: 20_000_000_000)
-                    reply.finish(CaptureActionError.unavailable)
                 }
             }
         } catch {
@@ -226,16 +223,45 @@ final class LiveActivityManager {
             }
             throw error
         }
+        if action == "finish" { closeCard(for: id) }
+    }
+
+    /// Stop closes the card at once rather than five seconds after "Finished". The card stays
+    /// closed for the rest of this recording, as when it is swiped away; Start begins a new one.
+    private func closeCard(for id: String) {
+        enqueue { [weak self] in
+            guard let self else { return }
+            self.suppressedRecordingId = id
+            if let current = self.activity, current.attributes.recordingId == id {
+                await self.end(current, immediate: true)
+                self.activity = nil
+            }
+        }
     }
 }
 
+/// Resumes an action's continuation exactly once: with Flutter's reply, or with a failure when
+/// the timeout fires first. The first to arrive cancels the other. The timer holds the reply
+/// strongly so a missing Flutter reply can never leave the tapped button waiting forever.
 @MainActor
 private final class CaptureIntentReply {
     private var continuation: CheckedContinuation<Void, Error>?
-    init(_ continuation: CheckedContinuation<Void, Error>) { self.continuation = continuation }
+    private var timeout: Task<Void, Never>?
+
+    init(_ continuation: CheckedContinuation<Void, Error>, timeoutNanoseconds: UInt64) {
+        self.continuation = continuation
+        timeout = Task { @MainActor in
+            try? await Task.sleep(nanoseconds: timeoutNanoseconds)
+            guard !Task.isCancelled else { return }
+            self.finish(CaptureActionError.unavailable)
+        }
+    }
+
     func finish(_ error: Error?) {
         guard let continuation else { return }
         self.continuation = nil
+        timeout?.cancel()
+        timeout = nil
         if let error { continuation.resume(throwing: error) } else { continuation.resume() }
     }
 }

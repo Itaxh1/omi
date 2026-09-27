@@ -34,6 +34,7 @@ import 'package:omi/pages/conversations/widgets/capture_gap_list_item.dart';
 import 'package:omi/pages/conversations/widgets/conversations_group_widget.dart';
 import 'package:omi/pages/conversations/widgets/conversation_list_item.dart';
 import 'package:omi/pages/conversations/widgets/date_filter_chip.dart';
+import 'package:omi/pages/home/widgets/home_sections.dart';
 import 'package:omi/pages/conversations/widgets/date_list_item.dart';
 import 'package:omi/pages/conversations/widgets/empty_conversations.dart';
 import 'package:omi/pages/conversations/widgets/recording_list_item.dart';
@@ -616,6 +617,25 @@ class _ConversationsPageState extends State<ConversationsPage> with AutomaticKee
                 child: Padding(padding: EdgeInsets.only(bottom: OmiSpacing.xs), child: SearchWidget()),
               ),
               const SliverToBoxAdapter(child: SearchResultHeaderWidget()),
+
+              // Home v5: the week's captured time lives here, above the list it counts. Hidden
+              // while searching or filtering by date, like the goals below.
+              Selector<HomeProvider, bool>(
+                selector: (_, homeProvider) => homeProvider.showConvoSearchBar,
+                builder: (context, showConvoSearchBar, _) {
+                  final quiet = !showConvoSearchBar &&
+                      convoProvider.previousQuery.isEmpty &&
+                      convoProvider.selectedStartDate == null;
+                  return SliverToBoxAdapter(
+                    child: quiet
+                        ? const Padding(
+                            padding: EdgeInsets.fromLTRB(OmiSize.screenMargin, 0, OmiSize.screenMargin, OmiSpacing.xs),
+                            child: HomeThisWeek(),
+                          )
+                        : const SizedBox.shrink(),
+                  );
+                },
+              ),
 
               // Today's Tasks and Goals widgets - hide when showing daily recaps, search bar is active, or calendar filter is active
               Selector<HomeProvider, bool>(

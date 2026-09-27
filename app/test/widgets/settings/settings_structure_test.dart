@@ -176,6 +176,7 @@ void main() {
       'settings_group_recording',
       'settings_group_notifications',
       'settings_row_apps', // Rev 3: Apps left the tab bar for Settings
+      'settings_row_memories', // Home v5: what Omi learned left Home, so Memories has a door here
       'settings_group_integrations',
       'settings_group_privacy',
       'settings_row_importData', // Rev 3: importing from other recorders is on the sheet
@@ -203,6 +204,7 @@ void main() {
       en.recordingAndTranscription,
       en.notificationsAndDisplay,
       en.apps,
+      en.memories,
       en.integrations,
       en.dataAndPrivacy,
       en.importFromOtherApps,
@@ -282,11 +284,11 @@ void main() {
       expect(keyDepth['settings_row_${destination.name}'], 1, reason: '${destination.name} is one tap below the sheet');
     }
 
-    // Every destination that had a row on Profile (depth 1) is still at depth 1.
+    // Every destination that had a row on Profile (depth 1) is still at depth 1. Memories came up
+    // to the sheet (Home v5) and keeps its row under Data & Privacy.
     const wasOnProfile = [
       SettingsDestination.language,
       SettingsDestination.customVocabulary,
-      SettingsDestination.memories,
       SettingsDestination.voiceProfile,
       SettingsDestination.people,
       SettingsDestination.deleteAccount,
@@ -294,6 +296,9 @@ void main() {
     for (final destination in wasOnProfile) {
       expect(keyDepth['settings_row_${destination.name}'], 1, reason: '${destination.name} stays one tap deep');
     }
+    expect(keyDepth['settings_row_memories'], 0, reason: 'memories is on the sheet');
+    expect(titleDepth[en.memories], 0, reason: 'Memories is on the sheet');
+    expect(pageTitles['settings_page_privacy'], contains(en.memories), reason: 'and still under Data & Privacy');
 
     // Every Profile row title, by its visible English text, is still one tap below the sheet.
     final profileTitles = [
@@ -301,7 +306,6 @@ void main() {
       en.email,
       en.language,
       en.customVocabulary,
-      en.memories,
       en.speechProfile,
       en.identifyingOthers,
       en.voiceResponseMode,
@@ -325,6 +329,8 @@ void main() {
       SettingsDestination.creatorPayouts,
       // Rev 3: Apps moved here from the tab bar (a row on the sheet).
       SettingsDestination.apps,
+      // Home v5: Memories has a row on the sheet as well as under Data & Privacy.
+      SettingsDestination.memories,
       // New in this change: the group pages themselves.
       SettingsDestination.deviceGroup,
       SettingsDestination.recordingGroup,

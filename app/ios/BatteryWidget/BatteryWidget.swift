@@ -25,7 +25,7 @@ struct BatteryTimelineProvider: TimelineProvider {
                 lastUpdated: Date(),
                 isMuted: false
             ),
-            devices: [WidgetDevice(id: "omi", name: "Omi", image: "pendant", connected: true, battery: 85, charging: false)]
+            devices: [WidgetDevice(id: "omi", name: "Omi", image: "device-omi", connected: true, battery: 85, charging: false)]
         )
     }
 
@@ -190,25 +190,20 @@ struct SmallBatteryView: View {
     }
 }
 
-/// A wearable's own picture: the orb for an Omi pendant (its light on while connected), the
-/// product photo for the rest; dimmed while not connected.
+/// A wearable's own picture, the product photo the app shows, as the app's device page shows it:
+/// unchanged while not connected, except that the Omi pendant shows its lights-off photo.
 struct DevicePicture: View {
     let device: WidgetDevice?
     let size: CGFloat
 
     var body: some View {
-        Group {
-            if let device, device.image != "pendant" {
-                Image(device.image)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: size, height: size)
-                    .opacity(device.connected ? 1 : 0.55)
-            } else {
-                CapturePendant(active: device?.connected == true, size: size)
-            }
-        }
-        .accessibilityHidden(true)
+        let image = device?.image ?? "device-omi"
+        let lightsOff = image == "device-omi" && device?.connected != true
+        Image(lightsOff ? "device-omi-off" : image)
+            .resizable()
+            .scaledToFit()
+            .frame(width: size, height: size)
+            .accessibilityHidden(true)
     }
 }
 

@@ -5,6 +5,7 @@ import 'dart:math' as math;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import 'package:omi/gen/assets.gen.dart';
 import 'package:omi/ui/omi_tokens.dart';
 
 /// Whether endless loops (the listening wave, the Ask ring's orbit, the orb's breathing LED) may
@@ -17,8 +18,8 @@ bool omiLoopsEnabled(BuildContext context) {
   return !Platform.environment.containsKey('FLUTTER_TEST');
 }
 
-/// The Omi orb (Liquid Dock): the device's dark dome seen straight on, one LED near its top that
-/// breathes in the live blue while audio is captured. Grey and still otherwise.
+/// The Omi pendant, as the app shows it everywhere: its photo with the light on while audio is
+/// captured, a soft halo breathing over the LED in the live blue; its lights-off photo otherwise.
 class OmiOrb extends StatefulWidget {
   const OmiOrb({super.key, this.size = 30, this.live = true});
 
@@ -65,46 +66,52 @@ class _OmiOrbState extends State<OmiOrb> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final s = widget.size;
-    final led = math.max(4.0, s * 0.13);
+    final live = widget.live;
+    // The device page's photos (omi-without-rope): the LED sits at the centre of each.
+    final photo = Image.asset(
+      live ? Assets.images.omiWithoutRope.path : Assets.images.omiWithoutRopeTurnedOff.path,
+      width: s,
+      height: s,
+      fit: BoxFit.contain,
+      cacheWidth: (s * MediaQuery.devicePixelRatioOf(context)).round(),
+      gaplessPlayback: true,
+    );
+    final halo = math.max(6.0, s * 0.22);
     return ExcludeSemantics(
       child: SizedBox.square(
         dimension: s,
-        child: DecoratedBox(
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: RadialGradient(
-              center: Alignment(0.36, -0.52),
-              radius: 1.0,
-              colors: [Color(0xFF7A808A), Color(0xFF40454E), Color(0xFF1B1E24), Color(0xFF0C0D10), Color(0xFF08090B)],
-              stops: [0, 0.2, 0.52, 0.8, 1],
-            ),
-            boxShadow: [BoxShadow(color: Color(0x40FFFFFF), spreadRadius: 0.5)],
-          ),
-          child: Align(
-            alignment: const Alignment(0, -0.36),
-            child: AnimatedBuilder(
-              animation: _breath,
-              builder: (context, _) {
-                // .orb::after: opacity 1 → .55 → 1 over 2.4 s.
-                final t = _breath.value;
-                final opacity = widget.live ? 1 - 0.45 * (0.5 - 0.5 * math.cos(2 * math.pi * t)) : 1.0;
-                return Opacity(
-                  opacity: opacity,
-                  child: Container(
-                    width: led,
-                    height: led,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: widget.live ? OmiColors.live : OmiColors.surface4,
-                      boxShadow: widget.live
-                          ? const [BoxShadow(color: Color(0x994C9BFF), blurRadius: 8, spreadRadius: 2)]
-                          : null,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            photo,
+            if (live)
+              AnimatedBuilder(
+                animation: _breath,
+                builder: (context, _) {
+                  // .orb::after: opacity 1 → .55 → 1 over 2.4 s.
+                  final t = _breath.value;
+                  final opacity = 1 - 0.45 * (0.5 - 0.5 * math.cos(2 * math.pi * t));
+                  return Opacity(
+                    opacity: opacity,
+                    child: Container(
+                      width: halo,
+                      height: halo,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: OmiColors.live.withValues(alpha: 0.35),
+                        boxShadow: [
+                          BoxShadow(
+                            color: OmiColors.live.withValues(alpha: 0.7),
+                            blurRadius: halo * 0.6,
+                            spreadRadius: halo * 0.1,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              },
-            ),
-          ),
+                  );
+                },
+              ),
+          ],
         ),
       ),
     );
