@@ -19,6 +19,9 @@ import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/utils/other/temp.dart';
 import 'package:omi/widgets/capture_sources.dart';
 
+/// At a large text size the row's words need the whole width: the buttons move under them.
+bool _stackControls(BuildContext context) => MediaQuery.textScalerOf(context).scale(10) > 12;
+
 /// Home's "Now" row (v5): the live card's inputs drawn as one row, about a third of the card's
 /// height. The pendant's photo (lit while audio is captured), the state over "source · time", then
 /// Mute (Unmute once muted) and Stop as 44 pt icon buttons; under them, one line of the latest
@@ -59,7 +62,8 @@ class CaptureNowRow extends StatelessWidget {
               ExcludeSemantics(child: Icon(Icons.warning_amber_rounded, size: 16, color: OmiColors.warning)),
               const SizedBox(width: OmiSpacing.xxs),
             ],
-            Flexible(child: Text(c.status, maxLines: 1, overflow: TextOverflow.ellipsis, style: OmiType.headline)),
+            // Long states (in a long language) take a second line.
+            Flexible(child: Text(c.status, maxLines: 2, overflow: TextOverflow.ellipsis, style: OmiType.headline)),
             if (c.live) ...[
               const SizedBox(width: OmiSpacing.xs),
               // The listening wave in miniature, beside the state.
@@ -89,7 +93,26 @@ class CaptureNowRow extends StatelessWidget {
         ),
       );
     }
-    final controls = !isCall && (c.onPauseToggle != null || c.onFinish != null);
+    final controls = <Widget>[
+      if (!isCall && c.onPauseToggle != null)
+        OmiIconButton.filled(
+          key: const Key('capture_now_mute'),
+          icon: Icon(c.paused ? Icons.mic_rounded : Icons.mic_off_rounded),
+          label: c.paused ? l10n.unmute : l10n.mute,
+          fillColor: OmiColors.surface3,
+          onPressed: c.onPauseToggle,
+        ),
+      if (!isCall && c.onFinish != null)
+        OmiIconButton.filled(
+          key: const Key('capture_now_stop'),
+          icon: const Icon(Icons.stop_rounded),
+          label: l10n.stop,
+          fillColor: OmiColors.accent,
+          color: OmiColors.onAccent,
+          onPressed: c.onFinish,
+        ),
+    ];
+    final stack = controls.isNotEmpty && _stackControls(context);
     final line = c.lastLine?.trim() ?? '';
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -101,26 +124,10 @@ class CaptureNowRow extends StatelessWidget {
             const SizedBox(width: OmiSpacing.sm),
             Expanded(child: text),
             const SizedBox(width: OmiSpacing.xs),
-            if (controls) ...[
-              if (c.onPauseToggle != null)
-                OmiIconButton.filled(
-                  key: const Key('capture_now_mute'),
-                  icon: Icon(c.paused ? Icons.mic_rounded : Icons.mic_off_rounded),
-                  label: c.paused ? l10n.unmute : l10n.mute,
-                  fillColor: OmiColors.surface3,
-                  onPressed: c.onPauseToggle,
-                ),
-              if (c.onFinish != null)
-                OmiIconButton.filled(
-                  key: const Key('capture_now_stop'),
-                  icon: const Icon(Icons.stop_rounded),
-                  label: l10n.stop,
-                  fillColor: OmiColors.accent,
-                  color: OmiColors.onAccent,
-                  onPressed: c.onFinish,
-                ),
-            ] else
-              OmiGlyph(OmiGlyphs.chevronRight, size: 14, color: OmiColors.textTertiary),
+            if (controls.isEmpty)
+              OmiGlyph(OmiGlyphs.chevronRight, size: 14, color: OmiColors.textTertiary)
+            else if (!stack)
+              ...controls,
           ],
         ),
         if (c.showsTranscript) ...[
@@ -137,19 +144,27 @@ class CaptureNowRow extends StatelessWidget {
         if (c.note != null) ...[
           const SizedBox(height: OmiSpacing.xxs),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(CaptureSources.icon('omi'), size: 14, color: OmiColors.textTertiary),
+              Padding(
+                padding: const EdgeInsets.only(top: 2),
+                child: Icon(CaptureSources.icon('omi'), size: 14, color: OmiColors.textTertiary),
+              ),
               const SizedBox(width: OmiSpacing.xs),
               Flexible(
-                child: Text(
+                child: OmiBalancedText(
                   c.note!,
-                  maxLines: 1,
+                  maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: OmiType.footnote.copyWith(color: OmiColors.textTertiary),
                 ),
               ),
             ],
           ),
+        ],
+        if (stack) ...[
+          const SizedBox(height: OmiSpacing.xs),
+          Row(mainAxisAlignment: MainAxisAlignment.end, children: controls),
         ],
       ],
     );
@@ -214,54 +229,67 @@ class IdleCaptureRow extends StatelessWidget {
     final source = stoppedSource == null
         ? (Platform.isIOS ? l10n.memoryThisIphone : l10n.memoryThisPhone)
         : CaptureSources.label(context, stoppedSource);
+    final controls = <Widget>[
+      OmiIconButton.filled(
+        key: const ValueKey('idle_capture_row_devices'),
+        icon: Icon(paired ? Icons.tune_rounded : Icons.add_rounded),
+        label: paired ? l10n.manageDevices : l10n.addADevice,
+        fillColor: OmiColors.surface3,
+        onPressed: () {
+          OmiHaptics.selection();
+          if (paired) {
+            openSettingsDestination(context, SettingsDestination.deviceGroup);
+          } else {
+            routeToPage(context, const AddDevicePage());
+          }
+        },
+      ),
+      const SizedBox(width: OmiSpacing.xxs),
+      _StartPill(
+        key: const ValueKey('idle_capture_row_start'),
+        label: l10n.start,
+        onPressed: () => stoppedSource != null ? IdleCaptureCard.startWearable(context) : PhoneCapture.start(context),
+      ),
+    ];
+    final stack = _stackControls(context);
     return Padding(
       key: const ValueKey('idle_capture_row'),
       padding: const EdgeInsets.fromLTRB(OmiSpacing.md, OmiSpacing.lg, OmiSpacing.md, OmiSpacing.sm),
       child: OmiCard(
         radius: OmiRadius.row,
         padding: const EdgeInsets.fromLTRB(14, 12, 12, 12),
-        child: Row(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const OmiOrb(size: 44, live: false),
-            const SizedBox(width: OmiSpacing.sm),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(l10n.notListeningTitle, maxLines: 1, overflow: TextOverflow.ellipsis, style: OmiType.headline),
-                  Text(
-                    '$source · ${l10n.deviceReady}',
-                    key: const ValueKey('idle_capture_row_subtitle'),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: OmiType.footnote.copyWith(color: OmiColors.textSecondary),
+            Row(
+              children: [
+                const OmiOrb(size: 44, live: false),
+                const SizedBox(width: OmiSpacing.sm),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(l10n.notListeningTitle,
+                          maxLines: 2, overflow: TextOverflow.ellipsis, style: OmiType.headline),
+                      Text(
+                        '$source · ${l10n.deviceReady}',
+                        key: const ValueKey('idle_capture_row_subtitle'),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: OmiType.footnote.copyWith(color: OmiColors.textSecondary),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                if (!stack) ...[const SizedBox(width: OmiSpacing.xs), ...controls],
+              ],
             ),
-            const SizedBox(width: OmiSpacing.xs),
-            OmiIconButton.filled(
-              key: const ValueKey('idle_capture_row_devices'),
-              icon: Icon(paired ? Icons.tune_rounded : Icons.add_rounded),
-              label: paired ? l10n.manageDevices : l10n.addADevice,
-              fillColor: OmiColors.surface3,
-              onPressed: () {
-                OmiHaptics.selection();
-                if (paired) {
-                  openSettingsDestination(context, SettingsDestination.deviceGroup);
-                } else {
-                  routeToPage(context, const AddDevicePage());
-                }
-              },
-            ),
-            const SizedBox(width: OmiSpacing.xxs),
-            _StartPill(
-              key: const ValueKey('idle_capture_row_start'),
-              label: l10n.start,
-              onPressed: () =>
-                  stoppedSource != null ? IdleCaptureCard.startWearable(context) : PhoneCapture.start(context),
-            ),
+            if (stack) ...[
+              const SizedBox(height: OmiSpacing.xs),
+              Row(mainAxisAlignment: MainAxisAlignment.end, children: controls),
+            ],
           ],
         ),
       ),

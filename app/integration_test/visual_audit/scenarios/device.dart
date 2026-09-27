@@ -23,7 +23,7 @@ final deviceScenarios = <AuditScenario>[
     page: 'lib/pages/settings/settings_groups.dart (DeviceGroupPage)',
     state: 'An Omi pendant paired and connected at 72% battery; nothing recording',
     run: (a) async {
-      final device = BtDevice(id: 'd1', name: 'Omi Device', type: DeviceType.omi, rssi: -40);
+      final device = BtDevice(id: 'd1', name: 'Omi', type: DeviceType.omi, rssi: -40);
       await a.pump(const DeviceGroupPage(), providers: [
         ChangeNotifierProvider<DeviceProvider>.value(
             value: AuditDeviceProvider(connected: true, battery: 72, device: device)),
@@ -111,7 +111,7 @@ final deviceScenarios = <AuditScenario>[
           }));
       final device = BtDevice(
           id: 'd1',
-          name: 'Omi Device',
+          name: 'Omi',
           type: DeviceType.omi,
           rssi: -50,
           modelNumber: 'Omi',

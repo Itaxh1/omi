@@ -168,7 +168,7 @@ class _CallInProgress extends ChangeNotifier implements PhoneCallProvider {
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
-final auditPendant = BtDevice(id: 'd1', name: 'Omi Device', type: DeviceType.omi, rssi: -40);
+final auditPendant = BtDevice(id: 'd1', name: 'Omi', type: DeviceType.omi, rssi: -40);
 
 /// Home as HomePage lays it out (Rev 3): header (device chip; Search and Settings), content, and the
 /// dock with the round Ask button.
