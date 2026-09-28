@@ -42,6 +42,7 @@ export 'components/omi_listening.dart';
 export 'components/omi_icon_button.dart';
 export 'components/omi_nav_buttons.dart';
 export 'components/omi_pendant.dart';
+export 'components/omi_pendant_photo.dart';
 export 'components/omi_page_states.dart';
 export 'components/omi_permission_row.dart';
 export 'components/omi_ring_logo.dart';

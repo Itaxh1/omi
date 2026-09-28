@@ -12388,4 +12388,163 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get noPastChats => 'Các cuộc trò chuyện của bạn với Omi xuất hiện ở đây.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return 'Bước $step/3 · Omi của bạn';
+  }
+
+  @override
+  String get turnOnYourOmi => 'Bật Omi của bạn';
+
+  @override
+  String get pressButtonOnce => 'Nhấn nút ở giữa một lần.';
+
+  @override
+  String get itsOnV3 => 'Đã bật';
+
+  @override
+  String get lightDidntComeOn => 'Đèn không sáng';
+
+  @override
+  String get itsOnRedMeans => 'Đã bật. Màu đỏ nghĩa là chưa ghép đôi. Đó là bước tiếp theo.';
+
+  @override
+  String get mayNeedCharging =>
+      'Có thể cần sạc. Đặt lên sạc: xanh lá nhấp nháy nghĩa là đang sạc. Sau đó nhấn nút lại.';
+
+  @override
+  String get turnOnBluetoothV3 => 'Bật Bluetooth';
+
+  @override
+  String get bluetoothOnlyThing => 'Omi dùng Bluetooth để nói chuyện với thiết bị. Omi không xin danh bạ hay vị trí.';
+
+  @override
+  String get notNowV3 => 'Để sau';
+
+  @override
+  String get lookingForYourOmi => 'Đang tìm Omi của bạn';
+
+  @override
+  String get keepItClose => 'Để gần điện thoại. Đèn vẫn đỏ cho đến khi ghép đôi.';
+
+  @override
+  String get waitingForBluetooth => 'Đang chờ Bluetooth';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · ở gần';
+  }
+
+  @override
+  String get pairV3 => 'Ghép đôi';
+
+  @override
+  String get pairingV3 => 'Đang ghép đôi…';
+
+  @override
+  String get pairedV3 => 'Đã ghép đôi';
+
+  @override
+  String get lightSolidBlueNow => 'Đèn giờ xanh dương liên tục. Nghĩa là đã kết nối.';
+
+  @override
+  String get useThisPhoneInstead => 'Dùng điện thoại này thay thế';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi không tới được mặt dây. Hãy bật lên để tiếp tục.';
+
+  @override
+  String get tapPictureToTry => 'Chạm vào hình để thử.';
+
+  @override
+  String get oneButtonThreeMoves => 'Một nút, ba thao tác';
+
+  @override
+  String get tapOnceV3 => 'Chạm một lần';
+
+  @override
+  String get tapOnceBody => 'Hỏi Omi thành tiếng. Chạm lại khi hỏi xong, hoặc đợi 15 giây. Câu trả lời hiện trong Hỏi.';
+
+  @override
+  String get tapTwiceV3 => 'Chạm hai lần';
+
+  @override
+  String get tapTwiceBody =>
+      'Kết thúc và lưu cuộc trò chuyện. Đổi trong Thiết bị → Chạm hai lần: tạm dừng ghi âm, hoặc gắn sao cuộc trò chuyện.';
+
+  @override
+  String get holdThreeSeconds => 'Giữ 3 giây';
+
+  @override
+  String get holdThreeSecondsBody => 'Tắt nguồn. Nhấn một lần để bật lại.';
+
+  @override
+  String get gotItV3 => 'Đã hiểu';
+
+  @override
+  String get sayAFewWords => 'Hãy nói vài câu.';
+
+  @override
+  String get tryRemindSam => 'Thử nói: “Nhắc tôi gọi cho Sam vào ngày mai.”';
+
+  @override
+  String get listeningOnThisPhone => 'Đang nghe trên điện thoại này';
+
+  @override
+  String get listeningOnYourOmi => 'Đang nghe trên Omi của bạn';
+
+  @override
+  String get skipForNowV3 => 'Bỏ qua lúc này';
+
+  @override
+  String get omiWritingItUp => 'Omi đang viết lại…';
+
+  @override
+  String get yourFirstConversation => 'Cuộc trò chuyện đầu tiên';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'Vừa xong · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'Việc cần làm từ đây';
+
+  @override
+  String get everyConversationPage =>
+      'Mỗi cuộc trò chuyện sẽ thành một trang như thế này. Bạn sẽ thấy chúng ở Trang chủ.';
+
+  @override
+  String get stillWritingItUp => 'Omi vẫn đang viết. Khi xong sẽ có ở Trang chủ.';
+
+  @override
+  String get notEnoughToWrite => 'Đoạn này quá ngắn để viết lại. Cuộc trò chuyện tiếp theo sẽ hiện ở Trang chủ.';
+
+  @override
+  String get sourceThisPhone => 'điện thoại này';
+
+  @override
+  String get teachVoiceBody => 'Đọc ba câu ngắn để Omi phân biệt lời bạn với người khác. Mất khoảng một phút.';
+
+  @override
+  String get doThisLater => 'Để sau';
+
+  @override
+  String get readThisOutLoud => 'Hãy đọc to câu này';
+
+  @override
+  String get voiceLineOne => 'Con cáo nâu nhanh nhẹn nhảy qua con chó lười.';
+
+  @override
+  String get voiceLineTwo => 'Cho tôi một ly cà phê sữa yến mạch nhé.';
+
+  @override
+  String get voiceLineThree => 'Nhắc tôi gửi bản trình bày vào thứ Sáu.';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi đã nhận ra giọng bạn';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi không lưu được giọng bạn. Hãy thử lại trong Cài đặt.';
 }

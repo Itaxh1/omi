@@ -68,6 +68,8 @@ abstract final class OmiGlyphs {
 
   /// Past chats (a clock turning back).
   static const String history = 'assets/icons/v3-history.svg';
+  static const String bluetoothLine = 'assets/icons/v3-bluetooth.svg';
+  static const String bluetoothOff = 'assets/icons/v3-bluetooth-off.svg';
   static const String bluetooth = 'assets/icons/bluetooth.svg';
   static const String apps = 'assets/icons/v3-apps.svg';
   static const String browse = 'assets/icons/v3-browse.svg';

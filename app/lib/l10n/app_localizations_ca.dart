@@ -12458,4 +12458,164 @@ class AppLocalizationsCa extends AppLocalizations {
 
   @override
   String get noPastChats => 'Els teus xats amb Omi apareixen aquí.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return 'Pas $step de 3 · El teu Omi';
+  }
+
+  @override
+  String get turnOnYourOmi => 'Engega el teu Omi';
+
+  @override
+  String get pressButtonOnce => 'Prem una vegada el botó del mig.';
+
+  @override
+  String get itsOnV3 => 'Ja està engegat';
+
+  @override
+  String get lightDidntComeOn => 'El llum no s\'ha encès';
+
+  @override
+  String get itsOnRedMeans => 'Està engegat. El vermell vol dir que encara no està vinculat. Això és el següent.';
+
+  @override
+  String get mayNeedCharging =>
+      'Potser necessita càrrega. Posa\'l al carregador: el verd intermitent vol dir que es carrega. Després torna a prémer el botó.';
+
+  @override
+  String get turnOnBluetoothV3 => 'Activa el Bluetooth';
+
+  @override
+  String get bluetoothOnlyThing => 'Així parla Omi amb el teu dispositiu. Omi no demana contactes ni ubicació.';
+
+  @override
+  String get notNowV3 => 'Ara no';
+
+  @override
+  String get lookingForYourOmi => 'Buscant el teu Omi';
+
+  @override
+  String get keepItClose => 'Mantén-lo a prop del telèfon. El llum es queda vermell fins que es vinculi.';
+
+  @override
+  String get waitingForBluetooth => 'Esperant el Bluetooth';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · a prop';
+  }
+
+  @override
+  String get pairV3 => 'Vincula';
+
+  @override
+  String get pairingV3 => 'Vinculant…';
+
+  @override
+  String get pairedV3 => 'Vinculat';
+
+  @override
+  String get lightSolidBlueNow => 'Ara el llum és blau fix. Vol dir que està connectat.';
+
+  @override
+  String get useThisPhoneInstead => 'Fes servir aquest telèfon';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi no arriba al penjoll. Activa\'l per continuar.';
+
+  @override
+  String get tapPictureToTry => 'Toca la imatge per provar-ho.';
+
+  @override
+  String get oneButtonThreeMoves => 'Un botó, tres gestos';
+
+  @override
+  String get tapOnceV3 => 'Toca un cop';
+
+  @override
+  String get tapOnceBody =>
+      'Fes una pregunta a Omi en veu alta. Toca de nou quan acabis o espera 15 segons. La resposta apareix a Pregunta.';
+
+  @override
+  String get tapTwiceV3 => 'Toca dos cops';
+
+  @override
+  String get tapTwiceBody =>
+      'Acaba i desa la conversa. Canvia-ho a Dispositius → Doble toc: posar en pausa la gravació o marcar la conversa amb una estrella.';
+
+  @override
+  String get holdThreeSeconds => 'Mantén premut 3 segons';
+
+  @override
+  String get holdThreeSecondsBody => 'L\'apaga. Prem un cop per tornar-lo a encendre.';
+
+  @override
+  String get gotItV3 => 'Entesos';
+
+  @override
+  String get sayAFewWords => 'Digues unes quantes paraules.';
+
+  @override
+  String get tryRemindSam => 'Prova: «Recorda\'m que truqui al Sam demà.»';
+
+  @override
+  String get listeningOnThisPhone => 'Escoltant en aquest telèfon';
+
+  @override
+  String get listeningOnYourOmi => 'Escoltant al teu Omi';
+
+  @override
+  String get skipForNowV3 => 'Omet de moment';
+
+  @override
+  String get omiWritingItUp => 'Omi ho està escrivint…';
+
+  @override
+  String get yourFirstConversation => 'La teva primera conversa';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'Ara mateix · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'Tasques d\'aquí';
+
+  @override
+  String get everyConversationPage => 'Cada conversa es converteix en una pàgina com aquesta. Les trobaràs a Inici.';
+
+  @override
+  String get stillWritingItUp => 'Omi encara ho està escrivint. Serà a Inici quan estigui a punt.';
+
+  @override
+  String get notEnoughToWrite => 'Ha estat massa curt per escriure\'l. La teva propera conversa apareixerà a Inici.';
+
+  @override
+  String get sourceThisPhone => 'aquest telèfon';
+
+  @override
+  String get teachVoiceBody =>
+      'Llegeix tres línies curtes perquè Omi distingeixi les teves paraules de les dels altres. Triga un minut més o menys.';
+
+  @override
+  String get doThisLater => 'Fes-ho més tard';
+
+  @override
+  String get readThisOutLoud => 'Llegeix això en veu alta';
+
+  @override
+  String get voiceLineOne => 'La guineu marró i ràpida salta per sobre del gos mandrós.';
+
+  @override
+  String get voiceLineTwo => 'Voldria un cafè amb llet de civada, si us plau.';
+
+  @override
+  String get voiceLineThree => 'Recorda\'m que enviï la presentació divendres.';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi ja coneix la teva veu';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi no ha pogut desar la teva veu. Torna-ho a provar des de Configuració.';
 }

@@ -12475,4 +12475,165 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get noPastChats => 'Omi உடனான உங்கள் அரட்டைகள் இங்கே தோன்றும்.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return 'படி $step/3 · உங்கள் Omi';
+  }
+
+  @override
+  String get turnOnYourOmi => 'உங்கள் Omi-ஐ இயக்குங்கள்';
+
+  @override
+  String get pressButtonOnce => 'நடுவில் உள்ள பொத்தானை ஒருமுறை அழுத்துங்கள்.';
+
+  @override
+  String get itsOnV3 => 'இயங்குகிறது';
+
+  @override
+  String get lightDidntComeOn => 'விளக்கு எரியவில்லை';
+
+  @override
+  String get itsOnRedMeans => 'இயங்குகிறது. சிவப்பு என்றால் இன்னும் இணைக்கப்படவில்லை. அதுதான் அடுத்தது.';
+
+  @override
+  String get mayNeedCharging =>
+      'சார்ஜ் தேவைப்படலாம். சார்ஜரில் வையுங்கள்: பச்சை மின்னுவது சார்ஜ் ஆவதைக் குறிக்கும். பிறகு மீண்டும் பொத்தானை அழுத்துங்கள்.';
+
+  @override
+  String get turnOnBluetoothV3 => 'புளூடூத்தை இயக்குங்கள்';
+
+  @override
+  String get bluetoothOnlyThing =>
+      'இப்படித்தான் Omi உங்கள் சாதனத்துடன் பேசுகிறது. Omi தொடர்புகளையோ இருப்பிடத்தையோ கேட்பதில்லை.';
+
+  @override
+  String get notNowV3 => 'இப்போது வேண்டாம்';
+
+  @override
+  String get lookingForYourOmi => 'உங்கள் Omi-ஐத் தேடுகிறது';
+
+  @override
+  String get keepItClose => 'தொலைபேசிக்கு அருகில் வையுங்கள். இணையும் வரை விளக்கு சிவப்பாக இருக்கும்.';
+
+  @override
+  String get waitingForBluetooth => 'புளூடூத்திற்காகக் காத்திருக்கிறது';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · அருகில்';
+  }
+
+  @override
+  String get pairV3 => 'இணை';
+
+  @override
+  String get pairingV3 => 'இணைக்கிறது…';
+
+  @override
+  String get pairedV3 => 'இணைக்கப்பட்டது';
+
+  @override
+  String get lightSolidBlueNow => 'விளக்கு இப்போது நிலையான நீலம். இணைக்கப்பட்டது என்று பொருள்.';
+
+  @override
+  String get useThisPhoneInstead => 'பதிலாக இந்த தொலைபேசியைப் பயன்படுத்து';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi உங்கள் பதக்கத்தை அடைய முடியவில்லை. தொடர இதை இயக்குங்கள்.';
+
+  @override
+  String get tapPictureToTry => 'முயற்சிக்க படத்தைத் தட்டவும்.';
+
+  @override
+  String get oneButtonThreeMoves => 'ஒரு பொத்தான், மூன்று அசைவுகள்';
+
+  @override
+  String get tapOnceV3 => 'ஒருமுறை தட்டவும்';
+
+  @override
+  String get tapOnceBody =>
+      'Omi-யிடம் சத்தமாகக் கேள்வி கேளுங்கள். முடிந்ததும் மீண்டும் தட்டவும் அல்லது 15 வினாடிகள் காத்திருக்கவும். பதில் Ask-இல் தோன்றும்.';
+
+  @override
+  String get tapTwiceV3 => 'இருமுறை தட்டவும்';
+
+  @override
+  String get tapTwiceBody =>
+      'உரையாடலை முடித்துச் சேமிக்கும். சாதனங்கள் → இருமுறை தட்டு என்பதில் மாற்றலாம்: பதிவை இடைநிறுத்து, அல்லது உரையாடலுக்கு நட்சத்திரம் இடு.';
+
+  @override
+  String get holdThreeSeconds => '3 வினாடிகள் அழுத்திப் பிடிக்கவும்';
+
+  @override
+  String get holdThreeSecondsBody => 'அணைக்கும். மீண்டும் இயக்க ஒருமுறை அழுத்தவும்.';
+
+  @override
+  String get gotItV3 => 'புரிந்தது';
+
+  @override
+  String get sayAFewWords => 'சில வார்த்தைகள் பேசுங்கள்.';
+
+  @override
+  String get tryRemindSam => 'முயற்சிக்கவும்: “நாளை சாமுக்கு போன் செய்ய நினைவூட்டு.”';
+
+  @override
+  String get listeningOnThisPhone => 'இந்த தொலைபேசியில் கேட்கிறது';
+
+  @override
+  String get listeningOnYourOmi => 'உங்கள் Omi-இல் கேட்கிறது';
+
+  @override
+  String get skipForNowV3 => 'இப்போதைக்குத் தவிர்';
+
+  @override
+  String get omiWritingItUp => 'Omi இதை எழுதுகிறது…';
+
+  @override
+  String get yourFirstConversation => 'உங்கள் முதல் உரையாடல்';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'இப்போது · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'இதிலிருந்து செய்ய வேண்டியவை';
+
+  @override
+  String get everyConversationPage => 'ஒவ்வொரு உரையாடலும் இப்படி ஒரு பக்கமாகும். அவற்றை முகப்பில் காணலாம்.';
+
+  @override
+  String get stillWritingItUp => 'Omi இன்னும் எழுதுகிறது. தயாரானதும் முகப்பில் இருக்கும்.';
+
+  @override
+  String get notEnoughToWrite => 'இது எழுத மிகவும் சுருக்கமாக இருந்தது. உங்கள் அடுத்த உரையாடல் முகப்பில் தோன்றும்.';
+
+  @override
+  String get sourceThisPhone => 'இந்த தொலைபேசி';
+
+  @override
+  String get teachVoiceBody =>
+      'மூன்று சிறிய வரிகளைப் படியுங்கள், அப்போது Omi உங்கள் வார்த்தைகளை மற்றவர்களுடையதிலிருந்து பிரித்தறியும். சுமார் ஒரு நிமிடம் ஆகும்.';
+
+  @override
+  String get doThisLater => 'பிறகு செய்';
+
+  @override
+  String get readThisOutLoud => 'இதை சத்தமாகப் படியுங்கள்';
+
+  @override
+  String get voiceLineOne => 'வேகமான பழுப்பு நரி சோம்பேறி நாயின் மேல் தாவுகிறது.';
+
+  @override
+  String get voiceLineTwo => 'ஓட் பாலுடன் ஒரு காபி வேண்டும், தயவுசெய்து.';
+
+  @override
+  String get voiceLineThree => 'வெள்ளிக்கிழமை விளக்கக்காட்சியை அனுப்ப நினைவூட்டு.';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi உங்கள் குரலை அறியும்';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi உங்கள் குரலைச் சேமிக்க முடியவில்லை. அமைப்புகளில் மீண்டும் முயற்சிக்கவும்.';
 }

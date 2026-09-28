@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:omi/pages/capture/connect.dart';
 import 'package:omi/pages/devices/devices_screen.dart' show OmiRadioRing;
 import 'package:omi/pages/onboarding/widgets/onboarding_card.dart';
 import 'package:omi/ui/ui.dart';
@@ -8,38 +7,28 @@ import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/utils/platform/platform_service.dart';
 
 /// How will you record? (v3 `source`): "I have an Omi" (pendant, Omi Glass or Apple Watch) or "Just
-/// this phone for now", and a link for other wearables. With a wearable, Continue opens the connect
-/// flow (turn it on, find it, pair it) and onboarding moves on once it is paired and tested, or set
-/// up later; with the phone it moves on straight away. Backing out of the connect flow returns here.
+/// this phone for now", and a link for other wearables, which picks the first. Continue says which
+/// was picked: a wearable goes on to setting it up (turn it on, Bluetooth, pair, its button), the
+/// phone to the microphone.
 class OnboardingPickDeviceStep extends StatefulWidget {
-  const OnboardingPickDeviceStep({super.key, required this.goNext});
+  const OnboardingPickDeviceStep({super.key, required this.goNext, this.wearable = false});
 
-  final VoidCallback goNext;
+  /// Continue, with whether a wearable was picked.
+  final ValueChanged<bool> goNext;
+
+  /// Picked when the step opens (back from the pendant steps keeps the choice).
+  final bool wearable;
 
   @override
   State<OnboardingPickDeviceStep> createState() => _OnboardingPickDeviceStepState();
 }
 
 class _OnboardingPickDeviceStepState extends State<OnboardingPickDeviceStep> {
-  bool _wearable = false;
-
-  Future<void> _connect() async {
-    OmiHaptics.selection();
-    final advance = await Navigator.of(context).push<bool>(
-      omiPageRoute(
-        builder: (routeContext) => ConnectDevicePage(onDone: () => Navigator.of(routeContext).pop(true)),
-      ),
-    );
-    if (advance == true) widget.goNext();
-  }
+  late bool _wearable = widget.wearable;
 
   void _continue() {
-    if (_wearable) {
-      _connect();
-    } else {
-      OmiHaptics.selection();
-      widget.goNext();
-    }
+    OmiHaptics.selection();
+    widget.goNext(_wearable);
   }
 
   @override
@@ -67,7 +56,14 @@ class _OnboardingPickDeviceStepState extends State<OnboardingPickDeviceStep> {
           const SizedBox(height: 14),
           Align(
             alignment: Alignment.centerLeft,
-            child: OnboardingLink(label: l10n.iUseAnotherDevice, onTap: _connect),
+            child: OnboardingLink(
+              key: const Key('onboarding_other_device'),
+              label: l10n.iUseAnotherDevice,
+              onTap: () {
+                OmiHaptics.selection();
+                setState(() => _wearable = true);
+              },
+            ),
           ),
         ],
         footer: [

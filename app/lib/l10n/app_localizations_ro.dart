@@ -12446,4 +12446,164 @@ class AppLocalizationsRo extends AppLocalizations {
 
   @override
   String get noPastChats => 'Conversațiile tale cu Omi apar aici.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return 'Pasul $step din 3 · Omi-ul tău';
+  }
+
+  @override
+  String get turnOnYourOmi => 'Pornește Omi-ul';
+
+  @override
+  String get pressButtonOnce => 'Apasă o dată butonul din mijloc.';
+
+  @override
+  String get itsOnV3 => 'E pornit';
+
+  @override
+  String get lightDidntComeOn => 'Lumina nu s-a aprins';
+
+  @override
+  String get itsOnRedMeans => 'E pornit. Roșu înseamnă că încă nu e asociat. Asta urmează.';
+
+  @override
+  String get mayNeedCharging =>
+      'Poate trebuie încărcat. Pune-l pe încărcător: verdele intermitent înseamnă că se încarcă. Apoi apasă din nou butonul.';
+
+  @override
+  String get turnOnBluetoothV3 => 'Pornește Bluetooth';
+
+  @override
+  String get bluetoothOnlyThing => 'Așa vorbește Omi cu dispozitivul tău. Omi nu cere contacte sau locație.';
+
+  @override
+  String get notNowV3 => 'Nu acum';
+
+  @override
+  String get lookingForYourOmi => 'Căutăm Omi-ul tău';
+
+  @override
+  String get keepItClose => 'Ține-l aproape de telefon. Lumina rămâne roșie până se asociază.';
+
+  @override
+  String get waitingForBluetooth => 'Se așteaptă Bluetooth';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · în apropiere';
+  }
+
+  @override
+  String get pairV3 => 'Asociază';
+
+  @override
+  String get pairingV3 => 'Se asociază…';
+
+  @override
+  String get pairedV3 => 'Asociat';
+
+  @override
+  String get lightSolidBlueNow => 'Lumina e acum albastră continuu. Asta înseamnă că e conectat.';
+
+  @override
+  String get useThisPhoneInstead => 'Folosește acest telefon';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi nu ajunge la pandantiv. Pornește-l ca să continui.';
+
+  @override
+  String get tapPictureToTry => 'Atinge imaginea ca să încerci.';
+
+  @override
+  String get oneButtonThreeMoves => 'Un buton, trei mișcări';
+
+  @override
+  String get tapOnceV3 => 'Atinge o dată';
+
+  @override
+  String get tapOnceBody =>
+      'Pune-i lui Omi o întrebare cu voce tare. Atinge din nou când ai terminat sau așteaptă 15 secunde. Răspunsul apare în Întreabă.';
+
+  @override
+  String get tapTwiceV3 => 'Atinge de două ori';
+
+  @override
+  String get tapTwiceBody =>
+      'Încheie și salvează conversația. Schimbă în Dispozitive → Atingere dublă: pune înregistrarea pe pauză sau marchează conversația cu stea.';
+
+  @override
+  String get holdThreeSeconds => 'Ține apăsat 3 secunde';
+
+  @override
+  String get holdThreeSecondsBody => 'Îl oprește. Apasă o dată ca să-l pornești din nou.';
+
+  @override
+  String get gotItV3 => 'Am înțeles';
+
+  @override
+  String get sayAFewWords => 'Spune câteva cuvinte.';
+
+  @override
+  String get tryRemindSam => 'Încearcă: „Amintește-mi să-l sun mâine pe Sam.”';
+
+  @override
+  String get listeningOnThisPhone => 'Ascultă pe acest telefon';
+
+  @override
+  String get listeningOnYourOmi => 'Ascultă pe Omi-ul tău';
+
+  @override
+  String get skipForNowV3 => 'Omite deocamdată';
+
+  @override
+  String get omiWritingItUp => 'Omi scrie nota…';
+
+  @override
+  String get yourFirstConversation => 'Prima ta conversație';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'Chiar acum · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'De făcut din asta';
+
+  @override
+  String get everyConversationPage => 'Fiecare conversație devine o pagină ca aceasta. Le găsești pe Acasă.';
+
+  @override
+  String get stillWritingItUp => 'Omi încă scrie. Va apărea pe Acasă când e gata.';
+
+  @override
+  String get notEnoughToWrite => 'A fost prea scurt ca să fie scris. Următoarea conversație va apărea pe Acasă.';
+
+  @override
+  String get sourceThisPhone => 'acest telefon';
+
+  @override
+  String get teachVoiceBody =>
+      'Citește trei rânduri scurte ca Omi să-ți deosebească vorbele de ale altora. Durează cam un minut.';
+
+  @override
+  String get doThisLater => 'Mai târziu';
+
+  @override
+  String get readThisOutLoud => 'Citește cu voce tare';
+
+  @override
+  String get voiceLineOne => 'Vulpea maro și iute sare peste câinele leneș.';
+
+  @override
+  String get voiceLineTwo => 'Aș vrea o cafea cu lapte de ovăz, vă rog.';
+
+  @override
+  String get voiceLineThree => 'Amintește-mi să trimit prezentarea vineri.';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi îți cunoaște vocea';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi nu ți-a putut salva vocea. Încearcă din nou din Setări.';
 }

@@ -22478,6 +22478,306 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your chats with Omi show up here.'**
   String get noPastChats;
+
+  /// Onboarding (v3), above a pendant setup step
+  ///
+  /// In en, this message translates to:
+  /// **'Step {step} of 3 · Your Omi'**
+  String obStepYourOmi(int step);
+
+  /// Onboarding (v3): pendant step 1 title
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on your Omi'**
+  String get turnOnYourOmi;
+
+  /// Onboarding (v3): how to turn the pendant on
+  ///
+  /// In en, this message translates to:
+  /// **'Press the button in the middle once.'**
+  String get pressButtonOnce;
+
+  /// Onboarding (v3): the pendant turned on
+  ///
+  /// In en, this message translates to:
+  /// **'It’s on'**
+  String get itsOnV3;
+
+  /// Onboarding (v3): pendant step 1 help link
+  ///
+  /// In en, this message translates to:
+  /// **'The light didn’t come on'**
+  String get lightDidntComeOn;
+
+  /// Onboarding (v3): after the pendant turns on
+  ///
+  /// In en, this message translates to:
+  /// **'It’s on. Red means it isn’t paired yet. That’s next.'**
+  String get itsOnRedMeans;
+
+  /// Onboarding (v3): pendant didn't light up
+  ///
+  /// In en, this message translates to:
+  /// **'It may need charging. Put it on the charger: blinking green means it’s charging. Then press the button again.'**
+  String get mayNeedCharging;
+
+  /// Onboarding (v3): the Bluetooth step title
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on Bluetooth'**
+  String get turnOnBluetoothV3;
+
+  /// Onboarding (v3): why Bluetooth
+  ///
+  /// In en, this message translates to:
+  /// **'It’s how Omi talks to your device. Omi doesn’t ask for contacts or location.'**
+  String get bluetoothOnlyThing;
+
+  /// Onboarding (v3): skip allowing Bluetooth
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get notNowV3;
+
+  /// Onboarding (v3): pendant step 2 title while scanning
+  ///
+  /// In en, this message translates to:
+  /// **'Looking for your Omi'**
+  String get lookingForYourOmi;
+
+  /// Onboarding (v3): while scanning for the pendant
+  ///
+  /// In en, this message translates to:
+  /// **'Keep it close to your phone. The light stays red until it pairs.'**
+  String get keepItClose;
+
+  /// Onboarding (v3): scan step while Bluetooth is off
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for Bluetooth'**
+  String get waitingForBluetooth;
+
+  /// Onboarding (v3): a pendant found while scanning
+  ///
+  /// In en, this message translates to:
+  /// **'{id} · nearby'**
+  String nearbyDevice(String id);
+
+  /// Onboarding (v3): pair with a found pendant
+  ///
+  /// In en, this message translates to:
+  /// **'Pair'**
+  String get pairV3;
+
+  /// Onboarding (v3): pairing in progress
+  ///
+  /// In en, this message translates to:
+  /// **'Pairing…'**
+  String get pairingV3;
+
+  /// Onboarding (v3): the pendant paired
+  ///
+  /// In en, this message translates to:
+  /// **'Paired'**
+  String get pairedV3;
+
+  /// Onboarding (v3): after pairing
+  ///
+  /// In en, this message translates to:
+  /// **'The light is solid blue now. That means it’s connected.'**
+  String get lightSolidBlueNow;
+
+  /// Onboarding (v3): skip pairing and record with the phone
+  ///
+  /// In en, this message translates to:
+  /// **'Use this phone instead'**
+  String get useThisPhoneInstead;
+
+  /// Onboarding (v3): Bluetooth-off banner on the pendant steps
+  ///
+  /// In en, this message translates to:
+  /// **'Omi can’t reach your pendant. Turn it on to keep going.'**
+  String get bluetoothOffOmiCantReach;
+
+  /// Onboarding (v3): under the pendant photo on the power step
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the picture to try it.'**
+  String get tapPictureToTry;
+
+  /// Onboarding (v3): pendant step 3 title
+  ///
+  /// In en, this message translates to:
+  /// **'One button, three moves'**
+  String get oneButtonThreeMoves;
+
+  /// Onboarding (v3): pendant button, single tap
+  ///
+  /// In en, this message translates to:
+  /// **'Tap once'**
+  String get tapOnceV3;
+
+  /// Onboarding (v3): what a single tap does
+  ///
+  /// In en, this message translates to:
+  /// **'Ask Omi a question out loud. Tap again when you’re done, or wait 15 seconds. The answer shows up in Ask.'**
+  String get tapOnceBody;
+
+  /// Onboarding (v3): pendant button, double tap
+  ///
+  /// In en, this message translates to:
+  /// **'Tap twice'**
+  String get tapTwiceV3;
+
+  /// Onboarding (v3): what a double tap does
+  ///
+  /// In en, this message translates to:
+  /// **'End and save the conversation. Change it in Devices → Double tap: pause recording, or star the conversation.'**
+  String get tapTwiceBody;
+
+  /// Onboarding (v3): pendant button, long press
+  ///
+  /// In en, this message translates to:
+  /// **'Hold for 3 seconds'**
+  String get holdThreeSeconds;
+
+  /// Onboarding (v3): what a long press does
+  ///
+  /// In en, this message translates to:
+  /// **'Turn it off. Press once to turn it back on.'**
+  String get holdThreeSecondsBody;
+
+  /// Onboarding (v3): after the button guide
+  ///
+  /// In en, this message translates to:
+  /// **'Got it'**
+  String get gotItV3;
+
+  /// Onboarding (v3): the first recording step title
+  ///
+  /// In en, this message translates to:
+  /// **'Say a few words.'**
+  String get sayAFewWords;
+
+  /// Onboarding (v3): an example sentence to say
+  ///
+  /// In en, this message translates to:
+  /// **'Try: “Remind me to call Sam tomorrow.”'**
+  String get tryRemindSam;
+
+  /// Onboarding (v3): recording with the phone microphone
+  ///
+  /// In en, this message translates to:
+  /// **'Listening on this phone'**
+  String get listeningOnThisPhone;
+
+  /// Onboarding (v3): recording with the pendant
+  ///
+  /// In en, this message translates to:
+  /// **'Listening on your Omi'**
+  String get listeningOnYourOmi;
+
+  /// Onboarding (v3): leave the first recording when nothing is heard
+  ///
+  /// In en, this message translates to:
+  /// **'Skip for now'**
+  String get skipForNowV3;
+
+  /// Onboarding (v3): while the first conversation is processed
+  ///
+  /// In en, this message translates to:
+  /// **'Omi is writing it up…'**
+  String get omiWritingItUp;
+
+  /// Onboarding (v3): above the first conversation's title
+  ///
+  /// In en, this message translates to:
+  /// **'Your first conversation'**
+  String get yourFirstConversation;
+
+  /// Onboarding (v3): the first conversation's chip: when, how long, and what recorded it
+  ///
+  /// In en, this message translates to:
+  /// **'Just now · {length} · {source}'**
+  String justNowLength(String length, String source);
+
+  /// Onboarding (v3): the first conversation's to-dos heading
+  ///
+  /// In en, this message translates to:
+  /// **'To do from this'**
+  String get toDoFromThis;
+
+  /// Onboarding (v3): under the first conversation
+  ///
+  /// In en, this message translates to:
+  /// **'Every conversation turns into a page like this. You’ll find them on Home.'**
+  String get everyConversationPage;
+
+  /// Onboarding (v3): the first conversation takes longer than expected
+  ///
+  /// In en, this message translates to:
+  /// **'Omi is still writing it up. It’ll be on Home when it’s ready.'**
+  String get stillWritingItUp;
+
+  /// Onboarding (v3): the first recording was too short to become a conversation
+  ///
+  /// In en, this message translates to:
+  /// **'That was too short to write up. Your next conversation will show up on Home.'**
+  String get notEnoughToWrite;
+
+  /// Onboarding (v3): recorded by this phone, inside a sentence or chip
+  ///
+  /// In en, this message translates to:
+  /// **'this phone'**
+  String get sourceThisPhone;
+
+  /// Onboarding (v3): why to teach Omi your voice
+  ///
+  /// In en, this message translates to:
+  /// **'Read three short lines so Omi can tell your words from everyone else’s. It takes about a minute.'**
+  String get teachVoiceBody;
+
+  /// Onboarding (v3): skip teaching Omi your voice
+  ///
+  /// In en, this message translates to:
+  /// **'Do this later'**
+  String get doThisLater;
+
+  /// Onboarding (v3): above the line to read for voice enrollment
+  ///
+  /// In en, this message translates to:
+  /// **'Read this out loud'**
+  String get readThisOutLoud;
+
+  /// Onboarding (v3): first line to read aloud for voice enrollment; any short natural sentence works
+  ///
+  /// In en, this message translates to:
+  /// **'The quick brown fox jumps over the lazy dog.'**
+  String get voiceLineOne;
+
+  /// Onboarding (v3): second line to read aloud for voice enrollment
+  ///
+  /// In en, this message translates to:
+  /// **'I’d like a coffee with oat milk, please.'**
+  String get voiceLineTwo;
+
+  /// Onboarding (v3): third line to read aloud for voice enrollment
+  ///
+  /// In en, this message translates to:
+  /// **'Remind me to send the deck on Friday.'**
+  String get voiceLineThree;
+
+  /// Onboarding (v3): confirmation after voice enrollment
+  ///
+  /// In en, this message translates to:
+  /// **'Omi knows your voice'**
+  String get omiKnowsYourVoice;
+
+  /// Onboarding (v3): voice enrollment failed
+  ///
+  /// In en, this message translates to:
+  /// **'Omi couldn’t save your voice. Try again from Settings.'**
+  String get voiceNotSavedV3;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

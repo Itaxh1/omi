@@ -12399,4 +12399,164 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get noPastChats => 'Dina chattar med Omi visas här.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return 'Steg $step av 3 · Din Omi';
+  }
+
+  @override
+  String get turnOnYourOmi => 'Slå på din Omi';
+
+  @override
+  String get pressButtonOnce => 'Tryck en gång på knappen i mitten.';
+
+  @override
+  String get itsOnV3 => 'Den är på';
+
+  @override
+  String get lightDidntComeOn => 'Lampan tändes inte';
+
+  @override
+  String get itsOnRedMeans => 'Den är på. Rött betyder att den inte är parkopplad än. Det är nästa steg.';
+
+  @override
+  String get mayNeedCharging =>
+      'Den kan behöva laddas. Lägg den på laddaren: blinkande grönt betyder att den laddas. Tryck sedan på knappen igen.';
+
+  @override
+  String get turnOnBluetoothV3 => 'Slå på Bluetooth';
+
+  @override
+  String get bluetoothOnlyThing => 'Så pratar Omi med din enhet. Omi ber inte om kontakter eller plats.';
+
+  @override
+  String get notNowV3 => 'Inte nu';
+
+  @override
+  String get lookingForYourOmi => 'Letar efter din Omi';
+
+  @override
+  String get keepItClose => 'Håll den nära telefonen. Lampan lyser rött tills den är parkopplad.';
+
+  @override
+  String get waitingForBluetooth => 'Väntar på Bluetooth';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · i närheten';
+  }
+
+  @override
+  String get pairV3 => 'Parkoppla';
+
+  @override
+  String get pairingV3 => 'Parkopplar…';
+
+  @override
+  String get pairedV3 => 'Parkopplad';
+
+  @override
+  String get lightSolidBlueNow => 'Lampan lyser nu fast blått. Det betyder att den är ansluten.';
+
+  @override
+  String get useThisPhoneInstead => 'Använd den här telefonen i stället';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi når inte ditt hänge. Slå på det för att fortsätta.';
+
+  @override
+  String get tapPictureToTry => 'Tryck på bilden för att prova.';
+
+  @override
+  String get oneButtonThreeMoves => 'En knapp, tre rörelser';
+
+  @override
+  String get tapOnceV3 => 'Tryck en gång';
+
+  @override
+  String get tapOnceBody =>
+      'Ställ en fråga till Omi högt. Tryck igen när du är klar, eller vänta 15 sekunder. Svaret visas i Fråga.';
+
+  @override
+  String get tapTwiceV3 => 'Tryck två gånger';
+
+  @override
+  String get tapTwiceBody =>
+      'Avslutar och sparar samtalet. Ändra i Enheter → Dubbeltryck: pausa inspelningen eller stjärnmärk samtalet.';
+
+  @override
+  String get holdThreeSeconds => 'Håll inne i 3 sekunder';
+
+  @override
+  String get holdThreeSecondsBody => 'Stänger av den. Tryck en gång för att slå på den igen.';
+
+  @override
+  String get gotItV3 => 'Uppfattat';
+
+  @override
+  String get sayAFewWords => 'Säg några ord.';
+
+  @override
+  String get tryRemindSam => 'Prova: ”Påminn mig om att ringa Sam i morgon.”';
+
+  @override
+  String get listeningOnThisPhone => 'Lyssnar på den här telefonen';
+
+  @override
+  String get listeningOnYourOmi => 'Lyssnar på din Omi';
+
+  @override
+  String get skipForNowV3 => 'Hoppa över tills vidare';
+
+  @override
+  String get omiWritingItUp => 'Omi skriver ihop det…';
+
+  @override
+  String get yourFirstConversation => 'Ditt första samtal';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'Just nu · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'Att göra härifrån';
+
+  @override
+  String get everyConversationPage => 'Varje samtal blir en sida som den här. Du hittar dem på Hem.';
+
+  @override
+  String get stillWritingItUp => 'Omi skriver fortfarande. Det dyker upp på Hem när det är klart.';
+
+  @override
+  String get notEnoughToWrite => 'Det var för kort för att skriva ihop. Ditt nästa samtal visas på Hem.';
+
+  @override
+  String get sourceThisPhone => 'den här telefonen';
+
+  @override
+  String get teachVoiceBody =>
+      'Läs tre korta rader så att Omi kan skilja dina ord från andras. Det tar ungefär en minut.';
+
+  @override
+  String get doThisLater => 'Gör det senare';
+
+  @override
+  String get readThisOutLoud => 'Läs det här högt';
+
+  @override
+  String get voiceLineOne => 'Den snabba bruna räven hoppar över den lata hunden.';
+
+  @override
+  String get voiceLineTwo => 'Jag skulle vilja ha en kaffe med havremjölk, tack.';
+
+  @override
+  String get voiceLineThree => 'Påminn mig om att skicka presentationen på fredag.';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi känner din röst';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi kunde inte spara din röst. Försök igen från Inställningar.';
 }

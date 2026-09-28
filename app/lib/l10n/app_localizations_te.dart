@@ -12441,4 +12441,164 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get noPastChats => 'Omi తో మీ చాట్‌లు ఇక్కడ కనిపిస్తాయి.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return 'దశ $step/3 · మీ Omi';
+  }
+
+  @override
+  String get turnOnYourOmi => 'మీ Omi ని ఆన్ చేయండి';
+
+  @override
+  String get pressButtonOnce => 'మధ్యలో ఉన్న బటన్‌ను ఒకసారి నొక్కండి.';
+
+  @override
+  String get itsOnV3 => 'ఆన్ అయింది';
+
+  @override
+  String get lightDidntComeOn => 'లైట్ వెలగలేదు';
+
+  @override
+  String get itsOnRedMeans => 'ఆన్ అయింది. ఎరుపు అంటే ఇంకా జత కాలేదు. అదే తర్వాతి దశ.';
+
+  @override
+  String get mayNeedCharging =>
+      'ఛార్జ్ అవసరం కావచ్చు. ఛార్జర్‌పై పెట్టండి: ఆకుపచ్చ మెరుస్తుంటే ఛార్జ్ అవుతోంది. తర్వాత మళ్లీ బటన్ నొక్కండి.';
+
+  @override
+  String get turnOnBluetoothV3 => 'బ్లూటూత్ ఆన్ చేయండి';
+
+  @override
+  String get bluetoothOnlyThing => 'ఇలాగే Omi మీ పరికరంతో మాట్లాడుతుంది. Omi కాంటాక్ట్‌లు లేదా లొకేషన్ అడగదు.';
+
+  @override
+  String get notNowV3 => 'ఇప్పుడు వద్దు';
+
+  @override
+  String get lookingForYourOmi => 'మీ Omi కోసం వెతుకుతోంది';
+
+  @override
+  String get keepItClose => 'ఫోన్ దగ్గర ఉంచండి. జత అయ్యే వరకు లైట్ ఎరుపుగా ఉంటుంది.';
+
+  @override
+  String get waitingForBluetooth => 'బ్లూటూత్ కోసం వేచి ఉంది';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · దగ్గరలో';
+  }
+
+  @override
+  String get pairV3 => 'జత చేయి';
+
+  @override
+  String get pairingV3 => 'జత చేస్తోంది…';
+
+  @override
+  String get pairedV3 => 'జత అయింది';
+
+  @override
+  String get lightSolidBlueNow => 'లైట్ ఇప్పుడు స్థిరమైన నీలం. అంటే కనెక్ట్ అయింది.';
+
+  @override
+  String get useThisPhoneInstead => 'బదులుగా ఈ ఫోన్ వాడండి';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi మీ పెండెంట్‌ను చేరలేకపోతోంది. కొనసాగడానికి ఆన్ చేయండి.';
+
+  @override
+  String get tapPictureToTry => 'ప్రయత్నించడానికి చిత్రాన్ని నొక్కండి.';
+
+  @override
+  String get oneButtonThreeMoves => 'ఒకే బటన్, మూడు కదలికలు';
+
+  @override
+  String get tapOnceV3 => 'ఒకసారి నొక్కండి';
+
+  @override
+  String get tapOnceBody =>
+      'Omi ని గట్టిగా ప్రశ్న అడగండి. అయిపోయాక మళ్లీ నొక్కండి లేదా 15 సెకన్లు ఆగండి. జవాబు Ask లో కనిపిస్తుంది.';
+
+  @override
+  String get tapTwiceV3 => 'రెండుసార్లు నొక్కండి';
+
+  @override
+  String get tapTwiceBody =>
+      'సంభాషణను ముగించి సేవ్ చేస్తుంది. పరికరాలు → డబుల్ ట్యాప్ లో మార్చండి: రికార్డింగ్ ఆపండి, లేదా సంభాషణకు నక్షత్రం పెట్టండి.';
+
+  @override
+  String get holdThreeSeconds => '3 సెకన్లు నొక్కి పట్టుకోండి';
+
+  @override
+  String get holdThreeSecondsBody => 'ఆఫ్ చేస్తుంది. మళ్లీ ఆన్ చేయడానికి ఒకసారి నొక్కండి.';
+
+  @override
+  String get gotItV3 => 'అర్థమైంది';
+
+  @override
+  String get sayAFewWords => 'కొన్ని మాటలు చెప్పండి.';
+
+  @override
+  String get tryRemindSam => 'ప్రయత్నించండి: “రేపు సామ్‌కి ఫోన్ చేయమని గుర్తు చేయి.”';
+
+  @override
+  String get listeningOnThisPhone => 'ఈ ఫోన్‌లో వింటోంది';
+
+  @override
+  String get listeningOnYourOmi => 'మీ Omi లో వింటోంది';
+
+  @override
+  String get skipForNowV3 => 'ప్రస్తుతానికి దాటవేయి';
+
+  @override
+  String get omiWritingItUp => 'Omi దీన్ని రాస్తోంది…';
+
+  @override
+  String get yourFirstConversation => 'మీ మొదటి సంభాషణ';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'ఇప్పుడే · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'దీని నుండి చేయాల్సినవి';
+
+  @override
+  String get everyConversationPage => 'ప్రతి సంభాషణ ఇలాంటి పేజీగా మారుతుంది. అవి హోమ్‌లో కనిపిస్తాయి.';
+
+  @override
+  String get stillWritingItUp => 'Omi ఇంకా రాస్తోంది. సిద్ధమైనప్పుడు హోమ్‌లో ఉంటుంది.';
+
+  @override
+  String get notEnoughToWrite => 'ఇది రాయడానికి చాలా చిన్నది. మీ తదుపరి సంభాషణ హోమ్‌లో కనిపిస్తుంది.';
+
+  @override
+  String get sourceThisPhone => 'ఈ ఫోన్';
+
+  @override
+  String get teachVoiceBody =>
+      'మూడు చిన్న వాక్యాలు చదవండి, అప్పుడు Omi మీ మాటలను ఇతరుల నుండి వేరుగా గుర్తిస్తుంది. దాదాపు ఒక నిమిషం పడుతుంది.';
+
+  @override
+  String get doThisLater => 'తర్వాత చేయండి';
+
+  @override
+  String get readThisOutLoud => 'దీన్ని గట్టిగా చదవండి';
+
+  @override
+  String get voiceLineOne => 'చురుకైన గోధుమ రంగు నక్క సోమరి కుక్క మీదుగా దూకుతుంది.';
+
+  @override
+  String get voiceLineTwo => 'దయచేసి ఓట్ పాలతో ఒక కాఫీ కావాలి.';
+
+  @override
+  String get voiceLineThree => 'శుక్రవారం ప్రెజెంటేషన్ పంపమని గుర్తు చేయి.';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi మీ గొంతును గుర్తిస్తుంది';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi మీ గొంతును సేవ్ చేయలేకపోయింది. సెట్టింగ్‌ల నుండి మళ్లీ ప్రయత్నించండి.';
 }

@@ -126,6 +126,10 @@ class HomePage extends StatefulWidget {
   final String? navigateToRoute;
   const HomePage({super.key, this.navigateToRoute});
 
+  /// Set as onboarding hands over: the first Home shows the recorder card for a moment (v3
+  /// `obFinish`'s `qopen`), so the reader sees where listening is controlled. Used once.
+  static bool peekRecorderOnArrival = false;
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -179,6 +183,18 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
         3 => const AddAnAppPage(),
         _ => const AllConversationsPage(),
       };
+
+  /// Opens the recorder card half a second after arriving and closes it 1.6 s later, unless the
+  /// reader has touched it by then.
+  void _peekRecorder() {
+    Timer(const Duration(milliseconds: 500), () {
+      if (!mounted || _recorderOpen.value) return;
+      _recorderOpen.value = true;
+      Timer(const Duration(milliseconds: 1600), () {
+        if (mounted && _recorderOpen.value) _recorderOpen.value = false;
+      });
+    });
+  }
 
   /// The folder button: the folders sidebar.
   void _openFolders() {
@@ -377,6 +393,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
     home.selectedIndex = 0;
     home.onSelectedIndexChanged = _onSectionRequested;
     if (homePageIdx > 0) WidgetsBinding.instance.addPostFrameCallback((_) => _onSectionRequested(homePageIdx));
+    if (HomePage.peekRecorderOnArrival) {
+      HomePage.peekRecorderOnArrival = false;
+      _peekRecorder();
+    }
     WidgetsBinding.instance.addObserver(this);
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {

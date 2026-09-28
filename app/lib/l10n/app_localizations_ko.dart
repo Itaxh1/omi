@@ -12194,4 +12194,160 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get noPastChats => 'Omi와 나눈 채팅이 여기에 표시돼요.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return '$step/3단계 · 내 Omi';
+  }
+
+  @override
+  String get turnOnYourOmi => 'Omi를 켜세요';
+
+  @override
+  String get pressButtonOnce => '가운데 버튼을 한 번 누르세요.';
+
+  @override
+  String get itsOnV3 => '켜졌어요';
+
+  @override
+  String get lightDidntComeOn => '불이 켜지지 않았어요';
+
+  @override
+  String get itsOnRedMeans => '켜졌어요. 빨간색은 아직 연결되지 않았다는 뜻이에요. 다음 단계에서 연결해요.';
+
+  @override
+  String get mayNeedCharging => '충전이 필요할 수 있어요. 충전기에 올려 두세요. 초록색이 깜박이면 충전 중이에요. 그런 다음 버튼을 다시 누르세요.';
+
+  @override
+  String get turnOnBluetoothV3 => '블루투스를 켜세요';
+
+  @override
+  String get bluetoothOnlyThing => 'Omi는 블루투스로 기기와 대화해요. 연락처나 위치는 요청하지 않아요.';
+
+  @override
+  String get notNowV3 => '나중에';
+
+  @override
+  String get lookingForYourOmi => 'Omi를 찾는 중';
+
+  @override
+  String get keepItClose => '휴대폰 가까이에 두세요. 연결될 때까지 빨간불이 켜져 있어요.';
+
+  @override
+  String get waitingForBluetooth => '블루투스를 기다리는 중';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · 근처';
+  }
+
+  @override
+  String get pairV3 => '연결';
+
+  @override
+  String get pairingV3 => '연결 중…';
+
+  @override
+  String get pairedV3 => '연결됨';
+
+  @override
+  String get lightSolidBlueNow => '이제 파란불이 계속 켜져 있어요. 연결되었다는 뜻이에요.';
+
+  @override
+  String get useThisPhoneInstead => '대신 이 휴대폰 사용';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi가 펜던트에 닿지 못해요. 계속하려면 켜 주세요.';
+
+  @override
+  String get tapPictureToTry => '사진을 탭해서 해 보세요.';
+
+  @override
+  String get oneButtonThreeMoves => '버튼 하나, 세 가지 동작';
+
+  @override
+  String get tapOnceV3 => '한 번 탭';
+
+  @override
+  String get tapOnceBody => 'Omi에게 소리 내어 질문하세요. 다 말했으면 다시 탭하거나 15초 기다리세요. 답은 질문하기에 나타나요.';
+
+  @override
+  String get tapTwiceV3 => '두 번 탭';
+
+  @override
+  String get tapTwiceBody => '대화를 끝내고 저장해요. 기기 → 두 번 탭에서 녹음 일시정지나 대화에 별표로 바꿀 수 있어요.';
+
+  @override
+  String get holdThreeSeconds => '3초 누르기';
+
+  @override
+  String get holdThreeSecondsBody => '전원이 꺼져요. 다시 켜려면 한 번 누르세요.';
+
+  @override
+  String get gotItV3 => '알겠어요';
+
+  @override
+  String get sayAFewWords => '몇 마디 말해 보세요.';
+
+  @override
+  String get tryRemindSam => '이렇게 말해 보세요: “내일 샘에게 전화하라고 알려 줘.”';
+
+  @override
+  String get listeningOnThisPhone => '이 휴대폰으로 듣는 중';
+
+  @override
+  String get listeningOnYourOmi => 'Omi로 듣는 중';
+
+  @override
+  String get skipForNowV3 => '지금은 건너뛰기';
+
+  @override
+  String get omiWritingItUp => 'Omi가 정리하는 중…';
+
+  @override
+  String get yourFirstConversation => '첫 번째 대화';
+
+  @override
+  String justNowLength(String length, String source) {
+    return '방금 · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => '여기서 나온 할 일';
+
+  @override
+  String get everyConversationPage => '모든 대화는 이런 페이지가 돼요. 홈에서 볼 수 있어요.';
+
+  @override
+  String get stillWritingItUp => 'Omi가 아직 정리 중이에요. 준비되면 홈에 나타나요.';
+
+  @override
+  String get notEnoughToWrite => '정리하기엔 너무 짧았어요. 다음 대화는 홈에 나타나요.';
+
+  @override
+  String get sourceThisPhone => '이 휴대폰';
+
+  @override
+  String get teachVoiceBody => '짧은 세 줄을 읽으면 Omi가 내 말과 다른 사람의 말을 구별할 수 있어요. 1분 정도 걸려요.';
+
+  @override
+  String get doThisLater => '나중에 하기';
+
+  @override
+  String get readThisOutLoud => '소리 내어 읽어 주세요';
+
+  @override
+  String get voiceLineOne => '재빠른 갈색 여우가 게으른 개를 뛰어넘어요.';
+
+  @override
+  String get voiceLineTwo => '귀리 우유 넣은 커피 한 잔 주세요.';
+
+  @override
+  String get voiceLineThree => '금요일에 발표 자료 보내라고 알려 줘.';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi가 내 목소리를 알아요';
+
+  @override
+  String get voiceNotSavedV3 => '목소리를 저장하지 못했어요. 설정에서 다시 시도해 주세요.';
 }

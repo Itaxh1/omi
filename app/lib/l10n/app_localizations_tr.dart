@@ -12406,4 +12406,164 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get noPastChats => 'Omi ile sohbetleriniz burada görünür.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return 'Adım $step/3 · Omi\'niz';
+  }
+
+  @override
+  String get turnOnYourOmi => 'Omi\'nizi açın';
+
+  @override
+  String get pressButtonOnce => 'Ortadaki düğmeye bir kez basın.';
+
+  @override
+  String get itsOnV3 => 'Açıldı';
+
+  @override
+  String get lightDidntComeOn => 'Işık yanmadı';
+
+  @override
+  String get itsOnRedMeans => 'Açıldı. Kırmızı, henüz eşlenmediği anlamına gelir. Sıradaki adım bu.';
+
+  @override
+  String get mayNeedCharging =>
+      'Şarj edilmesi gerekebilir. Şarj cihazına koyun: yanıp sönen yeşil şarj olduğu anlamına gelir. Sonra düğmeye tekrar basın.';
+
+  @override
+  String get turnOnBluetoothV3 => 'Bluetooth\'u açın';
+
+  @override
+  String get bluetoothOnlyThing => 'Omi cihazınızla böyle konuşur. Omi kişilerinizi veya konumunuzu istemez.';
+
+  @override
+  String get notNowV3 => 'Şimdi değil';
+
+  @override
+  String get lookingForYourOmi => 'Omi\'niz aranıyor';
+
+  @override
+  String get keepItClose => 'Telefonunuza yakın tutun. Eşlenene kadar ışık kırmızı kalır.';
+
+  @override
+  String get waitingForBluetooth => 'Bluetooth bekleniyor';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · yakında';
+  }
+
+  @override
+  String get pairV3 => 'Eşle';
+
+  @override
+  String get pairingV3 => 'Eşleniyor…';
+
+  @override
+  String get pairedV3 => 'Eşlendi';
+
+  @override
+  String get lightSolidBlueNow => 'Işık artık sabit mavi. Bu, bağlandığı anlamına gelir.';
+
+  @override
+  String get useThisPhoneInstead => 'Bunun yerine bu telefonu kullan';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi kolyenize ulaşamıyor. Devam etmek için açın.';
+
+  @override
+  String get tapPictureToTry => 'Denemek için resme dokunun.';
+
+  @override
+  String get oneButtonThreeMoves => 'Tek düğme, üç hareket';
+
+  @override
+  String get tapOnceV3 => 'Bir kez dokunun';
+
+  @override
+  String get tapOnceBody =>
+      'Omi\'ye yüksek sesle bir soru sorun. Bitince tekrar dokunun ya da 15 saniye bekleyin. Yanıt Sor bölümünde görünür.';
+
+  @override
+  String get tapTwiceV3 => 'İki kez dokunun';
+
+  @override
+  String get tapTwiceBody =>
+      'Konuşmayı bitirir ve kaydeder. Cihazlar → Çift dokunma bölümünden değiştirin: kaydı duraklatın veya konuşmayı yıldızlayın.';
+
+  @override
+  String get holdThreeSeconds => '3 saniye basılı tutun';
+
+  @override
+  String get holdThreeSecondsBody => 'Kapatır. Yeniden açmak için bir kez basın.';
+
+  @override
+  String get gotItV3 => 'Anladım';
+
+  @override
+  String get sayAFewWords => 'Birkaç kelime söyleyin.';
+
+  @override
+  String get tryRemindSam => 'Deneyin: “Yarın Sam\'i aramamı hatırlat.”';
+
+  @override
+  String get listeningOnThisPhone => 'Bu telefonda dinliyor';
+
+  @override
+  String get listeningOnYourOmi => 'Omi\'nizde dinliyor';
+
+  @override
+  String get skipForNowV3 => 'Şimdilik atla';
+
+  @override
+  String get omiWritingItUp => 'Omi not alıyor…';
+
+  @override
+  String get yourFirstConversation => 'İlk konuşmanız';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'Az önce · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'Buradan yapılacaklar';
+
+  @override
+  String get everyConversationPage => 'Her konuşma böyle bir sayfaya dönüşür. Hepsini Ana Sayfa\'da bulursunuz.';
+
+  @override
+  String get stillWritingItUp => 'Omi hâlâ yazıyor. Hazır olunca Ana Sayfa\'da olacak.';
+
+  @override
+  String get notEnoughToWrite => 'Not almak için çok kısaydı. Bir sonraki konuşmanız Ana Sayfa\'da görünecek.';
+
+  @override
+  String get sourceThisPhone => 'bu telefon';
+
+  @override
+  String get teachVoiceBody =>
+      'Omi\'nin sizin sözlerinizi başkalarınınkinden ayırt edebilmesi için üç kısa satır okuyun. Yaklaşık bir dakika sürer.';
+
+  @override
+  String get doThisLater => 'Daha sonra yap';
+
+  @override
+  String get readThisOutLoud => 'Bunu yüksek sesle okuyun';
+
+  @override
+  String get voiceLineOne => 'Hızlı kahverengi tilki tembel köpeğin üzerinden atlar.';
+
+  @override
+  String get voiceLineTwo => 'Yulaf sütlü bir kahve alabilir miyim, lütfen.';
+
+  @override
+  String get voiceLineThree => 'Cuma günü sunumu göndermemi hatırlat.';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi sesinizi tanıyor';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi sesinizi kaydedemedi. Ayarlar\'dan tekrar deneyin.';
 }

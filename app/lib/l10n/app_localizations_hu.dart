@@ -12440,4 +12440,164 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get noPastChats => 'Az Omival folytatott csevegéseid itt jelennek meg.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return '$step/3. lépés · Az Omid';
+  }
+
+  @override
+  String get turnOnYourOmi => 'Kapcsold be az Omit';
+
+  @override
+  String get pressButtonOnce => 'Nyomd meg egyszer a középső gombot.';
+
+  @override
+  String get itsOnV3 => 'Bekapcsolt';
+
+  @override
+  String get lightDidntComeOn => 'Nem gyulladt ki a fény';
+
+  @override
+  String get itsOnRedMeans => 'Bekapcsolt. A piros azt jelenti, hogy még nincs párosítva. Ez jön most.';
+
+  @override
+  String get mayNeedCharging =>
+      'Lehet, hogy tölteni kell. Tedd a töltőre: a villogó zöld azt jelenti, hogy töltődik. Aztán nyomd meg újra a gombot.';
+
+  @override
+  String get turnOnBluetoothV3 => 'Kapcsold be a Bluetooth-t';
+
+  @override
+  String get bluetoothOnlyThing => 'Így beszél az Omi az eszközöddel. Az Omi nem kér névjegyeket vagy helyadatot.';
+
+  @override
+  String get notNowV3 => 'Most nem';
+
+  @override
+  String get lookingForYourOmi => 'Keressük az Omidat';
+
+  @override
+  String get keepItClose => 'Tartsd a telefon közelében. A fény piros marad, amíg párosodik.';
+
+  @override
+  String get waitingForBluetooth => 'Várakozás a Bluetooth-ra';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · a közelben';
+  }
+
+  @override
+  String get pairV3 => 'Párosítás';
+
+  @override
+  String get pairingV3 => 'Párosítás…';
+
+  @override
+  String get pairedV3 => 'Párosítva';
+
+  @override
+  String get lightSolidBlueNow => 'A fény most folyamatosan kék. Ez azt jelenti, hogy csatlakozott.';
+
+  @override
+  String get useThisPhoneInstead => 'Inkább ezt a telefont használom';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Az Omi nem éri el a medálodat. Kapcsold be a folytatáshoz.';
+
+  @override
+  String get tapPictureToTry => 'Koppints a képre a kipróbáláshoz.';
+
+  @override
+  String get oneButtonThreeMoves => 'Egy gomb, három mozdulat';
+
+  @override
+  String get tapOnceV3 => 'Koppints egyszer';
+
+  @override
+  String get tapOnceBody =>
+      'Tegyél fel hangosan egy kérdést az Ominak. Ha végeztél, koppints újra, vagy várj 15 másodpercet. A válasz a Kérdezés részben jelenik meg.';
+
+  @override
+  String get tapTwiceV3 => 'Koppints kétszer';
+
+  @override
+  String get tapTwiceBody =>
+      'Befejezi és menti a beszélgetést. Módosítás: Eszközök → Dupla koppintás: felvétel szüneteltetése vagy a beszélgetés csillagozása.';
+
+  @override
+  String get holdThreeSeconds => 'Tartsd lenyomva 3 másodpercig';
+
+  @override
+  String get holdThreeSecondsBody => 'Kikapcsolja. Egy nyomással újra bekapcsol.';
+
+  @override
+  String get gotItV3 => 'Értem';
+
+  @override
+  String get sayAFewWords => 'Mondj pár szót.';
+
+  @override
+  String get tryRemindSam => 'Próbáld: „Emlékeztess, hogy holnap hívjam fel Samet.”';
+
+  @override
+  String get listeningOnThisPhone => 'Ezen a telefonon figyel';
+
+  @override
+  String get listeningOnYourOmi => 'Az Omidon figyel';
+
+  @override
+  String get skipForNowV3 => 'Most kihagyom';
+
+  @override
+  String get omiWritingItUp => 'Az Omi leírja…';
+
+  @override
+  String get yourFirstConversation => 'Az első beszélgetésed';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'Épp most · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'Teendők ebből';
+
+  @override
+  String get everyConversationPage => 'Minden beszélgetésből egy ilyen oldal lesz. A Kezdőlapon találod őket.';
+
+  @override
+  String get stillWritingItUp => 'Az Omi még írja. Ha elkészül, a Kezdőlapon lesz.';
+
+  @override
+  String get notEnoughToWrite => 'Ez túl rövid volt a leíráshoz. A következő beszélgetésed a Kezdőlapon jelenik meg.';
+
+  @override
+  String get sourceThisPhone => 'ez a telefon';
+
+  @override
+  String get teachVoiceBody =>
+      'Olvass fel három rövid sort, hogy az Omi meg tudja különböztetni a szavaidat másokéitól. Körülbelül egy perc.';
+
+  @override
+  String get doThisLater => 'Később';
+
+  @override
+  String get readThisOutLoud => 'Olvasd fel hangosan';
+
+  @override
+  String get voiceLineOne => 'A gyors barna róka átugrik a lusta kutyán.';
+
+  @override
+  String get voiceLineTwo => 'Egy kávét kérnék zabtejjel, köszönöm.';
+
+  @override
+  String get voiceLineThree => 'Emlékeztess, hogy pénteken küldjem el a prezentációt.';
+
+  @override
+  String get omiKnowsYourVoice => 'Az Omi ismeri a hangodat';
+
+  @override
+  String get voiceNotSavedV3 => 'Az Omi nem tudta menteni a hangodat. Próbáld újra a Beállításokban.';
 }

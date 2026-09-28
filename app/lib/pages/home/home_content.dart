@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 import 'package:omi/backend/schema/conversation.dart';
 import 'package:omi/pages/conversations/widgets/capture_recovery_banner.dart';
-import 'package:omi/pages/home/widgets/home_first_day.dart';
 import 'package:omi/pages/home/widgets/home_heard_today.dart';
 import 'package:omi/pages/home/widgets/home_todo_card.dart';
 import 'package:omi/providers/conversation_provider.dart';
@@ -56,7 +55,6 @@ class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliv
         // While the first page is still loading an established account looks empty; wait before
         // showing first-day content so it never flashes.
         final settled = count > 0 || !(convoProvider.isLoadingConversations || convoProvider.isFetchingConversations);
-        final firstDay = settled && count == 0;
         final heard = HomeHeardToday.pick(convoProvider);
         final heardToday = heard.isNotEmpty && HomeHeardToday.isToday(heard.first);
         // The To-do card sits in the warm zone at the same height above the Ask bar on every phone;
@@ -78,19 +76,15 @@ class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliv
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    if (firstDay) ...[
-                      const HomeFirstDayHeader(),
-                      const FirstDayListeningHero(),
-                    ] else
-                      _buildHeadline(context),
+                    // The first day is Home as every day (v3 `setData('first')`): the headline, what
+                    // Omi heard (the first conversation) and the To-do card.
+                    _buildHeadline(context),
                     const CaptureRecoveryBanner(),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: OmiSize.screenMargin),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          // Until the first few conversations: the setup checklist (folds away when done).
-                          if (settled && count < 3) HomeGettingStarted(conversationCount: count),
                           if (heard.isNotEmpty)
                             HomeHeardToday(
                               conversations: heard,
@@ -100,7 +94,6 @@ class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliv
                         ],
                       ),
                     ),
-                    if (settled && firstDay) const HomeGoodToKnow(),
                     const SizedBox(height: HomeTone.cardBelowRows),
                     const Spacer(),
                     if (settled)

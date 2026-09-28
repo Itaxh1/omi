@@ -72,10 +72,13 @@ class PlatformOnboardingPermissionsSource implements OnboardingPermissionsSource
 /// Nothing here prompts on its own; the screens' Continue only moves on. States are re-read when
 /// the app returns to the foreground, so a permission switched on in Settings shows as allowed.
 class OnboardingPermissionsPanel extends StatefulWidget {
-  const OnboardingPermissionsPanel({super.key, this.source});
+  const OnboardingPermissionsPanel({super.key, this.source, this.exclude = const {}});
 
   /// Defaults to [PlatformOnboardingPermissionsSource] over the ambient [OnboardingProvider].
   final OnboardingPermissionsSource? source;
+
+  /// Rows left out here (first run leaves out location: it promised not to ask for it).
+  final Set<OnboardingPermission> exclude;
 
   @override
   State<OnboardingPermissionsPanel> createState() => _OnboardingPermissionsPanelState();
@@ -85,6 +88,8 @@ class _OnboardingPermissionsPanelState extends State<OnboardingPermissionsPanel>
   late final OnboardingPermissionsSource _source =
       widget.source ?? PlatformOnboardingPermissionsSource(context.read<OnboardingProvider>());
   final Map<OnboardingPermission, OmiPermissionStatus> _statuses = {};
+
+  Iterable<OnboardingPermission> get _permissions => _source.permissions.where((p) => !widget.exclude.contains(p));
 
   @override
   void initState() {
@@ -105,7 +110,7 @@ class _OnboardingPermissionsPanelState extends State<OnboardingPermissionsPanel>
   }
 
   Future<void> _refresh() async {
-    for (final permission in _source.permissions) {
+    for (final permission in _permissions) {
       OmiPermissionStatus status;
       try {
         status = await _source.status(permission);
@@ -128,7 +133,7 @@ class _OnboardingPermissionsPanelState extends State<OnboardingPermissionsPanel>
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final permissions = _source.permissions.toList();
+    final permissions = _permissions.toList();
     // v2: every permission in one grouped card, split by hairlines.
     return Container(
       decoration: BoxDecoration(color: OmiColors.surface1, borderRadius: OmiRadius.rowAll),

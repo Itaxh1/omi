@@ -12429,4 +12429,166 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get noPastChats => 'Sembang anda dengan Omi dipaparkan di sini.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return 'Langkah $step daripada 3 · Omi anda';
+  }
+
+  @override
+  String get turnOnYourOmi => 'Hidupkan Omi anda';
+
+  @override
+  String get pressButtonOnce => 'Tekan butang di tengah sekali.';
+
+  @override
+  String get itsOnV3 => 'Sudah hidup';
+
+  @override
+  String get lightDidntComeOn => 'Lampu tidak menyala';
+
+  @override
+  String get itsOnRedMeans => 'Sudah hidup. Merah bermaksud ia belum dipasangkan. Itu langkah seterusnya.';
+
+  @override
+  String get mayNeedCharging =>
+      'Mungkin ia perlu dicas. Letakkan pada pengecas: hijau berkelip bermaksud ia sedang dicas. Kemudian tekan butang sekali lagi.';
+
+  @override
+  String get turnOnBluetoothV3 => 'Hidupkan Bluetooth';
+
+  @override
+  String get bluetoothOnlyThing => 'Begitulah Omi bercakap dengan peranti anda. Omi tidak meminta kenalan atau lokasi.';
+
+  @override
+  String get notNowV3 => 'Bukan sekarang';
+
+  @override
+  String get lookingForYourOmi => 'Mencari Omi anda';
+
+  @override
+  String get keepItClose => 'Letakkan dekat telefon anda. Lampu kekal merah sehingga ia dipasangkan.';
+
+  @override
+  String get waitingForBluetooth => 'Menunggu Bluetooth';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · berdekatan';
+  }
+
+  @override
+  String get pairV3 => 'Pasangkan';
+
+  @override
+  String get pairingV3 => 'Memasangkan…';
+
+  @override
+  String get pairedV3 => 'Dipasangkan';
+
+  @override
+  String get lightSolidBlueNow => 'Lampu kini biru tetap. Maknanya ia sudah bersambung.';
+
+  @override
+  String get useThisPhoneInstead => 'Guna telefon ini sahaja';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi tidak dapat mencapai loket anda. Hidupkan untuk teruskan.';
+
+  @override
+  String get tapPictureToTry => 'Ketik gambar untuk mencuba.';
+
+  @override
+  String get oneButtonThreeMoves => 'Satu butang, tiga gerakan';
+
+  @override
+  String get tapOnceV3 => 'Ketik sekali';
+
+  @override
+  String get tapOnceBody =>
+      'Tanya Omi soalan dengan kuat. Ketik lagi apabila selesai, atau tunggu 15 saat. Jawapan muncul dalam Tanya.';
+
+  @override
+  String get tapTwiceV3 => 'Ketik dua kali';
+
+  @override
+  String get tapTwiceBody =>
+      'Tamatkan dan simpan perbualan. Tukar dalam Peranti → Ketik dua kali: jeda rakaman, atau bintangkan perbualan.';
+
+  @override
+  String get holdThreeSeconds => 'Tahan selama 3 saat';
+
+  @override
+  String get holdThreeSecondsBody => 'Matikannya. Tekan sekali untuk menghidupkannya semula.';
+
+  @override
+  String get gotItV3 => 'Faham';
+
+  @override
+  String get sayAFewWords => 'Sebut beberapa perkataan.';
+
+  @override
+  String get tryRemindSam => 'Cuba: “Ingatkan saya untuk telefon Sam esok.”';
+
+  @override
+  String get listeningOnThisPhone => 'Mendengar pada telefon ini';
+
+  @override
+  String get listeningOnYourOmi => 'Mendengar pada Omi anda';
+
+  @override
+  String get skipForNowV3 => 'Langkau buat masa ini';
+
+  @override
+  String get omiWritingItUp => 'Omi sedang menulisnya…';
+
+  @override
+  String get yourFirstConversation => 'Perbualan pertama anda';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'Baru sahaja · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'Tugasan daripada ini';
+
+  @override
+  String get everyConversationPage =>
+      'Setiap perbualan menjadi halaman seperti ini. Anda akan menemuinya di Laman Utama.';
+
+  @override
+  String get stillWritingItUp => 'Omi masih menulisnya. Ia akan ada di Laman Utama apabila siap.';
+
+  @override
+  String get notEnoughToWrite =>
+      'Itu terlalu pendek untuk ditulis. Perbualan anda yang seterusnya akan muncul di Laman Utama.';
+
+  @override
+  String get sourceThisPhone => 'telefon ini';
+
+  @override
+  String get teachVoiceBody =>
+      'Baca tiga baris pendek supaya Omi dapat membezakan kata-kata anda daripada orang lain. Ambil masa kira-kira seminit.';
+
+  @override
+  String get doThisLater => 'Buat kemudian';
+
+  @override
+  String get readThisOutLoud => 'Baca ini dengan kuat';
+
+  @override
+  String get voiceLineOne => 'Musang perang yang pantas melompat ke atas anjing yang malas.';
+
+  @override
+  String get voiceLineTwo => 'Saya nak kopi dengan susu oat, ya.';
+
+  @override
+  String get voiceLineThree => 'Ingatkan saya untuk hantar pembentangan pada hari Jumaat.';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi kenal suara anda';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi tidak dapat menyimpan suara anda. Cuba lagi daripada Tetapan.';
 }

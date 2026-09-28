@@ -22,11 +22,38 @@ void main() {
     handle.dispose();
   });
 
-  test('five bars (v3): consent, the name, how you record, the microphone and your voice', () {
-    expect(OnboardingProgressStepsForTest.barCount, 5);
-    expect(OnboardingProgressStepsForTest.steps, hasLength(4));
-    expect(OnboardingProgressStepsForTest.barIndex(OnboardingWrapper.consentPage), 0);
-    expect([for (final page in OnboardingProgressStepsForTest.steps) OnboardingProgressStepsForTest.barIndex(page)],
-        [1, 2, 3, 4]);
+  test('six bars (v3): consent, the name, how you record, setting it up, the first conversation, the voice', () {
+    expect(OnboardingProgressStepsForTest.barCount, 6);
+    int? bar(int page) => OnboardingProgressStepsForTest.barIndex(page);
+    expect(bar(OnboardingWrapper.consentPage), 0);
+    expect(bar(OnboardingWrapper.namePage), 1);
+    expect(bar(OnboardingWrapper.pickDevicePage), 2);
+    // The pendant's four steps and the phone's microphone fill the same bar.
+    for (final page in [
+      OnboardingWrapper.powerPage,
+      OnboardingWrapper.bluetoothPage,
+      OnboardingWrapper.scanPage,
+      OnboardingWrapper.buttonsPage,
+      OnboardingWrapper.permissionsPage,
+    ]) {
+      expect(bar(page), 3);
+    }
+    expect(bar(OnboardingWrapper.firstPage), 4);
+    expect(bar(OnboardingWrapper.resultPage), 4);
+    expect(bar(OnboardingWrapper.voicePage), 5);
+    expect(bar(OnboardingWrapper.readPage), isNull);
+    expect(bar(OnboardingWrapper.completePage), isNull);
+  });
+
+  test('back shows on every step but the first conversation, and alone over the lines to read', () {
+    bool back(int page) => OnboardingProgressStepsForTest.showsBack(page);
+    expect(back(OnboardingWrapper.consentPage), isTrue);
+    expect(back(OnboardingWrapper.scanPage), isTrue);
+    expect(back(OnboardingWrapper.firstPage), isTrue);
+    expect(back(OnboardingWrapper.resultPage), isFalse);
+    expect(back(OnboardingWrapper.readPage), isTrue);
+    expect(back(OnboardingWrapper.completePage), isFalse);
+    expect(OnboardingProgressStepsForTest.steps,
+        [OnboardingWrapper.namePage, OnboardingWrapper.pickDevicePage, OnboardingWrapper.voicePage]);
   });
 }

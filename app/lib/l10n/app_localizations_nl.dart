@@ -12431,4 +12431,164 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get noPastChats => 'Je chats met Omi verschijnen hier.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return 'Stap $step van 3 · Je Omi';
+  }
+
+  @override
+  String get turnOnYourOmi => 'Zet je Omi aan';
+
+  @override
+  String get pressButtonOnce => 'Druk één keer op de knop in het midden.';
+
+  @override
+  String get itsOnV3 => 'Hij staat aan';
+
+  @override
+  String get lightDidntComeOn => 'Het lampje ging niet aan';
+
+  @override
+  String get itsOnRedMeans => 'Hij staat aan. Rood betekent dat hij nog niet gekoppeld is. Dat komt nu.';
+
+  @override
+  String get mayNeedCharging =>
+      'Misschien moet hij opladen. Leg hem op de lader: knipperend groen betekent dat hij oplaadt. Druk daarna opnieuw op de knop.';
+
+  @override
+  String get turnOnBluetoothV3 => 'Zet Bluetooth aan';
+
+  @override
+  String get bluetoothOnlyThing => 'Zo praat Omi met je apparaat. Omi vraagt niet om contacten of locatie.';
+
+  @override
+  String get notNowV3 => 'Niet nu';
+
+  @override
+  String get lookingForYourOmi => 'Je Omi zoeken';
+
+  @override
+  String get keepItClose => 'Houd hem dicht bij je telefoon. Het lampje blijft rood tot hij gekoppeld is.';
+
+  @override
+  String get waitingForBluetooth => 'Wachten op Bluetooth';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · in de buurt';
+  }
+
+  @override
+  String get pairV3 => 'Koppelen';
+
+  @override
+  String get pairingV3 => 'Koppelen…';
+
+  @override
+  String get pairedV3 => 'Gekoppeld';
+
+  @override
+  String get lightSolidBlueNow => 'Het lampje is nu continu blauw. Dat betekent dat hij verbonden is.';
+
+  @override
+  String get useThisPhoneInstead => 'Deze telefoon gebruiken';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi kan je hanger niet bereiken. Zet het aan om door te gaan.';
+
+  @override
+  String get tapPictureToTry => 'Tik op de afbeelding om het te proberen.';
+
+  @override
+  String get oneButtonThreeMoves => 'Eén knop, drie bewegingen';
+
+  @override
+  String get tapOnceV3 => 'Eén keer tikken';
+
+  @override
+  String get tapOnceBody =>
+      'Stel Omi hardop een vraag. Tik nog eens als je klaar bent, of wacht 15 seconden. Het antwoord verschijnt in Vraag.';
+
+  @override
+  String get tapTwiceV3 => 'Twee keer tikken';
+
+  @override
+  String get tapTwiceBody =>
+      'Beëindigt en bewaart het gesprek. Wijzig het in Apparaten → Dubbeltikken: opname pauzeren of het gesprek een ster geven.';
+
+  @override
+  String get holdThreeSeconds => '3 seconden vasthouden';
+
+  @override
+  String get holdThreeSecondsBody => 'Zet hem uit. Druk één keer om hem weer aan te zetten.';
+
+  @override
+  String get gotItV3 => 'Begrepen';
+
+  @override
+  String get sayAFewWords => 'Zeg een paar woorden.';
+
+  @override
+  String get tryRemindSam => 'Probeer: ‘Herinner me eraan om Sam morgen te bellen.’';
+
+  @override
+  String get listeningOnThisPhone => 'Luistert op deze telefoon';
+
+  @override
+  String get listeningOnYourOmi => 'Luistert op je Omi';
+
+  @override
+  String get skipForNowV3 => 'Nu overslaan';
+
+  @override
+  String get omiWritingItUp => 'Omi schrijft het uit…';
+
+  @override
+  String get yourFirstConversation => 'Je eerste gesprek';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'Zojuist · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'To-do\'s hieruit';
+
+  @override
+  String get everyConversationPage => 'Elk gesprek wordt een pagina zoals deze. Je vindt ze op Home.';
+
+  @override
+  String get stillWritingItUp => 'Omi schrijft het nog uit. Het staat op Home zodra het klaar is.';
+
+  @override
+  String get notEnoughToWrite => 'Dat was te kort om uit te schrijven. Je volgende gesprek verschijnt op Home.';
+
+  @override
+  String get sourceThisPhone => 'deze telefoon';
+
+  @override
+  String get teachVoiceBody =>
+      'Lees drie korte zinnen voor, zodat Omi jouw woorden van die van anderen kan onderscheiden. Het duurt ongeveer een minuut.';
+
+  @override
+  String get doThisLater => 'Later doen';
+
+  @override
+  String get readThisOutLoud => 'Lees dit hardop voor';
+
+  @override
+  String get voiceLineOne => 'De snelle bruine vos springt over de luie hond.';
+
+  @override
+  String get voiceLineTwo => 'Ik wil graag een koffie met havermelk.';
+
+  @override
+  String get voiceLineThree => 'Herinner me eraan om vrijdag de presentatie te sturen.';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi kent je stem';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi kon je stem niet opslaan. Probeer het opnieuw via Instellingen.';
 }

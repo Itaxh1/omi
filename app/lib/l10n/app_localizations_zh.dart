@@ -12168,4 +12168,160 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get noPastChats => '你和 Omi 的聊天会显示在这里。';
+
+  @override
+  String obStepYourOmi(int step) {
+    return '第 $step 步，共 3 步 · 你的 Omi';
+  }
+
+  @override
+  String get turnOnYourOmi => '打开你的 Omi';
+
+  @override
+  String get pressButtonOnce => '按一下中间的按钮。';
+
+  @override
+  String get itsOnV3 => '已开启';
+
+  @override
+  String get lightDidntComeOn => '灯没有亮';
+
+  @override
+  String get itsOnRedMeans => '已开启。红色表示还没配对，这是下一步。';
+
+  @override
+  String get mayNeedCharging => '可能需要充电。放到充电器上：绿灯闪烁表示正在充电。然后再按一下按钮。';
+
+  @override
+  String get turnOnBluetoothV3 => '打开蓝牙';
+
+  @override
+  String get bluetoothOnlyThing => 'Omi 通过蓝牙和设备通信。Omi 不会要通讯录或位置。';
+
+  @override
+  String get notNowV3 => '以后再说';
+
+  @override
+  String get lookingForYourOmi => '正在寻找你的 Omi';
+
+  @override
+  String get keepItClose => '放在手机附近。配对前灯会一直是红色。';
+
+  @override
+  String get waitingForBluetooth => '正在等待蓝牙';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · 附近';
+  }
+
+  @override
+  String get pairV3 => '配对';
+
+  @override
+  String get pairingV3 => '正在配对…';
+
+  @override
+  String get pairedV3 => '已配对';
+
+  @override
+  String get lightSolidBlueNow => '现在灯是常亮蓝色，表示已连接。';
+
+  @override
+  String get useThisPhoneInstead => '改用这部手机';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi 连不上你的吊坠。打开它才能继续。';
+
+  @override
+  String get tapPictureToTry => '点按图片试一试。';
+
+  @override
+  String get oneButtonThreeMoves => '一个按钮，三种操作';
+
+  @override
+  String get tapOnceV3 => '按一下';
+
+  @override
+  String get tapOnceBody => '大声向 Omi 提问。说完再按一下，或等 15 秒。回答会显示在“提问”里。';
+
+  @override
+  String get tapTwiceV3 => '按两下';
+
+  @override
+  String get tapTwiceBody => '结束并保存对话。可在“设备”→“双击”中更改为：暂停录音或为对话加星标。';
+
+  @override
+  String get holdThreeSeconds => '按住 3 秒';
+
+  @override
+  String get holdThreeSecondsBody => '关机。按一下即可重新开机。';
+
+  @override
+  String get gotItV3 => '知道了';
+
+  @override
+  String get sayAFewWords => '说几句话。';
+
+  @override
+  String get tryRemindSam => '试试说：“提醒我明天给 Sam 打电话。”';
+
+  @override
+  String get listeningOnThisPhone => '正在用这部手机收听';
+
+  @override
+  String get listeningOnYourOmi => '正在用你的 Omi 收听';
+
+  @override
+  String get skipForNowV3 => '暂时跳过';
+
+  @override
+  String get omiWritingItUp => 'Omi 正在整理…';
+
+  @override
+  String get yourFirstConversation => '你的第一段对话';
+
+  @override
+  String justNowLength(String length, String source) {
+    return '刚刚 · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => '由此产生的待办';
+
+  @override
+  String get everyConversationPage => '每段对话都会变成这样一页。你可以在首页找到它们。';
+
+  @override
+  String get stillWritingItUp => 'Omi 还在整理。整理好后会出现在首页。';
+
+  @override
+  String get notEnoughToWrite => '太短了，没法整理。你的下一段对话会出现在首页。';
+
+  @override
+  String get sourceThisPhone => '这部手机';
+
+  @override
+  String get teachVoiceBody => '读三句短句，Omi 就能把你的话和别人的区分开。大约需要一分钟。';
+
+  @override
+  String get doThisLater => '以后再做';
+
+  @override
+  String get readThisOutLoud => '请大声读出来';
+
+  @override
+  String get voiceLineOne => '敏捷的棕色狐狸跳过了那只懒狗。';
+
+  @override
+  String get voiceLineTwo => '请给我一杯加燕麦奶的咖啡。';
+
+  @override
+  String get voiceLineThree => '提醒我周五把演示文稿发出去。';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi 已记住你的声音';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi 没能保存你的声音。请到设置里重试。';
 }

@@ -14918,5 +14918,223 @@
     "noPastChats": "Your chats with Omi show up here.",
     "@noPastChats": {
         "description": "Ask (v3): Past chats when there are none"
+    },
+    "obStepYourOmi": "Step {step} of 3 · Your Omi",
+    "@obStepYourOmi": {
+        "description": "Onboarding (v3), above a pendant setup step",
+        "placeholders": {
+            "step": {
+                "type": "int"
+            }
+        }
+    },
+    "turnOnYourOmi": "Turn on your Omi",
+    "@turnOnYourOmi": {
+        "description": "Onboarding (v3): pendant step 1 title"
+    },
+    "pressButtonOnce": "Press the button in the middle once.",
+    "@pressButtonOnce": {
+        "description": "Onboarding (v3): how to turn the pendant on"
+    },
+    "itsOnV3": "It’s on",
+    "@itsOnV3": {
+        "description": "Onboarding (v3): the pendant turned on"
+    },
+    "lightDidntComeOn": "The light didn’t come on",
+    "@lightDidntComeOn": {
+        "description": "Onboarding (v3): pendant step 1 help link"
+    },
+    "itsOnRedMeans": "It’s on. Red means it isn’t paired yet. That’s next.",
+    "@itsOnRedMeans": {
+        "description": "Onboarding (v3): after the pendant turns on"
+    },
+    "mayNeedCharging": "It may need charging. Put it on the charger: blinking green means it’s charging. Then press the button again.",
+    "@mayNeedCharging": {
+        "description": "Onboarding (v3): pendant didn't light up"
+    },
+    "turnOnBluetoothV3": "Turn on Bluetooth",
+    "@turnOnBluetoothV3": {
+        "description": "Onboarding (v3): the Bluetooth step title"
+    },
+    "bluetoothOnlyThing": "It’s how Omi talks to your device. Omi doesn’t ask for contacts or location.",
+    "@bluetoothOnlyThing": {
+        "description": "Onboarding (v3): why Bluetooth"
+    },
+    "notNowV3": "Not now",
+    "@notNowV3": {
+        "description": "Onboarding (v3): skip allowing Bluetooth"
+    },
+    "lookingForYourOmi": "Looking for your Omi",
+    "@lookingForYourOmi": {
+        "description": "Onboarding (v3): pendant step 2 title while scanning"
+    },
+    "keepItClose": "Keep it close to your phone. The light stays red until it pairs.",
+    "@keepItClose": {
+        "description": "Onboarding (v3): while scanning for the pendant"
+    },
+    "waitingForBluetooth": "Waiting for Bluetooth",
+    "@waitingForBluetooth": {
+        "description": "Onboarding (v3): scan step while Bluetooth is off"
+    },
+    "nearbyDevice": "{id} · nearby",
+    "@nearbyDevice": {
+        "description": "Onboarding (v3): a pendant found while scanning",
+        "placeholders": {
+            "id": {
+                "type": "String"
+            }
+        }
+    },
+    "pairV3": "Pair",
+    "@pairV3": {
+        "description": "Onboarding (v3): pair with a found pendant"
+    },
+    "pairingV3": "Pairing…",
+    "@pairingV3": {
+        "description": "Onboarding (v3): pairing in progress"
+    },
+    "pairedV3": "Paired",
+    "@pairedV3": {
+        "description": "Onboarding (v3): the pendant paired"
+    },
+    "lightSolidBlueNow": "The light is solid blue now. That means it’s connected.",
+    "@lightSolidBlueNow": {
+        "description": "Onboarding (v3): after pairing"
+    },
+    "useThisPhoneInstead": "Use this phone instead",
+    "@useThisPhoneInstead": {
+        "description": "Onboarding (v3): skip pairing and record with the phone"
+    },
+    "bluetoothOffOmiCantReach": "Omi can’t reach your pendant. Turn it on to keep going.",
+    "@bluetoothOffOmiCantReach": {
+        "description": "Onboarding (v3): Bluetooth-off banner on the pendant steps"
+    },
+    "tapPictureToTry": "Tap the picture to try it.",
+    "@tapPictureToTry": {
+        "description": "Onboarding (v3): under the pendant photo on the power step"
+    },
+    "oneButtonThreeMoves": "One button, three moves",
+    "@oneButtonThreeMoves": {
+        "description": "Onboarding (v3): pendant step 3 title"
+    },
+    "tapOnceV3": "Tap once",
+    "@tapOnceV3": {
+        "description": "Onboarding (v3): pendant button, single tap"
+    },
+    "tapOnceBody": "Ask Omi a question out loud. Tap again when you’re done, or wait 15 seconds. The answer shows up in Ask.",
+    "@tapOnceBody": {
+        "description": "Onboarding (v3): what a single tap does"
+    },
+    "tapTwiceV3": "Tap twice",
+    "@tapTwiceV3": {
+        "description": "Onboarding (v3): pendant button, double tap"
+    },
+    "tapTwiceBody": "End and save the conversation. Change it in Devices → Double tap: pause recording, or star the conversation.",
+    "@tapTwiceBody": {
+        "description": "Onboarding (v3): what a double tap does"
+    },
+    "holdThreeSeconds": "Hold for 3 seconds",
+    "@holdThreeSeconds": {
+        "description": "Onboarding (v3): pendant button, long press"
+    },
+    "holdThreeSecondsBody": "Turn it off. Press once to turn it back on.",
+    "@holdThreeSecondsBody": {
+        "description": "Onboarding (v3): what a long press does"
+    },
+    "gotItV3": "Got it",
+    "@gotItV3": {
+        "description": "Onboarding (v3): after the button guide"
+    },
+    "sayAFewWords": "Say a few words.",
+    "@sayAFewWords": {
+        "description": "Onboarding (v3): the first recording step title"
+    },
+    "tryRemindSam": "Try: “Remind me to call Sam tomorrow.”",
+    "@tryRemindSam": {
+        "description": "Onboarding (v3): an example sentence to say"
+    },
+    "listeningOnThisPhone": "Listening on this phone",
+    "@listeningOnThisPhone": {
+        "description": "Onboarding (v3): recording with the phone microphone"
+    },
+    "listeningOnYourOmi": "Listening on your Omi",
+    "@listeningOnYourOmi": {
+        "description": "Onboarding (v3): recording with the pendant"
+    },
+    "skipForNowV3": "Skip for now",
+    "@skipForNowV3": {
+        "description": "Onboarding (v3): leave the first recording when nothing is heard"
+    },
+    "omiWritingItUp": "Omi is writing it up…",
+    "@omiWritingItUp": {
+        "description": "Onboarding (v3): while the first conversation is processed"
+    },
+    "yourFirstConversation": "Your first conversation",
+    "@yourFirstConversation": {
+        "description": "Onboarding (v3): above the first conversation's title"
+    },
+    "justNowLength": "Just now · {length} · {source}",
+    "@justNowLength": {
+        "description": "Onboarding (v3): the first conversation's chip: when, how long, and what recorded it",
+        "placeholders": {
+            "length": {
+                "type": "String"
+            },
+            "source": {
+                "type": "String"
+            }
+        }
+    },
+    "toDoFromThis": "To do from this",
+    "@toDoFromThis": {
+        "description": "Onboarding (v3): the first conversation's to-dos heading"
+    },
+    "everyConversationPage": "Every conversation turns into a page like this. You’ll find them on Home.",
+    "@everyConversationPage": {
+        "description": "Onboarding (v3): under the first conversation"
+    },
+    "stillWritingItUp": "Omi is still writing it up. It’ll be on Home when it’s ready.",
+    "@stillWritingItUp": {
+        "description": "Onboarding (v3): the first conversation takes longer than expected"
+    },
+    "notEnoughToWrite": "That was too short to write up. Your next conversation will show up on Home.",
+    "@notEnoughToWrite": {
+        "description": "Onboarding (v3): the first recording was too short to become a conversation"
+    },
+    "sourceThisPhone": "this phone",
+    "@sourceThisPhone": {
+        "description": "Onboarding (v3): recorded by this phone, inside a sentence or chip"
+    },
+    "teachVoiceBody": "Read three short lines so Omi can tell your words from everyone else’s. It takes about a minute.",
+    "@teachVoiceBody": {
+        "description": "Onboarding (v3): why to teach Omi your voice"
+    },
+    "doThisLater": "Do this later",
+    "@doThisLater": {
+        "description": "Onboarding (v3): skip teaching Omi your voice"
+    },
+    "readThisOutLoud": "Read this out loud",
+    "@readThisOutLoud": {
+        "description": "Onboarding (v3): above the line to read for voice enrollment"
+    },
+    "voiceLineOne": "The quick brown fox jumps over the lazy dog.",
+    "@voiceLineOne": {
+        "description": "Onboarding (v3): first line to read aloud for voice enrollment; any short natural sentence works"
+    },
+    "voiceLineTwo": "I’d like a coffee with oat milk, please.",
+    "@voiceLineTwo": {
+        "description": "Onboarding (v3): second line to read aloud for voice enrollment"
+    },
+    "voiceLineThree": "Remind me to send the deck on Friday.",
+    "@voiceLineThree": {
+        "description": "Onboarding (v3): third line to read aloud for voice enrollment"
+    },
+    "omiKnowsYourVoice": "Omi knows your voice",
+    "@omiKnowsYourVoice": {
+        "description": "Onboarding (v3): confirmation after voice enrollment"
+    },
+    "voiceNotSavedV3": "Omi couldn’t save your voice. Try again from Settings.",
+    "@voiceNotSavedV3": {
+        "description": "Onboarding (v3): voice enrollment failed"
     }
 }

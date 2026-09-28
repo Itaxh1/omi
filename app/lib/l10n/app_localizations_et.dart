@@ -12387,4 +12387,164 @@ class AppLocalizationsEt extends AppLocalizations {
 
   @override
   String get noPastChats => 'Sinu vestlused Omiga ilmuvad siia.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return 'Samm $step/3 · Sinu Omi';
+  }
+
+  @override
+  String get turnOnYourOmi => 'Lülita oma Omi sisse';
+
+  @override
+  String get pressButtonOnce => 'Vajuta korra keskmist nuppu.';
+
+  @override
+  String get itsOnV3 => 'See on sees';
+
+  @override
+  String get lightDidntComeOn => 'Tuli ei süttinud';
+
+  @override
+  String get itsOnRedMeans => 'See on sees. Punane tähendab, et see pole veel seotud. See on järgmine samm.';
+
+  @override
+  String get mayNeedCharging =>
+      'See võib vajada laadimist. Pane see laadijale: vilkuv roheline tähendab, et see laeb. Siis vajuta uuesti nuppu.';
+
+  @override
+  String get turnOnBluetoothV3 => 'Lülita Bluetooth sisse';
+
+  @override
+  String get bluetoothOnlyThing => 'Nii räägib Omi sinu seadmega. Omi ei küsi kontakte ega asukohta.';
+
+  @override
+  String get notNowV3 => 'Mitte praegu';
+
+  @override
+  String get lookingForYourOmi => 'Otsin sinu Omit';
+
+  @override
+  String get keepItClose => 'Hoia seda telefoni lähedal. Tuli on punane, kuni see seotakse.';
+
+  @override
+  String get waitingForBluetooth => 'Ootan Bluetoothi';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · lähedal';
+  }
+
+  @override
+  String get pairV3 => 'Seo';
+
+  @override
+  String get pairingV3 => 'Sidumine…';
+
+  @override
+  String get pairedV3 => 'Seotud';
+
+  @override
+  String get lightSolidBlueNow => 'Tuli on nüüd püsivalt sinine. See tähendab, et see on ühendatud.';
+
+  @override
+  String get useThisPhoneInstead => 'Kasuta hoopis seda telefoni';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi ei jõua su ripatsini. Lülita see sisse, et jätkata.';
+
+  @override
+  String get tapPictureToTry => 'Proovimiseks puuduta pilti.';
+
+  @override
+  String get oneButtonThreeMoves => 'Üks nupp, kolm liigutust';
+
+  @override
+  String get tapOnceV3 => 'Puuduta üks kord';
+
+  @override
+  String get tapOnceBody =>
+      'Esita Omile küsimus valjusti. Kui oled valmis, puuduta uuesti või oota 15 sekundit. Vastus ilmub jaotisesse Küsi.';
+
+  @override
+  String get tapTwiceV3 => 'Puuduta kaks korda';
+
+  @override
+  String get tapTwiceBody =>
+      'Lõpetab ja salvestab vestluse. Muuda seda: Seadmed → Topeltpuudutus: peata salvestamine või märgi vestlus tärniga.';
+
+  @override
+  String get holdThreeSeconds => 'Hoia 3 sekundit';
+
+  @override
+  String get holdThreeSecondsBody => 'Lülitab selle välja. Uuesti sisselülitamiseks vajuta üks kord.';
+
+  @override
+  String get gotItV3 => 'Selge';
+
+  @override
+  String get sayAFewWords => 'Ütle paar sõna.';
+
+  @override
+  String get tryRemindSam => 'Proovi: „Tuleta mulle meelde, et homme Samile helistada.“';
+
+  @override
+  String get listeningOnThisPhone => 'Kuulab selles telefonis';
+
+  @override
+  String get listeningOnYourOmi => 'Kuulab sinu Omis';
+
+  @override
+  String get skipForNowV3 => 'Jäta praegu vahele';
+
+  @override
+  String get omiWritingItUp => 'Omi kirjutab selle üles…';
+
+  @override
+  String get yourFirstConversation => 'Sinu esimene vestlus';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'Just praegu · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'Ülesanded sellest';
+
+  @override
+  String get everyConversationPage => 'Igast vestlusest saab selline leht. Leiad need avalehelt.';
+
+  @override
+  String get stillWritingItUp => 'Omi alles kirjutab. See ilmub avalehele, kui on valmis.';
+
+  @override
+  String get notEnoughToWrite => 'See oli ülesmärkimiseks liiga lühike. Su järgmine vestlus ilmub avalehele.';
+
+  @override
+  String get sourceThisPhone => 'see telefon';
+
+  @override
+  String get teachVoiceBody =>
+      'Loe ette kolm lühikest rida, et Omi eristaks sinu sõnu teiste omadest. See võtab umbes minuti.';
+
+  @override
+  String get doThisLater => 'Tee seda hiljem';
+
+  @override
+  String get readThisOutLoud => 'Loe see valjusti ette';
+
+  @override
+  String get voiceLineOne => 'Kiire pruun rebane hüppab üle laisa koera.';
+
+  @override
+  String get voiceLineTwo => 'Palun üks kohv kaerapiimaga.';
+
+  @override
+  String get voiceLineThree => 'Tuleta mulle meelde, et reedel esitlus saata.';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi tunneb su häält';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi ei saanud su häält salvestada. Proovi uuesti seadetes.';
 }

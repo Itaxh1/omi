@@ -12372,4 +12372,164 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get noPastChats => 'Omi के साथ आपकी चैट यहाँ दिखेंगी।';
+
+  @override
+  String obStepYourOmi(int step) {
+    return 'चरण $step / 3 · आपका Omi';
+  }
+
+  @override
+  String get turnOnYourOmi => 'अपना Omi चालू करें';
+
+  @override
+  String get pressButtonOnce => 'बीच वाला बटन एक बार दबाएं।';
+
+  @override
+  String get itsOnV3 => 'चालू हो गया';
+
+  @override
+  String get lightDidntComeOn => 'लाइट नहीं जली';
+
+  @override
+  String get itsOnRedMeans => 'चालू हो गया। लाल का मतलब है अभी पेयर नहीं हुआ। वही अगला है।';
+
+  @override
+  String get mayNeedCharging =>
+      'शायद चार्ज करना होगा। चार्जर पर रखें: हरी झपकती रोशनी का मतलब चार्ज हो रहा है। फिर बटन दोबारा दबाएं।';
+
+  @override
+  String get turnOnBluetoothV3 => 'ब्लूटूथ चालू करें';
+
+  @override
+  String get bluetoothOnlyThing => 'इसी से Omi आपके डिवाइस से बात करता है। Omi संपर्क या लोकेशन नहीं माँगता।';
+
+  @override
+  String get notNowV3 => 'अभी नहीं';
+
+  @override
+  String get lookingForYourOmi => 'आपका Omi ढूँढ रहे हैं';
+
+  @override
+  String get keepItClose => 'इसे फ़ोन के पास रखें। पेयर होने तक लाइट लाल रहेगी।';
+
+  @override
+  String get waitingForBluetooth => 'ब्लूटूथ का इंतज़ार';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · पास में';
+  }
+
+  @override
+  String get pairV3 => 'पेयर करें';
+
+  @override
+  String get pairingV3 => 'पेयर हो रहा है…';
+
+  @override
+  String get pairedV3 => 'पेयर हो गया';
+
+  @override
+  String get lightSolidBlueNow => 'अब लाइट लगातार नीली है। मतलब कनेक्ट हो गया।';
+
+  @override
+  String get useThisPhoneInstead => 'इसके बजाय यह फ़ोन इस्तेमाल करें';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi आपके पेंडेंट तक नहीं पहुँच पा रहा। आगे बढ़ने के लिए इसे चालू करें।';
+
+  @override
+  String get tapPictureToTry => 'आज़माने के लिए तस्वीर पर टैप करें।';
+
+  @override
+  String get oneButtonThreeMoves => 'एक बटन, तीन तरीके';
+
+  @override
+  String get tapOnceV3 => 'एक बार टैप करें';
+
+  @override
+  String get tapOnceBody =>
+      'Omi से ज़ोर से सवाल पूछें। हो जाने पर फिर टैप करें, या 15 सेकंड रुकें। जवाब Ask में दिखेगा।';
+
+  @override
+  String get tapTwiceV3 => 'दो बार टैप करें';
+
+  @override
+  String get tapTwiceBody =>
+      'बातचीत खत्म करके सेव करें। इसे डिवाइस → डबल टैप में बदलें: रिकॉर्डिंग रोकें, या बातचीत को स्टार करें।';
+
+  @override
+  String get holdThreeSeconds => '3 सेकंड दबाए रखें';
+
+  @override
+  String get holdThreeSecondsBody => 'इसे बंद करें। फिर से चालू करने के लिए एक बार दबाएँ।';
+
+  @override
+  String get gotItV3 => 'समझ गया';
+
+  @override
+  String get sayAFewWords => 'कुछ शब्द बोलिए।';
+
+  @override
+  String get tryRemindSam => 'आज़माएँ: “मुझे कल सैम को फ़ोन करने की याद दिलाना।”';
+
+  @override
+  String get listeningOnThisPhone => 'इस फ़ोन पर सुन रहा है';
+
+  @override
+  String get listeningOnYourOmi => 'आपके Omi पर सुन रहा है';
+
+  @override
+  String get skipForNowV3 => 'अभी छोड़ें';
+
+  @override
+  String get omiWritingItUp => 'Omi इसे लिख रहा है…';
+
+  @override
+  String get yourFirstConversation => 'आपकी पहली बातचीत';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'अभी · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'इससे करने के काम';
+
+  @override
+  String get everyConversationPage => 'हर बातचीत ऐसे ही एक पेज में बदल जाती है। ये आपको होम पर मिलेंगे।';
+
+  @override
+  String get stillWritingItUp => 'Omi अभी भी लिख रहा है। तैयार होते ही होम पर मिलेगा।';
+
+  @override
+  String get notEnoughToWrite => 'यह लिखने के लिए बहुत छोटा था। आपकी अगली बातचीत होम पर दिखेगी।';
+
+  @override
+  String get sourceThisPhone => 'यह फ़ोन';
+
+  @override
+  String get teachVoiceBody =>
+      'तीन छोटी लाइनें पढ़ें, ताकि Omi आपकी बातें बाकी सबसे अलग पहचान सके। करीब एक मिनट लगता है।';
+
+  @override
+  String get doThisLater => 'बाद में करें';
+
+  @override
+  String get readThisOutLoud => 'इसे ज़ोर से पढ़ें';
+
+  @override
+  String get voiceLineOne => 'तेज़ भूरी लोमड़ी आलसी कुत्ते के ऊपर से कूदती है।';
+
+  @override
+  String get voiceLineTwo => 'मुझे ओट मिल्क वाली एक कॉफ़ी चाहिए, प्लीज़।';
+
+  @override
+  String get voiceLineThree => 'मुझे शुक्रवार को डेक भेजने की याद दिलाना।';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi आपकी आवाज़ पहचानता है';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi आपकी आवाज़ सेव नहीं कर सका। सेटिंग्स से फिर कोशिश करें।';
 }

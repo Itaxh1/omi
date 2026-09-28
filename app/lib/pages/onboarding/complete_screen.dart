@@ -87,11 +87,12 @@ class _OnboardingCompleteScreenState extends State<OnboardingCompleteScreen> wit
                           child: Text(l10n.keepAppRunningNote,
                               style: OmiType.detail.copyWith(height: 1.45, color: OmiColors.ink80)),
                         ),
-                        // What the design leaves out: notifications, places and (Android) running in
-                        // the background, each with why and its own Allow. Open Omi never prompts
-                        // (docs/ux-contract.md §15); Settings → Permissions has the same rows.
+                        // What the design leaves out: notifications and (Android) running in the
+                        // background, each with why and its own Allow. Location stays out: the
+                        // Bluetooth step promised Omi doesn't ask for it. Open Omi never prompts
+                        // (docs/ux-contract.md §15); Settings → Permissions has every row.
                         const SizedBox(height: 26),
-                        const OnboardingPermissionsPanel(),
+                        const OnboardingPermissionsPanel(exclude: {OnboardingPermission.location}),
                       ],
                     ),
                   ),

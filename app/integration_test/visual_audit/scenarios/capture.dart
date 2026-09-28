@@ -320,7 +320,7 @@ final captureScenarios = <AuditScenario>[
   ),
   AuditScenario(
     id: 'home-first-day',
-    title: 'Home on the first day: Welcome, Not listening, Getting started, Good to know',
+    title: 'Home on the first day: the headline, nothing heard yet, the To-do card',
     page: _home,
     state: 'A new account: no conversations, no device, nothing recording',
     run: (a) => _runHome(a, AuditLive.idle, scroll: true, action: 'Open Home on the first day'),

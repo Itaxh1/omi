@@ -560,6 +560,11 @@ abstract final class OmiType {
   static TextStyle get answer => _tint(_answer);
   static const TextStyle _answer = TextStyle(fontSize: 19, height: 1.45, fontWeight: FontWeight.w400);
 
+  /// 26/500 on a 1.3 line — the words Omi hears in onboarding's first recording (v3 `.oblive`).
+  static TextStyle get liveWords => _tint(_liveWords);
+  static const TextStyle _liveWords =
+      TextStyle(fontSize: 26, height: 1.3, fontWeight: FontWeight.w500, letterSpacing: -0.39);
+
   /// 18 — v3 leads: the Listening word, the initial on You, a firmware version.
   static TextStyle get lead => _tint(_lead);
   static const TextStyle _lead = TextStyle(fontSize: 18, height: 1.3, fontWeight: FontWeight.w600);

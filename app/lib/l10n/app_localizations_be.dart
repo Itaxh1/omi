@@ -12422,4 +12422,164 @@ class AppLocalizationsBe extends AppLocalizations {
 
   @override
   String get noPastChats => 'Вашы чаты з Omi з\'явяцца тут.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return 'Крок $step з 3 · Ваш Omi';
+  }
+
+  @override
+  String get turnOnYourOmi => 'Уключыце свой Omi';
+
+  @override
+  String get pressButtonOnce => 'Націсніце кнопку пасярэдзіне адзін раз.';
+
+  @override
+  String get itsOnV3 => 'Уключаны';
+
+  @override
+  String get lightDidntComeOn => 'Індыкатар не загарэўся';
+
+  @override
+  String get itsOnRedMeans => 'Уключаны. Чырвоны азначае, што ён яшчэ не спалучаны. Гэта далей.';
+
+  @override
+  String get mayNeedCharging =>
+      'Магчыма, яго трэба зарадзіць. Пастаўце на зарадку: зялёнае міганне азначае, што ён зараджаецца. Потым націсніце кнопку зноў.';
+
+  @override
+  String get turnOnBluetoothV3 => 'Уключыце Bluetooth';
+
+  @override
+  String get bluetoothOnlyThing => 'Так Omi звязваецца з прыладай. Omi не просіць кантакты ці месцазнаходжанне.';
+
+  @override
+  String get notNowV3 => 'Не зараз';
+
+  @override
+  String get lookingForYourOmi => 'Шукаем ваш Omi';
+
+  @override
+  String get keepItClose => 'Трымайце яго побач з тэлефонам. Індыкатар чырвоны, пакуль не спалучыцца.';
+
+  @override
+  String get waitingForBluetooth => 'Чакаем Bluetooth';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · побач';
+  }
+
+  @override
+  String get pairV3 => 'Спалучыць';
+
+  @override
+  String get pairingV3 => 'Спалучэнне…';
+
+  @override
+  String get pairedV3 => 'Спалучана';
+
+  @override
+  String get lightSolidBlueNow => 'Цяпер індыкатар ровна сіні. Гэта значыць, што ён падлучаны.';
+
+  @override
+  String get useThisPhoneInstead => 'Выкарыстаць гэты тэлефон';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi не можа звязацца з кулонам. Уключыце Bluetooth, каб працягнуць.';
+
+  @override
+  String get tapPictureToTry => 'Націсніце на малюнак, каб паспрабаваць.';
+
+  @override
+  String get oneButtonThreeMoves => 'Адна кнопка, тры дзеянні';
+
+  @override
+  String get tapOnceV3 => 'Націсніце адзін раз';
+
+  @override
+  String get tapOnceBody =>
+      'Задайце Omi пытанне ўслых. Націсніце зноў, калі скончыце, або пачакайце 15 секунд. Адказ з\'явіцца ў «Спытаць».';
+
+  @override
+  String get tapTwiceV3 => 'Націсніце двойчы';
+
+  @override
+  String get tapTwiceBody =>
+      'Завяршыць і захаваць размову. Змяніць можна ў Прылады → Падвойнае націсканне: прыпыніць запіс або пазначыць размову зоркай.';
+
+  @override
+  String get holdThreeSeconds => 'Утрымлівайце 3 секунды';
+
+  @override
+  String get holdThreeSecondsBody => 'Выключыць. Націсніце адзін раз, каб уключыць зноў.';
+
+  @override
+  String get gotItV3 => 'Зразумела';
+
+  @override
+  String get sayAFewWords => 'Скажыце некалькі слоў.';
+
+  @override
+  String get tryRemindSam => 'Паспрабуйце: «Нагадай мне патэлефанаваць Сэму заўтра.»';
+
+  @override
+  String get listeningOnThisPhone => 'Слухае на гэтым тэлефоне';
+
+  @override
+  String get listeningOnYourOmi => 'Слухае на вашым Omi';
+
+  @override
+  String get skipForNowV3 => 'Прапусціць пакуль';
+
+  @override
+  String get omiWritingItUp => 'Omi піша нататкі…';
+
+  @override
+  String get yourFirstConversation => 'Ваша першая размова';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'Толькі што · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'Задачы з гэтай размовы';
+
+  @override
+  String get everyConversationPage => 'Кожная размова ператвараецца ў такую старонку. Вы знойдзеце іх на Галоўнай.';
+
+  @override
+  String get stillWritingItUp => 'Omi яшчэ піша. Размова з\'явіцца на Галоўнай, калі будзе гатовая.';
+
+  @override
+  String get notEnoughToWrite => 'Гэта было занадта коратка, каб запісаць. Наступная размова з\'явіцца на Галоўнай.';
+
+  @override
+  String get sourceThisPhone => 'гэты тэлефон';
+
+  @override
+  String get teachVoiceBody =>
+      'Прачытайце тры кароткія радкі, каб Omi адрозніваў вашы словы ад чужых. Гэта займае каля хвіліны.';
+
+  @override
+  String get doThisLater => 'Зрабіць пазней';
+
+  @override
+  String get readThisOutLoud => 'Прачытайце гэта ўслых';
+
+  @override
+  String get voiceLineOne => 'Хуткая бурая ліса пераскоквае праз лянівага сабаку.';
+
+  @override
+  String get voiceLineTwo => 'Мне, калі ласка, каву з аўсяным малаком.';
+
+  @override
+  String get voiceLineThree => 'Нагадай мне адправіць прэзентацыю ў пятніцу.';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi ведае ваш голас';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi не ўдалося захаваць ваш голас. Паспрабуйце зноў у Наладах.';
 }

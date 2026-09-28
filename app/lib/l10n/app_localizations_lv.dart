@@ -12417,4 +12417,164 @@ class AppLocalizationsLv extends AppLocalizations {
 
   @override
   String get noPastChats => 'Jūsu tērzēšanas ar Omi parādās šeit.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return '$step. solis no 3 · Jūsu Omi';
+  }
+
+  @override
+  String get turnOnYourOmi => 'Ieslēdziet savu Omi';
+
+  @override
+  String get pressButtonOnce => 'Vienreiz nospiediet pogu vidū.';
+
+  @override
+  String get itsOnV3 => 'Tas ir ieslēgts';
+
+  @override
+  String get lightDidntComeOn => 'Gaismiņa neiedegās';
+
+  @override
+  String get itsOnRedMeans => 'Tas ir ieslēgts. Sarkans nozīmē, ka tas vēl nav savienots pārī. Tas ir nākamais.';
+
+  @override
+  String get mayNeedCharging =>
+      'Iespējams, tas jāuzlādē. Novietojiet uz lādētāja: mirgojoša zaļa nozīmē uzlādi. Pēc tam vēlreiz nospiediet pogu.';
+
+  @override
+  String get turnOnBluetoothV3 => 'Ieslēdziet Bluetooth';
+
+  @override
+  String get bluetoothOnlyThing => 'Tā Omi runā ar jūsu ierīci. Omi neprasa kontaktus vai atrašanās vietu.';
+
+  @override
+  String get notNowV3 => 'Ne tagad';
+
+  @override
+  String get lookingForYourOmi => 'Meklējam jūsu Omi';
+
+  @override
+  String get keepItClose => 'Turiet to tuvu tālrunim. Gaismiņa paliek sarkana, līdz tas savienojas pārī.';
+
+  @override
+  String get waitingForBluetooth => 'Gaida Bluetooth';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · tuvumā';
+  }
+
+  @override
+  String get pairV3 => 'Savienot pārī';
+
+  @override
+  String get pairingV3 => 'Savieno pārī…';
+
+  @override
+  String get pairedV3 => 'Savienots pārī';
+
+  @override
+  String get lightSolidBlueNow => 'Gaismiņa tagad deg zila. Tas nozīmē, ka tas ir savienots.';
+
+  @override
+  String get useThisPhoneInstead => 'Izmantot šo tālruni';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi nevar sasniegt jūsu kulonu. Ieslēdziet to, lai turpinātu.';
+
+  @override
+  String get tapPictureToTry => 'Pieskarieties attēlam, lai izmēģinātu.';
+
+  @override
+  String get oneButtonThreeMoves => 'Viena poga, trīs kustības';
+
+  @override
+  String get tapOnceV3 => 'Pieskarieties vienreiz';
+
+  @override
+  String get tapOnceBody =>
+      'Uzdodiet Omi jautājumu skaļi. Kad esat pabeidzis, pieskarieties vēlreiz vai pagaidiet 15 sekundes. Atbilde parādās sadaļā Jautāt.';
+
+  @override
+  String get tapTwiceV3 => 'Pieskarieties divreiz';
+
+  @override
+  String get tapTwiceBody =>
+      'Beidz un saglabā sarunu. Mainiet sadaļā Ierīces → Dubultskāriens: pauzēt ierakstu vai atzīmēt sarunu ar zvaigzni.';
+
+  @override
+  String get holdThreeSeconds => 'Turiet 3 sekundes';
+
+  @override
+  String get holdThreeSecondsBody => 'Izslēdz to. Nospiediet vienreiz, lai atkal ieslēgtu.';
+
+  @override
+  String get gotItV3 => 'Skaidrs';
+
+  @override
+  String get sayAFewWords => 'Pasakiet dažus vārdus.';
+
+  @override
+  String get tryRemindSam => 'Izmēģiniet: “Atgādini man rīt piezvanīt Semam.”';
+
+  @override
+  String get listeningOnThisPhone => 'Klausās šajā tālrunī';
+
+  @override
+  String get listeningOnYourOmi => 'Klausās jūsu Omi';
+
+  @override
+  String get skipForNowV3 => 'Pagaidām izlaist';
+
+  @override
+  String get omiWritingItUp => 'Omi to pieraksta…';
+
+  @override
+  String get yourFirstConversation => 'Jūsu pirmā saruna';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'Tikko · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'Uzdevumi no šī';
+
+  @override
+  String get everyConversationPage => 'Katra saruna kļūst par šādu lapu. Tās atradīsiet sākumlapā.';
+
+  @override
+  String get stillWritingItUp => 'Omi vēl raksta. Kad būs gatavs, tas būs sākumlapā.';
+
+  @override
+  String get notEnoughToWrite => 'Tas bija pārāk īss, lai pierakstītu. Jūsu nākamā saruna parādīsies sākumlapā.';
+
+  @override
+  String get sourceThisPhone => 'šis tālrunis';
+
+  @override
+  String get teachVoiceBody =>
+      'Nolasiet trīs īsas rindiņas, lai Omi atšķirtu jūsu vārdus no citu vārdiem. Tas aizņem apmēram minūti.';
+
+  @override
+  String get doThisLater => 'Izdarīt vēlāk';
+
+  @override
+  String get readThisOutLoud => 'Nolasiet to skaļi';
+
+  @override
+  String get voiceLineOne => 'Ātrā brūnā lapsa pārlec pāri slinkajam sunim.';
+
+  @override
+  String get voiceLineTwo => 'Lūdzu, kafiju ar auzu pienu.';
+
+  @override
+  String get voiceLineThree => 'Atgādini man piektdien nosūtīt prezentāciju.';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi pazīst jūsu balsi';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi neizdevās saglabāt jūsu balsi. Mēģiniet vēlreiz iestatījumos.';
 }

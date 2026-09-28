@@ -12398,4 +12398,164 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get noPastChats => 'Omi सोबतचे तुमचे चॅट्स येथे दिसतील.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return 'पायरी $step / 3 · तुमचा Omi';
+  }
+
+  @override
+  String get turnOnYourOmi => 'तुमचा Omi सुरू करा';
+
+  @override
+  String get pressButtonOnce => 'मधले बटण एकदा दाबा.';
+
+  @override
+  String get itsOnV3 => 'सुरू झाला';
+
+  @override
+  String get lightDidntComeOn => 'दिवा लागला नाही';
+
+  @override
+  String get itsOnRedMeans => 'सुरू झाला. लाल म्हणजे अजून जोडलेला नाही. पुढे तेच.';
+
+  @override
+  String get mayNeedCharging =>
+      'कदाचित चार्ज करावा लागेल. चार्जरवर ठेवा: हिरवा लुकलुकणे म्हणजे चार्ज होत आहे. मग पुन्हा बटण दाबा.';
+
+  @override
+  String get turnOnBluetoothV3 => 'ब्लूटूथ सुरू करा';
+
+  @override
+  String get bluetoothOnlyThing => 'यानेच Omi तुमच्या डिव्हाइसशी बोलतो. Omi संपर्क किंवा स्थान मागत नाही.';
+
+  @override
+  String get notNowV3 => 'आता नाही';
+
+  @override
+  String get lookingForYourOmi => 'तुमचा Omi शोधत आहे';
+
+  @override
+  String get keepItClose => 'फोनजवळ ठेवा. जोडले जाईपर्यंत दिवा लाल राहील.';
+
+  @override
+  String get waitingForBluetooth => 'ब्लूटूथची वाट पाहत आहे';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · जवळ';
+  }
+
+  @override
+  String get pairV3 => 'जोडा';
+
+  @override
+  String get pairingV3 => 'जोडत आहे…';
+
+  @override
+  String get pairedV3 => 'जोडले';
+
+  @override
+  String get lightSolidBlueNow => 'दिवा आता स्थिर निळा आहे. म्हणजे जोडला गेला.';
+
+  @override
+  String get useThisPhoneInstead => 'त्याऐवजी हा फोन वापरा';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi तुमच्या पेंडंटपर्यंत पोहोचू शकत नाही. पुढे जाण्यासाठी ते सुरू करा.';
+
+  @override
+  String get tapPictureToTry => 'करून पाहण्यासाठी चित्रावर टॅप करा.';
+
+  @override
+  String get oneButtonThreeMoves => 'एक बटण, तीन हालचाली';
+
+  @override
+  String get tapOnceV3 => 'एकदा टॅप करा';
+
+  @override
+  String get tapOnceBody =>
+      'Omi ला मोठ्याने प्रश्न विचारा. झाल्यावर पुन्हा टॅप करा किंवा 15 सेकंद थांबा. उत्तर Ask मध्ये दिसेल.';
+
+  @override
+  String get tapTwiceV3 => 'दोनदा टॅप करा';
+
+  @override
+  String get tapTwiceBody =>
+      'संभाषण संपवून सेव्ह करा. डिव्हाइस → डबल टॅप मध्ये बदला: रेकॉर्डिंग थांबवा, किंवा संभाषणाला तारा द्या.';
+
+  @override
+  String get holdThreeSeconds => '3 सेकंद दाबून ठेवा';
+
+  @override
+  String get holdThreeSecondsBody => 'बंद करा. पुन्हा सुरू करण्यासाठी एकदा दाबा.';
+
+  @override
+  String get gotItV3 => 'समजले';
+
+  @override
+  String get sayAFewWords => 'काही शब्द बोला.';
+
+  @override
+  String get tryRemindSam => 'करून पहा: “उद्या सॅमला फोन करायची आठवण करून दे.”';
+
+  @override
+  String get listeningOnThisPhone => 'या फोनवर ऐकत आहे';
+
+  @override
+  String get listeningOnYourOmi => 'तुमच्या Omi वर ऐकत आहे';
+
+  @override
+  String get skipForNowV3 => 'सध्या वगळा';
+
+  @override
+  String get omiWritingItUp => 'Omi हे लिहीत आहे…';
+
+  @override
+  String get yourFirstConversation => 'तुमचे पहिले संभाषण';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'आत्ताच · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'यातून करायची कामे';
+
+  @override
+  String get everyConversationPage => 'प्रत्येक संभाषण अशा पानात बदलते. ती तुम्हाला होमवर सापडतील.';
+
+  @override
+  String get stillWritingItUp => 'Omi अजून लिहीत आहे. तयार झाल्यावर होमवर दिसेल.';
+
+  @override
+  String get notEnoughToWrite => 'हे लिहिण्यासाठी खूप छोटे होते. तुमचे पुढचे संभाषण होमवर दिसेल.';
+
+  @override
+  String get sourceThisPhone => 'हा फोन';
+
+  @override
+  String get teachVoiceBody =>
+      'तीन छोट्या ओळी वाचा, म्हणजे Omi तुमचे बोलणे इतरांपेक्षा वेगळे ओळखू शकेल. सुमारे एक मिनिट लागतो.';
+
+  @override
+  String get doThisLater => 'नंतर करा';
+
+  @override
+  String get readThisOutLoud => 'हे मोठ्याने वाचा';
+
+  @override
+  String get voiceLineOne => 'चपळ तपकिरी कोल्हा आळशी कुत्र्यावरून उडी मारतो.';
+
+  @override
+  String get voiceLineTwo => 'मला ओट मिल्कची एक कॉफी हवी आहे, प्लीज.';
+
+  @override
+  String get voiceLineThree => 'शुक्रवारी प्रेझेंटेशन पाठवायची आठवण करून दे.';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi तुमचा आवाज ओळखतो';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi तुमचा आवाज सेव्ह करू शकला नाही. सेटिंग्जमधून पुन्हा प्रयत्न करा.';
 }

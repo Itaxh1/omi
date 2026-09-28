@@ -12388,4 +12388,163 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get noPastChats => 'گفتگوهای شما با Omi اینجا نشان داده می‌شود.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return 'مرحله $step از ۳ · Omi شما';
+  }
+
+  @override
+  String get turnOnYourOmi => 'Omi خود را روشن کنید';
+
+  @override
+  String get pressButtonOnce => 'دکمه وسط را یک بار فشار دهید.';
+
+  @override
+  String get itsOnV3 => 'روشن است';
+
+  @override
+  String get lightDidntComeOn => 'چراغ روشن نشد';
+
+  @override
+  String get itsOnRedMeans => 'روشن است. قرمز یعنی هنوز جفت نشده است. مرحله بعد همین است.';
+
+  @override
+  String get mayNeedCharging =>
+      'شاید نیاز به شارژ داشته باشد. آن را روی شارژر بگذارید: سبز چشمک‌زن یعنی در حال شارژ است. سپس دوباره دکمه را فشار دهید.';
+
+  @override
+  String get turnOnBluetoothV3 => 'بلوتوث را روشن کنید';
+
+  @override
+  String get bluetoothOnlyThing => 'Omi از این راه با دستگاه شما حرف می‌زند. Omi مخاطبین یا موقعیت نمی‌خواهد.';
+
+  @override
+  String get notNowV3 => 'الان نه';
+
+  @override
+  String get lookingForYourOmi => 'در جستجوی Omi شما';
+
+  @override
+  String get keepItClose => 'آن را نزدیک گوشی نگه دارید. چراغ تا جفت شدن قرمز می‌ماند.';
+
+  @override
+  String get waitingForBluetooth => 'در انتظار بلوتوث';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · نزدیک';
+  }
+
+  @override
+  String get pairV3 => 'جفت کردن';
+
+  @override
+  String get pairingV3 => 'در حال جفت شدن…';
+
+  @override
+  String get pairedV3 => 'جفت شد';
+
+  @override
+  String get lightSolidBlueNow => 'چراغ اکنون آبی ثابت است. یعنی وصل شده است.';
+
+  @override
+  String get useThisPhoneInstead => 'به‌جایش از این گوشی استفاده کنید';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi به آویز شما دسترسی ندارد. برای ادامه آن را روشن کنید.';
+
+  @override
+  String get tapPictureToTry => 'برای امتحان روی تصویر بزنید.';
+
+  @override
+  String get oneButtonThreeMoves => 'یک دکمه، سه حرکت';
+
+  @override
+  String get tapOnceV3 => 'یک بار بزنید';
+
+  @override
+  String get tapOnceBody =>
+      'از Omi با صدای بلند سؤال بپرسید. وقتی تمام شد دوباره بزنید یا ۱۵ ثانیه صبر کنید. پاسخ در «بپرس» نمایش داده می‌شود.';
+
+  @override
+  String get tapTwiceV3 => 'دو بار بزنید';
+
+  @override
+  String get tapTwiceBody =>
+      'گفتگو را تمام و ذخیره می‌کند. در دستگاه‌ها ← دو ضربه تغییرش دهید: توقف ضبط، یا ستاره‌دار کردن گفتگو.';
+
+  @override
+  String get holdThreeSeconds => '۳ ثانیه نگه دارید';
+
+  @override
+  String get holdThreeSecondsBody => 'خاموشش می‌کند. برای روشن کردن دوباره یک بار فشار دهید.';
+
+  @override
+  String get gotItV3 => 'متوجه شدم';
+
+  @override
+  String get sayAFewWords => 'چند کلمه بگویید.';
+
+  @override
+  String get tryRemindSam => 'امتحان کنید: «یادم بینداز فردا به سم زنگ بزنم.»';
+
+  @override
+  String get listeningOnThisPhone => 'در حال شنیدن با این گوشی';
+
+  @override
+  String get listeningOnYourOmi => 'در حال شنیدن با Omi شما';
+
+  @override
+  String get skipForNowV3 => 'فعلاً رد شوید';
+
+  @override
+  String get omiWritingItUp => 'Omi در حال نوشتن آن است…';
+
+  @override
+  String get yourFirstConversation => 'اولین گفتگوی شما';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'همین الان · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'کارهای این گفتگو';
+
+  @override
+  String get everyConversationPage => 'هر گفتگو به صفحه‌ای مثل این تبدیل می‌شود. آن‌ها را در خانه پیدا می‌کنید.';
+
+  @override
+  String get stillWritingItUp => 'Omi هنوز در حال نوشتن است. وقتی آماده شد در خانه خواهد بود.';
+
+  @override
+  String get notEnoughToWrite => 'برای نوشتن خیلی کوتاه بود. گفتگوی بعدی شما در خانه نمایش داده می‌شود.';
+
+  @override
+  String get sourceThisPhone => 'این گوشی';
+
+  @override
+  String get teachVoiceBody => 'سه خط کوتاه بخوانید تا Omi حرف‌های شما را از بقیه تشخیص دهد. حدود یک دقیقه طول می‌کشد.';
+
+  @override
+  String get doThisLater => 'بعداً انجام بده';
+
+  @override
+  String get readThisOutLoud => 'این را با صدای بلند بخوانید';
+
+  @override
+  String get voiceLineOne => 'روباه قهوه‌ای چابک از روی سگ تنبل می‌پرد.';
+
+  @override
+  String get voiceLineTwo => 'لطفاً یک قهوه با شیر جو دوسر.';
+
+  @override
+  String get voiceLineThree => 'یادم بینداز جمعه ارائه را بفرستم.';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi صدای شما را می‌شناسد';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi نتوانست صدای شما را ذخیره کند. از تنظیمات دوباره امتحان کنید.';
 }

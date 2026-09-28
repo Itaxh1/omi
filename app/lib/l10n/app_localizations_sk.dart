@@ -12381,4 +12381,164 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get noPastChats => 'Tu sa zobrazia vaše chaty s Omi.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return 'Krok $step z 3 · Váš Omi';
+  }
+
+  @override
+  String get turnOnYourOmi => 'Zapnite svoj Omi';
+
+  @override
+  String get pressButtonOnce => 'Raz stlačte tlačidlo v strede.';
+
+  @override
+  String get itsOnV3 => 'Je zapnutý';
+
+  @override
+  String get lightDidntComeOn => 'Svetlo sa nerozsvietilo';
+
+  @override
+  String get itsOnRedMeans => 'Je zapnutý. Červená znamená, že ešte nie je spárovaný. To príde teraz.';
+
+  @override
+  String get mayNeedCharging =>
+      'Možno ho treba nabiť. Dajte ho na nabíjačku: blikajúca zelená znamená, že sa nabíja. Potom znova stlačte tlačidlo.';
+
+  @override
+  String get turnOnBluetoothV3 => 'Zapnite Bluetooth';
+
+  @override
+  String get bluetoothOnlyThing => 'Tak Omi hovorí s vaším zariadením. Omi nežiada kontakty ani polohu.';
+
+  @override
+  String get notNowV3 => 'Teraz nie';
+
+  @override
+  String get lookingForYourOmi => 'Hľadáme váš Omi';
+
+  @override
+  String get keepItClose => 'Držte ho blízko telefónu. Svetlo svieti na červeno, kým sa nespáruje.';
+
+  @override
+  String get waitingForBluetooth => 'Čaká sa na Bluetooth';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · nablízku';
+  }
+
+  @override
+  String get pairV3 => 'Spárovať';
+
+  @override
+  String get pairingV3 => 'Párovanie…';
+
+  @override
+  String get pairedV3 => 'Spárované';
+
+  @override
+  String get lightSolidBlueNow => 'Svetlo teraz svieti na modro. To znamená, že je pripojený.';
+
+  @override
+  String get useThisPhoneInstead => 'Použiť tento telefón';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi sa k prívesku nedostane. Zapnite ho, aby ste mohli pokračovať.';
+
+  @override
+  String get tapPictureToTry => 'Ťuknite na obrázok a vyskúšajte to.';
+
+  @override
+  String get oneButtonThreeMoves => 'Jedno tlačidlo, tri pohyby';
+
+  @override
+  String get tapOnceV3 => 'Ťuknite raz';
+
+  @override
+  String get tapOnceBody =>
+      'Položte Omi otázku nahlas. Keď skončíte, ťuknite znova alebo počkajte 15 sekúnd. Odpoveď sa zobrazí v časti Opýtať sa.';
+
+  @override
+  String get tapTwiceV3 => 'Ťuknite dvakrát';
+
+  @override
+  String get tapTwiceBody =>
+      'Ukončí a uloží konverzáciu. Zmeníte to v Zariadenia → Dvojité ťuknutie: pozastaviť nahrávanie alebo označiť konverzáciu hviezdičkou.';
+
+  @override
+  String get holdThreeSeconds => 'Podržte 3 sekundy';
+
+  @override
+  String get holdThreeSecondsBody => 'Vypne ho. Jedným stlačením ho znova zapnete.';
+
+  @override
+  String get gotItV3 => 'Rozumiem';
+
+  @override
+  String get sayAFewWords => 'Povedzte pár slov.';
+
+  @override
+  String get tryRemindSam => 'Skúste: „Pripomeň mi, aby som zajtra zavolal Samovi.“';
+
+  @override
+  String get listeningOnThisPhone => 'Počúva na tomto telefóne';
+
+  @override
+  String get listeningOnYourOmi => 'Počúva na vašom Omi';
+
+  @override
+  String get skipForNowV3 => 'Zatiaľ preskočiť';
+
+  @override
+  String get omiWritingItUp => 'Omi to spisuje…';
+
+  @override
+  String get yourFirstConversation => 'Vaša prvá konverzácia';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'Práve teraz · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'Úlohy z tohto';
+
+  @override
+  String get everyConversationPage => 'Z každej konverzácie vznikne stránka ako táto. Nájdete ich na Domov.';
+
+  @override
+  String get stillWritingItUp => 'Omi to ešte spisuje. Keď to bude hotové, nájdete to na Domov.';
+
+  @override
+  String get notEnoughToWrite => 'Na zápis to bolo príliš krátke. Vaša ďalšia konverzácia sa zobrazí na Domov.';
+
+  @override
+  String get sourceThisPhone => 'tento telefón';
+
+  @override
+  String get teachVoiceBody =>
+      'Prečítajte tri krátke riadky, aby Omi rozoznal vaše slová od slov ostatných. Trvá to asi minútu.';
+
+  @override
+  String get doThisLater => 'Urobiť neskôr';
+
+  @override
+  String get readThisOutLoud => 'Prečítajte to nahlas';
+
+  @override
+  String get voiceLineOne => 'Rýchla hnedá líška preskakuje lenivého psa.';
+
+  @override
+  String get voiceLineTwo => 'Dal by som si kávu s ovseným mliekom, prosím.';
+
+  @override
+  String get voiceLineThree => 'Pripomeň mi, aby som v piatok poslal prezentáciu.';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi pozná váš hlas';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi nedokázal uložiť váš hlas. Skúste to znova v Nastaveniach.';
 }

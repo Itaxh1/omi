@@ -12499,4 +12499,165 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get noPastChats => 'Dito lumalabas ang mga chat mo kay Omi.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return 'Hakbang $step ng 3 · Ang Omi mo';
+  }
+
+  @override
+  String get turnOnYourOmi => 'I-on ang Omi mo';
+
+  @override
+  String get pressButtonOnce => 'Pindutin nang isang beses ang button sa gitna.';
+
+  @override
+  String get itsOnV3 => 'Naka-on na';
+
+  @override
+  String get lightDidntComeOn => 'Hindi umilaw ang ilaw';
+
+  @override
+  String get itsOnRedMeans => 'Naka-on na. Ang pula ay ibig sabihing hindi pa naka-pair. Iyon ang susunod.';
+
+  @override
+  String get mayNeedCharging =>
+      'Baka kailangan itong i-charge. Ilagay sa charger: ang kumikislap na berde ay ibig sabihing nagcha-charge. Pagkatapos, pindutin ulit ang button.';
+
+  @override
+  String get turnOnBluetoothV3 => 'I-on ang Bluetooth';
+
+  @override
+  String get bluetoothOnlyThing =>
+      'Ganito nakikipag-usap si Omi sa device mo. Hindi humihingi si Omi ng contacts o lokasyon.';
+
+  @override
+  String get notNowV3 => 'Hindi muna';
+
+  @override
+  String get lookingForYourOmi => 'Hinahanap ang Omi mo';
+
+  @override
+  String get keepItClose => 'Ilapit ito sa phone mo. Pula ang ilaw hanggang ma-pair.';
+
+  @override
+  String get waitingForBluetooth => 'Naghihintay ng Bluetooth';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · malapit';
+  }
+
+  @override
+  String get pairV3 => 'I-pair';
+
+  @override
+  String get pairingV3 => 'Nagpe-pair…';
+
+  @override
+  String get pairedV3 => 'Naka-pair na';
+
+  @override
+  String get lightSolidBlueNow => 'Asul na tuloy-tuloy na ang ilaw. Ibig sabihin, nakakonekta na.';
+
+  @override
+  String get useThisPhoneInstead => 'Gamitin na lang ang phone na ito';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Hindi maabot ni Omi ang pendant mo. I-on ito para magpatuloy.';
+
+  @override
+  String get tapPictureToTry => 'I-tap ang larawan para subukan.';
+
+  @override
+  String get oneButtonThreeMoves => 'Isang button, tatlong galaw';
+
+  @override
+  String get tapOnceV3 => 'I-tap nang isang beses';
+
+  @override
+  String get tapOnceBody =>
+      'Magtanong kay Omi nang malakas. I-tap ulit kapag tapos ka na, o maghintay ng 15 segundo. Lalabas ang sagot sa Ask.';
+
+  @override
+  String get tapTwiceV3 => 'I-tap nang dalawang beses';
+
+  @override
+  String get tapTwiceBody =>
+      'Tapusin at i-save ang usapan. Palitan sa Devices → Double tap: i-pause ang recording, o i-star ang usapan.';
+
+  @override
+  String get holdThreeSeconds => 'Pindutin nang 3 segundo';
+
+  @override
+  String get holdThreeSecondsBody => 'Pinapatay ito. Pindutin nang isang beses para buksan ulit.';
+
+  @override
+  String get gotItV3 => 'Sige';
+
+  @override
+  String get sayAFewWords => 'Magsalita ng ilang salita.';
+
+  @override
+  String get tryRemindSam => 'Subukan: “Paalalahanan mo akong tawagan si Sam bukas.”';
+
+  @override
+  String get listeningOnThisPhone => 'Nakikinig sa phone na ito';
+
+  @override
+  String get listeningOnYourOmi => 'Nakikinig sa Omi mo';
+
+  @override
+  String get skipForNowV3 => 'Laktawan muna';
+
+  @override
+  String get omiWritingItUp => 'Isinusulat ito ni Omi…';
+
+  @override
+  String get yourFirstConversation => 'Ang una mong usapan';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'Ngayon lang · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'Gagawin mula rito';
+
+  @override
+  String get everyConversationPage => 'Bawat usapan ay nagiging pahinang ganito. Makikita mo sila sa Home.';
+
+  @override
+  String get stillWritingItUp => 'Isinusulat pa ito ni Omi. Nasa Home ito kapag handa na.';
+
+  @override
+  String get notEnoughToWrite => 'Masyadong maikli iyon para isulat. Lalabas sa Home ang susunod mong usapan.';
+
+  @override
+  String get sourceThisPhone => 'ang phone na ito';
+
+  @override
+  String get teachVoiceBody =>
+      'Basahin ang tatlong maikling linya para makilala ni Omi ang mga salita mo mula sa iba. Mga isang minuto lang.';
+
+  @override
+  String get doThisLater => 'Mamaya na lang';
+
+  @override
+  String get readThisOutLoud => 'Basahin ito nang malakas';
+
+  @override
+  String get voiceLineOne => 'Ang mabilis na kayumangging soro ay tumalon sa tamad na aso.';
+
+  @override
+  String get voiceLineTwo => 'Isang kape na may oat milk, please.';
+
+  @override
+  String get voiceLineThree => 'Paalalahanan mo akong ipadala ang deck sa Biyernes.';
+
+  @override
+  String get omiKnowsYourVoice => 'Kilala na ni Omi ang boses mo';
+
+  @override
+  String get voiceNotSavedV3 => 'Hindi na-save ni Omi ang boses mo. Subukan ulit sa Settings.';
 }

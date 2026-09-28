@@ -12395,4 +12395,164 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get noPastChats => 'Keskustelusi Omin kanssa näkyvät täällä.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return 'Vaihe $step/3 · Sinun Omisi';
+  }
+
+  @override
+  String get turnOnYourOmi => 'Käynnistä Omi';
+
+  @override
+  String get pressButtonOnce => 'Paina keskellä olevaa painiketta kerran.';
+
+  @override
+  String get itsOnV3 => 'Se on päällä';
+
+  @override
+  String get lightDidntComeOn => 'Valo ei syttynyt';
+
+  @override
+  String get itsOnRedMeans => 'Se on päällä. Punainen tarkoittaa, ettei sitä ole vielä yhdistetty. Se on seuraavaksi.';
+
+  @override
+  String get mayNeedCharging =>
+      'Se voi tarvita latausta. Laita se laturiin: vilkkuva vihreä tarkoittaa, että se latautuu. Paina sitten painiketta uudelleen.';
+
+  @override
+  String get turnOnBluetoothV3 => 'Ota Bluetooth käyttöön';
+
+  @override
+  String get bluetoothOnlyThing => 'Näin Omi puhuu laitteesi kanssa. Omi ei pyydä yhteystietoja eikä sijaintia.';
+
+  @override
+  String get notNowV3 => 'Ei nyt';
+
+  @override
+  String get lookingForYourOmi => 'Etsitään Omiasi';
+
+  @override
+  String get keepItClose => 'Pidä se lähellä puhelinta. Valo pysyy punaisena, kunnes se on yhdistetty.';
+
+  @override
+  String get waitingForBluetooth => 'Odotetaan Bluetoothia';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · lähellä';
+  }
+
+  @override
+  String get pairV3 => 'Yhdistä';
+
+  @override
+  String get pairingV3 => 'Yhdistetään…';
+
+  @override
+  String get pairedV3 => 'Yhdistetty';
+
+  @override
+  String get lightSolidBlueNow => 'Valo palaa nyt tasaisen sinisenä. Se tarkoittaa, että yhteys on muodostettu.';
+
+  @override
+  String get useThisPhoneInstead => 'Käytä tätä puhelinta';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi ei tavoita riipustasi. Ota se käyttöön jatkaaksesi.';
+
+  @override
+  String get tapPictureToTry => 'Kokeile napauttamalla kuvaa.';
+
+  @override
+  String get oneButtonThreeMoves => 'Yksi painike, kolme liikettä';
+
+  @override
+  String get tapOnceV3 => 'Napauta kerran';
+
+  @override
+  String get tapOnceBody =>
+      'Esitä Omille kysymys ääneen. Napauta uudelleen, kun olet valmis, tai odota 15 sekuntia. Vastaus näkyy Kysy-näkymässä.';
+
+  @override
+  String get tapTwiceV3 => 'Napauta kahdesti';
+
+  @override
+  String get tapTwiceBody =>
+      'Päättää ja tallentaa keskustelun. Vaihda kohdassa Laitteet → Kaksoisnapautus: keskeytä tallennus tai merkitse keskustelu tähdellä.';
+
+  @override
+  String get holdThreeSeconds => 'Pidä pohjassa 3 sekuntia';
+
+  @override
+  String get holdThreeSecondsBody => 'Sammuttaa sen. Käynnistä uudelleen painamalla kerran.';
+
+  @override
+  String get gotItV3 => 'Selvä';
+
+  @override
+  String get sayAFewWords => 'Sano muutama sana.';
+
+  @override
+  String get tryRemindSam => 'Kokeile: ”Muistuta minua soittamaan Samille huomenna.”';
+
+  @override
+  String get listeningOnThisPhone => 'Kuuntelee tällä puhelimella';
+
+  @override
+  String get listeningOnYourOmi => 'Kuuntelee Omillasi';
+
+  @override
+  String get skipForNowV3 => 'Ohita toistaiseksi';
+
+  @override
+  String get omiWritingItUp => 'Omi kirjoittaa sitä…';
+
+  @override
+  String get yourFirstConversation => 'Ensimmäinen keskustelusi';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'Juuri nyt · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'Tehtävät tästä';
+
+  @override
+  String get everyConversationPage => 'Jokaisesta keskustelusta tulee tällainen sivu. Löydät ne Kotinäkymästä.';
+
+  @override
+  String get stillWritingItUp => 'Omi kirjoittaa vielä. Se näkyy Kotinäkymässä, kun se on valmis.';
+
+  @override
+  String get notEnoughToWrite => 'Se oli liian lyhyt kirjattavaksi. Seuraava keskustelusi näkyy Kotinäkymässä.';
+
+  @override
+  String get sourceThisPhone => 'tämä puhelin';
+
+  @override
+  String get teachVoiceBody =>
+      'Lue kolme lyhyttä riviä, niin Omi erottaa sanasi muiden sanoista. Se vie noin minuutin.';
+
+  @override
+  String get doThisLater => 'Tee myöhemmin';
+
+  @override
+  String get readThisOutLoud => 'Lue tämä ääneen';
+
+  @override
+  String get voiceLineOne => 'Nopea ruskea kettu hyppää laiskan koiran yli.';
+
+  @override
+  String get voiceLineTwo => 'Saisinko kahvin kaurajuomalla, kiitos.';
+
+  @override
+  String get voiceLineThree => 'Muistuta minua lähettämään esitys perjantaina.';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi tuntee äänesi';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi ei voinut tallentaa ääntäsi. Yritä uudelleen asetuksista.';
 }

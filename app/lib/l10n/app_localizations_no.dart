@@ -12392,4 +12392,164 @@ class AppLocalizationsNo extends AppLocalizations {
 
   @override
   String get noPastChats => 'Chattene dine med Omi vises her.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return 'Trinn $step av 3 · Din Omi';
+  }
+
+  @override
+  String get turnOnYourOmi => 'Slå på Omi-en din';
+
+  @override
+  String get pressButtonOnce => 'Trykk én gang på knappen i midten.';
+
+  @override
+  String get itsOnV3 => 'Den er på';
+
+  @override
+  String get lightDidntComeOn => 'Lyset kom ikke på';
+
+  @override
+  String get itsOnRedMeans => 'Den er på. Rødt betyr at den ikke er paret ennå. Det er neste steg.';
+
+  @override
+  String get mayNeedCharging =>
+      'Den må kanskje lades. Sett den på laderen: blinkende grønt betyr at den lader. Trykk så på knappen igjen.';
+
+  @override
+  String get turnOnBluetoothV3 => 'Slå på Bluetooth';
+
+  @override
+  String get bluetoothOnlyThing => 'Slik snakker Omi med enheten din. Omi ber ikke om kontakter eller posisjon.';
+
+  @override
+  String get notNowV3 => 'Ikke nå';
+
+  @override
+  String get lookingForYourOmi => 'Leter etter Omi-en din';
+
+  @override
+  String get keepItClose => 'Hold den nær telefonen. Lyset er rødt til den er paret.';
+
+  @override
+  String get waitingForBluetooth => 'Venter på Bluetooth';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · i nærheten';
+  }
+
+  @override
+  String get pairV3 => 'Par';
+
+  @override
+  String get pairingV3 => 'Parer…';
+
+  @override
+  String get pairedV3 => 'Paret';
+
+  @override
+  String get lightSolidBlueNow => 'Lyset er fast blått nå. Det betyr at den er tilkoblet.';
+
+  @override
+  String get useThisPhoneInstead => 'Bruk denne telefonen i stedet';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi når ikke anheng-et ditt. Slå det på for å fortsette.';
+
+  @override
+  String get tapPictureToTry => 'Trykk på bildet for å prøve.';
+
+  @override
+  String get oneButtonThreeMoves => 'Én knapp, tre bevegelser';
+
+  @override
+  String get tapOnceV3 => 'Trykk én gang';
+
+  @override
+  String get tapOnceBody =>
+      'Still Omi et spørsmål høyt. Trykk igjen når du er ferdig, eller vent 15 sekunder. Svaret dukker opp i Spør.';
+
+  @override
+  String get tapTwiceV3 => 'Trykk to ganger';
+
+  @override
+  String get tapTwiceBody =>
+      'Avslutter og lagrer samtalen. Endre det i Enheter → Dobbelttrykk: sett opptaket på pause, eller stjernemerk samtalen.';
+
+  @override
+  String get holdThreeSeconds => 'Hold inne i 3 sekunder';
+
+  @override
+  String get holdThreeSecondsBody => 'Slår den av. Trykk én gang for å slå den på igjen.';
+
+  @override
+  String get gotItV3 => 'Skjønner';
+
+  @override
+  String get sayAFewWords => 'Si noen ord.';
+
+  @override
+  String get tryRemindSam => 'Prøv: «Minn meg på å ringe Sam i morgen.»';
+
+  @override
+  String get listeningOnThisPhone => 'Lytter på denne telefonen';
+
+  @override
+  String get listeningOnYourOmi => 'Lytter på Omi-en din';
+
+  @override
+  String get skipForNowV3 => 'Hopp over foreløpig';
+
+  @override
+  String get omiWritingItUp => 'Omi skriver det ned…';
+
+  @override
+  String get yourFirstConversation => 'Din første samtale';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'Akkurat nå · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'Gjøremål herfra';
+
+  @override
+  String get everyConversationPage => 'Hver samtale blir en side som denne. Du finner dem på Hjem.';
+
+  @override
+  String get stillWritingItUp => 'Omi skriver fortsatt. Den havner på Hjem når den er klar.';
+
+  @override
+  String get notEnoughToWrite => 'Det var for kort til å skrive ned. Neste samtale dukker opp på Hjem.';
+
+  @override
+  String get sourceThisPhone => 'denne telefonen';
+
+  @override
+  String get teachVoiceBody =>
+      'Les tre korte linjer, så Omi kan skille ordene dine fra alle andres. Det tar omtrent et minutt.';
+
+  @override
+  String get doThisLater => 'Gjør det senere';
+
+  @override
+  String get readThisOutLoud => 'Les dette høyt';
+
+  @override
+  String get voiceLineOne => 'Den raske brune reven hopper over den late hunden.';
+
+  @override
+  String get voiceLineTwo => 'Jeg vil gjerne ha en kaffe med havremelk, takk.';
+
+  @override
+  String get voiceLineThree => 'Minn meg på å sende presentasjonen på fredag.';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi kjenner stemmen din';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi kunne ikke lagre stemmen din. Prøv igjen fra Innstillinger.';
 }

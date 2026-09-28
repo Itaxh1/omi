@@ -12429,4 +12429,164 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get noPastChats => 'Tu pojawią się Twoje czaty z Omi.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return 'Krok $step z 3 · Twój Omi';
+  }
+
+  @override
+  String get turnOnYourOmi => 'Włącz swój Omi';
+
+  @override
+  String get pressButtonOnce => 'Naciśnij raz przycisk pośrodku.';
+
+  @override
+  String get itsOnV3 => 'Jest włączony';
+
+  @override
+  String get lightDidntComeOn => 'Światełko się nie zapaliło';
+
+  @override
+  String get itsOnRedMeans => 'Jest włączony. Czerwony znaczy, że nie jest jeszcze sparowany. To następny krok.';
+
+  @override
+  String get mayNeedCharging =>
+      'Może trzeba go naładować. Połóż go na ładowarce: migający zielony oznacza ładowanie. Potem naciśnij przycisk ponownie.';
+
+  @override
+  String get turnOnBluetoothV3 => 'Włącz Bluetooth';
+
+  @override
+  String get bluetoothOnlyThing => 'Tak Omi rozmawia z Twoim urządzeniem. Omi nie prosi o kontakty ani lokalizację.';
+
+  @override
+  String get notNowV3 => 'Nie teraz';
+
+  @override
+  String get lookingForYourOmi => 'Szukamy Twojego Omi';
+
+  @override
+  String get keepItClose => 'Trzymaj go blisko telefonu. Światełko jest czerwone, dopóki się nie sparuje.';
+
+  @override
+  String get waitingForBluetooth => 'Czekam na Bluetooth';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · w pobliżu';
+  }
+
+  @override
+  String get pairV3 => 'Paruj';
+
+  @override
+  String get pairingV3 => 'Parowanie…';
+
+  @override
+  String get pairedV3 => 'Sparowano';
+
+  @override
+  String get lightSolidBlueNow => 'Światełko świeci teraz na niebiesko. To znaczy, że jest połączony.';
+
+  @override
+  String get useThisPhoneInstead => 'Użyj tego telefonu';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi nie może połączyć się z wisiorkiem. Włącz go, aby kontynuować.';
+
+  @override
+  String get tapPictureToTry => 'Stuknij obrazek, aby spróbować.';
+
+  @override
+  String get oneButtonThreeMoves => 'Jeden przycisk, trzy ruchy';
+
+  @override
+  String get tapOnceV3 => 'Stuknij raz';
+
+  @override
+  String get tapOnceBody =>
+      'Zadaj Omi pytanie na głos. Stuknij ponownie, gdy skończysz, albo odczekaj 15 sekund. Odpowiedź pojawi się w Zapytaj.';
+
+  @override
+  String get tapTwiceV3 => 'Stuknij dwa razy';
+
+  @override
+  String get tapTwiceBody =>
+      'Kończy i zapisuje rozmowę. Zmień to w Urządzenia → Podwójne stuknięcie: wstrzymaj nagrywanie lub oznacz rozmowę gwiazdką.';
+
+  @override
+  String get holdThreeSeconds => 'Przytrzymaj 3 sekundy';
+
+  @override
+  String get holdThreeSecondsBody => 'Wyłącza go. Naciśnij raz, aby włączyć ponownie.';
+
+  @override
+  String get gotItV3 => 'Rozumiem';
+
+  @override
+  String get sayAFewWords => 'Powiedz kilka słów.';
+
+  @override
+  String get tryRemindSam => 'Spróbuj: „Przypomnij mi, żebym jutro zadzwonił do Sama.”';
+
+  @override
+  String get listeningOnThisPhone => 'Słucha na tym telefonie';
+
+  @override
+  String get listeningOnYourOmi => 'Słucha na Twoim Omi';
+
+  @override
+  String get skipForNowV3 => 'Pomiń na razie';
+
+  @override
+  String get omiWritingItUp => 'Omi to spisuje…';
+
+  @override
+  String get yourFirstConversation => 'Twoja pierwsza rozmowa';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'Przed chwilą · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'Zadania z tej rozmowy';
+
+  @override
+  String get everyConversationPage => 'Każda rozmowa staje się taką stroną. Znajdziesz je na ekranie głównym.';
+
+  @override
+  String get stillWritingItUp => 'Omi jeszcze to spisuje. Pojawi się na ekranie głównym, gdy będzie gotowe.';
+
+  @override
+  String get notEnoughToWrite => 'To było za krótkie, by to spisać. Następna rozmowa pojawi się na ekranie głównym.';
+
+  @override
+  String get sourceThisPhone => 'ten telefon';
+
+  @override
+  String get teachVoiceBody =>
+      'Przeczytaj trzy krótkie zdania, żeby Omi odróżniał Twoje słowa od cudzych. To zajmie około minuty.';
+
+  @override
+  String get doThisLater => 'Zrób to później';
+
+  @override
+  String get readThisOutLoud => 'Przeczytaj to na głos';
+
+  @override
+  String get voiceLineOne => 'Szybki brązowy lis przeskakuje nad leniwym psem.';
+
+  @override
+  String get voiceLineTwo => 'Poproszę kawę z mlekiem owsianym.';
+
+  @override
+  String get voiceLineThree => 'Przypomnij mi, żebym w piątek wysłał prezentację.';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi zna Twój głos';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi nie udało się zapisać Twojego głosu. Spróbuj ponownie w Ustawieniach.';
 }

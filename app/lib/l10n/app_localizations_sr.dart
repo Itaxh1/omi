@@ -12403,4 +12403,163 @@ class AppLocalizationsSr extends AppLocalizations {
 
   @override
   String get noPastChats => 'Vaši razgovori sa Omijem pojavljuju se ovde.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return 'Korak $step od 3 · Vaš Omi';
+  }
+
+  @override
+  String get turnOnYourOmi => 'Uključite svoj Omi';
+
+  @override
+  String get pressButtonOnce => 'Jednom pritisnite dugme u sredini.';
+
+  @override
+  String get itsOnV3 => 'Uključen je';
+
+  @override
+  String get lightDidntComeOn => 'Svetlo se nije upalilo';
+
+  @override
+  String get itsOnRedMeans => 'Uključen je. Crveno znači da još nije uparen. To je sledeće.';
+
+  @override
+  String get mayNeedCharging =>
+      'Možda ga treba napuniti. Stavite ga na punjač: trepćuće zeleno znači da se puni. Zatim ponovo pritisnite dugme.';
+
+  @override
+  String get turnOnBluetoothV3 => 'Uključite Bluetooth';
+
+  @override
+  String get bluetoothOnlyThing => 'Tako Omi razgovara sa vašim uređajem. Omi ne traži kontakte ni lokaciju.';
+
+  @override
+  String get notNowV3 => 'Ne sada';
+
+  @override
+  String get lookingForYourOmi => 'Tražimo vaš Omi';
+
+  @override
+  String get keepItClose => 'Držite ga blizu telefona. Svetlo ostaje crveno dok se ne upari.';
+
+  @override
+  String get waitingForBluetooth => 'Čeka se Bluetooth';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · u blizini';
+  }
+
+  @override
+  String get pairV3 => 'Upari';
+
+  @override
+  String get pairingV3 => 'Uparivanje…';
+
+  @override
+  String get pairedV3 => 'Uparen';
+
+  @override
+  String get lightSolidBlueNow => 'Svetlo je sada stalno plavo. To znači da je povezan.';
+
+  @override
+  String get useThisPhoneInstead => 'Koristi ovaj telefon';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi ne može do vašeg priveska. Uključite ga da nastavite.';
+
+  @override
+  String get tapPictureToTry => 'Dodirnite sliku da probate.';
+
+  @override
+  String get oneButtonThreeMoves => 'Jedno dugme, tri pokreta';
+
+  @override
+  String get tapOnceV3 => 'Dodirnite jednom';
+
+  @override
+  String get tapOnceBody =>
+      'Postavite Omiju pitanje naglas. Dodirnite ponovo kad završite ili sačekajte 15 sekundi. Odgovor se pojavljuje u Pitaj.';
+
+  @override
+  String get tapTwiceV3 => 'Dodirnite dvaput';
+
+  @override
+  String get tapTwiceBody =>
+      'Završava i čuva razgovor. Promenite u Uređaji → Dvostruki dodir: pauziraj snimanje ili označi razgovor zvezdicom.';
+
+  @override
+  String get holdThreeSeconds => 'Držite 3 sekunde';
+
+  @override
+  String get holdThreeSecondsBody => 'Isključuje ga. Pritisnite jednom da ga ponovo uključite.';
+
+  @override
+  String get gotItV3 => 'Razumem';
+
+  @override
+  String get sayAFewWords => 'Recite nekoliko reči.';
+
+  @override
+  String get tryRemindSam => 'Probajte: „Podseti me da sutra pozovem Sema.“';
+
+  @override
+  String get listeningOnThisPhone => 'Sluša na ovom telefonu';
+
+  @override
+  String get listeningOnYourOmi => 'Sluša na vašem Omiju';
+
+  @override
+  String get skipForNowV3 => 'Preskoči za sada';
+
+  @override
+  String get omiWritingItUp => 'Omi to zapisuje…';
+
+  @override
+  String get yourFirstConversation => 'Vaš prvi razgovor';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'Upravo · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'Zadaci iz ovoga';
+
+  @override
+  String get everyConversationPage => 'Svaki razgovor postaje ovakva stranica. Naći ćete ih na Početnoj.';
+
+  @override
+  String get stillWritingItUp => 'Omi to još zapisuje. Biće na Početnoj kad bude spremno.';
+
+  @override
+  String get notEnoughToWrite => 'To je bilo prekratko za zapis. Vaš sledeći razgovor pojaviće se na Početnoj.';
+
+  @override
+  String get sourceThisPhone => 'ovaj telefon';
+
+  @override
+  String get teachVoiceBody => 'Pročitajte tri kratka reda da Omi razlikuje vaše reči od tuđih. Traje oko minut.';
+
+  @override
+  String get doThisLater => 'Uradi ovo kasnije';
+
+  @override
+  String get readThisOutLoud => 'Pročitajte ovo naglas';
+
+  @override
+  String get voiceLineOne => 'Brza smeđa lisica preskače lenjog psa.';
+
+  @override
+  String get voiceLineTwo => 'Molim vas, kafu sa ovsenim mlekom.';
+
+  @override
+  String get voiceLineThree => 'Podseti me da u petak pošaljem prezentaciju.';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi prepoznaje vaš glas';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi nije mogao da sačuva vaš glas. Pokušajte ponovo u Podešavanjima.';
 }

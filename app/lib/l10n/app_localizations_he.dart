@@ -12291,4 +12291,162 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get noPastChats => 'הצ\'אטים שלכם עם Omi יופיעו כאן.';
+
+  @override
+  String obStepYourOmi(int step) {
+    return 'שלב $step מתוך 3 · ה-Omi שלכם';
+  }
+
+  @override
+  String get turnOnYourOmi => 'הפעילו את ה-Omi';
+
+  @override
+  String get pressButtonOnce => 'לחצו פעם אחת על הכפתור שבאמצע.';
+
+  @override
+  String get itsOnV3 => 'הוא דולק';
+
+  @override
+  String get lightDidntComeOn => 'האור לא נדלק';
+
+  @override
+  String get itsOnRedMeans => 'הוא דולק. אדום אומר שהוא עוד לא מוצמד. זה השלב הבא.';
+
+  @override
+  String get mayNeedCharging =>
+      'אולי הוא צריך טעינה. הניחו אותו על המטען: ירוק מהבהב אומר שהוא נטען. אחר כך לחצו שוב על הכפתור.';
+
+  @override
+  String get turnOnBluetoothV3 => 'הפעילו Bluetooth';
+
+  @override
+  String get bluetoothOnlyThing => 'כך Omi מדבר עם המכשיר שלכם. Omi לא מבקש אנשי קשר או מיקום.';
+
+  @override
+  String get notNowV3 => 'לא עכשיו';
+
+  @override
+  String get lookingForYourOmi => 'מחפשים את ה-Omi שלכם';
+
+  @override
+  String get keepItClose => 'החזיקו אותו קרוב לטלפון. האור נשאר אדום עד שהוא מוצמד.';
+
+  @override
+  String get waitingForBluetooth => 'ממתינים ל-Bluetooth';
+
+  @override
+  String nearbyDevice(String id) {
+    return '$id · בקרבת מקום';
+  }
+
+  @override
+  String get pairV3 => 'הצמדה';
+
+  @override
+  String get pairingV3 => 'מצמידים…';
+
+  @override
+  String get pairedV3 => 'מוצמד';
+
+  @override
+  String get lightSolidBlueNow => 'האור כחול קבוע עכשיו. זה אומר שהוא מחובר.';
+
+  @override
+  String get useThisPhoneInstead => 'להשתמש בטלפון הזה במקום';
+
+  @override
+  String get bluetoothOffOmiCantReach => 'Omi לא מגיע לתליון. הפעילו אותו כדי להמשיך.';
+
+  @override
+  String get tapPictureToTry => 'הקישו על התמונה כדי לנסות.';
+
+  @override
+  String get oneButtonThreeMoves => 'כפתור אחד, שלוש תנועות';
+
+  @override
+  String get tapOnceV3 => 'הקשה אחת';
+
+  @override
+  String get tapOnceBody => 'שאלו את Omi שאלה בקול. הקישו שוב כשתסיימו, או חכו 15 שניות. התשובה תופיע ב„שאל“.';
+
+  @override
+  String get tapTwiceV3 => 'הקשה כפולה';
+
+  @override
+  String get tapTwiceBody =>
+      'מסיים ושומר את השיחה. אפשר לשנות במכשירים ← הקשה כפולה: השהיית ההקלטה, או סימון השיחה בכוכב.';
+
+  @override
+  String get holdThreeSeconds => 'החזקה של 3 שניות';
+
+  @override
+  String get holdThreeSecondsBody => 'מכבה אותו. לחיצה אחת מדליקה אותו שוב.';
+
+  @override
+  String get gotItV3 => 'הבנתי';
+
+  @override
+  String get sayAFewWords => 'אמרו כמה מילים.';
+
+  @override
+  String get tryRemindSam => 'נסו: „תזכיר לי להתקשר לסאם מחר.“';
+
+  @override
+  String get listeningOnThisPhone => 'מאזין בטלפון הזה';
+
+  @override
+  String get listeningOnYourOmi => 'מאזין ב-Omi שלכם';
+
+  @override
+  String get skipForNowV3 => 'דלגו בינתיים';
+
+  @override
+  String get omiWritingItUp => 'Omi כותב את זה…';
+
+  @override
+  String get yourFirstConversation => 'השיחה הראשונה שלכם';
+
+  @override
+  String justNowLength(String length, String source) {
+    return 'עכשיו · $length · $source';
+  }
+
+  @override
+  String get toDoFromThis => 'משימות מכאן';
+
+  @override
+  String get everyConversationPage => 'כל שיחה הופכת לעמוד כזה. תמצאו אותם במסך הבית.';
+
+  @override
+  String get stillWritingItUp => 'Omi עדיין כותב. זה יופיע במסך הבית כשיהיה מוכן.';
+
+  @override
+  String get notEnoughToWrite => 'זה היה קצר מדי לכתיבה. השיחה הבאה שלכם תופיע במסך הבית.';
+
+  @override
+  String get sourceThisPhone => 'הטלפון הזה';
+
+  @override
+  String get teachVoiceBody => 'קראו שלוש שורות קצרות כדי ש-Omi יבחין בין המילים שלכם לשל אחרים. זה לוקח בערך דקה.';
+
+  @override
+  String get doThisLater => 'אעשה את זה אחר כך';
+
+  @override
+  String get readThisOutLoud => 'קראו את זה בקול';
+
+  @override
+  String get voiceLineOne => 'השועל החום המהיר קופץ מעל הכלב העצלן.';
+
+  @override
+  String get voiceLineTwo => 'אפשר קפה עם חלב שיבולת שועל, בבקשה.';
+
+  @override
+  String get voiceLineThree => 'תזכיר לי לשלוח את המצגת ביום שישי.';
+
+  @override
+  String get omiKnowsYourVoice => 'Omi מכיר את הקול שלכם';
+
+  @override
+  String get voiceNotSavedV3 => 'Omi לא הצליח לשמור את הקול שלכם. נסו שוב מההגדרות.';
 }
