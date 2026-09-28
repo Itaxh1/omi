@@ -66,9 +66,8 @@ class _Sidebar extends StatelessWidget {
       return (kept.length, kept.where((c) => (c.folderId ?? '').isEmpty).length);
     });
     final pairedName = context.select<DeviceProvider?, String?>((d) => d?.pairedDevice?.name)?.trim() ?? '';
-    final deviceName = pairedName.isNotEmpty
-        ? pairedName
-        : (Platform.isIOS ? l10n.memoryThisIphone : l10n.memoryThisPhone);
+    final deviceName =
+        pairedName.isNotEmpty ? pairedName : (Platform.isIOS ? l10n.memoryThisIphone : l10n.memoryThisPhone);
     return Material(
       color: OmiColors.surface0,
       child: Container(

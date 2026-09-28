@@ -222,8 +222,7 @@ class HomeListeningLabel extends StatelessWidget {
       };
 
   /// What pulling Home down says: pause while listening, resume while paused, otherwise record.
-  static String pullWords(AppLocalizations l10n, HomeRecorderState state, {required bool ready}) =>
-      switch (state) {
+  static String pullWords(AppLocalizations l10n, HomeRecorderState state, {required bool ready}) => switch (state) {
         HomeRecorderState.listening => ready ? l10n.releaseToPause : l10n.pullToPause,
         HomeRecorderState.paused => ready ? l10n.releaseToResume : l10n.pullToResume,
         _ => ready ? l10n.releaseToRecord : l10n.pullToRecord,

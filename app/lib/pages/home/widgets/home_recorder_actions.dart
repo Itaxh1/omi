@@ -40,9 +40,9 @@ abstract final class HomeRecorderActions {
   /// live page).
   static Future<void> start(BuildContext context) async {
     final capture = context.read<CaptureProvider>();
-    final stoppedWearable = (capture.isCaptureStopped ||
-            (capture.isStopping && (capture.liveCaptureSource ?? 'phone') != 'phone')) &&
-        capture.havingRecordingDevice;
+    final stoppedWearable =
+        (capture.isCaptureStopped || (capture.isStopping && (capture.liveCaptureSource ?? 'phone') != 'phone')) &&
+            capture.havingRecordingDevice;
     if (stoppedWearable) {
       await IdleCaptureCard.startWearable(context);
     } else {

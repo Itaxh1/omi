@@ -235,8 +235,13 @@ class _EditableLineState extends State<_EditableLine> {
 
 /// The bar while the summary is edited (`.edbar`): ink, "Editing summary", Cancel and Save (paper).
 class SummaryEditBar extends StatelessWidget {
-  const SummaryEditBar({super.key, required this.label, required this.cancel, required this.save,
-      required this.onCancel, required this.onSave});
+  const SummaryEditBar(
+      {super.key,
+      required this.label,
+      required this.cancel,
+      required this.save,
+      required this.onCancel,
+      required this.onSave});
 
   final String label;
   final String cancel;
@@ -265,8 +270,8 @@ class SummaryEditBar extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(19)),
               ),
               child: Text(text,
-                  style: OmiType.detail.copyWith(
-                      fontWeight: FontWeight.w600, color: filled ? OmiColors.textPrimary : paper)),
+                  style: OmiType.detail
+                      .copyWith(fontWeight: FontWeight.w600, color: filled ? OmiColors.textPrimary : paper)),
             ),
           ),
         );
@@ -281,7 +286,9 @@ class SummaryEditBar extends StatelessWidget {
         decoration: BoxDecoration(
           color: OmiColors.accent,
           borderRadius: const BorderRadius.all(Radius.circular(26)),
-          boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.2), offset: const Offset(0, 12), blurRadius: 30)],
+          boxShadow: [
+            BoxShadow(color: Colors.black.withValues(alpha: 0.2), offset: const Offset(0, 12), blurRadius: 30)
+          ],
         ),
         child: Row(
           children: [

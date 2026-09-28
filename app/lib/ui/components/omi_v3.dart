@@ -357,7 +357,9 @@ Future<T?> showOmiPopoverMenu<T>(BuildContext context, {required List<OmiMenuEnt
   const danger = Color(0xFFC4320A); // omi-ux-allow: color-literal -- the mock's menu Delete red
   const dangerDark = Color(0xFFFF8A70); // omi-ux-allow: color-literal -- the mock's menu Delete red in Black
   final red = light ? danger : dangerDark;
-  final redTile = light ? const Color(0xFFFDF1EE) : const Color(0x1AFF8A70); // omi-ux-allow: color-literal -- the mock's Delete tile
+  final redTile = light
+      ? const Color(0xFFFDF1EE)
+      : const Color(0x1AFF8A70); // omi-ux-allow: color-literal -- the mock's Delete tile
   final width = math.min(268.0, MediaQuery.sizeOf(context).width - 28);
   return showGeneralDialog<T>(
     context: context,

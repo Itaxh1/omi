@@ -5,7 +5,8 @@ import 'package:omi/ui/format/omi_plain_text.dart';
 void main() {
   test('headings, bullets, quotes and rules drop their markers; lines join into one', () {
     expect(
-      OmiPlainText.fromMarkdown('## Summary\n- Pricing leaning annual\n- iOS roadmap set\n> Call Chitapa\n---\n1. Ship'),
+      OmiPlainText.fromMarkdown(
+          '## Summary\n- Pricing leaning annual\n- iOS roadmap set\n> Call Chitapa\n---\n1. Ship'),
       'Summary Pricing leaning annual iOS roadmap set Call Chitapa Ship',
     );
   });

@@ -425,7 +425,11 @@ final captureScenarios = <AuditScenario>[
     page: 'lib/pages/home/your_omi_page.dart (YourOmiPage)',
     state: 'The phone records; the label is tapped',
     run: (a) => _runHome(
-        a, withData: true, AuditLive.phone, tap: find.byKey(const Key('home_listening_label')), action: 'Tap Listening'),
+        a,
+        withData: true,
+        AuditLive.phone,
+        tap: find.byKey(const Key('home_listening_label')),
+        action: 'Tap Listening'),
   ),
   AuditScenario(
     id: 'your-omi-transcript',
@@ -433,8 +437,12 @@ final captureScenarios = <AuditScenario>[
     page: 'lib/pages/home/your_omi_page.dart (_LiveTranscriptPage)',
     state: 'The pendant records with transcript lines; Your Omi, then the transcript card',
     run: (a) async {
-      await _runHome(a, withData: true, AuditLive.pendant,
-          pendantConnected: true, tap: find.byKey(const Key('home_listening_label')));
+      await _runHome(
+          a,
+          withData: true,
+          AuditLive.pendant,
+          pendantConnected: true,
+          tap: find.byKey(const Key('home_listening_label')));
       await a.tap(find.byKey(const Key('your_omi_transcript')));
       await a.shot('Tap the transcript', step: 'full');
     },
@@ -462,8 +470,12 @@ final captureScenarios = <AuditScenario>[
     page: 'lib/pages/home/widgets/listening_strip.dart (ListeningStrip)',
     state: 'The pendant records; Your Omi, then its device, then the strip is opened on Devices',
     run: (a) async {
-      await _runHome(a, withData: true, AuditLive.pendant,
-          pendantConnected: true, tap: find.byKey(const Key('home_listening_label')));
+      await _runHome(
+          a,
+          withData: true,
+          AuditLive.pendant,
+          pendantConnected: true,
+          tap: find.byKey(const Key('home_listening_label')));
       await a.tap(find.byKey(const Key('your_omi_device')));
       await a.tap(find.byKey(const Key('listening_strip')));
       await a.shot('Open the strip panel', step: 'panel');

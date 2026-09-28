@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-
 import 'package:collection/collection.dart';
 import 'package:provider/provider.dart';
 
@@ -386,10 +385,7 @@ class AppRowV3 extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(name,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: OmiType.askBar.copyWith(height: 1.3)),
+                  Text(name, maxLines: 1, overflow: TextOverflow.ellipsis, style: OmiType.askBar.copyWith(height: 1.3)),
                   const SizedBox(height: 1),
                   Text(
                     app.description.decodeString.trim(),

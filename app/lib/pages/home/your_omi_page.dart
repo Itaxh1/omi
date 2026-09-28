@@ -346,9 +346,8 @@ class _DeviceInfo {
         connected: true,
       );
     }
-    final name = (pairedName ?? '').trim().isNotEmpty
-        ? pairedName!.trim()
-        : CaptureSources.label(context, source ?? 'omi');
+    final name =
+        (pairedName ?? '').trim().isNotEmpty ? pairedName!.trim() : CaptureSources.label(context, source ?? 'omi');
     final omi = pairedType == null || pairedType == DeviceType.omi;
     return _DeviceInfo(
       name: name,
@@ -401,9 +400,8 @@ class _Hero extends StatelessWidget {
             // `#osRng`: from 60 % to full size with a small overshoot as the screen unrolls.
             TweenAnimationBuilder<double>(
               tween: Tween(begin: 0.6, end: 1),
-              duration: OmiMotion.of(context).standard == Duration.zero
-                  ? Duration.zero
-                  : const Duration(milliseconds: 580),
+              duration:
+                  OmiMotion.of(context).standard == Duration.zero ? Duration.zero : const Duration(milliseconds: 580),
               curve: const Interval(0.14, 1, curve: Cubic(0.34, 1.4, 0.64, 1)),
               builder: (context, scale, child) => Transform.scale(scale: scale, child: child),
               child: OmiRingLogo(
@@ -468,8 +466,7 @@ class _Hero extends StatelessWidget {
                       ),
                       if (detail != null) ...[
                         const SizedBox(width: 7),
-                        Text(detail,
-                            style: OmiType.cardSubtitle.copyWith(height: 1.4, color: OmiColors.textSecondary)),
+                        Text(detail, style: OmiType.cardSubtitle.copyWith(height: 1.4, color: OmiColors.textSecondary)),
                       ],
                       const SizedBox(width: 7),
                       OmiGlyph(OmiGlyphs.chevronDown, size: 14, color: OmiColors.textSecondary),
@@ -498,7 +495,8 @@ class _Warning extends StatelessWidget {
     final style = OmiType.callout.copyWith(color: OmiColors.danger, height: 1.4);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-      decoration: BoxDecoration(color: OmiColors.dangerSurface, borderRadius: const BorderRadius.all(Radius.circular(14))),
+      decoration:
+          BoxDecoration(color: OmiColors.dangerSurface, borderRadius: const BorderRadius.all(Radius.circular(14))),
       child: Row(
         children: [
           Expanded(child: Text(text, style: style)),
@@ -860,7 +858,9 @@ class _JumpPill extends StatelessWidget {
           decoration: BoxDecoration(
             color: OmiColors.accent,
             borderRadius: const BorderRadius.all(Radius.circular(16)),
-            boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.18), offset: const Offset(0, 6), blurRadius: 16)],
+            boxShadow: [
+              BoxShadow(color: Colors.black.withValues(alpha: 0.18), offset: const Offset(0, 6), blurRadius: 16)
+            ],
           ),
           child: Text('${context.l10n.newWords} ↓',
               style: OmiType.footnote.copyWith(fontWeight: FontWeight.w600, color: OmiColors.onAccent)),
@@ -1055,9 +1055,8 @@ class _DockButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ink = filled ? OmiColors.onAccent : OmiColors.textPrimary;
-    final fill = filled
-        ? OmiColors.accent
-        : Color.alphaBlend(OmiColors.textPrimary.withValues(alpha: 0.06), OmiColors.surface0);
+    final fill =
+        filled ? OmiColors.accent : Color.alphaBlend(OmiColors.textPrimary.withValues(alpha: 0.06), OmiColors.surface0);
     return Semantics(
       button: true,
       enabled: onPressed != null,
@@ -1331,8 +1330,7 @@ class _BlinkDotState extends State<_BlinkDot> with SingleTickerProviderStateMixi
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _blink,
-      builder: (context, child) =>
-          Opacity(opacity: 1 - 0.75 * math.sin(_blink.value * math.pi), child: child),
+      builder: (context, child) => Opacity(opacity: 1 - 0.75 * math.sin(_blink.value * math.pi), child: child),
       child: Container(
         width: 7,
         height: 7,

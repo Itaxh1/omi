@@ -194,8 +194,10 @@ void main() {
 
       await pumpTabs(tester, source: ConversationSourceFilter.glasses, onSourceSelected: picked.add);
       final semantics = tester.ensureSemantics();
-      expect(tester.getSemantics(find.byKey(const ValueKey('conversation_source_glasses'))),
-          matchesSemantics(isButton: true, isSelected: true, hasSelectedState: true, hasTapAction: true, label: 'Glasses'));
+      expect(
+          tester.getSemantics(find.byKey(const ValueKey('conversation_source_glasses'))),
+          matchesSemantics(
+              isButton: true, isSelected: true, hasSelectedState: true, hasTapAction: true, label: 'Glasses'));
       expect(tester.getSemantics(find.byKey(const ValueKey('conversation_source_all'))),
           matchesSemantics(isButton: true, hasSelectedState: true, hasTapAction: true, label: 'All'));
       semantics.dispose();

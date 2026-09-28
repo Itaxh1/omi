@@ -128,7 +128,6 @@ class HomePage extends StatefulWidget {
   final String? navigateToRoute;
   const HomePage({super.key, this.navigateToRoute});
 
-
   @override
   State<HomePage> createState() => _HomePageState();
 }

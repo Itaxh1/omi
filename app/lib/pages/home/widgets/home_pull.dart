@@ -139,8 +139,7 @@ class _HomePullGesturesState extends State<HomePullGestures> with SingleTickerPr
     _start = null;
     _mode = null;
     if (mode == null) return;
-    final fire = !cancelled &&
-        (mode == _Pull.down ? widget.down.value == HomePullPhase.ready : widget.up.value >= 1);
+    final fire = !cancelled && (mode == _Pull.down ? widget.down.value == HomePullPhase.ready : widget.up.value >= 1);
     widget.down.value = HomePullPhase.none;
     if (mode == _Pull.up) {
       // The dots fade with the hint, then empty.
@@ -348,7 +347,9 @@ class HomeTeachTip extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: OmiColors.accent,
                   borderRadius: const BorderRadius.all(Radius.circular(18)),
-                  boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.2), offset: const Offset(0, 12), blurRadius: 30)],
+                  boxShadow: [
+                    BoxShadow(color: Colors.black.withValues(alpha: 0.2), offset: const Offset(0, 12), blurRadius: 30)
+                  ],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -412,7 +413,8 @@ class HomeTeachRing extends StatefulWidget {
 }
 
 class _HomeTeachRingState extends State<HomeTeachRing> with SingleTickerProviderStateMixin {
-  late final AnimationController _pulse = AnimationController(vsync: this, duration: const Duration(milliseconds: 1400));
+  late final AnimationController _pulse =
+      AnimationController(vsync: this, duration: const Duration(milliseconds: 1400));
   int _left = 0;
 
   @override

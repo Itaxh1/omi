@@ -131,7 +131,8 @@ void main() {
   });
 
   testWidgets('swiping a conversation left part way leaves Delete showing', (tester) async {
-    final conversation = ServerConversation(id: 'c1', createdAt: DateTime(2026, 9, 28), structured: Structured('A', ''));
+    final conversation =
+        ServerConversation(id: 'c1', createdAt: DateTime(2026, 9, 28), structured: Structured('A', ''));
     var opened = 0;
     await tester.pumpWidget(_app(Column(children: [
       SwipeToDelete(
