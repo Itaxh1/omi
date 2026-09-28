@@ -9,6 +9,13 @@ import 'package:share_plus/share_plus.dart';
 
 import 'package:omi/backend/http/api/conversations.dart';
 import 'package:omi/backend/http/api/messages.dart' show ChatPageContext;
+import 'package:omi/backend/http/api/users.dart'
+    show
+        MobileFeedbackKind,
+        MobileFeedbackReason,
+        MobileFeedbackReceipt,
+        MobileFeedbackTargetKind,
+        submitMobileFeedback;
 import 'package:omi/backend/preferences.dart';
 import 'package:omi/backend/schema/conversation.dart';
 import 'package:omi/pages/chat/page.dart';
@@ -16,6 +23,7 @@ import 'package:omi/pages/conversations/conversation_actions.dart';
 import 'package:omi/pages/home/widgets/listening_strip.dart';
 import 'package:omi/providers/conversation_provider.dart';
 import 'package:omi/providers/folder_provider.dart';
+import 'package:omi/services/siri_integration.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/pages/conversations/conversation_action_analytics.dart';
 import 'package:omi/utils/analytics/analytics_manager.dart';
@@ -33,6 +41,7 @@ import 'test_prompts.dart';
 import 'transcript_page.dart';
 import 'widgets/conversation_folder_sheet.dart';
 import 'widgets/conversation_todos.dart';
+import 'widgets/feedback_sheet.dart';
 import 'widgets/share_to_contacts_sheet.dart';
 import 'widgets/summary_v3.dart';
 
@@ -115,6 +124,7 @@ class ConversationDetailPageState extends State<ConversationDetailPage> {
 
   @override
   void dispose() {
+    unawaited(SiriIntegration.instance.setCurrentScreen("", null));
     _draft?.dispose();
     super.dispose();
   }
@@ -122,6 +132,9 @@ class ConversationDetailPageState extends State<ConversationDetailPage> {
   @override
   void initState() {
     super.initState();
+    unawaited(
+        SiriIntegration.instance.setCurrentScreen("/conversation/${widget.conversation.id}", widget.conversation.id));
+    unawaited(SiriIntegration.instance.donateUiAction('conversation', widget.conversation.id));
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (!mounted) return;
       final provider = context.read<ConversationDetailProvider>();
@@ -216,6 +229,13 @@ class ConversationDetailPageState extends State<ConversationDetailPage> {
           glyph: OmiGlyphs.pinLine,
           dividerBefore: true,
         ),
+      OmiMenuEntry(
+        value: 'give_feedback',
+        label: l10n.feedbackGiveFeedback,
+        glyph: OmiGlyphs.bubbles,
+        dividerBefore: !hasPlace,
+        key: const Key('menu_feedback'),
+      ),
       if (dev) ...[
         OmiMenuEntry(
             value: 'copy_conversation_id',
@@ -265,12 +285,41 @@ class ConversationDetailPageState extends State<ConversationDetailPage> {
         OmiClipboard.copy(context, conversation.id);
       case 'test_prompt':
         routeToPage(context, TestPromptsPage(conversation: conversation));
+      case 'give_feedback':
+        unawaited(showFeedbackReasonSheet(
+          context,
+          title: l10n.feedbackGiveFeedback,
+          population: FeedbackReasonPopulation.summary,
+          onSubmit: (value, reason) => unawaited(_sendFeedback(conversation.id, value, reason)),
+        ));
       case 'delete':
         OmiHaptics.medium();
         if (!await confirmConversationDelete(context) || !mounted) return;
         final listContext = Navigator.of(context).context;
         Navigator.pop(context, {'deleted': true});
         if (listContext.mounted) unawaited(deleteConversationsWithUndo(listContext, [conversation]));
+    }
+  }
+
+  /// Give feedback: the summary was good, or what was wrong with it (`mobile_feedback.v1`).
+  Future<void> _sendFeedback(String id, int value, MobileFeedbackReason? reason) async {
+    MobileFeedbackReceipt? receipt;
+    try {
+      receipt = await submitMobileFeedback(
+        kind: MobileFeedbackKind.summaryHelpfulness,
+        targetKind: MobileFeedbackTargetKind.conversation,
+        targetId: id,
+        value: value,
+        reason: reason,
+      );
+    } catch (_) {
+      receipt = null;
+    }
+    if (!mounted) return;
+    if (receipt == null) {
+      OmiFeedback.error(context, context.l10n.somethingWentWrong);
+    } else {
+      OmiFeedback.confirm(context, context.l10n.thanksForYourFeedback);
     }
   }
 

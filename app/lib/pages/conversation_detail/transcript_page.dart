@@ -12,6 +12,7 @@ import 'package:omi/widgets/extensions/string.dart';
 import 'conversation_detail_provider.dart';
 import 'page.dart' show ConversationTitleStyle;
 import 'speaker_naming.dart';
+import 'widgets/speaker_summary_action.dart';
 
 /// A conversation's transcript (v3 `trans`): the title, a chip "Transcript · 14 min · 2
 /// speakers", then each turn: who spoke and when (an unnamed speaker is underlined; tap to name
@@ -128,6 +129,7 @@ class _TranscriptView extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Align(alignment: Alignment.centerLeft, child: OmiPillChip(label: facts, glyph: OmiGlyphs.lines)),
+          SpeakerSummaryAction(provider: provider),
           const SizedBox(height: 26),
           if (turns.isEmpty)
             Text(

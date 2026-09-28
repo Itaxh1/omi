@@ -208,6 +208,7 @@ flutter:
     - assets/fonts/
     - assets/images/
     - assets/icons/
+    - assets/test/tts_progressive_probe.mp3
     - assets/integration_app_logos/
     - assets/competitor-logos/
     - shorebird.yaml

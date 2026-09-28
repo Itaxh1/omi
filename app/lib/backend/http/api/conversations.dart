@@ -118,7 +118,13 @@ Future<({List<ServerConversation> items, bool ok, bool truncated})> getConversat
   return (items: <ServerConversation>[], ok: false, truncated: false);
 }
 
-Future<ServerConversation?> reProcessConversationServer(String conversationId, {String? appId}) async {
+bool hasSpeakerReceiptSummaryCapability(Map<String, String> headers) => headers['x-omi-speaker-receipt-summary'] == '1';
+
+Future<ServerConversation?> reProcessConversationServer(
+  String conversationId, {
+  String? appId,
+  bool requireSpeakerReceipt = false,
+}) async {
   var response = await makeApiCall(
     url: '${Env.apiBaseUrl}v1/conversations/$conversationId/reprocess${appId != null ? '?app_id=$appId' : ''}',
     headers: {},
@@ -128,6 +134,10 @@ Future<ServerConversation?> reProcessConversationServer(String conversationId, {
   if (response == null) return null;
   Logger.debug('reProcessConversationServer: ${response.body}');
   if (response.statusCode == 200) {
+    // A pre-fix backend can return 200 with a summary made from stale speaker
+    // labels. Keep the detail page's retry action until the receipt-aware
+    // processor explicitly acknowledges its summary path.
+    if (requireSpeakerReceipt && !hasSpeakerReceiptSummaryCapability(response.headers)) return null;
     return ServerConversation.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   }
   return null;
@@ -365,11 +375,18 @@ class ConversationApi {
     );
     return switch (sent) {
       ApiFailure(:final problem) => ApiFailure(problem),
-      ApiSuccess(:final data) => decodeApiRows<ServerConversation>(
+      ApiSuccess(:final data, :final truncated) => switch (decodeApiRows<ServerConversation>(
           data,
           ServerConversation.fromJson,
           fallback: recordFallback,
-        ),
+        )) {
+          ApiSuccess(:final data, :final rejectedRows) => ApiSuccess(
+              data,
+              rejectedRows: rejectedRows,
+              truncated: truncated,
+            ),
+          ApiFailure(:final problem) => ApiFailure(problem),
+        },
     };
   }
 
@@ -797,6 +814,7 @@ Future<UploadFilesResult> uploadLocalFilesV2(
   List<File> files, {
   UploadProgressCallback? onUploadProgress,
   String? conversationId,
+  String? captureEvidence,
   String? recordingSessionId,
   double? audioStartSeconds,
   double? audioEndSeconds,
@@ -823,6 +841,7 @@ Future<UploadFilesResult> uploadLocalFilesV2(
     files: files,
     headers: {
       if (captureManifest != null) 'X-Omi-Sync-Capture-Manifest': captureManifest,
+      if (captureEvidence != null) 'X-Omi-Capture-Evidence': captureEvidence,
       if (geolocation != null) 'X-Omi-Conversation-Geolocation': jsonEncode(geolocation.toJson()),
     },
     onUploadProgress: onUploadProgress,

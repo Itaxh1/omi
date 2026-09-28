@@ -39,9 +39,12 @@ class UnfiledScope extends ConversationScope {
 /// date), each row the time and the title, hairlines between rows. A folder from the sidebar opens
 /// the same screen for that folder.
 class AllConversationsPage extends StatefulWidget {
-  const AllConversationsPage({super.key, this.scope = const AllScope()});
+  const AllConversationsPage({super.key, this.scope = const AllScope(), this.initialQuery});
 
   final ConversationScope scope;
+
+  /// Opens already searching for this (a Siri search), the words in the search pill.
+  final String? initialQuery;
 
   @override
   State<AllConversationsPage> createState() => _AllConversationsPageState();
@@ -59,9 +62,13 @@ class _AllConversationsPageState extends State<AllConversationsPage> {
     super.initState();
     _scroll.addListener(_onScroll);
     final scope = widget.scope;
+    final query = widget.initialQuery?.trim() ?? '';
+    if (query.isNotEmpty) _search.text = query;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-      if (scope is FolderScope) {
+      if (query.isNotEmpty) {
+        unawaited(_provider.searchConversations(query));
+      } else if (scope is FolderScope) {
         _setFolder = true;
         unawaited(_provider.filterByFolder(scope.id));
       } else if (_provider.selectedFolderId != null) {

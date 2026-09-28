@@ -25,6 +25,22 @@ class $AssetsCompetitorLogosGen {
 class $AssetsFontsGen {
   const $AssetsFontsGen();
 
+  /// File path: assets/fonts/InstrumentSans-Bold.ttf
+  String get instrumentSansBold => 'assets/fonts/InstrumentSans-Bold.ttf';
+
+  /// File path: assets/fonts/InstrumentSans-Medium.ttf
+  String get instrumentSansMedium => 'assets/fonts/InstrumentSans-Medium.ttf';
+
+  /// File path: assets/fonts/InstrumentSans-Regular.ttf
+  String get instrumentSansRegular => 'assets/fonts/InstrumentSans-Regular.ttf';
+
+  /// File path: assets/fonts/InstrumentSans-SemiBold.ttf
+  String get instrumentSansSemiBold =>
+      'assets/fonts/InstrumentSans-SemiBold.ttf';
+
+  /// File path: assets/fonts/OFL-InstrumentSans.txt
+  String get oFLInstrumentSans => 'assets/fonts/OFL-InstrumentSans.txt';
+
   /// File path: assets/fonts/SFPRODISPLAYBLACKITALIC.OTF
   String get sfprodisplayblackitalic =>
       'assets/fonts/SFPRODISPLAYBLACKITALIC.OTF';
@@ -56,6 +72,11 @@ class $AssetsFontsGen {
 
   /// List of all assets
   List<String> get values => [
+        instrumentSansBold,
+        instrumentSansMedium,
+        instrumentSansRegular,
+        instrumentSansSemiBold,
+        oFLInstrumentSans,
         sfprodisplayblackitalic,
         sfprodisplaybold,
         sfprodisplayheavyitalic,
@@ -159,6 +180,21 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/creditcard.svg
   String get creditcard => 'assets/icons/creditcard.svg';
+
+  /// File path: assets/icons/device-glasses.svg
+  String get deviceGlasses => 'assets/icons/device-glasses.svg';
+
+  /// File path: assets/icons/device-omi.svg
+  String get deviceOmi => 'assets/icons/device-omi.svg';
+
+  /// File path: assets/icons/device-phone.svg
+  String get devicePhone => 'assets/icons/device-phone.svg';
+
+  /// File path: assets/icons/device-pin.svg
+  String get devicePin => 'assets/icons/device-pin.svg';
+
+  /// File path: assets/icons/device-watch.svg
+  String get deviceWatch => 'assets/icons/device-watch.svg';
 
   /// File path: assets/icons/devices.svg
   String get devices => 'assets/icons/devices.svg';
@@ -355,11 +391,38 @@ class $AssetsIconsGen {
   /// File path: assets/icons/sun.svg
   String get sun => 'assets/icons/sun.svg';
 
+  /// File path: assets/icons/tab-conversations-fill.svg
+  String get tabConversationsFill => 'assets/icons/tab-conversations-fill.svg';
+
+  /// File path: assets/icons/tab-conversations.svg
+  String get tabConversations => 'assets/icons/tab-conversations.svg';
+
+  /// File path: assets/icons/tab-devices-fill.svg
+  String get tabDevicesFill => 'assets/icons/tab-devices-fill.svg';
+
+  /// File path: assets/icons/tab-devices.svg
+  String get tabDevices => 'assets/icons/tab-devices.svg';
+
+  /// File path: assets/icons/tab-today-fill.svg
+  String get tabTodayFill => 'assets/icons/tab-today-fill.svg';
+
+  /// File path: assets/icons/tab-today.svg
+  String get tabToday => 'assets/icons/tab-today.svg';
+
+  /// File path: assets/icons/tab-todo-fill.svg
+  String get tabTodoFill => 'assets/icons/tab-todo-fill.svg';
+
+  /// File path: assets/icons/tab-todo.svg
+  String get tabTodo => 'assets/icons/tab-todo.svg';
+
   /// File path: assets/icons/tag.svg
   String get tag => 'assets/icons/tag.svg';
 
   /// File path: assets/icons/target.svg
   String get target => 'assets/icons/target.svg';
+
+  /// File path: assets/icons/text-lines.svg
+  String get textLines => 'assets/icons/text-lines.svg';
 
   /// File path: assets/icons/text.svg
   String get text => 'assets/icons/text.svg';
@@ -370,11 +433,98 @@ class $AssetsIconsGen {
   /// File path: assets/icons/thumbsup.svg
   String get thumbsup => 'assets/icons/thumbsup.svg';
 
+  /// File path: assets/icons/todo.svg
+  String get todo => 'assets/icons/todo.svg';
+
   /// File path: assets/icons/trash.svg
   String get trash => 'assets/icons/trash.svg';
 
   /// File path: assets/icons/tray.svg
   String get tray => 'assets/icons/tray.svg';
+
+  /// File path: assets/icons/v3-apps.svg
+  String get v3Apps => 'assets/icons/v3-apps.svg';
+
+  /// File path: assets/icons/v3-back.svg
+  String get v3Back => 'assets/icons/v3-back.svg';
+
+  /// File path: assets/icons/v3-bluetooth-off.svg
+  String get v3BluetoothOff => 'assets/icons/v3-bluetooth-off.svg';
+
+  /// File path: assets/icons/v3-bluetooth.svg
+  String get v3Bluetooth => 'assets/icons/v3-bluetooth.svg';
+
+  /// File path: assets/icons/v3-browse.svg
+  String get v3Browse => 'assets/icons/v3-browse.svg';
+
+  /// File path: assets/icons/v3-bulb.svg
+  String get v3Bulb => 'assets/icons/v3-bulb.svg';
+
+  /// File path: assets/icons/v3-calendar.svg
+  String get v3Calendar => 'assets/icons/v3-calendar.svg';
+
+  /// File path: assets/icons/v3-chevron-down.svg
+  String get v3ChevronDown => 'assets/icons/v3-chevron-down.svg';
+
+  /// File path: assets/icons/v3-chevron-up.svg
+  String get v3ChevronUp => 'assets/icons/v3-chevron-up.svg';
+
+  /// File path: assets/icons/v3-close.svg
+  String get v3Close => 'assets/icons/v3-close.svg';
+
+  /// File path: assets/icons/v3-copy.svg
+  String get v3Copy => 'assets/icons/v3-copy.svg';
+
+  /// File path: assets/icons/v3-folder.svg
+  String get v3Folder => 'assets/icons/v3-folder.svg';
+
+  /// File path: assets/icons/v3-history.svg
+  String get v3History => 'assets/icons/v3-history.svg';
+
+  /// File path: assets/icons/v3-lines.svg
+  String get v3Lines => 'assets/icons/v3-lines.svg';
+
+  /// File path: assets/icons/v3-mic.svg
+  String get v3Mic => 'assets/icons/v3-mic.svg';
+
+  /// File path: assets/icons/v3-more.svg
+  String get v3More => 'assets/icons/v3-more.svg';
+
+  /// File path: assets/icons/v3-pencil.svg
+  String get v3Pencil => 'assets/icons/v3-pencil.svg';
+
+  /// File path: assets/icons/v3-pendant.svg
+  String get v3Pendant => 'assets/icons/v3-pendant.svg';
+
+  /// File path: assets/icons/v3-person.svg
+  String get v3Person => 'assets/icons/v3-person.svg';
+
+  /// File path: assets/icons/v3-pin.svg
+  String get v3Pin => 'assets/icons/v3-pin.svg';
+
+  /// File path: assets/icons/v3-plug.svg
+  String get v3Plug => 'assets/icons/v3-plug.svg';
+
+  /// File path: assets/icons/v3-plus.svg
+  String get v3Plus => 'assets/icons/v3-plus.svg';
+
+  /// File path: assets/icons/v3-search.svg
+  String get v3Search => 'assets/icons/v3-search.svg';
+
+  /// File path: assets/icons/v3-share.svg
+  String get v3Share => 'assets/icons/v3-share.svg';
+
+  /// File path: assets/icons/v3-source.svg
+  String get v3Source => 'assets/icons/v3-source.svg';
+
+  /// File path: assets/icons/v3-tick.svg
+  String get v3Tick => 'assets/icons/v3-tick.svg';
+
+  /// File path: assets/icons/v3-trash.svg
+  String get v3Trash => 'assets/icons/v3-trash.svg';
+
+  /// File path: assets/icons/v3-up.svg
+  String get v3Up => 'assets/icons/v3-up.svg';
 
   /// File path: assets/icons/warning.svg
   String get warning => 'assets/icons/warning.svg';
@@ -423,6 +573,11 @@ class $AssetsIconsGen {
         copy,
         cpu,
         creditcard,
+        deviceGlasses,
+        deviceOmi,
+        devicePhone,
+        devicePin,
+        deviceWatch,
         devices,
         doc,
         ear,
@@ -488,13 +643,51 @@ class $AssetsIconsGen {
         star,
         stopFill,
         sun,
+        tabConversationsFill,
+        tabConversations,
+        tabDevicesFill,
+        tabDevices,
+        tabTodayFill,
+        tabToday,
+        tabTodoFill,
+        tabTodo,
         tag,
         target,
+        textLines,
         text,
         thumbsdown,
         thumbsup,
+        todo,
         trash,
         tray,
+        v3Apps,
+        v3Back,
+        v3BluetoothOff,
+        v3Bluetooth,
+        v3Browse,
+        v3Bulb,
+        v3Calendar,
+        v3ChevronDown,
+        v3ChevronUp,
+        v3Close,
+        v3Copy,
+        v3Folder,
+        v3History,
+        v3Lines,
+        v3Mic,
+        v3More,
+        v3Pencil,
+        v3Pendant,
+        v3Person,
+        v3Pin,
+        v3Plug,
+        v3Plus,
+        v3Search,
+        v3Share,
+        v3Source,
+        v3Tick,
+        v3Trash,
+        v3Up,
         warning,
         waveDots,
         waveform,
@@ -886,6 +1079,16 @@ class $AssetsIntegrationAppLogosGen {
       ];
 }
 
+class $AssetsTestGen {
+  const $AssetsTestGen();
+
+  /// File path: assets/test/tts_progressive_probe.mp3
+  String get ttsProgressiveProbe => 'assets/test/tts_progressive_probe.mp3';
+
+  /// List of all assets
+  List<String> get values => [ttsProgressiveProbe];
+}
+
 abstract final class Assets {
   static const $AssetsCompetitorLogosGen competitorLogos =
       $AssetsCompetitorLogosGen();
@@ -894,6 +1097,7 @@ abstract final class Assets {
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsIntegrationAppLogosGen integrationAppLogos =
       $AssetsIntegrationAppLogosGen();
+  static const $AssetsTestGen test = $AssetsTestGen();
   static const String shorebird = 'shorebird.yaml';
 
   /// List of all assets

@@ -60,7 +60,8 @@ class _AuthComponentState extends State<AuthComponent> {
                         height: 24,
                         child: provider.loading ? const Center(child: OmiSpinner(size: OmiSpinnerSize.small)) : null,
                       ),
-                      if (Platform.isIOS || Platform.isAndroid) ...[
+                      // A local_dev build can't finish Apple or Google sign-in, so it shows only its own.
+                      if (!provider.isLocalDevProfile && (Platform.isIOS || Platform.isAndroid)) ...[
                         OmiButton(
                           key: const Key('auth_apple'),
                           label: l10n.continueWithApple,
@@ -72,19 +73,19 @@ class _AuthComponentState extends State<AuthComponent> {
                         ),
                         const SizedBox(height: 10),
                       ],
-                      OmiButton.secondary(
-                        key: const Key('auth_google'),
-                        label: l10n.continueWithGoogle,
-                        expand: true,
-                        onPressed: () {
-                          OmiHaptics.selection();
-                          provider.onGoogleSignIn(widget.onSignIn);
-                        },
-                      ),
+                      if (!provider.isLocalDevProfile)
+                        OmiButton.secondary(
+                          key: const Key('auth_google'),
+                          label: l10n.continueWithGoogle,
+                          expand: true,
+                          onPressed: () {
+                            OmiHaptics.selection();
+                            provider.onGoogleSignIn(widget.onSignIn);
+                          },
+                        ),
                       // Local development sign-in. Only rendered for a local_dev build: community
                       // builds cannot complete a real OAuth flow. Never shown in a production build.
                       if (provider.isLocalDevProfile) ...[
-                        const SizedBox(height: 10),
                         OmiButton.tertiary(
                           label:
                               'Sign in (local dev)', // omi-ux-allow: hardcoded-text -- local_dev builds only, never shipped
