@@ -12,7 +12,8 @@ import '../../support/local_day.dart';
 ActionItemWithMetadata _task(String id, String text, {DateTime? due}) =>
     ActionItemWithMetadata(id: id, description: text, completed: false, dueAt: due);
 
-Future<({List<String> opened, AppLocalizations l10n})> _pump(WidgetTester tester, List<ActionItemWithMetadata> tasks) async {
+Future<({List<String> opened, AppLocalizations l10n})> _pump(
+    WidgetTester tester, List<ActionItemWithMetadata> tasks) async {
   final opened = <String>[];
   final provider = ActionItemsProvider(
     getActionItems: ({
@@ -81,7 +82,7 @@ void main() {
     expect(subtitle, startsWith('Call Sam back'));
     expect(subtitle, endsWith('late'));
     expect(find.byKey(const Key('home_todo_badge')), findsOneWidget);
-    expect(find.text(r.l10n.toDo), findsOneWidget);
+    expect(find.text(r.l10n.todoCardTitle), findsOneWidget);
   });
 
   testWidgets('nothing late: the next task due today; nothing due: the open count; no badge', (tester) async {

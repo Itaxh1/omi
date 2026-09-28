@@ -16,6 +16,7 @@ import 'scenarios/onboarding.dart';
 import 'scenarios/settings.dart';
 import 'scenarios/settings_pages.dart';
 import 'scenarios/tasks.dart';
+import 'scenarios/v3.dart';
 
 final auditSuite = AuditSuite(
   name: 'current',
@@ -34,5 +35,6 @@ final auditSuite = AuditSuite(
     ...chatScenarios,
     ...appsScenarios,
     ...onboardingScenarios,
+    ...v3Scenarios,
   ],
 );

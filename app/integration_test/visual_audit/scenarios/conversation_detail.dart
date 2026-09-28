@@ -1,5 +1,4 @@
-// Conversation detail: summary and transcript tabs, the top bar and its overflow menu, the
-// recordings sheet of a grouped capture, and the people chip.
+// Conversation detail (v3): the summary, the ⋯ menu, the transcript page, and people's names.
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -7,7 +6,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:nested/nested.dart';
 import 'package:provider/provider.dart';
 
-import 'package:omi/app_globals.dart';
 import 'package:omi/backend/schema/capture_group.dart';
 import 'package:omi/backend/schema/schema.dart';
 import 'package:omi/pages/conversation_detail/conversation_detail_provider.dart';
@@ -71,9 +69,10 @@ final conversationDetailScenarios = <AuditScenario>[
       await a.tester.runAsync(provider.forceRefreshConversations);
       await a.pump(ConversationDetailPage(conversation: conversation),
           providers: _detailProviders(conversation, provider: provider));
-      await a.shot('Open an ungrouped conversation: Ask Omi, Star, Share and the overflow button', step: 'summary');
+      await a.shot('Open a conversation: back, ⋯, the title, date and folder chips, Summary and To-dos',
+          step: 'summary');
       await a.tap(find.byKey(const Key('conversation_more')));
-      await a.shot('Open the overflow menu', step: 'overflow');
+      await a.shot('Open the ⋯ menu', step: 'overflow');
     },
   ),
   AuditScenario(
@@ -92,7 +91,7 @@ final conversationDetailScenarios = <AuditScenario>[
   ),
   AuditScenario(
     id: 'conversation-detail-grouped',
-    title: 'Grouped conversation: header, overflow menu and recordings sheet',
+    title: 'Grouped conversation: header and the ⋯ menu',
     page: _page,
     state: 'One conversation whose capture group has a desktop and a pendant recording',
     run: (a) async {
@@ -102,15 +101,9 @@ final conversationDetailScenarios = <AuditScenario>[
       ]);
       final grouped = auditConversation('grouped-b', title: 'Design catch-up with Alex', captureGroup: group);
       await _pumpDetail(a, grouped);
-      await a.shot('Grouped conversation: header with the recordings chip, top bar', step: 'summary');
+      await a.shot('Grouped conversation: the header, title, chips and tabs', step: 'summary');
       await a.tap(find.byKey(const Key('conversation_more')));
-      await a.shot('Open the overflow menu of a grouped conversation', step: 'overflow');
-
-      globalNavigatorKey.currentState!.pop();
-      await a.settle();
-      await a.tap(find.byKey(const Key('conversation_detail_recordings')));
-      expect(find.text('Recordings of this conversation'), findsOneWidget);
-      await a.shot('Tap the recordings chip: one row per source, the omi source named Pendant', step: 'recordings');
+      await a.shot('Open the ⋯ menu of a grouped conversation', step: 'overflow');
     },
   ),
   AuditScenario(

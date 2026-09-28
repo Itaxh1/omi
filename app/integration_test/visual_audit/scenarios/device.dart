@@ -110,12 +110,7 @@ final deviceScenarios = <AuditScenario>[
             'draft': false,
           }));
       final device = BtDevice(
-          id: 'd1',
-          name: 'Omi',
-          type: DeviceType.omi,
-          rssi: -50,
-          modelNumber: 'Omi',
-          firmwareRevision: '2.0.10');
+          id: 'd1', name: 'Omi', type: DeviceType.omi, rssi: -50, modelNumber: 'Omi', firmwareRevision: '2.0.10');
       await a.pump(FirmwareUpdate(device: device), providers: [
         ChangeNotifierProvider<DeviceProvider>.value(
             value: AuditDeviceProvider(connected: true, battery: 8, device: device)),

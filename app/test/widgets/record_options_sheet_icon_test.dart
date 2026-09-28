@@ -3,7 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:omi/l10n/app_localizations.dart';
-import 'package:omi/pages/home/widgets/battery_info_widget.dart';
+import 'package:omi/pages/home/widgets/phone_capture.dart';
 
 void main() {
   // Regression test: a glyph in a fixed-size circle must be centered, not painted at the

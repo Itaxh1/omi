@@ -5,11 +5,8 @@ import 'package:omi/backend/http/api/conversations.dart';
 import 'package:omi/backend/preferences.dart';
 import 'package:omi/backend/schema/capture_group.dart';
 import 'package:omi/backend/schema/conversation.dart';
-import 'package:omi/backend/schema/conversation_speakers.dart';
 import 'package:omi/backend/schema/structured.dart';
-import 'package:omi/backend/schema/transcript_segment.dart';
 import 'package:omi/pages/conversation_detail/capture_group_separation.dart';
-import 'package:omi/pages/conversation_detail/conversation_detail_meta.dart';
 import 'package:omi/providers/conversation_provider.dart';
 import 'package:omi/utils/conversations/capture_groups.dart';
 
@@ -45,17 +42,6 @@ ServerConversation _row(String id, {CaptureGroup? group, int minute = 0}) => Ser
       structured: Structured(id, ''),
       source: ConversationSource.omi,
       captureGroup: group,
-    );
-
-TranscriptSegment _segment(String text, {bool user = false, int speaker = 0, String? personId}) => TranscriptSegment(
-      id: text,
-      text: text,
-      speaker: 'SPEAKER_0$speaker',
-      isUser: user,
-      personId: personId,
-      start: 0,
-      end: 1,
-      translations: const [],
     );
 
 void main() {
@@ -145,93 +131,6 @@ void main() {
       expect(
           (await CaptureGroupPresentation.resolveMember('pendant-2', loaded: loaded, fetch: fetch))!.id, 'pendant-2');
       expect(fetched, ['pendant-2']);
-    });
-  });
-
-  group('header people', () {
-    String label(List<String> named, int unnamed, {bool uncounted = false}) =>
-        ConversationDetailMeta.peopleLabel(
-          named,
-          unnamed,
-          uncounted: uncounted,
-          summary: (first, n) => '$first + $n others',
-          uncountedSummary: (first) => '$first + others',
-        ) ??
-        '<hidden>';
-
-    const resolved = ConversationSpeakers(status: 'resolved', participantSpeakerIds: [1, 2, 3]);
-
-    test('only named speakers are labelled; the rest are counted', () {
-      expect(label(['David'], 0), 'David');
-      expect(label(['David'], 3), 'David + 3 others');
-      expect(label(['You', 'Dana'], 1), 'You + 2 others');
-      expect(label(['You'], 0, uncounted: true), 'You + others');
-      expect(label(const [], 4), '<hidden>', reason: 'nobody named: the chip hides');
-    });
-
-    test('participants put the owner first, name people by first appearance, and count the unnamed', () {
-      final people = ConversationDetailMeta.participants(
-        [
-          _segment('a', speaker: 2),
-          _segment('b', user: true),
-          _segment('c', speaker: 1, personId: 'p-dana'),
-          _segment('d', speaker: 2),
-          _segment('e', speaker: 3, personId: 'p-unknown'),
-        ],
-        you: 'You',
-        personName: (id) => id == 'p-dana' ? 'Dana' : null,
-        speakers: resolved,
-      );
-      expect(people.named, ['You', 'Dana']);
-      expect(people.unnamed, 2, reason: 'speaker 2 and the unknown person, never "Speaker N"');
-      expect(people.uncounted, isFalse);
-    });
-
-    test('capture ids are not people until the server resolves them', () {
-      // One pendant dinner: capture minted a new id per uploaded chunk.
-      final fragments = [for (var i = 0; i < 1720; i++) _segment('f$i', speaker: i)];
-      final segments = [_segment('me', user: true), ...fragments];
-
-      final legacy = ConversationDetailMeta.participants(segments, you: 'You');
-      expect(legacy.unnamed, 0);
-      expect(legacy.uncounted, isTrue);
-      expect(label(legacy.named, legacy.unnamed, uncounted: legacy.uncounted), 'You + others');
-
-      final unavailable = ConversationDetailMeta.participants(
-        segments,
-        you: 'You',
-        speakers: const ConversationSpeakers(status: 'unavailable'),
-      );
-      expect(unavailable.uncounted, isTrue);
-    });
-
-    test('resolved voices count only when they spoke enough to be participants', () {
-      final people = ConversationDetailMeta.participants(
-        [
-          _segment('me', user: true),
-          _segment('a', speaker: 1),
-          _segment('b', speaker: 2),
-          _segment('noise', speaker: 7),
-        ],
-        you: 'You',
-        speakers: resolved,
-      );
-      expect(label(people.named, people.unnamed, uncounted: people.uncounted), 'You + 2 others');
-    });
-
-    test('speaker resolution survives the wire and the cache round trip', () {
-      final json = _row('omi').toJson()
-        ..['speaker_resolution'] = {
-          'status': 'resolved',
-          'version': 1,
-          'participant_speaker_ids': [0, 4],
-        };
-      final decoded = ServerConversation.fromJson(json);
-      expect(decoded.speakerResolution?.countable, isTrue);
-      expect(decoded.speakerResolution?.participantSpeakerIds, [0, 4]);
-      final again = ServerConversation.fromJson(decoded.toJson());
-      expect(again.speakerResolution?.status, 'resolved');
-      expect(ServerConversation.fromJson(_row('omi').toJson()).speakerResolution, isNull);
     });
   });
 

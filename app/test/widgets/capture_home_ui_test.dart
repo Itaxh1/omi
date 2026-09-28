@@ -18,8 +18,7 @@ import 'package:omi/l10n/app_localizations.dart';
 import 'package:omi/pages/conversations/widgets/live_capture_card.dart';
 import 'package:omi/pages/conversations/widgets/processing_capture.dart';
 import 'package:omi/pages/conversation_capturing/page.dart';
-import 'package:omi/pages/devices/recording_source_sheet.dart';
-import 'package:omi/pages/home/widgets/battery_info_widget.dart';
+import 'package:omi/pages/home/widgets/phone_capture.dart';
 import 'package:omi/pages/home/widgets/idle_capture_card.dart';
 import 'package:omi/providers/capture_provider.dart';
 import 'package:omi/providers/connectivity_provider.dart';
@@ -589,7 +588,7 @@ void main() {
     });
   });
 
-  group('starting to listen (Rev 3: no record button; the idle card and Recording from)', () {
+  group('starting to listen (the idle card and this phone)', () {
     testWidgets('idle: Not listening, and Start records with this phone', (tester) async {
       final capture = _Capture(_Live.idle);
       await pump(tester, const IdleCaptureCard(), capture: capture);
@@ -609,21 +608,16 @@ void main() {
       expect(find.byKey(const ValueKey('idle_capture_card')), findsNothing, reason: 'the call card is what runs');
     });
 
-    testWidgets('Recording from: switching to this phone while the pendant records asks first', (tester) async {
+    testWidgets('switching to this phone while the pendant records asks first', (tester) async {
       final capture = _Capture(_Live.pendant);
       await pump(
         tester,
         Builder(
-          builder: (context) =>
-              TextButton(onPressed: () => showRecordingSourceSheet(context), child: const Text('open')),
+          builder: (context) => TextButton(onPressed: () => PhoneCapture.start(context), child: const Text('start')),
         ),
         capture: capture,
       );
-      await tester.tap(find.text('open'));
-      await tester.pumpAndSettle();
-      expect(find.text(en.recordingFrom), findsOneWidget);
-      expect(find.text(en.recordingFromSubtitle), findsOneWidget);
-      await tester.tap(find.byKey(const Key('devices_this_phone')));
+      await tester.tap(find.text('start'));
       await tester.pumpAndSettle();
       expect(find.text(en.pendantIsListeningTitle), findsOneWidget);
       expect(capture.phoneStarts, 0, reason: 'never a silent takeover');
@@ -685,20 +679,17 @@ void main() {
       expect(find.text(en.somethingWentWrong), findsNothing, reason: 'a refusal is not an error toast');
     });
 
-    testWidgets('Recording from: with nothing live, This phone starts listening', (tester) async {
+    testWidgets('with nothing live, this phone starts listening', (tester) async {
       final capture = _Capture(_Live.idle);
       await pump(
         tester,
         Builder(
-          builder: (context) =>
-              TextButton(onPressed: () => showRecordingSourceSheet(context), child: const Text('open')),
+          builder: (context) => TextButton(onPressed: () => PhoneCapture.start(context), child: const Text('start')),
         ),
         capture: capture,
       );
-      await tester.tap(find.text('open'));
-      await tester.pumpAndSettle();
-      expect(find.byKey(const ValueKey('recording_source_add_device')), findsOneWidget);
-      await tester.tap(find.byKey(const Key('devices_this_phone')));
+      await tester.tap(find.text('start'));
+      await tester.pump();
       expect(capture.phoneStarts, 1);
       await tester.pumpWidget(const SizedBox());
     });

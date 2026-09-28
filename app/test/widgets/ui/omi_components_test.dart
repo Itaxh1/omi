@@ -76,24 +76,23 @@ void main() {
       return result;
     }
 
-    testWidgets('renders the drag handle, the title and a trailing close button', (tester) async {
+    testWidgets('v3: the title and a trailing Done pill, no drag handle', (tester) async {
       await openSheet(tester);
       expect(find.text('Move to Folder'), findsOneWidget);
-      expect(find.byType(OmiCloseButton), findsOneWidget);
-      // The framework drag handle announces the localized dismiss action.
-      expect(find.bySemanticsLabel('Dismiss'), findsOneWidget);
+      expect(find.byType(OmiDonePill), findsOneWidget);
+      expect(find.text('Done'), findsOneWidget);
 
       final title = tester.getRect(find.text('Move to Folder'));
-      final close = tester.getRect(find.byType(OmiCloseButton));
-      expect(close.left, greaterThanOrEqualTo(title.right), reason: 'the close X is trailing');
+      final done = tester.getRect(find.byKey(const Key('sheet_done')));
+      expect(done.left, greaterThanOrEqualTo(title.right), reason: 'Done is trailing');
       final sheet = tester.widget<BottomSheet>(find.byType(BottomSheet));
-      expect(sheet.showDragHandle, isTrue);
+      expect(sheet.showDragHandle, isFalse);
       expect(sheet.backgroundColor, OmiColors.sheet);
     });
 
-    testWidgets('closes on X with a null result', (tester) async {
+    testWidgets('closes on Done with a null result', (tester) async {
       final result = await openSheet(tester);
-      await tester.tap(find.byType(OmiCloseButton));
+      await tester.tap(find.byKey(const Key('sheet_done')));
       await tester.pumpAndSettle();
       expect(find.text('Move to Folder'), findsNothing);
       expect(await result, isNull);

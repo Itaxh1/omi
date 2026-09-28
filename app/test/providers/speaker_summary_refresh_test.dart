@@ -1,14 +1,11 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:omi/backend/preferences.dart';
 import 'package:omi/backend/schema/conversation.dart';
 import 'package:omi/backend/schema/structured.dart';
 import 'package:omi/backend/schema/transcript_segment.dart';
-import 'package:omi/l10n/app_localizations.dart';
 import 'package:omi/pages/conversation_detail/conversation_detail_provider.dart';
-import 'package:omi/pages/conversation_detail/widgets/speaker_summary_action.dart';
 import 'package:omi/providers/conversation_provider.dart';
 
 ServerConversation conversation(
@@ -81,43 +78,6 @@ void main() {
     expect(provider.offerSpeakerSummaryRefresh, isFalse);
     await provider.assignSpeaker(['s'], 'corrected');
     expect(provider.offerSpeakerSummaryRefresh, isTrue);
-    provider.dispose();
-  });
-
-  testWidgets('explicit action runs once, retains label and retry after failure, replaces detail on success',
-      (tester) async {
-    final result = Completer<ServerConversation?>();
-    int requests = 0;
-    bool fail = true;
-    final provider = ConversationDetailProvider(
-        assignSpeaker: (id, ids, {isUser, personId, speakerId}) async => true,
-        reprocess: (id, {appId}) async {
-          requests++;
-          return fail ? await result.future : conversation(overview: 'Named summary');
-        });
-    select(provider, conversation());
-    await provider.assignSpeaker(['s'], 'new');
-    await tester.pumpWidget(MaterialApp(
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: Scaffold(body: SpeakerSummaryAction(provider: provider))));
-    expect(requests, 0);
-    await tester.tap(find.byKey(const ValueKey('speaker-summary-refresh')));
-    await tester.pump();
-    expect(await provider.reprocessConversation(), isFalse);
-    expect(await provider.assignSpeaker(['s'], 'racing-edit'), isFalse);
-    expect(provider.conversation.transcriptSegments.single.personId, 'new');
-    expect(requests, 1);
-    result.complete(null);
-    await tester.pumpAndSettle();
-    expect(provider.offerSpeakerSummaryRefresh, isTrue);
-    expect(provider.conversation.transcriptSegments.single.personId, 'new');
-    fail = false;
-    await tester.tap(find.byKey(const ValueKey('speaker-summary-refresh')));
-    await tester.pumpAndSettle();
-    expect(requests, 2);
-    expect(provider.conversation.structured.overview, 'Named summary');
-    expect(provider.offerSpeakerSummaryRefresh, isFalse);
     provider.dispose();
   });
 

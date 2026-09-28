@@ -1,10 +1,11 @@
-// Tasks: the task form sheet (create, due dates, failed and successful save, edit) and the Tasks tab.
+// To-do: the task form sheet (create, due dates, failed and successful save, edit) and the v3 To-do
+// list.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
 import 'package:omi/backend/schema/schema.dart';
-import 'package:omi/pages/action_items/action_items_page.dart';
+import 'package:omi/pages/action_items/todo_list_page.dart';
 import 'package:omi/pages/action_items/widgets/action_item_form_sheet.dart';
 import 'package:omi/providers/action_items_provider.dart';
 import 'package:omi/providers/conversation_provider.dart';
@@ -67,41 +68,10 @@ final tasksScenarios = <AuditScenario>[
     },
   ),
   AuditScenario(
-    id: 'tasks-indented',
-    title: 'Tasks tab with an indented subtask, and its long-press menu',
-    page: 'lib/pages/action_items/action_items_page.dart (ActionItemsPage)',
-    state: 'ActionItemsProvider loaded with a parent task and one indented child task',
-    run: (a) async {
-      Future<ActionItemsResponse?> items({
-        int limit = 100,
-        int offset = 0,
-        bool? completed,
-        String? conversationId,
-        DateTime? startDate,
-        DateTime? endDate,
-        DateTime? dueStartDate,
-        DateTime? dueEndDate,
-      }) async =>
-          const ActionItemsResponse(actionItems: [
-            ActionItemWithMetadata(id: 'parent', description: 'Plan the launch', completed: false, sortOrder: 1000),
-            ActionItemWithMetadata(
-                id: 'child', description: 'Book the venue', completed: false, sortOrder: 2000, indentLevel: 1),
-          ]);
-      final actionItems = ActionItemsProvider(getActionItems: items);
-      await a.tester.runAsync(actionItems.ensureLoaded);
-      await a.pump(const ActionItemsPage(), providers: [
-        ChangeNotifierProvider<ActionItemsProvider>.value(value: actionItems),
-      ]);
-      await a.shot('Tasks tab with a parent task and an indented child', step: 'list');
-      await a.longPress(find.text('Book the venue'));
-      await a.shot('Long-press the indented task row', step: 'menu');
-    },
-  ),
-  AuditScenario(
     id: 'tasks-from-conversations',
-    title: 'To do: overdue, today and undated tasks, each saying which conversation it came from',
-    page: 'lib/pages/action_items/action_items_page.dart (ActionItemsPage)',
-    state: 'Four open tasks: one overdue, two due today (one at 5 PM), one undated; three from conversations',
+    title: 'To-do (v3): Overdue, Today, This week, Later and Done, each linked to its conversation',
+    page: 'lib/pages/action_items/todo_list_page.dart (TodoListPage)',
+    state: 'Six tasks: one overdue, two due today, one this week, one undated, one done; four from conversations',
     run: (a) async {
       final now = DateTime.now();
       final today = DateTime(now.year, now.month, now.day);
@@ -160,14 +130,29 @@ final tasksScenarios = <AuditScenario>[
               conversationId: 'c3',
               sortOrder: 4000,
             ),
+            ActionItemWithMetadata(
+              id: 'week',
+              description: 'Book the room for the design review',
+              completed: false,
+              dueAt: today.add(const Duration(days: 3, hours: 10)),
+              conversationId: 'c1',
+              sortOrder: 5000,
+            ),
+            const ActionItemWithMetadata(
+              id: 'done',
+              description: 'Share the roadmap notes',
+              completed: true,
+              conversationId: 'c2',
+              sortOrder: 6000,
+            ),
           ]);
       final actionItems = ActionItemsProvider(getActionItems: items);
       await a.tester.runAsync(actionItems.ensureLoaded);
-      await a.pump(const ActionItemsPage(), providers: [
+      await a.pump(const TodoListPage(), scaffold: false, providers: [
         ChangeNotifierProvider<ActionItemsProvider>.value(value: actionItems),
         ChangeNotifierProvider<ConversationProvider>.value(value: conversations),
       ]);
-      await a.shot('To do with overdue, today and undated tasks from conversations');
+      await a.shot('To-do: the groups, Late and New tags, due lines and the conversation links');
     },
   ),
 ];

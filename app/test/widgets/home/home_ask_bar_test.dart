@@ -65,19 +65,20 @@ void main() {
     expect((bar.decoration as BoxDecoration).color, OmiColors.accent);
   });
 
-  testWidgets('it sits 24 pt above the home indicator, and pages keep room under it', (tester) async {
+  testWidgets('it sits 16 pt above the home indicator, and pages keep room under it', (tester) async {
     await _pump(tester, padding: const EdgeInsets.only(bottom: 34));
     final context = tester.element(find.byType(HomeAskBar));
     final screen = tester.getSize(find.byType(Scaffold));
     final bar = tester.getRect(find.byKey(const Key('home_ask_bar')));
 
     expect(screen.height - bar.bottom, askBarBottomOffset(context));
-    expect(askBarBottomOffset(context), 34 + OmiSpacing.xl, reason: '58 pt from the bottom on an iPhone');
+    expect(askBarBottomOffset(context), 34 + OmiSpacing.md,
+        reason: '50 pt from the bottom on an iPhone (`.ask` at safe + 16)');
     expect(bottomNavBarClearance(context), greaterThan(screen.height - bar.top));
   });
 
-  testWidgets('without a home indicator it keeps 24 pt from the edge', (tester) async {
+  testWidgets('without a home indicator it keeps 16 pt from the edge', (tester) async {
     await _pump(tester);
-    expect(askBarBottomOffset(tester.element(find.byType(HomeAskBar))), OmiSpacing.xl);
+    expect(askBarBottomOffset(tester.element(find.byType(HomeAskBar))), OmiSpacing.md);
   });
 }

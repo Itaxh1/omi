@@ -9,7 +9,7 @@ import 'package:omi/backend/schema/structured.dart';
 import 'package:omi/l10n/app_localizations.dart';
 import 'package:omi/pages/conversation_detail/conversation_detail_provider.dart';
 import 'package:omi/pages/conversation_detail/conversation_summary_selection.dart';
-import 'package:omi/pages/conversation_detail/widgets.dart';
+import 'package:omi/pages/conversation_detail/widgets/summary_v3.dart';
 import 'package:omi/providers/conversation_provider.dart';
 
 ServerConversation _conversationWithSections({List<AppResponse> appResults = const [], String overview = ''}) {
@@ -26,36 +26,16 @@ ServerConversation _conversationWithSections({List<AppResponse> appResults = con
   );
 }
 
-Future<void> _pumpSummary(
-  WidgetTester tester,
-  ServerConversation conversation, {
-  bool asSliver = true,
-  void Function(ConversationSummarySelection selection, String newContent)? onSaveSummarySelection,
-}) async {
+/// The v3 Summary tab's body: the one selected summary ([ConversationSummarySelection]) as markdown.
+Future<void> _pumpSummary(WidgetTester tester, ServerConversation conversation) async {
   await tester.pumpWidget(
     MaterialApp(
-      theme: ThemeData.dark(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       home: Scaffold(
-        body: asSliver
-            ? CustomScrollView(
-                slivers: [
-                  AppResultDetailWidget(
-                    summarySelection: ConversationSummarySelection.select(conversation),
-                    app: null,
-                    conversation: conversation,
-                    onSaveSummarySelection: onSaveSummarySelection,
-                    asSliver: true,
-                  ),
-                ],
-              )
-            : AppResultDetailWidget(
-                summarySelection: ConversationSummarySelection.select(conversation),
-                app: null,
-                conversation: conversation,
-                onSaveSummarySelection: onSaveSummarySelection,
-              ),
+        body: SingleChildScrollView(
+          child: SummaryV3(markdown: ConversationSummarySelection.select(conversation).content),
+        ),
       ),
     ),
   );
@@ -105,18 +85,6 @@ void main() {
       expect(find.textContaining('Backend migration is not started yet', findRichText: true), findsOneWidget);
     });
 
-    testWidgets('regular rendering also mounts the selected body once', (tester) async {
-      final conversation = _conversationWithSections();
-      conversation.structured.overview = ConversationSummarySelection.renderSections(conversation.structured.sections);
-
-      await _pumpSummary(tester, conversation, asSliver: false);
-
-      expect(find.textContaining('Decisions', findRichText: true), findsOneWidget);
-      expect(find.textContaining('Ship the beta on Friday', findRichText: true), findsOneWidget);
-      expect(find.textContaining('Risks', findRichText: true), findsOneWidget);
-      expect(find.textContaining('Backend migration is not started yet', findRichText: true), findsOneWidget);
-    });
-
     testWidgets('an app-generated summary replaces the structured sections', (tester) async {
       final conversation = _conversationWithSections(appResults: [AppResponse('App summary', appId: 'app-1')]);
 
@@ -148,35 +116,6 @@ void main() {
       expect(find.textContaining('Decisions', findRichText: true), findsOneWidget);
       expect(find.textContaining('Ship the beta on Friday', findRichText: true), findsOneWidget);
       expect(find.textContaining('No summary available for this app', findRichText: true), findsNothing);
-    });
-
-    testWidgets('duplicate app ids disable editing in regular and sliver rendering', (tester) async {
-      final conversation = _conversationWithSections(
-        appResults: [
-          AppResponse('First app summary', appId: 'duplicate'),
-          AppResponse('Second app summary', appId: 'duplicate'),
-        ],
-      );
-      var saveCalls = 0;
-      void onSave(ConversationSummarySelection selection, String newContent) {
-        saveCalls++;
-      }
-
-      await _pumpSummary(tester, conversation, onSaveSummarySelection: onSave);
-      final summaryFinder = find.textContaining('First app summary', findRichText: true);
-      await tester.tap(summaryFinder);
-      await tester.pump(const Duration(milliseconds: 50));
-      await tester.tap(summaryFinder);
-      await tester.pump();
-      expect(find.byType(TextField), findsNothing);
-
-      await _pumpSummary(tester, conversation, asSliver: false, onSaveSummarySelection: onSave);
-      await tester.tap(summaryFinder);
-      await tester.pump(const Duration(milliseconds: 50));
-      await tester.tap(summaryFinder);
-      await tester.pump();
-      expect(find.byType(TextField), findsNothing);
-      expect(saveCalls, 0);
     });
   });
 }

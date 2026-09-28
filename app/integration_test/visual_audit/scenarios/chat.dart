@@ -1,11 +1,9 @@
-// Ask Omi: starters, composing, a reply and its actions, the Chat Apps drawer and Clear Chat.
+// Ask Omi: the hello and suggestions, composing, a reply and its actions, the Chat Apps drawer and
+// Clear Chat.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:provider/provider.dart';
 
-import 'package:omi/backend/schema/memory.dart';
 import 'package:omi/pages/chat/page.dart';
-import 'package:omi/providers/memories_provider.dart';
 
 import '../../journeys/support/hermetic_boot.dart';
 import '../harness.dart';
@@ -25,20 +23,20 @@ Future<void> _ask(AuditRun a, String question) async {
 final chatScenarios = <AuditScenario>[
   AuditScenario(
     id: 'chat-ask',
-    title: 'Ask Omi: empty, starter, draft, reply and copy',
+    title: 'Ask Omi (v3): hello, a suggestion, draft, reply and copy',
     page: _page,
     state: 'No saved personal data; the fixture backend streams a fixed assistant reply',
     run: (a) async {
       a.server.assistantReplyText =
           'You agreed to send Alex the revised design notes on Friday. Start with the recording flow and memory search.';
       await a.pump(const ChatPage());
-      expect(find.text('What can you do for me?'), findsOneWidget);
-      expect(find.text('Summarize my recent activity'), findsNothing);
-      await a.shot('Open Ask Omi with no saved personal data', step: 'empty');
-      await a.tap(find.byKey(const Key('chat_starter_goal')));
-      expect(_composer(a), 'Help me set a goal');
+      expect(find.byKey(const Key('ask_hello')), findsOneWidget);
+      expect(find.byKey(const Key('ask_suggestions')), findsOneWidget);
+      await a.shot('Open Ask Omi: the hello and three suggestions over the composer', step: 'empty');
+      await a.tap(find.byKey(const ValueKey('ask_suggestion_1')));
+      expect(_composer(a), 'What do I still owe people?');
       expect(a.server.countOf('POST', '/v2/messages'), 0);
-      await a.shot('Select a starter; it fills the composer without sending', step: 'starter');
+      await a.shot('Tap a suggestion; it fills the composer without sending', step: 'starter');
       await a.enterText(find.byKey(_input), 'What did I agree to send Alex?');
       await a.shot('Compose a question', step: 'draft');
       await a.tap(find.byKey(_send));
@@ -52,32 +50,13 @@ final chatScenarios = <AuditScenario>[
     },
   ),
   AuditScenario(
-    id: 'chat-starters-with-memories',
-    title: 'Ask Omi starters for an account with saved data',
-    page: _page,
-    state: 'Fixture-backed MemoriesProvider holding one saved private memory',
-    run: (a) async {
-      final memories = MemoriesProvider();
-      await a.tester.runAsync(() => memories.createMemory('I prefer morning meetings.', MemoryVisibility.private));
-      await a.pump(const ChatPage(), providers: [ChangeNotifierProvider<MemoriesProvider>.value(value: memories)]);
-      expect(find.text('Summarize today'), findsOneWidget);
-      expect(find.text('Who did I meet?'), findsOneWidget);
-      expect(find.text("What's still open?"), findsOneWidget);
-      expect(find.text('What can you do for me?'), findsNothing);
-      await a.shot('Open empty chat with a saved memory');
-      await a.tap(find.byKey(const Key('chat_starter_today')));
-      expect(_composer(a), 'Summarize today');
-      expect(a.server.countOf('POST', '/v2/messages'), 0);
-    },
-  ),
-  AuditScenario(
     id: 'chat-apps-drawer',
     title: 'Chat Apps drawer and the Clear Chat confirmation',
     page: _page,
     state: 'No saved personal data and no enabled chat apps',
     run: (a) async {
       await a.pump(const ChatPage());
-      await a.tap(find.bySemanticsLabel('Chat Apps'));
+      await a.tap(find.byKey(const Key('chat_apps')));
       await a.shot('Open the Chat Apps drawer', step: 'drawer');
       await a.tap(find.text('Clear Chat').first);
       await a.shot('Tap Clear Chat at the bottom of the drawer', step: 'clear-confirm');

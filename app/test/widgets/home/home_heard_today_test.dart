@@ -55,23 +55,23 @@ Future<void> _pump(WidgetTester tester, ConversationProvider provider, List<Serv
   await tester.pump();
 }
 
-/// Home's "Heard today" (v3): today's five, one line each, with a shared title size.
+/// Home's "Heard today" (v3): today's three, one line each, with a shared title size.
 void main() {
   // Afternoon local, far from midnight, so "today" is stable in every timezone.
   final now = localCalendarDay(2026, 8, 12, 15);
   final yesterday = now.subtract(const Duration(days: 1));
 
-  test('pick takes today\'s conversations, newest first, up to five', () {
+  test('pick takes today\'s conversations, newest first, up to three', () {
     final provider = _provider([
       for (var i = 0; i < 7; i++) _conversation('t$i', 'Today $i', now.subtract(Duration(minutes: 10 * i))),
       _conversation('y', 'Yesterday', yesterday),
     ]);
     final picked = HomeHeardToday.pick(provider, now: now);
-    expect(picked.map((c) => c.id), ['t0', 't1', 't2', 't3', 't4']);
+    expect(picked.map((c) => c.id), ['t0', 't1', 't2']);
     expect(HomeHeardToday.isToday(picked.first, now: now), isTrue);
   });
 
-  test('pick falls back to the latest five when nothing was heard today', () {
+  test('pick falls back to the latest three when nothing was heard today', () {
     final provider = _provider([
       _conversation('y1', 'Yesterday 1', yesterday),
       _conversation('y2', 'Yesterday 2', yesterday.subtract(const Duration(hours: 1))),

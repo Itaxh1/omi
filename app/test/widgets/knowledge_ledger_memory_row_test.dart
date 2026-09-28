@@ -7,8 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:omi/backend/schema/memory.dart';
 import 'package:omi/backend/http/api/memories.dart';
 import 'package:omi/l10n/app_localizations.dart';
-import 'package:omi/pages/memories/widgets/memory_item.dart';
-import 'package:omi/pages/memories/widgets/memory_history_status_banner.dart';
+import 'package:omi/pages/memories/widgets/memory_row.dart';
 import 'package:omi/providers/memories_provider.dart';
 
 class _ReviewProvider extends MemoriesProvider {
@@ -125,11 +124,9 @@ void main() {
         ],
         supportedLocales: AppLocalizations.supportedLocales,
         home: Scaffold(
-          body: MemoryItem(
+          body: MemoryRow(
             memory: memory,
             provider: provider,
-            showDismissible: false,
-            onTap: (_, __, ___) {},
           ),
         ),
       ),
@@ -137,7 +134,6 @@ void main() {
 
     expect(find.text('Release checklist'), findsOneWidget);
     expect(find.text('Run tests, review the diff, and publish receipts.'), findsOneWidget);
-    expect(find.byIcon(Icons.menu_book_outlined), findsOneWidget);
     expect(find.byKey(const Key('memory_review_accept_playbook-1')), findsOneWidget);
     expect(find.byKey(const Key('memory_review_reject_playbook-1')), findsOneWidget);
 
@@ -163,11 +159,9 @@ void main() {
         ],
         supportedLocales: AppLocalizations.supportedLocales,
         home: Scaffold(
-          body: MemoryItem(
+          body: MemoryRow(
             memory: memory,
             provider: provider,
-            showDismissible: false,
-            onTap: (_, __, ___) {},
           ),
         ),
       ),
@@ -178,69 +172,6 @@ void main() {
 
     expect(provider.decisions, [true]);
     expect(memory.userReview, isTrue);
-  });
-
-  testWidgets('partial history status is explicit and informational', (tester) async {
-    await tester.pumpWidget(
-      const MaterialApp(
-        localizationsDelegates: [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: Scaffold(body: MemoryHistoryStatusBanner()),
-      ),
-    );
-
-    expect(find.text('Some memory history is unavailable. Showing the history received so far.'), findsOneWidget);
-    expect(find.byIcon(Icons.info_outline), findsOneWidget);
-    expect(find.byType(TextButton), findsNothing);
-  });
-
-  testWidgets('history load-more stays reachable by semantics when actionable', (tester) async {
-    final handle = tester.ensureSemantics();
-
-    await tester.pumpWidget(
-      const MaterialApp(
-        localizationsDelegates: [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: Scaffold(body: MemoryHistoryStatusBanner()),
-      ),
-    );
-    expect(find.byKey(const Key('memory_history_load_more')), findsNothing);
-    expect(find.bySemanticsLabel('show more ↓'), findsNothing);
-
-    await tester.pumpWidget(
-      MaterialApp(
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: Scaffold(body: MemoryHistoryStatusBanner(onLoadMore: () {})),
-      ),
-    );
-    expect(find.byKey(const Key('memory_history_load_more')), findsOneWidget);
-    expect(find.bySemanticsLabel('show more ↓'), findsOneWidget);
-    // Descendant semantics are preserved (not replaced) when actionable, so
-    // the banner text merges with the button into one readable node.
-    expect(
-      find.bySemanticsLabel(
-        RegExp('Some memory history is unavailable. Showing the history received so far.*'),
-      ),
-      findsWidgets,
-    );
-
-    handle.dispose();
   });
 
   testWidgets('Allow use clears suppression even when the row was reviewed', (tester) async {
@@ -262,11 +193,9 @@ void main() {
         ],
         supportedLocales: AppLocalizations.supportedLocales,
         home: Scaffold(
-          body: MemoryItem(
+          body: MemoryRow(
             memory: memory,
             provider: provider,
-            showDismissible: false,
-            onTap: (_, __, ___) {},
           ),
         ),
       ),
@@ -294,11 +223,9 @@ void main() {
           ],
           supportedLocales: AppLocalizations.supportedLocales,
           home: Scaffold(
-            body: MemoryItem(
+            body: MemoryRow(
               memory: memory,
               provider: provider,
-              showDismissible: false,
-              onTap: (_, __, ___) {},
             ),
           ),
         ),
@@ -342,11 +269,10 @@ void main() {
           ],
           supportedLocales: AppLocalizations.supportedLocales,
           home: Scaffold(
-            body: MemoryItem(
+            body: MemoryRow(
               memory: memory,
               provider: provider,
-              showDismissible: false,
-              onTap: (_, __, ___) => taps += 1,
+              onEdit: () => taps += 1,
             ),
           ),
         ),
@@ -384,11 +310,9 @@ void main() {
         ],
         supportedLocales: AppLocalizations.supportedLocales,
         home: Scaffold(
-          body: MemoryItem(
+          body: MemoryRow(
             memory: memory,
             provider: provider,
-            showDismissible: false,
-            onTap: (_, __, ___) {},
           ),
         ),
       ),
@@ -416,11 +340,9 @@ void main() {
         ],
         supportedLocales: AppLocalizations.supportedLocales,
         home: Scaffold(
-          body: MemoryItem(
+          body: MemoryRow(
             memory: memory,
             provider: provider,
-            showDismissible: false,
-            onTap: (_, __, ___) {},
           ),
         ),
       ),
@@ -464,11 +386,9 @@ void main() {
           ],
           supportedLocales: AppLocalizations.supportedLocales,
           home: Scaffold(
-            body: MemoryItem(
+            body: MemoryRow(
               memory: memory,
               provider: provider,
-              showDismissible: false,
-              onTap: (_, __, ___) {},
             ),
           ),
         ),

@@ -54,30 +54,23 @@ void main() {
     PlatformManager.initializeForLocalHarness();
   });
 
-  testWidgets('starters suit available data, stay editable, and fit large text', (tester) async {
+  testWidgets('Ask suggestions send their words and fit large text on a small phone', (tester) async {
     tester.view.physicalSize = const Size(320, 568);
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     String? selected;
-    for (final hasData in [false, true]) {
-      await tester.pumpWidget(_app(MediaQuery(
-        data: const MediaQueryData(textScaler: TextScaler.linear(2)),
-        child: ChatStarters(hasExistingData: hasData, isConnected: true, onSelected: (value) => selected = value),
-      )));
-      final key = Key(hasData ? 'chat_starter_open' : 'chat_starter_goal');
-      await tester.ensureVisible(find.byKey(key));
-      await tester.tap(find.byKey(key));
-      expect(selected, hasData ? "What's still open?" : 'Help me set a goal');
-      expect(find.text(hasData ? 'What can you do for me?' : 'Summarize today'), findsNothing);
-      if (hasData) {
-        expect(find.byKey(const Key('chat_starter_today')), findsOneWidget);
-        expect(find.byKey(const Key('chat_starter_people')), findsOneWidget);
-      }
-      expect(tester.takeException(), isNull);
-    }
-    await tester.pumpWidget(_app(ChatStarters(hasExistingData: true, isConnected: false, onSelected: (_) {})));
-    expect(find.byType(OutlinedButton), findsNothing);
+    await tester.pumpWidget(_app(MediaQuery(
+      data: const MediaQueryData(textScaler: TextScaler.linear(2)),
+      child: AskSuggestions(onSelected: (value) => selected = value),
+    )));
+    final owe = find.byKey(const ValueKey('ask_suggestion_1'));
+    await tester.ensureVisible(owe);
+    await tester.pump();
+    // At 200 % the pill is wider than this phone: tap its leading end, as a finger would.
+    await tester.tapAt(tester.getTopLeft(owe) + const Offset(24, 12));
+    expect(selected, 'What do I still owe people?');
+    expect(tester.takeException(), isNull);
   });
 
   testWidgets('empty or whitespace memory cannot be saved', (tester) async {

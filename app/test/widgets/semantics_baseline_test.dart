@@ -35,7 +35,6 @@ import 'package:omi/providers/task_integration_provider.dart';
 import 'package:omi/models/subscription.dart';
 import 'package:omi/providers/usage_provider.dart';
 import 'package:omi/pages/home/widgets/home_ask_bar.dart';
-import 'package:omi/widgets/conversation_bottom_bar.dart';
 import 'package:omi/widgets/header_circle_button.dart';
 
 import '../support/local_day.dart';
@@ -396,28 +395,7 @@ Future<SurfaceSemanticsReport> _measureConversationDetail(WidgetTester tester) a
       ]),
     ),
   );
-  if (page.pumped) return page;
-
-  return _tryMeasure(
-    tester,
-    surface: 'conversation_detail',
-    pumpedWidget: 'ConversationBottomBar (detail mode); ConversationDetailPage failed: ${page.failureReason}',
-    notes: [
-      'Full ConversationDetailPage did not pump. Bottom bar is the production tab strip on that surface.',
-      'AppBar Back (no tooltip) lives in conversation_detail/page.dart and was not in this slice.',
-    ],
-    app: _app(
-      Scaffold(
-        body: ConversationBottomBar(
-          mode: ConversationBottomBarMode.detail,
-          selectedTab: ConversationTab.summary,
-          onTabSelected: (_) {},
-          onStopPressed: () {},
-        ),
-      ),
-      wrap: (child) => _withProviders(child, [ChangeNotifierProvider<ConversationDetailProvider>.value(value: detail)]),
-    ),
-  );
+  return page;
 }
 
 Future<SurfaceSemanticsReport> _measureMemories(WidgetTester tester) async {

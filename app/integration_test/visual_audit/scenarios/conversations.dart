@@ -1,19 +1,14 @@
-// The Conversations tab: rows, the row menu, swipe to delete, grouped capture rows, Daily Recaps
-// and Offline Sync.
-import 'package:flutter/material.dart';
+// Conversations (v3): All conversations, locked rows, a folder; Daily Recaps and Offline Sync.
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nested/nested.dart';
 import 'package:provider/provider.dart';
 
-import 'package:omi/app_globals.dart';
-import 'package:omi/backend/schema/capture_group.dart';
 import 'package:omi/backend/schema/daily_summary.dart';
 import 'package:omi/backend/schema/folder.dart';
 import 'package:omi/backend/schema/schema.dart';
 import 'package:omi/pages/conversations/auto_sync_page.dart';
-import 'package:omi/pages/conversations/conversations_page.dart';
+import 'package:omi/pages/conversations/all_conversations_page.dart';
 import 'package:omi/pages/conversations/daily_recaps_page.dart';
-import 'package:omi/pages/conversations/widgets/conversation_list_item.dart';
 import 'package:omi/providers/conversation_provider.dart';
 import 'package:omi/providers/folder_provider.dart';
 import 'package:omi/backend/schema/bt_device/bt_device.dart';
@@ -24,7 +19,7 @@ import 'package:omi/services/wals/wal.dart';
 import '../fakes.dart';
 import '../harness.dart';
 
-const _page = 'lib/pages/conversations/conversations_page.dart (ConversationsPage)';
+const _page = 'lib/pages/conversations/all_conversations_page.dart (AllConversationsPage)';
 
 /// A ConversationProvider already holding [items], grouped by date, whose deletes succeed locally.
 List<SingleChildWidget> _listProviders(List<ServerConversation> items) {
@@ -41,18 +36,43 @@ List<SingleChildWidget> _listProviders(List<ServerConversation> items) {
   ];
 }
 
-const _twoSourceGroup = CaptureGroup(id: 'group-1', primaryId: 'grouped-a', members: [
-  CaptureGroupMember(id: 'grouped-a', source: 'desktop'),
-  CaptureGroupMember(id: 'grouped-a-omi', source: 'omi'),
-]);
-
 final conversationsScenarios = <AuditScenario>[
   AuditScenario(
-    id: 'conversations-locked',
-    title: 'Out of free minutes: locked rows',
+    id: 'conversations-list',
+    title: 'All conversations (v3): search, days, time and title rows',
     page: _page,
-    state: 'The plan ran out: two locked conversations (one with no summary sent) above an unlocked one',
-    prefs: {'showGoalTrackerEnabled': false},
+    state: 'Five conversations today and two yesterday, from the pendant, the phone and glasses',
+    run: (a) async {
+      final now = DateTime.now();
+      final today = DateTime(now.year, now.month, now.day);
+      ServerConversation at(String id, String title, DateTime when, ConversationSource source) => ServerConversation(
+            id: id,
+            createdAt: when,
+            startedAt: when,
+            finishedAt: when.add(const Duration(minutes: 12)),
+            structured: Structured(title, 'Overview', emoji: '', category: 'work'),
+            status: ConversationStatus.completed,
+            source: source,
+          );
+      final items = [
+        at('t1', 'Call Chitapa reminder', today.add(const Duration(hours: 15, minutes: 14)), ConversationSource.omi),
+        at('t2', 'App reliability and subscription concerns', today.add(const Duration(hours: 14, minutes: 43)),
+            ConversationSource.phone),
+        at('t3', 'App UX and battery', today.add(const Duration(hours: 14, minutes: 2)), ConversationSource.omi),
+        at('t4', 'Pricing review', today.add(const Duration(hours: 11, minutes: 5)), ConversationSource.openglass),
+        at('t5', 'iPhone roadmap', today.add(const Duration(hours: 9, minutes: 40)), ConversationSource.omi),
+        at('y1', 'Design catch-up with Alex', today.subtract(const Duration(hours: 7)), ConversationSource.omi),
+        at('y2', 'Standup with the hardware team', today.subtract(const Duration(hours: 14)), ConversationSource.omi),
+      ];
+      await a.pump(const AllConversationsPage(), scaffold: false, providers: _listProviders(items));
+      await a.shot('All conversations: the search pill, Today and Yesterday, one row per conversation');
+    },
+  ),
+  AuditScenario(
+    id: 'conversations-locked',
+    title: 'Out of free minutes: locked rows keep their title and time',
+    page: _page,
+    state: 'The plan ran out: two locked conversations above an unlocked one',
     run: (a) async {
       final items = [
         ServerConversation(
@@ -60,9 +80,7 @@ final conversationsScenarios = <AuditScenario>[
           createdAt: DateTime(2026, 9, 26, 9, 40),
           startedAt: DateTime(2026, 9, 26, 9, 40),
           finishedAt: DateTime(2026, 9, 26, 9, 49),
-          structured: Structured('Standup with the hardware team',
-              'Firmware 2.3 ships Friday; the LED brightness fix is in and QA signs off tomorrow.',
-              category: 'work'),
+          structured: Structured('Standup with the hardware team', 'Firmware 2.3 ships Friday.', category: 'work'),
           isLocked: true,
         ),
         ServerConversation(
@@ -75,85 +93,31 @@ final conversationsScenarios = <AuditScenario>[
         ),
         auditConversation('u1', title: 'Design catch-up with Alex'),
       ];
-      await a.pump(const ConversationsPage(requestInitialLoad: false), providers: _listProviders(items));
-      await a.shot('Locked rows keep title, time and length; the summary blurs under an Unlimited badge');
+      await a.pump(const AllConversationsPage(), scaffold: false, providers: _listProviders(items));
+      await a.shot('Locked rows: title and time; opening one offers the plan');
     },
   ),
   AuditScenario(
-    id: 'conversations-list',
-    title: 'Conversations list, row menu and swipe to delete',
+    id: 'conversations-folder',
+    title: 'A folder: its name in the header and only its conversations',
     page: _page,
-    state: 'Three conversations on one day: a titled one, an untitled one and a discarded one; discarded shown',
-    prefs: {'showGoalTrackerEnabled': false, 'showDiscardedMemories': true},
+    state: 'A Work folder holding two of three conversations',
     run: (a) async {
+      final work = ServerConversation(
+        id: 'w1',
+        createdAt: DateTime(2026, 9, 20, 10),
+        structured: Structured('Design catch-up with Alex', 'Overview', category: 'work'),
+        status: ConversationStatus.completed,
+        folderId: 'work',
+      );
       final items = [
-        auditConversation('a', title: 'Design catch-up with Alex'),
-        ServerConversation(id: 'b', createdAt: DateTime(2026, 9, 20, 10), structured: Structured('   ', 'Overview')),
-        auditConversation('c', title: 'Old planning notes', discarded: true),
+        work,
+        auditConversation('w2', title: 'Pricing review'),
+        auditConversation('p1', title: 'Coffee with Priya'),
       ];
-      await a.pump(const ConversationsPage(requestInitialLoad: false), providers: _listProviders(items));
-      expect(find.byType(ConversationListItem), findsNWidgets(3));
-      await a.shot('Conversations tab with a titled, an untitled and a discarded row', step: 'list');
-      await a.longPress(find.byType(ConversationListItem).first);
-      await a.shot('Long-press the first row', step: 'row-menu');
-
-      globalNavigatorKey.currentState!.pop();
-      await a.settle();
-      // A raw gesture in steps: the first move claims the horizontal drag before the row's
-      // long-press recognizer fires, the rest carry the row past the dismiss threshold.
-      final gesture = await a.tester.startGesture(a.tester.getCenter(find.byType(ConversationListItem).first));
-      for (var i = 0; i < 6; i++) {
-        await gesture.moveBy(const Offset(-60, 0));
-        await a.tester.pump(const Duration(milliseconds: 16));
-      }
-      await gesture.up();
-      await a.settle();
-      expect(find.text('Delete Conversation?'), findsOneWidget);
-      await a.shot('Swipe the first row to delete: the delete confirmation', step: 'swipe-delete');
-    },
-  ),
-  AuditScenario(
-    id: 'conversations-source-filter',
-    title: 'Source chips: All, Starred, Pendant, Glasses, Phone, Imported',
-    page: _page,
-    state: 'Three conversations on one day from the pendant, the phone and glasses',
-    prefs: {'showGoalTrackerEnabled': false},
-    run: (a) async {
-      ServerConversation from(String id, String title, ConversationSource source, int hour) => ServerConversation(
-            id: id,
-            createdAt: DateTime(2026, 9, 20, hour),
-            structured: Structured(title, 'Overview', emoji: '', category: 'work'),
-            status: ConversationStatus.completed,
-            source: source,
-          );
-      final items = [
-        from('p', 'Call Chitapa reminder', ConversationSource.omi, 15),
-        from('h', 'Subscription concerns', ConversationSource.phone, 14),
-        from('g', 'Pricing review', ConversationSource.openglass, 11),
-      ];
-      await a.pump(const ConversationsPage(requestInitialLoad: false), providers: _listProviders(items));
-      expect(find.byKey(const ValueKey('conversation_source_glasses')), findsOneWidget);
-      await a.shot('All conversations, with the source chips after Starred', step: 'all');
-      await a.tap(find.byKey(const ValueKey('conversation_source_glasses')));
-      expect(find.byType(ConversationListItem), findsOneWidget);
-      await a.shot('Tap Glasses: only conversations recorded by glasses', step: 'glasses');
-    },
-  ),
-  AuditScenario(
-    id: 'conversations-grouped-row',
-    title: 'Grouped capture row, its Recordings/Separate menu and the Separate confirmation',
-    page: _page,
-    state: 'One conversation recorded by two sources (desktop and pendant) collapsed into one capture group',
-    prefs: {'showGoalTrackerEnabled': false},
-    run: (a) async {
-      final grouped = auditConversation('grouped-a', title: 'Standup with the team', captureGroup: _twoSourceGroup);
-      await a.pump(const ConversationsPage(requestInitialLoad: false), providers: _listProviders([grouped]));
-      await a.shot('One row for the two-source capture group, with capture-source icons', step: 'list');
-      await a.longPress(find.byType(ConversationListItem).first);
-      expect(find.byKey(const ValueKey('conversation_action_separate')), findsOneWidget);
-      await a.shot('Long-press the grouped row: the menu offers Recordings and Separate', step: 'row-menu');
-      await a.tap(find.byKey(const ValueKey('conversation_action_separate')));
-      await a.shot('Tap Separate: a two-member group goes straight to the confirmation', step: 'separate-confirm');
+      await a.pump(const AllConversationsPage(scope: FolderScope('work', 'Work')),
+          scaffold: false, providers: _listProviders(items));
+      await a.shot('The Work folder');
     },
   ),
   AuditScenario(

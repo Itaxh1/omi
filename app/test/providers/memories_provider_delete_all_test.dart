@@ -9,7 +9,7 @@ import 'package:omi/backend/preferences.dart';
 import 'package:omi/backend/schema/memory.dart';
 import 'package:omi/env/env.dart';
 import 'package:omi/l10n/app_localizations.dart';
-import 'package:omi/pages/memories/widgets/memory_management_sheet.dart';
+import 'package:omi/pages/memories/memory_bulk_actions.dart';
 import 'package:omi/providers/memories_provider.dart';
 
 class _UnreachableApiEnv implements EnvFields {
@@ -58,7 +58,7 @@ void main() {
     expect(provider.memories.map((m) => m.id), [_memory.id]);
   });
 
-  testWidgets('the sheet does not say memory was cleared when the server rejected it', (tester) async {
+  testWidgets('the Memories list does not say memory was cleared when the server rejected it', (tester) async {
     tester.view.physicalSize = const Size(1200, 2400);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
@@ -77,22 +77,10 @@ void main() {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: AppLocalizations.supportedLocales,
-          home: Scaffold(
-            body: Builder(
-              builder: (context) => TextButton(
-                onPressed: () => showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (_) => MemoryManagementSheet(provider: provider),
-                ),
-                child: const Text('open'),
-              ),
-            ),
-          ),
+          home: Scaffold(body: MemoryBulkActions(provider: provider)),
         ),
       ),
     );
-    await tester.tap(find.text('open'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Delete All Memories'));
     await tester.pumpAndSettle();

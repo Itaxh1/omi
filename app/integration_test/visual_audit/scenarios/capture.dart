@@ -19,7 +19,6 @@ import 'package:omi/providers/capture_provider.dart';
 import 'package:omi/providers/device_provider.dart';
 import 'package:omi/providers/phone_call_provider.dart';
 import 'package:omi/services/wals/wal.dart';
-import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/enums.dart';
 import 'package:omi/pages/home/widgets/home_ask_bar.dart';
 
@@ -188,14 +187,19 @@ class _HomeFrameState extends State<_HomeFrame> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: OmiColors.surface0,
-      appBar: HomeTopBar(recorderOpen: _recorderOpen, onFolders: () {}, onYou: () {}),
-      body: Stack(children: [
-        const HomeContentPage(),
-        Positioned(left: 0, right: 0, bottom: 0, child: HomeAskBar(onOpen: () {}, onVoice: () {})),
-        Positioned.fill(child: RecorderCardOverlay(open: _recorderOpen)),
-      ]),
+    // As Home draws it (pages/home/page.dart): the warm gradient fixed behind a clear Scaffold.
+    return DecoratedBox(
+      decoration: BoxDecoration(gradient: HomeTone.gradient()),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        resizeToAvoidBottomInset: false,
+        appBar: HomeTopBar(recorderOpen: _recorderOpen, onFolders: () {}, onYou: () {}),
+        body: Stack(children: [
+          Positioned.fill(child: HomeContentPage(recorderOpen: _recorderOpen)),
+          Positioned(left: 0, right: 0, bottom: 0, child: HomeAskBar(onOpen: () {}, onVoice: () {})),
+          Positioned.fill(child: RecorderCardOverlay(open: _recorderOpen)),
+        ]),
+      ),
     );
   }
 }
@@ -371,12 +375,17 @@ final captureScenarios = <AuditScenario>[
   ),
   AuditScenario(
     id: 'home-recording-from',
-    title: 'Recording from: Switch device on the recorder card opens the sources, one live at a time',
-    page: 'lib/pages/devices/recording_source_sheet.dart (showRecordingSourceSheet)',
+    title: 'Switch device on the recorder card opens Devices (Record from, one live at a time)',
+    page: 'lib/pages/devices/devices_screen.dart (DevicesScreen)',
     state: 'An Omi pendant connected at 72% battery and recording; Listening, then Switch device',
     run: (a) async {
-      await _runHome(a, withData: true, AuditLive.pendant, pendantConnected: true,
-          tap: find.byKey(const Key('home_listening_label')), action: 'Tap Listening');
+      await _runHome(
+          a,
+          withData: true,
+          AuditLive.pendant,
+          pendantConnected: true,
+          tap: find.byKey(const Key('home_listening_label')),
+          action: 'Tap Listening');
       await a.tap(find.byKey(const Key('recorder_switch_device')));
       await a.shot('Tap Switch device', step: 'sources');
     },
@@ -408,7 +417,11 @@ final captureScenarios = <AuditScenario>[
     page: _home,
     state: 'The pendant streams; Recording from → This phone is tapped (the pendant asks first)',
     run: (a) async {
-      await _runHome(a, withData: true, AuditLive.pendant, pendantConnected: true,
+      await _runHome(
+          a,
+          withData: true,
+          AuditLive.pendant,
+          pendantConnected: true,
           tap: find.byKey(const Key('home_listening_label')));
       await a.tap(find.byKey(const Key('recorder_switch_device')));
       await a.tap(find.byKey(const Key('devices_this_phone')));

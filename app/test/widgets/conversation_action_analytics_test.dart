@@ -106,27 +106,17 @@ void main() {
       await tester.pump(const Duration(milliseconds: 300));
     }
 
-    testWidgets('Star, Share and the overflow each record their surface', (tester) async {
+    testWidgets('the ⋯ menu records its choice on the overflow surface', (tester) async {
       await pumpPage(tester);
-
-      await tester.tap(find.byKey(const Key('conversation_star')));
-      await tester.pump();
-      await tester.tap(find.byKey(const Key('conversation_share')));
-      await tester.pump();
-      // Share goes straight to the system share sheet (IMG_1146): no question to answer first.
-      expect(find.text('Anyone with the link can view'), findsNothing);
-      await tester.pumpAndSettle();
 
       await tester.tap(find.byKey(const Key('conversation_more')));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('Rename'));
+      await tester.tap(find.text('Copy summary'));
       await tester.pumpAndSettle();
 
       final events = await tester.runAsync(actions);
       expect(events, [
-        {'action': 'star', 'surface': 'top_bar'},
-        {'action': 'share', 'surface': 'top_bar'},
-        {'action': 'rename', 'surface': 'overflow'},
+        {'action': 'copy_summary', 'surface': 'overflow'},
       ]);
       await tester.pumpWidget(const SizedBox());
     });
