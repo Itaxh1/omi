@@ -25,7 +25,6 @@ import 'package:omi/ui/ui.dart';
 import 'package:omi/l10n/app_localizations.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/utils/other/temp.dart';
-import 'package:omi/utils/ui_guidelines.dart';
 import 'package:omi/widgets/shimmer_with_timeout.dart';
 import 'package:omi/widgets/bottom_nav_bar.dart';
 
@@ -258,11 +257,11 @@ class HomeConversationsPreview extends StatelessWidget {
               (_) => Padding(
                 padding: const EdgeInsets.only(top: 12),
                 child: ShimmerWithTimeout(
-                  baseColor: AppStyles.backgroundSecondary,
-                  highlightColor: AppStyles.backgroundTertiary,
+                  baseColor: OmiColors.surface1,
+                  highlightColor: OmiColors.surface3,
                   child: Container(
                     height: 80,
-                    decoration: BoxDecoration(color: AppStyles.backgroundSecondary, borderRadius: OmiRadius.xlAll),
+                    decoration: BoxDecoration(color: OmiColors.surface1, borderRadius: OmiRadius.xlAll),
                   ),
                 ),
               ),

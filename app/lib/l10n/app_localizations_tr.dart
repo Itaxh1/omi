@@ -1864,6 +1864,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get openSettings => 'Ayarları Aç';
 
   @override
+  String get whatsYourName => 'Adın ne?';
+
+  @override
   String get speakTranscribeSummarize => 'Konuş. Transkripsiyonu Oluştur. Özetle.';
 
   @override
@@ -1877,6 +1880,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get termsOfUse => 'Kullanım Koşulları';
+
+  @override
+  String get omiYourAiCompanion => 'Omi – Yapay Zeka Yardımcınız';
+
+  @override
+  String get captureEveryMoment => 'Her anı yakalayın. Yapay zeka destekli\nözetler alın. Artık not almayın.';
 
   @override
   String get appleWatchSetup => 'Apple Watch Kurulumu';
@@ -1921,6 +1930,19 @@ class AppLocalizationsTr extends AppLocalizations {
   String errorStartingRecording(String error) {
     return 'Kayıt başlatma hatası: $error';
   }
+
+  @override
+  String get selectPrimaryLanguage => 'Ana dilinizi seçin';
+
+  @override
+  String get languageBenefits =>
+      'Daha keskin transkripsiyonlar ve kişiselleştirilmiş bir deneyim için dilinizi ayarlayın';
+
+  @override
+  String get whatsYourPrimaryLanguage => 'Ana diliniz nedir?';
+
+  @override
+  String get selectYourLanguage => 'Dilinizi seçin';
 
   @override
   String get personalGrowthJourney => 'Her kelimenizi dinleyen yapay zeka ile kişisel gelişim yolculuğunuz.';
@@ -3350,6 +3372,9 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get dataProtection => 'Veri Koruması';
+
+  @override
+  String get yourDataIsProtected => 'Verileriniz korunmaktadır ve ';
 
   @override
   String get pleaseSelectYourPrimaryLanguage => 'Lütfen birincil dilinizi seçin';
@@ -5031,6 +5056,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get additionalSpeechSampleRemoved => 'Ek ses örneği kaldırıldı';
+
+  @override
+  String get consentDataMessage =>
+      'Devam ederek, konuşmalarınız, kayıtlarınız ve kişisel bilgileriniz sunucularımızda güvenli bir şekilde saklanacaktır. Ses kayıtlarınız ve transkriptleriniz, size yapay zeka destekli içgörüler sağlamak ve tüm uygulama özelliklerini etkinleştirmek için üçüncü taraf yapay zeka hizmetleri (transkripsiyon için Deepgram ve analiz için OpenAI dahil) tarafından işlenir.';
 
   @override
   String get tasksEmptyStateMessage =>
@@ -7050,6 +7079,9 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
+  String get actionItemReminderTitle => 'Omi Hatırlatıcı';
+
+  @override
   String deviceDisconnectedTitle(String deviceName) {
     return '$deviceName bağlantısı kesildi';
   }
@@ -7748,6 +7780,9 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get authorizingMcpServer => 'Yetkilendiriliyor…';
+
+  @override
+  String get whereDidYouHearAboutOmi => 'Bizi nasıl buldunuz?';
 
   @override
   String get tiktok => 'TikTok';
@@ -9929,6 +9964,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get transcriptionNoAudio => 'Transkripsiyon ses almıyor';
 
   @override
+  String get tapPlusToStartRecording => 'Kaydı başlatmak için kayıt düğmesine dokunun';
+
+  @override
   String get chatBlockTask => 'Görev';
 
   @override
@@ -10646,6 +10684,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get deviceConnecting => 'Bağlanıyor…';
 
   @override
+  String get recordOptionsTip => 'İpucu: telefon görüşmesi kaydetmek için kayıt düğmesindeki oka dokunun.';
+
+  @override
   String get firmwareUpdateFailedTitle => 'Güncelleme Başarısız';
 
   @override
@@ -11185,6 +11226,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get keepUsingPendant => 'Kolyeyi kullanmaya devam et';
 
   @override
+  String get recordWith => 'Kayıt yöntemi';
+
+  @override
+  String get moreWaysToRecord => 'Diğer kayıt yöntemleri';
+
+  @override
   String get openCall => 'Aramayı aç';
 
   @override
@@ -11231,6 +11278,151 @@ class AppLocalizationsTr extends AppLocalizations {
   String participantsSummaryUncounted(String name) {
     return '$name ve diğerleri';
   }
+
+  @override
+  String get deviceOnboardingVoiceReplyTitle => 'Omi\'nin yanıtlarını dinleyin';
+
+  @override
+  String get deviceOnboardingVoiceReplySample => 'Anladım. Sonraki toplantınız yirmi dakika içinde başlıyor.';
+
+  @override
+  String get deviceOnboardingAllSetTitle => 'Her Şey Hazır';
+
+  @override
+  String get deviceOnboardingAllSetSubtitle => 'İncelemek veya değiştirmek için bir satıra dokunun.';
+
+  @override
+  String get deviceOnboardingAllSetSinglePressBadge => '1×';
+
+  @override
+  String get deviceOnboardingAllSetDoublePressBadge => '2×';
+
+  @override
+  String get deviceOnboardingVoiceReplySubtitle => 'Buton ile sorduğunuz zaman Omi cevabını sesli olarak okuyabilir.';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewIdle => 'Son yanıtını duy';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewPlaying => 'Son cevabınız çalınıyor...';
+
+  @override
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device) {
+    return '$device aracılığıyla';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker => 'Telefonun hoparlörü aracılığıyla';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput => 'Geçerli ses çıkışı aracılığıyla';
+
+  @override
+  String get deviceOnboardingVoiceReplyOffDescription => 'Cevaplar ekranda kalır. Hiçbir şey konuşulmuyor.';
+
+  @override
+  String get deviceOnboardingVoiceReplyHeadphonesDescription =>
+      'Özel. Yalnızca AirPods, Bluetooth veya kablolu kulaklık aracılığıyla konuşur.';
+
+  @override
+  String get deviceOnboardingVoiceReplyAlwaysDescription =>
+      'Hiçbir kulaklık bağlı olmadığında telefonun hoparlörünü kullanır.';
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusOff => 'Omi sessiz kalacak. Cevaplar hâlâ uygulamada görünüyor.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device) {
+    return '$device bağlandı. Omi burada konuşacak.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected =>
+      'Kulaklık bağlı değil. Omi siz bazılarını bağlayana kadar sessiz kalır.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device) {
+    return '$device\'e kadar oynatır.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker => 'Telefonun hoparlöründen yüksek sesle çalar.';
+
+  @override
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse) {
+    return 'Bunu istediğiniz zaman $settings › $voiceResponse numaralı telefondan değiştirebilirsiniz.';
+  }
+
+  @override
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial) {
+    return 'Bu turu istediğiniz zaman $settings › $deviceSettings › $deviceTutorial\'da tekrar oynatın';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyGenericHeadphones => 'Kulaklıklar';
+
+  @override
+  String get usageListened => 'Listened';
+
+  @override
+  String get usageWordsHeard => 'Words heard';
+
+  @override
+  String get usageTasksNotes => 'Tasks & notes';
+
+  @override
+  String get usagePeakHour => 'Peak hour';
+
+  @override
+  String get usageBestDay => 'Best day';
+
+  @override
+  String get usageBestMonth => 'Best month';
+
+  @override
+  String get usageBestYear => 'Best year';
+
+  @override
+  String get usageMinutes => 'dakika';
+
+  @override
+  String get usageWords => 'Words';
+
+  @override
+  String get usageTasks => 'Görevler';
+
+  @override
+  String get usageMonth => 'Bu Ay';
+
+  @override
+  String get usageYear => 'Bu Yıl';
+
+  @override
+  String get usageAll => 'Tüm Zamanlar';
+
+  @override
+  String get usageNow => 'now';
+
+  @override
+  String get usageChatThisMonth => 'Chat this month';
+
+  @override
+  String get appearance => 'Görünüm';
+
+  @override
+  String get appearanceSystem => 'Sistem';
+
+  @override
+  String get appearanceLight => 'Açık';
+
+  @override
+  String get appearanceDark => 'Koyu';
+
+  @override
+  String get chatDiscardRecording => 'Vazgeç';
+
+  @override
+  String get voiceQuestionNoSpeech => 'Anlayamadım — tekrar deneyin';
 
   @override
   String get alreadyHaveAccount => 'Zaten hesabın var mı?';
@@ -11440,18 +11632,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get summaryStyleSubtitle => 'Bu özeti hangi uygulamanın yazacağını seç';
-
-  @override
-  String get appearance => 'Görünüm';
-
-  @override
-  String get appearanceSystem => 'Sistem';
-
-  @override
-  String get appearanceLight => 'Açık';
-
-  @override
-  String get appearanceDark => 'Koyu';
 
   @override
   String get feel => 'His';

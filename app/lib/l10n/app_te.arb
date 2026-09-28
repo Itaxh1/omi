@@ -1781,6 +1781,10 @@
     "@openSettings": {
         "description": "Button text to open app settings"
     },
+    "whatsYourName": "మీ పేరు ఏమిటి?",
+    "@whatsYourName": {
+        "description": "Question asking for user's name"
+    },
     "@enterYourName": {
         "description": "Hint text for name input field"
     },
@@ -1803,6 +1807,14 @@
     "termsOfUse": "ఉపయోగ నిబంధనలు",
     "@termsOfUse": {
         "description": "Link text for Terms of Use"
+    },
+    "omiYourAiCompanion": "Omi – మీ AI సహచరి",
+    "@omiYourAiCompanion": {
+        "description": "App title or branding on onboarding screen"
+    },
+    "captureEveryMoment": "ప్రతి క్షణాన్ని చేపట్టండి. AI ఆధారిత\nసారాంశాలను పొందండి. ఎప్పుడూ నోట్‌లు తీసుకోవద్దు.",
+    "@captureEveryMoment": {
+        "description": "App value proposition or description"
     },
     "appleWatchSetup": "Apple Watch సెటప్",
     "@appleWatchSetup": {
@@ -1865,11 +1877,27 @@
             }
         }
     },
+    "selectPrimaryLanguage": "మీ ప్రాధమిక భాషను ఎంచుకోండి",
+    "@selectPrimaryLanguage": {
+        "description": "Title for language selection dialog"
+    },
+    "languageBenefits": "మరింత ఖచ్చితమైన ట్రాన్‌స్క్రిప్షన్‌లు మరియు ఎంపిక చేసిన అనుభవం కోసం మీ భాష సెట్ చేయండి",
+    "@languageBenefits": {
+        "description": "Explanation of why language selection matters"
+    },
     "@searchLanguageHint": {
         "description": "Hint text for language search"
     },
     "@noLanguagesFound": {
         "description": "Text when search returns no results"
+    },
+    "whatsYourPrimaryLanguage": "మీ ప్రాధమిక భాష ఏమిటి?",
+    "@whatsYourPrimaryLanguage": {
+        "description": "Question asking for primary language"
+    },
+    "selectYourLanguage": "మీ భాషను ఎంచుకోండి",
+    "@selectYourLanguage": {
+        "description": "Placeholder for selected language name"
     },
     "personalGrowthJourney": "AI తో మీ ఏకస్వ వృద్ధి ఉపయోగం ఇది మీ ప్రతిదాన్ని విని నిర్ణయిస్తుంది.",
     "@personalGrowthJourney": {
@@ -3886,6 +3914,10 @@
     "@dataProtection": {
         "description": "Section title for data protection info"
     },
+    "yourDataIsProtected": "మీ డేటా సంరక్షించబడుతుంది మరియు మా ",
+    "@yourDataIsProtected": {
+        "description": "First part of data protection text"
+    },
     "pleaseSelectYourPrimaryLanguage": "దయచేసి మీ ప్రాథమిక భాషను ఎంచుకోండి",
     "chooseYourLanguage": "మీ భాషను ఎంచుకోండి",
     "selectPreferredLanguageForBestExperience": "ఉత్తమ Omi అనుభవం కోసం మీ ఇష్ట భాషను ఎంచుకోండి",
@@ -5893,6 +5925,10 @@
     "additionalSpeechSampleRemoved": "అదనపు ప్రసంగ నమూనా తీసివేయబడింది",
     "@additionalSpeechSampleRemoved": {
         "description": "Confirmation message when an additional speech sample is deleted"
+    },
+    "consentDataMessage": "కొనసాగించడం ద్వారా, మీ సంభాషణలు, రికార్డింగ్‌లు మరియు వ్యక్తిగత సమాచారం మా సర్వర్‌లలో సురక్షితంగా నిల్వ చేయబడతాయి. మీ ఆడియో రికార్డింగ్‌లు మరియు ట్రాన్‌స్క్రిప్ట్‌లు థర్డ్-పార్టీ AI సేవల ద్వారా ప్రాసెస్ చేయబడతాయి (ట్రాన్‌స్క్రిప్షన్ కోసం Deepgram మరియు విశ్లేషణ కోసం OpenAI సహా) AI-ఆధారిత అంతర్దృష్టులను అందించడానికి మరియు అన్ని యాప్ ఫీచర్‌లను ప్రారంభించడానికి.",
+    "@consentDataMessage": {
+        "description": "Consent message explaining how user data will be stored and used"
     },
     "tasksEmptyStateMessage": "మీ సంభాషణల నుండి చర్యలు ఇక్కడ కనిపిస్తాయి.\n+ నిర్ణయం చేయడానికి ట్యాప్ చేయండి.",
     "@tasksEmptyStateMessage": {
@@ -8653,6 +8689,10 @@
             }
         }
     },
+    "actionItemReminderTitle": "Omi రిమైండర్",
+    "@actionItemReminderTitle": {
+        "description": "Title for action item reminder notifications"
+    },
     "deviceDisconnectedTitle": "{deviceName} డిస్‌కనెక్ట్ చేయబడింది",
     "@deviceDisconnectedTitle": {
         "description": "Notification title when a device disconnects",
@@ -9453,6 +9493,7 @@
     },
     "mcpConnectionFailed": "MCP సర్వర్‌కు కనెక్ట్ చేయడం విఫలమైంది",
     "authorizingMcpServer": "అధికారం ఇస్తోంది…",
+    "whereDidYouHearAboutOmi": "మీరు amin గురించి ఎలా తెలుసుకున్నారు?",
     "tiktok": "TikTok",
     "youtube": "YouTube",
     "instagram": "Instagram",
@@ -10741,6 +10782,7 @@
     "@memoryHistory": {
         "description": "Filter option for retained memory history"
     },
+    "tapPlusToStartRecording": "రికార్డింగ్ ప్రారంభించడానికి రికార్డ్ బటన్ నొక్కండి",
     "processingTakingLonger": "ఇంకా పని జరుగుతోంది — ఇది సాధారణం కంటే ఎక్కువ సమయం తీసుకుంటోంది.",
     "speechProfileEnrollmentPrompt": "Omi మీ గొంతును గుర్తించడానికి — ఏదైనా విషయం గురించి సుమారు 5 సెకన్లు మాట్లాడండి.",
     "home": "హోమ్",
@@ -10906,6 +10948,7 @@
     "batteryLevelSemantics": "బ్యాటరీ {level}%",
     "updateOmiGlassFirmware": "OmiGlass ఫర్మ్‌వేర్‌ను అప్‌డేట్ చేయండి",
     "deviceConnecting": "కనెక్ట్ అవుతోంది…",
+    "recordOptionsTip": "చిట్కా: ఫోన్ కాల్ రికార్డ్ చేయడానికి రికార్డ్ బటన్‌పై ఉన్న బాణం గుర్తును నొక్కండి.",
     "firmwareUpdateFailedTitle": "అప్‌డేట్ విఫలమైంది",
     "firmwareUpdateFailedMessage": "అప్‌డేట్ పూర్తి కాలేదు. మీ పరికరం ఇప్పటికీ ప్రస్తుత ఫర్మ్‌వేర్‌లోనే ఉంది, ఉపయోగించడం సురక్షితం. ఛార్జ్ చేసి ఫోన్ దగ్గర ఉంచి మళ్లీ ప్రయత్నించండి.",
     "firmwareDownloadFailedMessage": "అప్‌డేట్‌ను డౌన్‌లోడ్ చేయలేకపోయాం, మీ పరికరం మారలేదు. ఇంటర్నెట్ కనెక్షన్ తనిఖీ చేసి మళ్లీ ప్రయత్నించండి.",
@@ -11057,6 +11100,8 @@
     "pendantPausesUntilYouFinish": "మీరు ముగించే వరకు పెండెంట్ పాజ్‌లో ఉంటుంది",
     "pendantPausesDuringCall": "కాల్ సమయంలో పెండెంట్ పాజ్‌లో ఉంటుంది",
     "keepUsingPendant": "పెండెంట్‌నే ఉపయోగించండి",
+    "recordWith": "రికార్డ్ చేసే విధానం",
+    "moreWaysToRecord": "రికార్డ్ చేయడానికి మరిన్ని మార్గాలు",
     "openCall": "కాల్‌ను తెరవండి",
     "captureRecoveryBanner": "పెండెంట్ ఆడియో యాప్‌కు చేరడం లేదు — రిపేర్ చేయడానికి ట్యాప్ చేయండి",
     "phoneRecordingBlockedByPendantBatch": "మీ ఫోన్‌తో రికార్డ్ చేయడానికి ముందు మీ పెండెంట్‌లో Transcribe Later ఆపండి.",
@@ -11071,6 +11116,50 @@
     "captureStorageAlmostFull": "స్టోరేజ్ దాదాపు నిండింది",
     "capturePendantDisconnectedDetail": "మీ పెండెంట్ ఈ ఫోన్‌తో కనెక్షన్ కోల్పోయింది. పెండెంట్ ఆన్‌లో ఉండి దగ్గరగా ఉన్నప్పుడు Omi తనంతట తానే మళ్లీ కనెక్ట్ అవుతుంది. దీనికి ముందు రికార్డ్ అయినవన్నీ సురక్షితంగా ఉన్నాయి.",
     "participantsSummaryUncounted": "{name} మరియు ఇతరులు",
+    "deviceOnboardingVoiceReplyTitle": "Omi సమాధానాలను వినండి",
+    "deviceOnboardingVoiceReplySample": "అర్థమైంది. మీ తదుపరి సమావేశం ఇరవై నిమిషాల్లో ప్రారంభమవుతుంది.",
+    "deviceOnboardingAllSetTitle": "అన్నీ సిద్ధంగా ఉన్నాయి",
+    "deviceOnboardingAllSetSubtitle": "సమీక్షించడానికి లేదా మార్చడానికి వరుసను నొక్కండి.",
+    "deviceOnboardingAllSetSinglePressBadge": "1×",
+    "deviceOnboardingAllSetDoublePressBadge": "2×",
+    "deviceOnboardingVoiceReplySubtitle": "మీరు బటన్‌తో అడిగినప్పుడు, Omi దాని సమాధానాన్ని బిగ్గరగా చదవగలదు.",
+    "deviceOnboardingVoiceReplyPreviewIdle": "మీ చివరి సమాధానం వినండి",
+    "deviceOnboardingVoiceReplyPreviewPlaying": "మీ చివరి సమాధానాన్ని ప్లే చేస్తోంది...",
+    "deviceOnboardingVoiceReplyPreviewThroughDevice": "{device} ద్వారా",
+    "deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker": "ఫోన్ స్పీకర్ ద్వారా",
+    "deviceOnboardingVoiceReplyPreviewThroughCurrentOutput": "ప్రస్తుత ఆడియో అవుట్‌పుట్ ద్వారా",
+    "deviceOnboardingVoiceReplyOffDescription": "సమాధానాలు తెరపైనే ఉంటాయి. ఏమీ మాట్లాడలేదు.",
+    "deviceOnboardingVoiceReplyHeadphonesDescription": "ప్రైవేట్. AirPods, Bluetooth లేదా వైర్డు హెడ్‌ఫోన్‌ల ద్వారా మాత్రమే మాట్లాడుతుంది.",
+    "deviceOnboardingVoiceReplyAlwaysDescription": "హెడ్‌ఫోన్‌లు కనెక్ట్ కానప్పుడు ఫోన్ స్పీకర్‌ని ఉపయోగిస్తుంది.",
+    "deviceOnboardingVoiceReplyStatusOff": "Omi మౌనంగా ఉంటుంది. సమాధానాలు ఇప్పటికీ యాప్‌లో కనిపిస్తాయి.",
+    "deviceOnboardingVoiceReplyStatusHeadphonesConnected": "{device} కనెక్ట్ చేయబడింది. Omi ఇక్కడ మాట్లాడతారు.",
+    "deviceOnboardingVoiceReplyStatusHeadphonesDisconnected": "హెడ్‌ఫోన్‌లు కనెక్ట్ కాలేదు. మీరు కొన్నింటిని కనెక్ట్ చేసే వరకు Omi నిశ్శబ్దంగా ఉంటుంది.",
+    "deviceOnboardingVoiceReplyStatusAlwaysHeadphones": "{device} ద్వారా ఆడుతుంది.",
+    "deviceOnboardingVoiceReplyStatusAlwaysSpeaker": "ఫోన్ స్పీకర్ ద్వారా బిగ్గరగా ప్లే చేస్తుంది.",
+    "deviceOnboardingVoiceReplySettingsHint": "మీరు దీన్ని ఎప్పుడైనా {settings} › {voiceResponse}లో మార్చవచ్చు",
+    "deviceOnboardingAllSetReplayHint": "ఈ పర్యటనను ఎప్పుడైనా {settings} › {deviceSettings} › {deviceTutorial}లో మళ్లీ ప్లే చేయండి",
+    "deviceOnboardingVoiceReplyGenericHeadphones": "హెడ్‌ఫోన్‌లు",
+    "usageListened": "Listened",
+    "usageWordsHeard": "Words heard",
+    "usageTasksNotes": "Tasks & notes",
+    "usagePeakHour": "Peak hour",
+    "usageBestDay": "Best day",
+    "usageBestMonth": "Best month",
+    "usageBestYear": "Best year",
+    "usageMinutes": "నిమిషాలు",
+    "usageWords": "Words",
+    "usageTasks": "పనులు",
+    "usageMonth": "ఈ నెల",
+    "usageYear": "ఈ సంవత్సరం",
+    "usageAll": "అన్ని సమయం",
+    "usageNow": "now",
+    "usageChatThisMonth": "Chat this month",
+    "appearance": "రూపం",
+    "appearanceSystem": "సిస్టమ్",
+    "appearanceLight": "లైట్",
+    "appearanceDark": "డార్క్",
+    "chatDiscardRecording": "విస్మరించు",
+    "voiceQuestionNoSpeech": "వినిపించలేదు — మళ్లీ ప్రయత్నించండి",
     "alreadyHaveAccount": "ఇప్పటికే ఖాతా ఉందా?",
     "signInToOmi": "Omi కి సైన్ ఇన్ చేయండి",
     "signInSubtitle": "మీ సంభాషణలు, జ్ఞాపకాలు మీ ఖాతాతో ఫోన్, Mac, వెబ్‌లో ఉంటాయి.",
@@ -11132,10 +11221,6 @@
     "askAboutThisConversationPlaceholder": "ఈ సంభాషణ గురించి అడగండి",
     "summaryStyle": "సారాంశ శైలి",
     "summaryStyleSubtitle": "ఈ సారాంశాన్ని ఏ యాప్ రాయాలో ఎంచుకోండి",
-    "appearance": "రూపం",
-    "appearanceSystem": "సిస్టమ్",
-    "appearanceLight": "లైట్",
-    "appearanceDark": "డార్క్",
     "feel": "అనుభూతి",
     "haptics": "హాప్టిక్స్",
     "hapticsSubtitle": "ఏదైనా ముగించినప్పుడు, నక్షత్రం పెట్టినప్పుడు లేదా పూర్తి చేసినప్పుడు తేలికపాటి ట్యాప్",

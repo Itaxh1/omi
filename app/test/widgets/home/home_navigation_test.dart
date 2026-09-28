@@ -32,6 +32,7 @@ void main() {
     });
 
     test('selects the parent tab before the page', () {
+      expect(HomeDeepLink.parse('/conversations')!.tabIndex, 1, reason: 'the Latest widget with nothing yet');
       expect(HomeDeepLink.parse('/action-items')!.tabIndex, 2);
       expect(HomeDeepLink.parse('/conversations')!.tabIndex, 1);
       // Apps is a tab: a bare /apps selects it; an app's page opens over the current tab.

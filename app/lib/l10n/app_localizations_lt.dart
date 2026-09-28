@@ -1857,6 +1857,9 @@ class AppLocalizationsLt extends AppLocalizations {
   String get openSettings => 'Atidaryti nustatymus';
 
   @override
+  String get whatsYourName => 'Koks tavo vardas?';
+
+  @override
   String get speakTranscribeSummarize => 'Kalbėti. Transkribuoti. Apibendrinti.';
 
   @override
@@ -1870,6 +1873,13 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get termsOfUse => 'Naudojimo sąlygomis';
+
+  @override
+  String get omiYourAiCompanion => 'Omi – jūsų DI palydovas';
+
+  @override
+  String get captureEveryMoment =>
+      'Užfiksuokite kiekvieną akimirką. Gaukite DI pagrindu\nsukurtas santraukas. Daugiau nebedarykite užrašų.';
 
   @override
   String get appleWatchSetup => 'Apple Watch sąranka';
@@ -1914,6 +1924,18 @@ class AppLocalizationsLt extends AppLocalizations {
   String errorStartingRecording(String error) {
     return 'Klaida pradedant įrašymą: $error';
   }
+
+  @override
+  String get selectPrimaryLanguage => 'Pasirinkite savo pagrindinę kalbą';
+
+  @override
+  String get languageBenefits => 'Nustatykite savo kalbą tikslesnėms transkripcijoms ir individualizuotai patirčiai';
+
+  @override
+  String get whatsYourPrimaryLanguage => 'Kokia jūsų pagrindinė kalba?';
+
+  @override
+  String get selectYourLanguage => 'Pasirinkite savo kalbą';
 
   @override
   String get personalGrowthJourney => 'Jūsų asmeninio augimo kelionė su AI, kuris klauso kiekvieno jūsų žodžio.';
@@ -3341,6 +3363,9 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get dataProtection => 'Duomenų apsauga';
+
+  @override
+  String get yourDataIsProtected => 'Jūsų duomenys yra saugomi ir valdomi pagal mūsų ';
 
   @override
   String get pleaseSelectYourPrimaryLanguage => 'Pasirinkite pagrindinę kalbą';
@@ -5021,6 +5046,10 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get additionalSpeechSampleRemoved => 'Papildomas balso pavyzdys pašalintas';
+
+  @override
+  String get consentDataMessage =>
+      'Tęsdami, jūsų pokalbiai, įrašai ir asmeninė informacija bus saugiai saugomi mūsų serveriuose. Jūsų garso įrašai ir transkripcijos apdorojami trečiųjų šalių AI paslaugų (įskaitant Deepgram transkripcijai ir OpenAI analizei), kad suteiktų jums AI paremtas įžvalgas ir įgalintų visas programėlės funkcijas.';
 
   @override
   String get tasksEmptyStateMessage =>
@@ -7042,6 +7071,9 @@ class AppLocalizationsLt extends AppLocalizations {
   }
 
   @override
+  String get actionItemReminderTitle => 'Omi priminimas';
+
+  @override
   String deviceDisconnectedTitle(String deviceName) {
     return '$deviceName atjungtas';
   }
@@ -7739,6 +7771,9 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get authorizingMcpServer => 'Autorizuojama…';
+
+  @override
+  String get whereDidYouHearAboutOmi => 'Kaip mus radote?';
 
   @override
   String get tiktok => 'TikTok';
@@ -9934,6 +9969,9 @@ class AppLocalizationsLt extends AppLocalizations {
   String get transcriptionNoAudio => 'Transkripcija negauna garso';
 
   @override
+  String get tapPlusToStartRecording => 'Norėdami pradėti įrašymą, palieskite įrašymo mygtuką';
+
+  @override
   String get chatBlockTask => 'Užduotis';
 
   @override
@@ -10651,6 +10689,9 @@ class AppLocalizationsLt extends AppLocalizations {
   String get deviceConnecting => 'Jungiamasi…';
 
   @override
+  String get recordOptionsTip => 'Patarimas: norėdami įrašyti skambutį, bakstelėkite rodyklę ant įrašymo mygtuko.';
+
+  @override
   String get firmwareUpdateFailedTitle => 'Atnaujinti nepavyko';
 
   @override
@@ -11192,6 +11233,12 @@ class AppLocalizationsLt extends AppLocalizations {
   String get keepUsingPendant => 'Toliau naudoti pakabuką';
 
   @override
+  String get recordWith => 'Įrašyti naudojant';
+
+  @override
+  String get moreWaysToRecord => 'Daugiau įrašymo būdų';
+
+  @override
   String get openCall => 'Atidaryti skambutį';
 
   @override
@@ -11238,6 +11285,150 @@ class AppLocalizationsLt extends AppLocalizations {
   String participantsSummaryUncounted(String name) {
     return '$name ir kiti';
   }
+
+  @override
+  String get deviceOnboardingVoiceReplyTitle => 'Klausykitės „Omi“ atsakymų';
+
+  @override
+  String get deviceOnboardingVoiceReplySample => 'Supratau. Kitas jūsų susitikimas prasidės po dvidešimties minučių.';
+
+  @override
+  String get deviceOnboardingAllSetTitle => 'Viskas paruošta';
+
+  @override
+  String get deviceOnboardingAllSetSubtitle => 'Palieskite eilutę, kad ją peržiūrėtumėte arba pakeistumėte.';
+
+  @override
+  String get deviceOnboardingAllSetSinglePressBadge => '1×';
+
+  @override
+  String get deviceOnboardingAllSetDoublePressBadge => '2×';
+
+  @override
+  String get deviceOnboardingVoiceReplySubtitle => 'Kai klausiate mygtuku, Omi gali perskaityti atsakymą garsiai.';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewIdle => 'Išgirskite savo paskutinį atsakymą';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewPlaying => 'Leidžiamas paskutinis jūsų atsakymas...';
+
+  @override
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device) {
+    return 'Tel. $device';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker => 'Per telefono garsiakalbį';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput => 'Per esamą garso išvestį';
+
+  @override
+  String get deviceOnboardingVoiceReplyOffDescription => 'Atsakymai lieka ekrane. Nieko nekalbama.';
+
+  @override
+  String get deviceOnboardingVoiceReplyHeadphonesDescription =>
+      'Privatus. Kalba tik per AirPods, Bluetooth arba laidines ausines.';
+
+  @override
+  String get deviceOnboardingVoiceReplyAlwaysDescription => 'Naudoja telefono garsiakalbį, kai neprijungtos ausinės.';
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusOff => 'Omi tylės. Atsakymai vis tiek rodomi programoje.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device) {
+    return '$device prijungtas. Čia kalbės Omi.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected =>
+      'Neprijungtos ausinės. Omi tyli, kol kai kuriuos prijungiate.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device) {
+    return 'Groja per $device.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker => 'Groja garsiai per telefono garsiakalbį.';
+
+  @override
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse) {
+    return 'Tai galite bet kada pakeisti numeriu $settings › $voiceResponse';
+  }
+
+  @override
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial) {
+    return 'Pakartokite šią kelionę bet kuriuo metu $settings › $deviceSettings › $deviceTutorial';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyGenericHeadphones => 'Ausinės';
+
+  @override
+  String get usageListened => 'Listened';
+
+  @override
+  String get usageWordsHeard => 'Words heard';
+
+  @override
+  String get usageTasksNotes => 'Tasks & notes';
+
+  @override
+  String get usagePeakHour => 'Peak hour';
+
+  @override
+  String get usageBestDay => 'Best day';
+
+  @override
+  String get usageBestMonth => 'Best month';
+
+  @override
+  String get usageBestYear => 'Best year';
+
+  @override
+  String get usageMinutes => 'minučių';
+
+  @override
+  String get usageWords => 'Words';
+
+  @override
+  String get usageTasks => 'Užduotys';
+
+  @override
+  String get usageMonth => 'Šį mėnesį';
+
+  @override
+  String get usageYear => 'Šiais metais';
+
+  @override
+  String get usageAll => 'Visą laiką';
+
+  @override
+  String get usageNow => 'now';
+
+  @override
+  String get usageChatThisMonth => 'Chat this month';
+
+  @override
+  String get appearance => 'Išvaizda';
+
+  @override
+  String get appearanceSystem => 'Sistema';
+
+  @override
+  String get appearanceLight => 'Šviesus';
+
+  @override
+  String get appearanceDark => 'Tamsus';
+
+  @override
+  String get chatDiscardRecording => 'Atmesti';
+
+  @override
+  String get voiceQuestionNoSpeech => 'Neišgirdau — bandykite dar kartą';
 
   @override
   String get alreadyHaveAccount => 'Jau turi paskyrą?';
@@ -11444,18 +11635,6 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get summaryStyleSubtitle => 'Pasirink, kuri programa rašo šią santrauką';
-
-  @override
-  String get appearance => 'Išvaizda';
-
-  @override
-  String get appearanceSystem => 'Sistema';
-
-  @override
-  String get appearanceLight => 'Šviesi';
-
-  @override
-  String get appearanceDark => 'Tamsi';
 
   @override
   String get feel => 'Pojūtis';

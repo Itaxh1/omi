@@ -48,7 +48,7 @@ class OmiToolbarDivider extends StatelessWidget {
     return Container(
       width: 1.0 / MediaQuery.of(context).devicePixelRatio,
       height: 20,
-      color: const Color.fromARGB(70, 255, 255, 255),
+      color: OmiColors.border,
     );
   }
 }

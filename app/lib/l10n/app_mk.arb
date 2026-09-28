@@ -1781,6 +1781,10 @@
     "@openSettings": {
         "description": "Button text to open app settings"
     },
+    "whatsYourName": "Кое е вашето име?",
+    "@whatsYourName": {
+        "description": "Question asking for user's name"
+    },
     "@enterYourName": {
         "description": "Hint text for name input field"
     },
@@ -1803,6 +1807,14 @@
     "termsOfUse": "Услови на користење",
     "@termsOfUse": {
         "description": "Link text for Terms of Use"
+    },
+    "omiYourAiCompanion": "Omi – Ваш AI сопатник",
+    "@omiYourAiCompanion": {
+        "description": "App title or branding on onboarding screen"
+    },
+    "captureEveryMoment": "Фатете секој момент. Добијте AI-напаљени\nрезимеа. Никогаш нема да пишувате белешки повторно.",
+    "@captureEveryMoment": {
+        "description": "App value proposition or description"
     },
     "appleWatchSetup": "Подесување на Apple Watch",
     "@appleWatchSetup": {
@@ -1865,11 +1877,27 @@
             }
         }
     },
+    "selectPrimaryLanguage": "Изберете го вашиот основен јазик",
+    "@selectPrimaryLanguage": {
+        "description": "Title for language selection dialog"
+    },
+    "languageBenefits": "Поставете го вашиот јазик за поостри транскрипции и персонализирано искуство",
+    "@languageBenefits": {
+        "description": "Explanation of why language selection matters"
+    },
     "@searchLanguageHint": {
         "description": "Hint text for language search"
     },
     "@noLanguagesFound": {
         "description": "Text when search returns no results"
+    },
+    "whatsYourPrimaryLanguage": "Кое е вашето основно јазик?",
+    "@whatsYourPrimaryLanguage": {
+        "description": "Question asking for primary language"
+    },
+    "selectYourLanguage": "Изберете го вашиот јазик",
+    "@selectYourLanguage": {
+        "description": "Placeholder for selected language name"
     },
     "personalGrowthJourney": "Вашите лично растење патување со AI што слуша на секое ваше слово.",
     "@personalGrowthJourney": {
@@ -3886,6 +3914,10 @@
     "@dataProtection": {
         "description": "Section title for data protection info"
     },
+    "yourDataIsProtected": "Вашите податоци се заштитени и ги регулира нашата ",
+    "@yourDataIsProtected": {
+        "description": "First part of data protection text"
+    },
     "pleaseSelectYourPrimaryLanguage": "Молам, одберете го вашиот примарен јазик",
     "chooseYourLanguage": "Одберете го вашиот јазик",
     "selectPreferredLanguageForBestExperience": "Одберете го вашиот претпочитан јазик за најдобро Omi искуство",
@@ -5893,6 +5925,10 @@
     "additionalSpeechSampleRemoved": "Дополнителен примерок на говор отстранет",
     "@additionalSpeechSampleRemoved": {
         "description": "Confirmation message when an additional speech sample is deleted"
+    },
+    "consentDataMessage": "Со продолжување, вашите разговори, снимки и лични информации ќе бидат безбедно зачувани на нашите сервери. Вашите аудио снимки и транскрипти се обработуваат од AI услуги на трети страни (вклучувајќи Deepgram за транскрипција и OpenAI за анализа) за да ви обезбедат увиди базирани на AI и да ги овозможат сите функции на апликацијата.",
+    "@consentDataMessage": {
+        "description": "Consent message explaining how user data will be stored and used"
     },
     "tasksEmptyStateMessage": "Задачите од вашите разговори ќе се појават овде.\nОтвори + за да создадеш една ручно.",
     "@tasksEmptyStateMessage": {
@@ -8653,6 +8689,10 @@
             }
         }
     },
+    "actionItemReminderTitle": "Omi Потсетник",
+    "@actionItemReminderTitle": {
+        "description": "Title for action item reminder notifications"
+    },
     "deviceDisconnectedTitle": "{deviceName} Откачено",
     "@deviceDisconnectedTitle": {
         "description": "Notification title when a device disconnects",
@@ -9453,6 +9493,7 @@
     },
     "mcpConnectionFailed": "Неуспешна врска со MCP сервер",
     "authorizingMcpServer": "Овластување…",
+    "whereDidYouHearAboutOmi": "Како ви се натипа Omi?",
     "tiktok": "TikTok",
     "youtube": "YouTube",
     "instagram": "Instagram",
@@ -10741,6 +10782,7 @@
     "@memoryHistory": {
         "description": "Filter option for retained memory history"
     },
+    "tapPlusToStartRecording": "Допрете го копчето за снимање за да започнете со снимање",
     "processingTakingLonger": "Сè уште се обработува — ова трае подолго од вообичаеното.",
     "speechProfileEnrollmentPrompt": "За Omi да знае кој глас е вашиот — зборувајте за што било околу 5 секунди.",
     "home": "Почетна",
@@ -10906,6 +10948,7 @@
     "batteryLevelSemantics": "Батерија {level}%",
     "updateOmiGlassFirmware": "Ажурирај го фирмверот на OmiGlass",
     "deviceConnecting": "Се поврзува…",
+    "recordOptionsTip": "Совет: допрете ја стрелката на копчето за снимање за да снимите телефонски повик.",
     "firmwareUpdateFailedTitle": "Ажурирањето не успеа",
     "firmwareUpdateFailedMessage": "Ажурирањето не заврши. Уредот сè уште е на тековниот фирмвер и е безбеден за користење. Држете го наполнет и блиску до телефонот, па обидете се повторно.",
     "firmwareDownloadFailedMessage": "Ажурирањето не можеше да се преземе и уредот не е променет. Проверете ја интернет-врската, па обидете се повторно.",
@@ -11057,6 +11100,8 @@
     "pendantPausesUntilYouFinish": "Приврзокот е паузиран додека не завршите",
     "pendantPausesDuringCall": "Приврзокот е паузиран за време на повикот",
     "keepUsingPendant": "Продолжи со приврзокот",
+    "recordWith": "Снимај со",
+    "moreWaysToRecord": "Повеќе начини за снимање",
     "openCall": "Отвори го повикот",
     "captureRecoveryBanner": "Аудиото од привезокот не стигнува до апликацијата — допрете за поправка",
     "phoneRecordingBlockedByPendantBatch": "Запрете Transcribe Later на привезокот пред да снимате со телефонот.",
@@ -11071,6 +11116,50 @@
     "captureStorageAlmostFull": "Меморијата е речиси полна",
     "capturePendantDisconnectedDetail": "Приврзокот ја изгуби врската со овој телефон. Omi ќе се поврзе повторно сам кога приврзокот е вклучен и во близина. Сè што е снимено досега е безбедно.",
     "participantsSummaryUncounted": "{name} и други",
+    "deviceOnboardingVoiceReplyTitle": "Слушнете ги одговорите на Omi",
+    "deviceOnboardingVoiceReplySample": "Разбрано. Вашиот следен состанок започнува за дваесет минути.",
+    "deviceOnboardingAllSetTitle": "Сè е подготвено",
+    "deviceOnboardingAllSetSubtitle": "Допрете ред за да го прегледате или промените.",
+    "deviceOnboardingAllSetSinglePressBadge": "1×",
+    "deviceOnboardingAllSetDoublePressBadge": "2×",
+    "deviceOnboardingVoiceReplySubtitle": "Кога прашувате со копчето, Omi може гласно да го прочита својот одговор.",
+    "deviceOnboardingVoiceReplyPreviewIdle": "Слушнете го вашиот последен одговор",
+    "deviceOnboardingVoiceReplyPreviewPlaying": "Се репродуцира вашиот последен одговор...",
+    "deviceOnboardingVoiceReplyPreviewThroughDevice": "Преку {device}",
+    "deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker": "Преку звучникот на телефонот",
+    "deviceOnboardingVoiceReplyPreviewThroughCurrentOutput": "Преку тековниот аудио излез",
+    "deviceOnboardingVoiceReplyOffDescription": "Одговорите остануваат на екранот. Ништо не се зборува.",
+    "deviceOnboardingVoiceReplyHeadphonesDescription": "Приватен. Зборува само преку AirPods, Bluetooth или жични слушалки.",
+    "deviceOnboardingVoiceReplyAlwaysDescription": "Го користи звучникот на телефонот кога нема поврзани слушалки.",
+    "deviceOnboardingVoiceReplyStatusOff": "Omi ќе молчи. Одговорите сè уште се појавуваат во апликацијата.",
+    "deviceOnboardingVoiceReplyStatusHeadphonesConnected": "{device} поврзани. Omi ќе зборува овде.",
+    "deviceOnboardingVoiceReplyStatusHeadphonesDisconnected": "Нема поврзани слушалки. Omi останува нечујно додека не поврзете некои.",
+    "deviceOnboardingVoiceReplyStatusAlwaysHeadphones": "Се репродуцира преку {device}.",
+    "deviceOnboardingVoiceReplyStatusAlwaysSpeaker": "Репродуцира гласно преку звучникот на телефонот.",
+    "deviceOnboardingVoiceReplySettingsHint": "Можете да го промените ова во секое време во {settings} › {voiceResponse}",
+    "deviceOnboardingAllSetReplayHint": "Повторете ја оваа турнеја во секое време во {settings} › {deviceSettings} › {deviceTutorial}",
+    "deviceOnboardingVoiceReplyGenericHeadphones": "Слушалки",
+    "usageListened": "Listened",
+    "usageWordsHeard": "Words heard",
+    "usageTasksNotes": "Tasks & notes",
+    "usagePeakHour": "Peak hour",
+    "usageBestDay": "Best day",
+    "usageBestMonth": "Best month",
+    "usageBestYear": "Best year",
+    "usageMinutes": "минути",
+    "usageWords": "Words",
+    "usageTasks": "Задачи",
+    "usageMonth": "Овој месец",
+    "usageYear": "Оваа година",
+    "usageAll": "Целото време",
+    "usageNow": "now",
+    "usageChatThisMonth": "Chat this month",
+    "appearance": "Изглед",
+    "appearanceSystem": "Систем",
+    "appearanceLight": "Светло",
+    "appearanceDark": "Темно",
+    "chatDiscardRecording": "Отфрли",
+    "voiceQuestionNoSpeech": "Не разбрав — обидете се повторно",
     "alreadyHaveAccount": "Веќе имаш сметка?",
     "signInToOmi": "Најави се во Omi",
     "signInSubtitle": "Твоите разговори и спомени се во твојата сметка на телефон, Mac и веб.",
@@ -11132,10 +11221,6 @@
     "askAboutThisConversationPlaceholder": "Прашај за овој разговор",
     "summaryStyle": "Стил на резимето",
     "summaryStyleSubtitle": "Избери која апликација го пишува ова резиме",
-    "appearance": "Изглед",
-    "appearanceSystem": "Систем",
-    "appearanceLight": "Светол",
-    "appearanceDark": "Темен",
     "feel": "Чувство",
     "haptics": "Хаптика",
     "hapticsSubtitle": "Лесен допир кога ќе завршиш, означиш со ѕвезда или комплетираш нешто",

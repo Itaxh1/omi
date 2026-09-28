@@ -6,7 +6,6 @@ import 'package:omi/backend/schema/memory.dart';
 import 'package:omi/providers/memories_provider.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/ui/ui.dart';
-import 'package:omi/utils/ui_guidelines.dart';
 
 class MemoryManagementSheet extends StatelessWidget {
   final MemoriesProvider provider;
@@ -47,7 +46,7 @@ class MemoryManagementSheet extends StatelessWidget {
         _buildCategoryFilterOption(context, context.l10n.filterManual, MemoryCategory.manual),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-          child: Divider(height: 1, color: OmiColors.textPrimary.withValues(alpha: 0.1)),
+          child: Divider(height: 1, color: OmiColors.border),
         ),
         if (provider.memoryBeliefEnabled) ...[
           _buildFilterOption(
@@ -70,7 +69,7 @@ class MemoryManagementSheet extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-            child: Divider(height: 1, color: OmiColors.textPrimary.withValues(alpha: 0.1)),
+            child: Divider(height: 1, color: OmiColors.border),
           ),
         ],
         _buildFilterOption(
@@ -152,7 +151,7 @@ class MemoryManagementSheet extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(context.l10n.totalMemoriesCount(totalMemories), style: AppStyles.body),
+          Text(context.l10n.totalMemoriesCount(totalMemories), style: OmiType.subhead.copyWith(height: 1.4)),
           const SizedBox(height: 8),
           _buildMemoryCountRow(Icons.public, context.l10n.publicMemories, publicMemories),
           const SizedBox(height: 4),
@@ -167,9 +166,12 @@ class MemoryManagementSheet extends StatelessWidget {
       children: [
         Icon(icon, size: 16, color: OmiColors.textSecondary),
         const SizedBox(width: 8),
-        Text(label, style: AppStyles.caption),
+        Text(label, style: OmiType.footnote.copyWith(color: OmiColors.textPrimary.withValues(alpha: 0.7))),
         const Spacer(),
-        Text(count.toString(), style: AppStyles.caption.copyWith(fontWeight: FontWeight.w600)),
+        Text(count.toString(),
+            style: OmiType.footnote
+                .copyWith(color: OmiColors.textPrimary.withValues(alpha: 0.7))
+                .copyWith(fontWeight: FontWeight.w600)),
       ],
     );
   }

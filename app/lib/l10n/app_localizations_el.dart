@@ -1875,6 +1875,9 @@ class AppLocalizationsEl extends AppLocalizations {
   String get openSettings => 'Άνοιγμα Ρυθμίσεων';
 
   @override
+  String get whatsYourName => 'Πώς σε λένε;';
+
+  @override
   String get speakTranscribeSummarize => 'Μιλήστε. Απομαγνητοφώνηση. Περίληψη.';
 
   @override
@@ -1888,6 +1891,13 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get termsOfUse => 'Όροι Χρήσης';
+
+  @override
+  String get omiYourAiCompanion => 'Omi – Ο Βοηθός AI σας';
+
+  @override
+  String get captureEveryMoment =>
+      'Καταγράψτε κάθε στιγμή. Λάβετε περιλήψεις\nμε AI. Μην κρατάτε ποτέ ξανά σημειώσεις.';
 
   @override
   String get appleWatchSetup => 'Ρύθμιση Apple Watch';
@@ -1932,6 +1942,18 @@ class AppLocalizationsEl extends AppLocalizations {
   String errorStartingRecording(String error) {
     return 'Σφάλμα έναρξης εγγραφής: $error';
   }
+
+  @override
+  String get selectPrimaryLanguage => 'Επιλέξτε την κύρια γλώσσα σας';
+
+  @override
+  String get languageBenefits => 'Ορίστε τη γλώσσα σας για πιο ακριβείς απομαγνητοφωνήσεις και εξατομικευμένη εμπειρία';
+
+  @override
+  String get whatsYourPrimaryLanguage => 'Ποια είναι η κύρια γλώσσα σας;';
+
+  @override
+  String get selectYourLanguage => 'Επιλέξτε τη γλώσσα σας';
 
   @override
   String get personalGrowthJourney => 'Το ταξίδι προσωπικής σας ανάπτυξης με AI που ακούει κάθε σας λέξη.';
@@ -3369,6 +3391,9 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get dataProtection => 'Προστασία Δεδομένων';
+
+  @override
+  String get yourDataIsProtected => 'Τα δεδομένα σας προστατεύονται και διέπονται από την ';
 
   @override
   String get pleaseSelectYourPrimaryLanguage => 'Παρακαλώ επιλέξτε την κύρια γλώσσα σας';
@@ -5063,6 +5088,10 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get additionalSpeechSampleRemoved => 'Το πρόσθετο δείγμα ομιλίας αφαιρέθηκε';
+
+  @override
+  String get consentDataMessage =>
+      'Συνεχίζοντας, οι συνομιλίες, οι εγγραφές και τα προσωπικά σας στοιχεία θα αποθηκευτούν με ασφάλεια στους διακομιστές μας. Οι ηχογραφήσεις και τα μεταγραφές σας επεξεργάζονται από υπηρεσίες τεχνητής νοημοσύνης τρίτων (συμπεριλαμβανομένων των Deepgram για μεταγραφή και OpenAI για ανάλυση) για να σας παρέχουν γνώσεις βασισμένες σε AI και να ενεργοποιήσουν όλες τις λειτουργίες της εφαρμογής.';
 
   @override
   String get tasksEmptyStateMessage =>
@@ -7089,6 +7118,9 @@ class AppLocalizationsEl extends AppLocalizations {
   }
 
   @override
+  String get actionItemReminderTitle => 'Υπενθύμιση Omi';
+
+  @override
   String deviceDisconnectedTitle(String deviceName) {
     return '$deviceName αποσυνδέθηκε';
   }
@@ -7790,6 +7822,9 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get authorizingMcpServer => 'Εξουσιοδότηση…';
+
+  @override
+  String get whereDidYouHearAboutOmi => 'Πώς μας βρήκατε;';
 
   @override
   String get tiktok => 'TikTok';
@@ -9988,6 +10023,9 @@ class AppLocalizationsEl extends AppLocalizations {
   String get transcriptionNoAudio => 'Η μεταγραφή δεν λαμβάνει ήχο';
 
   @override
+  String get tapPlusToStartRecording => 'Πατήστε το κουμπί εγγραφής για να ξεκινήσετε την εγγραφή';
+
+  @override
   String get chatBlockTask => 'Εργασία';
 
   @override
@@ -10707,6 +10745,9 @@ class AppLocalizationsEl extends AppLocalizations {
   String get deviceConnecting => 'Σύνδεση…';
 
   @override
+  String get recordOptionsTip => 'Συμβουλή: πατήστε το βέλος στο κουμπί εγγραφής για να καταγράψετε μια κλήση.';
+
+  @override
   String get firmwareUpdateFailedTitle => 'Η ενημέρωση απέτυχε';
 
   @override
@@ -11249,6 +11290,12 @@ class AppLocalizationsEl extends AppLocalizations {
   String get keepUsingPendant => 'Συνέχεια με το μενταγιόν';
 
   @override
+  String get recordWith => 'Εγγραφή με';
+
+  @override
+  String get moreWaysToRecord => 'Περισσότεροι τρόποι εγγραφής';
+
+  @override
   String get openCall => 'Άνοιγμα κλήσης';
 
   @override
@@ -11295,6 +11342,153 @@ class AppLocalizationsEl extends AppLocalizations {
   String participantsSummaryUncounted(String name) {
     return '$name και άλλοι';
   }
+
+  @override
+  String get deviceOnboardingVoiceReplyTitle => 'Ακούστε τις απαντήσεις του Omi';
+
+  @override
+  String get deviceOnboardingVoiceReplySample => 'Έγινε. Η επόμενη συνάντησή σας ξεκινά σε είκοσι λεπτά.';
+
+  @override
+  String get deviceOnboardingAllSetTitle => 'Είστε έτοιμοι';
+
+  @override
+  String get deviceOnboardingAllSetSubtitle => 'Πατήστε μια σειρά για να την ελέγξετε ή να την αλλάξετε.';
+
+  @override
+  String get deviceOnboardingAllSetSinglePressBadge => '1×';
+
+  @override
+  String get deviceOnboardingAllSetDoublePressBadge => '2×';
+
+  @override
+  String get deviceOnboardingVoiceReplySubtitle =>
+      'Όταν ρωτάτε με το κουμπί, το Omi μπορεί να διαβάσει την απάντησή του δυνατά.';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewIdle => 'Άκου την τελευταία σου απάντηση';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewPlaying => 'Παίζει η τελευταία σας απάντηση...';
+
+  @override
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device) {
+    return 'Μέσω του $device';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker => 'Μέσω του ηχείου του τηλεφώνου';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput => 'Μέσω της τρέχουσας εξόδου ήχου';
+
+  @override
+  String get deviceOnboardingVoiceReplyOffDescription => 'Οι απαντήσεις παραμένουν στην οθόνη. Δεν λέγεται τίποτα.';
+
+  @override
+  String get deviceOnboardingVoiceReplyHeadphonesDescription =>
+      'Ιδιωτικό. Μιλάει μόνο μέσω AirPods, Bluetooth ή ενσύρματων ακουστικών.';
+
+  @override
+  String get deviceOnboardingVoiceReplyAlwaysDescription =>
+      'Χρησιμοποιεί το ηχείο του τηλεφώνου όταν δεν είναι συνδεδεμένα ακουστικά.';
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusOff =>
+      'Το Omi θα παραμείνει σιωπηλό. Οι απαντήσεις εξακολουθούν να εμφανίζονται στην εφαρμογή.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device) {
+    return '$device συνδεδεμένο. Omi θα μιλήσει εδώ.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected =>
+      'Δεν συνδέονται ακουστικά. Το Omi παραμένει σιωπηλό μέχρι να συνδέσετε μερικά.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device) {
+    return 'Παίζει μέσω του $device.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker => 'Παίζει δυνατά από το ηχείο του τηλεφώνου.';
+
+  @override
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse) {
+    return 'Μπορείτε να το αλλάξετε ανά πάσα στιγμή στο $settings › $voiceResponse';
+  }
+
+  @override
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial) {
+    return 'Επαναλάβετε αυτήν την περιοδεία οποιαδήποτε στιγμή στο $settings › $deviceSettings › $deviceTutorial';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyGenericHeadphones => 'Ακουστικά';
+
+  @override
+  String get usageListened => 'Listened';
+
+  @override
+  String get usageWordsHeard => 'Words heard';
+
+  @override
+  String get usageTasksNotes => 'Tasks & notes';
+
+  @override
+  String get usagePeakHour => 'Peak hour';
+
+  @override
+  String get usageBestDay => 'Best day';
+
+  @override
+  String get usageBestMonth => 'Best month';
+
+  @override
+  String get usageBestYear => 'Best year';
+
+  @override
+  String get usageMinutes => 'λεπτά';
+
+  @override
+  String get usageWords => 'Words';
+
+  @override
+  String get usageTasks => 'Εργασίες';
+
+  @override
+  String get usageMonth => 'Αυτόν τον Μήνα';
+
+  @override
+  String get usageYear => 'Φέτος';
+
+  @override
+  String get usageAll => 'Συνολικά';
+
+  @override
+  String get usageNow => 'now';
+
+  @override
+  String get usageChatThisMonth => 'Chat this month';
+
+  @override
+  String get appearance => 'Εμφάνιση';
+
+  @override
+  String get appearanceSystem => 'Σύστημα';
+
+  @override
+  String get appearanceLight => 'Φωτεινό';
+
+  @override
+  String get appearanceDark => 'Σκοτεινό';
+
+  @override
+  String get chatDiscardRecording => 'Απόρριψη';
+
+  @override
+  String get voiceQuestionNoSpeech => 'Δεν το κατάλαβα — δοκιμάστε ξανά';
 
   @override
   String get alreadyHaveAccount => 'Έχεις ήδη λογαριασμό;';
@@ -11505,18 +11699,6 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get summaryStyleSubtitle => 'Διάλεξε ποια εφαρμογή γράφει αυτή την περίληψη';
-
-  @override
-  String get appearance => 'Εμφάνιση';
-
-  @override
-  String get appearanceSystem => 'Σύστημα';
-
-  @override
-  String get appearanceLight => 'Φωτεινό';
-
-  @override
-  String get appearanceDark => 'Σκοτεινό';
 
   @override
   String get feel => 'Αίσθηση';

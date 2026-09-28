@@ -909,6 +909,13 @@ class GraphPainter3D extends CustomPainter {
         );
         final tp = TextPainter(text: textSpan, textDirection: TextDirection.ltr);
         tp.layout();
+        if (OmiColors.isLight) {
+          final labelRect = Rect.fromCenter(center: Offset(midX, midY - 8), width: tp.width + 8, height: tp.height + 4);
+          canvas.drawRRect(
+            RRect.fromRectAndRadius(labelRect, const Radius.circular(4)),
+            Paint()..color = OmiColors.surface1.withValues(alpha: 0.88),
+          );
+        }
         tp.paint(canvas, Offset(midX - tp.width / 2, midY - tp.height / 2 - 8));
       }
     }
@@ -956,6 +963,14 @@ class GraphPainter3D extends CustomPainter {
         );
         final tp = TextPainter(text: textSpan, textDirection: TextDirection.ltr);
         tp.layout();
+        if (OmiColors.isLight) {
+          final labelRect =
+              Rect.fromLTWH(centerOffset.dx - tp.width / 2 - 4, centerOffset.dy + radius, tp.width + 8, tp.height + 6);
+          canvas.drawRRect(
+            RRect.fromRectAndRadius(labelRect, const Radius.circular(4)),
+            Paint()..color = OmiColors.surface1.withValues(alpha: 0.88),
+          );
+        }
         tp.paint(canvas, centerOffset + Offset(-tp.width / 2, radius + 3));
       }
     }

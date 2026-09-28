@@ -1842,6 +1842,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get openSettings => 'فتح الإعدادات';
 
   @override
+  String get whatsYourName => 'ما اسمك؟';
+
+  @override
   String get speakTranscribeSummarize => 'تحدث. انسخ. لخص.';
 
   @override
@@ -1855,6 +1858,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get termsOfUse => 'شروط الاستخدام';
+
+  @override
+  String get omiYourAiCompanion => 'Omi – رفيقك الذكي';
+
+  @override
+  String get captureEveryMoment =>
+      'احتفظ بكل لحظة. احصل على ملخصات مدعومة بالذكاء الاصطناعي.\nلا تدون ملاحظات بعد الآن.';
 
   @override
   String get appleWatchSetup => 'إعداد Apple Watch';
@@ -1898,6 +1908,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String errorStartingRecording(String error) {
     return 'خطأ في بدء التسجيل: $error';
   }
+
+  @override
+  String get selectPrimaryLanguage => 'حدد لغتك الأساسية';
+
+  @override
+  String get languageBenefits => 'حدد لغتك للحصول على نسخ أكثر دقة وتجربة شخصية';
+
+  @override
+  String get whatsYourPrimaryLanguage => 'ما هي لغتك الأساسية؟';
+
+  @override
+  String get selectYourLanguage => 'حدد لغتك';
 
   @override
   String get personalGrowthJourney => 'رحلة نموك الشخصية مع الذكاء الاصطناعي الذي يستمع لكل كلمة تقولها.';
@@ -3316,6 +3338,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dataProtection => 'حماية البيانات';
+
+  @override
+  String get yourDataIsProtected => 'بياناتك محمية وتخضع لـ ';
 
   @override
   String get pleaseSelectYourPrimaryLanguage => 'يرجى تحديد لغتك الأساسية';
@@ -4980,6 +5005,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get additionalSpeechSampleRemoved => 'تمت إزالة عينة الكلام الإضافية';
+
+  @override
+  String get consentDataMessage =>
+      'بالمتابعة، سيتم تخزين محادثاتك وتسجيلاتك ومعلوماتك الشخصية بشكل آمن على خوادمنا. تتم معالجة تسجيلاتك الصوتية ونصوصك بواسطة خدمات ذكاء اصطناعي تابعة لجهات خارجية (بما في ذلك Deepgram للنسخ و OpenAI للتحليل) لتزويدك برؤى مدعومة بالذكاء الاصطناعي وتمكين جميع ميزات التطبيق.';
 
   @override
   String get tasksEmptyStateMessage => 'ستظهر المهام من محادثاتك هنا.\nاضغط على + لإنشاء مهمة يدويًا.';
@@ -6984,6 +7013,9 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get actionItemReminderTitle => 'تذكير Omi';
+
+  @override
   String deviceDisconnectedTitle(String deviceName) {
     return '$deviceName غير متصل';
   }
@@ -7678,6 +7710,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get authorizingMcpServer => 'جارٍ التصريح…';
+
+  @override
+  String get whereDidYouHearAboutOmi => 'كيف وجدتنا؟';
 
   @override
   String get tiktok => 'TikTok';
@@ -9854,6 +9889,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get transcriptionNoAudio => 'النسخ لا يستلم الصوت';
 
   @override
+  String get tapPlusToStartRecording => 'اضغط على زر التسجيل لبدء التسجيل';
+
+  @override
   String get chatBlockTask => 'مهمة';
 
   @override
@@ -10568,6 +10606,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get deviceConnecting => 'جارٍ الاتصال…';
 
   @override
+  String get recordOptionsTip => 'نصيحة: اضغط على السهم في زر التسجيل لتسجيل مكالمة هاتفية.';
+
+  @override
   String get firmwareUpdateFailedTitle => 'فشل التحديث';
 
   @override
@@ -11105,6 +11146,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get keepUsingPendant => 'متابعة استخدام القلادة';
 
   @override
+  String get recordWith => 'التسجيل باستخدام';
+
+  @override
+  String get moreWaysToRecord => 'طرق أخرى للتسجيل';
+
+  @override
   String get openCall => 'فتح المكالمة';
 
   @override
@@ -11150,6 +11197,150 @@ class AppLocalizationsAr extends AppLocalizations {
   String participantsSummaryUncounted(String name) {
     return '$name وآخرون';
   }
+
+  @override
+  String get deviceOnboardingVoiceReplyTitle => 'استمع إلى إجابات Omi';
+
+  @override
+  String get deviceOnboardingVoiceReplySample => 'تم. يبدأ اجتماعك التالي بعد عشرين دقيقة.';
+
+  @override
+  String get deviceOnboardingAllSetTitle => 'أصبحت جاهزًا';
+
+  @override
+  String get deviceOnboardingAllSetSubtitle => 'اضغط على صف لمراجعته أو تغييره.';
+
+  @override
+  String get deviceOnboardingAllSetSinglePressBadge => '1×';
+
+  @override
+  String get deviceOnboardingAllSetDoublePressBadge => '2×';
+
+  @override
+  String get deviceOnboardingVoiceReplySubtitle => 'عندما تسأل باستخدام الزر، يستطيع Omi قراءة إجابته بصوت عالٍ.';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewIdle => 'اسمع إجابتك الأخيرة';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewPlaying => 'جارٍ تشغيل إجابتك الأخيرة...';
+
+  @override
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device) {
+    return 'من خلال $device';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker => 'من خلال مكبر صوت الهاتف';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput => 'من خلال إخراج الصوت الحالي';
+
+  @override
+  String get deviceOnboardingVoiceReplyOffDescription => 'تبقى الإجابات على الشاشة. لا شيء يتحدث.';
+
+  @override
+  String get deviceOnboardingVoiceReplyHeadphonesDescription =>
+      'خاص. يتحدث فقط من خلال AirPods أو Bluetooth أو سماعات الرأس السلكية.';
+
+  @override
+  String get deviceOnboardingVoiceReplyAlwaysDescription => 'يستخدم مكبر صوت الهاتف في حالة عدم توصيل سماعات الرأس.';
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusOff => 'Omi سيبقى صامتاً. لا تزال الإجابات تظهر في التطبيق.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device) {
+    return '$device متصل. Omi سيتحدث هنا.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected =>
+      'لا توجد سماعات متصلة. Omi يظل صامتًا حتى تقوم بتوصيل البعض.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device) {
+    return 'يلعب من خلال $device.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker => 'يتم تشغيله بصوت عالٍ من خلال مكبر صوت الهاتف.';
+
+  @override
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse) {
+    return 'يمكنك تغيير هذا في أي وقت في $settings › $voiceResponse';
+  }
+
+  @override
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial) {
+    return 'أعد تشغيل هذه الجولة في أي وقت على $settings › $deviceSettings › $deviceTutorial';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyGenericHeadphones => 'سماعات الرأس';
+
+  @override
+  String get usageListened => 'Listened';
+
+  @override
+  String get usageWordsHeard => 'Words heard';
+
+  @override
+  String get usageTasksNotes => 'Tasks & notes';
+
+  @override
+  String get usagePeakHour => 'Peak hour';
+
+  @override
+  String get usageBestDay => 'Best day';
+
+  @override
+  String get usageBestMonth => 'Best month';
+
+  @override
+  String get usageBestYear => 'Best year';
+
+  @override
+  String get usageMinutes => 'دقائق';
+
+  @override
+  String get usageWords => 'Words';
+
+  @override
+  String get usageTasks => 'المهام';
+
+  @override
+  String get usageMonth => 'هذا الشهر';
+
+  @override
+  String get usageYear => 'هذا العام';
+
+  @override
+  String get usageAll => 'كل الأوقات';
+
+  @override
+  String get usageNow => 'now';
+
+  @override
+  String get usageChatThisMonth => 'Chat this month';
+
+  @override
+  String get appearance => 'المظهر';
+
+  @override
+  String get appearanceSystem => 'النظام';
+
+  @override
+  String get appearanceLight => 'فاتح';
+
+  @override
+  String get appearanceDark => 'داكن';
+
+  @override
+  String get chatDiscardRecording => 'تجاهل';
+
+  @override
+  String get voiceQuestionNoSpeech => 'لم ألتقط ذلك — حاول مرة أخرى';
 
   @override
   String get alreadyHaveAccount => 'لديك حساب بالفعل؟';
@@ -11354,18 +11545,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get summaryStyleSubtitle => 'اختر التطبيق الذي يكتب هذا الملخص';
-
-  @override
-  String get appearance => 'المظهر';
-
-  @override
-  String get appearanceSystem => 'النظام';
-
-  @override
-  String get appearanceLight => 'فاتح';
-
-  @override
-  String get appearanceDark => 'داكن';
 
   @override
   String get feel => 'الإحساس';

@@ -1781,6 +1781,10 @@
     "@openSettings": {
         "description": "Button text to open app settings"
     },
+    "whatsYourName": "Ano ang iyong pangalan?",
+    "@whatsYourName": {
+        "description": "Question asking for user's name"
+    },
     "@enterYourName": {
         "description": "Hint text for name input field"
     },
@@ -1803,6 +1807,14 @@
     "termsOfUse": "Terms of Use",
     "@termsOfUse": {
         "description": "Link text for Terms of Use"
+    },
+    "omiYourAiCompanion": "Omi – Ang Iyong AI Companion",
+    "@omiYourAiCompanion": {
+        "description": "App title or branding on onboarding screen"
+    },
+    "captureEveryMoment": "Kunan ang bawat sandali. Makakuha ng AI-powered\nsummaries. Hindi na kailangan mag-notes.",
+    "@captureEveryMoment": {
+        "description": "App value proposition or description"
     },
     "appleWatchSetup": "Apple Watch Setup",
     "@appleWatchSetup": {
@@ -1865,11 +1877,27 @@
             }
         }
     },
+    "selectPrimaryLanguage": "Pumili ng iyong pangunahing wika",
+    "@selectPrimaryLanguage": {
+        "description": "Title for language selection dialog"
+    },
+    "languageBenefits": "Itakda ang iyong wika para sa mas matalinong transcriptions at personalized na karanasan",
+    "@languageBenefits": {
+        "description": "Explanation of why language selection matters"
+    },
     "@searchLanguageHint": {
         "description": "Hint text for language search"
     },
     "@noLanguagesFound": {
         "description": "Text when search returns no results"
+    },
+    "whatsYourPrimaryLanguage": "Ano ang iyong pangunahing wika?",
+    "@whatsYourPrimaryLanguage": {
+        "description": "Question asking for primary language"
+    },
+    "selectYourLanguage": "Pumili ng iyong wika",
+    "@selectYourLanguage": {
+        "description": "Placeholder for selected language name"
     },
     "personalGrowthJourney": "Ang iyong personal growth journey gamit ang AI na nakikinig sa bawat salita mo.",
     "@personalGrowthJourney": {
@@ -3886,6 +3914,10 @@
     "@dataProtection": {
         "description": "Section title for data protection info"
     },
+    "yourDataIsProtected": "Ang iyong data ay protektado at pinamamahalaan ng aming ",
+    "@yourDataIsProtected": {
+        "description": "First part of data protection text"
+    },
     "pleaseSelectYourPrimaryLanguage": "Piliin ang iyong pangunahing wika",
     "chooseYourLanguage": "Piliin ang iyong wika",
     "selectPreferredLanguageForBestExperience": "Piliin ang iyong preferred na wika para sa pinakamahusay na Omi experience",
@@ -5893,6 +5925,10 @@
     "additionalSpeechSampleRemoved": "Additional Speech Sample Removed",
     "@additionalSpeechSampleRemoved": {
         "description": "Confirmation message when an additional speech sample is deleted"
+    },
+    "consentDataMessage": "Sa pagpapatuloy, ang iyong mga pag-uusap, recording, at personal na impormasyon ay ligtas na maiimbak sa aming mga server. Ang iyong mga audio recording at transcript ay pinoproseso ng third-party na mga serbisyo ng AI (kabilang ang Deepgram para sa transcription at OpenAI para sa analysis) upang mabigyan ka ng AI-powered na mga insight at ma-enable ang lahat ng feature ng app.",
+    "@consentDataMessage": {
+        "description": "Consent message explaining how user data will be stored and used"
     },
     "tasksEmptyStateMessage": "Ang mga tasks mula sa iyong mga pag-uusap ay lilitaw dito.\nI-tap ang + upang lumikha ng isa nang manual.",
     "@tasksEmptyStateMessage": {
@@ -8653,6 +8689,10 @@
             }
         }
     },
+    "actionItemReminderTitle": "Omi Reminder",
+    "@actionItemReminderTitle": {
+        "description": "Title for action item reminder notifications"
+    },
     "deviceDisconnectedTitle": "{deviceName} Nadiskonekta",
     "@deviceDisconnectedTitle": {
         "description": "Notification title when a device disconnects",
@@ -9453,6 +9493,7 @@
     },
     "mcpConnectionFailed": "Nabigo ang pagkonekta sa MCP server",
     "authorizingMcpServer": "Nag-authorize…",
+    "whereDidYouHearAboutOmi": "Paano ka nakahanap sa amin?",
     "tiktok": "TikTok",
     "youtube": "YouTube",
     "instagram": "Instagram",
@@ -10741,6 +10782,7 @@
     "@memoryHistory": {
         "description": "Filter option for retained memory history"
     },
+    "tapPlusToStartRecording": "I-tap ang record button para magsimulang mag-record",
     "processingTakingLonger": "Ginagawa pa — mas matagal ito kaysa karaniwan.",
     "speechProfileEnrollmentPrompt": "Para malaman ng Omi kung alin ang boses mo — magsalita tungkol sa kahit ano nang mga 5 segundo.",
     "home": "Home",
@@ -10906,6 +10948,7 @@
     "batteryLevelSemantics": "Baterya {level}%",
     "updateOmiGlassFirmware": "I-update ang Firmware ng OmiGlass",
     "deviceConnecting": "Kumokonekta…",
+    "recordOptionsTip": "Tip: i-tap ang arrow sa record button para mag-record ng tawag.",
     "firmwareUpdateFailedTitle": "Nabigo ang Update",
     "firmwareUpdateFailedMessage": "Hindi natapos ang update. Nasa kasalukuyang firmware pa rin ang device mo at ligtas itong gamitin. Panatilihin itong naka-charge at malapit sa telepono, saka subukang muli.",
     "firmwareDownloadFailedMessage": "Hindi ma-download ang update at walang nagbago sa device mo. Tingnan ang koneksyon sa internet, saka subukang muli.",
@@ -11057,6 +11100,8 @@
     "pendantPausesUntilYouFinish": "Naka-pause ang pendant hanggang matapos ka",
     "pendantPausesDuringCall": "Naka-pause ang pendant habang may tawag",
     "keepUsingPendant": "Ituloy ang paggamit ng pendant",
+    "recordWith": "Mag-record gamit ang",
+    "moreWaysToRecord": "Iba pang paraan ng pag-record",
     "openCall": "Buksan ang tawag",
     "captureRecoveryBanner": "Hindi nakakarating sa app ang audio ng pendant — i-tap para ayusin",
     "phoneRecordingBlockedByPendantBatch": "Itigil ang Transcribe Later sa iyong pendant bago mag-record gamit ang telepono.",
@@ -11071,6 +11116,50 @@
     "captureStorageAlmostFull": "Halos puno na ang storage",
     "capturePendantDisconnectedDetail": "Nawalan ng koneksyon ang iyong pendant sa teleponong ito. Kusang kokonekta muli ang Omi kapag naka-on at malapit ang pendant. Ligtas ang lahat ng na-record bago nito.",
     "participantsSummaryUncounted": "{name} at iba pa",
+    "deviceOnboardingVoiceReplyTitle": "Pakinggan ang mga sagot ni Omi",
+    "deviceOnboardingVoiceReplySample": "Nakuha ko. Magsisimula ang susunod mong meeting sa loob ng dalawampung minuto.",
+    "deviceOnboardingAllSetTitle": "Handa Ka Na",
+    "deviceOnboardingAllSetSubtitle": "I-tap ang isang row para suriin o baguhin ito.",
+    "deviceOnboardingAllSetSinglePressBadge": "1×",
+    "deviceOnboardingAllSetDoublePressBadge": "2×",
+    "deviceOnboardingVoiceReplySubtitle": "Kapag nagtanong ka gamit ang button, mababasa ng Omi ang sagot nito nang malakas.",
+    "deviceOnboardingVoiceReplyPreviewIdle": "Pakinggan ang iyong huling sagot",
+    "deviceOnboardingVoiceReplyPreviewPlaying": "Pinapatugtog ang iyong huling sagot...",
+    "deviceOnboardingVoiceReplyPreviewThroughDevice": "Sa pamamagitan ng {device}",
+    "deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker": "Sa pamamagitan ng speaker ng telepono",
+    "deviceOnboardingVoiceReplyPreviewThroughCurrentOutput": "Sa pamamagitan ng kasalukuyang output ng audio",
+    "deviceOnboardingVoiceReplyOffDescription": "Mananatili sa screen ang mga sagot. Walang sinasabi.",
+    "deviceOnboardingVoiceReplyHeadphonesDescription": "Pribado. Nagsasalita lamang sa pamamagitan ng AirPods, Bluetooth o wired headphones.",
+    "deviceOnboardingVoiceReplyAlwaysDescription": "Ginagamit ang speaker ng telepono kapag walang nakakonektang headphone.",
+    "deviceOnboardingVoiceReplyStatusOff": "Omi mananatiling tahimik. Lumalabas pa rin ang mga sagot sa app.",
+    "deviceOnboardingVoiceReplyStatusHeadphonesConnected": "{device} konektado. Omi ang magsasalita dito.",
+    "deviceOnboardingVoiceReplyStatusHeadphonesDisconnected": "Walang nakakonektang headphone. Omi mananatiling tahimik hanggang sa kumonekta ka ng ilan.",
+    "deviceOnboardingVoiceReplyStatusAlwaysHeadphones": "Nagpe-play sa pamamagitan ng {device}.",
+    "deviceOnboardingVoiceReplyStatusAlwaysSpeaker": "Tumutugtog nang malakas sa pamamagitan ng speaker ng telepono.",
+    "deviceOnboardingVoiceReplySettingsHint": "Maaari mo itong baguhin anumang oras sa {settings} › {voiceResponse}",
+    "deviceOnboardingAllSetReplayHint": "I-replay ang tour na ito anumang oras sa {settings} › {deviceSettings} › {deviceTutorial}",
+    "deviceOnboardingVoiceReplyGenericHeadphones": "Mga headphone",
+    "usageListened": "Listened",
+    "usageWordsHeard": "Words heard",
+    "usageTasksNotes": "Tasks & notes",
+    "usagePeakHour": "Peak hour",
+    "usageBestDay": "Best day",
+    "usageBestMonth": "Best month",
+    "usageBestYear": "Best year",
+    "usageMinutes": "minutes",
+    "usageWords": "Words",
+    "usageTasks": "Mga Gawain",
+    "usageMonth": "Sa Buwan Na Ito",
+    "usageYear": "Sa Taong Ito",
+    "usageAll": "Lahat ng Panahon",
+    "usageNow": "now",
+    "usageChatThisMonth": "Chat this month",
+    "appearance": "Hitsura",
+    "appearanceSystem": "System",
+    "appearanceLight": "Maliwanag",
+    "appearanceDark": "Madilim",
+    "chatDiscardRecording": "Itapon",
+    "voiceQuestionNoSpeech": "Hindi ko narinig iyon — subukan ulit",
     "alreadyHaveAccount": "May account ka na?",
     "signInToOmi": "Mag-sign in sa Omi",
     "signInSubtitle": "Kasama ng account mo ang iyong mga usapan at alaala sa telepono, Mac at web.",
@@ -11132,10 +11221,6 @@
     "askAboutThisConversationPlaceholder": "Magtanong tungkol sa usapang ito",
     "summaryStyle": "Estilo ng buod",
     "summaryStyleSubtitle": "Piliin kung aling app ang susulat ng buod na ito",
-    "appearance": "Hitsura",
-    "appearanceSystem": "System",
-    "appearanceLight": "Maliwanag",
-    "appearanceDark": "Madilim",
     "feel": "Pakiramdam",
     "haptics": "Haptics",
     "hapticsSubtitle": "Isang mahinang tapik kapag may tinapos, ni-star o kinumpleto ka",

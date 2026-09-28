@@ -1781,6 +1781,10 @@
     "@openSettings": {
         "description": "Button text to open app settings"
     },
+    "whatsYourName": "আপনার নাম কি?",
+    "@whatsYourName": {
+        "description": "Question asking for user's name"
+    },
     "@enterYourName": {
         "description": "Hint text for name input field"
     },
@@ -1803,6 +1807,14 @@
     "termsOfUse": "ব্যবহারের শর্তাবলী",
     "@termsOfUse": {
         "description": "Link text for Terms of Use"
+    },
+    "omiYourAiCompanion": "Omi - আপনার AI সহযোগী",
+    "@omiYourAiCompanion": {
+        "description": "App title or branding on onboarding screen"
+    },
+    "captureEveryMoment": "প্রতিটি মুহূর্ত ক্যাপচার করুন। AI-চালিত সারসংক্ষেপ পান। কখনও নোট নিন না।",
+    "@captureEveryMoment": {
+        "description": "App value proposition or description"
     },
     "appleWatchSetup": "Apple Watch সেটআপ",
     "@appleWatchSetup": {
@@ -1865,11 +1877,27 @@
             }
         }
     },
+    "selectPrimaryLanguage": "আপনার প্রাথমিক ভাষা নির্বাচন করুন",
+    "@selectPrimaryLanguage": {
+        "description": "Title for language selection dialog"
+    },
+    "languageBenefits": "তীক্ষ্ণ ট্রান্সক্রিপশন এবং ব্যক্তিগতকৃত অভিজ্ঞতার জন্য আপনার ভাষা সেট করুন",
+    "@languageBenefits": {
+        "description": "Explanation of why language selection matters"
+    },
     "@searchLanguageHint": {
         "description": "Hint text for language search"
     },
     "@noLanguagesFound": {
         "description": "Text when search returns no results"
+    },
+    "whatsYourPrimaryLanguage": "আপনার প্রাথমিক ভাষা কি?",
+    "@whatsYourPrimaryLanguage": {
+        "description": "Question asking for primary language"
+    },
+    "selectYourLanguage": "আপনার ভাষা নির্বাচন করুন",
+    "@selectYourLanguage": {
+        "description": "Placeholder for selected language name"
     },
     "personalGrowthJourney": "AI এর সাথে আপনার ব্যক্তিগত বৃদ্ধির যাত্রা যা আপনার প্রতিটি শব্দ শোনে।",
     "@personalGrowthJourney": {
@@ -3886,6 +3914,10 @@
     "@dataProtection": {
         "description": "Section title for data protection info"
     },
+    "yourDataIsProtected": "আপনার ডেটা আমাদের ",
+    "@yourDataIsProtected": {
+        "description": "First part of data protection text"
+    },
     "pleaseSelectYourPrimaryLanguage": "অনুগ্রহ করে আপনার প্রাথমিক ভাষা নির্বাচন করুন",
     "chooseYourLanguage": "আপনার ভাষা বেছে নিন",
     "selectPreferredLanguageForBestExperience": "সেরা Omi অভিজ্ঞতার জন্য আপনার পছন্দের ভাষা নির্বাচন করুন",
@@ -5893,6 +5925,10 @@
     "additionalSpeechSampleRemoved": "অতিরিক্ত বক্তৃতা নমুনা সরানো হয়েছে",
     "@additionalSpeechSampleRemoved": {
         "description": "Confirmation message when an additional speech sample is deleted"
+    },
+    "consentDataMessage": "চালিয়ে যাওয়ার মাধ্যমে, আপনার কথোপকথন, রেকর্ডিং এবং ব্যক্তিগত তথ্য আমাদের সার্ভারে নিরাপদে সংরক্ষণ করা হবে। আপনার অডিও রেকর্ডিং এবং ট্রান্সক্রিপ্ট তৃতীয় পক্ষের AI পরিষেবা দ্বারা প্রক্রিয়া করা হয় (ট্রান্সক্রিপশনের জন্য Deepgram এবং বিশ্লেষণের জন্য OpenAI সহ) যাতে আপনাকে AI-চালিত অন্তর্দৃষ্টি প্রদান করা যায় এবং সমস্ত অ্যাপ বৈশিষ্ট্য সক্ষম করা যায়।",
+    "@consentDataMessage": {
+        "description": "Consent message explaining how user data will be stored and used"
     },
     "tasksEmptyStateMessage": "আপনার কথোপকথন থেকে কাজগুলি এখানে উপস্থিত হবে।\nম্যানুয়ালি একটি তৈরি করতে + ট্যাপ করুন।",
     "@tasksEmptyStateMessage": {
@@ -8653,6 +8689,10 @@
             }
         }
     },
+    "actionItemReminderTitle": "Omi রিমাইন্ডার",
+    "@actionItemReminderTitle": {
+        "description": "Title for action item reminder notifications"
+    },
     "deviceDisconnectedTitle": "{deviceName} সংযোগ বিচ্ছিন্ন",
     "@deviceDisconnectedTitle": {
         "description": "Notification title when a device disconnects",
@@ -9453,6 +9493,7 @@
     },
     "mcpConnectionFailed": "MCP সার্ভারে সংযোগ ব্যর্থ হয়েছে",
     "authorizingMcpServer": "অনুমোদন করা হচ্ছে…",
+    "whereDidYouHearAboutOmi": "আপনি আমাদের সম্পর্কে কীভাবে জানলেন?",
     "tiktok": "TikTok",
     "youtube": "YouTube",
     "instagram": "Instagram",
@@ -10741,6 +10782,7 @@
     "@memoryHistory": {
         "description": "Filter option for retained memory history"
     },
+    "tapPlusToStartRecording": "রেকর্ডিং শুরু করতে রেকর্ড বোতাম চাপুন",
     "processingTakingLonger": "এখনও কাজ চলছে — এটি স্বাভাবিকের চেয়ে বেশি সময় নিচ্ছে।",
     "speechProfileEnrollmentPrompt": "Omi যেন আপনার কণ্ঠ চিনতে পারে — যেকোনো বিষয়ে প্রায় ৫ সেকেন্ড কথা বলুন।",
     "home": "হোম",
@@ -10906,6 +10948,7 @@
     "batteryLevelSemantics": "ব্যাটারি {level}%",
     "updateOmiGlassFirmware": "OmiGlass ফার্মওয়্যার আপডেট করুন",
     "deviceConnecting": "সংযোগ হচ্ছে…",
+    "recordOptionsTip": "টিপ: ফোন কল রেকর্ড করতে রেকর্ড বোতামের তীর চিহ্নে চাপুন।",
     "firmwareUpdateFailedTitle": "আপডেট ব্যর্থ হয়েছে",
     "firmwareUpdateFailedMessage": "আপডেট শেষ হয়নি। আপনার ডিভাইস এখনও বর্তমান ফার্মওয়্যারে আছে এবং ব্যবহার নিরাপদ। চার্জ দিয়ে ফোনের কাছে রাখুন, তারপর আবার চেষ্টা করুন।",
     "firmwareDownloadFailedMessage": "আপডেট ডাউনলোড করা যায়নি, আপনার ডিভাইসে কোনো পরিবর্তন হয়নি। ইন্টারনেট সংযোগ দেখে আবার চেষ্টা করুন।",
@@ -11057,6 +11100,8 @@
     "pendantPausesUntilYouFinish": "আপনি শেষ না করা পর্যন্ত পেন্ডেন্ট বিরতিতে থাকবে",
     "pendantPausesDuringCall": "কলের সময় পেন্ডেন্ট বিরতিতে থাকবে",
     "keepUsingPendant": "পেন্ডেন্ট ব্যবহার চালিয়ে যান",
+    "recordWith": "রেকর্ডের মাধ্যম",
+    "moreWaysToRecord": "রেকর্ড করার আরও উপায়",
     "openCall": "কল খুলুন",
     "captureRecoveryBanner": "পেন্ডেন্টের অডিও অ্যাপে পৌঁছাচ্ছে না — মেরামত করতে ট্যাপ করুন",
     "phoneRecordingBlockedByPendantBatch": "ফোনে রেকর্ড করার আগে আপনার পেন্ড্যান্টে Transcribe Later বন্ধ করুন।",
@@ -11071,6 +11116,50 @@
     "captureStorageAlmostFull": "স্টোরেজ প্রায় পূর্ণ",
     "capturePendantDisconnectedDetail": "আপনার পেনড্যান্ট এই ফোনের সাথে সংযোগ হারিয়েছে। পেনড্যান্ট চালু ও কাছে থাকলে Omi নিজে থেকেই আবার সংযোগ করবে। এর আগে যা রেকর্ড হয়েছে তা নিরাপদ।",
     "participantsSummaryUncounted": "{name} ও অন্যরা",
+    "deviceOnboardingVoiceReplyTitle": "Omi-এর উত্তর শুনুন",
+    "deviceOnboardingVoiceReplySample": "হয়ে গেছে। আপনার পরবর্তী মিটিং বিশ মিনিট পরে শুরু হবে।",
+    "deviceOnboardingAllSetTitle": "সব প্রস্তুত",
+    "deviceOnboardingAllSetSubtitle": "পর্যালোচনা বা পরিবর্তন করতে একটি সারিতে ট্যাপ করুন।",
+    "deviceOnboardingAllSetSinglePressBadge": "1×",
+    "deviceOnboardingAllSetDoublePressBadge": "2×",
+    "deviceOnboardingVoiceReplySubtitle": "আপনি বোতাম দিয়ে জিজ্ঞাসা করলে, Omi উচ্চস্বরে এর উত্তর পড়তে পারে।",
+    "deviceOnboardingVoiceReplyPreviewIdle": "আপনার শেষ উত্তর শুনুন",
+    "deviceOnboardingVoiceReplyPreviewPlaying": "আপনার শেষ উত্তর বাজানো হচ্ছে...",
+    "deviceOnboardingVoiceReplyPreviewThroughDevice": "{device} এর মাধ্যমে",
+    "deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker": "ফোন স্পিকারের মাধ্যমে",
+    "deviceOnboardingVoiceReplyPreviewThroughCurrentOutput": "বর্তমান অডিও আউটপুট মাধ্যমে",
+    "deviceOnboardingVoiceReplyOffDescription": "উত্তরগুলি পর্দায় থাকে। কোনো কথা বলা হয় না।",
+    "deviceOnboardingVoiceReplyHeadphonesDescription": "ব্যক্তিগত। শুধুমাত্র AirPods, Bluetooth বা তারযুক্ত হেডফোনের মাধ্যমে কথা বলে।",
+    "deviceOnboardingVoiceReplyAlwaysDescription": "কোনো হেডফোন সংযুক্ত না থাকলে ফোনের স্পিকার ব্যবহার করে।",
+    "deviceOnboardingVoiceReplyStatusOff": "Omi নীরব থাকবে। উত্তর এখনও অ্যাপে প্রদর্শিত হবে।",
+    "deviceOnboardingVoiceReplyStatusHeadphonesConnected": "{device} সংযুক্ত। Omi এখানে কথা বলবে।",
+    "deviceOnboardingVoiceReplyStatusHeadphonesDisconnected": "কোনো হেডফোন সংযুক্ত নেই৷ আপনি কিছু সংযোগ না করা পর্যন্ত Omi নীরব থাকে।",
+    "deviceOnboardingVoiceReplyStatusAlwaysHeadphones": "{device} এর মাধ্যমে বাজায়।",
+    "deviceOnboardingVoiceReplyStatusAlwaysSpeaker": "ফোন স্পিকারের মাধ্যমে জোরে বাজে।",
+    "deviceOnboardingVoiceReplySettingsHint": "আপনি {settings} › {voiceResponse} এ যেকোনো সময় এটি পরিবর্তন করতে পারেন",
+    "deviceOnboardingAllSetReplayHint": "{settings} › {deviceSettings} › {deviceTutorial} এ যেকোনও সময় এই সফরটি পুনরায় চালান",
+    "deviceOnboardingVoiceReplyGenericHeadphones": "হেডফোন",
+    "usageListened": "Listened",
+    "usageWordsHeard": "Words heard",
+    "usageTasksNotes": "Tasks & notes",
+    "usagePeakHour": "Peak hour",
+    "usageBestDay": "Best day",
+    "usageBestMonth": "Best month",
+    "usageBestYear": "Best year",
+    "usageMinutes": "মিনিট",
+    "usageWords": "Words",
+    "usageTasks": "কাজ",
+    "usageMonth": "এই মাস",
+    "usageYear": "এই বছর",
+    "usageAll": "সর্বকাল",
+    "usageNow": "now",
+    "usageChatThisMonth": "Chat this month",
+    "appearance": "চেহারা",
+    "appearanceSystem": "সিস্টেম",
+    "appearanceLight": "হালকা",
+    "appearanceDark": "গাঢ়",
+    "chatDiscardRecording": "বাতিল করুন",
+    "voiceQuestionNoSpeech": "শুনতে পাইনি — আবার চেষ্টা করুন",
     "alreadyHaveAccount": "ইতিমধ্যে অ্যাকাউন্ট আছে?",
     "signInToOmi": "Omi-তে সাইন ইন করুন",
     "signInSubtitle": "আপনার কথোপকথন ও স্মৃতি আপনার অ্যাকাউন্টের সাথে ফোন, Mac ও ওয়েবে থাকে।",
@@ -11132,10 +11221,6 @@
     "askAboutThisConversationPlaceholder": "এই কথোপকথন সম্পর্কে জিজ্ঞাসা করুন",
     "summaryStyle": "সারাংশের ধরন",
     "summaryStyleSubtitle": "কোন অ্যাপ এই সারাংশ লিখবে তা বেছে নিন",
-    "appearance": "চেহারা",
-    "appearanceSystem": "সিস্টেম",
-    "appearanceLight": "হালকা",
-    "appearanceDark": "গাঢ়",
     "feel": "অনুভূতি",
     "haptics": "হ্যাপটিক্স",
     "hapticsSubtitle": "কিছু শেষ, তারকাচিহ্নিত বা সম্পূর্ণ করলে হালকা একটি টোকা",

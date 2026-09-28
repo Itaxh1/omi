@@ -1859,6 +1859,9 @@ class AppLocalizationsBs extends AppLocalizations {
   String get openSettings => 'Otvorite postavke';
 
   @override
+  String get whatsYourName => 'Kako se zoveš?';
+
+  @override
   String get speakTranscribeSummarize => 'Govorite. Transkribirajte. Rezimeirajte.';
 
   @override
@@ -1872,6 +1875,13 @@ class AppLocalizationsBs extends AppLocalizations {
 
   @override
   String get termsOfUse => 'Uslovima korišćenja';
+
+  @override
+  String get omiYourAiCompanion => 'Omi – Vaš AI pratilac';
+
+  @override
+  String get captureEveryMoment =>
+      'Uhvatite svakog trenutka. Dobijte AI-powered\nrezimee. Nikada više ne pisati zabelešte.';
 
   @override
   String get appleWatchSetup => 'Apple Watch postavljanje';
@@ -1916,6 +1926,18 @@ class AppLocalizationsBs extends AppLocalizations {
   String errorStartingRecording(String error) {
     return 'Greška pri pokretanju snimanja: $error';
   }
+
+  @override
+  String get selectPrimaryLanguage => 'Izaberite svoj primarni jezik';
+
+  @override
+  String get languageBenefits => 'Postavite jezik za precizniju transkripciju i personalizovano iskustvo';
+
+  @override
+  String get whatsYourPrimaryLanguage => 'Koji je vaš primarni jezik?';
+
+  @override
+  String get selectYourLanguage => 'Izaberite svoj jezik';
 
   @override
   String get personalGrowthJourney => 'Vaš lični put rasta sa AI koji sluša svaku vašu reč.';
@@ -3352,6 +3374,9 @@ class AppLocalizationsBs extends AppLocalizations {
 
   @override
   String get dataProtection => 'Zaštita podataka';
+
+  @override
+  String get yourDataIsProtected => 'Tvoji su podaci zaštićeni i vođeni našim ';
 
   @override
   String get pleaseSelectYourPrimaryLanguage => 'Molimo odaberi svoj primarni jezik';
@@ -5034,6 +5059,10 @@ class AppLocalizationsBs extends AppLocalizations {
 
   @override
   String get additionalSpeechSampleRemoved => 'Dodatni uzorak govora je uklonjen';
+
+  @override
+  String get consentDataMessage =>
+      'Nastavljanjem, vaši razgovori, snimke i lični podaci bit će sigurno pohranjeni na našim serverima. Vaši audio zapisi i transkripti se obrađuju od strane AI usluga trećih strana (uključujući Deepgram za transkripciju i OpenAI za analizu) kako bi vam pružili uvide pokretane vještačkom inteligencijom i omogućili sve funkcije aplikacije.';
 
   @override
   String get tasksEmptyStateMessage =>
@@ -7060,6 +7089,9 @@ class AppLocalizationsBs extends AppLocalizations {
   }
 
   @override
+  String get actionItemReminderTitle => 'Omi podsjetnik';
+
+  @override
   String deviceDisconnectedTitle(String deviceName) {
     return '$deviceName je odvojen';
   }
@@ -7758,6 +7790,9 @@ class AppLocalizationsBs extends AppLocalizations {
 
   @override
   String get authorizingMcpServer => 'Autorizacija u toku…';
+
+  @override
+  String get whereDidYouHearAboutOmi => 'Kako ste saznali za nas?';
 
   @override
   String get tiktok => 'TikTok';
@@ -9946,6 +9981,9 @@ class AppLocalizationsBs extends AppLocalizations {
   String get transcriptionNoAudio => 'Transkripcija ne prima audio';
 
   @override
+  String get tapPlusToStartRecording => 'Dodirnite dugme za snimanje za početak snimanja';
+
+  @override
   String get chatBlockTask => 'Zadatak';
 
   @override
@@ -10663,6 +10701,9 @@ class AppLocalizationsBs extends AppLocalizations {
   String get deviceConnecting => 'Povezivanje…';
 
   @override
+  String get recordOptionsTip => 'Savjet: dodirnite strelicu na dugmetu za snimanje da snimite telefonski poziv.';
+
+  @override
   String get firmwareUpdateFailedTitle => 'Ažuriranje nije uspjelo';
 
   @override
@@ -11203,6 +11244,12 @@ class AppLocalizationsBs extends AppLocalizations {
   String get keepUsingPendant => 'Nastavi s privjeskom';
 
   @override
+  String get recordWith => 'Snimaj pomoću';
+
+  @override
+  String get moreWaysToRecord => 'Više načina snimanja';
+
+  @override
   String get openCall => 'Otvori poziv';
 
   @override
@@ -11249,6 +11296,151 @@ class AppLocalizationsBs extends AppLocalizations {
   String participantsSummaryUncounted(String name) {
     return '$name i drugi';
   }
+
+  @override
+  String get deviceOnboardingVoiceReplyTitle => 'Čujte Omijeve odgovore';
+
+  @override
+  String get deviceOnboardingVoiceReplySample => 'U redu. Vaš sljedeći sastanak počinje za dvadeset minuta.';
+
+  @override
+  String get deviceOnboardingAllSetTitle => 'Sve je spremno';
+
+  @override
+  String get deviceOnboardingAllSetSubtitle => 'Dodirnite red da ga pregledate ili promijenite.';
+
+  @override
+  String get deviceOnboardingAllSetSinglePressBadge => '1×';
+
+  @override
+  String get deviceOnboardingAllSetDoublePressBadge => '2×';
+
+  @override
+  String get deviceOnboardingVoiceReplySubtitle =>
+      'Kada pitate pomoću dugmeta, Omi može naglas pročitati svoj odgovor.';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewIdle => 'Čuj svoj zadnji odgovor';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewPlaying => 'Reprodukcija vašeg posljednjeg odgovora...';
+
+  @override
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device) {
+    return 'Putem $device';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker => 'Preko zvučnika telefona';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput => 'Preko trenutnog audio izlaza';
+
+  @override
+  String get deviceOnboardingVoiceReplyOffDescription => 'Odgovori ostaju na ekranu. Ništa se ne govori.';
+
+  @override
+  String get deviceOnboardingVoiceReplyHeadphonesDescription =>
+      'Privatno. Govori samo preko AirPods, Bluetooth ili žičanih slušalica.';
+
+  @override
+  String get deviceOnboardingVoiceReplyAlwaysDescription => 'Koristi zvučnik telefona kada nisu povezane slušalice.';
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusOff => 'Omi će šutjeti. Odgovori se i dalje pojavljuju u aplikaciji.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device) {
+    return '$device povezan. Omi će govoriti ovdje.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected =>
+      'Nisu povezane slušalice. Omi ostaje tih dok ne povežete neke.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device) {
+    return 'Reproducira preko $device.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker => 'Reproducira se naglas preko zvučnika telefona.';
+
+  @override
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse) {
+    return 'Ovo možete promijeniti bilo kada u $settings › $voiceResponse';
+  }
+
+  @override
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial) {
+    return 'Ponovite ovu turneju bilo kada u $settings › $deviceSettings › $deviceTutorial';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyGenericHeadphones => 'Slušalice';
+
+  @override
+  String get usageListened => 'Listened';
+
+  @override
+  String get usageWordsHeard => 'Words heard';
+
+  @override
+  String get usageTasksNotes => 'Tasks & notes';
+
+  @override
+  String get usagePeakHour => 'Peak hour';
+
+  @override
+  String get usageBestDay => 'Best day';
+
+  @override
+  String get usageBestMonth => 'Best month';
+
+  @override
+  String get usageBestYear => 'Best year';
+
+  @override
+  String get usageMinutes => 'minute';
+
+  @override
+  String get usageWords => 'Words';
+
+  @override
+  String get usageTasks => 'Zadaci';
+
+  @override
+  String get usageMonth => 'Ovaj mesec';
+
+  @override
+  String get usageYear => 'Ove godine';
+
+  @override
+  String get usageAll => 'Celo vreme';
+
+  @override
+  String get usageNow => 'now';
+
+  @override
+  String get usageChatThisMonth => 'Chat this month';
+
+  @override
+  String get appearance => 'Izgled';
+
+  @override
+  String get appearanceSystem => 'Sistem';
+
+  @override
+  String get appearanceLight => 'Svijetlo';
+
+  @override
+  String get appearanceDark => 'Tamno';
+
+  @override
+  String get chatDiscardRecording => 'Odbaci';
+
+  @override
+  String get voiceQuestionNoSpeech => 'Nisam razumio — pokušajte ponovo';
 
   @override
   String get alreadyHaveAccount => 'Već imaš račun?';
@@ -11453,18 +11645,6 @@ class AppLocalizationsBs extends AppLocalizations {
 
   @override
   String get summaryStyleSubtitle => 'Odaberi aplikaciju koja piše ovaj sažetak';
-
-  @override
-  String get appearance => 'Izgled';
-
-  @override
-  String get appearanceSystem => 'Sistem';
-
-  @override
-  String get appearanceLight => 'Svijetli';
-
-  @override
-  String get appearanceDark => 'Tamni';
 
   @override
   String get feel => 'Osjećaj';

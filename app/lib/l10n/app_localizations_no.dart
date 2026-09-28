@@ -1857,6 +1857,9 @@ class AppLocalizationsNo extends AppLocalizations {
   String get openSettings => 'Åpne innstillinger';
 
   @override
+  String get whatsYourName => 'Hva heter du?';
+
+  @override
   String get speakTranscribeSummarize => 'Snakk. Transkriber. Sammenfatt.';
 
   @override
@@ -1870,6 +1873,12 @@ class AppLocalizationsNo extends AppLocalizations {
 
   @override
   String get termsOfUse => 'Bruksvilkår';
+
+  @override
+  String get omiYourAiCompanion => 'Omi – Din AI-følgesvenn';
+
+  @override
+  String get captureEveryMoment => 'Fang hvert øyeblikk. Få AI-drevne\nsammendrag. Aldri ta notater igjen.';
 
   @override
   String get appleWatchSetup => 'Apple Watch-oppsett';
@@ -1914,6 +1923,18 @@ class AppLocalizationsNo extends AppLocalizations {
   String errorStartingRecording(String error) {
     return 'Feil ved oppstart av opptak: $error';
   }
+
+  @override
+  String get selectPrimaryLanguage => 'Velg hovedspråket ditt';
+
+  @override
+  String get languageBenefits => 'Angi språket ditt for skarpere transkripsjoner og en personlig opplevelse';
+
+  @override
+  String get whatsYourPrimaryLanguage => 'Hva er ditt hovedspråk?';
+
+  @override
+  String get selectYourLanguage => 'Velg språket ditt';
 
   @override
   String get personalGrowthJourney => 'Din personlige vekstreise med AI som lytter til hvert ord.';
@@ -3344,6 +3365,9 @@ class AppLocalizationsNo extends AppLocalizations {
 
   @override
   String get dataProtection => 'Databeskyttelse';
+
+  @override
+  String get yourDataIsProtected => 'Dataene dine er beskyttet og styres av vår ';
 
   @override
   String get pleaseSelectYourPrimaryLanguage => 'Vennligst velg ditt primære språk';
@@ -5024,6 +5048,10 @@ class AppLocalizationsNo extends AppLocalizations {
 
   @override
   String get additionalSpeechSampleRemoved => 'Ekstra taleprøve fjernet';
+
+  @override
+  String get consentDataMessage =>
+      'Ved å fortsette vil samtalene, opptakene og den personlige informasjonen din bli lagret sikkert på våre servere. Lydopptakene og transkripsjonene dine behandles av tredjeparts AI-tjenester (inkludert Deepgram for transkripsjon og OpenAI for analyse) for å gi deg AI-drevne innsikter og aktivere alle appfunksjoner.';
 
   @override
   String get tasksEmptyStateMessage => 'Oppgaver fra samtalene dine vil vises her.\nTrykk på + for å opprette manuelt.';
@@ -7037,6 +7065,9 @@ class AppLocalizationsNo extends AppLocalizations {
   }
 
   @override
+  String get actionItemReminderTitle => 'Omi-påminnelse';
+
+  @override
   String deviceDisconnectedTitle(String deviceName) {
     return '$deviceName frakoblet';
   }
@@ -7732,6 +7763,9 @@ class AppLocalizationsNo extends AppLocalizations {
 
   @override
   String get authorizingMcpServer => 'Autoriserer…';
+
+  @override
+  String get whereDidYouHearAboutOmi => 'Hvordan fant du oss?';
 
   @override
   String get tiktok => 'TikTok';
@@ -9916,6 +9950,9 @@ class AppLocalizationsNo extends AppLocalizations {
   String get transcriptionNoAudio => 'Transkripsjon mottar ikke lyd';
 
   @override
+  String get tapPlusToStartRecording => 'Trykk på opptaksknappen for å starte opptaket';
+
+  @override
   String get chatBlockTask => 'Oppgave';
 
   @override
@@ -10635,6 +10672,9 @@ class AppLocalizationsNo extends AppLocalizations {
   String get deviceConnecting => 'Kobler til…';
 
   @override
+  String get recordOptionsTip => 'Tips: trykk på pilen på opptaksknappen for å ta opp en telefonsamtale.';
+
+  @override
   String get firmwareUpdateFailedTitle => 'Oppdateringen mislyktes';
 
   @override
@@ -11174,6 +11214,12 @@ class AppLocalizationsNo extends AppLocalizations {
   String get keepUsingPendant => 'Fortsett med anhenget';
 
   @override
+  String get recordWith => 'Ta opp med';
+
+  @override
+  String get moreWaysToRecord => 'Flere måter å ta opp på';
+
+  @override
   String get openCall => 'Åpne anrop';
 
   @override
@@ -11220,6 +11266,151 @@ class AppLocalizationsNo extends AppLocalizations {
   String participantsSummaryUncounted(String name) {
     return '$name og andre';
   }
+
+  @override
+  String get deviceOnboardingVoiceReplyTitle => 'Hør svarene fra Omi';
+
+  @override
+  String get deviceOnboardingVoiceReplySample => 'Skjønner. Det neste møtet ditt starter om tjue minutter.';
+
+  @override
+  String get deviceOnboardingAllSetTitle => 'Alt er klart';
+
+  @override
+  String get deviceOnboardingAllSetSubtitle => 'Trykk på en rad for å se gjennom eller endre den.';
+
+  @override
+  String get deviceOnboardingAllSetSinglePressBadge => '1×';
+
+  @override
+  String get deviceOnboardingAllSetDoublePressBadge => '2×';
+
+  @override
+  String get deviceOnboardingVoiceReplySubtitle => 'Når du spør med knappen, kan Omi lese svaret høyt.';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewIdle => 'Hør ditt siste svar';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewPlaying => 'Spiller det siste svaret ditt...';
+
+  @override
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device) {
+    return 'Gjennom $device';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker => 'Gjennom telefonens høyttaler';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput => 'Gjennom gjeldende lydutgang';
+
+  @override
+  String get deviceOnboardingVoiceReplyOffDescription => 'Svarene forblir på skjermen. Ingenting blir sagt.';
+
+  @override
+  String get deviceOnboardingVoiceReplyHeadphonesDescription =>
+      'Privat. Snakker bare gjennom AirPods, Bluetooth eller kablede hodetelefoner.';
+
+  @override
+  String get deviceOnboardingVoiceReplyAlwaysDescription =>
+      'Bruker telefonhøyttaleren når ingen hodetelefoner er tilkoblet.';
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusOff => 'Omi forblir stille. Svarene vises fortsatt i appen.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device) {
+    return '$device tilkoblet. Omi vil snakke her.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected =>
+      'Ingen hodetelefoner tilkoblet. Omi forblir stille til du kobler til noen.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device) {
+    return 'Spiller gjennom $device.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker => 'Spiller høyt gjennom telefonens høyttaler.';
+
+  @override
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse) {
+    return 'Du kan endre dette når som helst i $settings › $voiceResponse';
+  }
+
+  @override
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial) {
+    return 'Spill denne turen på nytt når som helst i $settings › $deviceSettings › $deviceTutorial';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyGenericHeadphones => 'Hodetelefoner';
+
+  @override
+  String get usageListened => 'Listened';
+
+  @override
+  String get usageWordsHeard => 'Words heard';
+
+  @override
+  String get usageTasksNotes => 'Tasks & notes';
+
+  @override
+  String get usagePeakHour => 'Peak hour';
+
+  @override
+  String get usageBestDay => 'Best day';
+
+  @override
+  String get usageBestMonth => 'Best month';
+
+  @override
+  String get usageBestYear => 'Best year';
+
+  @override
+  String get usageMinutes => 'minutter';
+
+  @override
+  String get usageWords => 'Words';
+
+  @override
+  String get usageTasks => 'Oppgaver';
+
+  @override
+  String get usageMonth => 'Denne måneden';
+
+  @override
+  String get usageYear => 'Dette året';
+
+  @override
+  String get usageAll => 'All tid';
+
+  @override
+  String get usageNow => 'now';
+
+  @override
+  String get usageChatThisMonth => 'Chat this month';
+
+  @override
+  String get appearance => 'Utseende';
+
+  @override
+  String get appearanceSystem => 'System';
+
+  @override
+  String get appearanceLight => 'Lys';
+
+  @override
+  String get appearanceDark => 'Mørk';
+
+  @override
+  String get chatDiscardRecording => 'Forkast';
+
+  @override
+  String get voiceQuestionNoSpeech => 'Jeg fikk ikke med meg det — prøv igjen';
 
   @override
   String get alreadyHaveAccount => 'Har du allerede en konto?';
@@ -11427,18 +11618,6 @@ class AppLocalizationsNo extends AppLocalizations {
 
   @override
   String get summaryStyleSubtitle => 'Velg hvilken app som skriver denne oppsummeringen';
-
-  @override
-  String get appearance => 'Utseende';
-
-  @override
-  String get appearanceSystem => 'System';
-
-  @override
-  String get appearanceLight => 'Lys';
-
-  @override
-  String get appearanceDark => 'Mørk';
 
   @override
   String get feel => 'Følelse';

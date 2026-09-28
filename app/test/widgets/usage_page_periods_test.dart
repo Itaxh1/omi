@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +9,6 @@ import 'package:omi/l10n/app_localizations.dart';
 import 'package:omi/models/user_usage.dart';
 import 'package:omi/pages/settings/usage_page.dart';
 import 'package:omi/providers/usage_provider.dart';
-import 'package:omi/ui/ui.dart';
 
 /// Usage already on hand: nothing is fetched, so the page shows exactly what was seeded.
 class _SeededUsage extends UsageProvider {
@@ -28,14 +28,14 @@ UsageStats _stats(int minutes) => UsageStats(
       memoriesCreated: 5,
     );
 
-/// v2 Plan & usage: the period is a segmented control under the plan, not tabs in the header.
+/// Plan & usage (#19347): the period is a sliding segmented control under the title, not tabs.
 void main() {
   setUp(() async {
     SharedPreferences.setMockInitialValues({});
     await SharedPreferencesUtil.init();
   });
 
-  testWidgets('Today · This Month · This Year · All Time switch the stats shown', (tester) async {
+  testWidgets('Today · Month · Year · All time switch the stats shown', (tester) async {
     final usage = _SeededUsage()
       ..debugSetUsageStats('today', _stats(12))
       ..debugSetUsageStats('monthly', _stats(400));
@@ -51,16 +51,18 @@ void main() {
       ),
     );
     await tester.pump();
+    final en = AppLocalizations.of(tester.element(find.byType(UsagePage)));
 
     expect(find.byType(TabBar), findsNothing);
-    final period = find.byKey(const Key('usage_period'));
+    final period = find.byType(CupertinoSlidingSegmentedControl<int>);
     expect(period, findsOneWidget);
-    expect(tester.widget<OmiSegmentedControl<int>>(period).selected, 0);
-    expect(find.text('12m'), findsOneWidget);
+    expect(tester.widget<CupertinoSlidingSegmentedControl<int>>(period).groupValue, 0);
+    expect(find.text('12m'), findsOneWidget, reason: "today's 12 minutes listened");
 
-    await tester.tap(find.descendant(of: period, matching: find.text('This Month')));
+    await tester.tap(find.descendant(of: period, matching: find.text(en.usageMonth)));
     await tester.pumpAndSettle();
-    expect(tester.widget<OmiSegmentedControl<int>>(period).selected, 1);
-    expect(find.text('6h 40m'), findsOneWidget);
+    expect(tester.widget<CupertinoSlidingSegmentedControl<int>>(period).groupValue, 1);
+    expect(find.text('6h 40m'), findsOneWidget, reason: "this month's 400 minutes listened");
+    expect(find.text('12m'), findsNothing);
   });
 }

@@ -9,7 +9,6 @@ import 'package:omi/pages/settings/daily_summary_detail_page.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/utils/other/temp.dart';
-import 'package:omi/utils/ui_guidelines.dart';
 
 typedef DailySummariesFetcher = Future<({List<DailySummary> items, bool ok})> Function({int limit, int offset});
 
@@ -209,11 +208,11 @@ class DailySummariesListState extends State<DailySummariesList> {
           (index) => Padding(
             padding: const EdgeInsets.only(bottom: OmiSpacing.sm),
             child: ShimmerWithTimeout(
-              baseColor: AppStyles.backgroundSecondary,
-              highlightColor: AppStyles.backgroundTertiary,
+              baseColor: OmiColors.surface1,
+              highlightColor: OmiColors.surface3,
               child: Container(
                 height: 80,
-                decoration: BoxDecoration(color: AppStyles.backgroundSecondary, borderRadius: OmiRadius.xlAll),
+                decoration: BoxDecoration(color: OmiColors.surface1, borderRadius: OmiRadius.xlAll),
               ),
             ),
           ),

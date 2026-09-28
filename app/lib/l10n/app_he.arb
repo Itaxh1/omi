@@ -1781,6 +1781,10 @@
     "@openSettings": {
         "description": "Button text to open app settings"
     },
+    "whatsYourName": "מה שמך?",
+    "@whatsYourName": {
+        "description": "Question asking for user's name"
+    },
     "@enterYourName": {
         "description": "Hint text for name input field"
     },
@@ -1803,6 +1807,14 @@
     "termsOfUse": "תנאי השימוש",
     "@termsOfUse": {
         "description": "Link text for Terms of Use"
+    },
+    "omiYourAiCompanion": "Omi – בן הלוויה בינה מלאכותית שלך",
+    "@omiYourAiCompanion": {
+        "description": "App title or branding on onboarding screen"
+    },
+    "captureEveryMoment": "תופס כל רגע. קבל סיכומים מונעי בינה מלאכותית. לעולם אל תרשום הערות שוב.",
+    "@captureEveryMoment": {
+        "description": "App value proposition or description"
     },
     "appleWatchSetup": "הגדרת Apple Watch",
     "@appleWatchSetup": {
@@ -1865,11 +1877,27 @@
             }
         }
     },
+    "selectPrimaryLanguage": "בחר את שפתך העיקרית",
+    "@selectPrimaryLanguage": {
+        "description": "Title for language selection dialog"
+    },
+    "languageBenefits": "הגדר את שפתך לתמלול חדות יותר וחוויה מעוצבת",
+    "@languageBenefits": {
+        "description": "Explanation of why language selection matters"
+    },
     "@searchLanguageHint": {
         "description": "Hint text for language search"
     },
     "@noLanguagesFound": {
         "description": "Text when search returns no results"
+    },
+    "whatsYourPrimaryLanguage": "מה שפתך העיקרית?",
+    "@whatsYourPrimaryLanguage": {
+        "description": "Question asking for primary language"
+    },
+    "selectYourLanguage": "בחר את שפתך",
+    "@selectYourLanguage": {
+        "description": "Placeholder for selected language name"
     },
     "personalGrowthJourney": "מסע הצמיחה האישי שלך עם בינה מלאכותית שמקשיבה לכל מילה שלך.",
     "@personalGrowthJourney": {
@@ -3886,6 +3914,10 @@
     "@dataProtection": {
         "description": "Section title for data protection info"
     },
+    "yourDataIsProtected": "הנתונים שלך מוגנים וכפופים ל",
+    "@yourDataIsProtected": {
+        "description": "First part of data protection text"
+    },
     "pleaseSelectYourPrimaryLanguage": "אנא בחר בשפה הראשונה שלך",
     "chooseYourLanguage": "בחר את שפתך",
     "selectPreferredLanguageForBestExperience": "בחר את השפה המועדפת עליך לחוויית Omi הטובה ביותר",
@@ -5893,6 +5925,10 @@
     "additionalSpeechSampleRemoved": "דוגמה דיבור נוספת הוסרה",
     "@additionalSpeechSampleRemoved": {
         "description": "Confirmation message when an additional speech sample is deleted"
+    },
+    "consentDataMessage": "בהמשך, השיחות, ההקלטות והמידע האישי שלך יאוחסנו בצורה מאובטחת בשרתים שלנו. הקלטות האודיו והתמלולים שלך מעובדים על ידי שירותי AI של צד שלישי (כולל Deepgram לתמלול ו-OpenAI לניתוח) כדי לספק לך תובנות מבוססות AI ולאפשר את כל תכונות האפליקציה.",
+    "@consentDataMessage": {
+        "description": "Consent message explaining how user data will be stored and used"
     },
     "tasksEmptyStateMessage": "משימות משיחותיך יופיעו כאן.\nלחץ + כדי ליצור אחת ידנית.",
     "@tasksEmptyStateMessage": {
@@ -8653,6 +8689,10 @@
             }
         }
     },
+    "actionItemReminderTitle": "תזכורת Omi",
+    "@actionItemReminderTitle": {
+        "description": "Title for action item reminder notifications"
+    },
     "deviceDisconnectedTitle": "{deviceName} התנתק",
     "@deviceDisconnectedTitle": {
         "description": "Notification title when a device disconnects",
@@ -9453,6 +9493,7 @@
     },
     "mcpConnectionFailed": "חיבור לשרת MCP נכשל",
     "authorizingMcpServer": "מאשר…",
+    "whereDidYouHearAboutOmi": "איך גילית את Omi?",
     "tiktok": "TikTok",
     "youtube": "YouTube",
     "instagram": "Instagram",
@@ -10741,6 +10782,7 @@
     "@memoryHistory": {
         "description": "Filter option for retained memory history"
     },
+    "tapPlusToStartRecording": "הקישו על כפתור ההקלטה כדי להתחיל להקליט",
     "processingTakingLonger": "עדיין בעבודה — זה לוקח יותר זמן מהרגיל.",
     "speechProfileEnrollmentPrompt": "כדי ש-Omi יידע איזה קול הוא שלך — יש לדבר על כל נושא במשך כ-5 שניות.",
     "home": "בית",
@@ -10906,6 +10948,7 @@
     "batteryLevelSemantics": "סוללה {level}%",
     "updateOmiGlassFirmware": "עדכון קושחת OmiGlass",
     "deviceConnecting": "מתחבר…",
+    "recordOptionsTip": "טיפ: הקישו על החץ בכפתור ההקלטה כדי להקליט שיחת טלפון.",
     "firmwareUpdateFailedTitle": "העדכון נכשל",
     "firmwareUpdateFailedMessage": "העדכון לא הסתיים. המכשיר עדיין עם הקושחה הנוכחית ובטוח לשימוש. השאירו אותו טעון וקרוב לטלפון ונסו שוב.",
     "firmwareDownloadFailedMessage": "לא ניתן היה להוריד את העדכון והמכשיר לא השתנה. בדקו את החיבור לאינטרנט ונסו שוב.",
@@ -11057,6 +11100,8 @@
     "pendantPausesUntilYouFinish": "התליון מושהה עד שתסיימו",
     "pendantPausesDuringCall": "התליון מושהה במהלך השיחה",
     "keepUsingPendant": "המשך עם התליון",
+    "recordWith": "הקלטה באמצעות",
+    "moreWaysToRecord": "דרכים נוספות להקליט",
     "openCall": "פתיחת השיחה",
     "captureRecoveryBanner": "השמע מהתליון לא מגיע לאפליקציה — הקישו לתיקון",
     "phoneRecordingBlockedByPendantBatch": "עצרו את Transcribe Later בקולייה לפני ההקלטה בטלפון.",
@@ -11071,6 +11116,50 @@
     "captureStorageAlmostFull": "האחסון כמעט מלא",
     "capturePendantDisconnectedDetail": "התליון איבד את החיבור לטלפון הזה. Omi יתחבר מחדש מעצמו כשהתליון דלוק וקרוב. כל מה שהוקלט עד עכשיו שמור.",
     "participantsSummaryUncounted": "{name} ואחרים",
+    "deviceOnboardingVoiceReplyTitle": "האזינו לתשובות של Omi",
+    "deviceOnboardingVoiceReplySample": "הבנתי. הפגישה הבאה שלך מתחילה בעוד עשרים דקות.",
+    "deviceOnboardingAllSetTitle": "הכול מוכן",
+    "deviceOnboardingAllSetSubtitle": "יש להקיש על שורה כדי לבדוק או לשנות אותה.",
+    "deviceOnboardingAllSetSinglePressBadge": "1×",
+    "deviceOnboardingAllSetDoublePressBadge": "2×",
+    "deviceOnboardingVoiceReplySubtitle": "כאשר אתה שואל באמצעות הכפתור, Omi יכול לקרוא את התשובה שלו בקול רם.",
+    "deviceOnboardingVoiceReplyPreviewIdle": "שמע את תשובתך האחרונה",
+    "deviceOnboardingVoiceReplyPreviewPlaying": "מנגן את התשובה האחרונה שלך...",
+    "deviceOnboardingVoiceReplyPreviewThroughDevice": "דרך {device}",
+    "deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker": "דרך הרמקול של הטלפון",
+    "deviceOnboardingVoiceReplyPreviewThroughCurrentOutput": "דרך פלט האודיו הנוכחי",
+    "deviceOnboardingVoiceReplyOffDescription": "התשובות נשארות על המסך. שום דבר לא נאמר.",
+    "deviceOnboardingVoiceReplyHeadphonesDescription": "פרטי. מדבר רק דרך AirPods, Bluetooth או אוזניות קוויות.",
+    "deviceOnboardingVoiceReplyAlwaysDescription": "משתמש ברמקול הטלפון כאשר אין אוזניות מחוברות.",
+    "deviceOnboardingVoiceReplyStatusOff": "Omi ישתוק. התשובות עדיין מופיעות באפליקציה.",
+    "deviceOnboardingVoiceReplyStatusHeadphonesConnected": "{device} מחובר. Omi ידבר כאן.",
+    "deviceOnboardingVoiceReplyStatusHeadphonesDisconnected": "לא מחוברות אוזניות. Omi נשאר שקט עד שתחבר כמה.",
+    "deviceOnboardingVoiceReplyStatusAlwaysHeadphones": "מנגן דרך {device}.",
+    "deviceOnboardingVoiceReplyStatusAlwaysSpeaker": "מתנגן בקול רם דרך רמקול הטלפון.",
+    "deviceOnboardingVoiceReplySettingsHint": "אתה יכול לשנות זאת בכל עת בטלפון {settings} › {voiceResponse}",
+    "deviceOnboardingAllSetReplayHint": "הפעל מחדש את הסיור הזה בכל עת ב-{settings} › {deviceSettings} › {deviceTutorial}",
+    "deviceOnboardingVoiceReplyGenericHeadphones": "אוזניות",
+    "usageListened": "Listened",
+    "usageWordsHeard": "Words heard",
+    "usageTasksNotes": "Tasks & notes",
+    "usagePeakHour": "Peak hour",
+    "usageBestDay": "Best day",
+    "usageBestMonth": "Best month",
+    "usageBestYear": "Best year",
+    "usageMinutes": "דקות",
+    "usageWords": "Words",
+    "usageTasks": "משימות",
+    "usageMonth": "חודש זה",
+    "usageYear": "השנה",
+    "usageAll": "כל הזמן",
+    "usageNow": "now",
+    "usageChatThisMonth": "Chat this month",
+    "appearance": "מראה",
+    "appearanceSystem": "מערכת",
+    "appearanceLight": "בהיר",
+    "appearanceDark": "כהה",
+    "chatDiscardRecording": "מחיקה",
+    "voiceQuestionNoSpeech": "לא הבנתי — נסה שוב",
     "alreadyHaveAccount": "כבר יש לך חשבון?",
     "signInToOmi": "התחברות ל‑Omi",
     "signInSubtitle": "השיחות והזיכרונות שלך עוברים עם החשבון שלך בטלפון, ב‑Mac ובאינטרנט.",
@@ -11132,10 +11221,6 @@
     "askAboutThisConversationPlaceholder": "שאלה על השיחה הזו",
     "summaryStyle": "סגנון הסיכום",
     "summaryStyleSubtitle": "בחירת האפליקציה שכותבת את הסיכום",
-    "appearance": "מראה",
-    "appearanceSystem": "מערכת",
-    "appearanceLight": "בהיר",
-    "appearanceDark": "כהה",
     "feel": "תחושה",
     "haptics": "משוב מישוש",
     "hapticsSubtitle": "הקשה עדינה כשמסיימים, מסמנים בכוכב או משלימים משהו",

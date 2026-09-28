@@ -1869,6 +1869,9 @@ class AppLocalizationsRo extends AppLocalizations {
   String get openSettings => 'Deschide setările';
 
   @override
+  String get whatsYourName => 'Cum te cheamă?';
+
+  @override
   String get speakTranscribeSummarize => 'Vorbește. Transcrie. Rezumă.';
 
   @override
@@ -1882,6 +1885,12 @@ class AppLocalizationsRo extends AppLocalizations {
 
   @override
   String get termsOfUse => 'Termeni de utilizare';
+
+  @override
+  String get omiYourAiCompanion => 'Omi – Companionul tău AI';
+
+  @override
+  String get captureEveryMoment => 'Capturează fiecare moment. Primește rezumate\ncu AI. Nu mai lua niciodată notițe.';
 
   @override
   String get appleWatchSetup => 'Configurare Apple Watch';
@@ -1926,6 +1935,18 @@ class AppLocalizationsRo extends AppLocalizations {
   String errorStartingRecording(String error) {
     return 'Eroare la pornirea înregistrării: $error';
   }
+
+  @override
+  String get selectPrimaryLanguage => 'Selectează limba principală';
+
+  @override
+  String get languageBenefits => 'Setează-ți limba pentru transcrieri mai precise și o experiență personalizată';
+
+  @override
+  String get whatsYourPrimaryLanguage => 'Care este limba ta principală?';
+
+  @override
+  String get selectYourLanguage => 'Selectează limba ta';
 
   @override
   String get personalGrowthJourney => 'Călătoria ta de creștere personală cu AI care ascultă fiecare cuvânt al tău.';
@@ -3362,6 +3383,9 @@ class AppLocalizationsRo extends AppLocalizations {
 
   @override
   String get dataProtection => 'Protecția datelor';
+
+  @override
+  String get yourDataIsProtected => 'Datele tale sunt protejate și guvernate de ';
 
   @override
   String get pleaseSelectYourPrimaryLanguage => 'Vă rugăm să selectați limba principală';
@@ -5048,6 +5072,10 @@ class AppLocalizationsRo extends AppLocalizations {
 
   @override
   String get additionalSpeechSampleRemoved => 'Mostră vocală suplimentară eliminată';
+
+  @override
+  String get consentDataMessage =>
+      'Continuând, conversațiile, înregistrările și informațiile dvs. personale vor fi stocate în siguranță pe serverele noastre. Înregistrările audio și transcrierile dvs. sunt procesate de servicii AI terțe (inclusiv Deepgram pentru transcriere și OpenAI pentru analiză) pentru a vă oferi informații bazate pe AI și a activa toate funcțiile aplicației.';
 
   @override
   String get tasksEmptyStateMessage =>
@@ -7072,6 +7100,9 @@ class AppLocalizationsRo extends AppLocalizations {
   }
 
   @override
+  String get actionItemReminderTitle => 'Memento Omi';
+
+  @override
   String deviceDisconnectedTitle(String deviceName) {
     return '$deviceName deconectat';
   }
@@ -7772,6 +7803,9 @@ class AppLocalizationsRo extends AppLocalizations {
 
   @override
   String get authorizingMcpServer => 'Se autorizează…';
+
+  @override
+  String get whereDidYouHearAboutOmi => 'Cum ne-ai găsit?';
 
   @override
   String get tiktok => 'TikTok';
@@ -9965,6 +9999,9 @@ class AppLocalizationsRo extends AppLocalizations {
   String get transcriptionNoAudio => 'Transcrierea nu primește audio';
 
   @override
+  String get tapPlusToStartRecording => 'Atinge butonul de înregistrare pentru a începe înregistrarea';
+
+  @override
   String get chatBlockTask => 'Sarcină';
 
   @override
@@ -10684,6 +10721,9 @@ class AppLocalizationsRo extends AppLocalizations {
   String get deviceConnecting => 'Se conectează…';
 
   @override
+  String get recordOptionsTip => 'Sfat: atinge săgeata de pe butonul de înregistrare pentru a înregistra un apel.';
+
+  @override
   String get firmwareUpdateFailedTitle => 'Actualizarea a eșuat';
 
   @override
@@ -11226,6 +11266,12 @@ class AppLocalizationsRo extends AppLocalizations {
   String get keepUsingPendant => 'Continuă cu pandantivul';
 
   @override
+  String get recordWith => 'Înregistrează cu';
+
+  @override
+  String get moreWaysToRecord => 'Mai multe moduri de înregistrare';
+
+  @override
   String get openCall => 'Deschide apelul';
 
   @override
@@ -11272,6 +11318,153 @@ class AppLocalizationsRo extends AppLocalizations {
   String participantsSummaryUncounted(String name) {
     return '$name și alții';
   }
+
+  @override
+  String get deviceOnboardingVoiceReplyTitle => 'Ascultă răspunsurile Omi';
+
+  @override
+  String get deviceOnboardingVoiceReplySample => 'Am înțeles. Următoarea întâlnire începe peste douăzeci de minute.';
+
+  @override
+  String get deviceOnboardingAllSetTitle => 'Totul este pregătit';
+
+  @override
+  String get deviceOnboardingAllSetSubtitle => 'Atinge un rând pentru a-l verifica sau modifica.';
+
+  @override
+  String get deviceOnboardingAllSetSinglePressBadge => '1×';
+
+  @override
+  String get deviceOnboardingAllSetDoublePressBadge => '2×';
+
+  @override
+  String get deviceOnboardingVoiceReplySubtitle =>
+      'Când întrebați cu butonul, Omi își poate citi răspunsul cu voce tare.';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewIdle => 'Ascultă ultimul tău răspuns';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewPlaying => 'Redac ultimul răspuns...';
+
+  @override
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device) {
+    return 'Prin $device';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker => 'Prin difuzorul telefonului';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput => 'Prin ieșirea audio curentă';
+
+  @override
+  String get deviceOnboardingVoiceReplyOffDescription => 'Răspunsurile rămân pe ecran. Nu se vorbeste nimic.';
+
+  @override
+  String get deviceOnboardingVoiceReplyHeadphonesDescription =>
+      'Privat. Vorbește doar prin AirPods, Bluetooth sau căști cu fir.';
+
+  @override
+  String get deviceOnboardingVoiceReplyAlwaysDescription =>
+      'Utilizează difuzorul telefonului când nu sunt conectate căști.';
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusOff =>
+      'Omi va rămâne tăcut. Răspunsurile apar în continuare în aplicație.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device) {
+    return '$device conectat. Omi va vorbi aici.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected =>
+      'Nu există căști conectate. Omi rămâne tăcut până când conectați unele.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device) {
+    return 'Redă prin $device.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker => 'Redă cu voce tare prin difuzorul telefonului.';
+
+  @override
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse) {
+    return 'Puteți schimba oricând acest lucru în $settings › $voiceResponse';
+  }
+
+  @override
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial) {
+    return 'Reluați acest tur oricând în $settings › $deviceSettings › $deviceTutorial';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyGenericHeadphones => 'Căști';
+
+  @override
+  String get usageListened => 'Listened';
+
+  @override
+  String get usageWordsHeard => 'Words heard';
+
+  @override
+  String get usageTasksNotes => 'Tasks & notes';
+
+  @override
+  String get usagePeakHour => 'Peak hour';
+
+  @override
+  String get usageBestDay => 'Best day';
+
+  @override
+  String get usageBestMonth => 'Best month';
+
+  @override
+  String get usageBestYear => 'Best year';
+
+  @override
+  String get usageMinutes => 'minute';
+
+  @override
+  String get usageWords => 'Words';
+
+  @override
+  String get usageTasks => 'Sarcini';
+
+  @override
+  String get usageMonth => 'Luna aceasta';
+
+  @override
+  String get usageYear => 'Anul acesta';
+
+  @override
+  String get usageAll => 'Toate timpurile';
+
+  @override
+  String get usageNow => 'now';
+
+  @override
+  String get usageChatThisMonth => 'Chat this month';
+
+  @override
+  String get appearance => 'Aspect';
+
+  @override
+  String get appearanceSystem => 'Sistem';
+
+  @override
+  String get appearanceLight => 'Luminos';
+
+  @override
+  String get appearanceDark => 'Întunecat';
+
+  @override
+  String get chatDiscardRecording => 'Renunță';
+
+  @override
+  String get voiceQuestionNoSpeech => 'Nu am înțeles — încearcă din nou';
 
   @override
   String get alreadyHaveAccount => 'Ai deja un cont?';
@@ -11479,18 +11672,6 @@ class AppLocalizationsRo extends AppLocalizations {
 
   @override
   String get summaryStyleSubtitle => 'Alege aplicația care scrie acest rezumat';
-
-  @override
-  String get appearance => 'Aspect';
-
-  @override
-  String get appearanceSystem => 'Sistem';
-
-  @override
-  String get appearanceLight => 'Luminos';
-
-  @override
-  String get appearanceDark => 'Întunecat';
 
   @override
   String get feel => 'Senzație';

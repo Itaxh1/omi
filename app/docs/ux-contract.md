@@ -196,7 +196,7 @@ participant lists, the speaker filter and every copied, shared or exported trans
 
 ## 10. Tokens
 
-`lib/ui/omi_tokens.dart`, dark only. Where you touch code, replace literals with tokens
+`lib/ui/omi_tokens.dart` has light and dark palettes; System follows OS brightness. Where you touch code, replace literals with tokens
 (`color-literal`, `font-size-literal`, `radius-literal`); new code has none.
 
 - **Colour** `OmiColors` (v2 "Midnight Graphite"): `surface0` (page, midnight ink), `surface1/2/3`

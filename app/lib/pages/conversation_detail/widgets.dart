@@ -32,7 +32,7 @@ String conversationDurationLabel(ServerConversation conversation, [AppLocalizati
 
 /// The conversation title, edited in place.
 ///
-/// One line with a Done key; an empty title shows the "Untitled Conversation" placeholder. The
+/// Up to two lines with a Done key; an empty title shows the "Untitled Conversation" placeholder. The
 /// edit is saved when editing ends — Done, or tapping away — and the outcome is announced
 /// ("Saved" / an error that restores the old title). Blank or unchanged text is not saved.
 class ConversationTitleField extends StatefulWidget {

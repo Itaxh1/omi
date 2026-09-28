@@ -67,7 +67,20 @@ abstract final class HomeWidgetsPayload {
     };
   }
 
-  /// Up next: the tasks Home shows first (at most [limit]) with when each is due, and how many
+  /// The tasks Up next shows: today's first, then the other open ones soonest due first (undated
+  /// last), so what is coming shows ahead of its day (#5080).
+  static List<ActionItemWithMetadata> pickUpNext(
+    List<ActionItemWithMetadata> today,
+    List<ActionItemWithMetadata> open, {
+    int limit = 3,
+  }) {
+    final rest = open.where((task) => today.every((d) => d.id != task.id)).toList();
+    // Stable: tasks without a due date keep the order the list gave them.
+    final dated = rest.where((task) => task.dueAt != null).toList()..sort((a, b) => a.dueAt!.compareTo(b.dueAt!));
+    return [...today, ...dated, ...rest.where((task) => task.dueAt == null)].take(limit).toList();
+  }
+
+  /// Up next: the tasks [pickUpNext] chose (at most [limit]) with when each is due, and how many
   /// are open in all.
   static Map<String, Object?> upNext(List<ActionItemWithMetadata> tasks, {required int open, int limit = 3}) {
     return {

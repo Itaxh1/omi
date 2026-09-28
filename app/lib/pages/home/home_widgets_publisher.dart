@@ -4,14 +4,13 @@ import 'package:flutter/widgets.dart';
 
 import 'package:omi/backend/preferences.dart';
 import 'package:omi/l10n/app_localizations.dart';
-import 'package:omi/pages/home/widgets/home_sections.dart';
 import 'package:omi/providers/action_items_provider.dart';
 import 'package:omi/providers/conversation_provider.dart';
 import 'package:omi/providers/device_provider.dart';
 import 'package:omi/services/home_widgets_service.dart';
 
-/// Keeps the iOS Home Screen widgets in step with Home: the wearables (Devices), the tasks Home
-/// shows first (Up next) and the latest conversation (Latest). Changes are gathered for a moment
+/// Keeps the iOS Home Screen widgets in step with the app: the wearables (Devices), the next open
+/// tasks (Up next) and the latest conversation (Latest). Changes are gathered for a moment
 /// and written only when a document changed; leaving the app writes at once.
 class HomeWidgetsPublisher with WidgetsBindingObserver {
   HomeWidgetsPublisher({
@@ -76,7 +75,7 @@ class HomeWidgetsPublisher with WidgetsBindingObserver {
       final open = tasks.incompleteItems;
       unawaited(service.publish(
         HomeWidgetsService.upNextKey,
-        HomeWidgetsPayload.upNext(HomeUpNext.pick(tasks.todayPreviewTasks(), open), open: open.length),
+        HomeWidgetsPayload.upNext(HomeWidgetsPayload.pickUpNext(tasks.todayPreviewTasks(), open), open: open.length),
       ));
     }
     final latest = HomeWidgetsPayload.latestOf(conversations.conversations);

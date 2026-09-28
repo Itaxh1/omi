@@ -1870,6 +1870,9 @@ class AppLocalizationsTl extends AppLocalizations {
   String get openSettings => 'Buksan ang Settings';
 
   @override
+  String get whatsYourName => 'Ano ang iyong pangalan?';
+
+  @override
   String get speakTranscribeSummarize => 'Magsalita. Mag-transcribe. Bumuod.';
 
   @override
@@ -1883,6 +1886,13 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get termsOfUse => 'Terms of Use';
+
+  @override
+  String get omiYourAiCompanion => 'Omi – Ang Iyong AI Companion';
+
+  @override
+  String get captureEveryMoment =>
+      'Kunan ang bawat sandali. Makakuha ng AI-powered\nsummaries. Hindi na kailangan mag-notes.';
 
   @override
   String get appleWatchSetup => 'Apple Watch Setup';
@@ -1927,6 +1937,19 @@ class AppLocalizationsTl extends AppLocalizations {
   String errorStartingRecording(String error) {
     return 'Error sa pagsisimula ng recording: $error';
   }
+
+  @override
+  String get selectPrimaryLanguage => 'Pumili ng iyong pangunahing wika';
+
+  @override
+  String get languageBenefits =>
+      'Itakda ang iyong wika para sa mas matalinong transcriptions at personalized na karanasan';
+
+  @override
+  String get whatsYourPrimaryLanguage => 'Ano ang iyong pangunahing wika?';
+
+  @override
+  String get selectYourLanguage => 'Pumili ng iyong wika';
 
   @override
   String get personalGrowthJourney => 'Ang iyong personal growth journey gamit ang AI na nakikinig sa bawat salita mo.';
@@ -3369,6 +3392,9 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get dataProtection => 'Proteksyon ng Data';
+
+  @override
+  String get yourDataIsProtected => 'Ang iyong data ay protektado at pinamamahalaan ng aming ';
 
   @override
   String get pleaseSelectYourPrimaryLanguage => 'Piliin ang iyong pangunahing wika';
@@ -5064,6 +5090,10 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get additionalSpeechSampleRemoved => 'Additional Speech Sample Removed';
+
+  @override
+  String get consentDataMessage =>
+      'Sa pagpapatuloy, ang iyong mga pag-uusap, recording, at personal na impormasyon ay ligtas na maiimbak sa aming mga server. Ang iyong mga audio recording at transcript ay pinoproseso ng third-party na mga serbisyo ng AI (kabilang ang Deepgram para sa transcription at OpenAI para sa analysis) upang mabigyan ka ng AI-powered na mga insight at ma-enable ang lahat ng feature ng app.';
 
   @override
   String get tasksEmptyStateMessage =>
@@ -7103,6 +7133,9 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
+  String get actionItemReminderTitle => 'Omi Reminder';
+
+  @override
   String deviceDisconnectedTitle(String deviceName) {
     return '$deviceName Nadiskonekta';
   }
@@ -7804,6 +7837,9 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get authorizingMcpServer => 'Nag-authorize…';
+
+  @override
+  String get whereDidYouHearAboutOmi => 'Paano ka nakahanap sa amin?';
 
   @override
   String get tiktok => 'TikTok';
@@ -10007,6 +10043,9 @@ class AppLocalizationsTl extends AppLocalizations {
   String get transcriptionNoAudio => 'Hindi tumatanggap ng audio ang transkripsyon';
 
   @override
+  String get tapPlusToStartRecording => 'I-tap ang record button para magsimulang mag-record';
+
+  @override
   String get chatBlockTask => 'Gawain';
 
   @override
@@ -10725,6 +10764,9 @@ class AppLocalizationsTl extends AppLocalizations {
   String get deviceConnecting => 'Kumokonekta…';
 
   @override
+  String get recordOptionsTip => 'Tip: i-tap ang arrow sa record button para mag-record ng tawag.';
+
+  @override
   String get firmwareUpdateFailedTitle => 'Nabigo ang Update';
 
   @override
@@ -11270,6 +11312,12 @@ class AppLocalizationsTl extends AppLocalizations {
   String get keepUsingPendant => 'Ituloy ang paggamit ng pendant';
 
   @override
+  String get recordWith => 'Mag-record gamit ang';
+
+  @override
+  String get moreWaysToRecord => 'Iba pang paraan ng pag-record';
+
+  @override
   String get openCall => 'Buksan ang tawag';
 
   @override
@@ -11316,6 +11364,154 @@ class AppLocalizationsTl extends AppLocalizations {
   String participantsSummaryUncounted(String name) {
     return '$name at iba pa';
   }
+
+  @override
+  String get deviceOnboardingVoiceReplyTitle => 'Pakinggan ang mga sagot ni Omi';
+
+  @override
+  String get deviceOnboardingVoiceReplySample =>
+      'Nakuha ko. Magsisimula ang susunod mong meeting sa loob ng dalawampung minuto.';
+
+  @override
+  String get deviceOnboardingAllSetTitle => 'Handa Ka Na';
+
+  @override
+  String get deviceOnboardingAllSetSubtitle => 'I-tap ang isang row para suriin o baguhin ito.';
+
+  @override
+  String get deviceOnboardingAllSetSinglePressBadge => '1×';
+
+  @override
+  String get deviceOnboardingAllSetDoublePressBadge => '2×';
+
+  @override
+  String get deviceOnboardingVoiceReplySubtitle =>
+      'Kapag nagtanong ka gamit ang button, mababasa ng Omi ang sagot nito nang malakas.';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewIdle => 'Pakinggan ang iyong huling sagot';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewPlaying => 'Pinapatugtog ang iyong huling sagot...';
+
+  @override
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device) {
+    return 'Sa pamamagitan ng $device';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker => 'Sa pamamagitan ng speaker ng telepono';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput => 'Sa pamamagitan ng kasalukuyang output ng audio';
+
+  @override
+  String get deviceOnboardingVoiceReplyOffDescription => 'Mananatili sa screen ang mga sagot. Walang sinasabi.';
+
+  @override
+  String get deviceOnboardingVoiceReplyHeadphonesDescription =>
+      'Pribado. Nagsasalita lamang sa pamamagitan ng AirPods, Bluetooth o wired headphones.';
+
+  @override
+  String get deviceOnboardingVoiceReplyAlwaysDescription =>
+      'Ginagamit ang speaker ng telepono kapag walang nakakonektang headphone.';
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusOff => 'Omi mananatiling tahimik. Lumalabas pa rin ang mga sagot sa app.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device) {
+    return '$device konektado. Omi ang magsasalita dito.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected =>
+      'Walang nakakonektang headphone. Omi mananatiling tahimik hanggang sa kumonekta ka ng ilan.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device) {
+    return 'Nagpe-play sa pamamagitan ng $device.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker =>
+      'Tumutugtog nang malakas sa pamamagitan ng speaker ng telepono.';
+
+  @override
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse) {
+    return 'Maaari mo itong baguhin anumang oras sa $settings › $voiceResponse';
+  }
+
+  @override
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial) {
+    return 'I-replay ang tour na ito anumang oras sa $settings › $deviceSettings › $deviceTutorial';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyGenericHeadphones => 'Mga headphone';
+
+  @override
+  String get usageListened => 'Listened';
+
+  @override
+  String get usageWordsHeard => 'Words heard';
+
+  @override
+  String get usageTasksNotes => 'Tasks & notes';
+
+  @override
+  String get usagePeakHour => 'Peak hour';
+
+  @override
+  String get usageBestDay => 'Best day';
+
+  @override
+  String get usageBestMonth => 'Best month';
+
+  @override
+  String get usageBestYear => 'Best year';
+
+  @override
+  String get usageMinutes => 'minutes';
+
+  @override
+  String get usageWords => 'Words';
+
+  @override
+  String get usageTasks => 'Mga Gawain';
+
+  @override
+  String get usageMonth => 'Sa Buwan Na Ito';
+
+  @override
+  String get usageYear => 'Sa Taong Ito';
+
+  @override
+  String get usageAll => 'Lahat ng Panahon';
+
+  @override
+  String get usageNow => 'now';
+
+  @override
+  String get usageChatThisMonth => 'Chat this month';
+
+  @override
+  String get appearance => 'Hitsura';
+
+  @override
+  String get appearanceSystem => 'System';
+
+  @override
+  String get appearanceLight => 'Maliwanag';
+
+  @override
+  String get appearanceDark => 'Madilim';
+
+  @override
+  String get chatDiscardRecording => 'Itapon';
+
+  @override
+  String get voiceQuestionNoSpeech => 'Hindi ko narinig iyon — subukan ulit';
 
   @override
   String get alreadyHaveAccount => 'May account ka na?';
@@ -11525,18 +11721,6 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get summaryStyleSubtitle => 'Piliin kung aling app ang susulat ng buod na ito';
-
-  @override
-  String get appearance => 'Hitsura';
-
-  @override
-  String get appearanceSystem => 'System';
-
-  @override
-  String get appearanceLight => 'Maliwanag';
-
-  @override
-  String get appearanceDark => 'Madilim';
 
   @override
   String get feel => 'Pakiramdam';

@@ -78,6 +78,7 @@ import 'package:omi/services/auth_service.dart';
 import 'package:omi/ui/omi_appearance.dart';
 import 'package:omi/ui/omi_sheet_depth.dart';
 import 'package:omi/ui/omi_theme.dart';
+import 'package:omi/ui/omi_tokens.dart';
 import 'package:omi/services/notifications.dart';
 import 'package:omi/services/notifications/action_item_notification_handler.dart';
 import 'package:omi/services/notifications/chat_answer_notification_handler.dart';
@@ -99,7 +100,6 @@ import 'package:omi/utils/logger.dart';
 import 'package:omi/utils/platform/platform_service.dart';
 import 'package:omi/utils/platform/platform_manager.dart';
 import 'package:omi/utils/notification_channel_strings.dart';
-import 'package:omi/ui/omi_tokens.dart';
 
 /// Firebase parameters for the current flavor, resolved identically in every engine.
 FirebaseOptions _firebaseOptionsForFlavor() => Env.profile == AppEnvironmentProfile.localDev
@@ -408,6 +408,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     WidgetsBinding.instance.removeObserver(this);
     if (!PhysicalQualification.enabled) _performanceTelemetry.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangePlatformBrightness() {
+    setState(() {});
   }
 
   void _deinit() {

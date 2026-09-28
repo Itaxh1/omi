@@ -187,7 +187,8 @@ class _ShareToContactsBottomSheetState extends State<ShareToContactsBottomSheet>
       }
 
       // Build the share link and message
-      final shareLink = conversationShareUrl(widget.conversation.id);
+      final sid = newShareId();
+      final shareLink = conversationShareUrl(widget.conversation.id, sid: sid);
       final message = l10n.heresWhatWeDiscussed(shareLink);
 
       // Build recipients string (comma-separated phone numbers)
@@ -207,7 +208,12 @@ class _ShareToContactsBottomSheetState extends State<ShareToContactsBottomSheet>
       // Launch native SMS app
       if (await canLaunchUrl(smsUri)) {
         // Track SMS opened
-        PlatformManager.instance.analytics.shareToContactsSmsOpened(widget.conversation.id, selected.length);
+        PlatformManager.instance.analytics.track('Share To Contacts SMS Opened', properties: {
+          'conversation_id': widget.conversation.id,
+          'contact_count': selected.length,
+          'share_id': sid,
+          'target_app': 'sms',
+        });
         OmiHaptics.medium();
         if (mounted) {
           Navigator.of(context).pop();

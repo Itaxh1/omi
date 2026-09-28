@@ -1857,6 +1857,9 @@ class AppLocalizationsFa extends AppLocalizations {
   String get openSettings => 'باز کردن تنظیمات';
 
   @override
+  String get whatsYourName => 'نام شما چیست؟';
+
+  @override
   String get speakTranscribeSummarize => 'صحبت کنید. رونویس کنید. خلاصه کنید.';
 
   @override
@@ -1870,6 +1873,12 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get termsOfUse => 'شرایط استفاده';
+
+  @override
+  String get omiYourAiCompanion => 'Omi – همراه هوش مصنوعی شما';
+
+  @override
+  String get captureEveryMoment => 'هر لحظه را ثبت کنید. خلاصه‌های هوش مصنوعی دریافت کنید.\nدیگر یادداشت نگیرید.';
 
   @override
   String get appleWatchSetup => 'راه‌اندازی Apple Watch';
@@ -1914,6 +1923,18 @@ class AppLocalizationsFa extends AppLocalizations {
   String errorStartingRecording(String error) {
     return 'خطا در شروع ضبط: $error';
   }
+
+  @override
+  String get selectPrimaryLanguage => 'زبان اصلی خود را انتخاب کنید';
+
+  @override
+  String get languageBenefits => 'زبان خود را برای رونویسی‌های تیزتر و تجربه شخصی‌سازی‌شده تنظیم کنید';
+
+  @override
+  String get whatsYourPrimaryLanguage => 'زبان اصلی شما چیست؟';
+
+  @override
+  String get selectYourLanguage => 'زبان خود را انتخاب کنید';
 
   @override
   String get personalGrowthJourney => 'سفر رشد شخصی شما با هوش مصنوعی که به هر کلمه شما گوش می‌دهد.';
@@ -3350,6 +3371,9 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get dataProtection => 'محافظت از داده‌ها';
+
+  @override
+  String get yourDataIsProtected => 'داده‌های شما محافظت شده و تحت حاکمیت ';
 
   @override
   String get pleaseSelectYourPrimaryLanguage => 'لطفاً زبان اصلی خود را انتخاب کنید';
@@ -5025,6 +5049,10 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get additionalSpeechSampleRemoved => 'نمونه صوتی اضافی حذف‌شد';
+
+  @override
+  String get consentDataMessage =>
+      'با ادامه دادن، مکالمات، ضبط‌ها و اطلاعات شخصی شما به طور ایمن در سرورهای ما ذخیره می‌شود. ضبط‌های صوتی و رونوشت‌های شما توسط سرویس‌های هوش مصنوعی شخص ثالث (از جمله Deepgram برای رونویسی و OpenAI برای تحلیل) پردازش می‌شوند تا بینش‌های مبتنی بر هوش مصنوعی را به شما ارائه دهند و تمام ویژگی‌های برنامه را فعال کنند.';
 
   @override
   String get tasksEmptyStateMessage =>
@@ -7043,6 +7071,9 @@ class AppLocalizationsFa extends AppLocalizations {
   }
 
   @override
+  String get actionItemReminderTitle => 'یادآور Omi';
+
+  @override
   String deviceDisconnectedTitle(String deviceName) {
     return '$deviceName قطع شد';
   }
@@ -7739,6 +7770,9 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get authorizingMcpServer => 'تأیید هویت…';
+
+  @override
+  String get whereDidYouHearAboutOmi => 'چگونه ما را پیدا کردید؟';
 
   @override
   String get tiktok => 'TikTok';
@@ -9917,6 +9951,9 @@ class AppLocalizationsFa extends AppLocalizations {
   String get transcriptionNoAudio => 'رونویسی صدا دریافت نمی‌کند';
 
   @override
+  String get tapPlusToStartRecording => 'برای شروع ضبط روی دکمه ضبط بزنید';
+
+  @override
   String get chatBlockTask => 'وظیفه';
 
   @override
@@ -10633,6 +10670,9 @@ class AppLocalizationsFa extends AppLocalizations {
   String get deviceConnecting => 'در حال اتصال…';
 
   @override
+  String get recordOptionsTip => 'نکته: برای ضبط تماس تلفنی، روی فلش دکمه ضبط بزنید.';
+
+  @override
   String get firmwareUpdateFailedTitle => 'به‌روزرسانی ناموفق بود';
 
   @override
@@ -11171,6 +11211,12 @@ class AppLocalizationsFa extends AppLocalizations {
   String get keepUsingPendant => 'ادامه با آویز';
 
   @override
+  String get recordWith => 'ضبط با';
+
+  @override
+  String get moreWaysToRecord => 'روش‌های دیگر ضبط';
+
+  @override
   String get openCall => 'باز کردن تماس';
 
   @override
@@ -11216,6 +11262,151 @@ class AppLocalizationsFa extends AppLocalizations {
   String participantsSummaryUncounted(String name) {
     return '$name و دیگران';
   }
+
+  @override
+  String get deviceOnboardingVoiceReplyTitle => 'پاسخ‌های Omi را بشنوید';
+
+  @override
+  String get deviceOnboardingVoiceReplySample => 'انجام شد. جلسه بعدی شما بیست دقیقه دیگر شروع می‌شود.';
+
+  @override
+  String get deviceOnboardingAllSetTitle => 'همه‌چیز آماده است';
+
+  @override
+  String get deviceOnboardingAllSetSubtitle => 'برای بررسی یا تغییر، روی یک ردیف بزنید.';
+
+  @override
+  String get deviceOnboardingAllSetSinglePressBadge => '1×';
+
+  @override
+  String get deviceOnboardingAllSetDoublePressBadge => '2×';
+
+  @override
+  String get deviceOnboardingVoiceReplySubtitle =>
+      'وقتی با دکمه سوال می کنید، Omi می تواند پاسخ آن را با صدای بلند بخواند.';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewIdle => 'آخرین پاسخ خود را بشنوید';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewPlaying => 'در حال پخش آخرین پاسخ شما...';
+
+  @override
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device) {
+    return 'از طریق $device';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker => 'از طریق بلندگوی تلفن';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput => 'از طریق خروجی صوتی فعلی';
+
+  @override
+  String get deviceOnboardingVoiceReplyOffDescription => 'پاسخ ها روی صفحه می ماند. چیزی گفته نمی شود.';
+
+  @override
+  String get deviceOnboardingVoiceReplyHeadphonesDescription =>
+      'خصوصی. فقط از طریق AirPods، Bluetooth یا هدفون سیمی صحبت می کند.';
+
+  @override
+  String get deviceOnboardingVoiceReplyAlwaysDescription => 'هنگامی که هدفونی وصل نیست از بلندگوی تلفن استفاده می کند.';
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusOff => 'Omi ساکت خواهد ماند. پاسخ ها همچنان در برنامه ظاهر می شوند.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device) {
+    return '$device متصل. Omi اینجا صحبت خواهد کرد.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected =>
+      'هدفون وصل نیست Omi بی صدا می ماند تا زمانی که تعدادی را وصل کنید.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device) {
+    return 'از طریق $device پخش می شود.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker => 'با صدای بلند از طریق بلندگوی تلفن پخش می شود.';
+
+  @override
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse) {
+    return 'شما می توانید این را در هر زمان تغییر دهید در $settings › $voiceResponse';
+  }
+
+  @override
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial) {
+    return 'این تور را هر زمان خواستید در $settings › $deviceSettings › $deviceTutorial تکرار کنید';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyGenericHeadphones => 'هدفون';
+
+  @override
+  String get usageListened => 'Listened';
+
+  @override
+  String get usageWordsHeard => 'Words heard';
+
+  @override
+  String get usageTasksNotes => 'Tasks & notes';
+
+  @override
+  String get usagePeakHour => 'Peak hour';
+
+  @override
+  String get usageBestDay => 'Best day';
+
+  @override
+  String get usageBestMonth => 'Best month';
+
+  @override
+  String get usageBestYear => 'Best year';
+
+  @override
+  String get usageMinutes => 'دقیقه';
+
+  @override
+  String get usageWords => 'Words';
+
+  @override
+  String get usageTasks => 'وظایف';
+
+  @override
+  String get usageMonth => 'این ماه';
+
+  @override
+  String get usageYear => 'این سال';
+
+  @override
+  String get usageAll => 'همه‌زمان';
+
+  @override
+  String get usageNow => 'now';
+
+  @override
+  String get usageChatThisMonth => 'Chat this month';
+
+  @override
+  String get appearance => 'ظاهر';
+
+  @override
+  String get appearanceSystem => 'سیستم';
+
+  @override
+  String get appearanceLight => 'روشن';
+
+  @override
+  String get appearanceDark => 'تیره';
+
+  @override
+  String get chatDiscardRecording => 'دور انداختن';
+
+  @override
+  String get voiceQuestionNoSpeech => 'متوجه نشدم — دوباره تلاش کنید';
 
   @override
   String get alreadyHaveAccount => 'از قبل حساب داری؟';
@@ -11423,18 +11614,6 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get summaryStyleSubtitle => 'انتخاب کن کدام برنامه این خلاصه را بنویسد';
-
-  @override
-  String get appearance => 'ظاهر';
-
-  @override
-  String get appearanceSystem => 'سیستم';
-
-  @override
-  String get appearanceLight => 'روشن';
-
-  @override
-  String get appearanceDark => 'تیره';
 
   @override
   String get feel => 'حس';

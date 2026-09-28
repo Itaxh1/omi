@@ -1858,6 +1858,9 @@ class AppLocalizationsFi extends AppLocalizations {
   String get openSettings => 'Avaa asetukset';
 
   @override
+  String get whatsYourName => 'Mikä on nimesi?';
+
+  @override
   String get speakTranscribeSummarize => 'Puhu. Litteroi. Tee yhteenveto.';
 
   @override
@@ -1871,6 +1874,13 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get termsOfUse => 'Käyttöehdot';
+
+  @override
+  String get omiYourAiCompanion => 'Omi – tekoälykumppanisi';
+
+  @override
+  String get captureEveryMoment =>
+      'Tallenna jokainen hetki. Saat tekoälyn\nluomat yhteenvedot. Älä enää tee muistiinpanoja.';
 
   @override
   String get appleWatchSetup => 'Apple Watch -asennus';
@@ -1915,6 +1925,18 @@ class AppLocalizationsFi extends AppLocalizations {
   String errorStartingRecording(String error) {
     return 'Virhe nauhoituksen aloittamisessa: $error';
   }
+
+  @override
+  String get selectPrimaryLanguage => 'Valitse ensisijainen kielesi';
+
+  @override
+  String get languageBenefits => 'Aseta kielesi tarkempaa litterointia ja henkilökohtaista kokemusta varten';
+
+  @override
+  String get whatsYourPrimaryLanguage => 'Mikä on ensisijainen kielesi?';
+
+  @override
+  String get selectYourLanguage => 'Valitse kielesi';
 
   @override
   String get personalGrowthJourney => 'Henkilökohtainen kasvumatkasi tekoälyn kanssa, joka kuuntelee jokaista sanaasi.';
@@ -3343,6 +3365,9 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get dataProtection => 'Tietosuoja';
+
+  @override
+  String get yourDataIsProtected => 'Tietosi ovat suojattuja ja niitä säätelee ';
 
   @override
   String get pleaseSelectYourPrimaryLanguage => 'Valitse ensisijainen kielesi';
@@ -5023,6 +5048,10 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get additionalSpeechSampleRemoved => 'Lisäpuhenäyte poistettu';
+
+  @override
+  String get consentDataMessage =>
+      'Jatkamalla keskustelusi, tallenteet ja henkilötietosi tallennetaan turvallisesti palvelimillemme. Äänitallenteitasi ja transkriptioitasi käsittelevät kolmannen osapuolen tekoälypalvelut (mukaan lukien Deepgram transkriptiota ja OpenAI analyysiä varten) tarjotaksemme sinulle tekoälypohjaisia oivalluksia ja mahdollistaaksemme kaikki sovelluksen ominaisuudet.';
 
   @override
   String get tasksEmptyStateMessage =>
@@ -7042,6 +7071,9 @@ class AppLocalizationsFi extends AppLocalizations {
   }
 
   @override
+  String get actionItemReminderTitle => 'Omi-muistutus';
+
+  @override
   String deviceDisconnectedTitle(String deviceName) {
     return '$deviceName yhteys katkaistu';
   }
@@ -7736,6 +7768,9 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get authorizingMcpServer => 'Valtuutetaan…';
+
+  @override
+  String get whereDidYouHearAboutOmi => 'Miten löysit meidät?';
 
   @override
   String get tiktok => 'TikTok';
@@ -9920,6 +9955,9 @@ class AppLocalizationsFi extends AppLocalizations {
   String get transcriptionNoAudio => 'Transkriptio ei vastaanota ääntä';
 
   @override
+  String get tapPlusToStartRecording => 'Aloita tallennus napauttamalla tallennuspainiketta';
+
+  @override
   String get chatBlockTask => 'Tehtävä';
 
   @override
@@ -10637,6 +10675,9 @@ class AppLocalizationsFi extends AppLocalizations {
   String get deviceConnecting => 'Yhdistetään…';
 
   @override
+  String get recordOptionsTip => 'Vinkki: tallenna puhelu napauttamalla tallennuspainikkeen nuolta.';
+
+  @override
   String get firmwareUpdateFailedTitle => 'Päivitys epäonnistui';
 
   @override
@@ -11176,6 +11217,12 @@ class AppLocalizationsFi extends AppLocalizations {
   String get keepUsingPendant => 'Jatka riipuksella';
 
   @override
+  String get recordWith => 'Tallennustapa';
+
+  @override
+  String get moreWaysToRecord => 'Lisää tallennustapoja';
+
+  @override
   String get openCall => 'Avaa puhelu';
 
   @override
@@ -11222,6 +11269,151 @@ class AppLocalizationsFi extends AppLocalizations {
   String participantsSummaryUncounted(String name) {
     return '$name ja muut';
   }
+
+  @override
+  String get deviceOnboardingVoiceReplyTitle => 'Kuuntele Omin vastaukset';
+
+  @override
+  String get deviceOnboardingVoiceReplySample => 'Selvä. Seuraava kokouksesi alkaa kahdenkymmenen minuutin kuluttua.';
+
+  @override
+  String get deviceOnboardingAllSetTitle => 'Kaikki on valmista';
+
+  @override
+  String get deviceOnboardingAllSetSubtitle => 'Tarkista tai muuta riviä napauttamalla sitä.';
+
+  @override
+  String get deviceOnboardingAllSetSinglePressBadge => '1×';
+
+  @override
+  String get deviceOnboardingAllSetDoublePressBadge => '2×';
+
+  @override
+  String get deviceOnboardingVoiceReplySubtitle => 'Kun kysyt painikkeella, Omi voi lukea vastauksensa ääneen.';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewIdle => 'Kuuntele viimeinen vastauksesi';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewPlaying => 'Toistetaan viimeistä vastaustasi...';
+
+  @override
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device) {
+    return '$device kautta';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker => 'Puhelimen kaiuttimen kautta';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput => 'Nykyisen äänilähdön kautta';
+
+  @override
+  String get deviceOnboardingVoiceReplyOffDescription => 'Vastaukset pysyvät näytöllä. Mitään ei puhuta.';
+
+  @override
+  String get deviceOnboardingVoiceReplyHeadphonesDescription =>
+      'Yksityinen. Puhuu vain numeroiden AirPods, Bluetooth tai langallisten kuulokkeiden kautta.';
+
+  @override
+  String get deviceOnboardingVoiceReplyAlwaysDescription =>
+      'Käyttää puhelimen kaiutinta, kun kuulokkeita ei ole kytketty.';
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusOff => 'Omi pysyy hiljaa. Vastaukset näkyvät edelleen sovelluksessa.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device) {
+    return '$device yhdistetty. Omi puhuu täällä.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected =>
+      'Kuulokkeita ei ole kytketty. Omi pysyy äänettömänä, kunnes yhdistät osan.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device) {
+    return 'Toistaa numeron $device kautta.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker => 'Toistaa ääneen puhelimen kaiuttimesta.';
+
+  @override
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse) {
+    return 'Voit muuttaa tätä milloin tahansa numerossa $settings › $voiceResponse';
+  }
+
+  @override
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial) {
+    return 'Toista tämä kiertue milloin tahansa numerossa $settings › $deviceSettings › $deviceTutorial';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyGenericHeadphones => 'Kuulokkeet';
+
+  @override
+  String get usageListened => 'Listened';
+
+  @override
+  String get usageWordsHeard => 'Words heard';
+
+  @override
+  String get usageTasksNotes => 'Tasks & notes';
+
+  @override
+  String get usagePeakHour => 'Peak hour';
+
+  @override
+  String get usageBestDay => 'Best day';
+
+  @override
+  String get usageBestMonth => 'Best month';
+
+  @override
+  String get usageBestYear => 'Best year';
+
+  @override
+  String get usageMinutes => 'minuuttia';
+
+  @override
+  String get usageWords => 'Words';
+
+  @override
+  String get usageTasks => 'Tehtävät';
+
+  @override
+  String get usageMonth => 'Tässä kuussa';
+
+  @override
+  String get usageYear => 'Tänä vuonna';
+
+  @override
+  String get usageAll => 'Kaikki aika';
+
+  @override
+  String get usageNow => 'now';
+
+  @override
+  String get usageChatThisMonth => 'Chat this month';
+
+  @override
+  String get appearance => 'Ulkoasu';
+
+  @override
+  String get appearanceSystem => 'Järjestelmä';
+
+  @override
+  String get appearanceLight => 'Vaalea';
+
+  @override
+  String get appearanceDark => 'Tumma';
+
+  @override
+  String get chatDiscardRecording => 'Hylkää';
+
+  @override
+  String get voiceQuestionNoSpeech => 'En saanut selvää — yritä uudelleen';
 
   @override
   String get alreadyHaveAccount => 'Onko sinulla jo tili?';
@@ -11427,18 +11619,6 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get summaryStyleSubtitle => 'Valitse, mikä sovellus kirjoittaa tämän yhteenvedon';
-
-  @override
-  String get appearance => 'Ulkoasu';
-
-  @override
-  String get appearanceSystem => 'Järjestelmä';
-
-  @override
-  String get appearanceLight => 'Vaalea';
-
-  @override
-  String get appearanceDark => 'Tumma';
 
   @override
   String get feel => 'Tuntuma';

@@ -107,8 +107,8 @@ class MemoryItem extends StatelessWidget {
                                 _ledgerIcon(memory),
                                 size: 15,
                                 color: memory.isHistoricalKnowledgeLedgerRow
-                                    ? AppStyles.textTertiary
-                                    : AppStyles.textPrimary,
+                                    ? OmiColors.textPrimary.withValues(alpha: 0.6)
+                                    : OmiColors.textPrimary,
                               ),
                             ),
                           ],

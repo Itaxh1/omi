@@ -1847,6 +1847,9 @@ class AppLocalizationsTh extends AppLocalizations {
   String get openSettings => 'เปิดการตั้งค่า';
 
   @override
+  String get whatsYourName => 'คุณชื่ออะไร?';
+
+  @override
   String get speakTranscribeSummarize => 'พูด ถอดเสียง สรุป';
 
   @override
@@ -1860,6 +1863,12 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get termsOfUse => 'เงื่อนไขการใช้งาน';
+
+  @override
+  String get omiYourAiCompanion => 'Omi – เพื่อนคู่ใจ AI ของคุณ';
+
+  @override
+  String get captureEveryMoment => 'บันทึกทุกช่วงเวลา รับสรุปโดย AI\nไม่ต้องจดบันทึกอีกต่อไป';
 
   @override
   String get appleWatchSetup => 'ตั้งค่า Apple Watch';
@@ -1904,6 +1913,18 @@ class AppLocalizationsTh extends AppLocalizations {
   String errorStartingRecording(String error) {
     return 'เริ่มบันทึกไม่สำเร็จ: $error';
   }
+
+  @override
+  String get selectPrimaryLanguage => 'เลือกภาษาหลักของคุณ';
+
+  @override
+  String get languageBenefits => 'ตั้งค่าภาษาของคุณเพื่อการถอดเสียงที่แม่นยำขึ้นและประสบการณ์ที่เป็นส่วนตัว';
+
+  @override
+  String get whatsYourPrimaryLanguage => 'ภาษาหลักของคุณคืออะไร?';
+
+  @override
+  String get selectYourLanguage => 'เลือกภาษาของคุณ';
 
   @override
   String get personalGrowthJourney => 'การเดินทางพัฒนาตนเองของคุณกับ AI ที่ฟังทุกคำพูดของคุณ';
@@ -3323,6 +3344,9 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get dataProtection => 'การป้องกันข้อมูล';
+
+  @override
+  String get yourDataIsProtected => 'ข้อมูลของคุณได้รับการปกป้องและควบคุมโดย';
 
   @override
   String get pleaseSelectYourPrimaryLanguage => 'กรุณาเลือกภาษาหลักของคุณ';
@@ -4993,6 +5017,10 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get additionalSpeechSampleRemoved => 'ลบตัวอย่างเสียงเพิ่มเติมแล้ว';
+
+  @override
+  String get consentDataMessage =>
+      'เมื่อดำเนินการต่อ การสนทนา การบันทึก และข้อมูลส่วนบุคคลของคุณจะถูกจัดเก็บอย่างปลอดภัยบนเซิร์ฟเวอร์ของเรา การบันทึกเสียงและการถอดความของคุณจะถูกประมวลผลโดยบริการ AI ของบุคคลที่สาม (รวมถึง Deepgram สำหรับการถอดความ และ OpenAI สำหรับการวิเคราะห์) เพื่อมอบข้อมูลเชิงลึกที่ขับเคลื่อนด้วย AI และเปิดใช้งานคุณสมบัติทั้งหมดของแอป';
 
   @override
   String get tasksEmptyStateMessage => 'งานจากการสนทนาของคุณจะปรากฏที่นี่\nแตะ + เพื่อสร้างด้วยตนเอง';
@@ -7001,6 +7029,9 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
+  String get actionItemReminderTitle => 'การแจ้งเตือน Omi';
+
+  @override
   String deviceDisconnectedTitle(String deviceName) {
     return '$deviceName ตัดการเชื่อมต่อ';
   }
@@ -7696,6 +7727,9 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get authorizingMcpServer => 'กำลังอนุญาต…';
+
+  @override
+  String get whereDidYouHearAboutOmi => 'คุณพบเราได้อย่างไร?';
 
   @override
   String get tiktok => 'TikTok';
@@ -9857,6 +9891,9 @@ class AppLocalizationsTh extends AppLocalizations {
   String get transcriptionNoAudio => 'การถอดเสียงไม่ได้รับเสียง';
 
   @override
+  String get tapPlusToStartRecording => 'แตะปุ่มบันทึกเพื่อเริ่มบันทึก';
+
+  @override
   String get chatBlockTask => 'งาน';
 
   @override
@@ -10572,6 +10609,9 @@ class AppLocalizationsTh extends AppLocalizations {
   String get deviceConnecting => 'กำลังเชื่อมต่อ…';
 
   @override
+  String get recordOptionsTip => 'เคล็ดลับ: แตะลูกศรบนปุ่มบันทึกเพื่อบันทึกการโทร';
+
+  @override
   String get firmwareUpdateFailedTitle => 'อัปเดตไม่สำเร็จ';
 
   @override
@@ -11110,6 +11150,12 @@ class AppLocalizationsTh extends AppLocalizations {
   String get keepUsingPendant => 'ใช้จี้ต่อ';
 
   @override
+  String get recordWith => 'บันทึกด้วย';
+
+  @override
+  String get moreWaysToRecord => 'วิธีบันทึกเพิ่มเติม';
+
+  @override
   String get openCall => 'เปิดการโทร';
 
   @override
@@ -11155,6 +11201,150 @@ class AppLocalizationsTh extends AppLocalizations {
   String participantsSummaryUncounted(String name) {
     return '$name และคนอื่นๆ';
   }
+
+  @override
+  String get deviceOnboardingVoiceReplyTitle => 'ฟังคำตอบของ Omi';
+
+  @override
+  String get deviceOnboardingVoiceReplySample => 'รับทราบ การประชุมครั้งถัดไปของคุณจะเริ่มในอีกยี่สิบนาที';
+
+  @override
+  String get deviceOnboardingAllSetTitle => 'พร้อมใช้งานแล้ว';
+
+  @override
+  String get deviceOnboardingAllSetSubtitle => 'แตะแถวเพื่อตรวจสอบหรือเปลี่ยนแปลง';
+
+  @override
+  String get deviceOnboardingAllSetSinglePressBadge => '1×';
+
+  @override
+  String get deviceOnboardingAllSetDoublePressBadge => '2×';
+
+  @override
+  String get deviceOnboardingVoiceReplySubtitle => 'เมื่อคุณถามด้วยปุ่ม Omi จะสามารถอ่านออกเสียงคำตอบได้';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewIdle => 'ฟังคำตอบสุดท้ายของคุณ';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewPlaying => 'กำลังเล่นคำตอบสุดท้ายของคุณ...';
+
+  @override
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device) {
+    return 'ผ่าน $device';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker => 'ผ่านลำโพงโทรศัพท์';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput => 'ผ่านเอาต์พุตเสียงปัจจุบัน';
+
+  @override
+  String get deviceOnboardingVoiceReplyOffDescription => 'คำตอบยังคงอยู่บนหน้าจอ ไม่มีอะไรจะพูด';
+
+  @override
+  String get deviceOnboardingVoiceReplyHeadphonesDescription =>
+      'ส่วนตัว. พูดผ่าน AirPods, Bluetooth หรือหูฟังแบบมีสายเท่านั้น';
+
+  @override
+  String get deviceOnboardingVoiceReplyAlwaysDescription => 'ใช้ลำโพงโทรศัพท์เมื่อไม่ได้เชื่อมต่อหูฟัง';
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusOff => 'Omiจะนิ่งเงียบ คำตอบยังคงปรากฏในแอป';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device) {
+    return '$device เชื่อมต่อแล้ว Omi จะพูดที่นี่';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected =>
+      'ไม่มีหูฟังเชื่อมต่ออยู่ Omi จะเงียบจนกว่าคุณจะเชื่อมต่อบางส่วน';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device) {
+    return 'เล่นผ่าน $device';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker => 'เล่นเสียงดังผ่านลำโพงโทรศัพท์';
+
+  @override
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse) {
+    return 'คุณสามารถเปลี่ยนได้ตลอดเวลาใน $settings › $voiceResponse';
+  }
+
+  @override
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial) {
+    return 'เล่นทัวร์นี้ซ้ำได้ทุกเมื่อใน $settings › $deviceSettings › $deviceTutorial';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyGenericHeadphones => 'หูฟัง';
+
+  @override
+  String get usageListened => 'Listened';
+
+  @override
+  String get usageWordsHeard => 'Words heard';
+
+  @override
+  String get usageTasksNotes => 'Tasks & notes';
+
+  @override
+  String get usagePeakHour => 'Peak hour';
+
+  @override
+  String get usageBestDay => 'Best day';
+
+  @override
+  String get usageBestMonth => 'Best month';
+
+  @override
+  String get usageBestYear => 'Best year';
+
+  @override
+  String get usageMinutes => 'นาที';
+
+  @override
+  String get usageWords => 'Words';
+
+  @override
+  String get usageTasks => 'งาน';
+
+  @override
+  String get usageMonth => 'เดือนนี้';
+
+  @override
+  String get usageYear => 'ปีนี้';
+
+  @override
+  String get usageAll => 'ตลอดเวลา';
+
+  @override
+  String get usageNow => 'now';
+
+  @override
+  String get usageChatThisMonth => 'Chat this month';
+
+  @override
+  String get appearance => 'รูปลักษณ์';
+
+  @override
+  String get appearanceSystem => 'ระบบ';
+
+  @override
+  String get appearanceLight => 'สว่าง';
+
+  @override
+  String get appearanceDark => 'มืด';
+
+  @override
+  String get chatDiscardRecording => 'ละทิ้ง';
+
+  @override
+  String get voiceQuestionNoSpeech => 'ฟังไม่ชัด — ลองอีกครั้ง';
 
   @override
   String get alreadyHaveAccount => 'มีบัญชีอยู่แล้ว?';
@@ -11361,18 +11551,6 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get summaryStyleSubtitle => 'เลือกแอปที่เขียนสรุปนี้';
-
-  @override
-  String get appearance => 'ลักษณะที่ปรากฏ';
-
-  @override
-  String get appearanceSystem => 'ระบบ';
-
-  @override
-  String get appearanceLight => 'สว่าง';
-
-  @override
-  String get appearanceDark => 'มืด';
 
   @override
   String get feel => 'ความรู้สึก';

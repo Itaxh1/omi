@@ -234,7 +234,7 @@ class _NotificationsSettingsPageState extends State<NotificationsSettingsPage> w
           SizedBox(
             height: 216,
             child: CupertinoTheme(
-              data: const CupertinoThemeData(brightness: Brightness.dark),
+              data: CupertinoThemeData(brightness: Theme.of(sheetContext).brightness),
               child: CupertinoPicker(
                 scrollController: FixedExtentScrollController(initialItem: tempHour),
                 itemExtent: 44,

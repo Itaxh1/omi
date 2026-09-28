@@ -1825,6 +1825,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get openSettings => '설정 열기';
 
   @override
+  String get whatsYourName => '이름이 무엇인가요?';
+
+  @override
   String get speakTranscribeSummarize => '말하기. 변환. 요약.';
 
   @override
@@ -1838,6 +1841,12 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get termsOfUse => '이용약관';
+
+  @override
+  String get omiYourAiCompanion => 'Omi – 당신의 AI 동반자';
+
+  @override
+  String get captureEveryMoment => '모든 순간을 기록하세요. AI 기반\n요약을 받으세요. 더 이상 메모할 필요가 없습니다.';
 
   @override
   String get appleWatchSetup => 'Apple Watch 설정';
@@ -1880,6 +1889,18 @@ class AppLocalizationsKo extends AppLocalizations {
   String errorStartingRecording(String error) {
     return '녹음 시작 오류: $error';
   }
+
+  @override
+  String get selectPrimaryLanguage => '기본 언어 선택';
+
+  @override
+  String get languageBenefits => '더 정확한 변환과 맞춤형 경험을 위해 언어를 설정하세요';
+
+  @override
+  String get whatsYourPrimaryLanguage => '기본 언어가 무엇인가요?';
+
+  @override
+  String get selectYourLanguage => '언어를 선택하세요';
 
   @override
   String get personalGrowthJourney => '모든 말을 듣는 AI와 함께하는 개인 성장 여정.';
@@ -3290,6 +3311,9 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get dataProtection => '데이터 보호';
+
+  @override
+  String get yourDataIsProtected => '귀하의 데이터는 보호되며 ';
 
   @override
   String get pleaseSelectYourPrimaryLanguage => '기본 언어를 선택하세요';
@@ -4930,6 +4954,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get additionalSpeechSampleRemoved => '추가 음성 샘플이 삭제되었습니다';
+
+  @override
+  String get consentDataMessage =>
+      '계속하면 대화, 녹음 및 개인 정보가 서버에 안전하게 저장됩니다. 오디오 녹음 및 텍스트 변환은 제3자 AI 서비스(전사를 위한 Deepgram 및 분석을 위한 OpenAI 포함)에 의해 처리되어 AI 기반 인사이트를 제공하고 모든 앱 기능을 활성화합니다.';
 
   @override
   String get tasksEmptyStateMessage => '대화에서 생성된 작업이 여기에 표시됩니다.\n수동으로 만들려면 +를 탭하세요.';
@@ -6922,6 +6950,9 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
+  String get actionItemReminderTitle => 'Omi 알림';
+
+  @override
   String deviceDisconnectedTitle(String deviceName) {
     return '$deviceName 연결 해제됨';
   }
@@ -7612,6 +7643,9 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get authorizingMcpServer => '인증 중…';
+
+  @override
+  String get whereDidYouHearAboutOmi => '어떻게 알게 되셨나요?';
 
   @override
   String get tiktok => 'TikTok';
@@ -9750,6 +9784,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get transcriptionNoAudio => '전사가 오디오를 받지 못하고 있습니다';
 
   @override
+  String get tapPlusToStartRecording => '녹음 버튼을 눌러 녹음 시작';
+
+  @override
   String get chatBlockTask => '작업';
 
   @override
@@ -10461,6 +10498,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get deviceConnecting => '연결 중…';
 
   @override
+  String get recordOptionsTip => '팁: 녹음 버튼의 화살표를 누르면 전화 통화를 녹음할 수 있습니다.';
+
+  @override
   String get firmwareUpdateFailedTitle => '업데이트 실패';
 
   @override
@@ -10993,6 +11033,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get keepUsingPendant => '펜던트 계속 사용';
 
   @override
+  String get recordWith => '녹음 방법';
+
+  @override
+  String get moreWaysToRecord => '다른 녹음 방법';
+
+  @override
   String get openCall => '통화 열기';
 
   @override
@@ -11038,6 +11084,148 @@ class AppLocalizationsKo extends AppLocalizations {
   String participantsSummaryUncounted(String name) {
     return '$name 외 여러 명';
   }
+
+  @override
+  String get deviceOnboardingVoiceReplyTitle => 'Omi의 답변 듣기';
+
+  @override
+  String get deviceOnboardingVoiceReplySample => '알겠습니다. 다음 회의가 20분 후에 시작됩니다.';
+
+  @override
+  String get deviceOnboardingAllSetTitle => '모두 준비됐어요';
+
+  @override
+  String get deviceOnboardingAllSetSubtitle => '검토하거나 변경하려면 행을 탭하세요.';
+
+  @override
+  String get deviceOnboardingAllSetSinglePressBadge => '1×';
+
+  @override
+  String get deviceOnboardingAllSetDoublePressBadge => '2×';
+
+  @override
+  String get deviceOnboardingVoiceReplySubtitle => '버튼으로 질문하면 Omi가 답변을 소리내어 읽어줄 수 있습니다.';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewIdle => '마지막 답변을 들어보세요';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewPlaying => '마지막 답변을 재생 중입니다...';
+
+  @override
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device) {
+    return '$device을 통해';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker => '전화 스피커를 통해';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput => '현재 오디오 출력을 통해';
+
+  @override
+  String get deviceOnboardingVoiceReplyOffDescription => '답변은 화면에 그대로 유지됩니다. 아무 말도하지 않습니다.';
+
+  @override
+  String get deviceOnboardingVoiceReplyHeadphonesDescription => '비공개. AirPods, Bluetooth 또는 유선 헤드폰을 통해서만 말합니다.';
+
+  @override
+  String get deviceOnboardingVoiceReplyAlwaysDescription => '헤드폰이 연결되어 있지 않을 때 휴대폰 스피커를 사용합니다.';
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusOff => 'Omi는 침묵할 것입니다. 답변은 여전히 ​​앱에 표시됩니다.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device) {
+    return '$device 연결되었습니다. Omi가 여기서 말할 것입니다.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected => '연결된 헤드폰이 없습니다. Omi는 연결될 때까지 침묵을 유지합니다.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device) {
+    return '$device을 통해 재생됩니다.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker => '전화 스피커를 통해 큰 소리로 재생됩니다.';
+
+  @override
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse) {
+    return '$settings › $voiceResponse에서 언제든지 변경할 수 있습니다.';
+  }
+
+  @override
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial) {
+    return '$settings › $deviceSettings › $deviceTutorial에서 언제든지 이 둘러보기를 다시 재생하세요.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyGenericHeadphones => '헤드폰';
+
+  @override
+  String get usageListened => 'Listened';
+
+  @override
+  String get usageWordsHeard => 'Words heard';
+
+  @override
+  String get usageTasksNotes => 'Tasks & notes';
+
+  @override
+  String get usagePeakHour => 'Peak hour';
+
+  @override
+  String get usageBestDay => 'Best day';
+
+  @override
+  String get usageBestMonth => 'Best month';
+
+  @override
+  String get usageBestYear => 'Best year';
+
+  @override
+  String get usageMinutes => '분';
+
+  @override
+  String get usageWords => 'Words';
+
+  @override
+  String get usageTasks => '작업';
+
+  @override
+  String get usageMonth => '이번 달';
+
+  @override
+  String get usageYear => '올해';
+
+  @override
+  String get usageAll => '전체 기간';
+
+  @override
+  String get usageNow => 'now';
+
+  @override
+  String get usageChatThisMonth => 'Chat this month';
+
+  @override
+  String get appearance => '화면 모드';
+
+  @override
+  String get appearanceSystem => '시스템';
+
+  @override
+  String get appearanceLight => '라이트';
+
+  @override
+  String get appearanceDark => '다크';
+
+  @override
+  String get chatDiscardRecording => '삭제';
+
+  @override
+  String get voiceQuestionNoSpeech => '잘 듣지 못했어요 — 다시 시도해 주세요';
 
   @override
   String get alreadyHaveAccount => '이미 계정이 있나요?';
@@ -11241,18 +11429,6 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get summaryStyleSubtitle => '이 요약을 작성할 앱 선택';
-
-  @override
-  String get appearance => '화면 모드';
-
-  @override
-  String get appearanceSystem => '시스템';
-
-  @override
-  String get appearanceLight => '라이트';
-
-  @override
-  String get appearanceDark => '다크';
 
   @override
   String get feel => '느낌';

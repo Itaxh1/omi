@@ -1865,6 +1865,9 @@ class AppLocalizationsMs extends AppLocalizations {
   String get openSettings => 'Buka Tetapan';
 
   @override
+  String get whatsYourName => 'Siapa nama anda?';
+
+  @override
   String get speakTranscribeSummarize => 'Bercakap. Transkrip. Ringkaskan.';
 
   @override
@@ -1878,6 +1881,12 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get termsOfUse => 'Terma Penggunaan';
+
+  @override
+  String get omiYourAiCompanion => 'Omi – Sahabat AI Anda';
+
+  @override
+  String get captureEveryMoment => 'Tangkap setiap detik. Dapatkan ringkasan dikuasakan AI.\nJangan ambil nota lagi.';
 
   @override
   String get appleWatchSetup => 'Persediaan Apple Watch';
@@ -1922,6 +1931,19 @@ class AppLocalizationsMs extends AppLocalizations {
   String errorStartingRecording(String error) {
     return 'Ralat memulakan rakaman: $error';
   }
+
+  @override
+  String get selectPrimaryLanguage => 'Pilih bahasa utama anda';
+
+  @override
+  String get languageBenefits =>
+      'Tetapkan bahasa anda untuk transkripsi yang lebih tajam dan pengalaman yang diperibadikan';
+
+  @override
+  String get whatsYourPrimaryLanguage => 'Apakah bahasa utama anda?';
+
+  @override
+  String get selectYourLanguage => 'Pilih bahasa anda';
 
   @override
   String get personalGrowthJourney =>
@@ -3355,6 +3377,9 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get dataProtection => 'Perlindungan Data';
+
+  @override
+  String get yourDataIsProtected => 'Data anda dilindungi dan dikawal oleh ';
 
   @override
   String get pleaseSelectYourPrimaryLanguage => 'Sila pilih bahasa utama anda';
@@ -5041,6 +5066,10 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get additionalSpeechSampleRemoved => 'Sampel suara tambahan dibuang';
+
+  @override
+  String get consentDataMessage =>
+      'Dengan meneruskan, perbualan, rakaman dan maklumat peribadi anda akan disimpan dengan selamat di pelayan kami. Rakaman audio dan transkrip anda diproses oleh perkhidmatan AI pihak ketiga (termasuk Deepgram untuk transkripsi dan OpenAI untuk analisis) untuk memberikan anda pandangan dikuasakan AI dan membolehkan semua ciri aplikasi.';
 
   @override
   String get tasksEmptyStateMessage =>
@@ -7062,6 +7091,9 @@ class AppLocalizationsMs extends AppLocalizations {
   }
 
   @override
+  String get actionItemReminderTitle => 'Peringatan Omi';
+
+  @override
   String deviceDisconnectedTitle(String deviceName) {
     return '$deviceName terputus';
   }
@@ -7758,6 +7790,9 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get authorizingMcpServer => 'Memberi kebenaran…';
+
+  @override
+  String get whereDidYouHearAboutOmi => 'Bagaimana anda tahu tentang kami?';
 
   @override
   String get tiktok => 'TikTok';
@@ -9944,6 +9979,9 @@ class AppLocalizationsMs extends AppLocalizations {
   String get transcriptionNoAudio => 'Transkripsi tidak menerima audio';
 
   @override
+  String get tapPlusToStartRecording => 'Ketik butang rakam untuk mula merakam';
+
+  @override
   String get chatBlockTask => 'Tugas';
 
   @override
@@ -10662,6 +10700,9 @@ class AppLocalizationsMs extends AppLocalizations {
   String get deviceConnecting => 'Menyambung…';
 
   @override
+  String get recordOptionsTip => 'Petua: ketik anak panah pada butang rakam untuk merakam panggilan telefon.';
+
+  @override
   String get firmwareUpdateFailedTitle => 'Kemas Kini Gagal';
 
   @override
@@ -11202,6 +11243,12 @@ class AppLocalizationsMs extends AppLocalizations {
   String get keepUsingPendant => 'Terus guna loket';
 
   @override
+  String get recordWith => 'Rakam dengan';
+
+  @override
+  String get moreWaysToRecord => 'Lebih banyak cara merakam';
+
+  @override
   String get openCall => 'Buka panggilan';
 
   @override
@@ -11248,6 +11295,153 @@ class AppLocalizationsMs extends AppLocalizations {
   String participantsSummaryUncounted(String name) {
     return '$name dan lain-lain';
   }
+
+  @override
+  String get deviceOnboardingVoiceReplyTitle => 'Dengar jawapan Omi';
+
+  @override
+  String get deviceOnboardingVoiceReplySample =>
+      'Baik. Mesyuarat anda yang seterusnya bermula dalam masa dua puluh minit.';
+
+  @override
+  String get deviceOnboardingAllSetTitle => 'Semuanya Sudah Sedia';
+
+  @override
+  String get deviceOnboardingAllSetSubtitle => 'Ketik baris untuk menyemak atau mengubahnya.';
+
+  @override
+  String get deviceOnboardingAllSetSinglePressBadge => '1×';
+
+  @override
+  String get deviceOnboardingAllSetDoublePressBadge => '2×';
+
+  @override
+  String get deviceOnboardingVoiceReplySubtitle =>
+      'Apabila anda bertanya dengan butang, Omi boleh membaca jawapannya dengan kuat.';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewIdle => 'Dengar jawapan terakhir anda';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewPlaying => 'Memainkan jawapan terakhir anda...';
+
+  @override
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device) {
+    return 'Melalui $device';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker => 'Melalui pembesar suara telefon';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput => 'Melalui output audio semasa';
+
+  @override
+  String get deviceOnboardingVoiceReplyOffDescription => 'Jawapan kekal di skrin. Tiada apa yang terucap.';
+
+  @override
+  String get deviceOnboardingVoiceReplyHeadphonesDescription =>
+      'Persendirian. Bercakap hanya melalui AirPods, Bluetooth atau fon kepala berwayar.';
+
+  @override
+  String get deviceOnboardingVoiceReplyAlwaysDescription =>
+      'Menggunakan pembesar suara telefon apabila tiada fon kepala disambungkan.';
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusOff => 'Omi akan terus senyap. Jawapan masih muncul dalam apl.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device) {
+    return '$device disambungkan. Omi akan bercakap di sini.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected =>
+      'Tiada fon kepala disambungkan. Omi kekal senyap sehingga anda menyambung beberapa.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device) {
+    return 'Dimainkan melalui $device.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker => 'Dimainkan dengan kuat melalui pembesar suara telefon.';
+
+  @override
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse) {
+    return 'Anda boleh menukar ini pada bila-bila masa di $settings › $voiceResponse';
+  }
+
+  @override
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial) {
+    return 'Main semula lawatan ini pada bila-bila masa dalam $settings › $deviceSettings › $deviceTutorial';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyGenericHeadphones => 'Fon kepala';
+
+  @override
+  String get usageListened => 'Listened';
+
+  @override
+  String get usageWordsHeard => 'Words heard';
+
+  @override
+  String get usageTasksNotes => 'Tasks & notes';
+
+  @override
+  String get usagePeakHour => 'Peak hour';
+
+  @override
+  String get usageBestDay => 'Best day';
+
+  @override
+  String get usageBestMonth => 'Best month';
+
+  @override
+  String get usageBestYear => 'Best year';
+
+  @override
+  String get usageMinutes => 'minit';
+
+  @override
+  String get usageWords => 'Words';
+
+  @override
+  String get usageTasks => 'Tugas';
+
+  @override
+  String get usageMonth => 'Bulan Ini';
+
+  @override
+  String get usageYear => 'Tahun Ini';
+
+  @override
+  String get usageAll => 'Sepanjang Masa';
+
+  @override
+  String get usageNow => 'now';
+
+  @override
+  String get usageChatThisMonth => 'Chat this month';
+
+  @override
+  String get appearance => 'Penampilan';
+
+  @override
+  String get appearanceSystem => 'Sistem';
+
+  @override
+  String get appearanceLight => 'Cerah';
+
+  @override
+  String get appearanceDark => 'Gelap';
+
+  @override
+  String get chatDiscardRecording => 'Buang';
+
+  @override
+  String get voiceQuestionNoSpeech => 'Tidak dapat mendengarnya — cuba lagi';
 
   @override
   String get alreadyHaveAccount => 'Sudah ada akaun?';
@@ -11457,18 +11651,6 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get summaryStyleSubtitle => 'Pilih apl yang menulis ringkasan ini';
-
-  @override
-  String get appearance => 'Penampilan';
-
-  @override
-  String get appearanceSystem => 'Sistem';
-
-  @override
-  String get appearanceLight => 'Cerah';
-
-  @override
-  String get appearanceDark => 'Gelap';
 
   @override
   String get feel => 'Rasa';

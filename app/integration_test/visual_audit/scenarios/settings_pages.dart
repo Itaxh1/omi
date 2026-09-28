@@ -82,9 +82,9 @@ final settingsPagesScenarios = <AuditScenario>[
         ..debugSetUsageStats('today', stats(12))
         ..debugSetUsageStats('monthly', stats(400));
       await a.pump(const UsagePage(), providers: [ChangeNotifierProvider<UsageProvider>.value(value: usage)]);
-      await a.shot('Plan & Usage: the period under the plan, then the stats', step: 'today');
-      await a.tap(find.text('This Month'));
-      await a.shot('This Month', step: 'month');
+      await a.shot('Plan & Usage: the period under the title, then the stats', step: 'today');
+      await a.tap(find.text('Month'));
+      await a.shot('Month', step: 'month');
     },
   ),
   AuditScenario(

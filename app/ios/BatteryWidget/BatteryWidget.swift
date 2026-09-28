@@ -104,8 +104,8 @@ extension View {
 
 // MARK: - Home Screen: Small (v2 HomeScreen "Battery")
 
-/// Each wearable's charge at a glance (v2 HomeScreen): its picture (the orb for an Omi pendant,
-/// its light on while connected), "Battery", the level large, and its state ("Omi · charging").
+/// Each wearable's charge at a glance (v2 HomeScreen): its picture (the product photo the app
+/// shows), "Battery", the level large, and its state ("Omi · charging").
 /// With more than one device, page dots show which it is; tapping them shows the next (iOS 17).
 /// The phone is never a device here.
 struct SmallBatteryView: View {

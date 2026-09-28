@@ -3633,6 +3633,12 @@ abstract class AppLocalizations {
   /// **'Open Settings'**
   String get openSettings;
 
+  /// Question asking for user's name
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s your name?'**
+  String get whatsYourName;
+
   /// Tagline or slogan on the welcome/auth screen
   ///
   /// In en, this message translates to:
@@ -3662,6 +3668,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Terms of Use'**
   String get termsOfUse;
+
+  /// App title or branding on onboarding screen
+  ///
+  /// In en, this message translates to:
+  /// **'Omi – Your AI Companion'**
+  String get omiYourAiCompanion;
+
+  /// App value proposition or description
+  ///
+  /// In en, this message translates to:
+  /// **'Capture every moment. Get AI-powered\nsummaries. Never take notes again.'**
+  String get captureEveryMoment;
 
   /// Title for Apple Watch setup page
   ///
@@ -3734,6 +3752,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error starting recording: {error}'**
   String errorStartingRecording(String error);
+
+  /// Title for language selection dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Select your primary language'**
+  String get selectPrimaryLanguage;
+
+  /// Explanation of why language selection matters
+  ///
+  /// In en, this message translates to:
+  /// **'Set your language for sharper transcriptions and a personalized experience'**
+  String get languageBenefits;
+
+  /// Question asking for primary language
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s your primary language?'**
+  String get whatsYourPrimaryLanguage;
+
+  /// Placeholder for selected language name
+  ///
+  /// In en, this message translates to:
+  /// **'Select your language'**
+  String get selectYourLanguage;
 
   /// Subtitle describing Omi on auth screen
   ///
@@ -6476,6 +6518,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Data Protection'**
   String get dataProtection;
+
+  /// First part of data protection text
+  ///
+  /// In en, this message translates to:
+  /// **'Your data is protected and governed by our '**
+  String get yourDataIsProtected;
 
   /// No description provided for @pleaseSelectYourPrimaryLanguage.
   ///
@@ -9530,6 +9578,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Additional Speech Sample Removed'**
   String get additionalSpeechSampleRemoved;
+
+  /// Consent message explaining how user data will be stored and used
+  ///
+  /// In en, this message translates to:
+  /// **'By continuing, your conversations, recordings, and personal information will be securely stored on our servers. Your audio recordings and transcripts are processed by third-party AI services — Deepgram for transcription and OpenAI for analysis — to provide you with AI-powered insights and enable all app features.'**
+  String get consentDataMessage;
 
   /// Empty state message shown when there are no tasks, with instruction to tap + button
   ///
@@ -13251,6 +13305,12 @@ abstract class AppLocalizations {
   /// **'{count} conversations have been merged successfully'**
   String mergeConversationsSuccessBody(int count);
 
+  /// Title for action item reminder notifications
+  ///
+  /// In en, this message translates to:
+  /// **'Omi Reminder'**
+  String get actionItemReminderTitle;
+
   /// Notification title when a device disconnects
   ///
   /// In en, this message translates to:
@@ -14474,6 +14534,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Authorizing…'**
   String get authorizingMcpServer;
+
+  /// No description provided for @whereDidYouHearAboutOmi.
+  ///
+  /// In en, this message translates to:
+  /// **'How did you find us?'**
+  String get whereDidYouHearAboutOmi;
 
   /// No description provided for @tiktok.
   ///
@@ -18441,6 +18507,12 @@ abstract class AppLocalizations {
   /// **'Transcription not receiving audio'**
   String get transcriptionNoAudio;
 
+  /// Empty-home hint pointing at the round record button
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the record button to start recording'**
+  String get tapPlusToStartRecording;
+
   /// Eyebrow label on a chat task card block
   ///
   /// In en, this message translates to:
@@ -19443,6 +19515,12 @@ abstract class AppLocalizations {
   /// **'Connecting…'**
   String get deviceConnecting;
 
+  /// One-time hint after the first phone-mic recording
+  ///
+  /// In en, this message translates to:
+  /// **'Tip: tap the arrow on the record button to record a phone call.'**
+  String get recordOptionsTip;
+
   /// Title of the firmware update failed state
   ///
   /// In en, this message translates to:
@@ -20349,6 +20427,18 @@ abstract class AppLocalizations {
   /// **'Keep using pendant'**
   String get keepUsingPendant;
 
+  /// Title of the sheet listing ways to record (Phone mic, Phone call).
+  ///
+  /// In en, this message translates to:
+  /// **'Record with'**
+  String get recordWith;
+
+  /// Accessibility label of the small arrow badge on the record button that opens the 'Record with' sheet.
+  ///
+  /// In en, this message translates to:
+  /// **'More ways to record'**
+  String get moreWaysToRecord;
+
   /// Accessibility hint on the live card during a call; tapping opens the call screen.
   ///
   /// In en, this message translates to:
@@ -20432,6 +20522,270 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{name} + others'**
   String participantsSummaryUncounted(String name);
+
+  /// No description provided for @deviceOnboardingVoiceReplyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hear Omi\'s Answers'**
+  String get deviceOnboardingVoiceReplyTitle;
+
+  /// No description provided for @deviceOnboardingVoiceReplySample.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ve got it. Your next meeting starts in twenty minutes.'**
+  String get deviceOnboardingVoiceReplySample;
+
+  /// No description provided for @deviceOnboardingAllSetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re All Set'**
+  String get deviceOnboardingAllSetTitle;
+
+  /// No description provided for @deviceOnboardingAllSetSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a row to review or change it.'**
+  String get deviceOnboardingAllSetSubtitle;
+
+  /// No description provided for @deviceOnboardingAllSetSinglePressBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'1×'**
+  String get deviceOnboardingAllSetSinglePressBadge;
+
+  /// No description provided for @deviceOnboardingAllSetDoublePressBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'2×'**
+  String get deviceOnboardingAllSetDoublePressBadge;
+
+  /// Teaching subtitle for the voice reply onboarding step
+  ///
+  /// In en, this message translates to:
+  /// **'When you ask with the button, Omi can read its answer out loud.'**
+  String get deviceOnboardingVoiceReplySubtitle;
+
+  /// Title of the idle voice answer preview card
+  ///
+  /// In en, this message translates to:
+  /// **'Hear your last answer'**
+  String get deviceOnboardingVoiceReplyPreviewIdle;
+
+  /// Title of the voice answer preview card while audio is playing
+  ///
+  /// In en, this message translates to:
+  /// **'Playing your last answer...'**
+  String get deviceOnboardingVoiceReplyPreviewPlaying;
+
+  /// Voice preview output route when headphones are connected
+  ///
+  /// In en, this message translates to:
+  /// **'Through {device}'**
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device);
+
+  /// Voice preview output route when using the phone speaker
+  ///
+  /// In en, this message translates to:
+  /// **'Through the phone speaker'**
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker;
+
+  /// Voice preview output route while the system route is not yet known
+  ///
+  /// In en, this message translates to:
+  /// **'Through the current audio output'**
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput;
+
+  /// Description of the Off voice response mode
+  ///
+  /// In en, this message translates to:
+  /// **'Answers stay on screen. Nothing is spoken.'**
+  String get deviceOnboardingVoiceReplyOffDescription;
+
+  /// Description of the Headphones only voice response mode
+  ///
+  /// In en, this message translates to:
+  /// **'Private. Speaks only through AirPods, Bluetooth or wired headphones.'**
+  String get deviceOnboardingVoiceReplyHeadphonesDescription;
+
+  /// Description of the Always voice response mode
+  ///
+  /// In en, this message translates to:
+  /// **'Uses the phone speaker when no headphones are connected.'**
+  String get deviceOnboardingVoiceReplyAlwaysDescription;
+
+  /// Output consequence when voice responses are off
+  ///
+  /// In en, this message translates to:
+  /// **'Omi will stay silent. Answers still appear in the app.'**
+  String get deviceOnboardingVoiceReplyStatusOff;
+
+  /// Output consequence for Headphones only mode with connected headphones
+  ///
+  /// In en, this message translates to:
+  /// **'{device} connected. Omi will speak here.'**
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device);
+
+  /// Output consequence for Headphones only mode without connected headphones
+  ///
+  /// In en, this message translates to:
+  /// **'No headphones connected. Omi stays silent until you connect some.'**
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected;
+
+  /// Output consequence for Always mode with connected headphones
+  ///
+  /// In en, this message translates to:
+  /// **'Plays through {device}.'**
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device);
+
+  /// Output consequence for Always mode without connected headphones
+  ///
+  /// In en, this message translates to:
+  /// **'Plays out loud through the phone speaker.'**
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker;
+
+  /// Footer explaining where to change voice response settings
+  ///
+  /// In en, this message translates to:
+  /// **'You can change this anytime in {settings} › {voiceResponse}'**
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse);
+
+  /// Footer explaining the complete Settings menu path for replaying the device tutorial
+  ///
+  /// In en, this message translates to:
+  /// **'Replay this tour anytime in {settings} › {deviceSettings} › {deviceTutorial}'**
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial);
+
+  /// Generic fallback name for connected headphones when the system does not provide a device name
+  ///
+  /// In en, this message translates to:
+  /// **'Headphones'**
+  String get deviceOnboardingVoiceReplyGenericHeadphones;
+
+  /// Plan and Usage dashboard label
+  ///
+  /// In en, this message translates to:
+  /// **'Listened'**
+  String get usageListened;
+
+  /// Plan and Usage dashboard label
+  ///
+  /// In en, this message translates to:
+  /// **'Words heard'**
+  String get usageWordsHeard;
+
+  /// Plan and Usage dashboard label
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks & notes'**
+  String get usageTasksNotes;
+
+  /// Plan and Usage dashboard label
+  ///
+  /// In en, this message translates to:
+  /// **'Peak hour'**
+  String get usagePeakHour;
+
+  /// Plan and Usage dashboard label
+  ///
+  /// In en, this message translates to:
+  /// **'Best day'**
+  String get usageBestDay;
+
+  /// Plan and Usage dashboard label
+  ///
+  /// In en, this message translates to:
+  /// **'Best month'**
+  String get usageBestMonth;
+
+  /// Plan and Usage dashboard label
+  ///
+  /// In en, this message translates to:
+  /// **'Best year'**
+  String get usageBestYear;
+
+  /// Plan and Usage dashboard label
+  ///
+  /// In en, this message translates to:
+  /// **'Minutes'**
+  String get usageMinutes;
+
+  /// Plan and Usage dashboard label
+  ///
+  /// In en, this message translates to:
+  /// **'Words'**
+  String get usageWords;
+
+  /// Plan and Usage dashboard label
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks'**
+  String get usageTasks;
+
+  /// Plan and Usage period selector
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get usageMonth;
+
+  /// Plan and Usage period selector
+  ///
+  /// In en, this message translates to:
+  /// **'Year'**
+  String get usageYear;
+
+  /// Plan and Usage period selector
+  ///
+  /// In en, this message translates to:
+  /// **'All time'**
+  String get usageAll;
+
+  /// Current hour marker on Plan and Usage chart
+  ///
+  /// In en, this message translates to:
+  /// **'now'**
+  String get usageNow;
+
+  /// Label for monthly chat usage meter
+  ///
+  /// In en, this message translates to:
+  /// **'Chat this month'**
+  String get usageChatThisMonth;
+
+  /// No description provided for @appearance.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get appearance;
+
+  /// No description provided for @appearanceSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get appearanceSystem;
+
+  /// No description provided for @appearanceLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get appearanceLight;
+
+  /// No description provided for @appearanceDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get appearanceDark;
+
+  /// Discard the current chat voice recording without transcription
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get chatDiscardRecording;
+
+  /// Shown in chat when a pendant voice question contains no detectable speech.
+  ///
+  /// In en, this message translates to:
+  /// **'Didn\'t catch that — try again'**
+  String get voiceQuestionNoSpeech;
 
   /// Welcome screen, before the Sign In link
   ///
@@ -20798,30 +21152,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Choose which app writes this summary'**
   String get summaryStyleSubtitle;
-
-  /// Settings row and page title: light, dark or follow the phone
-  ///
-  /// In en, this message translates to:
-  /// **'Appearance'**
-  String get appearance;
-
-  /// Appearance option: follow the phone's own light or dark setting
-  ///
-  /// In en, this message translates to:
-  /// **'System'**
-  String get appearanceSystem;
-
-  /// Appearance option: the light palette
-  ///
-  /// In en, this message translates to:
-  /// **'Light'**
-  String get appearanceLight;
-
-  /// Appearance option: the dark palette
-  ///
-  /// In en, this message translates to:
-  /// **'Dark'**
-  String get appearanceDark;
 
   /// Appearance section header: haptics and motion
   ///

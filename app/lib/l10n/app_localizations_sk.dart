@@ -1865,6 +1865,9 @@ class AppLocalizationsSk extends AppLocalizations {
   String get openSettings => 'Otvoriť nastavenia';
 
   @override
+  String get whatsYourName => 'Ako sa voláš?';
+
+  @override
   String get speakTranscribeSummarize => 'Hovoriť. Prepisovať. Sumarizovať.';
 
   @override
@@ -1878,6 +1881,13 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get termsOfUse => 'Podmienky používania';
+
+  @override
+  String get omiYourAiCompanion => 'Omi – Váš AI spoločník';
+
+  @override
+  String get captureEveryMoment =>
+      'Zachyťte každý moment. Získajte zhrnutia\npoháňané AI. Nikdy viac si nerobte poznámky.';
 
   @override
   String get appleWatchSetup => 'Nastavenie Apple Watch';
@@ -1922,6 +1932,18 @@ class AppLocalizationsSk extends AppLocalizations {
   String errorStartingRecording(String error) {
     return 'Chyba pri spustení nahrávania: $error';
   }
+
+  @override
+  String get selectPrimaryLanguage => 'Vyberte svoj primárny jazyk';
+
+  @override
+  String get languageBenefits => 'Nastavte svoj jazyk pre presnejšie prepisy a personalizovaný zážitok';
+
+  @override
+  String get whatsYourPrimaryLanguage => 'Aký je váš primárny jazyk?';
+
+  @override
+  String get selectYourLanguage => 'Vyberte svoj jazyk';
 
   @override
   String get personalGrowthJourney => 'Vaša cesta osobného rastu s AI, ktorá počúva každé vaše slovo.';
@@ -3346,6 +3368,9 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get dataProtection => 'Ochrana dát';
+
+  @override
+  String get yourDataIsProtected => 'Vaše dáta sú chránené a riadia sa našimi ';
 
   @override
   String get pleaseSelectYourPrimaryLanguage => 'Prosím vyberte svoj primárny jazyk';
@@ -5018,6 +5043,10 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get additionalSpeechSampleRemoved => 'Ďalšia hlasová vzorka odstránená';
+
+  @override
+  String get consentDataMessage =>
+      'Pokračovaním budú vaše konverzácie, nahrávky a osobné údaje bezpečne uložené na našich serveroch. Vaše audio nahrávky a prepisy sú spracovávané AI službami tretích strán (vrátane Deepgram na prepis a OpenAI na analýzu), aby vám poskytli poznatky založené na AI a umožnili všetky funkcie aplikácie.';
 
   @override
   String get tasksEmptyStateMessage =>
@@ -7036,6 +7065,9 @@ class AppLocalizationsSk extends AppLocalizations {
   }
 
   @override
+  String get actionItemReminderTitle => 'Pripomienka Omi';
+
+  @override
   String deviceDisconnectedTitle(String deviceName) {
     return '$deviceName odpojené';
   }
@@ -7726,6 +7758,9 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get authorizingMcpServer => 'Autorizácia…';
+
+  @override
+  String get whereDidYouHearAboutOmi => 'Ako ste nás našli?';
 
   @override
   String get tiktok => 'TikTok';
@@ -9909,6 +9944,9 @@ class AppLocalizationsSk extends AppLocalizations {
   String get transcriptionNoAudio => 'Transkripcia neprijíma zvuk';
 
   @override
+  String get tapPlusToStartRecording => 'Ťuknutím na tlačidlo nahrávania spustíte nahrávanie';
+
+  @override
   String get chatBlockTask => 'Úloha';
 
   @override
@@ -10625,6 +10663,9 @@ class AppLocalizationsSk extends AppLocalizations {
   String get deviceConnecting => 'Pripája sa…';
 
   @override
+  String get recordOptionsTip => 'Tip: klepnutím na šípku na tlačidle nahrávania nahráte telefonický hovor.';
+
+  @override
   String get firmwareUpdateFailedTitle => 'Aktualizácia zlyhala';
 
   @override
@@ -11164,6 +11205,12 @@ class AppLocalizationsSk extends AppLocalizations {
   String get keepUsingPendant => 'Ďalej používať prívesok';
 
   @override
+  String get recordWith => 'Nahrať pomocou';
+
+  @override
+  String get moreWaysToRecord => 'Ďalšie spôsoby nahrávania';
+
+  @override
   String get openCall => 'Otvoriť hovor';
 
   @override
@@ -11209,6 +11256,152 @@ class AppLocalizationsSk extends AppLocalizations {
   String participantsSummaryUncounted(String name) {
     return '$name a ďalší';
   }
+
+  @override
+  String get deviceOnboardingVoiceReplyTitle => 'Vypočujte si odpovede Omi';
+
+  @override
+  String get deviceOnboardingVoiceReplySample => 'Rozumiem. Vaše ďalšie stretnutie sa začne o dvadsať minút.';
+
+  @override
+  String get deviceOnboardingAllSetTitle => 'Všetko je pripravené';
+
+  @override
+  String get deviceOnboardingAllSetSubtitle => 'Ťuknutím na riadok ho skontrolujete alebo zmeníte.';
+
+  @override
+  String get deviceOnboardingAllSetSinglePressBadge => '1×';
+
+  @override
+  String get deviceOnboardingAllSetDoublePressBadge => '2×';
+
+  @override
+  String get deviceOnboardingVoiceReplySubtitle =>
+      'Keď sa spýtate tlačidlom, číslo Omi dokáže prečítať svoju odpoveď nahlas.';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewIdle => 'Vypočujte si svoju poslednú odpoveď';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewPlaying => 'Prehráva sa vaša posledná odpoveď...';
+
+  @override
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device) {
+    return 'Prostredníctvom $device';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker => 'Cez reproduktor telefónu';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput => 'Prostredníctvom aktuálneho zvukového výstupu';
+
+  @override
+  String get deviceOnboardingVoiceReplyOffDescription => 'Odpovede zostávajú na obrazovke. Nič sa nehovorí.';
+
+  @override
+  String get deviceOnboardingVoiceReplyHeadphonesDescription =>
+      'Súkromné. Hovorí iba cez AirPods, Bluetooth alebo káblové slúchadlá.';
+
+  @override
+  String get deviceOnboardingVoiceReplyAlwaysDescription =>
+      'Používa reproduktor telefónu, keď nie sú pripojené žiadne slúchadlá.';
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusOff => 'Omi zostane ticho. Odpovede sa stále zobrazujú v aplikácii.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device) {
+    return '$device pripojené. Tu bude hovoriť Omi.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected =>
+      'Nie sú pripojené žiadne slúchadlá. Omi zostane ticho, kým nejaké nepripojíte.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device) {
+    return 'Prehráva cez číslo $device.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker => 'Prehráva sa nahlas cez reproduktor telefónu.';
+
+  @override
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse) {
+    return 'Toto môžete kedykoľvek zmeniť na čísle $settings › $voiceResponse';
+  }
+
+  @override
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial) {
+    return 'Prehrajte si túto prehliadku kedykoľvek na čísle $settings › $deviceSettings › $deviceTutorial';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyGenericHeadphones => 'Slúchadlá';
+
+  @override
+  String get usageListened => 'Listened';
+
+  @override
+  String get usageWordsHeard => 'Words heard';
+
+  @override
+  String get usageTasksNotes => 'Tasks & notes';
+
+  @override
+  String get usagePeakHour => 'Peak hour';
+
+  @override
+  String get usageBestDay => 'Best day';
+
+  @override
+  String get usageBestMonth => 'Best month';
+
+  @override
+  String get usageBestYear => 'Best year';
+
+  @override
+  String get usageMinutes => 'minút';
+
+  @override
+  String get usageWords => 'Words';
+
+  @override
+  String get usageTasks => 'Úlohy';
+
+  @override
+  String get usageMonth => 'Tento mesiac';
+
+  @override
+  String get usageYear => 'Tento rok';
+
+  @override
+  String get usageAll => 'Celkovo';
+
+  @override
+  String get usageNow => 'now';
+
+  @override
+  String get usageChatThisMonth => 'Chat this month';
+
+  @override
+  String get appearance => 'Vzhľad';
+
+  @override
+  String get appearanceSystem => 'Systém';
+
+  @override
+  String get appearanceLight => 'Svetlý';
+
+  @override
+  String get appearanceDark => 'Tmavý';
+
+  @override
+  String get chatDiscardRecording => 'Zahodiť';
+
+  @override
+  String get voiceQuestionNoSpeech => 'Nerozumel som — skúste to znova';
 
   @override
   String get alreadyHaveAccount => 'Už máte účet?';
@@ -11415,18 +11608,6 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get summaryStyleSubtitle => 'Vyberte aplikáciu, ktorá napíše toto zhrnutie';
-
-  @override
-  String get appearance => 'Vzhľad';
-
-  @override
-  String get appearanceSystem => 'Systém';
-
-  @override
-  String get appearanceLight => 'Svetlý';
-
-  @override
-  String get appearanceDark => 'Tmavý';
 
   @override
   String get feel => 'Odozva';

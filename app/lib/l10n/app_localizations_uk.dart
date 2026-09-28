@@ -1862,6 +1862,9 @@ class AppLocalizationsUk extends AppLocalizations {
   String get openSettings => 'Відкрити налаштування';
 
   @override
+  String get whatsYourName => 'Як вас звати?';
+
+  @override
   String get speakTranscribeSummarize => 'Говоріть. Транскрибуйте. Підсумовуйте.';
 
   @override
@@ -1875,6 +1878,13 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get termsOfUse => 'Умовами використання';
+
+  @override
+  String get omiYourAiCompanion => 'Omi – ваш AI-компаньйон';
+
+  @override
+  String get captureEveryMoment =>
+      'Захопіть кожну мить. Отримуйте підсумки на основі AI.\nНіколи більше не робіть нотатки.';
 
   @override
   String get appleWatchSetup => 'Налаштування Apple Watch';
@@ -1919,6 +1929,18 @@ class AppLocalizationsUk extends AppLocalizations {
   String errorStartingRecording(String error) {
     return 'Помилка початку запису: $error';
   }
+
+  @override
+  String get selectPrimaryLanguage => 'Виберіть свою основну мову';
+
+  @override
+  String get languageBenefits => 'Встановіть свою мову для точнішої транскрипції та персоналізованого досвіду';
+
+  @override
+  String get whatsYourPrimaryLanguage => 'Яка ваша основна мова?';
+
+  @override
+  String get selectYourLanguage => 'Виберіть свою мову';
 
   @override
   String get personalGrowthJourney =>
@@ -3347,6 +3369,9 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get dataProtection => 'Захист даних';
+
+  @override
+  String get yourDataIsProtected => 'Ваші дані захищені та регулюються нашою ';
 
   @override
   String get pleaseSelectYourPrimaryLanguage => 'Будь ласка, оберіть вашу основну мову';
@@ -5026,6 +5051,10 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get additionalSpeechSampleRemoved => 'Додатковий зразок голосу видалено';
+
+  @override
+  String get consentDataMessage =>
+      'Продовжуючи, ваші розмови, записи та особиста інформація будуть надійно зберігатися на наших серверах. Ваші аудіозаписи та транскрипції обробляються сторонніми AI-сервісами (включаючи Deepgram для транскрипції та OpenAI для аналізу), щоб надати вам аналітику на основі ШІ та увімкнути всі функції додатку.';
 
   @override
   String get tasksEmptyStateMessage => 'Завдання з ваших розмов з\'являться тут.\nНатисніть +, щоб створити вручну.';
@@ -7047,6 +7076,9 @@ class AppLocalizationsUk extends AppLocalizations {
   }
 
   @override
+  String get actionItemReminderTitle => 'Нагадування Omi';
+
+  @override
   String deviceDisconnectedTitle(String deviceName) {
     return '$deviceName відключено';
   }
@@ -7745,6 +7777,9 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get authorizingMcpServer => 'Авторизація…';
+
+  @override
+  String get whereDidYouHearAboutOmi => 'Як ви про нас дізналися?';
 
   @override
   String get tiktok => 'TikTok';
@@ -9937,6 +9972,9 @@ class AppLocalizationsUk extends AppLocalizations {
   String get transcriptionNoAudio => 'Транскрипція не отримує аудіо';
 
   @override
+  String get tapPlusToStartRecording => 'Натисніть кнопку запису, щоб почати запис';
+
+  @override
   String get chatBlockTask => 'Завдання';
 
   @override
@@ -10654,6 +10692,9 @@ class AppLocalizationsUk extends AppLocalizations {
   String get deviceConnecting => 'Підключення…';
 
   @override
+  String get recordOptionsTip => 'Порада: торкніться стрілки на кнопці запису, щоб записати телефонний дзвінок.';
+
+  @override
   String get firmwareUpdateFailedTitle => 'Не вдалося оновити';
 
   @override
@@ -11194,6 +11235,12 @@ class AppLocalizationsUk extends AppLocalizations {
   String get keepUsingPendant => 'Продовжити з кулоном';
 
   @override
+  String get recordWith => 'Записати через';
+
+  @override
+  String get moreWaysToRecord => 'Інші способи запису';
+
+  @override
   String get openCall => 'Відкрити дзвінок';
 
   @override
@@ -11239,6 +11286,152 @@ class AppLocalizationsUk extends AppLocalizations {
   String participantsSummaryUncounted(String name) {
     return '$name та інші';
   }
+
+  @override
+  String get deviceOnboardingVoiceReplyTitle => 'Слухайте відповіді Omi';
+
+  @override
+  String get deviceOnboardingVoiceReplySample => 'Зрозуміло. Ваша наступна зустріч почнеться за двадцять хвилин.';
+
+  @override
+  String get deviceOnboardingAllSetTitle => 'Усе готово';
+
+  @override
+  String get deviceOnboardingAllSetSubtitle => 'Торкніться рядка, щоб переглянути або змінити його.';
+
+  @override
+  String get deviceOnboardingAllSetSinglePressBadge => '1×';
+
+  @override
+  String get deviceOnboardingAllSetDoublePressBadge => '2×';
+
+  @override
+  String get deviceOnboardingVoiceReplySubtitle =>
+      'Коли ви запитуєте за допомогою кнопки, Omi може прочитати свою відповідь вголос.';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewIdle => 'Почуй свою останню відповідь';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewPlaying => 'Відтворення вашої останньої відповіді...';
+
+  @override
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device) {
+    return 'Через $device';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker => 'Через динамік телефону';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput => 'Через поточний аудіовихід';
+
+  @override
+  String get deviceOnboardingVoiceReplyOffDescription => 'Відповіді залишаються на екрані. Нічого не говориться.';
+
+  @override
+  String get deviceOnboardingVoiceReplyHeadphonesDescription =>
+      'Приватний. Розмовляє тільки через AirPods, Bluetooth або дротові навушники.';
+
+  @override
+  String get deviceOnboardingVoiceReplyAlwaysDescription =>
+      'Використовує динамік телефону, коли навушники не підключені.';
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusOff => 'Omi буде мовчати. Відповіді все ще відображаються в додатку.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device) {
+    return '$device підключено. Тут говоритиме Omi.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected =>
+      'Навушники не підключено. Omi мовчить, доки ви не підключите кілька.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device) {
+    return 'Грає через $device.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker => 'Відтворюється вголос через динамік телефону.';
+
+  @override
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse) {
+    return 'Ви можете будь-коли змінити це в $settings › $voiceResponse';
+  }
+
+  @override
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial) {
+    return 'Повторіть цей тур будь-коли в $settings › $deviceSettings › $deviceTutorial';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyGenericHeadphones => 'Навушники';
+
+  @override
+  String get usageListened => 'Listened';
+
+  @override
+  String get usageWordsHeard => 'Words heard';
+
+  @override
+  String get usageTasksNotes => 'Tasks & notes';
+
+  @override
+  String get usagePeakHour => 'Peak hour';
+
+  @override
+  String get usageBestDay => 'Best day';
+
+  @override
+  String get usageBestMonth => 'Best month';
+
+  @override
+  String get usageBestYear => 'Best year';
+
+  @override
+  String get usageMinutes => 'хвилин';
+
+  @override
+  String get usageWords => 'Words';
+
+  @override
+  String get usageTasks => 'Завдання';
+
+  @override
+  String get usageMonth => 'Цей місяць';
+
+  @override
+  String get usageYear => 'Цей рік';
+
+  @override
+  String get usageAll => 'За весь час';
+
+  @override
+  String get usageNow => 'now';
+
+  @override
+  String get usageChatThisMonth => 'Chat this month';
+
+  @override
+  String get appearance => 'Вигляд';
+
+  @override
+  String get appearanceSystem => 'Система';
+
+  @override
+  String get appearanceLight => 'Світла';
+
+  @override
+  String get appearanceDark => 'Темна';
+
+  @override
+  String get chatDiscardRecording => 'Скасувати';
+
+  @override
+  String get voiceQuestionNoSpeech => 'Не вдалося розчути — спробуйте ще раз';
 
   @override
   String get alreadyHaveAccount => 'Уже маєте обліковий запис?';
@@ -11446,18 +11639,6 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get summaryStyleSubtitle => 'Виберіть застосунок, який напише цей підсумок';
-
-  @override
-  String get appearance => 'Вигляд';
-
-  @override
-  String get appearanceSystem => 'Системна';
-
-  @override
-  String get appearanceLight => 'Світлий';
-
-  @override
-  String get appearanceDark => 'Темний';
 
   @override
   String get feel => 'Відчуття';

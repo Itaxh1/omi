@@ -1856,6 +1856,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get openSettings => 'সেটিংস খুলুন';
 
   @override
+  String get whatsYourName => 'আপনার নাম কি?';
+
+  @override
   String get speakTranscribeSummarize => 'কথা বলুন। ট্রান্সক্রাইব করুন। সংক্ষিপ্ত করুন।';
 
   @override
@@ -1869,6 +1872,12 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get termsOfUse => 'ব্যবহারের শর্তাবলী';
+
+  @override
+  String get omiYourAiCompanion => 'Omi - আপনার AI সহযোগী';
+
+  @override
+  String get captureEveryMoment => 'প্রতিটি মুহূর্ত ক্যাপচার করুন। AI-চালিত সারসংক্ষেপ পান। কখনও নোট নিন না।';
 
   @override
   String get appleWatchSetup => 'Apple Watch সেটআপ';
@@ -1913,6 +1922,18 @@ class AppLocalizationsBn extends AppLocalizations {
   String errorStartingRecording(String error) {
     return 'রেকর্ডিং শুরু করতে ত্রুটি: $error';
   }
+
+  @override
+  String get selectPrimaryLanguage => 'আপনার প্রাথমিক ভাষা নির্বাচন করুন';
+
+  @override
+  String get languageBenefits => 'তীক্ষ্ণ ট্রান্সক্রিপশন এবং ব্যক্তিগতকৃত অভিজ্ঞতার জন্য আপনার ভাষা সেট করুন';
+
+  @override
+  String get whatsYourPrimaryLanguage => 'আপনার প্রাথমিক ভাষা কি?';
+
+  @override
+  String get selectYourLanguage => 'আপনার ভাষা নির্বাচন করুন';
 
   @override
   String get personalGrowthJourney => 'AI এর সাথে আপনার ব্যক্তিগত বৃদ্ধির যাত্রা যা আপনার প্রতিটি শব্দ শোনে।';
@@ -3348,6 +3369,9 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get dataProtection => 'ডেটা সুরক্ষা';
+
+  @override
+  String get yourDataIsProtected => 'আপনার ডেটা আমাদের ';
 
   @override
   String get pleaseSelectYourPrimaryLanguage => 'অনুগ্রহ করে আপনার প্রাথমিক ভাষা নির্বাচন করুন';
@@ -5028,6 +5052,10 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get additionalSpeechSampleRemoved => 'অতিরিক্ত বক্তৃতা নমুনা সরানো হয়েছে';
+
+  @override
+  String get consentDataMessage =>
+      'চালিয়ে যাওয়ার মাধ্যমে, আপনার কথোপকথন, রেকর্ডিং এবং ব্যক্তিগত তথ্য আমাদের সার্ভারে নিরাপদে সংরক্ষণ করা হবে। আপনার অডিও রেকর্ডিং এবং ট্রান্সক্রিপ্ট তৃতীয় পক্ষের AI পরিষেবা দ্বারা প্রক্রিয়া করা হয় (ট্রান্সক্রিপশনের জন্য Deepgram এবং বিশ্লেষণের জন্য OpenAI সহ) যাতে আপনাকে AI-চালিত অন্তর্দৃষ্টি প্রদান করা যায় এবং সমস্ত অ্যাপ বৈশিষ্ট্য সক্ষম করা যায়।';
 
   @override
   String get tasksEmptyStateMessage =>
@@ -7048,6 +7076,9 @@ class AppLocalizationsBn extends AppLocalizations {
   }
 
   @override
+  String get actionItemReminderTitle => 'Omi রিমাইন্ডার';
+
+  @override
   String deviceDisconnectedTitle(String deviceName) {
     return '$deviceName সংযোগ বিচ্ছিন্ন';
   }
@@ -7743,6 +7774,9 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get authorizingMcpServer => 'অনুমোদন করা হচ্ছে…';
+
+  @override
+  String get whereDidYouHearAboutOmi => 'আপনি আমাদের সম্পর্কে কীভাবে জানলেন?';
 
   @override
   String get tiktok => 'TikTok';
@@ -9921,6 +9955,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get transcriptionNoAudio => 'ট্রান্সক্রিপশন অডিও গ্রহণ করছে না';
 
   @override
+  String get tapPlusToStartRecording => 'রেকর্ডিং শুরু করতে রেকর্ড বোতাম চাপুন';
+
+  @override
   String get chatBlockTask => 'কাজ';
 
   @override
@@ -10638,6 +10675,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get deviceConnecting => 'সংযোগ হচ্ছে…';
 
   @override
+  String get recordOptionsTip => 'টিপ: ফোন কল রেকর্ড করতে রেকর্ড বোতামের তীর চিহ্নে চাপুন।';
+
+  @override
   String get firmwareUpdateFailedTitle => 'আপডেট ব্যর্থ হয়েছে';
 
   @override
@@ -11175,6 +11215,12 @@ class AppLocalizationsBn extends AppLocalizations {
   String get keepUsingPendant => 'পেন্ডেন্ট ব্যবহার চালিয়ে যান';
 
   @override
+  String get recordWith => 'রেকর্ডের মাধ্যম';
+
+  @override
+  String get moreWaysToRecord => 'রেকর্ড করার আরও উপায়';
+
+  @override
   String get openCall => 'কল খুলুন';
 
   @override
@@ -11221,6 +11267,150 @@ class AppLocalizationsBn extends AppLocalizations {
   String participantsSummaryUncounted(String name) {
     return '$name ও অন্যরা';
   }
+
+  @override
+  String get deviceOnboardingVoiceReplyTitle => 'Omi-এর উত্তর শুনুন';
+
+  @override
+  String get deviceOnboardingVoiceReplySample => 'হয়ে গেছে। আপনার পরবর্তী মিটিং বিশ মিনিট পরে শুরু হবে।';
+
+  @override
+  String get deviceOnboardingAllSetTitle => 'সব প্রস্তুত';
+
+  @override
+  String get deviceOnboardingAllSetSubtitle => 'পর্যালোচনা বা পরিবর্তন করতে একটি সারিতে ট্যাপ করুন।';
+
+  @override
+  String get deviceOnboardingAllSetSinglePressBadge => '1×';
+
+  @override
+  String get deviceOnboardingAllSetDoublePressBadge => '2×';
+
+  @override
+  String get deviceOnboardingVoiceReplySubtitle => 'আপনি বোতাম দিয়ে জিজ্ঞাসা করলে, Omi উচ্চস্বরে এর উত্তর পড়তে পারে।';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewIdle => 'আপনার শেষ উত্তর শুনুন';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewPlaying => 'আপনার শেষ উত্তর বাজানো হচ্ছে...';
+
+  @override
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device) {
+    return '$device এর মাধ্যমে';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker => 'ফোন স্পিকারের মাধ্যমে';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput => 'বর্তমান অডিও আউটপুট মাধ্যমে';
+
+  @override
+  String get deviceOnboardingVoiceReplyOffDescription => 'উত্তরগুলি পর্দায় থাকে। কোনো কথা বলা হয় না।';
+
+  @override
+  String get deviceOnboardingVoiceReplyHeadphonesDescription =>
+      'ব্যক্তিগত। শুধুমাত্র AirPods, Bluetooth বা তারযুক্ত হেডফোনের মাধ্যমে কথা বলে।';
+
+  @override
+  String get deviceOnboardingVoiceReplyAlwaysDescription => 'কোনো হেডফোন সংযুক্ত না থাকলে ফোনের স্পিকার ব্যবহার করে।';
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusOff => 'Omi নীরব থাকবে। উত্তর এখনও অ্যাপে প্রদর্শিত হবে।';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device) {
+    return '$device সংযুক্ত। Omi এখানে কথা বলবে।';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected =>
+      'কোনো হেডফোন সংযুক্ত নেই৷ আপনি কিছু সংযোগ না করা পর্যন্ত Omi নীরব থাকে।';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device) {
+    return '$device এর মাধ্যমে বাজায়।';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker => 'ফোন স্পিকারের মাধ্যমে জোরে বাজে।';
+
+  @override
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse) {
+    return 'আপনি $settings › $voiceResponse এ যেকোনো সময় এটি পরিবর্তন করতে পারেন';
+  }
+
+  @override
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial) {
+    return '$settings › $deviceSettings › $deviceTutorial এ যেকোনও সময় এই সফরটি পুনরায় চালান';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyGenericHeadphones => 'হেডফোন';
+
+  @override
+  String get usageListened => 'Listened';
+
+  @override
+  String get usageWordsHeard => 'Words heard';
+
+  @override
+  String get usageTasksNotes => 'Tasks & notes';
+
+  @override
+  String get usagePeakHour => 'Peak hour';
+
+  @override
+  String get usageBestDay => 'Best day';
+
+  @override
+  String get usageBestMonth => 'Best month';
+
+  @override
+  String get usageBestYear => 'Best year';
+
+  @override
+  String get usageMinutes => 'মিনিট';
+
+  @override
+  String get usageWords => 'Words';
+
+  @override
+  String get usageTasks => 'কাজ';
+
+  @override
+  String get usageMonth => 'এই মাস';
+
+  @override
+  String get usageYear => 'এই বছর';
+
+  @override
+  String get usageAll => 'সর্বকাল';
+
+  @override
+  String get usageNow => 'now';
+
+  @override
+  String get usageChatThisMonth => 'Chat this month';
+
+  @override
+  String get appearance => 'চেহারা';
+
+  @override
+  String get appearanceSystem => 'সিস্টেম';
+
+  @override
+  String get appearanceLight => 'হালকা';
+
+  @override
+  String get appearanceDark => 'গাঢ়';
+
+  @override
+  String get chatDiscardRecording => 'বাতিল করুন';
+
+  @override
+  String get voiceQuestionNoSpeech => 'শুনতে পাইনি — আবার চেষ্টা করুন';
 
   @override
   String get alreadyHaveAccount => 'ইতিমধ্যে অ্যাকাউন্ট আছে?';
@@ -11428,18 +11618,6 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get summaryStyleSubtitle => 'কোন অ্যাপ এই সারাংশ লিখবে তা বেছে নিন';
-
-  @override
-  String get appearance => 'চেহারা';
-
-  @override
-  String get appearanceSystem => 'সিস্টেম';
-
-  @override
-  String get appearanceLight => 'হালকা';
-
-  @override
-  String get appearanceDark => 'গাঢ়';
 
   @override
   String get feel => 'অনুভূতি';

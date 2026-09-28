@@ -2,6 +2,63 @@
   "unreleased": [],
   "releases": [
     {
+      "version": "0.12.408",
+      "date": "2026-09-27",
+      "changes": [
+        "Bug fixes and improvements"
+      ]
+    },
+    {
+      "version": "0.12.407",
+      "date": "2026-09-27",
+      "changes": [
+        "Long conversation titles and related generated labels now remain readable through wrapping or tooltips on mobile and macOS.",
+        "Stopped conversation notes from showing screenshots captured outside the conversation's trusted transcript window"
+      ]
+    },
+    {
+      "version": "0.12.406",
+      "date": "2026-09-27",
+      "changes": [
+        "Bug fixes and improvements"
+      ]
+    },
+    {
+      "version": "0.12.405",
+      "date": "2026-09-27",
+      "changes": [
+        "Fixed desktop chat usage showing unlimited for keys that do not power chat, and clarified that BYOK covers supported features rather than every Omi service"
+      ]
+    },
+    {
+      "version": "0.12.404",
+      "date": "2026-09-27",
+      "changes": [
+        "Bug fixes and improvements"
+      ]
+    },
+    {
+      "version": "0.12.403",
+      "date": "2026-09-27",
+      "changes": [
+        "Fixed conversation summaries to show compact Sources controls instead of internal transcript identifiers"
+      ]
+    },
+    {
+      "version": "0.12.402",
+      "date": "2026-09-26",
+      "changes": [
+        "Improved chat scrolling reliability and added read-only automation that blocks actions which can change app or account data."
+      ]
+    },
+    {
+      "version": "0.12.401",
+      "date": "2026-09-26",
+      "changes": [
+        "Bug fixes and improvements"
+      ]
+    },
+    {
       "version": "0.12.400",
       "date": "2026-09-26",
       "changes": [

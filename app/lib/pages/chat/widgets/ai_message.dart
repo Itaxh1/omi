@@ -174,7 +174,8 @@ Widget _buildThinkingIconWidget(String thinkingText, {double size = 15, Color? c
         width: size,
         height: size,
         fit: BoxFit.cover,
-        errorBuilder: (context, error, stackTrace) => FaIcon(_getThinkingIcon(thinkingText), size: size, color: color),
+        errorBuilder: (context, error, stackTrace) =>
+            FaIcon(_getThinkingIcon(thinkingText), size: size, color: color ?? OmiColors.textPrimary),
       ),
     );
   }
@@ -301,6 +302,20 @@ class _AIMessageState extends State<AIMessage> {
             fetchConversation: widget.fetchConversation,
           ),
         ),
+        if (!widget.showTypingIndicator && widget.message.memoryAction != null) ...[
+          const SizedBox(height: 8),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.psychology_outlined, size: 14, color: OmiColors.textTertiary),
+              const SizedBox(width: 4),
+              Text(
+                widget.message.memoryAction == 'updated' ? context.l10n.memoryReviewUpdated : context.l10n.saved,
+                style: OmiType.footnote.copyWith(color: OmiColors.textTertiary),
+              ),
+            ],
+          ),
+        ],
       ],
     );
   }

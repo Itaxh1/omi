@@ -8403,6 +8403,17 @@
             "title": "Revision",
             "type": "integer"
           },
+          "selection_fingerprint": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Selection Fingerprint"
+          },
           "strip": {
             "items": {
               "$ref": "#/components/schemas/ConversationScreenFrame"
@@ -9430,15 +9441,6 @@
           "conversation_finalization_reason": {
             "anyOf": [
               {
-                "enum": [
-                  "user_stop",
-                  "finish_and_continue",
-                  "meeting_started",
-                  "meeting_ended",
-                  "max_duration_rotation",
-                  "crash_recovery",
-                  "retry"
-                ],
                 "type": "string"
               },
               {
@@ -15676,7 +15678,7 @@
         "type": "object"
       },
       "IntegrationData": {
-        "description": "Data for an integration connection",
+        "description": "Compatibility input for integrations without a server OAuth flow.\n\nDeprecated credential fields remain in the released app-client schema, but\nregistered OAuth providers are rejected before any value is persisted.",
         "properties": {
           "access_token": {
             "anyOf": [
@@ -15687,6 +15689,7 @@
                 "type": "null"
               }
             ],
+            "deprecated": true,
             "title": "Access Token"
           },
           "connected": {
@@ -15703,6 +15706,7 @@
                 "type": "null"
               }
             ],
+            "deprecated": true,
             "title": "Refresh Token"
           }
         },
@@ -27638,6 +27642,26 @@
         "title": "TaskIntegrationMutationResponse",
         "type": "object"
       },
+      "TaskIntegrationStatus": {
+        "additionalProperties": false,
+        "description": "Non-secret projection safe for clients, support tooling, and OpenAPI.",
+        "properties": {
+          "app_key": {
+            "title": "App Key",
+            "type": "string"
+          },
+          "connected": {
+            "title": "Connected",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "app_key",
+          "connected"
+        ],
+        "title": "TaskIntegrationStatus",
+        "type": "object"
+      },
       "TaskIntegrationsResponse": {
         "description": "Response containing all task integrations",
         "properties": {
@@ -27654,8 +27678,10 @@
             "title": "Default App"
           },
           "integrations": {
-            "additionalProperties": true,
-            "description": "Map of app_key to connection details",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/TaskIntegrationStatus"
+            },
+            "description": "Map of app_key to non-secret status",
             "title": "Integrations",
             "type": "object"
           }
@@ -41210,6 +41236,23 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/BulkAssignSegmentsRequest"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Data"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "content": {
@@ -50624,7 +50667,7 @@
         ]
       },
       "put": {
-        "description": "Save or update an integration connection.",
+        "description": "Save non-secret state for integrations without server-managed OAuth.\n\nOAuth credentials are accepted only from a provider callback into the\nencrypted control plane. This legacy compatibility route cannot inject or\nreplace a provider token.",
         "operationId": "save_integration_v1_integrations__app_key__put",
         "parameters": [
           {
@@ -62866,6 +62909,22 @@
             }
           },
           {
+            "in": "query",
+            "name": "time_zone",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Time Zone"
+            }
+          },
+          {
             "in": "header",
             "name": "authorization",
             "required": false,
@@ -68936,6 +68995,56 @@
             }
           },
           {
+            "description": "Client recording session id. When conversation_id is omitted and one conversation for this user, source, and device already carries this id, attach the audio to that conversation.",
+            "in": "query",
+            "name": "recording_session_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Client recording session id. When conversation_id is omitted and one conversation for this user, source, and device already carries this id, attach the audio to that conversation.",
+              "title": "Recording Session Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "audio_start_seconds",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Audio Start Seconds"
+            }
+          },
+          {
+            "in": "query",
+            "name": "audio_end_seconds",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Audio End Seconds"
+            }
+          },
+          {
             "in": "header",
             "name": "X-App-Platform",
             "required": false,
@@ -69176,7 +69285,7 @@
     },
     "/v2/tts/synthesize": {
       "post": {
-        "description": "Proxy a TTS request to ElevenLabs. Per-user rate limited.",
+        "description": "Synthesize MP3 speech through Gemini, with a legacy rollback path.",
         "operationId": "tts_synthesize_v2_tts_synthesize_post",
         "parameters": [
           {

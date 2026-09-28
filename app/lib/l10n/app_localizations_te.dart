@@ -1865,6 +1865,9 @@ class AppLocalizationsTe extends AppLocalizations {
   String get openSettings => 'సెట్టింగ్‌లను తెరండి';
 
   @override
+  String get whatsYourName => 'మీ పేరు ఏమిటి?';
+
+  @override
   String get speakTranscribeSummarize => 'మాట్లాడండి. ట్రాన్‌స్క్రిప్ట్ చేయండి. సారాంశం చేయండి.';
 
   @override
@@ -1878,6 +1881,13 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get termsOfUse => 'ఉపయోగ నిబంధనలు';
+
+  @override
+  String get omiYourAiCompanion => 'Omi – మీ AI సహచరి';
+
+  @override
+  String get captureEveryMoment =>
+      'ప్రతి క్షణాన్ని చేపట్టండి. AI ఆధారిత\nసారాంశాలను పొందండి. ఎప్పుడూ నోట్‌లు తీసుకోవద్దు.';
 
   @override
   String get appleWatchSetup => 'Apple Watch సెటప్';
@@ -1922,6 +1932,19 @@ class AppLocalizationsTe extends AppLocalizations {
   String errorStartingRecording(String error) {
     return 'రికార్డింగ్ ప్రారంభించడంలో ఎర్రర్: $error';
   }
+
+  @override
+  String get selectPrimaryLanguage => 'మీ ప్రాధమిక భాషను ఎంచుకోండి';
+
+  @override
+  String get languageBenefits =>
+      'మరింత ఖచ్చితమైన ట్రాన్‌స్క్రిప్షన్‌లు మరియు ఎంపిక చేసిన అనుభవం కోసం మీ భాష సెట్ చేయండి';
+
+  @override
+  String get whatsYourPrimaryLanguage => 'మీ ప్రాధమిక భాష ఏమిటి?';
+
+  @override
+  String get selectYourLanguage => 'మీ భాషను ఎంచుకోండి';
 
   @override
   String get personalGrowthJourney => 'AI తో మీ ఏకస్వ వృద్ధి ఉపయోగం ఇది మీ ప్రతిదాన్ని విని నిర్ణయిస్తుంది.';
@@ -3360,6 +3383,9 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get dataProtection => 'డేటా సంరక్షణ';
+
+  @override
+  String get yourDataIsProtected => 'మీ డేటా సంరక్షించబడుతుంది మరియు మా ';
 
   @override
   String get pleaseSelectYourPrimaryLanguage => 'దయచేసి మీ ప్రాథమిక భాషను ఎంచుకోండి';
@@ -5049,6 +5075,10 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get additionalSpeechSampleRemoved => 'అదనపు ప్రసంగ నమూనా తీసివేయబడింది';
+
+  @override
+  String get consentDataMessage =>
+      'కొనసాగించడం ద్వారా, మీ సంభాషణలు, రికార్డింగ్‌లు మరియు వ్యక్తిగత సమాచారం మా సర్వర్‌లలో సురక్షితంగా నిల్వ చేయబడతాయి. మీ ఆడియో రికార్డింగ్‌లు మరియు ట్రాన్‌స్క్రిప్ట్‌లు థర్డ్-పార్టీ AI సేవల ద్వారా ప్రాసెస్ చేయబడతాయి (ట్రాన్‌స్క్రిప్షన్ కోసం Deepgram మరియు విశ్లేషణ కోసం OpenAI సహా) AI-ఆధారిత అంతర్దృష్టులను అందించడానికి మరియు అన్ని యాప్ ఫీచర్‌లను ప్రారంభించడానికి.';
 
   @override
   String get tasksEmptyStateMessage => 'మీ సంభాషణల నుండి చర్యలు ఇక్కడ కనిపిస్తాయి.\n+ నిర్ణయం చేయడానికి ట్యాప్ చేయండి.';
@@ -7079,6 +7109,9 @@ class AppLocalizationsTe extends AppLocalizations {
   }
 
   @override
+  String get actionItemReminderTitle => 'Omi రిమైండర్';
+
+  @override
   String deviceDisconnectedTitle(String deviceName) {
     return '$deviceName డిస్‌కనెక్ట్ చేయబడింది';
   }
@@ -7777,6 +7810,9 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get authorizingMcpServer => 'అధికారం ఇస్తోంది…';
+
+  @override
+  String get whereDidYouHearAboutOmi => 'మీరు amin గురించి ఎలా తెలుసుకున్నారు?';
 
   @override
   String get tiktok => 'TikTok';
@@ -9963,6 +9999,9 @@ class AppLocalizationsTe extends AppLocalizations {
   String get transcriptionNoAudio => 'ట్రాన్స్‌క్రిప్షన్ ఆడియో స్వీకరించడం లేదు';
 
   @override
+  String get tapPlusToStartRecording => 'రికార్డింగ్ ప్రారంభించడానికి రికార్డ్ బటన్ నొక్కండి';
+
+  @override
   String get chatBlockTask => 'పని';
 
   @override
@@ -10681,6 +10720,9 @@ class AppLocalizationsTe extends AppLocalizations {
   String get deviceConnecting => 'కనెక్ట్ అవుతోంది…';
 
   @override
+  String get recordOptionsTip => 'చిట్కా: ఫోన్ కాల్ రికార్డ్ చేయడానికి రికార్డ్ బటన్‌పై ఉన్న బాణం గుర్తును నొక్కండి.';
+
+  @override
   String get firmwareUpdateFailedTitle => 'అప్‌డేట్ విఫలమైంది';
 
   @override
@@ -11220,6 +11262,12 @@ class AppLocalizationsTe extends AppLocalizations {
   String get keepUsingPendant => 'పెండెంట్‌నే ఉపయోగించండి';
 
   @override
+  String get recordWith => 'రికార్డ్ చేసే విధానం';
+
+  @override
+  String get moreWaysToRecord => 'రికార్డ్ చేయడానికి మరిన్ని మార్గాలు';
+
+  @override
   String get openCall => 'కాల్‌ను తెరవండి';
 
   @override
@@ -11266,6 +11314,151 @@ class AppLocalizationsTe extends AppLocalizations {
   String participantsSummaryUncounted(String name) {
     return '$name మరియు ఇతరులు';
   }
+
+  @override
+  String get deviceOnboardingVoiceReplyTitle => 'Omi సమాధానాలను వినండి';
+
+  @override
+  String get deviceOnboardingVoiceReplySample => 'అర్థమైంది. మీ తదుపరి సమావేశం ఇరవై నిమిషాల్లో ప్రారంభమవుతుంది.';
+
+  @override
+  String get deviceOnboardingAllSetTitle => 'అన్నీ సిద్ధంగా ఉన్నాయి';
+
+  @override
+  String get deviceOnboardingAllSetSubtitle => 'సమీక్షించడానికి లేదా మార్చడానికి వరుసను నొక్కండి.';
+
+  @override
+  String get deviceOnboardingAllSetSinglePressBadge => '1×';
+
+  @override
+  String get deviceOnboardingAllSetDoublePressBadge => '2×';
+
+  @override
+  String get deviceOnboardingVoiceReplySubtitle => 'మీరు బటన్‌తో అడిగినప్పుడు, Omi దాని సమాధానాన్ని బిగ్గరగా చదవగలదు.';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewIdle => 'మీ చివరి సమాధానం వినండి';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewPlaying => 'మీ చివరి సమాధానాన్ని ప్లే చేస్తోంది...';
+
+  @override
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device) {
+    return '$device ద్వారా';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker => 'ఫోన్ స్పీకర్ ద్వారా';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput => 'ప్రస్తుత ఆడియో అవుట్‌పుట్ ద్వారా';
+
+  @override
+  String get deviceOnboardingVoiceReplyOffDescription => 'సమాధానాలు తెరపైనే ఉంటాయి. ఏమీ మాట్లాడలేదు.';
+
+  @override
+  String get deviceOnboardingVoiceReplyHeadphonesDescription =>
+      'ప్రైవేట్. AirPods, Bluetooth లేదా వైర్డు హెడ్‌ఫోన్‌ల ద్వారా మాత్రమే మాట్లాడుతుంది.';
+
+  @override
+  String get deviceOnboardingVoiceReplyAlwaysDescription =>
+      'హెడ్‌ఫోన్‌లు కనెక్ట్ కానప్పుడు ఫోన్ స్పీకర్‌ని ఉపయోగిస్తుంది.';
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusOff => 'Omi మౌనంగా ఉంటుంది. సమాధానాలు ఇప్పటికీ యాప్‌లో కనిపిస్తాయి.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device) {
+    return '$device కనెక్ట్ చేయబడింది. Omi ఇక్కడ మాట్లాడతారు.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected =>
+      'హెడ్‌ఫోన్‌లు కనెక్ట్ కాలేదు. మీరు కొన్నింటిని కనెక్ట్ చేసే వరకు Omi నిశ్శబ్దంగా ఉంటుంది.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device) {
+    return '$device ద్వారా ఆడుతుంది.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker => 'ఫోన్ స్పీకర్ ద్వారా బిగ్గరగా ప్లే చేస్తుంది.';
+
+  @override
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse) {
+    return 'మీరు దీన్ని ఎప్పుడైనా $settings › $voiceResponseలో మార్చవచ్చు';
+  }
+
+  @override
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial) {
+    return 'ఈ పర్యటనను ఎప్పుడైనా $settings › $deviceSettings › $deviceTutorialలో మళ్లీ ప్లే చేయండి';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyGenericHeadphones => 'హెడ్‌ఫోన్‌లు';
+
+  @override
+  String get usageListened => 'Listened';
+
+  @override
+  String get usageWordsHeard => 'Words heard';
+
+  @override
+  String get usageTasksNotes => 'Tasks & notes';
+
+  @override
+  String get usagePeakHour => 'Peak hour';
+
+  @override
+  String get usageBestDay => 'Best day';
+
+  @override
+  String get usageBestMonth => 'Best month';
+
+  @override
+  String get usageBestYear => 'Best year';
+
+  @override
+  String get usageMinutes => 'నిమిషాలు';
+
+  @override
+  String get usageWords => 'Words';
+
+  @override
+  String get usageTasks => 'పనులు';
+
+  @override
+  String get usageMonth => 'ఈ నెల';
+
+  @override
+  String get usageYear => 'ఈ సంవత్సరం';
+
+  @override
+  String get usageAll => 'అన్ని సమయం';
+
+  @override
+  String get usageNow => 'now';
+
+  @override
+  String get usageChatThisMonth => 'Chat this month';
+
+  @override
+  String get appearance => 'రూపం';
+
+  @override
+  String get appearanceSystem => 'సిస్టమ్';
+
+  @override
+  String get appearanceLight => 'లైట్';
+
+  @override
+  String get appearanceDark => 'డార్క్';
+
+  @override
+  String get chatDiscardRecording => 'విస్మరించు';
+
+  @override
+  String get voiceQuestionNoSpeech => 'వినిపించలేదు — మళ్లీ ప్రయత్నించండి';
 
   @override
   String get alreadyHaveAccount => 'ఇప్పటికే ఖాతా ఉందా?';
@@ -11474,18 +11667,6 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get summaryStyleSubtitle => 'ఈ సారాంశాన్ని ఏ యాప్ రాయాలో ఎంచుకోండి';
-
-  @override
-  String get appearance => 'రూపం';
-
-  @override
-  String get appearanceSystem => 'సిస్టమ్';
-
-  @override
-  String get appearanceLight => 'లైట్';
-
-  @override
-  String get appearanceDark => 'డార్క్';
 
   @override
   String get feel => 'అనుభూతి';

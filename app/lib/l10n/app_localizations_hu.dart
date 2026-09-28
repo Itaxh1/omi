@@ -1872,6 +1872,9 @@ class AppLocalizationsHu extends AppLocalizations {
   String get openSettings => 'Beállítások megnyitása';
 
   @override
+  String get whatsYourName => 'Mi a neved?';
+
+  @override
   String get speakTranscribeSummarize => 'Beszélj. Átírás. Összefoglalás.';
 
   @override
@@ -1885,6 +1888,13 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get termsOfUse => 'Felhasználási feltételeket';
+
+  @override
+  String get omiYourAiCompanion => 'Omi – AI társad';
+
+  @override
+  String get captureEveryMoment =>
+      'Rögzítsd minden pillanatot. Kapj AI-alapú\nösszefoglalókat. Soha többé ne kelljen jegyzetet készítened.';
 
   @override
   String get appleWatchSetup => 'Apple Watch beállítása';
@@ -1929,6 +1939,18 @@ class AppLocalizationsHu extends AppLocalizations {
   String errorStartingRecording(String error) {
     return 'Hiba a felvétel indításakor: $error';
   }
+
+  @override
+  String get selectPrimaryLanguage => 'Válaszd ki az elsődleges nyelvedet';
+
+  @override
+  String get languageBenefits => 'Állítsd be a nyelvedet a pontosabb átíráshoz és személyre szabott élményhez';
+
+  @override
+  String get whatsYourPrimaryLanguage => 'Mi az elsődleges nyelved?';
+
+  @override
+  String get selectYourLanguage => 'Válaszd ki a nyelvedet';
 
   @override
   String get personalGrowthJourney => 'Személyes növekedési utazásod AI-val, amely minden szavadra figyel.';
@@ -3363,6 +3385,9 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get dataProtection => 'Adatvédelem';
+
+  @override
+  String get yourDataIsProtected => 'Adataid védettek és ';
 
   @override
   String get pleaseSelectYourPrimaryLanguage => 'Kérjük, válassza ki az elsődleges nyelvét';
@@ -5047,6 +5072,10 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get additionalSpeechSampleRemoved => 'További hangminta eltávolítva';
+
+  @override
+  String get consentDataMessage =>
+      'A folytatással beszélgetéseit, felvételeit és személyes adatait biztonságosan tároljuk szervereinken. Hangfelvételeit és átiratait harmadik féltől származó AI szolgáltatások dolgozzák fel (beleértve a Deepgramot az átíráshoz és az OpenAI-t az elemzéshez), hogy AI-alapú betekintéseket nyújtsunk Önnek és az alkalmazás összes funkcióját biztosítsuk.';
 
   @override
   String get tasksEmptyStateMessage =>
@@ -7070,6 +7099,9 @@ class AppLocalizationsHu extends AppLocalizations {
   }
 
   @override
+  String get actionItemReminderTitle => 'Omi emlékeztető';
+
+  @override
   String deviceDisconnectedTitle(String deviceName) {
     return '$deviceName lecsatlakoztatva';
   }
@@ -7769,6 +7801,9 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get authorizingMcpServer => 'Engedélyezés…';
+
+  @override
+  String get whereDidYouHearAboutOmi => 'Hogyan találtál ránk?';
 
   @override
   String get tiktok => 'TikTok';
@@ -9956,6 +9991,9 @@ class AppLocalizationsHu extends AppLocalizations {
   String get transcriptionNoAudio => 'Az átírás nem kap hangot';
 
   @override
+  String get tapPlusToStartRecording => 'Koppints a felvétel gombra a felvétel indításához';
+
+  @override
   String get chatBlockTask => 'Feladat';
 
   @override
@@ -10675,6 +10713,9 @@ class AppLocalizationsHu extends AppLocalizations {
   String get deviceConnecting => 'Csatlakozás…';
 
   @override
+  String get recordOptionsTip => 'Tipp: telefonhívás rögzítéséhez koppints a felvétel gomb nyilára.';
+
+  @override
   String get firmwareUpdateFailedTitle => 'A frissítés nem sikerült';
 
   @override
@@ -11216,6 +11257,12 @@ class AppLocalizationsHu extends AppLocalizations {
   String get keepUsingPendant => 'Maradok a medálnál';
 
   @override
+  String get recordWith => 'Rögzítés ezzel';
+
+  @override
+  String get moreWaysToRecord => 'További rögzítési módok';
+
+  @override
   String get openCall => 'Hívás megnyitása';
 
   @override
@@ -11262,6 +11309,152 @@ class AppLocalizationsHu extends AppLocalizations {
   String participantsSummaryUncounted(String name) {
     return '$name és mások';
   }
+
+  @override
+  String get deviceOnboardingVoiceReplyTitle => 'Hallgasd meg Omi válaszait';
+
+  @override
+  String get deviceOnboardingVoiceReplySample => 'Rendben. A következő megbeszélésed húsz perc múlva kezdődik.';
+
+  @override
+  String get deviceOnboardingAllSetTitle => 'Minden készen áll';
+
+  @override
+  String get deviceOnboardingAllSetSubtitle => 'Koppints egy sorra az ellenőrzéshez vagy módosításhoz.';
+
+  @override
+  String get deviceOnboardingAllSetSinglePressBadge => '1×';
+
+  @override
+  String get deviceOnboardingAllSetDoublePressBadge => '2×';
+
+  @override
+  String get deviceOnboardingVoiceReplySubtitle => 'Ha a gombbal kérdez, a Omi fel tudja olvasni a választ.';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewIdle => 'Hallgassa meg utolsó válaszát';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewPlaying => 'Az utolsó válasz lejátszása...';
+
+  @override
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device) {
+    return '$device számon keresztül';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker => 'A telefon hangszóróján keresztül';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput => 'Az aktuális hangkimeneten keresztül';
+
+  @override
+  String get deviceOnboardingVoiceReplyOffDescription => 'A válaszok a képernyőn maradnak. Semmit sem beszélnek.';
+
+  @override
+  String get deviceOnboardingVoiceReplyHeadphonesDescription =>
+      'Privát. Csak a AirPods, Bluetooth vagy vezetékes fejhallgatón keresztül beszél.';
+
+  @override
+  String get deviceOnboardingVoiceReplyAlwaysDescription =>
+      'A telefon hangszóróját használja, ha nincs fejhallgató csatlakoztatva.';
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusOff =>
+      'Omi néma marad. A válaszok továbbra is megjelennek az alkalmazásban.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device) {
+    return '$device csatlakoztatva. Omi fog itt beszélni.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected =>
+      'Nincs csatlakoztatva fejhallgató. Omi néma marad, amíg nem csatlakoztat néhányat.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device) {
+    return 'Lejátszás a $device számon keresztül.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker => 'Hangosan játszik le a telefon hangszóróján keresztül.';
+
+  @override
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse) {
+    return 'Ezt bármikor módosíthatja a $settings › $voiceResponse számon';
+  }
+
+  @override
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial) {
+    return 'A körutat bármikor újra lejátszhatja a következő számon: $settings › $deviceSettings › $deviceTutorial';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyGenericHeadphones => 'Fejhallgató';
+
+  @override
+  String get usageListened => 'Listened';
+
+  @override
+  String get usageWordsHeard => 'Words heard';
+
+  @override
+  String get usageTasksNotes => 'Tasks & notes';
+
+  @override
+  String get usagePeakHour => 'Peak hour';
+
+  @override
+  String get usageBestDay => 'Best day';
+
+  @override
+  String get usageBestMonth => 'Best month';
+
+  @override
+  String get usageBestYear => 'Best year';
+
+  @override
+  String get usageMinutes => 'perc';
+
+  @override
+  String get usageWords => 'Words';
+
+  @override
+  String get usageTasks => 'Feladatok';
+
+  @override
+  String get usageMonth => 'Ez a hónap';
+
+  @override
+  String get usageYear => 'Ez az év';
+
+  @override
+  String get usageAll => 'Minden idők';
+
+  @override
+  String get usageNow => 'now';
+
+  @override
+  String get usageChatThisMonth => 'Chat this month';
+
+  @override
+  String get appearance => 'Megjelenés';
+
+  @override
+  String get appearanceSystem => 'Rendszer';
+
+  @override
+  String get appearanceLight => 'Világos';
+
+  @override
+  String get appearanceDark => 'Sötét';
+
+  @override
+  String get chatDiscardRecording => 'Elvetés';
+
+  @override
+  String get voiceQuestionNoSpeech => 'Nem értettem — próbáld újra';
 
   @override
   String get alreadyHaveAccount => 'Már van fiókod?';
@@ -11470,18 +11663,6 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get summaryStyleSubtitle => 'Válaszd ki, melyik app írja ezt az összefoglalót';
-
-  @override
-  String get appearance => 'Megjelenés';
-
-  @override
-  String get appearanceSystem => 'Rendszer';
-
-  @override
-  String get appearanceLight => 'Világos';
-
-  @override
-  String get appearanceDark => 'Sötét';
 
   @override
   String get feel => 'Érzet';

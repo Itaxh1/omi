@@ -1825,6 +1825,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get openSettings => '設定を開く';
 
   @override
+  String get whatsYourName => 'お名前は何ですか？';
+
+  @override
   String get speakTranscribeSummarize => '話す。文字起こし。要約。';
 
   @override
@@ -1838,6 +1841,12 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get termsOfUse => '利用規約';
+
+  @override
+  String get omiYourAiCompanion => 'Omi – あなたのAIコンパニオン';
+
+  @override
+  String get captureEveryMoment => 'すべての瞬間を記録。AI搭載の要約で、もうメモを取る必要はありません。';
 
   @override
   String get appleWatchSetup => 'Apple Watchのセットアップ';
@@ -1880,6 +1889,18 @@ class AppLocalizationsJa extends AppLocalizations {
   String errorStartingRecording(String error) {
     return '録音の開始中にエラーが発生しました：$error';
   }
+
+  @override
+  String get selectPrimaryLanguage => '主要言語を選択';
+
+  @override
+  String get languageBenefits => '言語を設定すると、より正確な文字起こしとパーソナライズされた体験が得られます';
+
+  @override
+  String get whatsYourPrimaryLanguage => '主要言語は何ですか？';
+
+  @override
+  String get selectYourLanguage => '言語を選択';
 
   @override
   String get personalGrowthJourney => 'あなたのすべての言葉に耳を傾けるAIとの個人的成長の旅。';
@@ -3290,6 +3311,9 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get dataProtection => 'データ保護';
+
+  @override
+  String get yourDataIsProtected => 'あなたのデータは保護され、';
 
   @override
   String get pleaseSelectYourPrimaryLanguage => '主要言語を選択してください';
@@ -4928,6 +4952,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get additionalSpeechSampleRemoved => '追加の音声サンプルを削除しました';
+
+  @override
+  String get consentDataMessage =>
+      '続行することで、会話、録音、個人情報は安全に当社のサーバーに保存されます。音声録音と文字起こしは、サードパーティのAIサービス（文字起こし用のDeepgramと分析用のOpenAIを含む）によって処理され、AI駆動のインサイトを提供し、すべてのアプリ機能を有効にします。';
 
   @override
   String get tasksEmptyStateMessage => '会話からのタスクがここに表示されます。\n手動で作成するには + をタップしてください。';
@@ -6920,6 +6948,9 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String get actionItemReminderTitle => 'Omiリマインダー';
+
+  @override
   String deviceDisconnectedTitle(String deviceName) {
     return '$deviceNameが切断されました';
   }
@@ -7610,6 +7641,9 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get authorizingMcpServer => '認証中…';
+
+  @override
+  String get whereDidYouHearAboutOmi => 'どこで知りましたか？';
 
   @override
   String get tiktok => 'TikTok';
@@ -9747,6 +9781,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get transcriptionNoAudio => '文字起こしが音声を受信していません';
 
   @override
+  String get tapPlusToStartRecording => '録音ボタンをタップして録音を開始';
+
+  @override
   String get chatBlockTask => 'タスク';
 
   @override
@@ -10457,6 +10494,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get deviceConnecting => '接続中…';
 
   @override
+  String get recordOptionsTip => 'ヒント：録音ボタンの矢印をタップすると通話を録音できます。';
+
+  @override
   String get firmwareUpdateFailedTitle => 'アップデートに失敗しました';
 
   @override
@@ -10989,6 +11029,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get keepUsingPendant => 'ペンダントを使い続ける';
 
   @override
+  String get recordWith => '録音方法';
+
+  @override
+  String get moreWaysToRecord => 'その他の録音方法';
+
+  @override
   String get openCall => '通話を開く';
 
   @override
@@ -11034,6 +11080,148 @@ class AppLocalizationsJa extends AppLocalizations {
   String participantsSummaryUncounted(String name) {
     return '$nameほか';
   }
+
+  @override
+  String get deviceOnboardingVoiceReplyTitle => 'Omiの回答を聞く';
+
+  @override
+  String get deviceOnboardingVoiceReplySample => '了解しました。次の会議は20分後に始まります。';
+
+  @override
+  String get deviceOnboardingAllSetTitle => '準備ができました';
+
+  @override
+  String get deviceOnboardingAllSetSubtitle => '確認または変更するには行をタップしてください。';
+
+  @override
+  String get deviceOnboardingAllSetSinglePressBadge => '1×';
+
+  @override
+  String get deviceOnboardingAllSetDoublePressBadge => '2×';
+
+  @override
+  String get deviceOnboardingVoiceReplySubtitle => 'ボタンで質問すると、Omi が答えを読み上げます。';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewIdle => '最後の答えを聞いてください';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewPlaying => '最後の答えを再生しています...';
+
+  @override
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device) {
+    return '$device まで';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker => '電話のスピーカーを通して';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput => '現在のオーディオ出力を通じて';
+
+  @override
+  String get deviceOnboardingVoiceReplyOffDescription => '答えは画面上に残ります。何も語られない。';
+
+  @override
+  String get deviceOnboardingVoiceReplyHeadphonesDescription => 'プライベート。 AirPods、Bluetooth、または有線ヘッドフォンを介してのみ話します。';
+
+  @override
+  String get deviceOnboardingVoiceReplyAlwaysDescription => 'ヘッドフォンが接続されていない場合は、電話のスピーカーを使用します。';
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusOff => 'Omiは沈黙します。答えは引き続きアプリに表示されます。';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device) {
+    return '$device 接続されました。 Omi がここで話します。';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected => 'ヘッドフォンが接続されていません。 Omi は接続するまで沈黙を保ちます。';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device) {
+    return '$device まで再生します。';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker => '電話のスピーカーから大音量で再生されます。';
+
+  @override
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse) {
+    return 'これはいつでも $settings › $voiceResponse で変更できます。';
+  }
+
+  @override
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial) {
+    return '$settings › $deviceSettings › $deviceTutorial でいつでもこのツアーを再生できます';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyGenericHeadphones => 'ヘッドフォン';
+
+  @override
+  String get usageListened => 'Listened';
+
+  @override
+  String get usageWordsHeard => 'Words heard';
+
+  @override
+  String get usageTasksNotes => 'Tasks & notes';
+
+  @override
+  String get usagePeakHour => 'Peak hour';
+
+  @override
+  String get usageBestDay => 'Best day';
+
+  @override
+  String get usageBestMonth => 'Best month';
+
+  @override
+  String get usageBestYear => 'Best year';
+
+  @override
+  String get usageMinutes => '分';
+
+  @override
+  String get usageWords => 'Words';
+
+  @override
+  String get usageTasks => 'タスク';
+
+  @override
+  String get usageMonth => '今月';
+
+  @override
+  String get usageYear => '今年';
+
+  @override
+  String get usageAll => '全期間';
+
+  @override
+  String get usageNow => 'now';
+
+  @override
+  String get usageChatThisMonth => 'Chat this month';
+
+  @override
+  String get appearance => '外観';
+
+  @override
+  String get appearanceSystem => 'システム';
+
+  @override
+  String get appearanceLight => 'ライト';
+
+  @override
+  String get appearanceDark => 'ダーク';
+
+  @override
+  String get chatDiscardRecording => '破棄';
+
+  @override
+  String get voiceQuestionNoSpeech => '聞き取れませんでした — もう一度お試しください';
 
   @override
   String get alreadyHaveAccount => 'すでにアカウントをお持ちですか?';
@@ -11237,18 +11425,6 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get summaryStyleSubtitle => 'この要約を書くアプリを選択';
-
-  @override
-  String get appearance => '外観モード';
-
-  @override
-  String get appearanceSystem => 'システム';
-
-  @override
-  String get appearanceLight => 'ライト';
-
-  @override
-  String get appearanceDark => 'ダーク';
 
   @override
   String get feel => '操作感';

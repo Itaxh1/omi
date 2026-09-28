@@ -1823,6 +1823,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get openSettings => '打开设置';
 
   @override
+  String get whatsYourName => '您叫什么名字？';
+
+  @override
   String get speakTranscribeSummarize => '开口说，自动转写，智能总结。';
 
   @override
@@ -1836,6 +1839,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get termsOfUse => '使用条款';
+
+  @override
+  String get omiYourAiCompanion => 'Omi – 您的 AI 助手';
+
+  @override
+  String get captureEveryMoment => '记录每个瞬间，AI 为您生成摘要。';
 
   @override
   String get appleWatchSetup => 'Apple Watch 设置';
@@ -1876,6 +1885,18 @@ class AppLocalizationsZh extends AppLocalizations {
   String errorStartingRecording(String error) {
     return '开始录音出错：$error';
   }
+
+  @override
+  String get selectPrimaryLanguage => '选择主要语言';
+
+  @override
+  String get languageBenefits => '设置语言以获得更清晰的转录';
+
+  @override
+  String get whatsYourPrimaryLanguage => '您的主要语言是什么？';
+
+  @override
+  String get selectYourLanguage => '选择您的语言';
 
   @override
   String get personalGrowthJourney => '您的个人成长之旅，AI 倾听您的每一句话。';
@@ -3285,6 +3306,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get dataProtection => '数据保护';
+
+  @override
+  String get yourDataIsProtected => '您的数据受保护并受我们的';
 
   @override
   String get pleaseSelectYourPrimaryLanguage => '请选择您的主要语言';
@@ -4921,6 +4945,10 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get additionalSpeechSampleRemoved => '已删除附加语音样本';
+
+  @override
+  String get consentDataMessage =>
+      '继续即表示您的对话、录音和个人信息将安全存储在我们的服务器上。您的音频录音和转录由第三方AI服务处理（包括用于转录的Deepgram和用于分析的OpenAI），以为您提供AI驱动的洞察并启用所有应用功能。';
 
   @override
   String get tasksEmptyStateMessage => '来自您对话的任务将显示在这里。\n点击 + 手动创建。';
@@ -6911,6 +6939,9 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
+  String get actionItemReminderTitle => 'Omi 提醒';
+
+  @override
   String deviceDisconnectedTitle(String deviceName) {
     return '$deviceName 已断开连接';
   }
@@ -7601,6 +7632,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get authorizingMcpServer => '正在授权…';
+
+  @override
+  String get whereDidYouHearAboutOmi => '你是怎么知道我们的？';
 
   @override
   String get tiktok => 'TikTok';
@@ -9729,6 +9763,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get transcriptionNoAudio => '转录未接收到音频';
 
   @override
+  String get tapPlusToStartRecording => '点击录音按钮开始录音';
+
+  @override
   String get chatBlockTask => '任务';
 
   @override
@@ -10439,6 +10476,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get deviceConnecting => '正在连接…';
 
   @override
+  String get recordOptionsTip => '提示：点按录音按钮上的箭头即可录制电话通话。';
+
+  @override
   String get firmwareUpdateFailedTitle => '更新失败';
 
   @override
@@ -10970,6 +11010,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get keepUsingPendant => '继续使用吊坠';
 
   @override
+  String get recordWith => '录音方式';
+
+  @override
+  String get moreWaysToRecord => '更多录音方式';
+
+  @override
   String get openCall => '打开通话';
 
   @override
@@ -11012,6 +11058,148 @@ class AppLocalizationsZh extends AppLocalizations {
   String participantsSummaryUncounted(String name) {
     return '$name等人';
   }
+
+  @override
+  String get deviceOnboardingVoiceReplyTitle => '聆听 Omi 的回答';
+
+  @override
+  String get deviceOnboardingVoiceReplySample => '明白了。你的下一场会议将在二十分钟后开始。';
+
+  @override
+  String get deviceOnboardingAllSetTitle => '一切准备就绪';
+
+  @override
+  String get deviceOnboardingAllSetSubtitle => '轻点一行即可查看或更改。';
+
+  @override
+  String get deviceOnboardingAllSetSinglePressBadge => '1×';
+
+  @override
+  String get deviceOnboardingAllSetDoublePressBadge => '2×';
+
+  @override
+  String get deviceOnboardingVoiceReplySubtitle => '当您使用按钮询问时，Omi 可以大声读出答案。';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewIdle => '听听你最后的回答';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewPlaying => '正在播放您的最后一个答案...';
+
+  @override
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device) {
+    return '通过$device';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker => '通过手机扬声器';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput => '通过当前音频输出';
+
+  @override
+  String get deviceOnboardingVoiceReplyOffDescription => '答案保留在屏幕上。什么也没说。';
+
+  @override
+  String get deviceOnboardingVoiceReplyHeadphonesDescription => '私人的。仅通过 AirPods、Bluetooth 或有线耳机通话。';
+
+  @override
+  String get deviceOnboardingVoiceReplyAlwaysDescription => '未连接耳机时使用手机扬声器。';
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusOff => 'Omi将保持沉默。答案仍然出现在应用程序中。';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device) {
+    return '$device已连接。 Omi 在此发言。';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected => '未连接耳机。 Omi 保持沉默，直到您接通一些。';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device) {
+    return '播放至 $device。';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker => '通过手机扬声器大声播放。';
+
+  @override
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse) {
+    return '您可以随时在 $settings › $voiceResponse 中更改此设置';
+  }
+
+  @override
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial) {
+    return '随时重播此导览 $settings › $deviceSettings › $deviceTutorial';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyGenericHeadphones => '耳机';
+
+  @override
+  String get usageListened => 'Listened';
+
+  @override
+  String get usageWordsHeard => 'Words heard';
+
+  @override
+  String get usageTasksNotes => 'Tasks & notes';
+
+  @override
+  String get usagePeakHour => 'Peak hour';
+
+  @override
+  String get usageBestDay => 'Best day';
+
+  @override
+  String get usageBestMonth => 'Best month';
+
+  @override
+  String get usageBestYear => 'Best year';
+
+  @override
+  String get usageMinutes => '分钟';
+
+  @override
+  String get usageWords => 'Words';
+
+  @override
+  String get usageTasks => '任务';
+
+  @override
+  String get usageMonth => '本月';
+
+  @override
+  String get usageYear => '今年';
+
+  @override
+  String get usageAll => '全部时间';
+
+  @override
+  String get usageNow => 'now';
+
+  @override
+  String get usageChatThisMonth => 'Chat this month';
+
+  @override
+  String get appearance => '外观';
+
+  @override
+  String get appearanceSystem => '系统';
+
+  @override
+  String get appearanceLight => '浅色';
+
+  @override
+  String get appearanceDark => '深色';
+
+  @override
+  String get chatDiscardRecording => '放弃';
+
+  @override
+  String get voiceQuestionNoSpeech => '没听清楚 — 请再试一次';
 
   @override
   String get alreadyHaveAccount => '已有账户？';
@@ -11215,18 +11403,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get summaryStyleSubtitle => '选择由哪个应用撰写此摘要';
-
-  @override
-  String get appearance => '外观';
-
-  @override
-  String get appearanceSystem => '跟随系统';
-
-  @override
-  String get appearanceLight => '浅色';
-
-  @override
-  String get appearanceDark => '深色';
 
   @override
   String get feel => '触感';

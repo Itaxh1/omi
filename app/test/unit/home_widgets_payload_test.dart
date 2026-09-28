@@ -62,6 +62,29 @@ void main() {
     });
   });
 
+  group('Up next picks', () {
+    ActionItemWithMetadata task(String id, {DateTime? due}) =>
+        ActionItemWithMetadata(id: id, description: id, completed: false, dueAt: due);
+
+    test("today's tasks first, then the rest soonest due first, undated last (#5080)", () {
+      final today = [task('today')];
+      final open = [
+        task('undated'),
+        task('next-week', due: DateTime.utc(2026, 10, 3)),
+        task('today'),
+        task('tomorrow', due: DateTime.utc(2026, 9, 27)),
+      ];
+      expect(HomeWidgetsPayload.pickUpNext(today, open).map((t) => t.id), ['today', 'tomorrow', 'next-week']);
+      expect(HomeWidgetsPayload.pickUpNext(today, open, limit: 5).map((t) => t.id),
+          ['today', 'tomorrow', 'next-week', 'undated']);
+    });
+
+    test('nothing due today: upcoming tasks still show ahead of their day', () {
+      final open = [task('undated'), task('friday', due: DateTime.utc(2026, 10, 2))];
+      expect(HomeWidgetsPayload.pickUpNext(const [], open).map((t) => t.id), ['friday', 'undated']);
+    });
+  });
+
   test('Up next: the first tasks with their due time, and how many are open', () {
     final due = DateTime.utc(2026, 9, 26, 21);
     final doc = HomeWidgetsPayload.upNext([

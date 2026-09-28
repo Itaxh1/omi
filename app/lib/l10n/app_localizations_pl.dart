@@ -1862,6 +1862,9 @@ class AppLocalizationsPl extends AppLocalizations {
   String get openSettings => 'Otwórz ustawienia';
 
   @override
+  String get whatsYourName => 'Jak masz na imię?';
+
+  @override
   String get speakTranscribeSummarize => 'Mów. Transkrybuj. Podsumuj.';
 
   @override
@@ -1875,6 +1878,13 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get termsOfUse => 'Warunkami korzystania';
+
+  @override
+  String get omiYourAiCompanion => 'Omi – Twój kompan AI';
+
+  @override
+  String get captureEveryMoment =>
+      'Uchwycaj każdą chwilę. Otrzymuj podsumowania\nnapędzane przez AI. Nigdy więcej nie rób notatek.';
 
   @override
   String get appleWatchSetup => 'Konfiguracja Apple Watch';
@@ -1919,6 +1929,18 @@ class AppLocalizationsPl extends AppLocalizations {
   String errorStartingRecording(String error) {
     return 'Błąd rozpoczęcia nagrywania: $error';
   }
+
+  @override
+  String get selectPrimaryLanguage => 'Wybierz swój język podstawowy';
+
+  @override
+  String get languageBenefits => 'Ustaw swój język dla ostrzejszych transkrypcji i spersonalizowanego doświadczenia';
+
+  @override
+  String get whatsYourPrimaryLanguage => 'Jaki jest Twój język podstawowy?';
+
+  @override
+  String get selectYourLanguage => 'Wybierz swój język';
 
   @override
   String get personalGrowthJourney => 'Twoja podróż rozwoju osobistego z AI, które słucha każdego twojego słowa.';
@@ -3349,6 +3371,9 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get dataProtection => 'Ochrona danych';
+
+  @override
+  String get yourDataIsProtected => 'Twoje dane są chronione i regulowane przez naszą ';
 
   @override
   String get pleaseSelectYourPrimaryLanguage => 'Wybierz swój główny język';
@@ -5032,6 +5057,10 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get additionalSpeechSampleRemoved => 'Dodatkowa próbka głosowa usunięta';
+
+  @override
+  String get consentDataMessage =>
+      'Kontynuując, Twoje rozmowy, nagrania i dane osobowe będą bezpiecznie przechowywane na naszych serwerach. Twoje nagrania audio i transkrypcje są przetwarzane przez zewnętrzne usługi AI (w tym Deepgram do transkrypcji i OpenAI do analizy), aby dostarczyć Ci wglądy oparte na AI i umożliwić wszystkie funkcje aplikacji.';
 
   @override
   String get tasksEmptyStateMessage => 'Zadania z twoich rozmów pojawią się tutaj.\nDotknij +, aby utworzyć ręcznie.';
@@ -7051,6 +7080,9 @@ class AppLocalizationsPl extends AppLocalizations {
   }
 
   @override
+  String get actionItemReminderTitle => 'Przypomnienie Omi';
+
+  @override
   String deviceDisconnectedTitle(String deviceName) {
     return '$deviceName odłączono';
   }
@@ -7752,6 +7784,9 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get authorizingMcpServer => 'Autoryzacja…';
+
+  @override
+  String get whereDidYouHearAboutOmi => 'Jak nas znalazłeś?';
 
   @override
   String get tiktok => 'TikTok';
@@ -9947,6 +9982,9 @@ class AppLocalizationsPl extends AppLocalizations {
   String get transcriptionNoAudio => 'Transkrypcja nie odbiera dźwięku';
 
   @override
+  String get tapPlusToStartRecording => 'Dotknij przycisku nagrywania, aby rozpocząć nagrywanie';
+
+  @override
   String get chatBlockTask => 'Zadanie';
 
   @override
@@ -10666,6 +10704,10 @@ class AppLocalizationsPl extends AppLocalizations {
   String get deviceConnecting => 'Łączenie…';
 
   @override
+  String get recordOptionsTip =>
+      'Wskazówka: stuknij strzałkę na przycisku nagrywania, aby nagrać rozmowę telefoniczną.';
+
+  @override
   String get firmwareUpdateFailedTitle => 'Aktualizacja nie powiodła się';
 
   @override
@@ -11207,6 +11249,12 @@ class AppLocalizationsPl extends AppLocalizations {
   String get keepUsingPendant => 'Używaj dalej wisiorka';
 
   @override
+  String get recordWith => 'Nagraj za pomocą';
+
+  @override
+  String get moreWaysToRecord => 'Więcej sposobów nagrywania';
+
+  @override
   String get openCall => 'Otwórz połączenie';
 
   @override
@@ -11253,6 +11301,152 @@ class AppLocalizationsPl extends AppLocalizations {
   String participantsSummaryUncounted(String name) {
     return '$name i inni';
   }
+
+  @override
+  String get deviceOnboardingVoiceReplyTitle => 'Posłuchaj odpowiedzi Omi';
+
+  @override
+  String get deviceOnboardingVoiceReplySample => 'Rozumiem. Twoje następne spotkanie zaczyna się za dwadzieścia minut.';
+
+  @override
+  String get deviceOnboardingAllSetTitle => 'Wszystko gotowe';
+
+  @override
+  String get deviceOnboardingAllSetSubtitle => 'Dotknij wiersza, aby go sprawdzić lub zmienić.';
+
+  @override
+  String get deviceOnboardingAllSetSinglePressBadge => '1×';
+
+  @override
+  String get deviceOnboardingAllSetDoublePressBadge => '2×';
+
+  @override
+  String get deviceOnboardingVoiceReplySubtitle =>
+      'Gdy zapytasz za pomocą przycisku, Omi może przeczytać na głos odpowiedź.';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewIdle => 'Usłysz swoją ostatnią odpowiedź';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewPlaying => 'Odtwarzam Twoją ostatnią odpowiedź...';
+
+  @override
+  String deviceOnboardingVoiceReplyPreviewThroughDevice(String device) {
+    return 'Przez $device';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughPhoneSpeaker => 'Przez głośnik telefonu';
+
+  @override
+  String get deviceOnboardingVoiceReplyPreviewThroughCurrentOutput => 'Przez bieżące wyjście audio';
+
+  @override
+  String get deviceOnboardingVoiceReplyOffDescription => 'Odpowiedzi pozostają na ekranie. Nic się nie mówi.';
+
+  @override
+  String get deviceOnboardingVoiceReplyHeadphonesDescription =>
+      'Prywatny. Mówi tylko przez AirPods, Bluetooth lub słuchawki przewodowe.';
+
+  @override
+  String get deviceOnboardingVoiceReplyAlwaysDescription =>
+      'Używa głośnika telefonu, gdy nie są podłączone żadne słuchawki.';
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusOff => 'Omi pozostanie cichy. Odpowiedzi nadal pojawiają się w aplikacji.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusHeadphonesConnected(String device) {
+    return '$device podłączony. Omi będzie tu mówił.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusHeadphonesDisconnected =>
+      'Brak podłączonych słuchawek. Omi pozostaje cichy, dopóki nie podłączysz niektórych.';
+
+  @override
+  String deviceOnboardingVoiceReplyStatusAlwaysHeadphones(String device) {
+    return 'Odtwarza przez $device.';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyStatusAlwaysSpeaker => 'Odtwarza głośno przez głośnik telefonu.';
+
+  @override
+  String deviceOnboardingVoiceReplySettingsHint(String settings, String voiceResponse) {
+    return 'Możesz to zmienić w dowolnym momencie w $settings › $voiceResponse';
+  }
+
+  @override
+  String deviceOnboardingAllSetReplayHint(String settings, String deviceSettings, String deviceTutorial) {
+    return 'Odtwórz ponownie tę wycieczkę w dowolnym momencie w $settings › $deviceSettings › $deviceTutorial';
+  }
+
+  @override
+  String get deviceOnboardingVoiceReplyGenericHeadphones => 'Słuchawki';
+
+  @override
+  String get usageListened => 'Listened';
+
+  @override
+  String get usageWordsHeard => 'Words heard';
+
+  @override
+  String get usageTasksNotes => 'Tasks & notes';
+
+  @override
+  String get usagePeakHour => 'Peak hour';
+
+  @override
+  String get usageBestDay => 'Best day';
+
+  @override
+  String get usageBestMonth => 'Best month';
+
+  @override
+  String get usageBestYear => 'Best year';
+
+  @override
+  String get usageMinutes => 'minut';
+
+  @override
+  String get usageWords => 'Words';
+
+  @override
+  String get usageTasks => 'Zadania';
+
+  @override
+  String get usageMonth => 'W tym miesiącu';
+
+  @override
+  String get usageYear => 'W tym roku';
+
+  @override
+  String get usageAll => 'Cały czas';
+
+  @override
+  String get usageNow => 'now';
+
+  @override
+  String get usageChatThisMonth => 'Chat this month';
+
+  @override
+  String get appearance => 'Wygląd';
+
+  @override
+  String get appearanceSystem => 'System';
+
+  @override
+  String get appearanceLight => 'Jasny';
+
+  @override
+  String get appearanceDark => 'Ciemny';
+
+  @override
+  String get chatDiscardRecording => 'Odrzuć';
+
+  @override
+  String get voiceQuestionNoSpeech => 'Nie udało się usłyszeć — spróbuj ponownie';
 
   @override
   String get alreadyHaveAccount => 'Masz już konto?';
@@ -11460,18 +11654,6 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get summaryStyleSubtitle => 'Wybierz aplikację, która napisze to podsumowanie';
-
-  @override
-  String get appearance => 'Wygląd';
-
-  @override
-  String get appearanceSystem => 'Systemowy';
-
-  @override
-  String get appearanceLight => 'Jasny';
-
-  @override
-  String get appearanceDark => 'Ciemny';
 
   @override
   String get feel => 'Odczucia';
