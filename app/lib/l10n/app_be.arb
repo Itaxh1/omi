@@ -11322,5 +11322,10 @@
     "askTryHint": "паспрабуйце «{question}»",
     "chatHeaderSubtitle": "Ведае вашы размовы і задачы",
     "answerSources": "Крыніцы",
-    "homeAppsMore": "Яшчэ"
+    "homeAppsMore": "Яшчэ",
+    "heardToday": "Пачута сёння",
+    "switchDevice": "Змяніць прыладу",
+    "todoLate": "{task} — спазненне на {count, plural, =1{1 дзень} other{{count} дзён}}",
+    "todoDueToday": "{task} — тэрмін сёння",
+    "todoOpenCount": "{count, plural, =0{Нічога тэрміновага} =1{1 адкрытая задача} other{{count} адкрытых задач}}"
 }

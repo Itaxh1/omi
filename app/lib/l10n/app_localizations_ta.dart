@@ -12031,4 +12031,38 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'மேலும்';
+
+  @override
+  String get heardToday => 'இன்று கேட்டது';
+
+  @override
+  String get switchDevice => 'சாதனத்தை மாற்று';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count நாட்கள்',
+      one: '1 நாள்',
+    );
+    return '$task $_temp0 தாமதம்';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task இன்று முடிக்க வேண்டும்';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count நிலுவை பணிகள்',
+      one: '1 நிலுவை பணி',
+      zero: 'எதுவும் நிலுவையில் இல்லை',
+    );
+    return '$_temp0';
+  }
 }

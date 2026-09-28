@@ -11965,4 +11965,38 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'Daugiau';
+
+  @override
+  String get heardToday => 'Išgirsta šiandien';
+
+  @override
+  String get switchDevice => 'Perjungti įrenginį';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count d.',
+      one: '1 dieną',
+    );
+    return '$task vėluoja $_temp0';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task terminas šiandien';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count atviros užduotys',
+      one: '1 atvira užduotis',
+      zero: 'Nieko neskubu',
+    );
+    return '$_temp0';
+  }
 }

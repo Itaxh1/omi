@@ -12054,4 +12054,38 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'Higit pa';
+
+  @override
+  String get heardToday => 'Narinig ngayon';
+
+  @override
+  String get switchDevice => 'Palitan ang device';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count araw',
+      one: '1 araw',
+    );
+    return '$task ay $_temp0 nang huli';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task ay dapat matapos ngayon';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count bukas na gawain',
+      one: '1 bukas na gawain',
+      zero: 'Walang nakatakda',
+    );
+    return '$_temp0';
+  }
 }

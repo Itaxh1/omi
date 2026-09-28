@@ -11998,4 +11998,38 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'మరిన్ని';
+
+  @override
+  String get heardToday => 'ఈరోజు విన్నది';
+
+  @override
+  String get switchDevice => 'పరికరం మార్చు';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count రోజులు',
+      one: '1 రోజు',
+    );
+    return '$task $_temp0 ఆలస్యం';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task ఈరోజు పూర్తి చేయాలి';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count పెండింగ్ పనులు',
+      one: '1 పెండింగ్ పని',
+      zero: 'ఏదీ పెండింగ్ లేదు',
+    );
+    return '$_temp0';
+  }
 }

@@ -11879,4 +11879,38 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'เพิ่มเติม';
+
+  @override
+  String get heardToday => 'ที่ได้ยินวันนี้';
+
+  @override
+  String get switchDevice => 'เปลี่ยนอุปกรณ์';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count วัน',
+      one: '1 วัน',
+    );
+    return '$task เลยกำหนดมา $_temp0';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task ครบกำหนดวันนี้';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'งานค้าง $count รายการ',
+      one: 'งานค้าง 1 รายการ',
+      zero: 'ไม่มีงานครบกำหนด',
+    );
+    return '$_temp0';
+  }
 }

@@ -53,6 +53,8 @@ class OmiPalette {
     required this.warning,
     required this.danger,
     required this.dangerSurface,
+    required this.cement,
+    required this.tone,
   });
 
   final Brightness brightness;
@@ -99,100 +101,114 @@ class OmiPalette {
   final Color danger;
   final Color dangerSurface;
 
+  /// Cement grey (v3): device and to-do glyphs in their tiles.
+  final Color cement;
+
+  /// Warm white (v3): the lower Home zone and the icon tiles. Ink at 5 % over the page in Black.
+  final Color tone;
+
   bool get isLight => brightness == Brightness.light;
 
-  /// Graphite with a faint cool cast (the Liquid Dock palette).
+  /// v3 "Black": ink page, white text, the same warm tone at 5 % for tiles. Mono: the only colour
+  /// is [danger] (the count badge, "Late"); the pendant's blue lives in its photo, not in the UI.
+  /// The greys are opaque and clear WCAG AA on the page and on cards (the kit's 55 % / 35 % ink
+  /// would not), and the red is lifted a step for the same reason.
   static const OmiPalette dark = OmiPalette._(
     brightness: Brightness.dark,
-    surface0: Color(0xFF0A0B0F),
-    surface1: Color(0xFF13151B),
-    surface2: Color(0xFF1C1F27),
-    surface3: Color(0xFF262A33),
-    surface4: Color(0xFF333842),
-    segmentThumb: Color(0xFF3B404B),
-    sheet: Color(0xFF101217),
-    well: Color(0xFF0D0F13),
-    glass: Color(0xF014161B),
-    glassSheen: Color(0x0AFFFFFF),
-    glassRim: Color(0x21FFFFFF),
-    glassRing: Color(0x14FFFFFF),
-    glassShadow: Color(0x73000000),
-    glassShadowTight: Color(0x59000000),
-    lensTop: Color(0x17FFFFFF),
-    lensBottom: Color(0x11FFFFFF),
+    surface0: Color(0xFF0A0A0A),
+    surface1: Color(0xFF202020),
+    surface2: Color(0xFF161616),
+    surface3: Color(0xFF2A2A2A),
+    surface4: Color(0xFF383838),
+    segmentThumb: Color(0xFF3A3A3A),
+    sheet: Color(0xFF111111),
+    well: Color(0xFF111111),
+    glass: Color(0x14FFFFFF),
+    glassSheen: Color(0x00FFFFFF),
+    glassRim: Color(0x24FFFFFF),
+    glassRing: Color(0x00FFFFFF),
+    glassShadow: Color(0x00000000),
+    glassShadowTight: Color(0x00000000),
+    lensTop: Color(0x14FFFFFF),
+    lensBottom: Color(0x14FFFFFF),
     lensRim: Color(0x24FFFFFF),
-    lensRing: Color(0x0FFFFFFF),
-    lensShadow: Color(0x2E000000),
-    cardShade: Color(0x33000000),
-    cardTopLight: Color(0x14FFFFFF),
-    cardRim: Color(0x0DFFFFFF),
-    tileTopLight: Color(0x14FFFFFF),
-    dockTabIdle: Color(0xB8FFFFFF),
-    shadowSoft: Color(0x40000000),
-    scrim: Color(0x38000000),
-    cellPressed: Color(0x0DFFFFFF),
-    glassSelected: Color(0x1CFFFFFF),
-    border: Color(0x29969EAF),
+    lensRing: Color(0x00FFFFFF),
+    lensShadow: Color(0x00000000),
+    cardShade: Color(0x00000000),
+    cardTopLight: Color(0x00FFFFFF),
+    cardRim: Color(0x12FFFFFF),
+    tileTopLight: Color(0x00FFFFFF),
+    dockTabIdle: Color(0xFFB3AEA6),
+    shadowSoft: Color(0x59000000),
+    scrim: Color(0x59000000),
+    cellPressed: Color(0x0AFFFFFF),
+    glassSelected: Color(0x1FFFFFFF),
+    border: Color(0x12FFFFFF),
     textPrimary: Color(0xFFFFFFFF),
-    textSecondary: Color(0xFFA9AEB9),
-    textTertiary: Color(0xFF868B96),
-    textDisabled: Color(0xFF5C616C),
+    textSecondary: Color(0xFFABABAB),
+    textTertiary: Color(0xFF8C8C8C),
+    textDisabled: Color(0xFF5C5C5C),
     accent: Color(0xFFFFFFFF),
-    onAccent: Color(0xFF0A0B0F),
-    selection: Color(0xFF6F86AD),
-    live: Color(0xFF4C9BFF),
+    onAccent: Color(0xFF0A0A0A),
+    selection: Color(0xFFFFFFFF),
+    live: Color(0xFFFFFFFF),
     success: Color(0xFF30D158),
     successSurface: Color(0x2630D158),
     warning: Color(0xFFFFB547),
-    danger: Color(0xFFFF6B61),
-    dangerSurface: Color(0x24FF6B61),
+    danger: Color(0xFFF0575C),
+    dangerSurface: Color(0x24F0575C),
+    cement: Color(0xFFB3AEA6),
+    tone: Color(0xFF161616),
   );
 
-  /// Daylight: pale page, white cards, ink text, the same one blue for live audio.
+  /// v3 "White": paper page and white cards with a 7 % hairline, ink text, warm white (#FAF8F4)
+  /// for tiles and the lower Home zone.
   static const OmiPalette light = OmiPalette._(
     brightness: Brightness.light,
-    surface0: Color(0xFFF2F3F6),
+    surface0: Color(0xFFFFFFFF),
     surface1: Color(0xFFFFFFFF),
-    surface2: Color(0xFFE8EAEF),
-    surface3: Color(0xFFDEE1E7),
-    surface4: Color(0xFFC9CED7),
+    surface2: Color(0xFFFAF8F4),
+    surface3: Color(0xFFF1EFEA),
+    surface4: Color(0xFFE6E3DD),
     segmentThumb: Color(0xFFFFFFFF),
-    sheet: Color(0xFFF7F8FA),
-    well: Color(0xFFE4E7EC),
-    glass: Color(0x6BFFFFFF),
-    glassSheen: Color(0xB3FFFFFF),
-    glassRim: Color(0xFFFFFFFF),
-    glassRing: Color(0x1A14171E),
-    glassShadow: Color(0x2414171E),
-    glassShadowTight: Color(0x1414171E),
-    lensTop: Color(0xC7FFFFFF),
-    lensBottom: Color(0xB8FFFFFF),
-    lensRim: Color(0xFFFFFFFF),
-    lensRing: Color(0x24FFFFFF),
-    lensShadow: Color(0x1F14171E),
-    cardShade: Color(0x0D14171E),
-    cardTopLight: Color(0xFFFFFFFF),
-    cardRim: Color(0x0D14171E),
-    tileTopLight: Color(0xE6FFFFFF),
-    dockTabIdle: Color(0xFF5B6270),
-    shadowSoft: Color(0x2914171E),
-    scrim: Color(0x38000000),
-    cellPressed: Color(0x0D14171E),
-    glassSelected: Color(0x1414171E),
-    border: Color(0x243C4350),
-    textPrimary: Color(0xFF14171D),
-    textSecondary: Color(0xFF5B6270),
-    textTertiary: Color(0xFF6B7280),
-    textDisabled: Color(0xFFB0B5BF),
-    accent: Color(0xFF14171D),
+    sheet: Color(0xFFFFFFFF),
+    well: Color(0xFFF5F3EE),
+    glass: Color(0x8CFFFFFF),
+    glassSheen: Color(0x00FFFFFF),
+    glassRim: Color(0x17000000),
+    glassRing: Color(0x00000000),
+    glassShadow: Color(0x00000000),
+    glassShadowTight: Color(0x00000000),
+    lensTop: Color(0x8CFFFFFF),
+    lensBottom: Color(0x8CFFFFFF),
+    lensRim: Color(0x17000000),
+    lensRing: Color(0x00000000),
+    lensShadow: Color(0x00000000),
+    cardShade: Color(0x00000000),
+    cardTopLight: Color(0x00FFFFFF),
+    cardRim: Color(0x120A0A0A),
+    tileTopLight: Color(0x00FFFFFF),
+    dockTabIdle: Color(0xFF5F5B55),
+    shadowSoft: Color(0x1A000000),
+    scrim: Color(0x33000000),
+    cellPressed: Color(0x0A0A0A0A),
+    glassSelected: Color(0x140A0A0A),
+    border: Color(0x120A0A0A),
+    textPrimary: Color(0xFF0A0A0A),
+    textSecondary: Color(0xFF6B6B6B),
+    textTertiary: Color(0xFF767676),
+    textDisabled: Color(0xFFB0B0B0),
+    accent: Color(0xFF0A0A0A),
     onAccent: Color(0xFFFFFFFF),
-    selection: Color(0xFF3F5B8C),
-    live: Color(0xFF4C9BFF),
+    selection: Color(0xFF0A0A0A),
+    live: Color(0xFF0A0A0A),
     success: Color(0xFF1A7F37),
     successSurface: Color(0x1F1A7F37),
     warning: Color(0xFFA35F00),
-    danger: Color(0xFFD2342A),
-    dangerSurface: Color(0x1AD2342A),
+    danger: Color(0xFFD93A3F),
+    dangerSurface: Color(0x1AD93A3F),
+    cement: Color(0xFF5F5B55),
+    tone: Color(0xFFFAF8F4),
   );
 }
 
@@ -318,6 +334,12 @@ abstract final class OmiColors {
 
   /// Tinted background behind [danger] content (destructive buttons, error banners).
   static Color get dangerSurface => _palette.dangerSurface;
+
+  /// Cement grey (v3): the device and to-do glyphs in their warm tiles.
+  static Color get cement => _palette.cement;
+
+  /// Warm white (v3): the lower Home zone and the icon tiles.
+  static Color get tone => _palette.tone;
 }
 
 /// Omi's type ramp, modelled on iOS text styles so that sizes land where the app's text already
@@ -487,14 +509,23 @@ abstract final class OmiType {
     fontSize: 34,
     height: 41 / 34,
     leadingDistribution: TextLeadingDistribution.even,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w600,
+    // v3 headline: −.03em.
+    letterSpacing: -1.02,
   );
 
   static final Map<TextStyle, TextStyle> _tinted = Map<TextStyle, TextStyle>.identity();
 
-  /// [base] in the active palette's [OmiColors.textPrimary], made once per palette.
-  static TextStyle _tint(TextStyle base) =>
-      _tinted.putIfAbsent(base, () => base.copyWith(color: OmiColors.textPrimary));
+  /// v3: every style is set in Instrument Sans (400/500/600/700, bundled); the serif styles keep
+  /// their own family.
+  static const String fontFamily = 'Instrument Sans';
+
+  /// [base] in the active palette's [OmiColors.textPrimary] and the app's [fontFamily], made once
+  /// per palette.
+  static TextStyle _tint(TextStyle base) => _tinted.putIfAbsent(
+        base,
+        () => base.copyWith(color: OmiColors.textPrimary, fontFamily: base.fontFamily ?? fontFamily),
+      );
 }
 
 /// Corner radii. Pick by the size of the thing being rounded, not by taste. A corner nested inside
@@ -527,11 +558,11 @@ abstract final class OmiRadius {
   /// 32 — the floating tab bar capsule (v2).
   static const double tabBar = 32;
 
-  /// 40 — top corners of a large sheet on iOS (v2). Android sheets use [sheetMaterial].
-  static const double sheet = 40;
+  /// 26 — top corners of a sheet (v3, both platforms).
+  static const double sheet = 26;
 
-  /// 28 — top corners of a sheet on Android (v2).
-  static const double sheetMaterial = 28;
+  /// 26 — top corners of a sheet on Android (v3: the same as [sheet]).
+  static const double sheetMaterial = 26;
 
   /// Fully rounded ends (capsules, avatars).
   static const double pill = 999;
@@ -551,8 +582,8 @@ abstract final class OmiRadius {
   /// [sheetTopFor], which gives iOS its larger [sheet] corners.
   static const BorderRadius sheetTop = BorderRadius.vertical(top: Radius.circular(sheetMaterial));
 
-  /// Top corners of a bottom sheet on [platform]: [sheet] (40) on Apple platforms, [sheetMaterial]
-  /// (28) elsewhere.
+  /// Top corners of a bottom sheet on [platform]: [sheet] on Apple platforms, [sheetMaterial]
+  /// elsewhere (both 26 in v3).
   static BorderRadius sheetTopFor(TargetPlatform platform) {
     final apple = platform == TargetPlatform.iOS || platform == TargetPlatform.macOS;
     return BorderRadius.vertical(top: Radius.circular(apple ? sheet : sheetMaterial));
@@ -589,7 +620,7 @@ abstract final class OmiSize {
   static const double askButton = 64;
 
   /// The page gutter.
-  static const double screenMargin = OmiSpacing.md;
+  static const double screenMargin = 22;
 
   /// A grouped row's minimum height.
   static const double rowMinHeight = 52;

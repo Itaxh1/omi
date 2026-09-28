@@ -11944,4 +11944,38 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'بیشتر';
+
+  @override
+  String get heardToday => 'امروز شنیده شد';
+
+  @override
+  String get switchDevice => 'تغییر دستگاه';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count روز',
+      one: '۱ روز',
+    );
+    return '$task $_temp0 تأخیر دارد';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task امروز موعد دارد';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count کار باز',
+      one: '۱ کار باز',
+      zero: 'چیزی موعد ندارد',
+    );
+    return '$_temp0';
+  }
 }

@@ -6,20 +6,14 @@ import 'package:omi/pages/home/widgets/home_ask_bar.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/widgets/bottom_nav_bar.dart';
 
-Future<({List<String> calls, ValueNotifier<bool> compact})> _pump(
-  WidgetTester tester, {
-  bool reduceMotion = false,
-  EdgeInsets padding = EdgeInsets.zero,
-}) async {
+Future<List<String>> _pump(WidgetTester tester, {EdgeInsets padding = EdgeInsets.zero}) async {
   final calls = <String>[];
-  final compact = ValueNotifier(false);
-  addTearDown(compact.dispose);
   await tester.pumpWidget(
     MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       builder: (context, child) => MediaQuery(
-        data: MediaQuery.of(context).copyWith(disableAnimations: reduceMotion, viewPadding: padding, padding: padding),
+        data: MediaQuery.of(context).copyWith(viewPadding: padding, padding: padding),
         child: child!,
       ),
       home: Scaffold(
@@ -33,7 +27,6 @@ Future<({List<String> calls, ValueNotifier<bool> compact})> _pump(
                 onOpen: () => calls.add('open'),
                 onVoice: () => calls.add('voice'),
                 onHold: () => calls.add('hold'),
-                compact: compact,
               ),
             ),
           ],
@@ -42,69 +35,49 @@ Future<({List<String> calls, ValueNotifier<bool> compact})> _pump(
     ),
   );
   await tester.pump();
-  return (calls: calls, compact: compact);
+  return calls;
 }
 
 AppLocalizations _l10n(WidgetTester tester) => AppLocalizations.of(tester.element(find.byType(HomeAskBar)));
 
+/// The Ask bar (v3): one 60 pt capsule pinned above the home indicator.
 void main() {
   testWidgets('tapping the bar opens chat, the mic opens it listening, holding opens Memories', (tester) async {
-    final bar = await _pump(tester);
+    final calls = await _pump(tester);
 
     await tester.tap(find.text(_l10n(tester).askAnything));
     await tester.tap(find.byKey(const Key('home_ask_mic')));
     await tester.longPress(find.byKey(const Key('home_ask_bar')));
 
-    expect(bar.calls, ['open', 'voice', 'hold']);
+    expect(calls, ['open', 'voice', 'hold']);
   });
 
-  testWidgets('an example question shows under "Ask anything" and changes every few seconds', (tester) async {
+  testWidgets('it is 60 pt tall, in the accent, with only "Ask anything" and the mic', (tester) async {
     await _pump(tester);
     final l10n = _l10n(tester);
 
-    expect(find.text(l10n.askTryHint(l10n.askStarterOpen)), findsOneWidget);
-    await tester.pump(HomeAskBar.exampleEvery);
-    await tester.pump(const Duration(milliseconds: 400));
-    expect(find.text(l10n.askTryHint(l10n.askStarterToday)), findsOneWidget);
-  });
-
-  testWidgets('under Reduce Motion the example stays put', (tester) async {
-    await _pump(tester, reduceMotion: true);
-    final l10n = _l10n(tester);
-
-    await tester.pump(HomeAskBar.exampleEvery * 2);
-    expect(find.text(l10n.askTryHint(l10n.askStarterOpen)), findsOneWidget);
-  });
-
-  testWidgets('scrolling down to read narrows it and drops the example and the mic', (tester) async {
-    final bar = await _pump(tester);
-    final l10n = _l10n(tester);
-    final wide = tester.getSize(find.byKey(const Key('home_ask_bar')));
-
-    bar.compact.value = true;
-    await tester.pumpAndSettle();
-
-    expect(find.byKey(const Key('home_ask_mic')), findsNothing);
-    expect(find.text(l10n.askTryHint(l10n.askStarterOpen)), findsNothing);
+    expect(tester.getSize(find.byKey(const Key('home_ask_bar'))).height, kAskBarHeight);
     expect(find.text(l10n.askAnything), findsOneWidget);
-    final narrow = tester.getSize(find.byKey(const Key('home_ask_bar')));
-    expect(narrow.width, lessThan(wide.width));
-    expect(narrow.height, lessThan(wide.height));
+    expect(find.textContaining(l10n.askStarterOpen), findsNothing, reason: 'v3 shows no example question');
+    final bar = tester.widget<Container>(
+      find.descendant(of: find.byKey(const Key('home_ask_bar')), matching: find.byType(Container)).first,
+    );
+    expect((bar.decoration as BoxDecoration).color, OmiColors.accent);
   });
 
-  testWidgets('it sits just above the home indicator, and pages keep room under it', (tester) async {
+  testWidgets('it sits 24 pt above the home indicator, and pages keep room under it', (tester) async {
     await _pump(tester, padding: const EdgeInsets.only(bottom: 34));
     final context = tester.element(find.byType(HomeAskBar));
     final screen = tester.getSize(find.byType(Scaffold));
     final bar = tester.getRect(find.byKey(const Key('home_ask_bar')));
 
     expect(screen.height - bar.bottom, askBarBottomOffset(context));
-    expect(askBarBottomOffset(context), 34 + OmiSpacing.xxs);
+    expect(askBarBottomOffset(context), 34 + OmiSpacing.xl, reason: '58 pt from the bottom on an iPhone');
     expect(bottomNavBarClearance(context), greaterThan(screen.height - bar.top));
   });
 
-  testWidgets('without a home indicator it keeps the page margin', (tester) async {
+  testWidgets('without a home indicator it keeps 24 pt from the edge', (tester) async {
     await _pump(tester);
-    expect(askBarBottomOffset(tester.element(find.byType(HomeAskBar))), OmiSize.screenMargin);
+    expect(askBarBottomOffset(tester.element(find.byType(HomeAskBar))), OmiSpacing.xl);
   });
 }

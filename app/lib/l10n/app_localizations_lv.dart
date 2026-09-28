@@ -11973,4 +11973,38 @@ class AppLocalizationsLv extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'Vairāk';
+
+  @override
+  String get heardToday => 'Šodien dzirdētais';
+
+  @override
+  String get switchDevice => 'Mainīt ierīci';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dienas',
+      one: '1 dienu',
+    );
+    return '$task kavējas $_temp0';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task termiņš ir šodien';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count atvērti uzdevumi',
+      one: '1 atvērts uzdevums',
+      zero: 'Nekas nav termiņā',
+    );
+    return '$_temp0';
+  }
 }

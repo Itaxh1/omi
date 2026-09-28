@@ -28,6 +28,8 @@ import 'package:omi/pages/conversations/conversation_map_page.dart';
 import 'package:omi/pages/home/home_content.dart';
 import 'package:omi/pages/home/widgets/home_ask_bar.dart';
 import 'package:omi/pages/home/widgets/home_section_stack.dart';
+import 'package:omi/pages/home/widgets/home_top_bar.dart';
+import 'package:omi/pages/home/widgets/recorder_overlay.dart';
 import 'package:omi/pages/phone_calls/active_call_banner.dart';
 import 'package:omi/pages/settings/settings_drawer.dart';
 import 'package:omi/pages/settings/task_integrations_page.dart';
@@ -63,15 +65,12 @@ import 'package:omi/widgets/freemium_switch_dialog.dart';
 import 'package:omi/widgets/shimmer_with_timeout.dart';
 import 'package:omi/widgets/upgrade_alert.dart';
 import 'package:omi/widgets/bottom_nav_bar.dart';
-import 'package:omi/widgets/header_circle_button.dart';
 import 'package:omi/services/sockets/listen_client_state.dart';
 import 'package:omi/ui/ui.dart';
 import 'home_deep_links.dart';
 import 'home_navigation.dart';
 import 'home_widgets_publisher.dart';
 import 'home_prompt_gate.dart';
-import 'widgets/battery_info_widget.dart';
-import 'package:omi/pages/search/search_page.dart';
 
 class HomePageWrapper extends StatefulWidget {
   final String? navigateToRoute;
@@ -169,35 +168,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
     emit: (eventName, properties) => PlatformManager.instance.analytics.track(eventName, properties: properties),
   );
 
-  /// The dock folds to icons while the reader scrolls down and opens again on the way up (Liquid
-  /// Dock: 90 pt down to fold, 60 pt up or the top 40 pt to open, held open 1.2 s after opening).
-  final ValueNotifier<bool> _dockCompact = ValueNotifier<bool>(false);
-  double _dockTravel = 0;
-  DateTime _dockHoldUntil = DateTime.fromMillisecondsSinceEpoch(0);
-
-  void _setDockCompact(bool compact) {
-    if (_dockCompact.value == compact) return;
-    _dockCompact.value = compact;
-    if (!compact) _dockHoldUntil = DateTime.now().add(const Duration(milliseconds: 1200));
-    _dockTravel = 0;
-  }
-
-  bool _onTabScroll(ScrollUpdateNotification notification) {
-    if (notification.depth != 0 || notification.metrics.axis != Axis.vertical) return false;
-    final delta = notification.scrollDelta ?? 0;
-    if (notification.metrics.pixels < 40) {
-      _setDockCompact(false);
-      _dockTravel = 0;
-      return false;
-    }
-    _dockTravel = (delta > 0) == (_dockTravel > 0) ? _dockTravel + delta : delta;
-    if (_dockTravel > 90 && DateTime.now().isAfter(_dockHoldUntil)) {
-      _setDockCompact(true);
-    } else if (_dockTravel < -60) {
-      _setDockCompact(false);
-    }
-    return false;
-  }
+  /// Whether the recorder card is up over Home (v3): the top bar's Listening label toggles it, a
+  /// tap outside closes it.
+  final ValueNotifier<bool> _recorderOpen = ValueNotifier<bool>(false);
 
   CaptureProvider? _captureProvider;
   DeviceProvider? _deviceProviderForQuickActions;
@@ -270,8 +243,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
   /// Back from a pushed section to Today.
   void _backToToday() {
     OmiHaptics.selection();
-    _setDockCompact(false);
     context.read<HomeProvider>().setIndex(0);
+  }
+
+  /// Folders (v3): Conversations, where the folder tabs are.
+  void _openFolders() {
+    _recorderOpen.value = false;
+    _ensurePageInitialized(1);
+    context.read<HomeProvider>().setIndex(1);
   }
 
   void _addGoal() {
@@ -747,7 +726,19 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
               child: Scaffold(
                 backgroundColor: OmiColors.surface0,
                 resizeToAvoidBottomInset: false,
-                appBar: selectedIndex == 5 ? null : _buildAppBar(context),
+                appBar: selectedIndex == 5
+                    ? null
+                    : selectedIndex == 0
+                        ? HomeTopBar(
+                            recorderOpen: _recorderOpen,
+                            onFolders: _openFolders,
+                            onYou: () {
+                              _recorderOpen.value = false;
+                              PlatformManager.instance.analytics.pageOpened('Settings');
+                              unawaited(_openSettings());
+                            },
+                          )
+                        : _buildAppBar(context),
                 body: GestureDetector(
                   onTap: () {
                     primaryFocus?.unfocus();
@@ -761,13 +752,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
                           // Show slim green call bar on non-home/conversations tabs when a call is active
                           if (selectedIndex > 1) const ActiveCallTopBar(),
                           Expanded(
-                            child: NotificationListener<ScrollUpdateNotification>(
-                              onNotification: _onTabScroll,
-                              child: HomeSectionStack(
-                                selectedIndex: selectedIndex,
-                                pages: _buildPages(selectedIndex),
-                                onBack: _backToToday,
-                              ),
+                            child: HomeSectionStack(
+                              selectedIndex: selectedIndex,
+                              pages: _buildPages(selectedIndex),
+                              onBack: _backToToday,
                             ),
                           ),
                         ],
@@ -791,11 +779,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
                               onOpen: _openChat,
                               onVoice: () => _openChat(voice: true),
                               onHold: _openMemories,
-                              compact: _dockCompact,
                             ),
                           );
                         },
                       ),
+                      // v3: the recorder card rises over Home, above the Ask bar, from the Listening label.
+                      if (selectedIndex == 0) Positioned.fill(child: RecorderCardOverlay(open: _recorderOpen)),
                       // Merge action bar - floats above bottom nav when in selection mode
                       if (selectedIndex == 1) const Positioned(left: 0, right: 0, bottom: 0, child: MergeActionBar()),
                       // Task selection action bar - floats above bottom nav on the
@@ -816,6 +805,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
   /// D1: chat is a normal pushed page everywhere (back chevron, edge swipe), not a full-screen modal.
   void _openChat({bool voice = false}) {
     OmiHaptics.selection();
+    _recorderOpen.value = false;
     PlatformManager.instance.analytics.bottomNavigationTabClicked(voice ? 'Chat Voice' : 'Chat');
     routeToPage(context, ChatPage(isPivotBottom: false, autoStartVoice: voice));
   }
@@ -826,8 +816,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
     routeToPage(context, const MemoriesPage());
   }
 
-  /// v2 shell header, per tab: Home has the device pill and the account button; the other tabs
-  /// group their actions in one glass capsule on the trailing edge.
+  /// The pushed sections' header (Home has [HomeTopBar]): "< Today" on the leading edge and each
+  /// section's actions in one glass capsule on the trailing edge.
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
@@ -840,14 +830,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
         selector: (_, home) => home.selectedIndex,
         builder: (context, index, _) => Row(
           children: [
-            if (index == 0) const BatteryInfoWidget() else _TodayBackButton(onTap: _backToToday),
+            _TodayBackButton(onTap: _backToToday),
             const Spacer(),
-            // Rev 3 header: the device chip, then Search and Settings.
-            if (index == 0) ...[
-              _searchButton(context),
-              const SizedBox(width: 2),
-              _accountButton(context),
-            ],
             if (index == 1) ..._conversationsActions(context),
             if (index == 2) _tasksActions(context),
             if (index == 3) const AppsCreateMenu(),
@@ -856,27 +840,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
       ),
     );
   }
-
-  Widget _searchButton(BuildContext context) => HeaderCircleButton(
-        key: const Key('home_search_button'),
-        semanticLabel: context.l10n.search,
-        icon: OmiGlyph(OmiGlyphs.magnifyingGlass, size: 20, color: OmiColors.textPrimary),
-        onTap: () {
-          OmiHaptics.selection();
-          PlatformManager.instance.analytics.pageOpened('Search');
-          routeToPage(context, const SearchPage());
-        },
-      );
-
-  Widget _accountButton(BuildContext context) => HeaderCircleButton(
-        semanticLabel: context.l10n.settings,
-        icon: OmiGlyph(OmiGlyphs.person, size: 20, color: OmiColors.textPrimary),
-        onTap: () {
-          OmiHaptics.selection();
-          PlatformManager.instance.analytics.pageOpened('Settings');
-          unawaited(_openSettings());
-        },
-      );
 
   /// Conversations: sync (when a device is paired or files wait on it), the map, the date filter
   /// while one is set, then Select.
@@ -968,7 +931,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
   @override
   void dispose() {
     _homeWidgets?.dispose();
-    _dockCompact.dispose();
+    _recorderOpen.dispose();
     HomeNavigation.unregister(_openRoute);
     _promptGate.detach();
     // These prompts close over this Home; a later Home (after sign-out and sign-in) enqueues its own.

@@ -1,38 +1,25 @@
-import 'package:omi/utils/platform/platform_manager.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:omi/backend/http/api/users.dart';
-import 'package:omi/backend/preferences.dart';
 import 'package:omi/backend/schema/conversation.dart';
-import 'package:omi/backend/schema/daily_summary.dart';
 import 'package:omi/pages/conversations/widgets/capture_recovery_banner.dart';
-import 'package:omi/pages/conversations/widgets/conversation_list_item.dart';
-import 'package:omi/pages/conversations/widgets/daily_summaries_list.dart';
-import 'package:omi/pages/conversations/widgets/processing_capture.dart';
-import 'package:omi/pages/settings/daily_summary_detail_page.dart';
-import 'package:omi/pages/conversations/auto_sync_page.dart';
-import 'package:omi/pages/conversations/sync_page.dart';
-import 'package:omi/pages/home/widgets/capture_now_row.dart';
 import 'package:omi/pages/home/widgets/home_first_day.dart';
-import 'package:omi/pages/home/widgets/home_sections.dart';
-import 'package:omi/pages/home/widgets/idle_capture_card.dart';
-import 'package:omi/providers/device_provider.dart';
+import 'package:omi/pages/home/widgets/home_heard_today.dart';
+import 'package:omi/pages/home/widgets/home_todo_card.dart';
 import 'package:omi/providers/conversation_provider.dart';
 import 'package:omi/providers/home_provider.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/l10n/app_localizations.dart';
 import 'package:omi/utils/l10n_extensions.dart';
-import 'package:omi/utils/other/temp.dart';
-import 'package:omi/widgets/shimmer_with_timeout.dart';
 import 'package:omi/widgets/bottom_nav_bar.dart';
 
+/// Home (v3, the Omi v8 kit): under the top bar, a two-hour phrase as the headline, "Heard today"
+/// with up to five conversation rows, then the To-do card in the warm lower zone. What is
+/// listening lives in the top bar's label and the recorder card it opens, not on the page. The
+/// first day welcomes instead and adds Getting started and Good to know, so Home is never empty.
 class HomeContentPage extends StatefulWidget {
-  const HomeContentPage({super.key, this.fetchSummaries});
-
-  /// Defaults to the daily-summaries API (the latest recap card).
-  final DailySummariesFetcher? fetchSummaries;
+  const HomeContentPage({super.key});
 
   @override
   State<HomeContentPage> createState() => HomeContentPageState();
@@ -40,23 +27,9 @@ class HomeContentPage extends StatefulWidget {
 
 class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliveClientMixin {
   final ScrollController _scrollController = ScrollController();
-  List<DailySummary> _recentSummaries = [];
 
   @override
   bool get wantKeepAlive => true;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _loadSummaries());
-  }
-
-  Future<void> _loadSummaries() async {
-    if (!mounted) return;
-    final result = await (widget.fetchSummaries ?? getDailySummaries)(limit: 3, offset: 0);
-    // Keep the card that is already there when the read fails (cached content refreshes in place).
-    if (mounted && result.ok) setState(() => _recentSummaries = result.items);
-  }
 
   void scrollToTop() {
     if (_scrollController.hasClients) {
@@ -80,238 +53,100 @@ class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliv
         // showing first-day content so it never flashes.
         final settled = count > 0 || !(convoProvider.isLoadingConversations || convoProvider.isFetchingConversations);
         final firstDay = settled && count == 0;
-        return RefreshIndicator(
-          onRefresh: () async {
-            OmiHaptics.medium();
-            await Future.wait([convoProvider.getInitialConversations(), _loadSummaries()]);
-          },
-          color: OmiColors.onAccent,
-          backgroundColor: OmiColors.accent,
-          child: CustomScrollView(
-            controller: _scrollController,
-            physics: const AlwaysScrollableScrollPhysics(),
-            slivers: [
-              // Home v5, top to bottom: greeting, what is listening (one row), what needs the reader
-              // (Up next), the latest conversations (a line each), yesterday's recap. 22pt between
-              // sections. The week lives on the Conversations page, Memories and Apps in Settings.
-              // The first day (v2 FirstDay) welcomes instead, shows "Omi is listening" while it
-              // is, and adds Getting started and Good to know, so Home is never empty.
-              SliverToBoxAdapter(child: firstDay ? const HomeFirstDayHeader() : _buildGreeting(context)),
-
-              // The Now row: what is recording, with Mute and Stop; its quiet twin (Start) takes the
-              // same place when nothing is. The full card stays on the Live page.
-              if (firstDay) ...[
-                const SliverToBoxAdapter(child: FirstDayListeningHero()),
-                const SliverToBoxAdapter(child: IdleCaptureCard()),
-              ] else
-                SliverToBoxAdapter(
-                  // Start and Stop swap the idle and live rows: the change eases in rather than
-                  // jumping everything below.
-                  child: AnimatedSize(
-                    duration: OmiMotion.of(context).standard,
-                    curve: Curves.easeOutCubic,
-                    alignment: Alignment.topCenter,
-                    child: const ConversationCaptureWidget(showsCall: true, compact: true, idle: IdleCaptureRow()),
-                  ),
-                ),
-
-              const SliverToBoxAdapter(child: CaptureRecoveryBanner()),
-
-              SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: OmiSize.screenMargin),
-                sliver: SliverList.list(
-                  children: [
-                    HomeSyncCard(onTap: () => _openSync(context)),
-                    // Until the first few conversations: the setup checklist (folds away when done).
-                    if (settled && count < 3) HomeGettingStarted(conversationCount: count),
-                    // What needs the reader, right under what is listening (hides when nothing is due).
-                    if (settled) HomeUpNext(onAllTasks: () => context.read<HomeProvider>().setIndex(2)),
-                  ],
-                ),
-              ),
-
-              // The latest conversations, short: up to three, a line each, from the very first one.
-              if (count > 0) ...[
+        final heard = HomeHeardToday.pick(convoProvider);
+        final heardToday = heard.isNotEmpty && HomeHeardToday.isToday(heard.first);
+        return DecoratedBox(
+          decoration: BoxDecoration(gradient: HomeTone.gradient()),
+          child: RefreshIndicator(
+            onRefresh: () async {
+              OmiHaptics.medium();
+              await convoProvider.getInitialConversations();
+            },
+            color: OmiColors.onAccent,
+            backgroundColor: OmiColors.accent,
+            child: CustomScrollView(
+              controller: _scrollController,
+              physics: const AlwaysScrollableScrollPhysics(),
+              slivers: [
+                SliverToBoxAdapter(child: firstDay ? const HomeFirstDayHeader() : _buildHeadline(context)),
+                if (firstDay) const SliverToBoxAdapter(child: FirstDayListeningHero()),
+                const SliverToBoxAdapter(child: CaptureRecoveryBanner()),
                 SliverPadding(
-                  padding: const EdgeInsets.fromLTRB(OmiSize.screenMargin, 22, OmiSize.screenMargin, 0),
-                  sliver: SliverToBoxAdapter(
-                    child: HomeSectionHeader(
-                      title: context.l10n.conversations,
-                      actionLabel: context.l10n.seeAll,
-                      onAction: () => context.read<HomeProvider>().setIndex(1),
-                    ),
+                  padding: const EdgeInsets.symmetric(horizontal: OmiSize.screenMargin),
+                  sliver: SliverList.list(
+                    children: [
+                      // Until the first few conversations: the setup checklist (folds away when done).
+                      if (settled && count < 3) HomeGettingStarted(conversationCount: count),
+                      if (heard.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 22),
+                          child: HomeHeardToday(
+                            conversations: heard,
+                            today: heardToday,
+                            onAll: () => context.read<HomeProvider>().setIndex(1),
+                          ),
+                        ),
+                      if (settled)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 36),
+                          child: HomeTodoCard(onOpen: () => context.read<HomeProvider>().setIndex(2)),
+                        ),
+                    ],
                   ),
                 ),
-                HomeConversationsPreview(conversationProvider: convoProvider),
+                if (settled && firstDay) const SliverToBoxAdapter(child: HomeGoodToKnow()),
+                // Room under the last section for the pinned Ask bar.
+                SliverToBoxAdapter(child: SizedBox(height: homeChatBarClearance(context))),
               ],
-
-              // Yesterday's recap, two lines and the numbers, after today's conversations.
-              if (_recentSummaries.isNotEmpty)
-                SliverPadding(
-                  padding: const EdgeInsets.fromLTRB(OmiSize.screenMargin, 22, OmiSize.screenMargin, 0),
-                  sliver: SliverToBoxAdapter(
-                    child: HomeRecapCard(
-                      summary: _recentSummaries.first,
-                      onTap: () => _openRecap(context, _recentSummaries.first),
-                    ),
-                  ),
-                ),
-
-              if (settled && firstDay) const SliverToBoxAdapter(child: HomeGoodToKnow()),
-
-              // Bottom padding so content isn't hidden behind chat bar + nav
-              SliverToBoxAdapter(child: SizedBox(height: homeChatBarClearance(context))),
-            ],
+            ),
           ),
         );
       },
     );
   }
 
-  void _openSync(BuildContext context) {
-    OmiHaptics.selection();
-    final page = context.read<DeviceProvider>().supportsMultiFileSync ? const AutoSyncPage() : const SyncPage();
-    routeToPage(context, page);
-  }
-
-  Future<void> _openRecap(BuildContext context, DailySummary summary) async {
-    PlatformManager.instance.analytics.dailySummaryDetailViewed(summaryId: summary.id, date: summary.date);
-    // Detail page pops with ``{deleted: true, summaryId}`` when the user
-    // deletes from there — drop the card so it doesn't linger until the next pull-to-refresh.
-    final result = await routeToPage(
-      context,
-      DailySummaryDetailPage(summaryId: summary.id, summary: summary, days: List.of(_recentSummaries)),
-    );
-    if (!mounted) return;
-    if (result is Map && result['deleted'] == true) {
-      final deletedId = result['summaryId'] as String?;
-      if (deletedId != null) {
-        setState(() => _recentSummaries.removeWhere((s) => s.id == deletedId));
-      }
-    }
-  }
-
   int _nonDiscardedConversationCount(ConversationProvider provider) {
     return provider.conversations.where((c) => !c.discarded).length;
   }
 
-  /// v2 Main: the greeting for the hour as the large title — with the reader's first name when it
-  /// fits the line ("Busy morning, Ashwin"), else the name moves to the line under it — then today.
-  Widget _buildGreeting(BuildContext context) {
-    final l10n = context.l10n;
-    final now = DateTime.now();
-    final greeting = HomeGreeting.forHour(l10n, now.hour);
-    final name = SharedPreferencesUtil().givenName.trim();
-    final day = OmiDateFormat.of(context).longDay(now);
+  /// The headline (v3): a two-to-three-word phrase for the hour, changing every two hours, 34/600.
+  /// Never a date.
+  Widget _buildHeadline(BuildContext context) {
+    final greeting = HomeGreeting.forHour(context.l10n, DateTime.now().hour);
     return Padding(
-      // v2: the title sits 4pt inside the 16pt page margin, like every large title.
-      padding:
-          const EdgeInsets.fromLTRB(OmiSize.screenMargin + OmiSpacing.xxs, OmiSpacing.xxs, OmiSize.screenMargin, 0),
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final personal = name.isEmpty ? null : l10n.greetingWithName(greeting, name);
-          final fits = personal != null &&
-              HomeGreeting.fitsOneLine(personal, OmiType.largeTitle, constraints.maxWidth,
-                  MediaQuery.textScalerOf(context), Directionality.of(context));
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Semantics(
-                header: true,
-                child: Text(fits ? personal : greeting,
-                    style: OmiType.largeTitle, maxLines: 1, overflow: TextOverflow.ellipsis),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                fits || name.isEmpty ? day : '$name · $day',
-                style: OmiType.subhead.copyWith(color: OmiColors.textSecondary),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
-          );
-        },
+      // 44 pt under the top bar, as the design sets it.
+      padding: const EdgeInsets.fromLTRB(OmiSize.screenMargin, 36, OmiSize.screenMargin, 0),
+      child: Semantics(
+        header: true,
+        child: Text(
+          greeting,
+          key: const Key('home_headline'),
+          style: OmiType.largeTitle,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
       ),
     );
   }
 }
 
-/// The filtered recent-conversation preview shown on Home for established users.
-///
-/// This consumes [ConversationProvider.groupedConversations], which already
-/// carries the conversations page's discarded/short/starred/date filters.
-class HomeConversationsPreview extends StatelessWidget {
-  final ConversationProvider conversationProvider;
-
-  const HomeConversationsPreview({super.key, required this.conversationProvider});
-
-  @override
-  Widget build(BuildContext context) {
-    if (conversationProvider.isLoadingConversations && conversationProvider.conversations.isEmpty) {
-      return SliverToBoxAdapter(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: List.generate(
-              2,
-              (_) => Padding(
-                padding: const EdgeInsets.only(top: 12),
-                child: ShimmerWithTimeout(
-                  baseColor: OmiColors.surface1,
-                  highlightColor: OmiColors.surface3,
-                  child: Container(
-                    height: 80,
-                    decoration: BoxDecoration(color: OmiColors.surface1, borderRadius: OmiRadius.xlAll),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-
-    final sortedDates = conversationProvider.groupedConversations.keys.toList()..sort((a, b) => b.compareTo(a));
-    final recent = <ServerConversation>[];
-    for (final date in sortedDates) {
-      final list = conversationProvider.groupedConversations[date] ?? const [];
-      for (final conversation in list) {
-        recent.add(conversation);
-        if (recent.length >= 3) break;
-      }
-      if (recent.length >= 3) break;
-    }
-    if (recent.isEmpty) return const SliverToBoxAdapter(child: SizedBox.shrink());
-
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(childCount: recent.length, (context, index) {
-        final conversation = recent[index];
-        final date = conversationLocalDayKey(conversation.startedAt ?? conversation.createdAt);
-        // v2: Home's recent conversations share one card.
-        final first = index == 0;
-        final last = index == recent.length - 1;
-        return ConversationListItem(
-          key: ValueKey(conversation.id),
-          conversation: conversation,
-          date: date,
-          conversationIdx: index,
-          allowSelection: false,
-          compact: true,
-          position: first && last
-              ? ConversationRowPosition.only
-              : first
-                  ? ConversationRowPosition.first
-                  : last
-                      ? ConversationRowPosition.last
-                      : ConversationRowPosition.middle,
-        );
-      }),
+/// Home's background (v3 `.home-bg`), fixed to the screen, not the scroll: the page colour for the
+/// top 62 %, half warm by 72 %, fully warm white by 82 %.
+abstract final class HomeTone {
+  static LinearGradient gradient() {
+    final paper = OmiColors.surface0;
+    final tone = OmiColors.tone;
+    return LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [paper, paper, Color.lerp(paper, tone, 0.5)!, tone],
+      stops: const [0, 0.62, 0.72, 0.82],
     );
   }
 }
 
-/// Home's greeting: something different every two hours, from Up late to Good night, short enough
-/// that the reader's first name fits after it.
+/// Home's headline: something different every two hours, from Up late to Good night, two or three
+/// words.
 abstract final class HomeGreeting {
   static String forHour(AppLocalizations l10n, int hour) => switch ((hour % 24) ~/ 2) {
         0 => l10n.greetingUpLate,
@@ -340,4 +175,9 @@ abstract final class HomeGreeting {
     painter.dispose();
     return fits;
   }
+}
+
+/// Non-discarded conversations, for tests and callers that count what Home shows.
+extension HomeConversations on ConversationProvider {
+  List<ServerConversation> get shownConversations => conversations.where((c) => !c.discarded).toList();
 }

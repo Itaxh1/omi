@@ -3762,5 +3762,10 @@
     "askTryHint": "опитайте „{question}“",
     "chatHeaderSubtitle": "Познава разговорите и задачите ви",
     "answerSources": "Източници",
-    "homeAppsMore": "Още"
+    "homeAppsMore": "Още",
+    "heardToday": "Чуто днес",
+    "switchDevice": "Смяна на устройство",
+    "todoLate": "{task} закъснява с {count, plural, =1{1 ден} other{{count} дни}}",
+    "todoDueToday": "{task} е за днес",
+    "todoOpenCount": "{count, plural, =0{Няма нищо спешно} =1{1 отворена задача} other{{count} отворени задачи}}"
 }

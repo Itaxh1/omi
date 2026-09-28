@@ -12029,4 +12029,38 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'Περισσότερα';
+
+  @override
+  String get heardToday => 'Ακούστηκε σήμερα';
+
+  @override
+  String get switchDevice => 'Αλλαγή συσκευής';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ημέρες',
+      one: '1 ημέρα',
+    );
+    return '$task καθυστερεί $_temp0';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task λήγει σήμερα';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ανοιχτές εργασίες',
+      one: '1 ανοιχτή εργασία',
+      zero: 'Τίποτα δεν εκκρεμεί',
+    );
+    return '$_temp0';
+  }
 }

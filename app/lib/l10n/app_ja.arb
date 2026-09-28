@@ -3762,5 +3762,10 @@
     "askTryHint": "「{question}」と聞いてみて",
     "chatHeaderSubtitle": "あなたの会話とタスクを把握しています",
     "answerSources": "出典",
-    "homeAppsMore": "その他"
+    "homeAppsMore": "その他",
+    "heardToday": "今日聞いたこと",
+    "switchDevice": "デバイスを切り替える",
+    "todoLate": "{task}は{count, plural, =1{1日} other{{count}日}}遅れています",
+    "todoDueToday": "{task}は今日が期限です",
+    "todoOpenCount": "{count, plural, =0{期限のものはありません} =1{未完了のタスク1件} other{未完了のタスク{count}件}}"
 }

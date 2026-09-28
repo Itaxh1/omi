@@ -11949,4 +11949,38 @@ class AppLocalizationsNo extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'Mer';
+
+  @override
+  String get heardToday => 'Hørt i dag';
+
+  @override
+  String get switchDevice => 'Bytt enhet';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dager',
+      one: '1 dag',
+    );
+    return '$task er $_temp0 forsinket';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task skal gjøres i dag';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count åpne oppgaver',
+      one: '1 åpen oppgave',
+      zero: 'Ingenting forfaller',
+    );
+    return '$_temp0';
+  }
 }

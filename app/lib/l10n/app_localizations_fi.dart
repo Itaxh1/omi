@@ -11950,4 +11950,38 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'Lisää';
+
+  @override
+  String get heardToday => 'Kuultu tänään';
+
+  @override
+  String get switchDevice => 'Vaihda laitetta';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count päivää',
+      one: '1 päivän',
+    );
+    return '$task on $_temp0 myöhässä';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task on määrä tehdä tänään';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count avointa tehtävää',
+      one: '1 avoin tehtävä',
+      zero: 'Ei mitään erääntyvää',
+    );
+    return '$_temp0';
+  }
 }

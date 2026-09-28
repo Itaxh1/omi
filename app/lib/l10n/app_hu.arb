@@ -3858,5 +3858,10 @@
     "askTryHint": "próbáld: „{question}”",
     "chatHeaderSubtitle": "Ismeri a beszélgetéseidet és feladataidat",
     "answerSources": "Források",
-    "homeAppsMore": "Több"
+    "homeAppsMore": "Több",
+    "heardToday": "Ma hallottak",
+    "switchDevice": "Eszköz váltása",
+    "todoLate": "{task} {count, plural, =1{1 napot} other{{count} napot}} késik",
+    "todoDueToday": "{task} ma esedékes",
+    "todoOpenCount": "{count, plural, =0{Nincs esedékes} =1{1 nyitott teendő} other{{count} nyitott teendő}}"
 }

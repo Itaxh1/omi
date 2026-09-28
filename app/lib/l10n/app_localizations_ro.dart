@@ -12003,4 +12003,38 @@ class AppLocalizationsRo extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'Mai multe';
+
+  @override
+  String get heardToday => 'Auzit astăzi';
+
+  @override
+  String get switchDevice => 'Schimbă dispozitivul';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count zile',
+      one: '1 zi',
+    );
+    return '$task are $_temp0 întârziere';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task are termen astăzi';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count sarcini deschise',
+      one: '1 sarcină deschisă',
+      zero: 'Nimic scadent',
+    );
+    return '$_temp0';
+  }
 }

@@ -12011,4 +12011,38 @@ class AppLocalizationsMk extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'Повеќе';
+
+  @override
+  String get heardToday => 'Слушнато денес';
+
+  @override
+  String get switchDevice => 'Промени уред';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count дена',
+      one: '1 ден',
+    );
+    return '$task задоцнува $_temp0';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task доспева денес';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count отворени задачи',
+      one: '1 отворена задача',
+      zero: 'Ништо не доспева',
+    );
+    return '$_temp0';
+  }
 }

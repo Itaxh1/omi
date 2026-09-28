@@ -17,7 +17,7 @@ import 'package:omi/pages/conversations/widgets/conversation_list_item.dart';
 import 'package:omi/pages/conversations/widgets/empty_conversations.dart';
 import 'package:omi/pages/conversations/widgets/folder_tabs.dart';
 import 'package:omi/pages/conversations/widgets/search_widget.dart';
-import 'package:omi/pages/home/home_content.dart';
+import 'package:omi/pages/home/widgets/home_heard_today.dart';
 import 'package:omi/pages/memories/page.dart';
 import 'package:omi/pages/onboarding/auth.dart';
 import 'package:omi/pages/settings/device_settings.dart';
@@ -292,15 +292,15 @@ Future<SurfaceSemanticsReport> _measureHome(WidgetTester tester) async {
   return _tryMeasure(
     tester,
     surface: 'home',
-    pumpedWidget: 'HomeAskBar + HomeConversationsPreview',
+    pumpedWidget: 'HomeAskBar + HomeHeardToday',
     notes: [
-      'HomePage / HomeContentPage not pumped: HomePage owns uncancelled Timers; HomeContentPage fetches daily summaries.',
-      'Home has no tab bar (v2.1): the Ask bar is one labelled button, and its mic another.',
+      'HomePage / HomeContentPage not pumped: HomePage owns uncancelled Timers; HomeContentPage reads capture providers.',
+      'Home has no tab bar (v3): the Ask bar is one labelled button, and its mic another.',
     ],
     app: _app(
       Scaffold(
-        body: CustomScrollView(slivers: [HomeConversationsPreview(conversationProvider: conversations)]),
-        bottomNavigationBar: HomeAskBar(onOpen: () {}, onVoice: () {}, compact: ValueNotifier(false)),
+        body: HomeHeardToday(conversations: [newest], onAll: () {}),
+        bottomNavigationBar: HomeAskBar(onOpen: () {}, onVoice: () {}),
       ),
       wrap: (child) => _withProviders(child, [
         ChangeNotifierProvider<HomeProvider>.value(value: home),

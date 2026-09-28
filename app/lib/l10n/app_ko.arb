@@ -3762,5 +3762,10 @@
     "askTryHint": "“{question}” 물어보세요",
     "chatHeaderSubtitle": "대화와 할 일을 알고 있어요",
     "answerSources": "출처",
-    "homeAppsMore": "더 보기"
+    "homeAppsMore": "더 보기",
+    "heardToday": "오늘 들은 내용",
+    "switchDevice": "기기 전환",
+    "todoLate": "{task}이(가) {count, plural, =1{1일} other{{count}일}} 지났습니다",
+    "todoDueToday": "{task}은(는) 오늘까지입니다",
+    "todoOpenCount": "{count, plural, =0{기한이 임박한 항목 없음} =1{미완료 할 일 1개} other{미완료 할 일 {count}개}}"
 }

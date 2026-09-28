@@ -21764,6 +21764,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'More'**
   String get homeAppsMore;
+
+  /// Home (v3): the label over today's conversation rows
+  ///
+  /// In en, this message translates to:
+  /// **'Heard today'**
+  String get heardToday;
+
+  /// Recorder card footer (v3): opens Recording from
+  ///
+  /// In en, this message translates to:
+  /// **'Switch device'**
+  String get switchDevice;
+
+  /// Home To-do card (v3): the most overdue task and how late it is
+  ///
+  /// In en, this message translates to:
+  /// **'{task} is {count, plural, =1{a day late} other{{count} days late}}'**
+  String todoLate(String task, int count);
+
+  /// Home To-do card (v3): the next task due today when nothing is late
+  ///
+  /// In en, this message translates to:
+  /// **'{task} is due today'**
+  String todoDueToday(String task);
+
+  /// Home To-do card (v3): how many open to-dos when nothing is late or due today
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Nothing due} =1{1 open to-do} other{{count} open to-dos}}'**
+  String todoOpenCount(int count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

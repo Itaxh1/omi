@@ -3762,5 +3762,10 @@
     "askTryHint": "prova ”{question}”",
     "chatHeaderSubtitle": "Känner till dina samtal och uppgifter",
     "answerSources": "Källor",
-    "homeAppsMore": "Mer"
+    "homeAppsMore": "Mer",
+    "heardToday": "Hört i dag",
+    "switchDevice": "Byt enhet",
+    "todoLate": "{task} är {count, plural, =1{1 dag} other{{count} dagar}} försenad",
+    "todoDueToday": "{task} ska göras i dag",
+    "todoOpenCount": "{count, plural, =0{Inget att göra} =1{1 öppen uppgift} other{{count} öppna uppgifter}}"
 }

@@ -3762,5 +3762,10 @@
     "askTryHint": "thử hỏi “{question}”",
     "chatHeaderSubtitle": "Biết các cuộc trò chuyện và việc cần làm của bạn",
     "answerSources": "Nguồn",
-    "homeAppsMore": "Thêm"
+    "homeAppsMore": "Thêm",
+    "heardToday": "Đã nghe hôm nay",
+    "switchDevice": "Đổi thiết bị",
+    "todoLate": "{task} đã trễ {count, plural, =1{1 ngày} other{{count} ngày}}",
+    "todoDueToday": "{task} đến hạn hôm nay",
+    "todoOpenCount": "{count, plural, =0{Không có gì đến hạn} =1{1 việc chưa xong} other{{count} việc chưa xong}}"
 }

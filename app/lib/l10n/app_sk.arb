@@ -3762,5 +3762,10 @@
     "askTryHint": "skúste „{question}“",
     "chatHeaderSubtitle": "Pozná vaše konverzácie a úlohy",
     "answerSources": "Zdroje",
-    "homeAppsMore": "Viac"
+    "homeAppsMore": "Viac",
+    "heardToday": "Dnes zaznamenané",
+    "switchDevice": "Zmeniť zariadenie",
+    "todoLate": "{task} mešká {count, plural, =1{1 deň} other{{count} dní}}",
+    "todoDueToday": "{task} má termín dnes",
+    "todoOpenCount": "{count, plural, =0{Nič nesúri} =1{1 otvorená úloha} other{{count} otvorených úloh}}"
 }

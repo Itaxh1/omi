@@ -7,15 +7,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:omi/providers/conversation_provider.dart';
 import 'package:omi/providers/action_items_provider.dart';
-import 'package:omi/pages/conversations/widgets/daily_summaries_list.dart';
 import 'package:omi/backend/schema/schema.dart';
-import 'package:omi/backend/schema/daily_summary.dart';
 import 'package:nested/nested.dart';
 
 import 'package:omi/backend/schema/bt_device/bt_device.dart';
 import 'package:omi/pages/conversation_capturing/page.dart';
 import 'package:omi/pages/home/home_content.dart';
-import 'package:omi/pages/home/widgets/battery_info_widget.dart';
+import 'package:omi/pages/home/widgets/home_top_bar.dart';
+import 'package:omi/pages/home/widgets/recorder_overlay.dart';
 import 'package:omi/providers/capture_provider.dart';
 import 'package:omi/providers/device_provider.dart';
 import 'package:omi/providers/phone_call_provider.dart';
@@ -23,7 +22,6 @@ import 'package:omi/services/wals/wal.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/enums.dart';
 import 'package:omi/pages/home/widgets/home_ask_bar.dart';
-import 'package:omi/widgets/header_circle_button.dart';
 
 import '../fakes.dart';
 import '../harness.dart';
@@ -170,52 +168,33 @@ class _CallInProgress extends ChangeNotifier implements PhoneCallProvider {
 
 final auditPendant = BtDevice(id: 'd1', name: 'Omi', type: DeviceType.omi, rssi: -40);
 
-/// Home as HomePage lays it out (Rev 3): header (device chip; Search and Settings), content, and the
-/// dock with the round Ask button.
-class _HomeFrame extends StatelessWidget {
-  const _HomeFrame({this.fetchSummaries});
+/// Home as HomePage lays it out (v3): the top bar (Folders, the Listening label, You), the content
+/// on the fixed warm gradient, the recorder card over it, and the pinned Ask bar.
+class _HomeFrame extends StatefulWidget {
+  const _HomeFrame();
 
-  final DailySummariesFetcher? fetchSummaries;
+  @override
+  State<_HomeFrame> createState() => _HomeFrameState();
+}
 
-  /// The dock's Ask opens its field (HomePage passes onAskSubmit) instead of going to Chat.
+class _HomeFrameState extends State<_HomeFrame> {
+  final ValueNotifier<bool> _recorderOpen = ValueNotifier<bool>(false);
+
+  @override
+  void dispose() {
+    _recorderOpen.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: OmiColors.surface0,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        clipBehavior: Clip.none,
-        titleSpacing: NavigationToolbar.kMiddleSpacing - (kMinTapTarget - kHeaderCircleDiameter) / 2,
-        title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          const Padding(
-            padding: EdgeInsets.only(left: (kMinTapTarget - kHeaderCircleDiameter) / 2),
-            child: BatteryInfoWidget(),
-          ),
-          Row(mainAxisSize: MainAxisSize.min, children: [
-            HeaderCircleButton(
-              semanticLabel: 'Search',
-              onTap: () {},
-              icon: OmiGlyph(OmiGlyphs.magnifyingGlass, size: 20, color: OmiColors.textPrimary),
-            ),
-            const SizedBox(width: 2),
-            HeaderCircleButton(
-              semanticLabel: 'Settings',
-              onTap: () {},
-              icon: OmiGlyph(OmiGlyphs.person, size: 20, color: OmiColors.textPrimary),
-            ),
-          ]),
-        ]),
-      ),
+      appBar: HomeTopBar(recorderOpen: _recorderOpen, onFolders: () {}, onYou: () {}),
       body: Stack(children: [
-        HomeContentPage(fetchSummaries: fetchSummaries),
-        Positioned(
-          left: 0,
-          right: 0,
-          bottom: 0,
-          child: HomeAskBar(onOpen: () {}, onVoice: () {}, compact: ValueNotifier(false)),
-        ),
+        const HomeContentPage(),
+        Positioned(left: 0, right: 0, bottom: 0, child: HomeAskBar(onOpen: () {}, onVoice: () {})),
+        Positioned.fill(child: RecorderCardOverlay(open: _recorderOpen)),
       ]),
     );
   }
@@ -232,7 +211,7 @@ Future<void> _runHome(
   bool withData = false,
   bool scroll = false,
 }) async {
-  await a.pump(_HomeFrame(fetchSummaries: withData ? _seededRecap : null), scaffold: false, providers: [
+  await a.pump(const _HomeFrame(), scaffold: false, providers: [
     if (withData) ...await _seededHomeData(a),
     ChangeNotifierProvider<DeviceProvider>.value(
         value: pendantConnected
@@ -262,7 +241,7 @@ Future<void> _runLivePage(AuditRun a, AuditLive live) async {
   await a.shot('The live page');
 }
 
-const _home = 'lib/pages/home/page.dart (Home: live or idle card, device chip, Search)';
+const _home = 'lib/pages/home/page.dart (Home v3: top bar with the Listening label, headline, Heard today, To-do)';
 
 /// A day's worth of Home: five conversations, three open tasks (one due today) and yesterday's
 /// recap, as v2 Main shows them.
@@ -325,25 +304,6 @@ Future<List<SingleChildWidget>> _seededHomeData(AuditRun a) async {
   ];
 }
 
-Future<({List<DailySummary> items, bool ok})> _seededRecap({int limit = 20, int offset = 0}) async {
-  final yesterday = DateTime.now().subtract(const Duration(days: 1));
-  final date =
-      '${yesterday.year}-${yesterday.month.toString().padLeft(2, '0')}-${yesterday.day.toString().padLeft(2, '0')}';
-  return (
-    items: [
-      DailySummary(
-        id: 'recap-1',
-        date: date,
-        createdAt: yesterday,
-        headline: 'A planning day: pricing, the iPhone roadmap and two follow-ups.',
-        overview: 'Pricing is leaning annual; the iOS roadmap puts capture first.',
-        stats: DayStats(totalConversations: 6, totalDurationMinutes: 72, actionItemsCount: 5),
-      ),
-    ],
-    ok: true,
-  );
-}
-
 const _live = 'lib/pages/conversation_capturing/page.dart (ConversationCapturingPage)';
 
 final captureScenarios = <AuditScenario>[
@@ -384,17 +344,42 @@ final captureScenarios = <AuditScenario>[
     run: (a) => _runHome(a, withData: true, AuditLive.idle),
   ),
   AuditScenario(
-    id: 'home-recording-from',
-    title: 'Recording from: the device chip opens the sources, one live at a time',
-    page: 'lib/pages/devices/recording_source_sheet.dart (showRecordingSourceSheet)',
-    state: 'An Omi pendant connected at 72% battery and recording; the device chip is tapped',
+    id: 'home-recorder-card',
+    title: 'The recorder card: the Listening label opens it over Home',
+    page: 'lib/pages/home/widgets/recorder_card.dart (RecorderCard, RecorderShell)',
+    state: 'An Omi pendant connected at 72% battery and recording; the Listening label is tapped',
     run: (a) => _runHome(
         a,
         withData: true,
         AuditLive.pendant,
         pendantConnected: true,
-        tap: find.byType(BatteryInfoWidget),
-        action: 'Tap the device chip'),
+        tap: find.byKey(const Key('home_listening_label')),
+        action: 'Tap Listening'),
+  ),
+  AuditScenario(
+    id: 'home-recorder-idle',
+    title: 'The recorder card while nothing listens: the device and Start',
+    page: 'lib/pages/home/widgets/recorder_card.dart (RecorderIdleCard)',
+    state: 'An Omi pendant connected at 72% battery, stopped; the label (Start) is tapped',
+    run: (a) => _runHome(
+        a,
+        withData: true,
+        AuditLive.pendantStopped,
+        pendantConnected: true,
+        tap: find.byKey(const Key('home_listening_label')),
+        action: 'Tap Start in the top bar'),
+  ),
+  AuditScenario(
+    id: 'home-recording-from',
+    title: 'Recording from: Switch device on the recorder card opens the sources, one live at a time',
+    page: 'lib/pages/devices/recording_source_sheet.dart (showRecordingSourceSheet)',
+    state: 'An Omi pendant connected at 72% battery and recording; Listening, then Switch device',
+    run: (a) async {
+      await _runHome(a, withData: true, AuditLive.pendant, pendantConnected: true,
+          tap: find.byKey(const Key('home_listening_label')), action: 'Tap Listening');
+      await a.tap(find.byKey(const Key('recorder_switch_device')));
+      await a.shot('Tap Switch device', step: 'sources');
+    },
   ),
   AuditScenario(
     id: 'home-capture-pendant-live',
@@ -423,7 +408,9 @@ final captureScenarios = <AuditScenario>[
     page: _home,
     state: 'The pendant streams; Recording from → This phone is tapped (the pendant asks first)',
     run: (a) async {
-      await _runHome(a, withData: true, AuditLive.pendant, pendantConnected: true, tap: find.byType(BatteryInfoWidget));
+      await _runHome(a, withData: true, AuditLive.pendant, pendantConnected: true,
+          tap: find.byKey(const Key('home_listening_label')));
+      await a.tap(find.byKey(const Key('recorder_switch_device')));
       await a.tap(find.byKey(const Key('devices_this_phone')));
       await a.shot('Tap This phone in Recording from', step: 'switch');
     },

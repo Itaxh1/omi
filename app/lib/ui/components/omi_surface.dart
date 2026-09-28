@@ -150,13 +150,11 @@ class OmiCard extends StatelessWidget {
   /// Clip the child to the rounded shape (lists whose rows paint their own pressed fill).
   final bool clip;
 
-  static const List<OmiShadow> _shade = [OmiShadow(color: Color(0x33000000), offset: Offset(0, 1))];
-
-  /// Daylight (canvas light `.card`): a whisper of ink under the edge instead of a hard shade.
-  static const List<OmiShadow> _shadeLight = [
-    OmiShadow(color: Color(0x0A14171E), offset: Offset(0, 0.5)),
-    OmiShadow(color: Color(0x0D14171E), offset: Offset(0, 1), blur: 3),
-  ];
+  /// The palette's shade under the card's edge; v3 sets it clear, so cards are flat with a hairline.
+  static List<OmiShadow> _shade() {
+    final shade = OmiColors.palette.cardShade;
+    return shade.a == 0 ? const [] : [OmiShadow(color: shade, offset: const Offset(0, 1))];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +163,7 @@ class OmiCard extends StatelessWidget {
     if (clip) body = ClipRRect(borderRadius: borderRadius, child: body);
     Widget card = OmiSurfaceLight(
       borderRadius: borderRadius,
-      shadows: OmiColors.isLight ? _shadeLight : _shade,
+      shadows: _shade(),
       topLight: OmiColors.palette.cardTopLight,
       ring: OmiColors.palette.cardRim,
       child: DecoratedBox(

@@ -3762,5 +3762,10 @@
     "askTryHint": "prøv «{question}»",
     "chatHeaderSubtitle": "Kjenner samtalene og oppgavene dine",
     "answerSources": "Kilder",
-    "homeAppsMore": "Mer"
+    "homeAppsMore": "Mer",
+    "heardToday": "Hørt i dag",
+    "switchDevice": "Bytt enhet",
+    "todoLate": "{task} er {count, plural, =1{1 dag} other{{count} dager}} forsinket",
+    "todoDueToday": "{task} skal gjøres i dag",
+    "todoOpenCount": "{count, plural, =0{Ingenting forfaller} =1{1 åpen oppgave} other{{count} åpne oppgaver}}"
 }

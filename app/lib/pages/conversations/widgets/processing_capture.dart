@@ -26,11 +26,18 @@ import 'package:omi/backend/schema/phone_call.dart';
 import 'package:omi/providers/phone_call_provider.dart';
 import 'package:omi/pages/conversations/widgets/live_capture_card.dart';
 import 'package:omi/pages/home/widgets/capture_now_row.dart';
+import 'package:omi/pages/home/widgets/recorder_card.dart';
 import 'package:omi/pages/phone_calls/active_call_page.dart';
 import 'package:omi/ui/ui.dart';
 
 class ConversationCaptureWidget extends StatefulWidget {
-  const ConversationCaptureWidget({super.key, this.showsCall = false, this.idle, this.compact = false});
+  const ConversationCaptureWidget({
+    super.key,
+    this.showsCall = false,
+    this.idle,
+    this.compact = false,
+    this.recorder = false,
+  });
 
   /// Home shows an Omi call on this card; the Conversations tab has its own call banner.
   final bool showsCall;
@@ -41,6 +48,10 @@ class ConversationCaptureWidget extends StatefulWidget {
 
   /// Home v5: the card's inputs drawn as one row ([CaptureNowRow]) in the 22 pt row card.
   final bool compact;
+
+  /// v3: the card's inputs drawn as the recorder card ([RecorderCard]) in its glass shell
+  /// ([RecorderShell]), which the Listening label raises over Home.
+  final bool recorder;
 
   @override
   State<ConversationCaptureWidget> createState() => _ConversationCaptureWidgetState();
@@ -192,8 +203,12 @@ class _ConversationCaptureWidgetState extends State<ConversationCaptureWidget> {
     );
   }
 
-  /// The card's inputs, drawn as the full card or (Home v5) as the Now row.
-  Widget _capture(LiveCaptureCard card) => widget.compact ? CaptureNowRow(card: card) : card;
+  /// The card's inputs, drawn as the full card, (Home v5) the Now row, or (v3) the recorder card.
+  Widget _capture(LiveCaptureCard card) => widget.recorder
+      ? RecorderCard(card: card)
+      : widget.compact
+          ? CaptureNowRow(card: card)
+          : card;
 
   /// The live card's orb, wave and capsules sit on the design's 16pt card padding.
   static const _liveCardPadding = EdgeInsets.all(OmiSpacing.md);
@@ -203,7 +218,9 @@ class _ConversationCaptureWidgetState extends State<ConversationCaptureWidget> {
 
   /// The live card (Liquid Dock): a 28 pt card with the design's rim and top light. The Now row
   /// sits in the 22 pt row card instead.
-  Widget _cardShell(Widget child, {EdgeInsets? padding}) => Padding(
+  Widget _cardShell(Widget child, {EdgeInsets? padding}) => widget.recorder
+      ? RecorderShell(child: child)
+      : Padding(
         padding: const EdgeInsets.fromLTRB(OmiSpacing.md, OmiSpacing.lg, OmiSpacing.md, OmiSpacing.sm),
         child: OmiCard(
           radius: widget.compact ? OmiRadius.row : OmiRadius.cardLarge,

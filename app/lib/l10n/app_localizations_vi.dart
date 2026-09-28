@@ -11945,4 +11945,38 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'Thêm';
+
+  @override
+  String get heardToday => 'Đã nghe hôm nay';
+
+  @override
+  String get switchDevice => 'Đổi thiết bị';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ngày',
+      one: '1 ngày',
+    );
+    return '$task đã trễ $_temp0';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task đến hạn hôm nay';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count việc chưa xong',
+      one: '1 việc chưa xong',
+      zero: 'Không có gì đến hạn',
+    );
+    return '$_temp0';
+  }
 }

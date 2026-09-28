@@ -11755,4 +11755,38 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get homeAppsMore => '더 보기';
+
+  @override
+  String get heardToday => '오늘 들은 내용';
+
+  @override
+  String get switchDevice => '기기 전환';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count일',
+      one: '1일',
+    );
+    return '$task이(가) $_temp0 지났습니다';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task은(는) 오늘까지입니다';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '미완료 할 일 $count개',
+      one: '미완료 할 일 1개',
+      zero: '기한이 임박한 항목 없음',
+    );
+    return '$_temp0';
+  }
 }

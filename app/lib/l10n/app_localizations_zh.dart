@@ -11729,4 +11729,38 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get homeAppsMore => '更多';
+
+  @override
+  String get heardToday => '今日所闻';
+
+  @override
+  String get switchDevice => '切换设备';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count天',
+      one: '1天',
+    );
+    return '$task已逾期$_temp0';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task今天到期';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 个待办',
+      one: '1 个待办',
+      zero: '没有到期事项',
+    );
+    return '$_temp0';
+  }
 }

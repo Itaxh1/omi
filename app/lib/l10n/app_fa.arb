@@ -11322,5 +11322,10 @@
     "askTryHint": "امتحان کنید «{question}»",
     "chatHeaderSubtitle": "گفتگوها و کارهای شما را می‌شناسد",
     "answerSources": "منابع",
-    "homeAppsMore": "بیشتر"
+    "homeAppsMore": "بیشتر",
+    "heardToday": "امروز شنیده شد",
+    "switchDevice": "تغییر دستگاه",
+    "todoLate": "{task} {count, plural, =1{۱ روز} other{{count} روز}} تأخیر دارد",
+    "todoDueToday": "{task} امروز موعد دارد",
+    "todoOpenCount": "{count, plural, =0{چیزی موعد ندارد} =1{۱ کار باز} other{{count} کار باز}}"
 }

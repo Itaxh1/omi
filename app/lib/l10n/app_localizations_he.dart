@@ -11852,4 +11852,38 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'עוד';
+
+  @override
+  String get heardToday => 'נשמע היום';
+
+  @override
+  String get switchDevice => 'החלפת מכשיר';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ימים',
+      one: 'יום אחד',
+    );
+    return '$task באיחור של $_temp0';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task לביצוע היום';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count משימות פתוחות',
+      one: 'משימה פתוחה אחת',
+      zero: 'אין משימות לביצוע',
+    );
+    return '$_temp0';
+  }
 }

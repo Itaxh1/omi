@@ -3797,5 +3797,10 @@
     "askTryHint": "попробуйте «{question}»",
     "chatHeaderSubtitle": "Знает ваши разговоры и задачи",
     "answerSources": "Источники",
-    "homeAppsMore": "Ещё"
+    "homeAppsMore": "Ещё",
+    "heardToday": "Услышано сегодня",
+    "switchDevice": "Сменить устройство",
+    "todoLate": "{task} — просрочено на {count, plural, =1{1 день} other{{count} дн.}}",
+    "todoDueToday": "{task} — срок сегодня",
+    "todoOpenCount": "{count, plural, =0{Ничего срочного} =1{1 открытая задача} other{{count} открытых задач}}"
 }

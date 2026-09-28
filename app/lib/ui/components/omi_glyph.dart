@@ -35,6 +35,25 @@ abstract final class OmiGlyphs {
   static const String tray = 'assets/icons/tray.svg';
   static const String doc = 'assets/icons/doc.svg';
   static const String textLines = 'assets/icons/text-lines.svg';
+  static const String folder = 'assets/icons/folder.svg';
+
+  // v3 (the Omi v8 kit): device icons for the 42 pt tiles, 1.7 pt stroke, and the to-do mark.
+  static const String deviceOmi = 'assets/icons/device-omi.svg';
+  static const String devicePhone = 'assets/icons/device-phone.svg';
+  static const String deviceWatch = 'assets/icons/device-watch.svg';
+  static const String deviceGlasses = 'assets/icons/device-glasses.svg';
+  static const String devicePin = 'assets/icons/device-pin.svg';
+  static const String todo = 'assets/icons/todo.svg';
+
+  /// The tile icon for a capture source (`ConversationSource.name` / `liveCaptureSource`): the
+  /// pendant family, the phone, the watch, glasses, and a pin for other wearables.
+  static String forSource(String? source) => switch (source) {
+        'phone' || 'desktop' || 'screenpipe' => devicePhone,
+        'apple_watch' => deviceWatch,
+        'openglass' || 'rayban_meta' || 'frame' => deviceGlasses,
+        'limitless' || 'bee' || 'plaud' || 'fieldy' => devicePin,
+        _ => deviceOmi,
+      };
 }
 
 /// One glyph from [OmiGlyphs], tinted with [color] (the ambient icon colour by default).

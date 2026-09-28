@@ -97,3 +97,59 @@ class OmiGlass extends StatelessWidget {
     );
   }
 }
+
+/// The v3 "3D grey glass" (the recorder card): a grey gradient lighter at the top-left over a blur
+/// of the page, a bright hairline edge, and a two-layer soft shadow. 72–82 % opaque, so what
+/// scrolls beneath cannot tint it. [radius] is 28 for the recorder card.
+///
+/// Like [OmiGlass], it blurs only on Apple platforms without the high-contrast setting; elsewhere
+/// the gradient stands alone.
+class OmiGlassCard extends StatelessWidget {
+  const OmiGlassCard({super.key, required this.child, this.radius = OmiRadius.cardLarge, this.padding});
+
+  final Widget child;
+  final double radius;
+  final EdgeInsetsGeometry? padding;
+
+  // tokens.css `.glass-card`, light and dark.
+  static const List<Color> _fillLight = [Color(0xD1EEEEF1), Color(0xBDDEDEE2), Color(0xB8D0D0D5)];
+  static const List<Color> _fillDark = [Color(0xC74E4E54), Color(0xBD3A3A3F), Color(0xBD2C2C30)];
+  static const Color _edgeLight = Color(0xB3FFFFFF);
+  static const Color _edgeDark = Color(0x1FFFFFFF);
+  static const List<BoxShadow> _shadowsLight = [
+    BoxShadow(color: Color(0x0D000000), offset: Offset(0, 1), blurRadius: 2),
+    BoxShadow(color: Color(0x1A000000), offset: Offset(0, 10), blurRadius: 24),
+    BoxShadow(color: Color(0x14000000), offset: Offset(0, 24), blurRadius: 48),
+  ];
+  static const List<BoxShadow> _shadowsDark = [
+    BoxShadow(color: Color(0x59000000), offset: Offset(0, 10), blurRadius: 24),
+    BoxShadow(color: Color(0x59000000), offset: Offset(0, 24), blurRadius: 48),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final light = OmiColors.isLight;
+    final borderRadius = BorderRadius.circular(radius);
+    Widget body = Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: light ? _fillLight : _fillDark,
+          stops: const [0, 0.55, 1],
+        ),
+        borderRadius: borderRadius,
+        border: Border.all(color: light ? _edgeLight : _edgeDark),
+      ),
+      padding: padding,
+      child: child,
+    );
+    if (OmiGlass._blurs(context)) {
+      body = BackdropFilter(filter: ui.ImageFilter.blur(sigmaX: 17, sigmaY: 17), child: body);
+    }
+    return DecoratedBox(
+      decoration: BoxDecoration(borderRadius: borderRadius, boxShadow: light ? _shadowsLight : _shadowsDark),
+      child: ClipRRect(borderRadius: borderRadius, child: body),
+    );
+  }
+}

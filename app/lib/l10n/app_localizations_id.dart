@@ -11962,4 +11962,38 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'Lainnya';
+
+  @override
+  String get heardToday => 'Didengar hari ini';
+
+  @override
+  String get switchDevice => 'Ganti perangkat';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count hari',
+      one: '1 hari',
+    );
+    return '$task terlambat $_temp0';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task jatuh tempo hari ini';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tugas terbuka',
+      one: '1 tugas terbuka',
+      zero: 'Tidak ada yang jatuh tempo',
+    );
+    return '$_temp0';
+  }
 }

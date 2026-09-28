@@ -94,6 +94,8 @@ class OmiIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final enabled = onPressed != null;
+    // The touch target is never smaller than the circle it paints (v3's 50 pt glass buttons).
+    final target = filled && diameter > kOmiMinTapTarget ? diameter : kOmiMinTapTarget;
     var glyphColor = color ?? (isDestructive ? OmiColors.danger : OmiColors.textPrimary);
     if (!enabled) glyphColor = glyphColor.withValues(alpha: 0.38);
 
@@ -129,10 +131,10 @@ class OmiIconButton extends StatelessWidget {
         label: label,
         child: InkResponse(
           onTap: onPressed,
-          radius: kOmiMinTapTarget / 2,
+          radius: target / 2,
           child: SizedBox(
-            width: kOmiMinTapTarget,
-            height: kOmiMinTapTarget,
+            width: target,
+            height: target,
             child: Center(child: glyph),
           ),
         ),

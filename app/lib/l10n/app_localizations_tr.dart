@@ -11963,4 +11963,38 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'Daha fazla';
+
+  @override
+  String get heardToday => 'Bugün duyulanlar';
+
+  @override
+  String get switchDevice => 'Cihazı değiştir';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count gün',
+      one: '1 gün',
+    );
+    return '$task $_temp0 gecikti';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task bugün yapılmalı';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count açık görev',
+      one: '1 açık görev',
+      zero: 'Bekleyen yok',
+    );
+    return '$_temp0';
+  }
 }

@@ -11936,4 +11936,38 @@ class AppLocalizationsDa extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'Flere';
+
+  @override
+  String get heardToday => 'Hørt i dag';
+
+  @override
+  String get switchDevice => 'Skift enhed';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dage',
+      one: '1 dag',
+    );
+    return '$task er $_temp0 forsinket';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task skal være klar i dag';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count åbne opgaver',
+      one: '1 åben opgave',
+      zero: 'Intet forfalder',
+    );
+    return '$_temp0';
+  }
 }

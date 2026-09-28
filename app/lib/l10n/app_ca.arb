@@ -3762,5 +3762,10 @@
     "askTryHint": "prova «{question}»",
     "chatHeaderSubtitle": "Coneix les teves converses i tasques",
     "answerSources": "Fonts",
-    "homeAppsMore": "Més"
+    "homeAppsMore": "Més",
+    "heardToday": "Escoltat avui",
+    "switchDevice": "Canvia de dispositiu",
+    "todoLate": "{task} porta {count, plural, =1{1 dia} other{{count} dies}} de retard",
+    "todoDueToday": "{task} venç avui",
+    "todoOpenCount": "{count, plural, =0{Res pendent} =1{1 tasca oberta} other{{count} tasques obertes}}"
 }

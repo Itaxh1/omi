@@ -11943,4 +11943,38 @@ class AppLocalizationsEt extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'Rohkem';
+
+  @override
+  String get heardToday => 'Täna kuuldud';
+
+  @override
+  String get switchDevice => 'Vaheta seadet';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count päeva',
+      one: '1 päeva',
+    );
+    return '$task on $_temp0 hilinenud';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task tähtaeg on täna';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count avatud ülesannet',
+      one: '1 avatud ülesanne',
+      zero: 'Midagi pole tähtajaks',
+    );
+    return '$_temp0';
+  }
 }

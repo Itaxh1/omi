@@ -11986,4 +11986,38 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'Meer';
+
+  @override
+  String get heardToday => 'Vandaag gehoord';
+
+  @override
+  String get switchDevice => 'Ander apparaat';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dagen',
+      one: '1 dag',
+    );
+    return '$task is $_temp0 te laat';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task moet vandaag af';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count open taken',
+      one: '1 open taak',
+      zero: 'Niets te doen',
+    );
+    return '$_temp0';
+  }
 }

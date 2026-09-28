@@ -11945,4 +11945,38 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'Další';
+
+  @override
+  String get heardToday => 'Dnes zaznamenáno';
+
+  @override
+  String get switchDevice => 'Změnit zařízení';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dní',
+      one: '1 den',
+    );
+    return '$task má zpoždění $_temp0';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task má termín dnes';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count otevřených úkolů',
+      one: '1 otevřený úkol',
+      zero: 'Nic nespěchá',
+    );
+    return '$_temp0';
+  }
 }

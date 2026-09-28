@@ -3762,5 +3762,10 @@
     "askTryHint": "आज़माएँ “{question}”",
     "chatHeaderSubtitle": "आपकी बातचीत और काम जानता है",
     "answerSources": "स्रोत",
-    "homeAppsMore": "और"
+    "homeAppsMore": "और",
+    "heardToday": "आज सुना गया",
+    "switchDevice": "डिवाइस बदलें",
+    "todoLate": "{task} {count, plural, =1{1 दिन} other{{count} दिन}} देर से है",
+    "todoDueToday": "{task} आज देय है",
+    "todoOpenCount": "{count, plural, =0{कुछ भी देय नहीं} =1{1 खुला काम} other{{count} खुले काम}}"
 }

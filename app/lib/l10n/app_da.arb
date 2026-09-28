@@ -3804,5 +3804,10 @@
     "askTryHint": "prøv “{question}”",
     "chatHeaderSubtitle": "Kender dine samtaler og opgaver",
     "answerSources": "Kilder",
-    "homeAppsMore": "Flere"
+    "homeAppsMore": "Flere",
+    "heardToday": "Hørt i dag",
+    "switchDevice": "Skift enhed",
+    "todoLate": "{task} er {count, plural, =1{1 dag} other{{count} dage}} forsinket",
+    "todoDueToday": "{task} skal være klar i dag",
+    "todoOpenCount": "{count, plural, =0{Intet forfalder} =1{1 åben opgave} other{{count} åbne opgaver}}"
 }

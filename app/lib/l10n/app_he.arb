@@ -11322,5 +11322,10 @@
     "askTryHint": "נסו “{question}”",
     "chatHeaderSubtitle": "מכיר את השיחות והמשימות שלך",
     "answerSources": "מקורות",
-    "homeAppsMore": "עוד"
+    "homeAppsMore": "עוד",
+    "heardToday": "נשמע היום",
+    "switchDevice": "החלפת מכשיר",
+    "todoLate": "{task} באיחור של {count, plural, =1{יום אחד} other{{count} ימים}}",
+    "todoDueToday": "{task} לביצוע היום",
+    "todoOpenCount": "{count, plural, =0{אין משימות לביצוע} =1{משימה פתוחה אחת} other{{count} משימות פתוחות}}"
 }

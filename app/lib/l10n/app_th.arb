@@ -3762,5 +3762,10 @@
     "askTryHint": "ลองถาม “{question}”",
     "chatHeaderSubtitle": "รู้จักบทสนทนาและงานของคุณ",
     "answerSources": "แหล่งที่มา",
-    "homeAppsMore": "เพิ่มเติม"
+    "homeAppsMore": "เพิ่มเติม",
+    "heardToday": "ที่ได้ยินวันนี้",
+    "switchDevice": "เปลี่ยนอุปกรณ์",
+    "todoLate": "{task} เลยกำหนดมา {count, plural, =1{1 วัน} other{{count} วัน}}",
+    "todoDueToday": "{task} ครบกำหนดวันนี้",
+    "todoOpenCount": "{count, plural, =0{ไม่มีงานครบกำหนด} =1{งานค้าง 1 รายการ} other{งานค้าง {count} รายการ}}"
 }

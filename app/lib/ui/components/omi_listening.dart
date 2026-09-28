@@ -18,101 +18,26 @@ bool omiLoopsEnabled(BuildContext context) {
   return !Platform.environment.containsKey('FLUTTER_TEST');
 }
 
-/// The Omi pendant, as the app shows it everywhere: its photo with the light on while audio is
-/// captured, a soft halo breathing over the LED in the live blue; its lights-off photo otherwise.
-class OmiOrb extends StatefulWidget {
+/// The Omi pendant, as the app shows it everywhere (v3: the real product photo, no tile and no
+/// halo): its photo with the light on while audio is captured, its lights-off photo otherwise.
+class OmiOrb extends StatelessWidget {
   const OmiOrb({super.key, this.size = 30, this.live = true});
 
   final double size;
   final bool live;
 
   @override
-  State<OmiOrb> createState() => _OmiOrbState();
-}
-
-class _OmiOrbState extends State<OmiOrb> with SingleTickerProviderStateMixin {
-  late final AnimationController _breath =
-      AnimationController(vsync: this, duration: const Duration(milliseconds: 2400));
-
-  void _sync() {
-    final run = widget.live && omiLoopsEnabled(context);
-    if (run && !_breath.isAnimating) {
-      _breath.repeat();
-    } else if (!run && _breath.isAnimating) {
-      _breath
-        ..stop()
-        ..value = 0;
-    }
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _sync();
-  }
-
-  @override
-  void didUpdateWidget(OmiOrb oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _sync();
-  }
-
-  @override
-  void dispose() {
-    _breath.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final s = widget.size;
-    final live = widget.live;
+    final s = size;
     // The device page's photos (omi-without-rope): the LED sits at the centre of each.
-    final photo = Image.asset(
-      live ? Assets.images.omiWithoutRope.path : Assets.images.omiWithoutRopeTurnedOff.path,
-      width: s,
-      height: s,
-      fit: BoxFit.contain,
-      cacheWidth: (s * MediaQuery.devicePixelRatioOf(context)).round(),
-      gaplessPlayback: true,
-    );
-    final halo = math.max(6.0, s * 0.22);
     return ExcludeSemantics(
-      child: SizedBox.square(
-        dimension: s,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            photo,
-            if (live)
-              AnimatedBuilder(
-                animation: _breath,
-                builder: (context, _) {
-                  // .orb::after: opacity 1 → .55 → 1 over 2.4 s.
-                  final t = _breath.value;
-                  final opacity = 1 - 0.45 * (0.5 - 0.5 * math.cos(2 * math.pi * t));
-                  return Opacity(
-                    opacity: opacity,
-                    child: Container(
-                      width: halo,
-                      height: halo,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: OmiColors.live.withValues(alpha: 0.35),
-                        boxShadow: [
-                          BoxShadow(
-                            color: OmiColors.live.withValues(alpha: 0.7),
-                            blurRadius: halo * 0.6,
-                            spreadRadius: halo * 0.1,
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-          ],
-        ),
+      child: Image.asset(
+        live ? Assets.images.omiWithoutRope.path : Assets.images.omiWithoutRopeTurnedOff.path,
+        width: s,
+        height: s,
+        fit: BoxFit.contain,
+        cacheWidth: (s * MediaQuery.devicePixelRatioOf(context)).round(),
+        gaplessPlayback: true,
       ),
     );
   }

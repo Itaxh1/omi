@@ -39,6 +39,7 @@ ThemeData buildOmiTheme() {
 
   return ThemeData(
     useMaterial3: false,
+    fontFamily: OmiType.fontFamily,
     brightness: light ? Brightness.light : Brightness.dark,
     colorScheme: scheme,
     canvasColor: OmiColors.surface0,

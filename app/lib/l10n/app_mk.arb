@@ -11322,5 +11322,10 @@
     "askTryHint": "пробајте „{question}“",
     "chatHeaderSubtitle": "Ги знае вашите разговори и задачи",
     "answerSources": "Извори",
-    "homeAppsMore": "Повеќе"
+    "homeAppsMore": "Повеќе",
+    "heardToday": "Слушнато денес",
+    "switchDevice": "Промени уред",
+    "todoLate": "{task} задоцнува {count, plural, =1{1 ден} other{{count} дена}}",
+    "todoDueToday": "{task} доспева денес",
+    "todoOpenCount": "{count, plural, =0{Ништо не доспева} =1{1 отворена задача} other{{count} отворени задачи}}"
 }

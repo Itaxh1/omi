@@ -11751,4 +11751,38 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'その他';
+
+  @override
+  String get heardToday => '今日聞いたこと';
+
+  @override
+  String get switchDevice => 'デバイスを切り替える';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count日',
+      one: '1日',
+    );
+    return '$taskは$_temp0遅れています';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$taskは今日が期限です';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '未完了のタスク$count件',
+      one: '未完了のタスク1件',
+      zero: '期限のものはありません',
+    );
+    return '$_temp0';
+  }
 }

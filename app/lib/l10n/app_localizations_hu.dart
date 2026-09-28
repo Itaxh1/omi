@@ -11996,4 +11996,38 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'Több';
+
+  @override
+  String get heardToday => 'Ma hallottak';
+
+  @override
+  String get switchDevice => 'Eszköz váltása';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count napot',
+      one: '1 napot',
+    );
+    return '$task $_temp0 késik';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task ma esedékes';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count nyitott teendő',
+      one: '1 nyitott teendő',
+      zero: 'Nincs esedékes',
+    );
+    return '$_temp0';
+  }
 }

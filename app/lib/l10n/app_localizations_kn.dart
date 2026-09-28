@@ -11986,4 +11986,38 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'ಇನ್ನಷ್ಟು';
+
+  @override
+  String get heardToday => 'ಇಂದು ಕೇಳಿದದ್ದು';
+
+  @override
+  String get switchDevice => 'ಸಾಧನ ಬದಲಿಸಿ';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ದಿನ',
+      one: '1 ದಿನ',
+    );
+    return '$task $_temp0 ತಡವಾಗಿದೆ';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task ಇಂದು ಮುಗಿಸಬೇಕು';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ಬಾಕಿ ಕೆಲಸಗಳು',
+      one: '1 ಬಾಕಿ ಕೆಲಸ',
+      zero: 'ಬಾಕಿ ಏನೂ ಇಲ್ಲ',
+    );
+    return '$_temp0';
+  }
 }

@@ -11322,5 +11322,10 @@
     "askTryHint": "চেষ্টা করুন “{question}”",
     "chatHeaderSubtitle": "আপনার কথোপকথন ও কাজগুলো জানে",
     "answerSources": "উৎস",
-    "homeAppsMore": "আরও"
+    "homeAppsMore": "আরও",
+    "heardToday": "আজ শোনা হয়েছে",
+    "switchDevice": "ডিভাইস বদলান",
+    "todoLate": "{task} {count, plural, =1{১ দিন} other{{count} দিন}} দেরি",
+    "todoDueToday": "{task} আজ শেষ করতে হবে",
+    "todoOpenCount": "{count, plural, =0{কিছু বাকি নেই} =1{১টি বাকি কাজ} other{{count}টি বাকি কাজ}}"
 }

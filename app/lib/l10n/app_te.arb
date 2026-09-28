@@ -11322,5 +11322,10 @@
     "askTryHint": "“{question}” అని అడిగి చూడండి",
     "chatHeaderSubtitle": "మీ సంభాషణలు మరియు పనులు తెలుసు",
     "answerSources": "మూలాలు",
-    "homeAppsMore": "మరిన్ని"
+    "homeAppsMore": "మరిన్ని",
+    "heardToday": "ఈరోజు విన్నది",
+    "switchDevice": "పరికరం మార్చు",
+    "todoLate": "{task} {count, plural, =1{1 రోజు} other{{count} రోజులు}} ఆలస్యం",
+    "todoDueToday": "{task} ఈరోజు పూర్తి చేయాలి",
+    "todoOpenCount": "{count, plural, =0{ఏదీ పెండింగ్ లేదు} =1{1 పెండింగ్ పని} other{{count} పెండింగ్ పనులు}}"
 }

@@ -3762,5 +3762,10 @@
     "askTryHint": "probeer ‘{question}’",
     "chatHeaderSubtitle": "Kent je gesprekken en taken",
     "answerSources": "Bronnen",
-    "homeAppsMore": "Meer"
+    "homeAppsMore": "Meer",
+    "heardToday": "Vandaag gehoord",
+    "switchDevice": "Ander apparaat",
+    "todoLate": "{task} is {count, plural, =1{1 dag} other{{count} dagen}} te laat",
+    "todoDueToday": "{task} moet vandaag af",
+    "todoOpenCount": "{count, plural, =0{Niets te doen} =1{1 open taak} other{{count} open taken}}"
 }

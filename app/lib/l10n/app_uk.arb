@@ -3762,5 +3762,10 @@
     "askTryHint": "спробуйте «{question}»",
     "chatHeaderSubtitle": "Знає ваші розмови й завдання",
     "answerSources": "Джерела",
-    "homeAppsMore": "Більше"
+    "homeAppsMore": "Більше",
+    "heardToday": "Почуто сьогодні",
+    "switchDevice": "Змінити пристрій",
+    "todoLate": "{task} — прострочено на {count, plural, =1{1 день} other{{count} дн.}}",
+    "todoDueToday": "{task} — термін сьогодні",
+    "todoOpenCount": "{count, plural, =0{Нічого термінового} =1{1 відкрите завдання} other{{count} відкритих завдань}}"
 }

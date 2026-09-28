@@ -11969,4 +11969,38 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'Більше';
+
+  @override
+  String get heardToday => 'Почуто сьогодні';
+
+  @override
+  String get switchDevice => 'Змінити пристрій';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count дн.',
+      one: '1 день',
+    );
+    return '$task — прострочено на $_temp0';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task — термін сьогодні';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count відкритих завдань',
+      one: '1 відкрите завдання',
+      zero: 'Нічого термінового',
+    );
+    return '$_temp0';
+  }
 }

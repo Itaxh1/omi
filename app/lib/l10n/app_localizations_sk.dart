@@ -11938,4 +11938,38 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'Viac';
+
+  @override
+  String get heardToday => 'Dnes zaznamenané';
+
+  @override
+  String get switchDevice => 'Zmeniť zariadenie';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dní',
+      one: '1 deň',
+    );
+    return '$task mešká $_temp0';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task má termín dnes';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count otvorených úloh',
+      one: '1 otvorená úloha',
+      zero: 'Nič nesúri',
+    );
+    return '$_temp0';
+  }
 }

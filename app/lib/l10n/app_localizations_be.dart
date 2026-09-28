@@ -11978,4 +11978,38 @@ class AppLocalizationsBe extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'Яшчэ';
+
+  @override
+  String get heardToday => 'Пачута сёння';
+
+  @override
+  String get switchDevice => 'Змяніць прыладу';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count дзён',
+      one: '1 дзень',
+    );
+    return '$task — спазненне на $_temp0';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task — тэрмін сёння';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count адкрытых задач',
+      one: '1 адкрытая задача',
+      zero: 'Нічога тэрміновага',
+    );
+    return '$_temp0';
+  }
 }

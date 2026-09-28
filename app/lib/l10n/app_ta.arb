@@ -11322,5 +11322,10 @@
     "askTryHint": "“{question}” என்று கேட்டுப் பாருங்கள்",
     "chatHeaderSubtitle": "உங்கள் உரையாடல்களையும் பணிகளையும் அறியும்",
     "answerSources": "மூலங்கள்",
-    "homeAppsMore": "மேலும்"
+    "homeAppsMore": "மேலும்",
+    "heardToday": "இன்று கேட்டது",
+    "switchDevice": "சாதனத்தை மாற்று",
+    "todoLate": "{task} {count, plural, =1{1 நாள்} other{{count} நாட்கள்}} தாமதம்",
+    "todoDueToday": "{task} இன்று முடிக்க வேண்டும்",
+    "todoOpenCount": "{count, plural, =0{எதுவும் நிலுவையில் இல்லை} =1{1 நிலுவை பணி} other{{count} நிலுவை பணிகள்}}"
 }

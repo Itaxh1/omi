@@ -11322,5 +11322,10 @@
     "askTryHint": "poskusite »{question}«",
     "chatHeaderSubtitle": "Pozna vaše pogovore in naloge",
     "answerSources": "Viri",
-    "homeAppsMore": "Več"
+    "homeAppsMore": "Več",
+    "heardToday": "Slišano danes",
+    "switchDevice": "Zamenjaj napravo",
+    "todoLate": "{task} zamuja {count, plural, =1{1 dan} other{{count} dni}}",
+    "todoDueToday": "{task} zapade danes",
+    "todoOpenCount": "{count, plural, =0{Nič ne zapade} =1{1 odprto opravilo} other{{count} odprtih opravil}}"
 }

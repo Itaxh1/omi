@@ -3797,5 +3797,10 @@
     "askTryHint": "coba “{question}”",
     "chatHeaderSubtitle": "Mengenal percakapan dan tugas Anda",
     "answerSources": "Sumber",
-    "homeAppsMore": "Lainnya"
+    "homeAppsMore": "Lainnya",
+    "heardToday": "Didengar hari ini",
+    "switchDevice": "Ganti perangkat",
+    "todoLate": "{task} terlambat {count, plural, =1{1 hari} other{{count} hari}}",
+    "todoDueToday": "{task} jatuh tempo hari ini",
+    "todoOpenCount": "{count, plural, =0{Tidak ada yang jatuh tempo} =1{1 tugas terbuka} other{{count} tugas terbuka}}"
 }

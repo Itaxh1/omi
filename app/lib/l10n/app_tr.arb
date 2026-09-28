@@ -3797,5 +3797,10 @@
     "askTryHint": "“{question}” diye sorun",
     "chatHeaderSubtitle": "Görüşmelerini ve görevlerini bilir",
     "answerSources": "Kaynaklar",
-    "homeAppsMore": "Daha fazla"
+    "homeAppsMore": "Daha fazla",
+    "heardToday": "Bugün duyulanlar",
+    "switchDevice": "Cihazı değiştir",
+    "todoLate": "{task} {count, plural, =1{1 gün} other{{count} gün}} gecikti",
+    "todoDueToday": "{task} bugün yapılmalı",
+    "todoOpenCount": "{count, plural, =0{Bekleyen yok} =1{1 açık görev} other{{count} açık görev}}"
 }

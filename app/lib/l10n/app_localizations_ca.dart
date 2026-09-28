@@ -12015,4 +12015,38 @@ class AppLocalizationsCa extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'Més';
+
+  @override
+  String get heardToday => 'Escoltat avui';
+
+  @override
+  String get switchDevice => 'Canvia de dispositiu';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dies',
+      one: '1 dia',
+    );
+    return '$task porta $_temp0 de retard';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task venç avui';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tasques obertes',
+      one: '1 tasca oberta',
+      zero: 'Res pendent',
+    );
+    return '$_temp0';
+  }
 }

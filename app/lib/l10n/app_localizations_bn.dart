@@ -11948,4 +11948,38 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get homeAppsMore => 'আরও';
+
+  @override
+  String get heardToday => 'আজ শোনা হয়েছে';
+
+  @override
+  String get switchDevice => 'ডিভাইস বদলান';
+
+  @override
+  String todoLate(String task, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count দিন',
+      one: '১ দিন',
+    );
+    return '$task $_temp0 দেরি';
+  }
+
+  @override
+  String todoDueToday(String task) {
+    return '$task আজ শেষ করতে হবে';
+  }
+
+  @override
+  String todoOpenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countটি বাকি কাজ',
+      one: '১টি বাকি কাজ',
+      zero: 'কিছু বাকি নেই',
+    );
+    return '$_temp0';
+  }
 }

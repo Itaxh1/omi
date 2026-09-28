@@ -11322,5 +11322,10 @@
     "askTryHint": "subukan ang “{question}”",
     "chatHeaderSubtitle": "Alam ang iyong mga usapan at gawain",
     "answerSources": "Mga pinagmulan",
-    "homeAppsMore": "Higit pa"
+    "homeAppsMore": "Higit pa",
+    "heardToday": "Narinig ngayon",
+    "switchDevice": "Palitan ang device",
+    "todoLate": "{task} ay {count, plural, =1{1 araw} other{{count} araw}} nang huli",
+    "todoDueToday": "{task} ay dapat matapos ngayon",
+    "todoOpenCount": "{count, plural, =0{Walang nakatakda} =1{1 bukas na gawain} other{{count} bukas na gawain}}"
 }

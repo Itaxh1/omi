@@ -3797,5 +3797,10 @@
     "askTryHint": "experimente “{question}”",
     "chatHeaderSubtitle": "Conhece suas conversas e tarefas",
     "answerSources": "Fontes",
-    "homeAppsMore": "Mais"
+    "homeAppsMore": "Mais",
+    "heardToday": "Ouvido hoje",
+    "switchDevice": "Trocar de dispositivo",
+    "todoLate": "{task} está {count, plural, =1{1 dia} other{{count} dias}} atrasado",
+    "todoDueToday": "{task} vence hoje",
+    "todoOpenCount": "{count, plural, =0{Nada pendente} =1{1 tarefa aberta} other{{count} tarefas abertas}}"
 }

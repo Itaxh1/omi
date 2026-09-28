@@ -3762,5 +3762,10 @@
     "askTryHint": "izmēģiniet “{question}”",
     "chatHeaderSubtitle": "Zina jūsu sarunas un uzdevumus",
     "answerSources": "Avoti",
-    "homeAppsMore": "Vairāk"
+    "homeAppsMore": "Vairāk",
+    "heardToday": "Šodien dzirdētais",
+    "switchDevice": "Mainīt ierīci",
+    "todoLate": "{task} kavējas {count, plural, =1{1 dienu} other{{count} dienas}}",
+    "todoDueToday": "{task} termiņš ir šodien",
+    "todoOpenCount": "{count, plural, =0{Nekas nav termiņā} =1{1 atvērts uzdevums} other{{count} atvērti uzdevumi}}"
 }
