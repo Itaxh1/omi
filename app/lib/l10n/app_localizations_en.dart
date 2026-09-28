@@ -12539,4 +12539,148 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Omi couldn’t save your voice. Try again from Settings.';
+
+  @override
+  String get seeAllV3 => 'See all';
+
+  @override
+  String get pullDownToResume => 'Pull down to resume';
+
+  @override
+  String get pullDownToStart => 'Pull down to start';
+
+  @override
+  String get bluetoothOffV3 => 'Bluetooth off';
+
+  @override
+  String get tapToFix => 'Tap to fix';
+
+  @override
+  String get omiNotFound => 'Omi not found';
+
+  @override
+  String get tapForOptions => 'Tap for options';
+
+  @override
+  String get reconnectingV3 => 'Reconnecting';
+
+  @override
+  String get omiKeepsRecording => 'Omi keeps recording';
+
+  @override
+  String get pullToPause => 'Pull to pause';
+
+  @override
+  String get pullToResume => 'Pull to resume';
+
+  @override
+  String get pullToRecord => 'Pull to record';
+
+  @override
+  String get releaseToPause => 'Release to pause';
+
+  @override
+  String get releaseToResume => 'Release to resume';
+
+  @override
+  String get releaseToRecord => 'Release to record';
+
+  @override
+  String get pausedPullToUndo => 'Paused. Pull down again to undo.';
+
+  @override
+  String get listeningAgainPullToUndo => 'Listening again. Pull down again to undo.';
+
+  @override
+  String get pullUpForYourOmi => 'Pull up for Your Omi';
+
+  @override
+  String get releaseToOpen => 'Release to open';
+
+  @override
+  String get coachFirstNotes => 'Omi is listening. Your first notes appear here when you stop talking.';
+
+  @override
+  String get thisIsOmi => 'This is Omi.';
+
+  @override
+  String get teachTipBody =>
+      'Moving dots mean it’s listening. Tap to see your Omi, or pull up from the bottom. Pull the page down to pause.';
+
+  @override
+  String get yourOmi => 'Your Omi';
+
+  @override
+  String get onlyYouSeeRecordings => 'Only you can see your recordings.';
+
+  @override
+  String get wordsShowUpHere => 'Words show up here as people talk.';
+
+  @override
+  String get newWords => 'New words';
+
+  @override
+  String get liveTranscriptV3 => 'Live transcript';
+
+  @override
+  String get writingUpNotes => 'Writing up your notes';
+
+  @override
+  String get summaryTodosAbout30s => 'Summary and to-dos, about 30 seconds';
+
+  @override
+  String get notesReady => 'Notes ready';
+
+  @override
+  String get notConnectedV3 => 'Not connected';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return 'Turn on Bluetooth to keep recording from $device.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes min saved on $device. It syncs when it reconnects.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device is at $percent%. Charge it tonight.';
+  }
+
+  @override
+  String get stoppedV3 => 'Stopped';
+
+  @override
+  String get connectorsV3 => 'Connectors';
+
+  @override
+  String get yourConnectors => 'Your connectors';
+
+  @override
+  String get recordingNow => 'Recording now';
+
+  @override
+  String get pendantKind => 'Pendant';
+
+  @override
+  String get builtInMicV3 => 'Built-in mic';
+
+  @override
+  String get editSummaryV3 => 'Edit summary';
+
+  @override
+  String get editingSummary => 'Editing summary';
+
+  @override
+  String get summarySaved => 'Summary saved';
+
+  @override
+  String pairedCountV3(int count) {
+    return '$count paired';
+  }
+
+  @override
+  String get buttonSectionV3 => 'Button';
 }

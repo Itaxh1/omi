@@ -12532,4 +12532,148 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Omi आपकी आवाज़ सेव नहीं कर सका। सेटिंग्स से फिर कोशिश करें।';
+
+  @override
+  String get seeAllV3 => 'सभी देखें';
+
+  @override
+  String get pullDownToResume => 'फिर शुरू करने के लिए नीचे खींचें';
+
+  @override
+  String get pullDownToStart => 'शुरू करने के लिए नीचे खींचें';
+
+  @override
+  String get bluetoothOffV3 => 'ब्लूटूथ बंद';
+
+  @override
+  String get tapToFix => 'ठीक करने के लिए टैप करें';
+
+  @override
+  String get omiNotFound => 'Omi नहीं मिला';
+
+  @override
+  String get tapForOptions => 'विकल्पों के लिए टैप करें';
+
+  @override
+  String get reconnectingV3 => 'फिर से कनेक्ट हो रहा है';
+
+  @override
+  String get omiKeepsRecording => 'Omi रिकॉर्ड करता रहता है';
+
+  @override
+  String get pullToPause => 'रोकने के लिए खींचें';
+
+  @override
+  String get pullToResume => 'फिर शुरू करने के लिए खींचें';
+
+  @override
+  String get pullToRecord => 'रिकॉर्ड करने के लिए खींचें';
+
+  @override
+  String get releaseToPause => 'रोकने के लिए छोड़ें';
+
+  @override
+  String get releaseToResume => 'फिर शुरू करने के लिए छोड़ें';
+
+  @override
+  String get releaseToRecord => 'रिकॉर्ड करने के लिए छोड़ें';
+
+  @override
+  String get pausedPullToUndo => 'रोका गया। पूर्ववत करने के लिए फिर से नीचे खींचें।';
+
+  @override
+  String get listeningAgainPullToUndo => 'फिर से सुन रहा है। पूर्ववत करने के लिए फिर से नीचे खींचें।';
+
+  @override
+  String get pullUpForYourOmi => 'अपने Omi के लिए ऊपर खींचें';
+
+  @override
+  String get releaseToOpen => 'खोलने के लिए छोड़ें';
+
+  @override
+  String get coachFirstNotes => 'Omi सुन रहा है। बोलना बंद करने पर आपके पहले नोट्स यहाँ दिखेंगे।';
+
+  @override
+  String get thisIsOmi => 'यह Omi है।';
+
+  @override
+  String get teachTipBody =>
+      'हिलते बिंदुओं का मतलब है कि यह सुन रहा है। अपना Omi देखने के लिए टैप करें, या नीचे से ऊपर खींचें। रोकने के लिए पेज नीचे खींचें।';
+
+  @override
+  String get yourOmi => 'आपका Omi';
+
+  @override
+  String get onlyYouSeeRecordings => 'आपकी रिकॉर्डिंग सिर्फ़ आप देख सकते हैं।';
+
+  @override
+  String get wordsShowUpHere => 'लोग बोलते हैं तो शब्द यहाँ दिखते हैं।';
+
+  @override
+  String get newWords => 'नए शब्द';
+
+  @override
+  String get liveTranscriptV3 => 'लाइव ट्रांसक्रिप्ट';
+
+  @override
+  String get writingUpNotes => 'आपके नोट्स लिखे जा रहे हैं';
+
+  @override
+  String get summaryTodosAbout30s => 'सारांश और काम, लगभग 30 सेकंड';
+
+  @override
+  String get notesReady => 'नोट्स तैयार हैं';
+
+  @override
+  String get notConnectedV3 => 'कनेक्ट नहीं है';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return '$device से रिकॉर्डिंग जारी रखने के लिए ब्लूटूथ चालू करें।';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes मिनट $device पर सेव हैं। दोबारा कनेक्ट होने पर सिंक होगा।';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device $percent% पर है। आज रात चार्ज करें।';
+  }
+
+  @override
+  String get stoppedV3 => 'रोका गया';
+
+  @override
+  String get connectorsV3 => 'कनेक्टर';
+
+  @override
+  String get yourConnectors => 'आपके कनेक्टर';
+
+  @override
+  String get recordingNow => 'अभी रिकॉर्ड हो रहा है';
+
+  @override
+  String get pendantKind => 'पेंडेंट';
+
+  @override
+  String get builtInMicV3 => 'बिल्ट-इन माइक';
+
+  @override
+  String get editSummaryV3 => 'सारांश संपादित करें';
+
+  @override
+  String get editingSummary => 'सारांश संपादित हो रहा है';
+
+  @override
+  String get summarySaved => 'सारांश सहेजा गया';
+
+  @override
+  String pairedCountV3(int count) {
+    return '$count जुड़े हुए';
+  }
+
+  @override
+  String get buttonSectionV3 => 'बटन';
 }

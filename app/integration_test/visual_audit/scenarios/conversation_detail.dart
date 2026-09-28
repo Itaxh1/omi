@@ -73,6 +73,8 @@ final conversationDetailScenarios = <AuditScenario>[
           step: 'summary');
       await a.tap(find.byKey(const Key('conversation_more')));
       await a.shot('Open the ⋯ menu', step: 'overflow');
+      await a.tap(find.byKey(const Key('menu_edit')));
+      await a.shot('Edit summary: the lines editable and the Editing summary bar', step: 'editing');
     },
   ),
   AuditScenario(

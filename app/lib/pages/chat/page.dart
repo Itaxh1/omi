@@ -416,10 +416,6 @@ class ChatPageState extends State<ChatPage>
                         return !p.sendingMessage && !voiceRecorderProvider.isActive;
                       }
 
-                      bool shouldShowVoiceRecorderButton() {
-                        return !voiceRecorderProvider.isActive;
-                      }
-
                       bool shouldShowMenuButton() {
                         return !voiceRecorderProvider.isActive;
                       }
@@ -500,7 +496,7 @@ class ChatPageState extends State<ChatPage>
                                         // CENTER pill — text field/waveform + right-side button stays inside.
                                         Expanded(
                                           child: Container(
-                                            // v3 `.field`: 52 pt, a 1 pt ink outline, the mic inside on the right.
+                                            // v3 `.field`: 52 pt, a 1 pt ink outline (v8.1: no mic inside).
                                             constraints: const BoxConstraints(minHeight: 52),
                                             padding: const EdgeInsets.only(left: 16, right: 3, top: 3, bottom: 3),
                                             decoration: BoxDecoration(
@@ -605,19 +601,7 @@ class ChatPageState extends State<ChatPage>
                                                       voiceRecorderProvider.processRecording();
                                                     },
                                                   ),
-                                                // Microphone button — round white pill matching the send button.
-                                                if (!voiceRecorderProvider.isActive &&
-                                                    shouldShowVoiceRecorderButton() &&
-                                                    textController.text.isEmpty)
-                                                  ChatComposerRoundButton(
-                                                    icon: const OmiGlyph(OmiGlyphs.micLine, size: 18),
-                                                    label: context.l10n.startVoiceRecording,
-                                                    onPressed: () {
-                                                      OmiHaptics.light();
-                                                      FocusScope.of(context).unfocus();
-                                                      voiceRecorderProvider.startRecording();
-                                                    },
-                                                  ),
+                                                // v8.1: no mic in the field; Ask is typed.
                                               ],
                                             ),
                                           ),

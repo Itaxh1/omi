@@ -12346,4 +12346,147 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => '声を保存できませんでした。設定からもう一度お試しください。';
+
+  @override
+  String get seeAllV3 => 'すべて表示';
+
+  @override
+  String get pullDownToResume => '下に引いて再開';
+
+  @override
+  String get pullDownToStart => '下に引いて開始';
+
+  @override
+  String get bluetoothOffV3 => 'Bluetoothオフ';
+
+  @override
+  String get tapToFix => 'タップして解決';
+
+  @override
+  String get omiNotFound => 'Omiが見つかりません';
+
+  @override
+  String get tapForOptions => 'タップしてオプションを表示';
+
+  @override
+  String get reconnectingV3 => '再接続中';
+
+  @override
+  String get omiKeepsRecording => 'Omiは録音を続けます';
+
+  @override
+  String get pullToPause => '引いて一時停止';
+
+  @override
+  String get pullToResume => '引いて再開';
+
+  @override
+  String get pullToRecord => '引いて録音';
+
+  @override
+  String get releaseToPause => '指を離して一時停止';
+
+  @override
+  String get releaseToResume => '指を離して再開';
+
+  @override
+  String get releaseToRecord => '指を離して録音';
+
+  @override
+  String get pausedPullToUndo => '一時停止しました。元に戻すにはもう一度下に引きます。';
+
+  @override
+  String get listeningAgainPullToUndo => 'また聞いています。元に戻すにはもう一度下に引きます。';
+
+  @override
+  String get pullUpForYourOmi => '上に引いてOmiを開く';
+
+  @override
+  String get releaseToOpen => '指を離して開く';
+
+  @override
+  String get coachFirstNotes => 'Omiが聞いています。話し終えると、最初のメモがここに表示されます。';
+
+  @override
+  String get thisIsOmi => 'これがOmiです。';
+
+  @override
+  String get teachTipBody => '点が動いていれば聞いています。タップするか下から上に引くとOmiを表示。ページを下に引くと一時停止します。';
+
+  @override
+  String get yourOmi => 'あなたのOmi';
+
+  @override
+  String get onlyYouSeeRecordings => '録音を見られるのはあなただけです。';
+
+  @override
+  String get wordsShowUpHere => '話している言葉がここに表示されます。';
+
+  @override
+  String get newWords => '新しい言葉';
+
+  @override
+  String get liveTranscriptV3 => 'ライブ文字起こし';
+
+  @override
+  String get writingUpNotes => 'メモを作成中';
+
+  @override
+  String get summaryTodosAbout30s => '要約とToDo、約30秒';
+
+  @override
+  String get notesReady => 'メモができました';
+
+  @override
+  String get notConnectedV3 => '未接続';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return '$deviceで録音を続けるには、Bluetoothをオンにしてください。';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes分を$deviceに保存済みです。再接続すると同期されます。';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$deviceの残量は$percent%です。今夜充電してください。';
+  }
+
+  @override
+  String get stoppedV3 => '停止しました';
+
+  @override
+  String get connectorsV3 => 'コネクタ';
+
+  @override
+  String get yourConnectors => 'あなたのコネクタ';
+
+  @override
+  String get recordingNow => '録音中';
+
+  @override
+  String get pendantKind => 'ペンダント';
+
+  @override
+  String get builtInMicV3 => '内蔵マイク';
+
+  @override
+  String get editSummaryV3 => '要約を編集';
+
+  @override
+  String get editingSummary => '要約を編集中';
+
+  @override
+  String get summarySaved => '要約を保存しました';
+
+  @override
+  String pairedCountV3(int count) {
+    return '$count台ペアリング済み';
+  }
+
+  @override
+  String get buttonSectionV3 => 'ボタン';
 }

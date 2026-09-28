@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import 'package:omi/pages/conversations/widgets/swipe_to_delete.dart';
+
 import 'package:provider/provider.dart';
 
 import 'package:omi/backend/schema/conversation.dart';
@@ -155,9 +157,10 @@ class _AllConversationsPageState extends State<AllConversationsPage> {
                     padding: const EdgeInsets.symmetric(horizontal: OmiSize.screenMargin),
                     sliver: SliverList.list(
                       children: [
+                        // `#caB h2`: 30 pt above (14 for the first day), 6 under.
                         OmiSectionLabel(
                           title: OmiDateFormat.of(context).dayTitle(entry.$1),
-                          top: 24,
+                          top: entry == groups.first ? 14 : 30,
                           bottom: 6,
                         ),
                         for (final (j, c) in entry.$2.indexed) ConversationTimeRow(conversation: c, index: j),
@@ -193,13 +196,24 @@ class _AllConversationsPageState extends State<AllConversationsPage> {
   }
 }
 
-/// One conversation in a day group (`#convsAll .row`): the time in a narrow column, the title
-/// beside it (17/500, wrapping), a hairline under it.
+/// One conversation in a day group (v8.13 `#caB .row.cal`): the title on one line at 17/500 over
+/// "12:40 PM · 14 min" at 14 pt in the secondary ink, 13 pt above and below, a hairline under it.
+/// Swipe it left to delete ([SwipeToDelete]).
 class ConversationTimeRow extends StatelessWidget {
   const ConversationTimeRow({super.key, required this.conversation, this.index = 0});
 
   final ServerConversation conversation;
   final int index;
+
+  /// How long a conversation ran, in the design's short words: "40s", "14 min", "1h 5m".
+  static String? lengthOf(BuildContext context, ServerConversation c) {
+    final seconds = c.getDurationInSeconds();
+    if (seconds <= 0) return null;
+    final l10n = context.l10n;
+    if (seconds < 60) return l10n.timeCompactSecs(seconds);
+    if (seconds < 3600) return l10n.minutesShortV3((seconds / 60).round());
+    return OmiDuration.compact(seconds, l10n);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -207,47 +221,45 @@ class ConversationTimeRow extends StatelessWidget {
     final title = c.structured.title.trim().isEmpty ? context.l10n.untitledConversation : c.structured.title.trim();
     final at = (c.startedAt ?? c.createdAt).toLocal();
     final dates = OmiDateFormat.of(context);
-    // "12:40" fits 42 pt; a 12-hour clock needs room for the period.
-    final timeWidth = dates.use24HourFormat || !dates.time(at).contains(RegExp('[A-Za-z]')) ? 42.0 : 58.0;
-    return Semantics(
-      button: true,
-      label: '${dates.time(at)}, $title',
-      excludeSemantics: true,
-      child: OmiPressable(
-        key: ValueKey('conversation_row_${c.id}'),
-        behavior: HitTestBehavior.opaque,
-        onTap: () => openConversationDetail(context, c, index: index),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 13),
-          decoration: BoxDecoration(border: Border(bottom: BorderSide(color: OmiColors.divider))),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: timeWidth,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 5),
-                  child: Text(
-                    dates.time(at),
-                    maxLines: 1,
-                    style: OmiType.footnote.copyWith(
-                      color: OmiColors.textSecondary,
-                      height: 1.4,
-                      fontFeatures: const [FontFeature.tabularFigures()],
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: Text(
+    final length = lengthOf(context, c);
+    final when = length == null ? dates.time(at) : '${dates.time(at)} · $length';
+    return SwipeToDelete(
+      key: ValueKey('conversation_swipe_${c.id}'),
+      conversation: c,
+      child: Semantics(
+        button: true,
+        label: '$title, $when',
+        excludeSemantics: true,
+        child: OmiPressable(
+          key: ValueKey('conversation_row_${c.id}'),
+          behavior: HitTestBehavior.opaque,
+          onTap: () => openConversationDetail(context, c, index: index),
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 13),
+            decoration: BoxDecoration(border: Border(bottom: BorderSide(color: OmiColors.divider))),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
                   title,
-                  maxLines: 3,
+                  maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: OmiType.body.copyWith(fontWeight: FontWeight.w500, height: 1.3),
                 ),
-              ),
-            ],
+                const SizedBox(height: 2),
+                Text(
+                  when,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: OmiType.detail.copyWith(
+                    color: OmiColors.textSecondary,
+                    height: 1.4,
+                    fontFeatures: const [FontFeature.tabularFigures()],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

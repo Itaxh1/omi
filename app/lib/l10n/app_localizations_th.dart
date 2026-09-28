@@ -12477,4 +12477,148 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Omi บันทึกเสียงของคุณไม่ได้ ลองอีกครั้งจากการตั้งค่า';
+
+  @override
+  String get seeAllV3 => 'ดูทั้งหมด';
+
+  @override
+  String get pullDownToResume => 'ดึงลงเพื่อฟังต่อ';
+
+  @override
+  String get pullDownToStart => 'ดึงลงเพื่อเริ่ม';
+
+  @override
+  String get bluetoothOffV3 => 'บลูทูธปิดอยู่';
+
+  @override
+  String get tapToFix => 'แตะเพื่อแก้ไข';
+
+  @override
+  String get omiNotFound => 'ไม่พบ Omi';
+
+  @override
+  String get tapForOptions => 'แตะเพื่อดูตัวเลือก';
+
+  @override
+  String get reconnectingV3 => 'กำลังเชื่อมต่อใหม่';
+
+  @override
+  String get omiKeepsRecording => 'Omi ยังบันทึกต่อ';
+
+  @override
+  String get pullToPause => 'ดึงเพื่อหยุดชั่วคราว';
+
+  @override
+  String get pullToResume => 'ดึงเพื่อฟังต่อ';
+
+  @override
+  String get pullToRecord => 'ดึงเพื่อบันทึก';
+
+  @override
+  String get releaseToPause => 'ปล่อยเพื่อหยุดชั่วคราว';
+
+  @override
+  String get releaseToResume => 'ปล่อยเพื่อฟังต่อ';
+
+  @override
+  String get releaseToRecord => 'ปล่อยเพื่อบันทึก';
+
+  @override
+  String get pausedPullToUndo => 'หยุดชั่วคราวแล้ว ดึงลงอีกครั้งเพื่อเลิกทำ';
+
+  @override
+  String get listeningAgainPullToUndo => 'กำลังฟังอีกครั้ง ดึงลงอีกครั้งเพื่อเลิกทำ';
+
+  @override
+  String get pullUpForYourOmi => 'ดึงขึ้นเพื่อเปิด Omi ของคุณ';
+
+  @override
+  String get releaseToOpen => 'ปล่อยเพื่อเปิด';
+
+  @override
+  String get coachFirstNotes => 'Omi กำลังฟัง บันทึกแรกของคุณจะแสดงที่นี่เมื่อคุณพูดจบ';
+
+  @override
+  String get thisIsOmi => 'นี่คือ Omi';
+
+  @override
+  String get teachTipBody =>
+      'จุดที่ขยับหมายถึงกำลังฟัง แตะเพื่อดู Omi ของคุณ หรือดึงขึ้นจากด้านล่าง ดึงหน้าลงเพื่อหยุดชั่วคราว';
+
+  @override
+  String get yourOmi => 'Omi ของคุณ';
+
+  @override
+  String get onlyYouSeeRecordings => 'มีแค่คุณที่เห็นการบันทึกของคุณ';
+
+  @override
+  String get wordsShowUpHere => 'คำพูดจะแสดงที่นี่ขณะที่คนกำลังพูด';
+
+  @override
+  String get newWords => 'คำใหม่';
+
+  @override
+  String get liveTranscriptV3 => 'ถอดเสียงสด';
+
+  @override
+  String get writingUpNotes => 'กำลังเขียนบันทึก';
+
+  @override
+  String get summaryTodosAbout30s => 'สรุปและสิ่งที่ต้องทำ ประมาณ 30 วินาที';
+
+  @override
+  String get notesReady => 'บันทึกพร้อมแล้ว';
+
+  @override
+  String get notConnectedV3 => 'ไม่ได้เชื่อมต่อ';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return 'เปิดบลูทูธเพื่อบันทึกจาก $device ต่อ';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return 'บันทึก $minutes นาทีไว้บน $device แล้ว จะซิงค์เมื่อเชื่อมต่อใหม่';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device เหลือ $percent% ชาร์จคืนนี้';
+  }
+
+  @override
+  String get stoppedV3 => 'หยุดแล้ว';
+
+  @override
+  String get connectorsV3 => 'การเชื่อมต่อ';
+
+  @override
+  String get yourConnectors => 'การเชื่อมต่อของคุณ';
+
+  @override
+  String get recordingNow => 'กำลังบันทึก';
+
+  @override
+  String get pendantKind => 'จี้';
+
+  @override
+  String get builtInMicV3 => 'ไมค์ในตัว';
+
+  @override
+  String get editSummaryV3 => 'แก้ไขสรุป';
+
+  @override
+  String get editingSummary => 'กำลังแก้ไขสรุป';
+
+  @override
+  String get summarySaved => 'บันทึกสรุปแล้ว';
+
+  @override
+  String pairedCountV3(int count) {
+    return 'จับคู่แล้ว $count เครื่อง';
+  }
+
+  @override
+  String get buttonSectionV3 => 'ปุ่ม';
 }

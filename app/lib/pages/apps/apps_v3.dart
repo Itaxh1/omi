@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+
 import 'package:collection/collection.dart';
 import 'package:provider/provider.dart';
 
@@ -86,9 +87,9 @@ class _AddAnAppPageState extends State<AddAnAppPage> {
     return Scaffold(
       backgroundColor: OmiColors.surface0,
       appBar: OmiScreenHeader(
-        title: l10n.addAnApp,
+        title: l10n.yourConnectors,
         // Beyond the design: making an app or adding an MCP server lived only on the old Apps page.
-        trailing: OmiRingButton(
+        trailing: OmiRingButton.glass(
           key: const Key('apps_create'),
           glyph: OmiGlyphs.plusLine,
           label: l10n.createAnApp,
@@ -141,9 +142,11 @@ class _BrowseCard extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.only(top: 6, bottom: 8),
           padding: const EdgeInsets.all(16),
+          // v8.12 `.browse`: the warm tone with a 10 % outline.
           decoration: BoxDecoration(
+            color: OmiColors.tone,
             borderRadius: const BorderRadius.all(Radius.circular(18)),
-            border: Border.all(color: OmiColors.textPrimary, width: 1.5),
+            border: Border.all(color: OmiColors.textPrimary.withValues(alpha: 0.10)),
           ),
           child: Row(
             children: [
@@ -224,7 +227,7 @@ class _AllAppsPageState extends State<AllAppsPage> {
             : l10n.appsInCategory(shown.length, chosen.getLocalizedTitle(context));
     return Scaffold(
       backgroundColor: OmiColors.surface0,
-      appBar: OmiScreenHeader(title: l10n.allAppsV3),
+      appBar: OmiScreenHeader(title: l10n.connectorsV3),
       bottomNavigationBar: const ListeningStrip(),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(0, 4, 0, 24),
@@ -311,17 +314,18 @@ class _CategoryPill extends StatelessWidget {
             constraints: const BoxConstraints(minHeight: 34),
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
             alignment: Alignment.center,
+            // v8.12 `#stC button`: paper with a 12 % outline; chosen, the warm tone and 35 %.
             decoration: BoxDecoration(
-              color: selected ? OmiColors.accent : null,
+              color: selected ? OmiColors.tone : OmiColors.surface0,
               borderRadius: OmiRadius.pillAll,
-              border: Border.all(color: selected ? OmiColors.accent : OmiColors.outline, width: 1.5),
+              border: Border.all(color: OmiColors.textPrimary.withValues(alpha: selected ? 0.35 : 0.12)),
             ),
             child: Text(
               label,
               style: OmiType.detail.copyWith(
                 fontWeight: FontWeight.w600,
                 height: 1.2,
-                color: selected ? OmiColors.onAccent : OmiColors.ink80,
+                color: OmiColors.textPrimary,
               ),
             ),
           ),
@@ -331,7 +335,7 @@ class _CategoryPill extends StatelessWidget {
   }
 }
 
-/// One app (`.arow`): a 40 pt outlined tile with the app's first letter, the name at 17/500 over
+/// One connector (`.arow`, v8.12): the app's logo in a 44 pt tile, the name at 16.5/500 over
 /// one line on what it does, and Add / Added on the right. The row opens the app's page.
 class AppRowV3 extends StatelessWidget {
   const AppRowV3({super.key, required this.app});
@@ -352,16 +356,29 @@ class AppRowV3 extends StatelessWidget {
         decoration: BoxDecoration(border: Border(bottom: BorderSide(color: OmiColors.divider))),
         child: Row(
           children: [
+            // v8.12 `.lg`: the app's own logo in a 44 pt tile with a 10 % outline (its first letter
+            // until the logo loads, or if it can't).
             ExcludeSemantics(
               child: Container(
-                width: 40,
-                height: 40,
+                width: 44,
+                height: 44,
                 alignment: Alignment.center,
+                clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  border: Border.all(color: OmiColors.textPrimary, width: 1.5),
+                  color: OmiColors.surface0,
+                  borderRadius: const BorderRadius.all(Radius.circular(12)),
+                  border: Border.all(color: OmiColors.textPrimary.withValues(alpha: 0.10)),
                 ),
-                child: Text(letter, style: OmiType.subhead.copyWith(fontWeight: FontWeight.w700, height: 1)),
+                child: Image.network(
+                  app.getImageUrl(),
+                  width: 44,
+                  height: 44,
+                  fit: BoxFit.cover,
+                  cacheWidth: (44 * MediaQuery.devicePixelRatioOf(context)).round(),
+                  frameBuilder: (context, child, frame, sync) =>
+                      frame == null && !sync ? _LetterTile(letter: letter) : child,
+                  errorBuilder: (context, _, __) => _LetterTile(letter: letter),
+                ),
               ),
             ),
             const SizedBox(width: 14),
@@ -372,7 +389,7 @@ class AppRowV3 extends StatelessWidget {
                   Text(name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: OmiType.body.copyWith(fontWeight: FontWeight.w500, height: 1.3)),
+                      style: OmiType.askBar.copyWith(height: 1.3)),
                   const SizedBox(height: 1),
                   Text(
                     app.description.decodeString.trim(),
@@ -461,26 +478,39 @@ class _AppAddButtonState extends State<AppAddButton> {
           child: AnimatedContainer(
             duration: OmiMotion.of(context).quick,
             constraints: const BoxConstraints(minHeight: 34, minWidth: 57),
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
             alignment: Alignment.center,
+            // v8.12 `.ad`: paper with a 14 % outline; added, the warm tone and "✓ Added".
             decoration: BoxDecoration(
-              color: enabled ? OmiColors.accent : null,
+              color: enabled ? OmiColors.tone : OmiColors.surface0,
               borderRadius: OmiRadius.pillAll,
-              border: Border.all(color: OmiColors.accent, width: 1.5),
+              border: Border.all(color: OmiColors.textPrimary.withValues(alpha: enabled ? 0.10 : 0.14)),
             ),
             child: _busy
                 ? const OmiSpinner(size: OmiSpinnerSize.small)
                 : Text(
-                    label,
+                    enabled ? '✓ $label' : label,
                     style: OmiType.detail.copyWith(
                       fontWeight: FontWeight.w600,
                       height: 1.2,
-                      color: enabled ? OmiColors.onAccent : OmiColors.textPrimary,
+                      color: OmiColors.textPrimary,
                     ),
                   ),
           ),
         ),
       ),
     );
+  }
+}
+
+/// The app's first letter in the tile, while its logo loads or when it has none.
+class _LetterTile extends StatelessWidget {
+  const _LetterTile({required this.letter});
+
+  final String letter;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: Text(letter, style: OmiType.subhead.copyWith(fontWeight: FontWeight.w700, height: 1)));
   }
 }

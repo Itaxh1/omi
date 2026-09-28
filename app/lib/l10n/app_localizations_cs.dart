@@ -12549,4 +12549,148 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Omi nedokázal uložit váš hlas. Zkuste to znovu v Nastavení.';
+
+  @override
+  String get seeAllV3 => 'Zobrazit vše';
+
+  @override
+  String get pullDownToResume => 'Stáhněte dolů pro pokračování';
+
+  @override
+  String get pullDownToStart => 'Stáhněte dolů pro spuštění';
+
+  @override
+  String get bluetoothOffV3 => 'Bluetooth vypnutý';
+
+  @override
+  String get tapToFix => 'Klepnutím opravíte';
+
+  @override
+  String get omiNotFound => 'Omi nenalezen';
+
+  @override
+  String get tapForOptions => 'Klepnutím zobrazíte možnosti';
+
+  @override
+  String get reconnectingV3 => 'Znovu se připojuje';
+
+  @override
+  String get omiKeepsRecording => 'Omi dál nahrává';
+
+  @override
+  String get pullToPause => 'Táhněte pro pozastavení';
+
+  @override
+  String get pullToResume => 'Táhněte pro pokračování';
+
+  @override
+  String get pullToRecord => 'Táhněte pro nahrávání';
+
+  @override
+  String get releaseToPause => 'Pusťte pro pozastavení';
+
+  @override
+  String get releaseToResume => 'Pusťte pro pokračování';
+
+  @override
+  String get releaseToRecord => 'Pusťte pro nahrávání';
+
+  @override
+  String get pausedPullToUndo => 'Pozastaveno. Vrátíte to dalším stažením dolů.';
+
+  @override
+  String get listeningAgainPullToUndo => 'Znovu poslouchá. Vrátíte to dalším stažením dolů.';
+
+  @override
+  String get pullUpForYourOmi => 'Táhněte nahoru pro váš Omi';
+
+  @override
+  String get releaseToOpen => 'Pusťte pro otevření';
+
+  @override
+  String get coachFirstNotes => 'Omi poslouchá. Až domluvíte, objeví se tu vaše první poznámky.';
+
+  @override
+  String get thisIsOmi => 'Tohle je Omi.';
+
+  @override
+  String get teachTipBody =>
+      'Pohyblivé tečky znamenají, že poslouchá. Klepnutím zobrazíte svůj Omi, nebo táhněte nahoru odspodu. Stažením stránky dolů pozastavíte.';
+
+  @override
+  String get yourOmi => 'Váš Omi';
+
+  @override
+  String get onlyYouSeeRecordings => 'Své nahrávky vidíte jen vy.';
+
+  @override
+  String get wordsShowUpHere => 'Slova se tu zobrazují, jak lidé mluví.';
+
+  @override
+  String get newWords => 'Nová slova';
+
+  @override
+  String get liveTranscriptV3 => 'Živý přepis';
+
+  @override
+  String get writingUpNotes => 'Sepisujeme vaše poznámky';
+
+  @override
+  String get summaryTodosAbout30s => 'Shrnutí a úkoly, asi 30 sekund';
+
+  @override
+  String get notesReady => 'Poznámky jsou hotové';
+
+  @override
+  String get notConnectedV3 => 'Nepřipojeno';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return 'Zapněte Bluetooth, aby nahrávání z $device pokračovalo.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes min uloženo v $device. Synchronizuje se po opětovném připojení.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device má $percent %. Dnes večer ho nabijte.';
+  }
+
+  @override
+  String get stoppedV3 => 'Zastaveno';
+
+  @override
+  String get connectorsV3 => 'Propojení';
+
+  @override
+  String get yourConnectors => 'Vaše propojení';
+
+  @override
+  String get recordingNow => 'Právě nahrává';
+
+  @override
+  String get pendantKind => 'Přívěsek';
+
+  @override
+  String get builtInMicV3 => 'Vestavěný mikrofon';
+
+  @override
+  String get editSummaryV3 => 'Upravit shrnutí';
+
+  @override
+  String get editingSummary => 'Úprava shrnutí';
+
+  @override
+  String get summarySaved => 'Shrnutí uloženo';
+
+  @override
+  String pairedCountV3(int count) {
+    return 'Spárováno: $count';
+  }
+
+  @override
+  String get buttonSectionV3 => 'Tlačítko';
 }

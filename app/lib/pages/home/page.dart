@@ -22,7 +22,9 @@ import 'package:omi/pages/home/home_content.dart';
 import 'package:omi/pages/home/widgets/home_ask_bar.dart';
 import 'package:omi/pages/home/widgets/folders_sidebar.dart';
 import 'package:omi/pages/home/widgets/home_top_bar.dart';
-import 'package:omi/pages/home/widgets/recorder_overlay.dart';
+import 'package:omi/pages/home/widgets/home_pull.dart';
+import 'package:omi/pages/home/widgets/home_recorder_actions.dart';
+import 'package:omi/pages/home/your_omi_page.dart';
 import 'package:omi/pages/settings/settings_drawer.dart';
 import 'package:omi/pages/settings/you_sheet.dart';
 import 'package:omi/pages/settings/task_integrations_page.dart';
@@ -126,9 +128,6 @@ class HomePage extends StatefulWidget {
   final String? navigateToRoute;
   const HomePage({super.key, this.navigateToRoute});
 
-  /// Set as onboarding hands over: the first Home shows the recorder card for a moment (v3
-  /// `obFinish`'s `qopen`), so the reader sees where listening is controlled. Used once.
-  static bool peekRecorderOnArrival = false;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -157,24 +156,28 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
     emit: (eventName, properties) => PlatformManager.instance.analytics.track(eventName, properties: properties),
   );
 
-  /// Whether the recorder card is up over Home (v3): the top bar's Listening label toggles it, a
-  /// tap outside closes it.
   /// Home's controller, kept so dispose can clear the section hook without a context lookup.
   HomeProvider? _homeProvider;
 
-  final ValueNotifier<bool> _recorderOpen = ValueNotifier<bool>(false);
+  /// The pulls on Home (v8.6, v8.14): how far down (for the label) and up (for the dots).
+  final ValueNotifier<HomePullPhase> _pullDown = ValueNotifier<HomePullPhase>(HomePullPhase.none);
+  final ValueNotifier<double> _pullUp = ValueNotifier<double>(0);
+
+  /// The first-run tip under the label, and the ring around the mark (v8.1).
+  final ValueNotifier<bool> _teachTip = ValueNotifier<bool>(false);
+  final ValueNotifier<int> _teachPulse = ValueNotifier<int>(0);
 
   CaptureProvider? _captureProvider;
   DeviceProvider? _deviceProviderForQuickActions;
   CaptureProvider? _captureProviderForQuickActions;
   Timer? _announcementTimer;
+  Timer? _teachTimer;
 
   /// v3: Home is the root and everything else is pushed on top of it. `HomeProvider.setIndex`
   /// (links, notifications, widgets, quick actions) opens Conversations (1), To do (2) or Apps (3).
   void _onSectionRequested(int index) {
     if (index <= 0 || !mounted) return;
     context.read<HomeProvider>().selectedIndex = 0;
-    _recorderOpen.value = false;
     unawaited(routeToPage(context, _sectionPage(index)));
   }
 
@@ -184,21 +187,36 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
         _ => const AllConversationsPage(),
       };
 
-  /// Opens the recorder card half a second after arriving and closes it 1.6 s later, unless the
-  /// reader has touched it by then.
-  void _peekRecorder() {
-    Timer(const Duration(milliseconds: 500), () {
-      if (!mounted || _recorderOpen.value) return;
-      _recorderOpen.value = true;
-      Timer(const Duration(milliseconds: 1600), () {
-        if (mounted && _recorderOpen.value) _recorderOpen.value = false;
-      });
+  /// Your Omi, from the label or the pull up. Tapping the mark ends the first-run tip.
+  void _openOmi() {
+    HomeTeach.markTapped();
+    if (_teachTip.value) _teachDone();
+    PlatformManager.instance.analytics.pageOpened('Your Omi');
+    unawaited(openYourOmi(context));
+  }
+
+  void _teachDone() {
+    HomeTeach.markTaught();
+    _teachTip.value = false;
+  }
+
+  /// A moment after Home opens: the tip and two pulses the first time, one pulse on the third open
+  /// if the mark was never tapped.
+  void _teachOnArrival() {
+    _teachTimer?.cancel();
+    _teachTimer = Timer(const Duration(milliseconds: 900), () {
+      if (!mounted) return;
+      final teach = HomeTeach.onHomeOpened();
+      if (teach.tip) _teachTip.value = true;
+      if (teach.tip || teach.nudge) {
+        _teachPulse.value = 0;
+        _teachPulse.value = teach.tip ? 2 : 1;
+      }
     });
   }
 
   /// The folder button: the folders sidebar.
   void _openFolders() {
-    _recorderOpen.value = false;
     unawaited(FoldersSidebar.show(context));
   }
 
@@ -393,10 +411,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
     home.selectedIndex = 0;
     home.onSelectedIndexChanged = _onSectionRequested;
     if (homePageIdx > 0) WidgetsBinding.instance.addPostFrameCallback((_) => _onSectionRequested(homePageIdx));
-    if (HomePage.peekRecorderOnArrival) {
-      HomePage.peekRecorderOnArrival = false;
-      _peekRecorder();
-    }
+    _teachOnArrival();
     WidgetsBinding.instance.addObserver(this);
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -657,29 +672,57 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
           child: Scaffold(
             backgroundColor: Colors.transparent,
             resizeToAvoidBottomInset: false,
-            appBar: HomeTopBar(
-              recorderOpen: _recorderOpen,
-              onFolders: _openFolders,
-              onYou: () {
-                _recorderOpen.value = false;
-                PlatformManager.instance.analytics.pageOpened('You');
-                unawaited(YouSheet.show(context, openSettings: _openSettings));
-              },
-            ),
             body: Stack(
               children: [
-                Positioned.fill(child: HomeContentPage(key: _homeContentPageKey, recorderOpen: _recorderOpen)),
+                // The top bar and the page move together under a pull; the Ask bar stays.
+                Positioned.fill(
+                  child: HomePullGestures(
+                    down: _pullDown,
+                    up: _pullUp,
+                    onPullDown: () => HomeRecorderActions.act(context),
+                    onPullUp: _openOmi,
+                    child: Column(
+                      children: [
+                        HomeTopBar(
+                          onOpenOmi: _openOmi,
+                          pull: _pullDown,
+                          pulse: _teachPulse,
+                          onPullAction: () => HomeRecorderActions.act(context),
+                          onFolders: _openFolders,
+                          onYou: () {
+                            PlatformManager.instance.analytics.pageOpened('You');
+                            unawaited(YouSheet.show(context, openSettings: _openSettings));
+                          },
+                        ),
+                        Expanded(child: HomeContentPage(key: _homeContentPageKey)),
+                      ],
+                    ),
+                  ),
+                ),
                 Positioned(
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  child: HomeAskBar(
-                    onOpen: _openChat,
-                    onVoice: () => _openChat(voice: true),
-                    onHold: _openMemories,
-                  ),
+                  child: Center(child: HomePullUpHint(progress: _pullUp)),
                 ),
-                Positioned.fill(child: RecorderCardOverlay(open: _recorderOpen)),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: HomeAskBar(onOpen: _openChat, onHold: _openMemories),
+                ),
+                // `.tip`: under the label, 82 pt from the top of the screen.
+                ValueListenableBuilder<bool>(
+                  valueListenable: _teachTip,
+                  builder: (context, show, _) => show
+                      ? Positioned(
+                          top: MediaQuery.viewPaddingOf(context).top + 82,
+                          left: 0,
+                          right: 0,
+                          child: Center(child: HomeTeachTip(onDone: _teachDone)),
+                        )
+                      : const SizedBox.shrink(),
+                ),
               ],
             ),
           ),
@@ -691,7 +734,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
   /// v3: Ask rises over Home from the Ask bar (the design's `#chat`) and starts fresh.
   void _openChat({bool voice = false}) {
     OmiHaptics.selection();
-    _recorderOpen.value = false;
     PlatformManager.instance.analytics.bottomNavigationTabClicked(voice ? 'Chat Voice' : 'Chat');
     openAsk(context, ChatPage(isPivotBottom: false, autoStartVoice: voice));
   }
@@ -708,7 +750,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
     // Only this Home's own hook: a later Home may already have set its own.
     if (_homeProvider?.onSelectedIndexChanged == _onSectionRequested) _homeProvider?.onSelectedIndexChanged = null;
     _homeProvider = null;
-    _recorderOpen.dispose();
+    _pullDown.dispose();
+    _pullUp.dispose();
+    _teachTip.dispose();
+    _teachPulse.dispose();
     HomeNavigation.unregister(_openRoute);
     _promptGate.detach();
     // These prompts close over this Home; a later Home (after sign-out and sign-in) enqueues its own.
@@ -718,6 +763,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
     OmiFeedback.bottomClearance = null;
     _announcementTimer?.cancel();
     _announcementTimer = null;
+    _teachTimer?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     // Cancel stream subscription to prevent memory leak
     _notificationStreamSubscription?.cancel();

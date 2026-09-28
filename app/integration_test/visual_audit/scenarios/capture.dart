@@ -14,7 +14,8 @@ import 'package:omi/backend/schema/bt_device/bt_device.dart';
 import 'package:omi/pages/conversation_capturing/page.dart';
 import 'package:omi/pages/home/home_content.dart';
 import 'package:omi/pages/home/widgets/home_top_bar.dart';
-import 'package:omi/pages/home/widgets/recorder_overlay.dart';
+import 'package:omi/pages/home/widgets/home_pull.dart';
+import 'package:omi/pages/home/your_omi_page.dart';
 import 'package:omi/providers/capture_provider.dart';
 import 'package:omi/providers/device_provider.dart';
 import 'package:omi/providers/phone_call_provider.dart';
@@ -167,21 +168,29 @@ class _CallInProgress extends ChangeNotifier implements PhoneCallProvider {
 
 final auditPendant = BtDevice(id: 'd1', name: 'Omi', type: DeviceType.omi, rssi: -40);
 
-/// Home as HomePage lays it out (v3): the top bar (Folders, the Listening label, You), the content
-/// on the fixed warm gradient, the recorder card over it, and the pinned Ask bar.
+/// Home as HomePage lays it out (v8): the top bar (Folders, the Listening label, You) and the
+/// content moving together under a pull, on the fixed warm gradient, with the pull-up hint and the
+/// pinned Ask bar; the label opens Your Omi.
 class _HomeFrame extends StatefulWidget {
-  const _HomeFrame();
+  const _HomeFrame({this.tip = false});
+
+  /// Shows the first-run tip under the label.
+  final bool tip;
 
   @override
   State<_HomeFrame> createState() => _HomeFrameState();
 }
 
 class _HomeFrameState extends State<_HomeFrame> {
-  final ValueNotifier<bool> _recorderOpen = ValueNotifier<bool>(false);
+  final ValueNotifier<HomePullPhase> _down = ValueNotifier<HomePullPhase>(HomePullPhase.none);
+  final ValueNotifier<double> _up = ValueNotifier<double>(0);
+  final ValueNotifier<int> _pulse = ValueNotifier<int>(0);
 
   @override
   void dispose() {
-    _recorderOpen.dispose();
+    _down.dispose();
+    _up.dispose();
+    _pulse.dispose();
     super.dispose();
   }
 
@@ -193,11 +202,34 @@ class _HomeFrameState extends State<_HomeFrame> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: false,
-        appBar: HomeTopBar(recorderOpen: _recorderOpen, onFolders: () {}, onYou: () {}),
         body: Stack(children: [
-          Positioned.fill(child: HomeContentPage(recorderOpen: _recorderOpen)),
-          Positioned(left: 0, right: 0, bottom: 0, child: HomeAskBar(onOpen: () {}, onVoice: () {})),
-          Positioned.fill(child: RecorderCardOverlay(open: _recorderOpen)),
+          Positioned.fill(
+            child: HomePullGestures(
+              down: _down,
+              up: _up,
+              onPullDown: () {},
+              onPullUp: () => openYourOmi(context),
+              child: Column(children: [
+                HomeTopBar(
+                  onOpenOmi: () => openYourOmi(context),
+                  pull: _down,
+                  pulse: _pulse,
+                  onFolders: () {},
+                  onYou: () {},
+                ),
+                const Expanded(child: HomeContentPage()),
+              ]),
+            ),
+          ),
+          Positioned(left: 0, right: 0, bottom: 0, child: Center(child: HomePullUpHint(progress: _up))),
+          Positioned(left: 0, right: 0, bottom: 0, child: HomeAskBar(onOpen: () {})),
+          if (widget.tip)
+            Positioned(
+              top: MediaQuery.viewPaddingOf(context).top + 82,
+              left: 0,
+              right: 0,
+              child: Center(child: HomeTeachTip(onDone: () {})),
+            ),
         ]),
       ),
     );
@@ -214,8 +246,9 @@ Future<void> _runHome(
   String action = 'Home',
   bool withData = false,
   bool scroll = false,
+  bool tip = false,
 }) async {
-  await a.pump(const _HomeFrame(), scaffold: false, providers: [
+  await a.pump(_HomeFrame(tip: tip), scaffold: false, providers: [
     if (withData) ...await _seededHomeData(a),
     ChangeNotifierProvider<DeviceProvider>.value(
         value: pendantConnected
@@ -348,9 +381,9 @@ final captureScenarios = <AuditScenario>[
     run: (a) => _runHome(a, withData: true, AuditLive.idle),
   ),
   AuditScenario(
-    id: 'home-recorder-card',
-    title: 'The recorder card: the Listening label opens it over Home',
-    page: 'lib/pages/home/widgets/recorder_card.dart (RecorderCard, RecorderShell)',
+    id: 'your-omi-pendant',
+    title: 'Your Omi: the Listening label opens it',
+    page: 'lib/pages/home/your_omi_page.dart (YourOmiPage)',
     state: 'An Omi pendant connected at 72% battery and recording; the Listening label is tapped',
     run: (a) => _runHome(
         a,
@@ -361,23 +394,56 @@ final captureScenarios = <AuditScenario>[
         action: 'Tap Listening'),
   ),
   AuditScenario(
-    id: 'home-recorder-idle',
-    title: 'The recorder card while nothing listens: the device and Start',
-    page: 'lib/pages/home/widgets/recorder_card.dart (RecorderIdleCard)',
-    state: 'An Omi pendant connected at 72% battery, stopped; the label (Start) is tapped',
+    id: 'your-omi-paused',
+    title: 'Your Omi while paused: Resume and Stop',
+    page: 'lib/pages/home/your_omi_page.dart (YourOmiPage)',
+    state: 'The pendant muted mid-conversation; the label (Paused) is tapped',
+    run: (a) => _runHome(
+        a,
+        withData: true,
+        AuditLive.pendantPaused,
+        pendantConnected: true,
+        tap: find.byKey(const Key('home_listening_label')),
+        action: 'Tap Paused'),
+  ),
+  AuditScenario(
+    id: 'your-omi-stopped',
+    title: 'Your Omi while nothing listens: Start',
+    page: 'lib/pages/home/your_omi_page.dart (YourOmiPage)',
+    state: 'An Omi pendant connected at 72% battery, stopped; the label (Off) is tapped',
     run: (a) => _runHome(
         a,
         withData: true,
         AuditLive.pendantStopped,
         pendantConnected: true,
         tap: find.byKey(const Key('home_listening_label')),
-        action: 'Tap Start in the top bar'),
+        action: 'Tap Off in the top bar'),
+  ),
+  AuditScenario(
+    id: 'your-omi-phone',
+    title: 'Your Omi recording with this phone',
+    page: 'lib/pages/home/your_omi_page.dart (YourOmiPage)',
+    state: 'The phone records; the label is tapped',
+    run: (a) => _runHome(
+        a, withData: true, AuditLive.phone, tap: find.byKey(const Key('home_listening_label')), action: 'Tap Listening'),
+  ),
+  AuditScenario(
+    id: 'your-omi-transcript',
+    title: 'Your Omi: the full live transcript',
+    page: 'lib/pages/home/your_omi_page.dart (_LiveTranscriptPage)',
+    state: 'The pendant records with transcript lines; Your Omi, then the transcript card',
+    run: (a) async {
+      await _runHome(a, withData: true, AuditLive.pendant,
+          pendantConnected: true, tap: find.byKey(const Key('home_listening_label')));
+      await a.tap(find.byKey(const Key('your_omi_transcript')));
+      await a.shot('Tap the transcript', step: 'full');
+    },
   ),
   AuditScenario(
     id: 'home-recording-from',
-    title: 'Switch device on the recorder card opens Devices (Record from, one live at a time)',
+    title: 'The device on Your Omi opens Devices (Record from, one live at a time)',
     page: 'lib/pages/devices/devices_screen.dart (DevicesScreen)',
-    state: 'An Omi pendant connected at 72% battery and recording; Listening, then Switch device',
+    state: 'An Omi pendant connected at 72% battery and recording; Listening, then the device',
     run: (a) async {
       await _runHome(
           a,
@@ -386,9 +452,29 @@ final captureScenarios = <AuditScenario>[
           pendantConnected: true,
           tap: find.byKey(const Key('home_listening_label')),
           action: 'Tap Listening');
-      await a.tap(find.byKey(const Key('recorder_switch_device')));
-      await a.shot('Tap Switch device', step: 'sources');
+      await a.tap(find.byKey(const Key('your_omi_device')));
+      await a.shot('Tap the device', step: 'sources');
     },
+  ),
+  AuditScenario(
+    id: 'listening-strip-panel',
+    title: 'The listening strip panel on an inner screen (v8.19)',
+    page: 'lib/pages/home/widgets/listening_strip.dart (ListeningStrip)',
+    state: 'The pendant records; Your Omi, then its device, then the strip is opened on Devices',
+    run: (a) async {
+      await _runHome(a, withData: true, AuditLive.pendant,
+          pendantConnected: true, tap: find.byKey(const Key('home_listening_label')));
+      await a.tap(find.byKey(const Key('your_omi_device')));
+      await a.tap(find.byKey(const Key('listening_strip')));
+      await a.shot('Open the strip panel', step: 'panel');
+    },
+  ),
+  AuditScenario(
+    id: 'home-teach-tip',
+    title: 'The first-run tip under the Listening label',
+    page: 'lib/pages/home/widgets/home_pull.dart (HomeTeachTip)',
+    state: 'The first Home after onboarding; the phone records',
+    run: (a) => _runHome(a, AuditLive.phone, tip: true, action: 'The first Home'),
   ),
   AuditScenario(
     id: 'home-capture-pendant-live',
@@ -423,7 +509,7 @@ final captureScenarios = <AuditScenario>[
           AuditLive.pendant,
           pendantConnected: true,
           tap: find.byKey(const Key('home_listening_label')));
-      await a.tap(find.byKey(const Key('recorder_switch_device')));
+      await a.tap(find.byKey(const Key('your_omi_device')));
       await a.tap(find.byKey(const Key('devices_this_phone')));
       await a.shot('Tap This phone in Recording from', step: 'switch');
     },

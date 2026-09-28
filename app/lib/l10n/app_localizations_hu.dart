@@ -12600,4 +12600,148 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Az Omi nem tudta menteni a hangodat. Próbáld újra a Beállításokban.';
+
+  @override
+  String get seeAllV3 => 'Összes';
+
+  @override
+  String get pullDownToResume => 'Húzd le a folytatáshoz';
+
+  @override
+  String get pullDownToStart => 'Húzd le az indításhoz';
+
+  @override
+  String get bluetoothOffV3 => 'Bluetooth ki';
+
+  @override
+  String get tapToFix => 'Koppints a javításhoz';
+
+  @override
+  String get omiNotFound => 'Az Omi nem található';
+
+  @override
+  String get tapForOptions => 'Koppints a lehetőségekért';
+
+  @override
+  String get reconnectingV3 => 'Újracsatlakozás';
+
+  @override
+  String get omiKeepsRecording => 'Az Omi tovább rögzít';
+
+  @override
+  String get pullToPause => 'Húzd a szüneteltetéshez';
+
+  @override
+  String get pullToResume => 'Húzd a folytatáshoz';
+
+  @override
+  String get pullToRecord => 'Húzd a felvételhez';
+
+  @override
+  String get releaseToPause => 'Engedd el a szüneteltetéshez';
+
+  @override
+  String get releaseToResume => 'Engedd el a folytatáshoz';
+
+  @override
+  String get releaseToRecord => 'Engedd el a felvételhez';
+
+  @override
+  String get pausedPullToUndo => 'Szüneteltetve. A visszavonáshoz húzd le újra.';
+
+  @override
+  String get listeningAgainPullToUndo => 'Újra figyel. A visszavonáshoz húzd le újra.';
+
+  @override
+  String get pullUpForYourOmi => 'Húzd fel az Omidhoz';
+
+  @override
+  String get releaseToOpen => 'Engedd el a megnyitáshoz';
+
+  @override
+  String get coachFirstNotes => 'Az Omi figyel. Az első jegyzeteid itt jelennek meg, amikor abbahagyod a beszédet.';
+
+  @override
+  String get thisIsOmi => 'Ez az Omi.';
+
+  @override
+  String get teachTipBody =>
+      'A mozgó pöttyök azt jelentik, hogy figyel. Koppints az Omid megnyitásához, vagy húzd fel alulról. A szüneteltetéshez húzd le az oldalt.';
+
+  @override
+  String get yourOmi => 'Az Omid';
+
+  @override
+  String get onlyYouSeeRecordings => 'A felvételeidet csak te láthatod.';
+
+  @override
+  String get wordsShowUpHere => 'A szavak itt jelennek meg, ahogy beszélnek.';
+
+  @override
+  String get newWords => 'Új szavak';
+
+  @override
+  String get liveTranscriptV3 => 'Élő átirat';
+
+  @override
+  String get writingUpNotes => 'Írjuk a jegyzeteidet';
+
+  @override
+  String get summaryTodosAbout30s => 'Összefoglaló és teendők, kb. 30 másodperc';
+
+  @override
+  String get notesReady => 'Kész a jegyzet';
+
+  @override
+  String get notConnectedV3 => 'Nincs csatlakoztatva';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return 'Kapcsold be a Bluetooth-t, hogy a(z) $device tovább rögzítsen.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes perc mentve a(z) $device eszközön. Újracsatlakozáskor szinkronizál.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return 'A(z) $device töltöttsége $percent%. Ma este töltsd fel.';
+  }
+
+  @override
+  String get stoppedV3 => 'Leállítva';
+
+  @override
+  String get connectorsV3 => 'Kapcsolatok';
+
+  @override
+  String get yourConnectors => 'Kapcsolataid';
+
+  @override
+  String get recordingNow => 'Most rögzít';
+
+  @override
+  String get pendantKind => 'Medál';
+
+  @override
+  String get builtInMicV3 => 'Beépített mikrofon';
+
+  @override
+  String get editSummaryV3 => 'Összefoglaló szerkesztése';
+
+  @override
+  String get editingSummary => 'Összefoglaló szerkesztése';
+
+  @override
+  String get summarySaved => 'Összefoglaló mentve';
+
+  @override
+  String pairedCountV3(int count) {
+    return '$count párosítva';
+  }
+
+  @override
+  String get buttonSectionV3 => 'Gomb';
 }

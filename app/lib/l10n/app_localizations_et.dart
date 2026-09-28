@@ -12547,4 +12547,148 @@ class AppLocalizationsEt extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Omi ei saanud su häält salvestada. Proovi uuesti seadetes.';
+
+  @override
+  String get seeAllV3 => 'Kuva kõik';
+
+  @override
+  String get pullDownToResume => 'Jätkamiseks tõmba alla';
+
+  @override
+  String get pullDownToStart => 'Alustamiseks tõmba alla';
+
+  @override
+  String get bluetoothOffV3 => 'Bluetooth väljas';
+
+  @override
+  String get tapToFix => 'Parandamiseks puuduta';
+
+  @override
+  String get omiNotFound => 'Omit ei leitud';
+
+  @override
+  String get tapForOptions => 'Valikute nägemiseks puuduta';
+
+  @override
+  String get reconnectingV3 => 'Ühendan uuesti';
+
+  @override
+  String get omiKeepsRecording => 'Omi salvestab edasi';
+
+  @override
+  String get pullToPause => 'Peatamiseks tõmba';
+
+  @override
+  String get pullToResume => 'Jätkamiseks tõmba';
+
+  @override
+  String get pullToRecord => 'Salvestamiseks tõmba';
+
+  @override
+  String get releaseToPause => 'Peatamiseks lase lahti';
+
+  @override
+  String get releaseToResume => 'Jätkamiseks lase lahti';
+
+  @override
+  String get releaseToRecord => 'Salvestamiseks lase lahti';
+
+  @override
+  String get pausedPullToUndo => 'Peatatud. Tagasivõtmiseks tõmba uuesti alla.';
+
+  @override
+  String get listeningAgainPullToUndo => 'Kuulab jälle. Tagasivõtmiseks tõmba uuesti alla.';
+
+  @override
+  String get pullUpForYourOmi => 'Tõmba üles oma Omi jaoks';
+
+  @override
+  String get releaseToOpen => 'Avamiseks lase lahti';
+
+  @override
+  String get coachFirstNotes => 'Omi kuulab. Su esimesed märkmed ilmuvad siia, kui lõpetad rääkimise.';
+
+  @override
+  String get thisIsOmi => 'See on Omi.';
+
+  @override
+  String get teachTipBody =>
+      'Liikuvad täpid tähendavad, et see kuulab. Puuduta, et näha oma Omit, või tõmba alt üles. Peatamiseks tõmba lehte alla.';
+
+  @override
+  String get yourOmi => 'Sinu Omi';
+
+  @override
+  String get onlyYouSeeRecordings => 'Ainult sina näed oma salvestisi.';
+
+  @override
+  String get wordsShowUpHere => 'Sõnad ilmuvad siia, kui inimesed räägivad.';
+
+  @override
+  String get newWords => 'Uued sõnad';
+
+  @override
+  String get liveTranscriptV3 => 'Otseärakiri';
+
+  @override
+  String get writingUpNotes => 'Kirjutame su märkmeid';
+
+  @override
+  String get summaryTodosAbout30s => 'Kokkuvõte ja ülesanded, umbes 30 sekundit';
+
+  @override
+  String get notesReady => 'Märkmed on valmis';
+
+  @override
+  String get notConnectedV3 => 'Pole ühendatud';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return 'Lülita Bluetooth sisse, et $device saaks edasi salvestada.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes min salvestatud seadmesse $device. Sünkroonitakse, kui ühendus taastub.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device on $percent% peal. Lae see täna õhtul.';
+  }
+
+  @override
+  String get stoppedV3 => 'Peatatud';
+
+  @override
+  String get connectorsV3 => 'Ühendused';
+
+  @override
+  String get yourConnectors => 'Sinu ühendused';
+
+  @override
+  String get recordingNow => 'Salvestab praegu';
+
+  @override
+  String get pendantKind => 'Ripats';
+
+  @override
+  String get builtInMicV3 => 'Sisseehitatud mikrofon';
+
+  @override
+  String get editSummaryV3 => 'Muuda kokkuvõtet';
+
+  @override
+  String get editingSummary => 'Kokkuvõtte muutmine';
+
+  @override
+  String get summarySaved => 'Kokkuvõte salvestatud';
+
+  @override
+  String pairedCountV3(int count) {
+    return 'Seotud: $count';
+  }
+
+  @override
+  String get buttonSectionV3 => 'Nupp';
 }

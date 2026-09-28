@@ -12606,4 +12606,148 @@ class AppLocalizationsRo extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Omi nu ți-a putut salva vocea. Încearcă din nou din Setări.';
+
+  @override
+  String get seeAllV3 => 'Vezi tot';
+
+  @override
+  String get pullDownToResume => 'Trage în jos ca să reiei';
+
+  @override
+  String get pullDownToStart => 'Trage în jos ca să pornești';
+
+  @override
+  String get bluetoothOffV3 => 'Bluetooth oprit';
+
+  @override
+  String get tapToFix => 'Atinge pentru a rezolva';
+
+  @override
+  String get omiNotFound => 'Omi negăsit';
+
+  @override
+  String get tapForOptions => 'Atinge pentru opțiuni';
+
+  @override
+  String get reconnectingV3 => 'Se reconectează';
+
+  @override
+  String get omiKeepsRecording => 'Omi continuă să înregistreze';
+
+  @override
+  String get pullToPause => 'Trage pentru pauză';
+
+  @override
+  String get pullToResume => 'Trage pentru a relua';
+
+  @override
+  String get pullToRecord => 'Trage pentru a înregistra';
+
+  @override
+  String get releaseToPause => 'Eliberează pentru pauză';
+
+  @override
+  String get releaseToResume => 'Eliberează pentru a relua';
+
+  @override
+  String get releaseToRecord => 'Eliberează pentru a înregistra';
+
+  @override
+  String get pausedPullToUndo => 'Pe pauză. Trage din nou în jos pentru a anula.';
+
+  @override
+  String get listeningAgainPullToUndo => 'Ascultă din nou. Trage din nou în jos pentru a anula.';
+
+  @override
+  String get pullUpForYourOmi => 'Trage în sus pentru Omi-ul tău';
+
+  @override
+  String get releaseToOpen => 'Eliberează pentru a deschide';
+
+  @override
+  String get coachFirstNotes => 'Omi ascultă. Primele tale notițe apar aici când termini de vorbit.';
+
+  @override
+  String get thisIsOmi => 'Acesta este Omi.';
+
+  @override
+  String get teachTipBody =>
+      'Punctele care se mișcă înseamnă că ascultă. Atinge ca să-ți vezi Omi-ul sau trage în sus de jos. Trage pagina în jos pentru pauză.';
+
+  @override
+  String get yourOmi => 'Omi-ul tău';
+
+  @override
+  String get onlyYouSeeRecordings => 'Doar tu îți poți vedea înregistrările.';
+
+  @override
+  String get wordsShowUpHere => 'Cuvintele apar aici pe măsură ce oamenii vorbesc.';
+
+  @override
+  String get newWords => 'Cuvinte noi';
+
+  @override
+  String get liveTranscriptV3 => 'Transcriere live';
+
+  @override
+  String get writingUpNotes => 'Scriem notițele tale';
+
+  @override
+  String get summaryTodosAbout30s => 'Rezumat și sarcini, cam 30 de secunde';
+
+  @override
+  String get notesReady => 'Notițele sunt gata';
+
+  @override
+  String get notConnectedV3 => 'Neconectat';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return 'Pornește Bluetooth ca să continui înregistrarea de pe $device.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes min salvate pe $device. Se sincronizează când se reconectează.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device are $percent%. Încarcă-l diseară.';
+  }
+
+  @override
+  String get stoppedV3 => 'Oprit';
+
+  @override
+  String get connectorsV3 => 'Conectori';
+
+  @override
+  String get yourConnectors => 'Conectorii tăi';
+
+  @override
+  String get recordingNow => 'Înregistrează acum';
+
+  @override
+  String get pendantKind => 'Pandantiv';
+
+  @override
+  String get builtInMicV3 => 'Microfon încorporat';
+
+  @override
+  String get editSummaryV3 => 'Editează rezumatul';
+
+  @override
+  String get editingSummary => 'Se editează rezumatul';
+
+  @override
+  String get summarySaved => 'Rezumat salvat';
+
+  @override
+  String pairedCountV3(int count) {
+    return '$count asociate';
+  }
+
+  @override
+  String get buttonSectionV3 => 'Buton';
 }

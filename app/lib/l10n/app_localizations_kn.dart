@@ -12591,4 +12591,148 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Omi ನಿಮ್ಮ ಧ್ವನಿಯನ್ನು ಉಳಿಸಲು ಆಗಲಿಲ್ಲ. ಸೆಟ್ಟಿಂಗ್‌ಗಳಿಂದ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.';
+
+  @override
+  String get seeAllV3 => 'ಎಲ್ಲವನ್ನೂ ನೋಡಿ';
+
+  @override
+  String get pullDownToResume => 'ಮುಂದುವರಿಸಲು ಕೆಳಗೆ ಎಳೆಯಿರಿ';
+
+  @override
+  String get pullDownToStart => 'ಪ್ರಾರಂಭಿಸಲು ಕೆಳಗೆ ಎಳೆಯಿರಿ';
+
+  @override
+  String get bluetoothOffV3 => 'ಬ್ಲೂಟೂತ್ ಆಫ್';
+
+  @override
+  String get tapToFix => 'ಸರಿಪಡಿಸಲು ಟ್ಯಾಪ್ ಮಾಡಿ';
+
+  @override
+  String get omiNotFound => 'Omi ಕಂಡುಬಂದಿಲ್ಲ';
+
+  @override
+  String get tapForOptions => 'ಆಯ್ಕೆಗಳಿಗಾಗಿ ಟ್ಯಾಪ್ ಮಾಡಿ';
+
+  @override
+  String get reconnectingV3 => 'ಮರುಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ';
+
+  @override
+  String get omiKeepsRecording => 'Omi ರೆಕಾರ್ಡ್ ಮಾಡುತ್ತಲೇ ಇರುತ್ತದೆ';
+
+  @override
+  String get pullToPause => 'ವಿರಾಮಕ್ಕೆ ಎಳೆಯಿರಿ';
+
+  @override
+  String get pullToResume => 'ಮುಂದುವರಿಸಲು ಎಳೆಯಿರಿ';
+
+  @override
+  String get pullToRecord => 'ರೆಕಾರ್ಡ್ ಮಾಡಲು ಎಳೆಯಿರಿ';
+
+  @override
+  String get releaseToPause => 'ವಿರಾಮಕ್ಕೆ ಬಿಡಿ';
+
+  @override
+  String get releaseToResume => 'ಮುಂದುವರಿಸಲು ಬಿಡಿ';
+
+  @override
+  String get releaseToRecord => 'ರೆಕಾರ್ಡ್ ಮಾಡಲು ಬಿಡಿ';
+
+  @override
+  String get pausedPullToUndo => 'ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ. ರದ್ದುಗೊಳಿಸಲು ಮತ್ತೆ ಕೆಳಗೆ ಎಳೆಯಿರಿ.';
+
+  @override
+  String get listeningAgainPullToUndo => 'ಮತ್ತೆ ಕೇಳುತ್ತಿದೆ. ರದ್ದುಗೊಳಿಸಲು ಮತ್ತೆ ಕೆಳಗೆ ಎಳೆಯಿರಿ.';
+
+  @override
+  String get pullUpForYourOmi => 'ನಿಮ್ಮ Omi ಗಾಗಿ ಮೇಲೆ ಎಳೆಯಿರಿ';
+
+  @override
+  String get releaseToOpen => 'ತೆರೆಯಲು ಬಿಡಿ';
+
+  @override
+  String get coachFirstNotes => 'Omi ಕೇಳುತ್ತಿದೆ. ನೀವು ಮಾತು ನಿಲ್ಲಿಸಿದಾಗ ನಿಮ್ಮ ಮೊದಲ ಟಿಪ್ಪಣಿಗಳು ಇಲ್ಲಿ ಕಾಣುತ್ತವೆ.';
+
+  @override
+  String get thisIsOmi => 'ಇದು Omi.';
+
+  @override
+  String get teachTipBody =>
+      'ಚಲಿಸುವ ಚುಕ್ಕೆಗಳು ಅಂದರೆ ಅದು ಕೇಳುತ್ತಿದೆ. ನಿಮ್ಮ Omi ನೋಡಲು ಟ್ಯಾಪ್ ಮಾಡಿ, ಅಥವಾ ಕೆಳಗಿನಿಂದ ಮೇಲೆ ಎಳೆಯಿರಿ. ವಿರಾಮಕ್ಕೆ ಪುಟವನ್ನು ಕೆಳಗೆ ಎಳೆಯಿರಿ.';
+
+  @override
+  String get yourOmi => 'ನಿಮ್ಮ Omi';
+
+  @override
+  String get onlyYouSeeRecordings => 'ನಿಮ್ಮ ರೆಕಾರ್ಡಿಂಗ್‌ಗಳನ್ನು ನೀವು ಮಾತ್ರ ನೋಡಬಹುದು.';
+
+  @override
+  String get wordsShowUpHere => 'ಜನರು ಮಾತನಾಡುವಾಗ ಪದಗಳು ಇಲ್ಲಿ ಕಾಣುತ್ತವೆ.';
+
+  @override
+  String get newWords => 'ಹೊಸ ಪದಗಳು';
+
+  @override
+  String get liveTranscriptV3 => 'ಲೈವ್ ಪ್ರತಿಲಿಪಿ';
+
+  @override
+  String get writingUpNotes => 'ನಿಮ್ಮ ಟಿಪ್ಪಣಿಗಳನ್ನು ಬರೆಯಲಾಗುತ್ತಿದೆ';
+
+  @override
+  String get summaryTodosAbout30s => 'ಸಾರಾಂಶ ಮತ್ತು ಮಾಡಬೇಕಾದವು, ಸುಮಾರು 30 ಸೆಕೆಂಡ್';
+
+  @override
+  String get notesReady => 'ಟಿಪ್ಪಣಿಗಳು ಸಿದ್ಧ';
+
+  @override
+  String get notConnectedV3 => 'ಸಂಪರ್ಕಗೊಂಡಿಲ್ಲ';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return '$device ನಿಂದ ರೆಕಾರ್ಡಿಂಗ್ ಮುಂದುವರಿಸಲು ಬ್ಲೂಟೂತ್ ಆನ್ ಮಾಡಿ.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes ನಿಮಿಷ $device ನಲ್ಲಿ ಉಳಿಸಲಾಗಿದೆ. ಮರುಸಂಪರ್ಕವಾದಾಗ ಸಿಂಕ್ ಆಗುತ್ತದೆ.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device $percent% ನಲ್ಲಿದೆ. ಇಂದು ರಾತ್ರಿ ಚಾರ್ಜ್ ಮಾಡಿ.';
+  }
+
+  @override
+  String get stoppedV3 => 'ನಿಲ್ಲಿಸಲಾಗಿದೆ';
+
+  @override
+  String get connectorsV3 => 'ಕನೆಕ್ಟರ್‌ಗಳು';
+
+  @override
+  String get yourConnectors => 'ನಿಮ್ಮ ಕನೆಕ್ಟರ್‌ಗಳು';
+
+  @override
+  String get recordingNow => 'ಈಗ ರೆಕಾರ್ಡ್ ಆಗುತ್ತಿದೆ';
+
+  @override
+  String get pendantKind => 'ಪೆಂಡೆಂಟ್';
+
+  @override
+  String get builtInMicV3 => 'ಅಂತರ್ನಿರ್ಮಿತ ಮೈಕ್';
+
+  @override
+  String get editSummaryV3 => 'ಸಾರಾಂಶ ಸಂಪಾದಿಸಿ';
+
+  @override
+  String get editingSummary => 'ಸಾರಾಂಶ ಸಂಪಾದಿಸಲಾಗುತ್ತಿದೆ';
+
+  @override
+  String get summarySaved => 'ಸಾರಾಂಶ ಉಳಿಸಲಾಗಿದೆ';
+
+  @override
+  String pairedCountV3(int count) {
+    return '$count ಜೋಡಿಸಲಾಗಿದೆ';
+  }
+
+  @override
+  String get buttonSectionV3 => 'ಬಟನ್';
 }

@@ -12660,4 +12660,148 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Hindi na-save ni Omi ang boses mo. Subukan ulit sa Settings.';
+
+  @override
+  String get seeAllV3 => 'Tingnan lahat';
+
+  @override
+  String get pullDownToResume => 'Hilahin pababa para ituloy';
+
+  @override
+  String get pullDownToStart => 'Hilahin pababa para magsimula';
+
+  @override
+  String get bluetoothOffV3 => 'Naka-off ang Bluetooth';
+
+  @override
+  String get tapToFix => 'I-tap para ayusin';
+
+  @override
+  String get omiNotFound => 'Hindi makita ang Omi';
+
+  @override
+  String get tapForOptions => 'I-tap para sa mga opsyon';
+
+  @override
+  String get reconnectingV3 => 'Kumokonekta ulit';
+
+  @override
+  String get omiKeepsRecording => 'Tuloy ang pag-record ng Omi';
+
+  @override
+  String get pullToPause => 'Hilahin para i-pause';
+
+  @override
+  String get pullToResume => 'Hilahin para ituloy';
+
+  @override
+  String get pullToRecord => 'Hilahin para mag-record';
+
+  @override
+  String get releaseToPause => 'Bitawan para i-pause';
+
+  @override
+  String get releaseToResume => 'Bitawan para ituloy';
+
+  @override
+  String get releaseToRecord => 'Bitawan para mag-record';
+
+  @override
+  String get pausedPullToUndo => 'Naka-pause. Hilahin ulit pababa para i-undo.';
+
+  @override
+  String get listeningAgainPullToUndo => 'Nakikinig ulit. Hilahin ulit pababa para i-undo.';
+
+  @override
+  String get pullUpForYourOmi => 'Hilahin pataas para sa Omi mo';
+
+  @override
+  String get releaseToOpen => 'Bitawan para buksan';
+
+  @override
+  String get coachFirstNotes => 'Nakikinig si Omi. Lalabas dito ang una mong mga tala kapag tumigil ka sa pagsasalita.';
+
+  @override
+  String get thisIsOmi => 'Ito si Omi.';
+
+  @override
+  String get teachTipBody =>
+      'Kapag gumagalaw ang mga tuldok, nakikinig ito. I-tap para makita ang Omi mo, o hilahin pataas mula sa ibaba. Hilahin pababa ang page para i-pause.';
+
+  @override
+  String get yourOmi => 'Ang Omi mo';
+
+  @override
+  String get onlyYouSeeRecordings => 'Ikaw lang ang makakakita ng mga recording mo.';
+
+  @override
+  String get wordsShowUpHere => 'Lalabas dito ang mga salita habang nagsasalita ang mga tao.';
+
+  @override
+  String get newWords => 'Bagong salita';
+
+  @override
+  String get liveTranscriptV3 => 'Live na transcript';
+
+  @override
+  String get writingUpNotes => 'Isinusulat ang mga tala mo';
+
+  @override
+  String get summaryTodosAbout30s => 'Buod at mga gagawin, mga 30 segundo';
+
+  @override
+  String get notesReady => 'Handa na ang mga tala';
+
+  @override
+  String get notConnectedV3 => 'Hindi nakakonekta';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return 'I-on ang Bluetooth para tuloy ang pag-record mula sa $device.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes min ang naka-save sa $device. Magsi-sync ito kapag muling nakakonekta.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return 'Ang $device ay nasa $percent%. I-charge ito ngayong gabi.';
+  }
+
+  @override
+  String get stoppedV3 => 'Itinigil';
+
+  @override
+  String get connectorsV3 => 'Mga connector';
+
+  @override
+  String get yourConnectors => 'Ang mga connector mo';
+
+  @override
+  String get recordingNow => 'Nagre-record ngayon';
+
+  @override
+  String get pendantKind => 'Pendant';
+
+  @override
+  String get builtInMicV3 => 'Built-in na mic';
+
+  @override
+  String get editSummaryV3 => 'I-edit ang buod';
+
+  @override
+  String get editingSummary => 'Ine-edit ang buod';
+
+  @override
+  String get summarySaved => 'Na-save ang buod';
+
+  @override
+  String pairedCountV3(int count) {
+    return '$count naka-pair';
+  }
+
+  @override
+  String get buttonSectionV3 => 'Button';
 }

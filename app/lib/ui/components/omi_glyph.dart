@@ -70,6 +70,16 @@ abstract final class OmiGlyphs {
   static const String history = 'assets/icons/v3-history.svg';
   static const String bluetoothLine = 'assets/icons/v3-bluetooth.svg';
   static const String bluetoothOff = 'assets/icons/v3-bluetooth-off.svg';
+
+  /// Connectors (the sidebar) and the pendant on its cord (Devices, v8).
+  static const String plug = 'assets/icons/v3-plug.svg';
+  static const String pendantLine = 'assets/icons/v3-pendant.svg';
+
+  /// Edit summary (the conversation menu, v8.18).
+  static const String pencil = 'assets/icons/v3-pencil.svg';
+
+  /// What the light means (Your Omi's header).
+  static const String bulb = 'assets/icons/v3-bulb.svg';
   static const String bluetooth = 'assets/icons/bluetooth.svg';
   static const String apps = 'assets/icons/v3-apps.svg';
   static const String browse = 'assets/icons/v3-browse.svg';

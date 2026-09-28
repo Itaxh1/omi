@@ -118,7 +118,7 @@ class _YouBodyState extends State<_YouBody> {
           ),
           _Row(
             key: const Key('you_apps'),
-            title: l10n.apps,
+            title: l10n.connectorsV3,
             value: apps.isEmpty ? null : apps,
             onTap: () => _open(const AddAnAppPage()),
           ),
@@ -162,17 +162,15 @@ class _LookButton extends StatelessWidget {
         child: Container(
           height: 40,
           alignment: Alignment.center,
+          // v8.10 `.modes button`: paper with a 10 % outline; chosen, the warm tone and 30 %.
           decoration: BoxDecoration(
-            color: selected ? OmiColors.accent : null,
+            color: selected ? OmiColors.tone : OmiColors.surface0,
             borderRadius: OmiRadius.pillAll,
-            border: Border.all(color: OmiColors.textPrimary),
+            border: Border.all(color: OmiColors.textPrimary.withValues(alpha: selected ? 0.30 : 0.10)),
           ),
           child: Text(
             label,
-            style: OmiType.callout.copyWith(
-              fontWeight: FontWeight.w600,
-              color: selected ? OmiColors.onAccent : OmiColors.textPrimary,
-            ),
+            style: OmiType.callout.copyWith(fontWeight: FontWeight.w600, color: OmiColors.textPrimary),
           ),
         ),
       ),

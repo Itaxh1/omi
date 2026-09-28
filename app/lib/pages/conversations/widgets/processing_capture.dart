@@ -25,7 +25,6 @@ import 'package:omi/utils/processing_timeout.dart';
 import 'package:omi/backend/schema/phone_call.dart';
 import 'package:omi/providers/phone_call_provider.dart';
 import 'package:omi/pages/conversations/widgets/live_capture_card.dart';
-import 'package:omi/pages/home/widgets/recorder_card.dart';
 import 'package:omi/pages/phone_calls/active_call_page.dart';
 import 'package:omi/ui/ui.dart';
 
@@ -34,7 +33,7 @@ class ConversationCaptureWidget extends StatefulWidget {
     super.key,
     this.showsCall = false,
     this.idle,
-    this.recorder = false,
+    this.present,
   });
 
   /// Home shows an Omi call on this card; the Conversations tab has its own call banner.
@@ -44,9 +43,9 @@ class ConversationCaptureWidget extends StatefulWidget {
   /// shows its Disconnected card in this place instead, so the two never stack.
   final Widget? idle;
 
-  /// v3: the card's inputs drawn as the recorder card ([RecorderCard]) in its glass shell
-  /// ([RecorderShell]), which the Listening label raises over Home.
-  final bool recorder;
+  /// Your Omi (v8.4): each state's inputs handed over instead of drawn as a card, and null while
+  /// nothing records. The screen draws them its own way (timer, controls, transcript).
+  final Widget Function(LiveCaptureCard? card)? present;
 
   @override
   State<ConversationCaptureWidget> createState() => _ConversationCaptureWidgetState();
@@ -110,27 +109,27 @@ class _ConversationCaptureWidgetState extends State<ConversationCaptureWidget> {
         phoneCallState == PhoneCallState.ringing) {
       if (!widget.showsCall) return const SizedBox.shrink();
       final l10n = context.l10n;
+      final callCard = LiveCaptureCard(
+        source: LiveCaptureCard.callSource,
+        // Connecting and ringing say so, with no time: they are not listening yet.
+        status: switch (phoneCallState) {
+          PhoneCallState.connecting => l10n.callStateConnecting,
+          PhoneCallState.ringing => l10n.callStateRinging,
+          _ => captureStateLabel(l10n, CaptureDisplayState.listening),
+        },
+        // Amber until audio flows: connecting and ringing are not listening yet.
+        live: phoneCallState == PhoneCallState.active,
+        elapsed: phoneCallState == PhoneCallState.active ? call.callDuration : null,
+        lastLine: call.transcriptSegments.lastOrNull?.text,
+      );
+      final present = widget.present;
+      if (present != null) return present(callCard);
       return Semantics(
         button: true,
         hint: l10n.openCall,
         child: GestureDetector(
           onTap: () => routeToPage(context, const ActiveCallPage()),
-          child: _cardShell(
-            padding: _liveCardPadding,
-            _capture(LiveCaptureCard(
-              source: LiveCaptureCard.callSource,
-              // Connecting and ringing say so, with no time: they are not listening yet.
-              status: switch (phoneCallState) {
-                PhoneCallState.connecting => l10n.callStateConnecting,
-                PhoneCallState.ringing => l10n.callStateRinging,
-                _ => captureStateLabel(l10n, CaptureDisplayState.listening),
-              },
-              // Amber until audio flows: connecting and ringing are not listening yet.
-              live: phoneCallState == PhoneCallState.active,
-              elapsed: phoneCallState == PhoneCallState.active ? call.callDuration : null,
-              lastLine: call.transcriptSegments.lastOrNull?.text,
-            )),
-          ),
+          child: _cardShell(padding: _liveCardPadding, _capture(callCard)),
         ),
       );
     }
@@ -159,9 +158,12 @@ class _ConversationCaptureWidgetState extends State<ConversationCaptureWidget> {
         if ((provider.liveCaptureSource == null && !phoneLive && !batch) ||
             (provider.isCaptureStopped && !phoneLive) ||
             provider.isStopping) {
+          final present = widget.present;
+          if (present != null) return present(null);
           return widget.idle ?? const SizedBox.shrink();
         }
 
+        if (widget.present != null) return _buildUnifiedRecordingUI(provider);
         return GestureDetector(
           onTap: () async {
             // Offline/batch mode has no live transcript — the card is informational,
@@ -198,16 +200,16 @@ class _ConversationCaptureWidgetState extends State<ConversationCaptureWidget> {
     );
   }
 
-  /// The card's inputs, drawn as the full card or (v3) the recorder card.
-  Widget _capture(LiveCaptureCard card) => widget.recorder ? RecorderCard(card: card) : card;
+  /// The card's inputs, drawn as the full card or handed to Your Omi ([ConversationCaptureWidget.present]).
+  Widget _capture(LiveCaptureCard card) => widget.present?.call(card) ?? card;
 
   /// The live card's orb, wave and capsules sit on the design's 16pt card padding.
   static const _liveCardPadding = EdgeInsets.all(OmiSpacing.md);
 
-  /// The live card (Liquid Dock): a 28 pt card with the design's rim and top light; the recorder
-  /// card's glass shell in v3.
-  Widget _cardShell(Widget child, {EdgeInsets? padding}) => widget.recorder
-      ? RecorderShell(child: child)
+  /// The live card (Liquid Dock): a 28 pt card with the design's rim and top light; nothing around
+  /// what Your Omi draws.
+  Widget _cardShell(Widget child, {EdgeInsets? padding}) => widget.present != null
+      ? child
       : Padding(
           padding: const EdgeInsets.fromLTRB(OmiSpacing.md, OmiSpacing.lg, OmiSpacing.md, OmiSpacing.sm),
           child: OmiCard(
@@ -383,6 +385,7 @@ class _ConversationCaptureWidgetState extends State<ConversationCaptureWidget> {
         onPauseToggle: !provider.canMuteLiveSource || micTaken ? null : () => _togglePause(provider, muted: isPaused),
         onFinish: () => _finish(provider),
       ));
+      if (widget.present != null) return card;
       return Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -406,7 +409,7 @@ class _ConversationCaptureWidgetState extends State<ConversationCaptureWidget> {
       // Device connected in offline mode but not yet in the recording state above.
       return _buildBatchRecordingUI(provider);
     }
-    return const SizedBox.shrink();
+    return widget.present?.call(null) ?? const SizedBox.shrink();
   }
 
   /// Transcribe Later (batch) card, in the live card's layout: the source glyph, a short status and
@@ -482,6 +485,23 @@ class _ConversationCaptureWidgetState extends State<ConversationCaptureWidget> {
         ),
     ];
 
+    final present = widget.present;
+    if (present != null) {
+      // Your Omi: Mute is its Pause/Resume, and the phone's session Stop is its Stop.
+      return present(LiveCaptureCard(
+        source: source,
+        status: copy.status,
+        detail: copy.detail,
+        explanation: copy.explanation,
+        paused: muted || storageFull,
+        live: isLimitless || (!muted && !storageFull),
+        elapsed: isLimitless || elapsedSeconds == null ? null : Duration(seconds: elapsedSeconds),
+        note: note,
+        showsTranscript: false,
+        onPauseToggle: isLimitless || storageFull ? null : () => actions.first.onTap(),
+        onFinish: provider.isPhoneMicBatchRecording ? () => actions.last.onTap() : null,
+      ));
+    }
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,

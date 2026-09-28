@@ -89,7 +89,7 @@ class _TranscriptView extends StatelessWidget {
     return Scaffold(
       backgroundColor: OmiColors.surface0,
       appBar: OmiScreenHeader(
-        trailing: OmiRingButton(
+        trailing: OmiRingButton.glass(
           key: const Key('transcript_more'),
           glyph: OmiGlyphs.more,
           label: l10n.moreOptions,

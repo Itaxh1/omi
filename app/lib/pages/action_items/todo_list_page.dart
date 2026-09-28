@@ -85,7 +85,7 @@ class _TodoListPageState extends State<TodoListPage> {
       backgroundColor: OmiColors.surface0,
       appBar: OmiScreenHeader(
         title: l10n.toDo,
-        trailing: OmiRingButton(
+        trailing: OmiRingButton.glass(
           key: const Key('todo_add'),
           glyph: OmiGlyphs.plusLine,
           label: l10n.createActionItem,

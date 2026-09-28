@@ -1,5 +1,8 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
+import 'package:omi/ui/components/omi_glass.dart';
 import 'package:omi/ui/components/omi_glyph.dart';
 import 'package:omi/ui/components/omi_surface.dart';
 import 'package:omi/ui/omi_tokens.dart';
@@ -8,7 +11,9 @@ import 'package:omi/ui/omi_tokens.dart';
 // chips, text tabs, the check ring, the popover menu, list labels and the search pill. Sizes are the
 // mock's, measured at 390 × 844.
 
-/// A 40 pt round button with a 1 pt outline (`.sh .ib`): back, more, close.
+/// A 40 pt round button with a 1 pt outline (the Ask sheet's close and history, the sidebar's
+/// close); [OmiRingButton.glass] is the 50 pt glass circle of a screen's header (v8.16 `.bk`,
+/// `.more3`): back, more, add.
 class OmiRingButton extends StatelessWidget {
   const OmiRingButton({
     super.key,
@@ -17,7 +22,19 @@ class OmiRingButton extends StatelessWidget {
     required this.onPressed,
     this.size = 40,
     this.glyphSize = 18,
-  });
+  }) : glass = false;
+
+  const OmiRingButton.glass({
+    super.key,
+    required this.glyph,
+    required this.label,
+    required this.onPressed,
+    this.glyphSize = 19,
+  })  : size = 50,
+        glass = true;
+
+  /// The 50 pt glass circle, as Home's folder and You buttons.
+  final bool glass;
 
   /// An [OmiGlyphs] path.
   final String glyph;
@@ -30,6 +47,14 @@ class OmiRingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (glass) {
+      return OmiPlainGlassButton(
+        label: label,
+        onPressed: onPressed,
+        size: size,
+        child: OmiGlyph(glyph, size: glyphSize, color: OmiColors.textPrimary),
+      );
+    }
     return Semantics(
       button: true,
       label: label,
@@ -53,15 +78,15 @@ class OmiRingButton extends StatelessWidget {
   }
 }
 
-/// The header of a pushed v3 screen (`.sh`): 12 pt under the status bar, a 40 pt back ring on the
-/// left, the title centred at 17/600, an optional control on the right, 8 pt under it.
+/// The header of a pushed v3 screen (`.sh`): 24 pt under the status bar, the 50 pt glass back
+/// circle on the left, the title centred at 17/600, an optional control on the right, 8 pt under it.
 class OmiScreenHeader extends StatelessWidget implements PreferredSizeWidget {
   const OmiScreenHeader({super.key, this.title, this.trailing, this.onBack, this.backLabel});
 
   final String? title;
 
-  /// A 40 pt control on the right (usually an [OmiRingButton]); the same room stays empty without
-  /// one so the title stays centred.
+  /// A 50 pt control on the right (usually an [OmiRingButton.glass]); the same room stays empty
+  /// without one so the title stays centred.
   final Widget? trailing;
 
   /// Defaults to popping the route.
@@ -70,8 +95,8 @@ class OmiScreenHeader extends StatelessWidget implements PreferredSizeWidget {
   /// The back button's screen-reader name; defaults to the platform's "Back".
   final String? backLabel;
 
-  /// `.sh` sits 12 pt under the top of the screen (the safe area here) and is 60 pt tall.
-  static const double height = 72;
+  /// `.sh` sits 12 pt under the top of the screen (the safe area here) and is 70 pt tall.
+  static const double height = 82;
 
   @override
   Size get preferredSize => const Size.fromHeight(height);
@@ -84,10 +109,10 @@ class OmiScreenHeader extends StatelessWidget implements PreferredSizeWidget {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
         child: SizedBox(
-          height: 40,
+          height: 50,
           child: Row(
             children: [
-              OmiRingButton(
+              OmiRingButton.glass(
                 key: const Key('screen_back'),
                 glyph: OmiGlyphs.back,
                 label: back,
@@ -110,7 +135,7 @@ class OmiScreenHeader extends StatelessWidget implements PreferredSizeWidget {
                       ),
               ),
               const SizedBox(width: 10),
-              trailing ?? const SizedBox(width: 40),
+              trailing ?? const SizedBox(width: 50),
             ],
           ),
         ),
@@ -295,6 +320,7 @@ class OmiMenuEntry<T> {
       required this.label,
       this.glyph,
       this.icon,
+      this.detail,
       this.strong = false,
       this.dividerBefore = false,
       this.key});
@@ -302,89 +328,151 @@ class OmiMenuEntry<T> {
   final T value;
   final String label;
 
+  /// A second line in the secondary ink ("Old Street, London" under Open in Maps).
+  final String? detail;
+
   /// An [OmiGlyphs] path, or [icon] for a drawn one.
   final String? glyph;
   final Widget? icon;
 
-  /// Bold (the menu's last, destructive row).
+  /// The destructive row (Delete), in red with a red-tinted tile.
   final bool strong;
+
+  /// Starts a new group: a hairline above it.
   final bool dividerBefore;
   final Key? key;
 }
 
-/// The v3 menu (`.menu`): a card under the header's right button, the page colour with a 1.5 pt ink
-/// outline, 18 pt corners and a soft shadow; 46 pt rows with an 18 pt glyph. Resolves to the
-/// picked value, or null when dismissed.
+/// The v8.5 menu (`.menu`): a 268 pt card under the header's right button, the page colour with
+/// an 8 % outline, 24 pt corners and a soft shadow. Rows are 48 pt: a 34 pt tile in the warm tone
+/// with the glyph in cement, then the words at 15.5 pt; groups are split by a hairline, and the
+/// destructive row is red on a red-tinted tile. It grows from 90 % at the top-right corner over
+/// 0.22 s. Resolves to the picked value, or null when dismissed.
 Future<T?> showOmiPopoverMenu<T>(BuildContext context, {required List<OmiMenuEntry<T>> entries}) {
-  // `.menu`: 70 pt from the top, under the header's right button.
+  // `.menu`: 70 pt from the top, 14 pt in from the right, under the header's right button.
   final top = MediaQuery.paddingOf(context).top + 70;
+  final light = OmiColors.palette.isLight;
+  final card = light ? OmiColors.surface0 : Color.alphaBlend(const Color(0x17FFFFFF), OmiColors.surface0);
+  final tile = light ? OmiColors.tone : Color.alphaBlend(const Color(0x0FFFFFFF), OmiColors.surface0);
+  const danger = Color(0xFFC4320A); // omi-ux-allow: color-literal -- the mock's menu Delete red
+  const dangerDark = Color(0xFFFF8A70); // omi-ux-allow: color-literal -- the mock's menu Delete red in Black
+  final red = light ? danger : dangerDark;
+  final redTile = light ? const Color(0xFFFDF1EE) : const Color(0x1AFF8A70); // omi-ux-allow: color-literal -- the mock's Delete tile
+  final width = math.min(268.0, MediaQuery.sizeOf(context).width - 28);
   return showGeneralDialog<T>(
     context: context,
     barrierDismissible: true,
     barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
     barrierColor: Colors.transparent,
-    transitionDuration: const Duration(milliseconds: 160),
+    transitionDuration: const Duration(milliseconds: 220),
     pageBuilder: (dialogContext, _, __) => Stack(
       children: [
         Positioned(
           top: top,
-          left: 14,
           right: 14,
+          width: width,
           child: Material(
             type: MaterialType.transparency,
             child: Container(
               key: const Key('omi_popover_menu'),
-              padding: const EdgeInsets.symmetric(vertical: 6),
+              padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: OmiColors.surface0,
-                borderRadius: const BorderRadius.all(Radius.circular(18)),
-                border: Border.all(color: OmiColors.textPrimary, width: 1.5),
-                boxShadow: const [BoxShadow(color: Color(0x24000000), offset: Offset(0, 16), blurRadius: 40)],
+                color: card,
+                borderRadius: const BorderRadius.all(Radius.circular(24)),
+                border: Border.all(color: OmiColors.textPrimary.withValues(alpha: light ? 0.08 : 0.10)),
+                boxShadow: light
+                    ? const [
+                        BoxShadow(color: Color(0x0A000000), offset: Offset(0, 1), blurRadius: 2),
+                        BoxShadow(color: Color(0x1A000000), offset: Offset(0, 14), blurRadius: 36),
+                      ]
+                    : const [BoxShadow(color: Color(0x80000000), offset: Offset(0, 14), blurRadius: 36)],
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  for (final e in entries) ...[
-                    if (e.dividerBefore)
+                  for (final (i, e) in entries.indexed) ...[
+                    if (e.dividerBefore && i > 0)
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 6),
-                        child: Divider(height: 1, thickness: 1, color: OmiColors.divider),
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                        child: Container(height: 1, color: OmiColors.textPrimary.withValues(alpha: 0.07)),
                       ),
                     Semantics(
                       button: true,
-                      label: e.label,
+                      label: e.detail == null ? e.label : '${e.label}, ${e.detail}',
                       excludeSemantics: true,
                       onTap: () => Navigator.of(dialogContext).pop(e.value),
-                      child: InkWell(
-                        key: e.key,
-                        onTap: () {
-                          OmiHaptics.selection();
-                          Navigator.of(dialogContext).pop(e.value);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-                          child: Row(
-                            children: [
-                              SizedBox.square(
-                                dimension: 18,
-                                child: e.icon ??
-                                    (e.glyph == null
-                                        ? null
-                                        : OmiGlyph(e.glyph!, size: 18, color: OmiColors.textPrimary)),
-                              ),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: Text(
-                                  e.label,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: OmiType.callout.copyWith(
-                                    height: 1.4,
-                                    fontWeight: e.strong ? FontWeight.w600 : FontWeight.w400,
+                      child: Material(
+                        type: MaterialType.transparency,
+                        child: InkWell(
+                          key: e.key,
+                          borderRadius: const BorderRadius.all(Radius.circular(16)),
+                          highlightColor: OmiColors.tone,
+                          splashColor: Colors.transparent,
+                          onTap: () {
+                            OmiHaptics.selection();
+                            Navigator.of(dialogContext).pop(e.value);
+                          },
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(minHeight: 48),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 34,
+                                    height: 34,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: e.strong ? redTile : tile,
+                                      borderRadius: const BorderRadius.all(Radius.circular(11)),
+                                      border: Border.all(
+                                        color: e.strong
+                                            ? red.withValues(alpha: 0.12)
+                                            : OmiColors.textPrimary.withValues(alpha: 0.07),
+                                      ),
+                                    ),
+                                    child: IconTheme.merge(
+                                      data: IconThemeData(color: e.strong ? red : OmiColors.cement, size: 18),
+                                      child: e.icon ??
+                                          (e.glyph == null
+                                              ? const SizedBox.shrink()
+                                              : OmiGlyph(e.glyph!, size: 18, color: e.strong ? red : OmiColors.cement)),
+                                    ),
                                   ),
-                                ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          e.label,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: OmiType.transcriptLine.copyWith(
+                                            height: 1.25,
+                                            fontWeight: e.strong ? FontWeight.w500 : FontWeight.w400,
+                                            color: e.strong ? red : OmiColors.textPrimary,
+                                          ),
+                                        ),
+                                        if (e.detail != null)
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 1),
+                                            child: Text(
+                                              e.detail!,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: OmiType.footnote
+                                                  .copyWith(height: 1.25, color: OmiColors.textSecondary),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
                       ),
@@ -397,24 +485,30 @@ Future<T?> showOmiPopoverMenu<T>(BuildContext context, {required List<OmiMenuEnt
         ),
       ],
     ),
-    transitionBuilder: (context, animation, _, child) => FadeTransition(
-      opacity: animation,
-      child: ScaleTransition(
-        alignment: Alignment.topRight,
-        scale: Tween(begin: 0.96, end: 1.0).animate(CurvedAnimation(parent: animation, curve: Curves.easeOut)),
-        child: child,
-      ),
-    ),
+    transitionBuilder: (context, animation, _, child) {
+      // `menuIn`: from 90 % at the top-right corner, with a slight overshoot.
+      final grow = CurvedAnimation(parent: animation, curve: const Cubic(0.2, 0.9, 0.3, 1.1));
+      return FadeTransition(
+        opacity: animation,
+        child: ScaleTransition(
+          alignment: Alignment.topRight,
+          scale: Tween(begin: 0.9, end: 1.0).animate(grow),
+          child: child,
+        ),
+      );
+    },
   );
 }
 
 /// A v3 list label (`h2`): 13/600 in the secondary ink, with an optional underlined link in ink on
 /// the right edge. [top] and [bottom] are the space around the label; the link's touch target
 /// fills that whole block so it stays tall enough while the words sit where the design puts them.
+/// [detail] follows the title in regular weight, 6 pt after it ("Record from  2 paired").
 class OmiSectionLabel extends StatelessWidget {
   const OmiSectionLabel({
     super.key,
     required this.title,
+    this.detail,
     this.action,
     this.actionKey,
     this.onAction,
@@ -423,6 +517,7 @@ class OmiSectionLabel extends StatelessWidget {
   });
 
   final String title;
+  final String? detail;
   final String? action;
   final Key? actionKey;
   final VoidCallback? onAction;
@@ -436,7 +531,16 @@ class OmiSectionLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     final label = Padding(
       padding: EdgeInsets.only(top: top, bottom: bottom),
-      child: Semantics(header: true, child: Text(title, style: style)),
+      child: Semantics(
+        header: true,
+        child: detail == null
+            ? Text(title, style: style)
+            : Text.rich(TextSpan(style: style, children: [
+                TextSpan(text: title),
+                const WidgetSpan(child: SizedBox(width: 6)),
+                TextSpan(text: detail, style: const TextStyle(fontWeight: FontWeight.w400)),
+              ])),
+      ),
     );
     if (action == null || onAction == null) return label;
     return Stack(

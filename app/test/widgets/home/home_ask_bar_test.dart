@@ -25,7 +25,6 @@ Future<List<String>> _pump(WidgetTester tester, {EdgeInsets padding = EdgeInsets
               bottom: 0,
               child: HomeAskBar(
                 onOpen: () => calls.add('open'),
-                onVoice: () => calls.add('voice'),
                 onHold: () => calls.add('hold'),
               ),
             ),
@@ -40,29 +39,27 @@ Future<List<String>> _pump(WidgetTester tester, {EdgeInsets padding = EdgeInsets
 
 AppLocalizations _l10n(WidgetTester tester) => AppLocalizations.of(tester.element(find.byType(HomeAskBar)));
 
-/// The Ask bar (v3): one 60 pt capsule pinned above the home indicator.
+/// The Ask bar (v8.2): one 56 pt liquid-glass capsule pinned above the home indicator, no mic.
 void main() {
-  testWidgets('tapping the bar opens chat, the mic opens it listening, holding opens Memories', (tester) async {
+  testWidgets('tapping the bar opens Ask, holding opens Memories', (tester) async {
     final calls = await _pump(tester);
 
     await tester.tap(find.text(_l10n(tester).askAnything));
-    await tester.tap(find.byKey(const Key('home_ask_mic')));
     await tester.longPress(find.byKey(const Key('home_ask_bar')));
 
-    expect(calls, ['open', 'voice', 'hold']);
+    expect(calls, ['open', 'hold']);
   });
 
-  testWidgets('it is 60 pt tall, in the accent, with only "Ask anything" and the mic', (tester) async {
+  testWidgets('it is 56 pt tall, glass, with only "Ask anything" and no mic', (tester) async {
     await _pump(tester);
     final l10n = _l10n(tester);
 
+    expect(kAskBarHeight, 56);
     expect(tester.getSize(find.byKey(const Key('home_ask_bar'))).height, kAskBarHeight);
     expect(find.text(l10n.askAnything), findsOneWidget);
-    expect(find.textContaining(l10n.askStarterOpen), findsNothing, reason: 'v3 shows no example question');
-    final bar = tester.widget<Container>(
-      find.descendant(of: find.byKey(const Key('home_ask_bar')), matching: find.byType(Container)).first,
-    );
-    expect((bar.decoration as BoxDecoration).color, OmiColors.accent);
+    expect(find.byKey(const Key('home_ask_mic')), findsNothing);
+    expect(find.descendant(of: find.byKey(const Key('home_ask_bar')), matching: find.byType(OmiLiquidGlass)),
+        findsOneWidget);
   });
 
   testWidgets('it sits 16 pt above the home indicator, and pages keep room under it', (tester) async {

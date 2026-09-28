@@ -12566,4 +12566,148 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Omi sesinizi kaydedemedi. Ayarlar\'dan tekrar deneyin.';
+
+  @override
+  String get seeAllV3 => 'Tümünü gör';
+
+  @override
+  String get pullDownToResume => 'Devam etmek için aşağı çekin';
+
+  @override
+  String get pullDownToStart => 'Başlamak için aşağı çekin';
+
+  @override
+  String get bluetoothOffV3 => 'Bluetooth kapalı';
+
+  @override
+  String get tapToFix => 'Düzeltmek için dokunun';
+
+  @override
+  String get omiNotFound => 'Omi bulunamadı';
+
+  @override
+  String get tapForOptions => 'Seçenekler için dokunun';
+
+  @override
+  String get reconnectingV3 => 'Yeniden bağlanıyor';
+
+  @override
+  String get omiKeepsRecording => 'Omi kayda devam ediyor';
+
+  @override
+  String get pullToPause => 'Duraklatmak için çekin';
+
+  @override
+  String get pullToResume => 'Devam etmek için çekin';
+
+  @override
+  String get pullToRecord => 'Kaydetmek için çekin';
+
+  @override
+  String get releaseToPause => 'Duraklatmak için bırakın';
+
+  @override
+  String get releaseToResume => 'Devam etmek için bırakın';
+
+  @override
+  String get releaseToRecord => 'Kaydetmek için bırakın';
+
+  @override
+  String get pausedPullToUndo => 'Duraklatıldı. Geri almak için tekrar aşağı çekin.';
+
+  @override
+  String get listeningAgainPullToUndo => 'Yeniden dinliyor. Geri almak için tekrar aşağı çekin.';
+
+  @override
+  String get pullUpForYourOmi => 'Omi\'niz için yukarı çekin';
+
+  @override
+  String get releaseToOpen => 'Açmak için bırakın';
+
+  @override
+  String get coachFirstNotes => 'Omi dinliyor. Konuşmayı bitirdiğinizde ilk notlarınız burada görünür.';
+
+  @override
+  String get thisIsOmi => 'Bu Omi.';
+
+  @override
+  String get teachTipBody =>
+      'Hareket eden noktalar dinlediği anlamına gelir. Omi\'nizi görmek için dokunun ya da alttan yukarı çekin. Duraklatmak için sayfayı aşağı çekin.';
+
+  @override
+  String get yourOmi => 'Omi\'niz';
+
+  @override
+  String get onlyYouSeeRecordings => 'Kayıtlarınızı yalnızca siz görebilirsiniz.';
+
+  @override
+  String get wordsShowUpHere => 'Kişiler konuştukça kelimeler burada görünür.';
+
+  @override
+  String get newWords => 'Yeni kelimeler';
+
+  @override
+  String get liveTranscriptV3 => 'Canlı döküm';
+
+  @override
+  String get writingUpNotes => 'Notlarınız yazılıyor';
+
+  @override
+  String get summaryTodosAbout30s => 'Özet ve yapılacaklar, yaklaşık 30 saniye';
+
+  @override
+  String get notesReady => 'Notlar hazır';
+
+  @override
+  String get notConnectedV3 => 'Bağlı değil';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return '$device ile kayda devam etmek için Bluetooth\'u açın.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes dk, $device üzerinde kayıtlı. Yeniden bağlandığında senkronize olur.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device %$percent şarjda. Bu gece şarj edin.';
+  }
+
+  @override
+  String get stoppedV3 => 'Durduruldu';
+
+  @override
+  String get connectorsV3 => 'Bağlayıcılar';
+
+  @override
+  String get yourConnectors => 'Bağlayıcılarınız';
+
+  @override
+  String get recordingNow => 'Şu an kaydediyor';
+
+  @override
+  String get pendantKind => 'Kolye';
+
+  @override
+  String get builtInMicV3 => 'Dahili mikrofon';
+
+  @override
+  String get editSummaryV3 => 'Özeti düzenle';
+
+  @override
+  String get editingSummary => 'Özet düzenleniyor';
+
+  @override
+  String get summarySaved => 'Özet kaydedildi';
+
+  @override
+  String pairedCountV3(int count) {
+    return '$count eşlendi';
+  }
+
+  @override
+  String get buttonSectionV3 => 'Düğme';
 }

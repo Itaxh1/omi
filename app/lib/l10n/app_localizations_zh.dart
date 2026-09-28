@@ -12324,4 +12324,147 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Omi 没能保存你的声音。请到设置里重试。';
+
+  @override
+  String get seeAllV3 => '查看全部';
+
+  @override
+  String get pullDownToResume => '下拉继续';
+
+  @override
+  String get pullDownToStart => '下拉开始';
+
+  @override
+  String get bluetoothOffV3 => '蓝牙已关闭';
+
+  @override
+  String get tapToFix => '点按修复';
+
+  @override
+  String get omiNotFound => '找不到 Omi';
+
+  @override
+  String get tapForOptions => '点按查看选项';
+
+  @override
+  String get reconnectingV3 => '正在重新连接';
+
+  @override
+  String get omiKeepsRecording => 'Omi 会继续录音';
+
+  @override
+  String get pullToPause => '下拉暂停';
+
+  @override
+  String get pullToResume => '下拉继续';
+
+  @override
+  String get pullToRecord => '下拉录音';
+
+  @override
+  String get releaseToPause => '松开即可暂停';
+
+  @override
+  String get releaseToResume => '松开即可继续';
+
+  @override
+  String get releaseToRecord => '松开即可录音';
+
+  @override
+  String get pausedPullToUndo => '已暂停。再次下拉可撤销。';
+
+  @override
+  String get listeningAgainPullToUndo => '已继续收听。再次下拉可撤销。';
+
+  @override
+  String get pullUpForYourOmi => '上拉打开你的 Omi';
+
+  @override
+  String get releaseToOpen => '松开即可打开';
+
+  @override
+  String get coachFirstNotes => 'Omi 正在收听。你说完后，第一份笔记会出现在这里。';
+
+  @override
+  String get thisIsOmi => '这就是 Omi。';
+
+  @override
+  String get teachTipBody => '圆点在动，说明它正在收听。点按或从底部上拉可查看你的 Omi；下拉页面可暂停。';
+
+  @override
+  String get yourOmi => '你的 Omi';
+
+  @override
+  String get onlyYouSeeRecordings => '只有你能看到你的录音。';
+
+  @override
+  String get wordsShowUpHere => '大家说话时，文字会出现在这里。';
+
+  @override
+  String get newWords => '新内容';
+
+  @override
+  String get liveTranscriptV3 => '实时转写';
+
+  @override
+  String get writingUpNotes => '正在整理你的笔记';
+
+  @override
+  String get summaryTodosAbout30s => '摘要和待办，大约 30 秒';
+
+  @override
+  String get notesReady => '笔记已整理好';
+
+  @override
+  String get notConnectedV3 => '未连接';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return '打开蓝牙，才能继续用 $device 录音。';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '已保存 $minutes 分钟到 $device。重新连接后会同步。';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device 电量 $percent%。今晚记得充电。';
+  }
+
+  @override
+  String get stoppedV3 => '已停止';
+
+  @override
+  String get connectorsV3 => '连接器';
+
+  @override
+  String get yourConnectors => '你的连接器';
+
+  @override
+  String get recordingNow => '正在录音';
+
+  @override
+  String get pendantKind => '吊坠';
+
+  @override
+  String get builtInMicV3 => '内置麦克风';
+
+  @override
+  String get editSummaryV3 => '编辑摘要';
+
+  @override
+  String get editingSummary => '正在编辑摘要';
+
+  @override
+  String get summarySaved => '摘要已保存';
+
+  @override
+  String pairedCountV3(int count) {
+    return '已配对 $count 台';
+  }
+
+  @override
+  String get buttonSectionV3 => '按键';
 }

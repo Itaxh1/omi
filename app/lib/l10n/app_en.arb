@@ -15136,5 +15136,211 @@
     "voiceNotSavedV3": "Omi couldn’t save your voice. Try again from Settings.",
     "@voiceNotSavedV3": {
         "description": "Onboarding (v3): voice enrollment failed"
+    },
+    "seeAllV3": "See all",
+    "@seeAllV3": {
+        "description": "Home (v8): opens every conversation"
+    },
+    "pullDownToResume": "Pull down to resume",
+    "@pullDownToResume": {
+        "description": "Home (v8): under Paused in the Listening label"
+    },
+    "pullDownToStart": "Pull down to start",
+    "@pullDownToStart": {
+        "description": "Home (v8): under Off in the Listening label"
+    },
+    "bluetoothOffV3": "Bluetooth off",
+    "@bluetoothOffV3": {
+        "description": "Home (v8): Listening label while Bluetooth is off"
+    },
+    "tapToFix": "Tap to fix",
+    "@tapToFix": {
+        "description": "Home (v8): under a problem in the Listening label"
+    },
+    "omiNotFound": "Omi not found",
+    "@omiNotFound": {
+        "description": "Home (v8): Listening label when the paired pendant can't be found"
+    },
+    "tapForOptions": "Tap for options",
+    "@tapForOptions": {
+        "description": "Home (v8): under Omi not found in the Listening label"
+    },
+    "reconnectingV3": "Reconnecting",
+    "@reconnectingV3": {
+        "description": "Home (v8): Listening label while the pendant reconnects"
+    },
+    "omiKeepsRecording": "Omi keeps recording",
+    "@omiKeepsRecording": {
+        "description": "Home (v8): under Reconnecting in the Listening label"
+    },
+    "pullToPause": "Pull to pause",
+    "@pullToPause": {
+        "description": "Home (v8): the Listening label while pulling the page down"
+    },
+    "pullToResume": "Pull to resume",
+    "@pullToResume": {
+        "description": "Home (v8): the Listening label while pulling the page down, paused"
+    },
+    "pullToRecord": "Pull to record",
+    "@pullToRecord": {
+        "description": "Home (v8): the Listening label while pulling the page down, off"
+    },
+    "releaseToPause": "Release to pause",
+    "@releaseToPause": {
+        "description": "Home (v8): the Listening label once the pull is far enough"
+    },
+    "releaseToResume": "Release to resume",
+    "@releaseToResume": {
+        "description": "Home (v8): the Listening label once the pull is far enough, paused"
+    },
+    "releaseToRecord": "Release to record",
+    "@releaseToRecord": {
+        "description": "Home (v8): the Listening label once the pull is far enough, off"
+    },
+    "pausedPullToUndo": "Paused. Pull down again to undo.",
+    "@pausedPullToUndo": {
+        "description": "Home (v8): toast after pulling down to pause"
+    },
+    "listeningAgainPullToUndo": "Listening again. Pull down again to undo.",
+    "@listeningAgainPullToUndo": {
+        "description": "Home (v8): toast after pulling down to resume or start"
+    },
+    "pullUpForYourOmi": "Pull up for Your Omi",
+    "@pullUpForYourOmi": {
+        "description": "Home (v8): shown while pulling up from the bottom of Home"
+    },
+    "releaseToOpen": "Release to open",
+    "@releaseToOpen": {
+        "description": "Home (v8): once the pull up is far enough"
+    },
+    "coachFirstNotes": "Omi is listening. Your first notes appear here when you stop talking.",
+    "@coachFirstNotes": {
+        "description": "Home (v8): the first day, before any conversation is written up"
+    },
+    "thisIsOmi": "This is Omi.",
+    "@thisIsOmi": {
+        "description": "Home (v8): the first-time tip under the Listening label, title"
+    },
+    "teachTipBody": "Moving dots mean it’s listening. Tap to see your Omi, or pull up from the bottom. Pull the page down to pause.",
+    "@teachTipBody": {
+        "description": "Home (v8): the first-time tip under the Listening label"
+    },
+    "yourOmi": "Your Omi",
+    "@yourOmi": {
+        "description": "Your Omi (v8): the live recording screen's title"
+    },
+    "onlyYouSeeRecordings": "Only you can see your recordings.",
+    "@onlyYouSeeRecordings": {
+        "description": "Your Omi (v8): the note under the controls"
+    },
+    "wordsShowUpHere": "Words show up here as people talk.",
+    "@wordsShowUpHere": {
+        "description": "Your Omi (v8): the transcript card before anything is heard"
+    },
+    "newWords": "New words",
+    "@newWords": {
+        "description": "Your Omi (v8): jumps to the newest words in the transcript"
+    },
+    "liveTranscriptV3": "Live transcript",
+    "@liveTranscriptV3": {
+        "description": "Your Omi (v8): the full-screen transcript's title"
+    },
+    "writingUpNotes": "Writing up your notes",
+    "@writingUpNotes": {
+        "description": "Your Omi (v8): after Stop, while the conversation is processed"
+    },
+    "summaryTodosAbout30s": "Summary and to-dos, about 30 seconds",
+    "@summaryTodosAbout30s": {
+        "description": "Your Omi (v8): under Writing up your notes"
+    },
+    "notesReady": "Notes ready",
+    "@notesReady": {
+        "description": "Your Omi (v8): the conversation is written up"
+    },
+    "notConnectedV3": "Not connected",
+    "@notConnectedV3": {
+        "description": "Your Omi (v8): beside a device that isn't connected"
+    },
+    "turnOnBluetoothToKeep": "Turn on Bluetooth to keep recording from {device}.",
+    "@turnOnBluetoothToKeep": {
+        "description": "Your Omi (v8): warning while Bluetooth is off",
+        "placeholders": {
+            "device": {
+                "type": "String"
+            }
+        }
+    },
+    "minutesSavedOnDevice": "{minutes} min saved on {device}. It syncs when it reconnects.",
+    "@minutesSavedOnDevice": {
+        "description": "Your Omi (v8): recordings kept on the pendant while disconnected",
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            },
+            "device": {
+                "type": "String"
+            }
+        }
+    },
+    "deviceLowBattery": "{device} is at {percent}%. Charge it tonight.",
+    "@deviceLowBattery": {
+        "description": "Your Omi (v8): low battery warning",
+        "placeholders": {
+            "device": {
+                "type": "String"
+            },
+            "percent": {
+                "type": "int"
+            }
+        }
+    },
+    "stoppedV3": "Stopped",
+    "@stoppedV3": {
+        "description": "Your Omi (v8): toast after Stop"
+    },
+    "connectorsV3": "Connectors",
+    "@connectorsV3": {
+        "description": "v8: apps that send summaries and to-dos elsewhere (was Apps)"
+    },
+    "yourConnectors": "Your connectors",
+    "@yourConnectors": {
+        "description": "v8: the connectors screen title (was Add an app)"
+    },
+    "recordingNow": "Recording now",
+    "@recordingNow": {
+        "description": "Devices (v8.17): under the device that is recording"
+    },
+    "pendantKind": "Pendant",
+    "@pendantKind": {
+        "description": "Devices (v8.17): the kind of device under its name"
+    },
+    "builtInMicV3": "Built-in mic",
+    "@builtInMicV3": {
+        "description": "Devices (v8.17): under This phone"
+    },
+    "editSummaryV3": "Edit summary",
+    "@editSummaryV3": {
+        "description": "Conversation menu (v8.18): edit the summary in place"
+    },
+    "editingSummary": "Editing summary",
+    "@editingSummary": {
+        "description": "Conversation (v8.18): the bar while the summary is being edited"
+    },
+    "summarySaved": "Summary saved",
+    "@summarySaved": {
+        "description": "Conversation (v8.18): after saving an edited summary"
+    },
+    "pairedCountV3": "{count} paired",
+    "@pairedCountV3": {
+        "description": "Devices (v8.17): beside Record from, how many devices can record",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "buttonSectionV3": "Button",
+    "@buttonSectionV3": {
+        "description": "Devices (v8.17): section heading for what the pendant's button does"
     }
 }

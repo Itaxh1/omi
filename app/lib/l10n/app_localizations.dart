@@ -22778,6 +22778,276 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Omi couldn’t save your voice. Try again from Settings.'**
   String get voiceNotSavedV3;
+
+  /// Home (v8): opens every conversation
+  ///
+  /// In en, this message translates to:
+  /// **'See all'**
+  String get seeAllV3;
+
+  /// Home (v8): under Paused in the Listening label
+  ///
+  /// In en, this message translates to:
+  /// **'Pull down to resume'**
+  String get pullDownToResume;
+
+  /// Home (v8): under Off in the Listening label
+  ///
+  /// In en, this message translates to:
+  /// **'Pull down to start'**
+  String get pullDownToStart;
+
+  /// Home (v8): Listening label while Bluetooth is off
+  ///
+  /// In en, this message translates to:
+  /// **'Bluetooth off'**
+  String get bluetoothOffV3;
+
+  /// Home (v8): under a problem in the Listening label
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to fix'**
+  String get tapToFix;
+
+  /// Home (v8): Listening label when the paired pendant can't be found
+  ///
+  /// In en, this message translates to:
+  /// **'Omi not found'**
+  String get omiNotFound;
+
+  /// Home (v8): under Omi not found in the Listening label
+  ///
+  /// In en, this message translates to:
+  /// **'Tap for options'**
+  String get tapForOptions;
+
+  /// Home (v8): Listening label while the pendant reconnects
+  ///
+  /// In en, this message translates to:
+  /// **'Reconnecting'**
+  String get reconnectingV3;
+
+  /// Home (v8): under Reconnecting in the Listening label
+  ///
+  /// In en, this message translates to:
+  /// **'Omi keeps recording'**
+  String get omiKeepsRecording;
+
+  /// Home (v8): the Listening label while pulling the page down
+  ///
+  /// In en, this message translates to:
+  /// **'Pull to pause'**
+  String get pullToPause;
+
+  /// Home (v8): the Listening label while pulling the page down, paused
+  ///
+  /// In en, this message translates to:
+  /// **'Pull to resume'**
+  String get pullToResume;
+
+  /// Home (v8): the Listening label while pulling the page down, off
+  ///
+  /// In en, this message translates to:
+  /// **'Pull to record'**
+  String get pullToRecord;
+
+  /// Home (v8): the Listening label once the pull is far enough
+  ///
+  /// In en, this message translates to:
+  /// **'Release to pause'**
+  String get releaseToPause;
+
+  /// Home (v8): the Listening label once the pull is far enough, paused
+  ///
+  /// In en, this message translates to:
+  /// **'Release to resume'**
+  String get releaseToResume;
+
+  /// Home (v8): the Listening label once the pull is far enough, off
+  ///
+  /// In en, this message translates to:
+  /// **'Release to record'**
+  String get releaseToRecord;
+
+  /// Home (v8): toast after pulling down to pause
+  ///
+  /// In en, this message translates to:
+  /// **'Paused. Pull down again to undo.'**
+  String get pausedPullToUndo;
+
+  /// Home (v8): toast after pulling down to resume or start
+  ///
+  /// In en, this message translates to:
+  /// **'Listening again. Pull down again to undo.'**
+  String get listeningAgainPullToUndo;
+
+  /// Home (v8): shown while pulling up from the bottom of Home
+  ///
+  /// In en, this message translates to:
+  /// **'Pull up for Your Omi'**
+  String get pullUpForYourOmi;
+
+  /// Home (v8): once the pull up is far enough
+  ///
+  /// In en, this message translates to:
+  /// **'Release to open'**
+  String get releaseToOpen;
+
+  /// Home (v8): the first day, before any conversation is written up
+  ///
+  /// In en, this message translates to:
+  /// **'Omi is listening. Your first notes appear here when you stop talking.'**
+  String get coachFirstNotes;
+
+  /// Home (v8): the first-time tip under the Listening label, title
+  ///
+  /// In en, this message translates to:
+  /// **'This is Omi.'**
+  String get thisIsOmi;
+
+  /// Home (v8): the first-time tip under the Listening label
+  ///
+  /// In en, this message translates to:
+  /// **'Moving dots mean it’s listening. Tap to see your Omi, or pull up from the bottom. Pull the page down to pause.'**
+  String get teachTipBody;
+
+  /// Your Omi (v8): the live recording screen's title
+  ///
+  /// In en, this message translates to:
+  /// **'Your Omi'**
+  String get yourOmi;
+
+  /// Your Omi (v8): the note under the controls
+  ///
+  /// In en, this message translates to:
+  /// **'Only you can see your recordings.'**
+  String get onlyYouSeeRecordings;
+
+  /// Your Omi (v8): the transcript card before anything is heard
+  ///
+  /// In en, this message translates to:
+  /// **'Words show up here as people talk.'**
+  String get wordsShowUpHere;
+
+  /// Your Omi (v8): jumps to the newest words in the transcript
+  ///
+  /// In en, this message translates to:
+  /// **'New words'**
+  String get newWords;
+
+  /// Your Omi (v8): the full-screen transcript's title
+  ///
+  /// In en, this message translates to:
+  /// **'Live transcript'**
+  String get liveTranscriptV3;
+
+  /// Your Omi (v8): after Stop, while the conversation is processed
+  ///
+  /// In en, this message translates to:
+  /// **'Writing up your notes'**
+  String get writingUpNotes;
+
+  /// Your Omi (v8): under Writing up your notes
+  ///
+  /// In en, this message translates to:
+  /// **'Summary and to-dos, about 30 seconds'**
+  String get summaryTodosAbout30s;
+
+  /// Your Omi (v8): the conversation is written up
+  ///
+  /// In en, this message translates to:
+  /// **'Notes ready'**
+  String get notesReady;
+
+  /// Your Omi (v8): beside a device that isn't connected
+  ///
+  /// In en, this message translates to:
+  /// **'Not connected'**
+  String get notConnectedV3;
+
+  /// Your Omi (v8): warning while Bluetooth is off
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on Bluetooth to keep recording from {device}.'**
+  String turnOnBluetoothToKeep(String device);
+
+  /// Your Omi (v8): recordings kept on the pendant while disconnected
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min saved on {device}. It syncs when it reconnects.'**
+  String minutesSavedOnDevice(int minutes, String device);
+
+  /// Your Omi (v8): low battery warning
+  ///
+  /// In en, this message translates to:
+  /// **'{device} is at {percent}%. Charge it tonight.'**
+  String deviceLowBattery(String device, int percent);
+
+  /// Your Omi (v8): toast after Stop
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped'**
+  String get stoppedV3;
+
+  /// v8: apps that send summaries and to-dos elsewhere (was Apps)
+  ///
+  /// In en, this message translates to:
+  /// **'Connectors'**
+  String get connectorsV3;
+
+  /// v8: the connectors screen title (was Add an app)
+  ///
+  /// In en, this message translates to:
+  /// **'Your connectors'**
+  String get yourConnectors;
+
+  /// Devices (v8.17): under the device that is recording
+  ///
+  /// In en, this message translates to:
+  /// **'Recording now'**
+  String get recordingNow;
+
+  /// Devices (v8.17): the kind of device under its name
+  ///
+  /// In en, this message translates to:
+  /// **'Pendant'**
+  String get pendantKind;
+
+  /// Devices (v8.17): under This phone
+  ///
+  /// In en, this message translates to:
+  /// **'Built-in mic'**
+  String get builtInMicV3;
+
+  /// Conversation menu (v8.18): edit the summary in place
+  ///
+  /// In en, this message translates to:
+  /// **'Edit summary'**
+  String get editSummaryV3;
+
+  /// Conversation (v8.18): the bar while the summary is being edited
+  ///
+  /// In en, this message translates to:
+  /// **'Editing summary'**
+  String get editingSummary;
+
+  /// Conversation (v8.18): after saving an edited summary
+  ///
+  /// In en, this message translates to:
+  /// **'Summary saved'**
+  String get summarySaved;
+
+  /// Devices (v8.17): beside Record from, how many devices can record
+  ///
+  /// In en, this message translates to:
+  /// **'{count} paired'**
+  String pairedCountV3(int count);
+
+  /// Devices (v8.17): section heading for what the pendant's button does
+  ///
+  /// In en, this message translates to:
+  /// **'Button'**
+  String get buttonSectionV3;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -12547,4 +12547,148 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Omi نتوانست صدای شما را ذخیره کند. از تنظیمات دوباره امتحان کنید.';
+
+  @override
+  String get seeAllV3 => 'نمایش همه';
+
+  @override
+  String get pullDownToResume => 'برای ادامه به پایین بکشید';
+
+  @override
+  String get pullDownToStart => 'برای شروع به پایین بکشید';
+
+  @override
+  String get bluetoothOffV3 => 'بلوتوث خاموش';
+
+  @override
+  String get tapToFix => 'برای رفع بزنید';
+
+  @override
+  String get omiNotFound => 'Omi پیدا نشد';
+
+  @override
+  String get tapForOptions => 'برای گزینه‌ها بزنید';
+
+  @override
+  String get reconnectingV3 => 'در حال اتصال دوباره';
+
+  @override
+  String get omiKeepsRecording => 'Omi به ضبط ادامه می‌دهد';
+
+  @override
+  String get pullToPause => 'برای توقف بکشید';
+
+  @override
+  String get pullToResume => 'برای ادامه بکشید';
+
+  @override
+  String get pullToRecord => 'برای ضبط بکشید';
+
+  @override
+  String get releaseToPause => 'برای توقف رها کنید';
+
+  @override
+  String get releaseToResume => 'برای ادامه رها کنید';
+
+  @override
+  String get releaseToRecord => 'برای ضبط رها کنید';
+
+  @override
+  String get pausedPullToUndo => 'متوقف شد. برای واگرد دوباره به پایین بکشید.';
+
+  @override
+  String get listeningAgainPullToUndo => 'دوباره در حال شنیدن. برای واگرد دوباره به پایین بکشید.';
+
+  @override
+  String get pullUpForYourOmi => 'برای Omi خود به بالا بکشید';
+
+  @override
+  String get releaseToOpen => 'برای باز کردن رها کنید';
+
+  @override
+  String get coachFirstNotes => 'Omi در حال شنیدن است. اولین یادداشت‌هایتان وقتی حرفتان تمام شود اینجا ظاهر می‌شود.';
+
+  @override
+  String get thisIsOmi => 'این Omi است.';
+
+  @override
+  String get teachTipBody =>
+      'نقطه‌های متحرک یعنی در حال شنیدن است. برای دیدن Omi بزنید یا از پایین به بالا بکشید. برای توقف صفحه را به پایین بکشید.';
+
+  @override
+  String get yourOmi => 'Omi شما';
+
+  @override
+  String get onlyYouSeeRecordings => 'فقط خودتان ضبط‌هایتان را می‌بینید.';
+
+  @override
+  String get wordsShowUpHere => 'کلمات هنگام صحبت افراد اینجا ظاهر می‌شوند.';
+
+  @override
+  String get newWords => 'کلمات جدید';
+
+  @override
+  String get liveTranscriptV3 => 'متن زنده';
+
+  @override
+  String get writingUpNotes => 'در حال نوشتن یادداشت‌هایتان';
+
+  @override
+  String get summaryTodosAbout30s => 'خلاصه و کارها، حدود ۳۰ ثانیه';
+
+  @override
+  String get notesReady => 'یادداشت‌ها آماده است';
+
+  @override
+  String get notConnectedV3 => 'متصل نیست';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return 'بلوتوث را روشن کنید تا ضبط از $device ادامه یابد.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes دقیقه روی $device ذخیره شده است. پس از اتصال دوباره همگام می‌شود.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device روی $percent٪ است. امشب شارژش کنید.';
+  }
+
+  @override
+  String get stoppedV3 => 'متوقف شد';
+
+  @override
+  String get connectorsV3 => 'اتصال‌ها';
+
+  @override
+  String get yourConnectors => 'اتصال‌های شما';
+
+  @override
+  String get recordingNow => 'در حال ضبط';
+
+  @override
+  String get pendantKind => 'آویز';
+
+  @override
+  String get builtInMicV3 => 'میکروفون داخلی';
+
+  @override
+  String get editSummaryV3 => 'ویرایش خلاصه';
+
+  @override
+  String get editingSummary => 'در حال ویرایش خلاصه';
+
+  @override
+  String get summarySaved => 'خلاصه ذخیره شد';
+
+  @override
+  String pairedCountV3(int count) {
+    return '$count جفت‌شده';
+  }
+
+  @override
+  String get buttonSectionV3 => 'دکمه';
 }

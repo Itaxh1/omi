@@ -79,6 +79,45 @@ class ConversationDetailPageState extends State<ConversationDetailPage> {
   bool _providerInitialized = false;
   bool _resultViewedRecorded = false;
   final GlobalKey _moreKey = GlobalKey();
+  final GlobalKey _shareKey = GlobalKey();
+
+  /// Editing the summary in place (v8.18), and the lines being edited.
+  SummaryDraft? _draft;
+
+  void _startEditing(ConversationDetailProvider provider) {
+    final content = provider.getSummarySelection().content.trim();
+    if (content.isEmpty) return;
+    _draft?.dispose();
+    setState(() {
+      _view = ConversationView.summary;
+      _draft = SummaryDraft(content);
+    });
+    WidgetsBinding.instance.addPostFrameCallback((_) => _draft?.focusFirst());
+  }
+
+  void _stopEditing() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    final draft = _draft;
+    setState(() => _draft = null);
+    WidgetsBinding.instance.addPostFrameCallback((_) => draft?.dispose());
+  }
+
+  Future<void> _saveEditing(ConversationDetailProvider provider) async {
+    final draft = _draft;
+    if (draft == null) return;
+    final markdown = draft.toMarkdown();
+    final selection = provider.getSummarySelection();
+    _stopEditing();
+    if (markdown.isEmpty || markdown == selection.content.trim()) return;
+    await provider.saveEditingSummarySelection(selection, markdown);
+    if (mounted) OmiFeedback.confirm(context, context.l10n.summarySaved);
+  }
+
+  @override
+  void dispose() {
+    _draft?.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -149,26 +188,33 @@ class ConversationDetailPageState extends State<ConversationDetailPage> {
     final hasPlace = place?.latitude != null && place?.longitude != null;
     PlatformManager.instance.analytics.conversationThreeDotsMenuOpened(conversationId: conversation.id);
     final dev = conversationDetailShowsDeveloperTools();
+    // v8.18 order: edit, ask, copy, transcript | folder | maps | delete (Share is in the header).
+    final canEdit = provider.getSummarySelection().canEdit(conversation) &&
+        provider.getSummarySelection().content.trim().isNotEmpty;
     final choice = await showOmiPopoverMenu<String>(context, entries: [
+      if (canEdit)
+        OmiMenuEntry(
+            value: 'edit_summary', label: l10n.editSummaryV3, glyph: OmiGlyphs.pencil, key: const Key('menu_edit')),
+      OmiMenuEntry(
+        value: 'ask_omi',
+        label: l10n.askOmiAboutThis,
+        icon: OmiRingLogo(size: 18, color: OmiColors.cement),
+      ),
+      OmiMenuEntry(value: 'copy_summary', label: l10n.copySummaryV3, glyph: OmiGlyphs.copyLine),
       OmiMenuEntry(
           value: 'view_transcript',
           label: l10n.viewTranscriptV3,
           glyph: OmiGlyphs.lines,
           key: const Key('menu_transcript')),
-      OmiMenuEntry(value: 'move_to_folder', label: l10n.moveToFolderV3, glyph: OmiGlyphs.folderLine),
-      OmiMenuEntry(value: 'share', label: l10n.shareLink, glyph: OmiGlyphs.shareLine),
-      OmiMenuEntry(value: 'copy_summary', label: l10n.copySummaryV3, glyph: OmiGlyphs.copyLine),
       OmiMenuEntry(
-        value: 'ask_omi',
-        label: l10n.askOmiAboutThis,
-        icon: OmiRingLogo(size: 18, color: OmiColors.textPrimary),
-      ),
+          value: 'move_to_folder', label: l10n.moveToFolderV3, glyph: OmiGlyphs.folderLine, dividerBefore: true),
       if (hasPlace)
         OmiMenuEntry(
           value: 'open_in_maps',
-          label:
-              (place!.address ?? '').trim().isEmpty ? l10n.openInMaps : '${l10n.openInMaps} · ${place.address!.trim()}',
+          label: l10n.openInMaps,
+          detail: (place!.address ?? '').trim().isEmpty ? null : place.address!.trim(),
           glyph: OmiGlyphs.pinLine,
+          dividerBefore: true,
         ),
       if (dev) ...[
         OmiMenuEntry(
@@ -195,6 +241,8 @@ class ConversationDetailPageState extends State<ConversationDetailPage> {
     final tracked = _menuActions[choice];
     if (tracked != null) trackConversationAction(tracked, ConversationActionSurface.overflow);
     switch (choice) {
+      case 'edit_summary':
+        _startEditing(provider);
       case 'view_transcript':
         unawaited(routeToPage(context, ConversationTranscriptPage(provider: provider)));
       case 'move_to_folder':
@@ -241,7 +289,7 @@ class ConversationDetailPageState extends State<ConversationDetailPage> {
         }
         provider.updateVisibilityLocally(ConversationVisibility.shared);
       }
-      final box = _moreKey.currentContext?.findRenderObject() as RenderBox?;
+      final box = (_shareKey.currentContext ?? _moreKey.currentContext)?.findRenderObject() as RenderBox?;
       final origin = box == null ? null : box.localToGlobal(Offset.zero) & box.size;
       final outcome = await shareConversationLink(conversation, sharePositionOrigin: origin);
       if (wasPrivate && outcome.status == ShareResultStatus.dismissed) {
@@ -275,48 +323,89 @@ class ConversationDetailPageState extends State<ConversationDetailPage> {
       showInfo: (_) {},
       child: Scaffold(
         backgroundColor: OmiColors.surface0,
+        // v8.18: Share beside ⋯.
         appBar: OmiScreenHeader(
-          trailing: KeyedSubtree(
-            key: _moreKey,
-            child: OmiRingButton(
-              key: const Key('conversation_more'),
-              glyph: OmiGlyphs.more,
-              label: l10n.moreOptions,
-              onPressed: () => _openMenu(provider),
-            ),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              KeyedSubtree(
+                key: _shareKey,
+                child: OmiRingButton.glass(
+                  key: const Key('conversation_share'),
+                  glyph: OmiGlyphs.shareLine,
+                  label: l10n.share,
+                  onPressed: () {
+                    trackConversationAction(ConversationActionAction.share, ConversationActionSurface.overflow);
+                    _share(provider);
+                  },
+                ),
+              ),
+              const SizedBox(width: 10),
+              KeyedSubtree(
+                key: _moreKey,
+                child: OmiRingButton.glass(
+                  key: const Key('conversation_more'),
+                  glyph: OmiGlyphs.more,
+                  label: l10n.moreOptions,
+                  onPressed: () => _openMenu(provider),
+                ),
+              ),
+            ],
           ),
         ),
         bottomNavigationBar: const ListeningStrip(),
-        body: ListView(
-          padding: const EdgeInsets.fromLTRB(OmiSize.screenMargin, 14, OmiSize.screenMargin, 20),
+        body: Stack(
           children: [
-            Semantics(
-              header: true,
-              child: Text(
-                conversation.structured.title.trim().isEmpty
-                    ? l10n.untitledConversation
-                    : conversation.structured.title.trim(),
-                key: const Key('conversation_title'),
-                style: ConversationTitleStyle.style,
-              ),
-            ),
-            const SizedBox(height: 12),
-            _Chips(conversation: conversation),
-            const SizedBox(height: 22),
-            OmiTextTabs<ConversationView>(
-              tabs: [
-                OmiTextTab(value: ConversationView.summary, label: l10n.summary),
-                OmiTextTab(
-                    value: ConversationView.todos, label: l10n.todosTab, count: todos.isEmpty ? null : todos.length),
+            ListView(
+              padding: EdgeInsets.fromLTRB(OmiSize.screenMargin, 14, OmiSize.screenMargin, _draft == null ? 20 : 130),
+              children: [
+                Semantics(
+                  header: true,
+                  child: Text(
+                    conversation.structured.title.trim().isEmpty
+                        ? l10n.untitledConversation
+                        : conversation.structured.title.trim(),
+                    key: const Key('conversation_title'),
+                    style: ConversationTitleStyle.style,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                _Chips(conversation: conversation),
+                const SizedBox(height: 22),
+                OmiTextTabs<ConversationView>(
+                  tabs: [
+                    OmiTextTab(value: ConversationView.summary, label: l10n.summary),
+                    OmiTextTab(
+                        value: ConversationView.todos,
+                        label: l10n.todosTab,
+                        count: todos.isEmpty ? null : todos.length),
+                  ],
+                  selected: _view,
+                  onChanged: (view) => setState(() => _view = view),
+                ),
+                const SizedBox(height: 4),
+                if (_view == ConversationView.summary && _draft != null)
+                  SummaryV3Editor(draft: _draft!)
+                else if (_view == ConversationView.summary)
+                  _Summary(conversation: conversation, provider: provider)
+                else
+                  ConversationTodos(conversation: conversation, todos: todos),
               ],
-              selected: _view,
-              onChanged: (view) => setState(() => _view = view),
             ),
-            const SizedBox(height: 4),
-            if (_view == ConversationView.summary)
-              _Summary(conversation: conversation, provider: provider)
-            else
-              ConversationTodos(conversation: conversation, todos: todos),
+            if (_draft != null)
+              // `.edbar`: 60 pt above the listening strip.
+              Positioned(
+                left: 14,
+                right: 14,
+                bottom: 60,
+                child: SummaryEditBar(
+                  label: l10n.editingSummary,
+                  cancel: l10n.cancel,
+                  save: l10n.save,
+                  onCancel: _stopEditing,
+                  onSave: () => _saveEditing(provider),
+                ),
+              ),
           ],
         ),
       ),

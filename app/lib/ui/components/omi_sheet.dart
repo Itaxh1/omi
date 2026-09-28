@@ -153,9 +153,9 @@ class OmiSheetScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     final hasHeader = title != null || showCloseButton;
     final keyboard = MediaQuery.viewInsetsOf(context).bottom;
-    // v3 `.sheet`: a 1.5 pt ink line along the rounded top edge.
+    // v8.10 `.sheet`: a faint 8 % hairline along the rounded top edge (the shadow is the route's).
     return CustomPaint(
-      foregroundPainter: _SheetTopEdge(color: OmiColors.textPrimary, radius: OmiRadius.sheet),
+      foregroundPainter: _SheetTopEdge(color: OmiColors.textPrimary.withValues(alpha: 0.08), radius: OmiRadius.sheet),
       child: Padding(
         padding: EdgeInsets.only(bottom: keyboard),
         child: SafeArea(
@@ -228,9 +228,11 @@ class OmiDonePill extends StatelessWidget {
             height: 34,
             padding: const EdgeInsets.symmetric(horizontal: 14),
             alignment: Alignment.center,
+            // v8.10 `.x`: the warm tone with a 9 % outline.
             decoration: BoxDecoration(
+              color: OmiColors.tone,
               borderRadius: OmiRadius.pillAll,
-              border: Border.all(color: OmiColors.textPrimary, width: 1.5),
+              border: Border.all(color: OmiColors.textPrimary.withValues(alpha: 0.09)),
             ),
             child: Text(
               done,
@@ -246,7 +248,7 @@ class OmiDonePill extends StatelessWidget {
   }
 }
 
-/// The ink line along a sheet's rounded top edge.
+/// The hairline along a sheet's rounded top edge.
 class _SheetTopEdge extends CustomPainter {
   _SheetTopEdge({required this.color, required this.radius});
 
@@ -255,7 +257,7 @@ class _SheetTopEdge extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    const w = 1.5;
+    const w = 1.0;
     final r = radius - w / 2;
     final path = Path()
       ..moveTo(w / 2, radius)

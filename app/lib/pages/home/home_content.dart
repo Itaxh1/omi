@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -7,6 +6,7 @@ import 'package:omi/backend/schema/conversation.dart';
 import 'package:omi/pages/conversations/widgets/capture_recovery_banner.dart';
 import 'package:omi/pages/home/widgets/home_heard_today.dart';
 import 'package:omi/pages/home/widgets/home_todo_card.dart';
+import 'package:omi/pages/home/widgets/home_top_bar.dart';
 import 'package:omi/providers/conversation_provider.dart';
 import 'package:omi/providers/home_provider.dart';
 import 'package:omi/ui/ui.dart';
@@ -14,15 +14,14 @@ import 'package:omi/l10n/app_localizations.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/widgets/bottom_nav_bar.dart';
 
-/// Home (v3, the Omi v8 kit): under the top bar, a two-hour phrase as the headline, "Heard today"
-/// with up to five conversation rows, then the To-do card in the warm lower zone. What is
-/// listening lives in the top bar's label and the recorder card it opens, not on the page. The
-/// first day welcomes instead and adds Getting started and Good to know, so Home is never empty.
+/// Home (v8, the Omi v8 kit): under the top bar, a two-hour phrase as the headline,
+/// "Conversations" with up to three rows (and, on the first day while Omi listens, a line saying
+/// where the notes will appear), then the To-do card in the warm lower zone. What is listening
+/// lives in the top bar's label and Your Omi, which it opens; pulling the page down pauses or
+/// starts, pulling up from the bottom opens Your Omi ([HomePullGestures]). There is no pull to
+/// refresh: the page follows the conversations as they change.
 class HomeContentPage extends StatefulWidget {
-  const HomeContentPage({super.key, this.recorderOpen});
-
-  /// Whether the recorder card is up; the To-do card steps aside under it.
-  final ValueListenable<bool>? recorderOpen;
+  const HomeContentPage({super.key});
 
   @override
   State<HomeContentPage> createState() => HomeContentPageState();
@@ -60,64 +59,52 @@ class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliv
         // The To-do card sits in the warm zone at the same height above the Ask bar on every phone;
         // when the page is taller than the screen (the first day) it follows the content instead.
         final underCard = askBarBottomOffset(context) + kAskBarHeight + HomeTone.cardAboveAsk;
-        return RefreshIndicator(
-          onRefresh: () async {
-            OmiHaptics.medium();
-            await convoProvider.getInitialConversations();
-          },
-          color: OmiColors.onAccent,
-          backgroundColor: OmiColors.accent,
-          child: CustomScrollView(
-            controller: _scrollController,
-            physics: const AlwaysScrollableScrollPhysics(),
-            slivers: [
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    // The first day is Home as every day (v3 `setData('first')`): the headline, what
-                    // Omi heard (the first conversation) and the To-do card.
-                    _buildHeadline(context),
-                    const CaptureRecoveryBanner(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: OmiSize.screenMargin),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          if (heard.isNotEmpty)
-                            HomeHeardToday(
-                              conversations: heard,
-                              today: heardToday,
-                              onAll: () => context.read<HomeProvider>().setIndex(1),
-                            ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: HomeTone.cardBelowRows),
-                    const Spacer(),
-                    if (settled)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: OmiSize.screenMargin),
-                        child: ValueListenableBuilder<bool>(
-                          valueListenable: widget.recorderOpen ?? const AlwaysStoppedAnimation(false),
-                          child: HomeTodoCard(onOpen: () => context.read<HomeProvider>().setIndex(2)),
-                          builder: (context, open, card) => IgnorePointer(
-                            ignoring: open,
-                            child: AnimatedOpacity(
-                              opacity: open ? 0 : 1,
-                              duration: OmiMotion.of(context).quick,
-                              child: card,
-                            ),
+        final listening = HomeListeningLabel.watch(context) == HomeRecorderState.listening;
+        // `.coach`: the first day, while Omi listens and at most one conversation is written up.
+        final coach = settled && listening && count <= 1;
+        return CustomScrollView(
+          controller: _scrollController,
+          // Clamped: pulling past the top or bottom moves the page by hand (HomePullGestures).
+          physics: const AlwaysScrollableScrollPhysics(parent: ClampingScrollPhysics()),
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // The first day is Home as every day (v3 `setData('first')`): the headline, what
+                  // Omi heard (the first conversation) and the To-do card.
+                  _buildHeadline(context),
+                  const CaptureRecoveryBanner(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: OmiSize.screenMargin),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        if (heard.isNotEmpty || coach)
+                          HomeHeardToday(
+                            conversations: heard,
+                            today: heardToday,
+                            coach: coach,
+                            onAll: () => context.read<HomeProvider>().setIndex(1),
                           ),
-                        ),
-                      ),
-                    SizedBox(height: underCard),
-                  ],
-                ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: HomeTone.cardBelowRows),
+                  const Spacer(),
+                  if (settled)
+                    Padding(
+                      // `.todo1`: 4 pt wider than the page on each side, as wide as the Ask bar (the
+                      // card keeps its own inset for the badge).
+                      padding: const EdgeInsets.symmetric(horizontal: OmiSize.screenMargin - 4 - HomeTodoCard.inset),
+                      child: HomeTodoCard(onOpen: () => context.read<HomeProvider>().setIndex(2)),
+                    ),
+                  SizedBox(height: underCard),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );
@@ -153,8 +140,8 @@ abstract final class HomeTone {
   /// The least room between the last row and the To-do card (`#todos`: 40 pt margin, 36 padding).
   static const double cardBelowRows = 76;
 
-  /// From the To-do card's bottom edge to the Ask bar's top (the design at 390 × 844: 105 pt).
-  static const double cardAboveAsk = 105;
+  /// From the To-do card's bottom edge to the Ask bar's top (the design at 390 × 844: 109 pt).
+  static const double cardAboveAsk = 109;
 
   static LinearGradient gradient() {
     final paper = OmiColors.surface0;

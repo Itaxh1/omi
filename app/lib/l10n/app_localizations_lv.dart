@@ -12577,4 +12577,148 @@ class AppLocalizationsLv extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Omi neizdevās saglabāt jūsu balsi. Mēģiniet vēlreiz iestatījumos.';
+
+  @override
+  String get seeAllV3 => 'Skatīt visu';
+
+  @override
+  String get pullDownToResume => 'Velciet uz leju, lai turpinātu';
+
+  @override
+  String get pullDownToStart => 'Velciet uz leju, lai sāktu';
+
+  @override
+  String get bluetoothOffV3 => 'Bluetooth izslēgts';
+
+  @override
+  String get tapToFix => 'Pieskarieties, lai labotu';
+
+  @override
+  String get omiNotFound => 'Omi nav atrasts';
+
+  @override
+  String get tapForOptions => 'Pieskarieties, lai redzētu iespējas';
+
+  @override
+  String get reconnectingV3 => 'Atkārtoti savieno';
+
+  @override
+  String get omiKeepsRecording => 'Omi turpina ierakstīt';
+
+  @override
+  String get pullToPause => 'Velciet, lai pauzētu';
+
+  @override
+  String get pullToResume => 'Velciet, lai turpinātu';
+
+  @override
+  String get pullToRecord => 'Velciet, lai ierakstītu';
+
+  @override
+  String get releaseToPause => 'Atlaidiet, lai pauzētu';
+
+  @override
+  String get releaseToResume => 'Atlaidiet, lai turpinātu';
+
+  @override
+  String get releaseToRecord => 'Atlaidiet, lai ierakstītu';
+
+  @override
+  String get pausedPullToUndo => 'Pauzēts. Lai atsauktu, velciet uz leju vēlreiz.';
+
+  @override
+  String get listeningAgainPullToUndo => 'Atkal klausās. Lai atsauktu, velciet uz leju vēlreiz.';
+
+  @override
+  String get pullUpForYourOmi => 'Velciet uz augšu savam Omi';
+
+  @override
+  String get releaseToOpen => 'Atlaidiet, lai atvērtu';
+
+  @override
+  String get coachFirstNotes => 'Omi klausās. Pirmās piezīmes parādīsies šeit, kad beigsiet runāt.';
+
+  @override
+  String get thisIsOmi => 'Šis ir Omi.';
+
+  @override
+  String get teachTipBody =>
+      'Kustīgi punkti nozīmē, ka tas klausās. Pieskarieties, lai redzētu savu Omi, vai velciet no apakšas uz augšu. Lai pauzētu, velciet lapu uz leju.';
+
+  @override
+  String get yourOmi => 'Jūsu Omi';
+
+  @override
+  String get onlyYouSeeRecordings => 'Savus ierakstus redzat tikai jūs.';
+
+  @override
+  String get wordsShowUpHere => 'Vārdi parādās šeit, kad cilvēki runā.';
+
+  @override
+  String get newWords => 'Jauni vārdi';
+
+  @override
+  String get liveTranscriptV3 => 'Tiešraides atšifrējums';
+
+  @override
+  String get writingUpNotes => 'Rakstām jūsu piezīmes';
+
+  @override
+  String get summaryTodosAbout30s => 'Kopsavilkums un uzdevumi, aptuveni 30 sekundes';
+
+  @override
+  String get notesReady => 'Piezīmes gatavas';
+
+  @override
+  String get notConnectedV3 => 'Nav savienots';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return 'Ieslēdziet Bluetooth, lai turpinātu ierakstu no $device.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes min saglabātas ierīcē $device. Sinhronizēsies, kad savienojums atjaunosies.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device ir $percent%. Uzlādējiet to šovakar.';
+  }
+
+  @override
+  String get stoppedV3 => 'Apturēts';
+
+  @override
+  String get connectorsV3 => 'Savienotāji';
+
+  @override
+  String get yourConnectors => 'Jūsu savienotāji';
+
+  @override
+  String get recordingNow => 'Pašlaik ieraksta';
+
+  @override
+  String get pendantKind => 'Kulons';
+
+  @override
+  String get builtInMicV3 => 'Iebūvētais mikrofons';
+
+  @override
+  String get editSummaryV3 => 'Rediģēt kopsavilkumu';
+
+  @override
+  String get editingSummary => 'Rediģē kopsavilkumu';
+
+  @override
+  String get summarySaved => 'Kopsavilkums saglabāts';
+
+  @override
+  String pairedCountV3(int count) {
+    return 'Savienoti pārī: $count';
+  }
+
+  @override
+  String get buttonSectionV3 => 'Poga';
 }

@@ -12473,4 +12473,148 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'تعذّر على Omi حفظ صوتك. حاول مجددًا من الإعدادات.';
+
+  @override
+  String get seeAllV3 => 'عرض الكل';
+
+  @override
+  String get pullDownToResume => 'اسحب للأسفل للاستئناف';
+
+  @override
+  String get pullDownToStart => 'اسحب للأسفل للبدء';
+
+  @override
+  String get bluetoothOffV3 => 'البلوتوث متوقف';
+
+  @override
+  String get tapToFix => 'اضغط للإصلاح';
+
+  @override
+  String get omiNotFound => 'لم يتم العثور على Omi';
+
+  @override
+  String get tapForOptions => 'اضغط لرؤية الخيارات';
+
+  @override
+  String get reconnectingV3 => 'جارٍ إعادة الاتصال';
+
+  @override
+  String get omiKeepsRecording => 'يواصل Omi التسجيل';
+
+  @override
+  String get pullToPause => 'اسحب للإيقاف المؤقت';
+
+  @override
+  String get pullToResume => 'اسحب للاستئناف';
+
+  @override
+  String get pullToRecord => 'اسحب للتسجيل';
+
+  @override
+  String get releaseToPause => 'اترك للإيقاف المؤقت';
+
+  @override
+  String get releaseToResume => 'اترك للاستئناف';
+
+  @override
+  String get releaseToRecord => 'اترك للتسجيل';
+
+  @override
+  String get pausedPullToUndo => 'تم الإيقاف المؤقت. اسحب للأسفل مجددًا للتراجع.';
+
+  @override
+  String get listeningAgainPullToUndo => 'يستمع مجددًا. اسحب للأسفل مجددًا للتراجع.';
+
+  @override
+  String get pullUpForYourOmi => 'اسحب لأعلى لفتح Omi';
+
+  @override
+  String get releaseToOpen => 'اترك للفتح';
+
+  @override
+  String get coachFirstNotes => 'يستمع Omi. ستظهر ملاحظاتك الأولى هنا عندما تتوقف عن الكلام.';
+
+  @override
+  String get thisIsOmi => 'هذا هو Omi.';
+
+  @override
+  String get teachTipBody =>
+      'النقاط المتحركة تعني أنه يستمع. اضغط لرؤية Omi، أو اسحب لأعلى من الأسفل. اسحب الصفحة للأسفل للإيقاف المؤقت.';
+
+  @override
+  String get yourOmi => 'Omi الخاص بك';
+
+  @override
+  String get onlyYouSeeRecordings => 'لا يمكن لأحد غيرك رؤية تسجيلاتك.';
+
+  @override
+  String get wordsShowUpHere => 'تظهر الكلمات هنا أثناء حديث الناس.';
+
+  @override
+  String get newWords => 'كلمات جديدة';
+
+  @override
+  String get liveTranscriptV3 => 'النص المباشر';
+
+  @override
+  String get writingUpNotes => 'جارٍ كتابة ملاحظاتك';
+
+  @override
+  String get summaryTodosAbout30s => 'ملخص ومهام، حوالي 30 ثانية';
+
+  @override
+  String get notesReady => 'الملاحظات جاهزة';
+
+  @override
+  String get notConnectedV3 => 'غير متصل';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return 'شغّل البلوتوث لمواصلة التسجيل من $device.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes دقيقة محفوظة على $device. تتم المزامنة عند إعادة الاتصال.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return 'بطارية $device عند $percent%. اشحنه الليلة.';
+  }
+
+  @override
+  String get stoppedV3 => 'تم الإيقاف';
+
+  @override
+  String get connectorsV3 => 'الموصلات';
+
+  @override
+  String get yourConnectors => 'موصلاتك';
+
+  @override
+  String get recordingNow => 'يسجّل الآن';
+
+  @override
+  String get pendantKind => 'قلادة';
+
+  @override
+  String get builtInMicV3 => 'الميكروفون المدمج';
+
+  @override
+  String get editSummaryV3 => 'تعديل الملخص';
+
+  @override
+  String get editingSummary => 'جارٍ تعديل الملخص';
+
+  @override
+  String get summarySaved => 'تم حفظ الملخص';
+
+  @override
+  String pairedCountV3(int count) {
+    return '$count مقترن';
+  }
+
+  @override
+  String get buttonSectionV3 => 'الزر';
 }

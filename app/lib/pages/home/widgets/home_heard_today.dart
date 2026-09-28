@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:omi/pages/conversations/widgets/swipe_to_delete.dart';
+
 import 'package:omi/backend/schema/conversation.dart';
 import 'package:omi/pages/conversations/open_conversation.dart';
 import 'package:omi/providers/conversation_provider.dart';
@@ -14,7 +16,13 @@ import 'package:omi/utils/l10n_extensions.dart';
 /// The titles share one font size: it starts at 16.5 and steps down by 0.25 until every title
 /// fits its line, never below 14.5, then the longest ones end in an ellipsis.
 class HomeHeardToday extends StatelessWidget {
-  const HomeHeardToday({super.key, required this.conversations, required this.onAll, this.today = true});
+  const HomeHeardToday({
+    super.key,
+    required this.conversations,
+    required this.onAll,
+    this.today = true,
+    this.coach = false,
+  });
 
   /// Up to three, newest first ([pick]).
   final List<ServerConversation> conversations;
@@ -22,8 +30,23 @@ class HomeHeardToday extends StatelessWidget {
   /// Opens All conversations.
   final VoidCallback onAll;
 
-  /// Whether [conversations] are today's; otherwise the label says Latest.
+  /// Whether [conversations] are today's (kept for callers; v8 always says Conversations).
   final bool today;
+
+  /// Shows the first day's line under the label ("Omi is listening. Your first notes appear here…").
+  final bool coach;
+
+  /// `.coach`: at most 32ch of its 14 pt.
+  static double _coachWidth(BuildContext context) {
+    final painter = TextPainter(
+      text: TextSpan(text: '0', style: OmiType.detail),
+      textDirection: TextDirection.ltr,
+      textScaler: MediaQuery.textScalerOf(context),
+    )..layout();
+    final width = painter.width * 32;
+    painter.dispose();
+    return width;
+  }
 
   static const int limit = 3;
   static const double tile = 42;
@@ -104,14 +127,31 @@ class HomeHeardToday extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        // v8: "Conversations · See all".
         OmiSectionLabel(
-          title: today ? l10n.heardToday : l10n.latest,
-          action: l10n.all.toLowerCase(),
+          title: l10n.conversations,
+          action: l10n.seeAllV3,
           actionKey: const Key('home_heard_all'),
           onAction: onAll,
           top: labelTop,
           bottom: labelBottom,
         ),
+        // `.coach` (v8.1): the first day, while Omi listens and nothing is written up yet.
+        if (coach)
+          Padding(
+            padding: const EdgeInsets.only(top: 6, bottom: 4),
+            child: Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: _coachWidth(context)),
+                child: Text(
+                  l10n.coachFirstNotes,
+                  key: const Key('home_coach'),
+                  style: OmiType.detail.copyWith(height: 1.4, color: OmiColors.textSecondary),
+                ),
+              ),
+            ),
+          ),
         // The rows span Home's margins, so the title width comes from the screen. (A LayoutBuilder
         // here would break Home's fill-the-screen sliver, which measures its content's intrinsic
         // height.)
@@ -159,34 +199,39 @@ class _HeardRow extends StatelessWidget {
     // the time in the lower, 1 pt apart at the least.
     final lines = scaler.scale(titleSize) * 1.15 + scaler.scale(13) * 1.15;
     final between = 1 + ((HomeHeardToday.tile - lines - 1) / 2).clamp(0.0, 20.0);
-    return Semantics(
-      button: true,
-      label: title,
-      hint: context.l10n.openConversation,
-      excludeSemantics: true,
-      child: OmiPressable(
-        key: ValueKey('home_heard_${c.id}'),
-        behavior: HitTestBehavior.opaque,
-        onTap: () => openConversationDetail(context, c, index: index),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 9),
-          child: Row(
-            children: [
-              OmiDeviceTile(icon: OmiGlyphs.forSource(c.source?.name)),
-              const SizedBox(width: HomeHeardToday.gap),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(title,
-                        maxLines: 1, overflow: TextOverflow.ellipsis, style: HomeHeardToday.titleStyle(titleSize)),
-                    SizedBox(height: between),
-                    Text(OmiDateFormat.of(context).time(at), maxLines: 1, style: HomeHeardToday.timeStyle),
-                  ],
+    // v8.13: swipe left to delete, with Undo.
+    return SwipeToDelete(
+      key: ValueKey('home_swipe_${c.id}'),
+      conversation: c,
+      child: Semantics(
+        button: true,
+        label: title,
+        hint: context.l10n.openConversation,
+        excludeSemantics: true,
+        child: OmiPressable(
+          key: ValueKey('home_heard_${c.id}'),
+          behavior: HitTestBehavior.opaque,
+          onTap: () => openConversationDetail(context, c, index: index),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 9),
+            child: Row(
+              children: [
+                OmiDeviceTile(icon: OmiGlyphs.forSource(c.source?.name)),
+                const SizedBox(width: HomeHeardToday.gap),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(title,
+                          maxLines: 1, overflow: TextOverflow.ellipsis, style: HomeHeardToday.titleStyle(titleSize)),
+                      SizedBox(height: between),
+                      Text(OmiDateFormat.of(context).time(at), maxLines: 1, style: HomeHeardToday.timeStyle),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

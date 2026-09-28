@@ -214,3 +214,67 @@ class OmiPlainGlassButton extends StatelessWidget {
     );
   }
 }
+
+/// The v8.2 liquid glass (the Ask bar, Your Omi's control dock): white at 62 % (graphite at 55 %
+/// in Black) over a 30 pt saturated blur, a 1 pt bright edge, a 1 pt highlight along the top, a
+/// hairline ring and a soft shadow. Solid where blur is off (other platforms, more contrast).
+class OmiLiquidGlass extends StatelessWidget {
+  const OmiLiquidGlass({super.key, required this.borderRadius, required this.child});
+
+  final BorderRadius borderRadius;
+  final Widget child;
+
+  static const double _s = 1.8;
+  static const ColorFilter _saturate = ColorFilter.matrix(<double>[
+    0.213 + 0.787 * _s, 0.715 - 0.715 * _s, 0.072 - 0.072 * _s, 0, 0, //
+    0.213 - 0.213 * _s, 0.715 + 0.285 * _s, 0.072 - 0.072 * _s, 0, 0, //
+    0.213 - 0.213 * _s, 0.715 - 0.715 * _s, 0.072 + 0.928 * _s, 0, 0, //
+    0, 0, 0, 1, 0,
+  ]);
+
+  @override
+  Widget build(BuildContext context) {
+    final light = OmiColors.palette.isLight;
+    final blur = OmiGlass._blurs(context);
+    // The mock's `.askw` / `.os4dock` layers, light and dark.
+    final fill = light
+        ? (blur ? const Color(0x9EFFFFFF) : const Color(0xF5FFFFFF))
+        : (blur ? const Color(0x8C2C2C30) : const Color(0xFF2C2C30));
+    final edge = light ? const Color(0xD9FFFFFF) : const Color(0x1FFFFFFF);
+    final highlight = light ? const Color(0xF2FFFFFF) : const Color(0x1AFFFFFF);
+    final shadows = light
+        ? const [
+            BoxShadow(color: Color(0x12000000), spreadRadius: 0.5),
+            BoxShadow(color: Color(0x1A000000), offset: Offset(0, 10), blurRadius: 30),
+          ]
+        : const [BoxShadow(color: Color(0x73000000), offset: Offset(0, 10), blurRadius: 30)];
+    final surface = DecoratedBox(
+      decoration: BoxDecoration(color: fill, borderRadius: borderRadius, border: Border.all(color: edge)),
+      child: Stack(
+        children: [
+          child,
+          // `inset 0 1px 0`: the top highlight inside the edge.
+          Positioned(
+            left: 0,
+            right: 0,
+            top: 0,
+            height: 1,
+            child: IgnorePointer(child: ColoredBox(color: highlight)),
+          ),
+        ],
+      ),
+    );
+    return DecoratedBox(
+      decoration: BoxDecoration(borderRadius: borderRadius, boxShadow: shadows),
+      child: ClipRRect(
+        borderRadius: borderRadius,
+        child: blur
+            ? BackdropFilter(
+                filter: ui.ImageFilter.compose(outer: _saturate, inner: ui.ImageFilter.blur(sigmaX: 30, sigmaY: 30)),
+                child: surface,
+              )
+            : surface,
+      ),
+    );
+  }
+}

@@ -12568,4 +12568,148 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Omi nepavyko išsaugoti jūsų balso. Bandykite dar kartą nustatymuose.';
+
+  @override
+  String get seeAllV3 => 'Rodyti viską';
+
+  @override
+  String get pullDownToResume => 'Patraukite žemyn, kad tęstumėte';
+
+  @override
+  String get pullDownToStart => 'Patraukite žemyn, kad pradėtumėte';
+
+  @override
+  String get bluetoothOffV3 => 'Bluetooth išjungtas';
+
+  @override
+  String get tapToFix => 'Palieskite, kad pataisytumėte';
+
+  @override
+  String get omiNotFound => 'Omi nerastas';
+
+  @override
+  String get tapForOptions => 'Palieskite, kad pamatytumėte parinktis';
+
+  @override
+  String get reconnectingV3 => 'Jungiamasi iš naujo';
+
+  @override
+  String get omiKeepsRecording => 'Omi toliau įrašo';
+
+  @override
+  String get pullToPause => 'Patraukite, kad pristabdytumėte';
+
+  @override
+  String get pullToResume => 'Patraukite, kad tęstumėte';
+
+  @override
+  String get pullToRecord => 'Patraukite, kad įrašytumėte';
+
+  @override
+  String get releaseToPause => 'Paleiskite, kad pristabdytumėte';
+
+  @override
+  String get releaseToResume => 'Paleiskite, kad tęstumėte';
+
+  @override
+  String get releaseToRecord => 'Paleiskite, kad įrašytumėte';
+
+  @override
+  String get pausedPullToUndo => 'Pristabdyta. Norėdami atšaukti, vėl patraukite žemyn.';
+
+  @override
+  String get listeningAgainPullToUndo => 'Vėl klausosi. Norėdami atšaukti, vėl patraukite žemyn.';
+
+  @override
+  String get pullUpForYourOmi => 'Patraukite aukštyn savo Omi';
+
+  @override
+  String get releaseToOpen => 'Paleiskite, kad atidarytumėte';
+
+  @override
+  String get coachFirstNotes => 'Omi klausosi. Pirmieji užrašai atsiras čia, kai nustosite kalbėti.';
+
+  @override
+  String get thisIsOmi => 'Tai Omi.';
+
+  @override
+  String get teachTipBody =>
+      'Judantys taškai reiškia, kad klausosi. Palieskite, kad pamatytumėte savo Omi, arba patraukite aukštyn nuo apačios. Norėdami pristabdyti, patraukite puslapį žemyn.';
+
+  @override
+  String get yourOmi => 'Jūsų Omi';
+
+  @override
+  String get onlyYouSeeRecordings => 'Savo įrašus matote tik jūs.';
+
+  @override
+  String get wordsShowUpHere => 'Žodžiai atsiranda čia, kai žmonės kalba.';
+
+  @override
+  String get newWords => 'Nauji žodžiai';
+
+  @override
+  String get liveTranscriptV3 => 'Tiesioginė transkripcija';
+
+  @override
+  String get writingUpNotes => 'Rašomi jūsų užrašai';
+
+  @override
+  String get summaryTodosAbout30s => 'Santrauka ir užduotys, apie 30 sekundžių';
+
+  @override
+  String get notesReady => 'Užrašai paruošti';
+
+  @override
+  String get notConnectedV3 => 'Neprijungta';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return 'Įjunkite Bluetooth, kad $device toliau įrašytų.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes min išsaugota $device. Sinchronizuosis vėl prisijungus.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device: $percent %. Įkraukite šįvakar.';
+  }
+
+  @override
+  String get stoppedV3 => 'Sustabdyta';
+
+  @override
+  String get connectorsV3 => 'Jungtys';
+
+  @override
+  String get yourConnectors => 'Jūsų jungtys';
+
+  @override
+  String get recordingNow => 'Dabar įrašo';
+
+  @override
+  String get pendantKind => 'Pakabukas';
+
+  @override
+  String get builtInMicV3 => 'Įtaisytas mikrofonas';
+
+  @override
+  String get editSummaryV3 => 'Redaguoti santrauką';
+
+  @override
+  String get editingSummary => 'Redaguojama santrauka';
+
+  @override
+  String get summarySaved => 'Santrauka išsaugota';
+
+  @override
+  String pairedCountV3(int count) {
+    return 'Susieta: $count';
+  }
+
+  @override
+  String get buttonSectionV3 => 'Mygtukas';
 }

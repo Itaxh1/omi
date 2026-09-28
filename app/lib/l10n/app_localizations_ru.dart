@@ -12593,4 +12593,148 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Omi не удалось сохранить ваш голос. Попробуйте ещё раз в Настройках.';
+
+  @override
+  String get seeAllV3 => 'Все';
+
+  @override
+  String get pullDownToResume => 'Потяните вниз, чтобы продолжить';
+
+  @override
+  String get pullDownToStart => 'Потяните вниз, чтобы начать';
+
+  @override
+  String get bluetoothOffV3 => 'Bluetooth выключен';
+
+  @override
+  String get tapToFix => 'Нажмите, чтобы исправить';
+
+  @override
+  String get omiNotFound => 'Omi не найден';
+
+  @override
+  String get tapForOptions => 'Нажмите, чтобы увидеть варианты';
+
+  @override
+  String get reconnectingV3 => 'Переподключение';
+
+  @override
+  String get omiKeepsRecording => 'Omi продолжает запись';
+
+  @override
+  String get pullToPause => 'Потяните для паузы';
+
+  @override
+  String get pullToResume => 'Потяните, чтобы продолжить';
+
+  @override
+  String get pullToRecord => 'Потяните, чтобы записывать';
+
+  @override
+  String get releaseToPause => 'Отпустите для паузы';
+
+  @override
+  String get releaseToResume => 'Отпустите, чтобы продолжить';
+
+  @override
+  String get releaseToRecord => 'Отпустите, чтобы записывать';
+
+  @override
+  String get pausedPullToUndo => 'На паузе. Потяните вниз ещё раз, чтобы отменить.';
+
+  @override
+  String get listeningAgainPullToUndo => 'Снова слушает. Потяните вниз ещё раз, чтобы отменить.';
+
+  @override
+  String get pullUpForYourOmi => 'Потяните вверх, чтобы открыть Omi';
+
+  @override
+  String get releaseToOpen => 'Отпустите, чтобы открыть';
+
+  @override
+  String get coachFirstNotes => 'Omi слушает. Первые заметки появятся здесь, когда вы закончите говорить.';
+
+  @override
+  String get thisIsOmi => 'Это Omi.';
+
+  @override
+  String get teachTipBody =>
+      'Движущиеся точки значат, что Omi слушает. Нажмите, чтобы открыть свой Omi, или потяните вверх снизу. Потяните страницу вниз, чтобы поставить на паузу.';
+
+  @override
+  String get yourOmi => 'Ваш Omi';
+
+  @override
+  String get onlyYouSeeRecordings => 'Ваши записи видите только вы.';
+
+  @override
+  String get wordsShowUpHere => 'Здесь появляются слова, пока люди говорят.';
+
+  @override
+  String get newWords => 'Новые слова';
+
+  @override
+  String get liveTranscriptV3 => 'Расшифровка в реальном времени';
+
+  @override
+  String get writingUpNotes => 'Пишем заметки';
+
+  @override
+  String get summaryTodosAbout30s => 'Краткое содержание и задачи, около 30 секунд';
+
+  @override
+  String get notesReady => 'Заметки готовы';
+
+  @override
+  String get notConnectedV3 => 'Не подключено';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return 'Включите Bluetooth, чтобы продолжить запись с $device.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes мин сохранено на $device. Синхронизируется после переподключения.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device: заряд $percent%. Зарядите сегодня вечером.';
+  }
+
+  @override
+  String get stoppedV3 => 'Остановлено';
+
+  @override
+  String get connectorsV3 => 'Подключения';
+
+  @override
+  String get yourConnectors => 'Ваши подключения';
+
+  @override
+  String get recordingNow => 'Идёт запись';
+
+  @override
+  String get pendantKind => 'Кулон';
+
+  @override
+  String get builtInMicV3 => 'Встроенный микрофон';
+
+  @override
+  String get editSummaryV3 => 'Изменить краткое содержание';
+
+  @override
+  String get editingSummary => 'Редактирование краткого содержания';
+
+  @override
+  String get summarySaved => 'Краткое содержание сохранено';
+
+  @override
+  String pairedCountV3(int count) {
+    return 'Сопряжено: $count';
+  }
+
+  @override
+  String get buttonSectionV3 => 'Кнопка';
 }

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io' show Platform;
 import 'dart:math' as math;
 
@@ -7,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import 'package:omi/backend/schema/phone_call.dart';
 import 'package:omi/pages/devices/devices_screen.dart';
+import 'package:omi/pages/home/your_omi_page.dart';
 import 'package:omi/pages/home/widgets/phone_capture.dart';
 import 'package:omi/pages/home/widgets/home_top_bar.dart';
 import 'package:omi/pages/home/widgets/idle_capture_card.dart';
@@ -71,7 +73,8 @@ class _ListeningStripState extends State<_Strip> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final call = context.select<PhoneCallProvider, PhoneCallState>((p) => p.callState);
-    final state = context.select<CaptureProvider, ListeningLabelState>((c) => HomeListeningLabel.stateOf(c, call));
+    final state =
+        context.select<CaptureProvider, ListeningLabelState>((c) => HomeListeningLabel.simpleStateOf(c, call));
     final sync = context.watch<SyncProvider>();
     final syncing = sync.isSyncing;
     final syncMinutes = (sync.missingWalsInSeconds / 60).ceil();
@@ -165,100 +168,111 @@ class _ListeningStripState extends State<_Strip> {
     final progress = sync.walsSyncedProgress.clamp(0.0, 1.0);
     final syncMinutes = (sync.missingWalsInSeconds / 60).ceil();
     const small = TextStyle(color: _dim);
-    final text = OmiType.detail.copyWith(height: 1.4, color: _white);
-    return Container(
-      key: const Key('listening_strip_panel'),
-      color: _panelColor,
-      padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(
-            height: 44,
-            child: Row(
-              children: [
-                _PanelButton(
-                  state: state,
-                  onPressed: () => _playPause(context, state),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text.rich(
-                    TextSpan(children: [
-                      TextSpan(text: '${l10n.recordingFrom} ', style: small),
-                      TextSpan(text: name, style: const TextStyle(fontWeight: FontWeight.w600)),
-                      if (showBattery) TextSpan(text: ' · $battery%', style: small),
-                    ]),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: text,
+    // v8.19 `.qsrc`: 15 on a 20 pt line.
+    final text = OmiType.subhead.copyWith(height: 20 / 15, letterSpacing: -0.1, color: _white);
+    // v8.19: a tap anywhere on the panel (but Pause and Change) opens Your Omi.
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        OmiHaptics.selection();
+        setState(() => _open = false);
+        unawaited(openYourOmi(context));
+      },
+      child: Container(
+        key: const Key('listening_strip_panel'),
+        color: _panelColor,
+        padding: const EdgeInsets.fromLTRB(16, 6, 16, 10),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              height: 52,
+              child: Row(
+                children: [
+                  _PanelButton(
+                    state: state,
+                    onPressed: () => _playPause(context, state),
                   ),
-                ),
-                Semantics(
-                  button: true,
-                  label: l10n.change,
-                  excludeSemantics: true,
-                  child: GestureDetector(
-                    key: const Key('listening_strip_change'),
-                    behavior: HitTestBehavior.opaque,
-                    onTap: () => routeToPage(context, const DevicesScreen()),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      child: Text(
-                        l10n.change,
-                        style: text.copyWith(
-                          fontWeight: FontWeight.w600,
-                          decoration: TextDecoration.underline,
-                          decorationColor: _white,
-                        ),
-                      ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text.rich(
+                      TextSpan(children: [
+                        TextSpan(text: '${l10n.recordingFrom} ', style: small),
+                        TextSpan(text: name, style: const TextStyle(fontWeight: FontWeight.w600)),
+                        if (showBattery) TextSpan(text: ' · $battery%', style: small),
+                      ]),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: text,
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          if (sync.isSyncing)
-            Padding(
-              padding: const EdgeInsets.fromLTRB(46, 4, 0, 4),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text.rich(
-                          TextSpan(children: [
-                            for (final (i, part) in l10n.syncingFrom('\u0001').split('\u0001').indexed) ...[
-                              if (i > 0)
-                                TextSpan(
-                                    text: name, style: const TextStyle(fontWeight: FontWeight.w600, color: _white)),
-                              TextSpan(text: part, style: small),
-                            ],
-                          ]),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: OmiType.footnote.copyWith(height: 1.4, color: _dim),
+                  Semantics(
+                    button: true,
+                    label: l10n.change,
+                    excludeSemantics: true,
+                    child: GestureDetector(
+                      key: const Key('listening_strip_change'),
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () => routeToPage(context, const DevicesScreen()),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 10, 0, 10),
+                        child: Text(
+                          l10n.change,
+                          style: text.copyWith(
+                            fontWeight: FontWeight.w600,
+                            decoration: TextDecoration.underline,
+                            decorationColor: _white,
+                          ),
                         ),
                       ),
-                      Text(l10n.minutesLeft(syncMinutes), style: OmiType.footnote.copyWith(height: 1.4, color: _dim)),
-                    ],
-                  ),
-                  const SizedBox(height: 7),
-                  ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(2)),
-                    child: LinearProgressIndicator(
-                      value: progress,
-                      minHeight: 3,
-                      backgroundColor: _white.withValues(alpha: 0.2),
-                      valueColor: const AlwaysStoppedAnimation(_white),
                     ),
                   ),
                 ],
               ),
             ),
-        ],
+            if (sync.isSyncing)
+              Padding(
+                // `.qsync`: under the words, past the 40 pt button and its 12 pt gap.
+                padding: const EdgeInsets.fromLTRB(52, 0, 0, 4),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text.rich(
+                            TextSpan(children: [
+                              for (final (i, part) in l10n.syncingFrom('\u0001').split('\u0001').indexed) ...[
+                                if (i > 0)
+                                  TextSpan(
+                                      text: name, style: const TextStyle(fontWeight: FontWeight.w600, color: _white)),
+                                TextSpan(text: part, style: small),
+                              ],
+                            ]),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: OmiType.footnote.copyWith(height: 1.4, color: _dim),
+                          ),
+                        ),
+                        Text(l10n.minutesLeft(syncMinutes), style: OmiType.footnote.copyWith(height: 1.4, color: _dim)),
+                      ],
+                    ),
+                    const SizedBox(height: 7),
+                    ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(2)),
+                      child: LinearProgressIndicator(
+                        value: progress,
+                        minHeight: 3,
+                        backgroundColor: _white.withValues(alpha: 0.2),
+                        valueColor: const AlwaysStoppedAnimation(_white),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -312,12 +326,13 @@ class _PanelButton extends StatelessWidget {
         key: const Key('listening_strip_play'),
         onTap: onPressed,
         child: Container(
-          width: 36,
-          height: 36,
+          // v8.19 `.qp`: 40 pt with a 15 pt glyph.
+          width: 40,
+          height: 40,
           alignment: Alignment.center,
           decoration: const BoxDecoration(shape: BoxShape.circle, color: _ListeningStripState._white),
           child: OmiGlyph(playing ? OmiGlyphs.pauseFill : OmiGlyphs.playFill,
-              size: 14, color: const Color(0xFF111111)), // omi-ux-allow: color-literal -- the glyph on the white circle
+              size: 15, color: const Color(0xFF111111)), // omi-ux-allow: color-literal -- the glyph on the white circle
         ),
       ),
     );

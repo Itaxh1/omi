@@ -12591,4 +12591,148 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Omi kon je stem niet opslaan. Probeer het opnieuw via Instellingen.';
+
+  @override
+  String get seeAllV3 => 'Alles bekijken';
+
+  @override
+  String get pullDownToResume => 'Trek omlaag om te hervatten';
+
+  @override
+  String get pullDownToStart => 'Trek omlaag om te starten';
+
+  @override
+  String get bluetoothOffV3 => 'Bluetooth uit';
+
+  @override
+  String get tapToFix => 'Tik om op te lossen';
+
+  @override
+  String get omiNotFound => 'Omi niet gevonden';
+
+  @override
+  String get tapForOptions => 'Tik voor opties';
+
+  @override
+  String get reconnectingV3 => 'Opnieuw verbinden';
+
+  @override
+  String get omiKeepsRecording => 'Omi blijft opnemen';
+
+  @override
+  String get pullToPause => 'Trek om te pauzeren';
+
+  @override
+  String get pullToResume => 'Trek om te hervatten';
+
+  @override
+  String get pullToRecord => 'Trek om op te nemen';
+
+  @override
+  String get releaseToPause => 'Laat los om te pauzeren';
+
+  @override
+  String get releaseToResume => 'Laat los om te hervatten';
+
+  @override
+  String get releaseToRecord => 'Laat los om op te nemen';
+
+  @override
+  String get pausedPullToUndo => 'Gepauzeerd. Trek nogmaals omlaag om ongedaan te maken.';
+
+  @override
+  String get listeningAgainPullToUndo => 'Luistert weer. Trek nogmaals omlaag om ongedaan te maken.';
+
+  @override
+  String get pullUpForYourOmi => 'Trek omhoog voor je Omi';
+
+  @override
+  String get releaseToOpen => 'Laat los om te openen';
+
+  @override
+  String get coachFirstNotes => 'Omi luistert. Je eerste notities verschijnen hier zodra je stopt met praten.';
+
+  @override
+  String get thisIsOmi => 'Dit is Omi.';
+
+  @override
+  String get teachTipBody =>
+      'Bewegende stippen betekenen dat hij luistert. Tik om je Omi te zien, of trek omhoog vanaf onderen. Trek de pagina omlaag om te pauzeren.';
+
+  @override
+  String get yourOmi => 'Je Omi';
+
+  @override
+  String get onlyYouSeeRecordings => 'Alleen jij kunt je opnames zien.';
+
+  @override
+  String get wordsShowUpHere => 'Woorden verschijnen hier terwijl mensen praten.';
+
+  @override
+  String get newWords => 'Nieuwe woorden';
+
+  @override
+  String get liveTranscriptV3 => 'Live transcript';
+
+  @override
+  String get writingUpNotes => 'Je notities worden geschreven';
+
+  @override
+  String get summaryTodosAbout30s => 'Samenvatting en to-do\'s, ongeveer 30 seconden';
+
+  @override
+  String get notesReady => 'Notities klaar';
+
+  @override
+  String get notConnectedV3 => 'Niet verbonden';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return 'Zet Bluetooth aan om te blijven opnemen met $device.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes min opgeslagen op $device. Wordt gesynchroniseerd zodra de verbinding terug is.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device staat op $percent%. Laad hem vanavond op.';
+  }
+
+  @override
+  String get stoppedV3 => 'Gestopt';
+
+  @override
+  String get connectorsV3 => 'Koppelingen';
+
+  @override
+  String get yourConnectors => 'Je koppelingen';
+
+  @override
+  String get recordingNow => 'Neemt nu op';
+
+  @override
+  String get pendantKind => 'Hanger';
+
+  @override
+  String get builtInMicV3 => 'Ingebouwde microfoon';
+
+  @override
+  String get editSummaryV3 => 'Samenvatting bewerken';
+
+  @override
+  String get editingSummary => 'Samenvatting bewerken';
+
+  @override
+  String get summarySaved => 'Samenvatting opgeslagen';
+
+  @override
+  String pairedCountV3(int count) {
+    return '$count gekoppeld';
+  }
+
+  @override
+  String get buttonSectionV3 => 'Knop';
 }

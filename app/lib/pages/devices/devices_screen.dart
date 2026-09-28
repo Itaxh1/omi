@@ -44,7 +44,7 @@ class DevicesScreen extends StatelessWidget {
     final call = context.select<PhoneCallProvider, PhoneCallState>((p) => p.callState);
     final paired = devices.pairedDevice;
     final hasPaired = paired != null && paired.id.isNotEmpty;
-    final state = HomeListeningLabel.stateOf(capture, call);
+    final state = HomeListeningLabel.simpleStateOf(capture, call);
     final phoneLive = capture.liveCaptureSource == 'phone' ||
         capture.recordingState == RecordingState.record ||
         capture.isPhoneMicPaused;
@@ -59,10 +59,37 @@ class DevicesScreen extends StatelessWidget {
       return battery > 0 ? '${l10n.connected} · $battery%' : l10n.connected;
     }
 
-    final name = hasPaired ? paired.name : (PlatformService.isIOS ? l10n.memoryThisIphone : l10n.memoryThisPhone);
+    final phoneName = PlatformService.isIOS ? l10n.memoryThisIphone : l10n.memoryThisPhone;
+    final name = hasPaired ? paired.name : phoneName;
+    final pairedPhoto = !hasPaired
+        ? null
+        : paired.type.name == 'omi'
+            ? OmiOrb(size: 64, live: deviceLive)
+            : Image.asset(DeviceUtils.getDeviceImageFromBtDevice(paired), fit: BoxFit.contain);
+    final muted = state == ListeningLabelState.muted;
+    String pairedDetail() {
+      if (deviceLive) return muted ? l10n.paused : l10n.recordingNow;
+      final kind = paired!.type.name == 'omi' ? l10n.pendantKind : null;
+      final tail = devices.isConnected
+          ? (devices.batteryLevel > 0 ? '${devices.batteryLevel}%' : l10n.connected.toLowerCase())
+          : l10n.notConnectedV3.toLowerCase();
+      return kind == null ? tail : '$kind · $tail';
+    }
+
     return Scaffold(
       backgroundColor: OmiColors.surface0,
-      appBar: OmiScreenHeader(title: l10n.devices),
+      // v8.17: the header's bulb is What the light means.
+      appBar: OmiScreenHeader(
+        title: l10n.devices,
+        trailing: hasPaired
+            ? OmiRingButton.glass(
+                key: const Key('devices_lights'),
+                glyph: OmiGlyphs.bulb,
+                label: l10n.whatTheLightMeans,
+                onPressed: () => showLightLegend(context),
+              )
+            : null,
+      ),
       bottomNavigationBar: const ListeningStrip(),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(OmiSize.screenMargin, 4, OmiSize.screenMargin, 20),
@@ -71,25 +98,29 @@ class DevicesScreen extends StatelessWidget {
             _BluetoothOff(onTurnOn: () => BluetoothReadiness.instance.ensureReady(BluetoothUse.connection)),
             const SizedBox(height: 18),
           ],
-          // The device in use.
+          // `.dcard`: the device in use in an outlined card, its photo, name and state.
           Semantics(
             button: hasPaired,
             child: GestureDetector(
               key: const Key('devices_current'),
               behavior: HitTestBehavior.opaque,
               onTap: hasPaired ? () => routeToPage(context, const ConnectedDevice()) : null,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 6, bottom: 18),
+              child: Container(
+                margin: const EdgeInsets.only(top: 6),
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: OmiColors.palette.isLight
+                      ? OmiColors.surface0
+                      : Color.alphaBlend(OmiColors.textPrimary.withValues(alpha: 0.06), OmiColors.surface0),
+                  borderRadius: const BorderRadius.all(Radius.circular(24)),
+                  border: Border.all(color: OmiColors.textPrimary.withValues(alpha: 0.10)),
+                ),
                 child: Row(
                   children: [
-                    SizedBox(
-                      width: 61,
-                      height: 64,
-                      child: hasPaired
-                          ? (paired.type.name == 'omi'
-                              ? OmiOrb(size: 64, live: deviceLive)
-                              : Image.asset(DeviceUtils.getDeviceImageFromBtDevice(paired), fit: BoxFit.contain))
-                          : Center(child: OmiGlyph(OmiGlyphs.devicePhone, size: 44, color: OmiColors.cement)),
+                    SizedBox.square(
+                      dimension: 64,
+                      child: pairedPhoto ??
+                          Center(child: OmiGlyph(OmiGlyphs.devicePhone, size: 40, color: OmiColors.cement)),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
@@ -99,10 +130,13 @@ class DevicesScreen extends StatelessWidget {
                           Text(name,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: OmiType.title3
-                                  .copyWith(fontWeight: FontWeight.w600, letterSpacing: -0.2, height: 1.4)),
+                              style: OmiType.answer
+                                  .copyWith(fontWeight: FontWeight.w600, letterSpacing: -0.2, height: 1.35)),
                           const SizedBox(height: 2),
-                          Text(status(), style: OmiType.detail.copyWith(height: 1.4, color: OmiColors.textSecondary)),
+                          Text(status(),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: OmiType.cardSubtitle.copyWith(height: 1.35, color: OmiColors.textSecondary)),
                         ],
                       ),
                     ),
@@ -111,58 +145,18 @@ class DevicesScreen extends StatelessWidget {
               ),
             ),
           ),
-          if (hasPaired)
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Semantics(
-                button: true,
-                child: GestureDetector(
-                  key: const Key('devices_lights'),
-                  onTap: () => showLightLegend(context),
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 14),
-                    child: Text(
-                      l10n.whatTheLightMeans,
-                      style: OmiType.subhead.copyWith(
-                        height: 1.4,
-                        color: OmiColors.textSecondary,
-                        decoration: TextDecoration.underline,
-                        decorationColor: OmiColors.faint,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          if (state != ListeningLabelState.idle || capture.isCaptureStopped)
-            _OutlineButton(
-              key: const Key('devices_pause'),
-              label: state == ListeningLabelState.listening ? l10n.pause : l10n.resume,
-              onPressed: () async {
-                OmiHaptics.medium();
-                try {
-                  if (state == ListeningLabelState.listening) {
-                    await capture.pauseCapture();
-                  } else if (state == ListeningLabelState.muted) {
-                    await capture.resumeCapture();
-                  } else {
-                    await IdleCaptureCard.startWearable(context);
-                  }
-                } catch (_) {
-                  if (context.mounted) OmiFeedback.error(context, l10n.somethingWentWrong);
-                }
-              },
-            ),
-          OmiSectionLabel(title: l10n.recordFrom, top: 30),
+          OmiSectionLabel(
+            title: l10n.recordFrom,
+            // The rows below: the pendant and this phone.
+            detail: hasPaired ? l10n.pairedCountV3(2) : null,
+            top: 26,
+          ),
           if (hasPaired)
             _SourceRow(
               key: const Key('devices_paired_device'),
               name: paired.name,
-              detail: deviceLive
-                  ? l10n.recordingLower
-                  : (devices.isConnected
-                      ? (devices.batteryLevel > 0 ? '${devices.batteryLevel}%' : l10n.connected)
-                      : l10n.disconnected),
+              detail: pairedDetail(),
+              visual: SizedBox.square(dimension: 40, child: pairedPhoto),
               selected: deviceLive || (!phoneLive && devices.isConnected),
               onTap: () {
                 if (phoneLive && devices.isConnected) {
@@ -174,15 +168,16 @@ class DevicesScreen extends StatelessWidget {
             ),
           _SourceRow(
             key: const Key('devices_this_phone'),
-            name: PlatformService.isIOS ? l10n.memoryThisIphone : l10n.memoryThisPhone,
-            detail: l10n.builtInMic,
+            name: phoneName,
+            detail: phoneLive ? (muted ? l10n.paused : l10n.recordingNow) : l10n.builtInMicV3,
+            visual: OmiGlyph(OmiGlyphs.devicePhone, size: 22, color: OmiColors.textPrimary),
             selected: phoneLive || !hasPaired,
             onTap: phoneLive ? null : () => PhoneCapture.start(context),
           ),
           if (hasPaired) ...[
-            OmiSectionLabel(title: l10n.pendantButton, top: 30),
+            OmiSectionLabel(title: l10n.buttonSectionV3, top: 26),
             const _DoubleTapRow(),
-            OmiSectionLabel(title: l10n.firmware, top: 30),
+            OmiSectionLabel(title: l10n.firmware, top: 26),
             _FirmwareRow(devices: devices),
           ],
           if (sync.isSyncing)
@@ -193,22 +188,24 @@ class DevicesScreen extends StatelessWidget {
                 style: OmiType.subhead.copyWith(height: 1.6, color: OmiColors.textSecondary),
               ),
             ),
-          const SizedBox(height: 18),
+          // `.dv2add`: a + tile and the words, as a row.
           Semantics(
             button: true,
             label: l10n.addADevice,
             excludeSemantics: true,
             child: OmiPressable(
               key: const Key('devices_add'),
+              behavior: HitTestBehavior.opaque,
               onTap: () => routeToPage(context, const AddDevicePage()),
-              child: Container(
-                height: 54,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(18)),
-                  border: Border.all(color: OmiColors.faint),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 28, bottom: 10),
+                child: Row(
+                  children: [
+                    _DeviceTile(child: OmiGlyph(OmiGlyphs.plusLine, size: 20, color: OmiColors.textPrimary)),
+                    const SizedBox(width: 14),
+                    Text(l10n.addADevice, style: OmiType.askBar.copyWith(height: 1.4)),
+                  ],
                 ),
-                child: Text(l10n.addADevice, style: OmiType.callout.copyWith(fontWeight: FontWeight.w600)),
               ),
             ),
           ),
@@ -278,35 +275,6 @@ class _BluetoothOff extends StatelessWidget {
   }
 }
 
-/// A 48 pt outline button (`.pbtn`), full width.
-class _OutlineButton extends StatelessWidget {
-  const _OutlineButton({super.key, required this.label, required this.onPressed});
-
-  final String label;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      button: true,
-      label: label,
-      excludeSemantics: true,
-      child: OmiPressable(
-        onTap: onPressed,
-        child: Container(
-          height: 48,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            borderRadius: OmiRadius.pillAll,
-            border: Border.all(color: OmiColors.textPrimary),
-          ),
-          child: Text(label, style: OmiType.callout.copyWith(fontWeight: FontWeight.w600)),
-        ),
-      ),
-    );
-  }
-}
-
 /// A 34 pt pill (`.da`, `#btOn`): outlined, or ink with paper words.
 class _PillButton extends StatelessWidget {
   const _PillButton({required this.label, required this.onPressed, this.filled = false});
@@ -345,12 +313,21 @@ class _PillButton extends StatelessWidget {
   }
 }
 
-/// A source (`.drow`): a radio ring, the name at 17/500 and its state beside it.
+/// A source (v8.17 `.drow.dv2`): a 44 pt tile with the device's photo or glyph, the name at
+/// 16.5/500 (600 when current) over its state at 13 pt, and a check on the one in use.
 class _SourceRow extends StatelessWidget {
-  const _SourceRow({super.key, required this.name, required this.detail, required this.selected, this.onTap});
+  const _SourceRow({
+    super.key,
+    required this.name,
+    required this.detail,
+    required this.visual,
+    required this.selected,
+    this.onTap,
+  });
 
   final String name;
   final String detail;
+  final Widget visual;
   final bool selected;
   final VoidCallback? onTap;
 
@@ -369,33 +346,62 @@ class _SourceRow extends StatelessWidget {
                 onTap!();
               },
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 15),
+          padding: const EdgeInsets.symmetric(vertical: 9),
           decoration: BoxDecoration(border: Border(bottom: BorderSide(color: OmiColors.divider))),
           child: Row(
             children: [
-              OmiRadioRing(selected: selected),
+              _DeviceTile(child: visual),
               const SizedBox(width: 14),
               Expanded(
-                child: Text.rich(
-                  TextSpan(children: [
-                    TextSpan(text: name),
-                    TextSpan(
-                      text: '  $detail',
-                      style: OmiType.detail.copyWith(
-                        fontWeight: FontWeight.w400,
-                        color: OmiColors.textSecondary,
-                      ),
-                    ),
-                  ]),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: OmiType.body.copyWith(fontWeight: FontWeight.w500, height: 1.4),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: OmiType.askBar
+                            .copyWith(height: 1.4, fontWeight: selected ? FontWeight.w600 : FontWeight.w500)),
+                    Text(detail,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: OmiType.footnote.copyWith(height: 1.4, color: OmiColors.textSecondary)),
+                  ],
                 ),
               ),
+              if (selected)
+                Padding(
+                  padding: const EdgeInsets.only(right: 4),
+                  child: OmiGlyph(OmiGlyphs.tick, size: 19, color: OmiColors.textPrimary),
+                ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+/// The 44 pt tile of a device row (`.dt`): paper, a 12 % outline, 14 pt corners.
+class _DeviceTile extends StatelessWidget {
+  const _DeviceTile({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 44,
+      height: 44,
+      alignment: Alignment.center,
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        color: OmiColors.palette.isLight
+            ? OmiColors.surface0
+            : Color.alphaBlend(OmiColors.textPrimary.withValues(alpha: 0.06), OmiColors.surface0),
+        borderRadius: const BorderRadius.all(Radius.circular(14)),
+        border: Border.all(color: OmiColors.textPrimary.withValues(alpha: 0.12)),
+      ),
+      child: child,
     );
   }
 }
@@ -420,13 +426,15 @@ class _ValueRow extends StatelessWidget {
           onTap();
         },
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 13),
+          padding: const EdgeInsets.symmetric(vertical: 14),
           decoration: BoxDecoration(border: Border(bottom: BorderSide(color: OmiColors.divider))),
           child: Row(
             children: [
               Expanded(child: Text(title, style: OmiType.body.copyWith(fontWeight: FontWeight.w500, height: 1.3))),
               const SizedBox(width: 14),
               Text(value, style: OmiType.footnote.copyWith(height: 1.4, color: OmiColors.textSecondary)),
+              // `#dtap .tm::after`: a quiet ›.
+              Text('  ›', style: OmiType.footnote.copyWith(height: 1.4, color: OmiColors.faint)),
             ],
           ),
         ),
@@ -469,9 +477,16 @@ class _FirmwareRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final ready = devices.havingNewFirmware;
+    // v8.17 `.fw`: an outlined card.
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 14),
-      decoration: BoxDecoration(border: Border(bottom: BorderSide(color: OmiColors.divider))),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      decoration: BoxDecoration(
+        color: OmiColors.palette.isLight
+            ? OmiColors.surface0
+            : Color.alphaBlend(OmiColors.textPrimary.withValues(alpha: 0.06), OmiColors.surface0),
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        border: Border.all(color: OmiColors.textPrimary.withValues(alpha: 0.10)),
+      ),
       child: Row(
         children: [
           Expanded(
@@ -490,6 +505,7 @@ class _FirmwareRow extends StatelessWidget {
           ),
           if (ready)
             _PillButton(
+              filled: true,
               label: l10n.update,
               onPressed: () {
                 final glass = FirmwareUpdateBuildPolicy.current.isOpenGlassDevice(devices.connectedDevice);

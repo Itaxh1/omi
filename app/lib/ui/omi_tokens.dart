@@ -162,7 +162,8 @@ class OmiPalette {
     danger: Color(0xFFF0575C),
     dangerSurface: Color(0x24F0575C),
     cement: Color(0xFFB3AEA6),
-    tone: Color(0xFF161616),
+    // v8.10: the warm accent at 9 % over the page.
+    tone: Color(0xFF1B1A17),
     tile: Color(0xFF1E1E1E),
   );
 
@@ -200,7 +201,8 @@ class OmiPalette {
     glassSelected: Color(0x140A0A0A),
     border: Color(0x120A0A0A),
     textPrimary: Color(0xFF0A0A0A),
-    textSecondary: Color(0xFF6B6B6B),
+    // v8.11: the mock's secondary ink, 63 % on white (5.9:1).
+    textSecondary: Color(0xFF656565),
     textTertiary: Color(0xFF767676),
     textDisabled: Color(0xFFB0B0B0),
     accent: Color(0xFF0A0A0A),
@@ -564,6 +566,34 @@ abstract final class OmiType {
   static TextStyle get liveWords => _tint(_liveWords);
   static const TextStyle _liveWords =
       TextStyle(fontSize: 26, height: 1.3, fontWeight: FontWeight.w500, letterSpacing: -0.39);
+
+  /// 56/500 at −.04em, tabular figures — Your Omi's clock (v8.9 `.os4time`).
+  static TextStyle get liveClock => _tint(_liveClock);
+  static const TextStyle _liveClock = TextStyle(
+    fontSize: 56,
+    height: 1,
+    fontWeight: FontWeight.w500,
+    letterSpacing: -2.24,
+    fontFeatures: [FontFeature.tabularFigures()],
+  );
+
+  /// 15.5 on a 1.45 line — a line of the live transcript on Your Omi (`.os4 .ostrl p`).
+  static TextStyle get transcriptLine => _tint(_transcriptLine);
+  static const TextStyle _transcriptLine = TextStyle(fontSize: 15.5, height: 1.45, fontWeight: FontWeight.w400);
+
+  /// 21 on a 1.45 line — the full-screen live transcript (`.osfb p`).
+  static TextStyle get transcriptLarge => _tint(_transcriptLarge);
+  static const TextStyle _transcriptLarge =
+      TextStyle(fontSize: 21, height: 1.45, fontWeight: FontWeight.w400, letterSpacing: -0.21);
+
+  /// 11.5/600 — a speaker's initial in a 24 pt circle (`.os4av`).
+  static TextStyle get initial => _tint(_initial);
+  static const TextStyle _initial = TextStyle(fontSize: 11.5, height: 1, fontWeight: FontWeight.w600);
+
+  /// 16.5/500 — "Ask anything" on the Ask bar (v8.2).
+  static TextStyle get askBar => _tint(_askBar);
+  static const TextStyle _askBar =
+      TextStyle(fontSize: 16.5, height: 1.4, fontWeight: FontWeight.w500, letterSpacing: -0.08);
 
   /// 18 — v3 leads: the Listening word, the initial on You, a firmware version.
   static TextStyle get lead => _tint(_lead);

@@ -455,7 +455,6 @@ class _OnboardingWrapperState extends State<OnboardingWrapper> with TickerProvid
           // "Omi is listening now": the phone path starts listening with this phone, as the pendant
           // already does.
           if (!_wearable) _startPhoneListening();
-          HomePage.peekRecorderOnArrival = true;
           routeToPage(context, const HomePageWrapper(), replace: true);
         },
       ),
@@ -479,11 +478,12 @@ class _OnboardingWrapperState extends State<OnboardingWrapper> with TickerProvid
               // v2: steps sit on the plain midnight page; Welcome and Complete draw the pendant.
               // Page component (no transition for content)
               pages[index],
-              // v3 `.obtop`: 12 pt under the status bar, the 40 pt back ring, then the step bars.
+              // v3 `.obtop`: 7 pt under the status bar, the 50 pt glass back circle (v8.16), then the
+              // step bars on its centre line.
               if (barIndex(index) != null || showsBack(index))
                 SafeArea(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(OmiSize.screenMargin, 12, OmiSize.screenMargin, 0),
+                    padding: const EdgeInsets.fromLTRB(OmiSize.screenMargin, 7, OmiSize.screenMargin, 0),
                     child: Row(
                       children: [
                         // Back on every step (its room kept where it hides); on the first (consent)
@@ -493,7 +493,7 @@ class _OnboardingWrapperState extends State<OnboardingWrapper> with TickerProvid
                           maintainSize: true,
                           maintainAnimation: true,
                           maintainState: true,
-                          child: OmiRingButton(
+                          child: OmiRingButton.glass(
                             key: const Key('onboarding_back'),
                             glyph: OmiGlyphs.back,
                             label: MaterialLocalizations.of(context).backButtonTooltip,
@@ -508,7 +508,7 @@ class _OnboardingWrapperState extends State<OnboardingWrapper> with TickerProvid
                         const SizedBox(width: 14),
                         Expanded(
                           child: barIndex(index) == null
-                              ? const SizedBox(height: 40)
+                              ? const SizedBox(height: 50)
                               : OnboardingProgressDots(current: barIndex(index)!, total: kBarCount),
                         ),
                         // The bars sit centred: the back ring's room is kept on the right too.

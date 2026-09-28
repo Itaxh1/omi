@@ -12573,4 +12573,148 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'O Omi não conseguiu salvar sua voz. Tente de novo em Ajustes.';
+
+  @override
+  String get seeAllV3 => 'Ver tudo';
+
+  @override
+  String get pullDownToResume => 'Puxe para baixo para retomar';
+
+  @override
+  String get pullDownToStart => 'Puxe para baixo para começar';
+
+  @override
+  String get bluetoothOffV3 => 'Bluetooth desligado';
+
+  @override
+  String get tapToFix => 'Toque para corrigir';
+
+  @override
+  String get omiNotFound => 'Omi não encontrado';
+
+  @override
+  String get tapForOptions => 'Toque para ver opções';
+
+  @override
+  String get reconnectingV3 => 'Reconectando';
+
+  @override
+  String get omiKeepsRecording => 'O Omi continua gravando';
+
+  @override
+  String get pullToPause => 'Puxe para pausar';
+
+  @override
+  String get pullToResume => 'Puxe para retomar';
+
+  @override
+  String get pullToRecord => 'Puxe para gravar';
+
+  @override
+  String get releaseToPause => 'Solte para pausar';
+
+  @override
+  String get releaseToResume => 'Solte para retomar';
+
+  @override
+  String get releaseToRecord => 'Solte para gravar';
+
+  @override
+  String get pausedPullToUndo => 'Pausado. Puxe para baixo de novo para desfazer.';
+
+  @override
+  String get listeningAgainPullToUndo => 'Ouvindo de novo. Puxe para baixo de novo para desfazer.';
+
+  @override
+  String get pullUpForYourOmi => 'Puxe para cima para o seu Omi';
+
+  @override
+  String get releaseToOpen => 'Solte para abrir';
+
+  @override
+  String get coachFirstNotes => 'O Omi está ouvindo. Suas primeiras notas aparecem aqui quando você parar de falar.';
+
+  @override
+  String get thisIsOmi => 'Este é o Omi.';
+
+  @override
+  String get teachTipBody =>
+      'Pontos se movendo significam que está ouvindo. Toque para ver seu Omi ou puxe para cima a partir de baixo. Puxe a página para baixo para pausar.';
+
+  @override
+  String get yourOmi => 'Seu Omi';
+
+  @override
+  String get onlyYouSeeRecordings => 'Só você pode ver suas gravações.';
+
+  @override
+  String get wordsShowUpHere => 'As palavras aparecem aqui enquanto as pessoas falam.';
+
+  @override
+  String get newWords => 'Novas palavras';
+
+  @override
+  String get liveTranscriptV3 => 'Transcrição ao vivo';
+
+  @override
+  String get writingUpNotes => 'Escrevendo suas notas';
+
+  @override
+  String get summaryTodosAbout30s => 'Resumo e tarefas, cerca de 30 segundos';
+
+  @override
+  String get notesReady => 'Notas prontas';
+
+  @override
+  String get notConnectedV3 => 'Não conectado';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return 'Ative o Bluetooth para continuar gravando com $device.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes min salvos no $device. Sincroniza quando reconectar.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device está com $percent%. Carregue hoje à noite.';
+  }
+
+  @override
+  String get stoppedV3 => 'Parado';
+
+  @override
+  String get connectorsV3 => 'Conectores';
+
+  @override
+  String get yourConnectors => 'Seus conectores';
+
+  @override
+  String get recordingNow => 'Gravando agora';
+
+  @override
+  String get pendantKind => 'Pingente';
+
+  @override
+  String get builtInMicV3 => 'Microfone embutido';
+
+  @override
+  String get editSummaryV3 => 'Editar resumo';
+
+  @override
+  String get editingSummary => 'Editando o resumo';
+
+  @override
+  String get summarySaved => 'Resumo salvo';
+
+  @override
+  String pairedCountV3(int count) {
+    return '$count pareados';
+  }
+
+  @override
+  String get buttonSectionV3 => 'Botão';
 }

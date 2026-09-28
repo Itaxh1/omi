@@ -67,3 +67,81 @@ Route<T> omiAskRoute<T>({required WidgetBuilder builder, RouteSettings? settings
     },
   );
 }
+
+/// The full live transcript (v8.16 `.osfull`): fades in over 0.22 s while it settles 0.8 % upward,
+/// and fades out over 0.18 s. Under Reduce Motion it only fades.
+Route<T> omiFadeUpRoute<T>({required WidgetBuilder builder, RouteSettings? settings}) {
+  return PageRouteBuilder<T>(
+    settings: settings,
+    transitionDuration: const Duration(milliseconds: 220),
+    reverseTransitionDuration: const Duration(milliseconds: 180),
+    pageBuilder: (context, _, __) => builder(context),
+    transitionsBuilder: (context, animation, _, child) {
+      final fade = FadeTransition(opacity: animation, child: child);
+      if (MediaQuery.maybeDisableAnimationsOf(context) ?? false) return fade;
+      return SlideTransition(
+        position: Tween(begin: const Offset(0, 0.008), end: Offset.zero)
+            .animate(CurvedAnimation(parent: animation, curve: Curves.easeOut)),
+        child: fade,
+      );
+    },
+  );
+}
+
+/// Your Omi (v8.4 `#omisc`): the screen unrolls down from the Listening label over 0.46 s on the
+/// sheet spring. It is revealed from the top edge down (its lower corners rounded by 40 pt while it
+/// moves), comes down from 14 pt higher and fades in over the first 0.12 s. Under Reduce Motion it
+/// only fades.
+Route<T> omiUnrollRoute<T>({required WidgetBuilder builder, RouteSettings? settings}) {
+  const curve = Cubic(0.32, 0.72, 0, 1);
+  return PageRouteBuilder<T>(
+    settings: settings,
+    transitionDuration: const Duration(milliseconds: 460),
+    reverseTransitionDuration: const Duration(milliseconds: 360),
+    pageBuilder: (context, _, __) => builder(context),
+    transitionsBuilder: (context, animation, _, child) {
+      if (MediaQuery.maybeDisableAnimationsOf(context) ?? false) {
+        return FadeTransition(opacity: animation, child: child);
+      }
+      final unroll = CurvedAnimation(parent: animation, curve: curve, reverseCurve: curve.flipped);
+      final fade = CurvedAnimation(parent: animation, curve: const Interval(0, 0.26));
+      return AnimatedBuilder(
+        animation: unroll,
+        child: child,
+        builder: (context, child) {
+          final t = unroll.value.clamp(0.0, 1.0);
+          return FadeTransition(
+            opacity: fade,
+            child: Transform.translate(
+              offset: Offset(0, -14 * (1 - t)),
+              child: ClipPath(clipper: _UnrollClipper(t), child: child),
+            ),
+          );
+        },
+      );
+    },
+  );
+}
+
+/// The part of the page shown [t] of the way through the unroll: from the top down, the lower
+/// corners rounded until it is fully open.
+class _UnrollClipper extends CustomClipper<Path> {
+  const _UnrollClipper(this.t);
+
+  final double t;
+
+  @override
+  Path getClip(Size size) {
+    if (t >= 1) return Path()..addRect(Offset.zero & size);
+    final radius = Radius.circular(40 * (1 - t));
+    return Path()
+      ..addRRect(RRect.fromRectAndCorners(
+        Rect.fromLTWH(0, 0, size.width, size.height * t),
+        bottomLeft: radius,
+        bottomRight: radius,
+      ));
+  }
+
+  @override
+  bool shouldReclip(_UnrollClipper old) => old.t != t;
+}

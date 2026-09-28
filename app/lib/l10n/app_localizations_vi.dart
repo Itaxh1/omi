@@ -12547,4 +12547,148 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Omi không lưu được giọng bạn. Hãy thử lại trong Cài đặt.';
+
+  @override
+  String get seeAllV3 => 'Xem tất cả';
+
+  @override
+  String get pullDownToResume => 'Kéo xuống để tiếp tục';
+
+  @override
+  String get pullDownToStart => 'Kéo xuống để bắt đầu';
+
+  @override
+  String get bluetoothOffV3 => 'Bluetooth tắt';
+
+  @override
+  String get tapToFix => 'Chạm để khắc phục';
+
+  @override
+  String get omiNotFound => 'Không tìm thấy Omi';
+
+  @override
+  String get tapForOptions => 'Chạm để xem tùy chọn';
+
+  @override
+  String get reconnectingV3 => 'Đang kết nối lại';
+
+  @override
+  String get omiKeepsRecording => 'Omi vẫn tiếp tục ghi';
+
+  @override
+  String get pullToPause => 'Kéo để tạm dừng';
+
+  @override
+  String get pullToResume => 'Kéo để tiếp tục';
+
+  @override
+  String get pullToRecord => 'Kéo để ghi âm';
+
+  @override
+  String get releaseToPause => 'Thả để tạm dừng';
+
+  @override
+  String get releaseToResume => 'Thả để tiếp tục';
+
+  @override
+  String get releaseToRecord => 'Thả để ghi âm';
+
+  @override
+  String get pausedPullToUndo => 'Đã tạm dừng. Kéo xuống lần nữa để hoàn tác.';
+
+  @override
+  String get listeningAgainPullToUndo => 'Đang nghe lại. Kéo xuống lần nữa để hoàn tác.';
+
+  @override
+  String get pullUpForYourOmi => 'Kéo lên để mở Omi của bạn';
+
+  @override
+  String get releaseToOpen => 'Thả để mở';
+
+  @override
+  String get coachFirstNotes => 'Omi đang nghe. Ghi chú đầu tiên sẽ hiện ở đây khi bạn ngừng nói.';
+
+  @override
+  String get thisIsOmi => 'Đây là Omi.';
+
+  @override
+  String get teachTipBody =>
+      'Chấm chuyển động nghĩa là đang nghe. Chạm để xem Omi của bạn, hoặc kéo lên từ dưới. Kéo trang xuống để tạm dừng.';
+
+  @override
+  String get yourOmi => 'Omi của bạn';
+
+  @override
+  String get onlyYouSeeRecordings => 'Chỉ bạn mới xem được bản ghi của mình.';
+
+  @override
+  String get wordsShowUpHere => 'Lời nói sẽ hiện ở đây khi mọi người trò chuyện.';
+
+  @override
+  String get newWords => 'Lời mới';
+
+  @override
+  String get liveTranscriptV3 => 'Bản ghi trực tiếp';
+
+  @override
+  String get writingUpNotes => 'Đang viết ghi chú';
+
+  @override
+  String get summaryTodosAbout30s => 'Tóm tắt và việc cần làm, khoảng 30 giây';
+
+  @override
+  String get notesReady => 'Ghi chú đã sẵn sàng';
+
+  @override
+  String get notConnectedV3 => 'Chưa kết nối';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return 'Bật Bluetooth để tiếp tục ghi âm từ $device.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return 'Đã lưu $minutes phút trên $device. Sẽ đồng bộ khi kết nối lại.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device còn $percent%. Hãy sạc tối nay.';
+  }
+
+  @override
+  String get stoppedV3 => 'Đã dừng';
+
+  @override
+  String get connectorsV3 => 'Kết nối';
+
+  @override
+  String get yourConnectors => 'Kết nối của bạn';
+
+  @override
+  String get recordingNow => 'Đang ghi';
+
+  @override
+  String get pendantKind => 'Mặt dây';
+
+  @override
+  String get builtInMicV3 => 'Micrô tích hợp';
+
+  @override
+  String get editSummaryV3 => 'Sửa tóm tắt';
+
+  @override
+  String get editingSummary => 'Đang sửa tóm tắt';
+
+  @override
+  String get summarySaved => 'Đã lưu tóm tắt';
+
+  @override
+  String pairedCountV3(int count) {
+    return 'Đã ghép nối $count';
+  }
+
+  @override
+  String get buttonSectionV3 => 'Nút';
 }

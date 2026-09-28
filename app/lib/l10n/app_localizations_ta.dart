@@ -12636,4 +12636,148 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Omi உங்கள் குரலைச் சேமிக்க முடியவில்லை. அமைப்புகளில் மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get seeAllV3 => 'அனைத்தையும் காண்க';
+
+  @override
+  String get pullDownToResume => 'தொடர கீழே இழுக்கவும்';
+
+  @override
+  String get pullDownToStart => 'தொடங்க கீழே இழுக்கவும்';
+
+  @override
+  String get bluetoothOffV3 => 'புளூடூத் முடக்கம்';
+
+  @override
+  String get tapToFix => 'சரிசெய்ய தட்டவும்';
+
+  @override
+  String get omiNotFound => 'Omi கிடைக்கவில்லை';
+
+  @override
+  String get tapForOptions => 'விருப்பங்களுக்குத் தட்டவும்';
+
+  @override
+  String get reconnectingV3 => 'மீண்டும் இணைக்கிறது';
+
+  @override
+  String get omiKeepsRecording => 'Omi பதிவைத் தொடர்கிறது';
+
+  @override
+  String get pullToPause => 'இடைநிறுத்த இழுக்கவும்';
+
+  @override
+  String get pullToResume => 'தொடர இழுக்கவும்';
+
+  @override
+  String get pullToRecord => 'பதிவு செய்ய இழுக்கவும்';
+
+  @override
+  String get releaseToPause => 'இடைநிறுத்த விடுங்கள்';
+
+  @override
+  String get releaseToResume => 'தொடர விடுங்கள்';
+
+  @override
+  String get releaseToRecord => 'பதிவு செய்ய விடுங்கள்';
+
+  @override
+  String get pausedPullToUndo => 'இடைநிறுத்தப்பட்டது. செயல்தவிர்க்க மீண்டும் கீழே இழுக்கவும்.';
+
+  @override
+  String get listeningAgainPullToUndo => 'மீண்டும் கேட்கிறது. செயல்தவிர்க்க மீண்டும் கீழே இழுக்கவும்.';
+
+  @override
+  String get pullUpForYourOmi => 'உங்கள் Omi-க்கு மேலே இழுக்கவும்';
+
+  @override
+  String get releaseToOpen => 'திறக்க விடுங்கள்';
+
+  @override
+  String get coachFirstNotes => 'Omi கேட்கிறது. நீங்கள் பேசி முடித்ததும் உங்கள் முதல் குறிப்புகள் இங்கே தோன்றும்.';
+
+  @override
+  String get thisIsOmi => 'இது Omi.';
+
+  @override
+  String get teachTipBody =>
+      'அசையும் புள்ளிகள் அது கேட்கிறது என்று பொருள். உங்கள் Omi-ஐப் பார்க்கத் தட்டவும், அல்லது கீழிருந்து மேலே இழுக்கவும். இடைநிறுத்த பக்கத்தைக் கீழே இழுக்கவும்.';
+
+  @override
+  String get yourOmi => 'உங்கள் Omi';
+
+  @override
+  String get onlyYouSeeRecordings => 'உங்கள் பதிவுகளை நீங்கள் மட்டுமே பார்க்க முடியும்.';
+
+  @override
+  String get wordsShowUpHere => 'மக்கள் பேசும்போது வார்த்தைகள் இங்கே தோன்றும்.';
+
+  @override
+  String get newWords => 'புதிய வார்த்தைகள்';
+
+  @override
+  String get liveTranscriptV3 => 'நேரலை எழுத்துப்படி';
+
+  @override
+  String get writingUpNotes => 'உங்கள் குறிப்புகளை எழுதுகிறது';
+
+  @override
+  String get summaryTodosAbout30s => 'சுருக்கம் மற்றும் செய்ய வேண்டியவை, சுமார் 30 வினாடிகள்';
+
+  @override
+  String get notesReady => 'குறிப்புகள் தயார்';
+
+  @override
+  String get notConnectedV3 => 'இணைக்கப்படவில்லை';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return '$device இலிருந்து பதிவைத் தொடர புளூடூத்தை இயக்கவும்.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes நிமிடம் $device இல் சேமிக்கப்பட்டது. மீண்டும் இணைந்ததும் ஒத்திசைக்கப்படும்.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device $percent% இல் உள்ளது. இன்றிரவு சார்ஜ் செய்யுங்கள்.';
+  }
+
+  @override
+  String get stoppedV3 => 'நிறுத்தப்பட்டது';
+
+  @override
+  String get connectorsV3 => 'இணைப்பிகள்';
+
+  @override
+  String get yourConnectors => 'உங்கள் இணைப்பிகள்';
+
+  @override
+  String get recordingNow => 'இப்போது பதிவு செய்கிறது';
+
+  @override
+  String get pendantKind => 'பதக்கம்';
+
+  @override
+  String get builtInMicV3 => 'உள்ளமைந்த மைக்';
+
+  @override
+  String get editSummaryV3 => 'சுருக்கத்தைத் திருத்து';
+
+  @override
+  String get editingSummary => 'சுருக்கம் திருத்தப்படுகிறது';
+
+  @override
+  String get summarySaved => 'சுருக்கம் சேமிக்கப்பட்டது';
+
+  @override
+  String pairedCountV3(int count) {
+    return '$count இணைக்கப்பட்டவை';
+  }
+
+  @override
+  String get buttonSectionV3 => 'பொத்தான்';
 }

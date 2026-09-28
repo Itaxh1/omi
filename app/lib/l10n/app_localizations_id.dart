@@ -12568,4 +12568,149 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Omi tidak bisa menyimpan suara Anda. Coba lagi dari Pengaturan.';
+
+  @override
+  String get seeAllV3 => 'Lihat semua';
+
+  @override
+  String get pullDownToResume => 'Tarik ke bawah untuk lanjutkan';
+
+  @override
+  String get pullDownToStart => 'Tarik ke bawah untuk mulai';
+
+  @override
+  String get bluetoothOffV3 => 'Bluetooth mati';
+
+  @override
+  String get tapToFix => 'Ketuk untuk memperbaiki';
+
+  @override
+  String get omiNotFound => 'Omi tidak ditemukan';
+
+  @override
+  String get tapForOptions => 'Ketuk untuk opsi';
+
+  @override
+  String get reconnectingV3 => 'Menyambung ulang';
+
+  @override
+  String get omiKeepsRecording => 'Omi tetap merekam';
+
+  @override
+  String get pullToPause => 'Tarik untuk jeda';
+
+  @override
+  String get pullToResume => 'Tarik untuk lanjutkan';
+
+  @override
+  String get pullToRecord => 'Tarik untuk merekam';
+
+  @override
+  String get releaseToPause => 'Lepas untuk jeda';
+
+  @override
+  String get releaseToResume => 'Lepas untuk lanjutkan';
+
+  @override
+  String get releaseToRecord => 'Lepas untuk merekam';
+
+  @override
+  String get pausedPullToUndo => 'Dijeda. Tarik ke bawah lagi untuk urungkan.';
+
+  @override
+  String get listeningAgainPullToUndo => 'Mendengarkan lagi. Tarik ke bawah lagi untuk urungkan.';
+
+  @override
+  String get pullUpForYourOmi => 'Tarik ke atas untuk Omi Anda';
+
+  @override
+  String get releaseToOpen => 'Lepas untuk membuka';
+
+  @override
+  String get coachFirstNotes =>
+      'Omi sedang mendengarkan. Catatan pertama Anda muncul di sini saat Anda berhenti bicara.';
+
+  @override
+  String get thisIsOmi => 'Ini Omi.';
+
+  @override
+  String get teachTipBody =>
+      'Titik yang bergerak berarti sedang mendengarkan. Ketuk untuk melihat Omi Anda, atau tarik ke atas dari bawah. Tarik halaman ke bawah untuk jeda.';
+
+  @override
+  String get yourOmi => 'Omi Anda';
+
+  @override
+  String get onlyYouSeeRecordings => 'Hanya Anda yang bisa melihat rekaman Anda.';
+
+  @override
+  String get wordsShowUpHere => 'Kata-kata muncul di sini saat orang berbicara.';
+
+  @override
+  String get newWords => 'Kata baru';
+
+  @override
+  String get liveTranscriptV3 => 'Transkrip langsung';
+
+  @override
+  String get writingUpNotes => 'Menulis catatan Anda';
+
+  @override
+  String get summaryTodosAbout30s => 'Ringkasan dan tugas, sekitar 30 detik';
+
+  @override
+  String get notesReady => 'Catatan siap';
+
+  @override
+  String get notConnectedV3 => 'Tidak terhubung';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return 'Nyalakan Bluetooth agar tetap merekam dari $device.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes mnt tersimpan di $device. Akan disinkronkan saat tersambung lagi.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device tersisa $percent%. Isi daya malam ini.';
+  }
+
+  @override
+  String get stoppedV3 => 'Dihentikan';
+
+  @override
+  String get connectorsV3 => 'Konektor';
+
+  @override
+  String get yourConnectors => 'Konektor Anda';
+
+  @override
+  String get recordingNow => 'Sedang merekam';
+
+  @override
+  String get pendantKind => 'Liontin';
+
+  @override
+  String get builtInMicV3 => 'Mikrofon bawaan';
+
+  @override
+  String get editSummaryV3 => 'Edit ringkasan';
+
+  @override
+  String get editingSummary => 'Mengedit ringkasan';
+
+  @override
+  String get summarySaved => 'Ringkasan disimpan';
+
+  @override
+  String pairedCountV3(int count) {
+    return '$count tersambung';
+  }
+
+  @override
+  String get buttonSectionV3 => 'Tombol';
 }

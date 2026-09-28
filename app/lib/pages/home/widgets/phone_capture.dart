@@ -55,7 +55,8 @@ abstract final class PhoneCapture {
     );
   }
 
-  static Future<void> start(BuildContext context) async {
+  /// [openLive] opens the live page once recording starts (Your Omi, already showing it, says no).
+  static Future<void> start(BuildContext context, {bool openLive = true}) async {
     final captureProvider = context.read<CaptureProvider>();
     if (captureProvider.recordingState == RecordingState.initialising) return;
     // An Omi call owns the capture while it runs: open the call, never a recording.
@@ -67,10 +68,10 @@ abstract final class PhoneCapture {
       _showPendantListening(context);
       return;
     }
-    await _startPhoneRecording(context);
+    await _startPhoneRecording(context, openLive: openLive);
   }
 
-  static Future<void> _startPhoneRecording(BuildContext context) async {
+  static Future<void> _startPhoneRecording(BuildContext context, {bool openLive = true}) async {
     final captureProvider = context.read<CaptureProvider>();
     OmiHaptics.medium();
     if (captureProvider.recordingState == RecordingState.record || captureProvider.isPhoneMicPaused) {
@@ -109,7 +110,7 @@ abstract final class PhoneCapture {
       }
       return;
     }
-    if (context.mounted) {
+    if (openLive && context.mounted) {
       routeToPage(context, ConversationCapturingPage(topConversationId: captureProvider.topConversationId));
     }
   }

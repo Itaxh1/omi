@@ -4,14 +4,13 @@ import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/widgets/bottom_nav_bar.dart';
 
-/// Home's one bottom control (v3): a 60 pt capsule pinned above the home indicator, ink in White
-/// and paper in Black, with "Ask anything" on the left and a round mic on the right. Tapping it
-/// opens chat, the mic opens chat listening, and holding it opens Memories.
+/// Home's one bottom control (v8.2): a 56 pt liquid-glass capsule pinned 16 pt above the home
+/// indicator, "Ask anything" centred at 16.5/500 in ink. Tapping it opens Ask; holding it opens
+/// Memories. The mic is gone (v8.1): Ask is typed.
 class HomeAskBar extends StatelessWidget {
-  const HomeAskBar({super.key, required this.onOpen, required this.onVoice, this.onHold});
+  const HomeAskBar({super.key, required this.onOpen, this.onHold});
 
   final VoidCallback onOpen;
-  final VoidCallback onVoice;
   final VoidCallback? onHold;
 
   /// The bar's side inset (the design: 18 pt).
@@ -28,7 +27,7 @@ class HomeAskBar extends StatelessWidget {
         onTap: onOpen,
         onLongPress: onHold,
         excludeSemantics: true,
-        child: GestureDetector(
+        child: OmiPressable(
           key: const Key('home_ask_bar'),
           behavior: HitTestBehavior.opaque,
           onTap: () {
@@ -41,66 +40,23 @@ class HomeAskBar extends StatelessWidget {
                   OmiHaptics.medium();
                   onHold!();
                 },
-          child: Container(
+          child: SizedBox(
             height: kAskBarHeight,
-            decoration: BoxDecoration(
-              color: OmiColors.accent,
-              borderRadius: OmiRadius.pillAll,
-              // `.askw`: 0 12px 28px at 18 %.
-              boxShadow: const [BoxShadow(color: OmiColors.askShadow, offset: Offset(0, 12), blurRadius: 28)],
-            ),
-            padding: const EdgeInsets.fromLTRB(21, 0, 8, 0),
-            child: Row(
-              children: [
-                Expanded(
+            child: OmiLiquidGlass(
+              borderRadius: const BorderRadius.all(Radius.circular(30)),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     l10n.askAnything,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: OmiType.callout.copyWith(color: OmiColors.onAccent, fontWeight: FontWeight.w500),
+                    style: OmiType.askBar.copyWith(color: OmiColors.textPrimary),
                   ),
                 ),
-                const SizedBox(width: OmiSpacing.sm),
-                _MicButton(onTap: onVoice),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-/// Talk to Omi: a 44 pt ring on the bar.
-class _MicButton extends StatelessWidget {
-  const _MicButton({required this.onTap});
-
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final ink = OmiColors.onAccent;
-    return Semantics(
-      button: true,
-      label: context.l10n.voiceMode,
-      excludeSemantics: true,
-      onTap: onTap,
-      child: GestureDetector(
-        key: const Key('home_ask_mic'),
-        behavior: HitTestBehavior.opaque,
-        onTap: () {
-          OmiHaptics.selection();
-          onTap();
-        },
-        child: Container(
-          width: 44,
-          height: 44,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: ink.withValues(alpha: 0.4)),
-          ),
-          alignment: Alignment.center,
-          child: OmiGlyph(OmiGlyphs.mic, size: 20, color: ink),
         ),
       ),
     );

@@ -12350,4 +12350,147 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => '목소리를 저장하지 못했어요. 설정에서 다시 시도해 주세요.';
+
+  @override
+  String get seeAllV3 => '모두 보기';
+
+  @override
+  String get pullDownToResume => '아래로 당겨 다시 시작';
+
+  @override
+  String get pullDownToStart => '아래로 당겨 시작';
+
+  @override
+  String get bluetoothOffV3 => '블루투스 꺼짐';
+
+  @override
+  String get tapToFix => '탭해서 해결';
+
+  @override
+  String get omiNotFound => 'Omi를 찾을 수 없음';
+
+  @override
+  String get tapForOptions => '탭해서 옵션 보기';
+
+  @override
+  String get reconnectingV3 => '다시 연결 중';
+
+  @override
+  String get omiKeepsRecording => 'Omi는 계속 녹음해요';
+
+  @override
+  String get pullToPause => '당겨서 일시정지';
+
+  @override
+  String get pullToResume => '당겨서 다시 시작';
+
+  @override
+  String get pullToRecord => '당겨서 녹음';
+
+  @override
+  String get releaseToPause => '놓으면 일시정지';
+
+  @override
+  String get releaseToResume => '놓으면 다시 시작';
+
+  @override
+  String get releaseToRecord => '놓으면 녹음';
+
+  @override
+  String get pausedPullToUndo => '일시정지했어요. 되돌리려면 다시 아래로 당기세요.';
+
+  @override
+  String get listeningAgainPullToUndo => '다시 듣고 있어요. 되돌리려면 다시 아래로 당기세요.';
+
+  @override
+  String get pullUpForYourOmi => '위로 당겨 내 Omi 열기';
+
+  @override
+  String get releaseToOpen => '놓으면 열기';
+
+  @override
+  String get coachFirstNotes => 'Omi가 듣고 있어요. 말을 멈추면 첫 메모가 여기에 나타나요.';
+
+  @override
+  String get thisIsOmi => '이게 Omi예요.';
+
+  @override
+  String get teachTipBody => '점이 움직이면 듣고 있다는 뜻이에요. 탭하거나 아래에서 위로 당기면 내 Omi를 볼 수 있어요. 페이지를 아래로 당기면 일시정지돼요.';
+
+  @override
+  String get yourOmi => '내 Omi';
+
+  @override
+  String get onlyYouSeeRecordings => '녹음은 나만 볼 수 있어요.';
+
+  @override
+  String get wordsShowUpHere => '사람들이 말하면 여기에 글자가 나타나요.';
+
+  @override
+  String get newWords => '새 내용';
+
+  @override
+  String get liveTranscriptV3 => '실시간 기록';
+
+  @override
+  String get writingUpNotes => '메모 정리 중';
+
+  @override
+  String get summaryTodosAbout30s => '요약과 할 일, 약 30초';
+
+  @override
+  String get notesReady => '메모 완성';
+
+  @override
+  String get notConnectedV3 => '연결 안 됨';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return '$device에서 계속 녹음하려면 블루투스를 켜세요.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes분이 $device에 저장됨. 다시 연결되면 동기화돼요.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device 배터리가 $percent%예요. 오늘 밤에 충전하세요.';
+  }
+
+  @override
+  String get stoppedV3 => '중지됨';
+
+  @override
+  String get connectorsV3 => '커넥터';
+
+  @override
+  String get yourConnectors => '내 커넥터';
+
+  @override
+  String get recordingNow => '지금 녹음 중';
+
+  @override
+  String get pendantKind => '펜던트';
+
+  @override
+  String get builtInMicV3 => '내장 마이크';
+
+  @override
+  String get editSummaryV3 => '요약 편집';
+
+  @override
+  String get editingSummary => '요약 편집 중';
+
+  @override
+  String get summarySaved => '요약을 저장했어요';
+
+  @override
+  String pairedCountV3(int count) {
+    return '$count개 페어링됨';
+  }
+
+  @override
+  String get buttonSectionV3 => '버튼';
 }

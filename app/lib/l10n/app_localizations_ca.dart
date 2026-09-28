@@ -12618,4 +12618,149 @@ class AppLocalizationsCa extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Omi no ha pogut desar la teva veu. Torna-ho a provar des de Configuració.';
+
+  @override
+  String get seeAllV3 => 'Mostra-ho tot';
+
+  @override
+  String get pullDownToResume => 'Estira cap avall per reprendre';
+
+  @override
+  String get pullDownToStart => 'Estira cap avall per començar';
+
+  @override
+  String get bluetoothOffV3 => 'Bluetooth desactivat';
+
+  @override
+  String get tapToFix => 'Toca per solucionar-ho';
+
+  @override
+  String get omiNotFound => 'No es troba l\'Omi';
+
+  @override
+  String get tapForOptions => 'Toca per veure opcions';
+
+  @override
+  String get reconnectingV3 => 'Tornant a connectar';
+
+  @override
+  String get omiKeepsRecording => 'L\'Omi continua gravant';
+
+  @override
+  String get pullToPause => 'Estira per posar en pausa';
+
+  @override
+  String get pullToResume => 'Estira per reprendre';
+
+  @override
+  String get pullToRecord => 'Estira per gravar';
+
+  @override
+  String get releaseToPause => 'Deixa anar per posar en pausa';
+
+  @override
+  String get releaseToResume => 'Deixa anar per reprendre';
+
+  @override
+  String get releaseToRecord => 'Deixa anar per gravar';
+
+  @override
+  String get pausedPullToUndo => 'En pausa. Torna a estirar cap avall per desfer-ho.';
+
+  @override
+  String get listeningAgainPullToUndo => 'Torna a escoltar. Torna a estirar cap avall per desfer-ho.';
+
+  @override
+  String get pullUpForYourOmi => 'Estira cap amunt per al teu Omi';
+
+  @override
+  String get releaseToOpen => 'Deixa anar per obrir';
+
+  @override
+  String get coachFirstNotes =>
+      'L\'Omi està escoltant. Les teves primeres notes apareixeran aquí quan deixis de parlar.';
+
+  @override
+  String get thisIsOmi => 'Això és l\'Omi.';
+
+  @override
+  String get teachTipBody =>
+      'Els punts en moviment volen dir que escolta. Toca per veure el teu Omi o estira des de baix. Estira la pàgina cap avall per posar-ho en pausa.';
+
+  @override
+  String get yourOmi => 'El teu Omi';
+
+  @override
+  String get onlyYouSeeRecordings => 'Només tu pots veure les teves gravacions.';
+
+  @override
+  String get wordsShowUpHere => 'Les paraules apareixen aquí mentre la gent parla.';
+
+  @override
+  String get newWords => 'Paraules noves';
+
+  @override
+  String get liveTranscriptV3 => 'Transcripció en directe';
+
+  @override
+  String get writingUpNotes => 'Escrivint les teves notes';
+
+  @override
+  String get summaryTodosAbout30s => 'Resum i tasques, uns 30 segons';
+
+  @override
+  String get notesReady => 'Notes a punt';
+
+  @override
+  String get notConnectedV3 => 'No connectat';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return 'Activa el Bluetooth per continuar gravant des de $device.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes min desats a $device. Se sincronitzaran quan es torni a connectar.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device és al $percent%. Carrega\'l aquesta nit.';
+  }
+
+  @override
+  String get stoppedV3 => 'Aturat';
+
+  @override
+  String get connectorsV3 => 'Connectors';
+
+  @override
+  String get yourConnectors => 'Els teus connectors';
+
+  @override
+  String get recordingNow => 'Gravant ara';
+
+  @override
+  String get pendantKind => 'Penjoll';
+
+  @override
+  String get builtInMicV3 => 'Micròfon integrat';
+
+  @override
+  String get editSummaryV3 => 'Edita el resum';
+
+  @override
+  String get editingSummary => 'Editant el resum';
+
+  @override
+  String get summarySaved => 'Resum desat';
+
+  @override
+  String pairedCountV3(int count) {
+    return '$count vinculats';
+  }
+
+  @override
+  String get buttonSectionV3 => 'Botó';
 }

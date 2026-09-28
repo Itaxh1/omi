@@ -12562,4 +12562,148 @@ class AppLocalizationsSr extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Omi nije mogao da sačuva vaš glas. Pokušajte ponovo u Podešavanjima.';
+
+  @override
+  String get seeAllV3 => 'Prikaži sve';
+
+  @override
+  String get pullDownToResume => 'Povucite nadole za nastavak';
+
+  @override
+  String get pullDownToStart => 'Povucite nadole za početak';
+
+  @override
+  String get bluetoothOffV3 => 'Bluetooth isključen';
+
+  @override
+  String get tapToFix => 'Dodirnite za popravku';
+
+  @override
+  String get omiNotFound => 'Omi nije pronađen';
+
+  @override
+  String get tapForOptions => 'Dodirnite za opcije';
+
+  @override
+  String get reconnectingV3 => 'Ponovno povezivanje';
+
+  @override
+  String get omiKeepsRecording => 'Omi nastavlja da snima';
+
+  @override
+  String get pullToPause => 'Povucite za pauzu';
+
+  @override
+  String get pullToResume => 'Povucite za nastavak';
+
+  @override
+  String get pullToRecord => 'Povucite za snimanje';
+
+  @override
+  String get releaseToPause => 'Pustite za pauzu';
+
+  @override
+  String get releaseToResume => 'Pustite za nastavak';
+
+  @override
+  String get releaseToRecord => 'Pustite za snimanje';
+
+  @override
+  String get pausedPullToUndo => 'Pauzirano. Povucite nadole ponovo za poništavanje.';
+
+  @override
+  String get listeningAgainPullToUndo => 'Ponovo sluša. Povucite nadole ponovo za poništavanje.';
+
+  @override
+  String get pullUpForYourOmi => 'Povucite nagore za vaš Omi';
+
+  @override
+  String get releaseToOpen => 'Pustite za otvaranje';
+
+  @override
+  String get coachFirstNotes => 'Omi sluša. Vaše prve beleške pojaviće se ovde kad prestanete da govorite.';
+
+  @override
+  String get thisIsOmi => 'Ovo je Omi.';
+
+  @override
+  String get teachTipBody =>
+      'Tačke u pokretu znače da sluša. Dodirnite da vidite svoj Omi ili povucite nagore sa dna. Povucite stranicu nadole za pauzu.';
+
+  @override
+  String get yourOmi => 'Vaš Omi';
+
+  @override
+  String get onlyYouSeeRecordings => 'Samo vi vidite svoje snimke.';
+
+  @override
+  String get wordsShowUpHere => 'Reči se pojavljuju ovde dok ljudi govore.';
+
+  @override
+  String get newWords => 'Nove reči';
+
+  @override
+  String get liveTranscriptV3 => 'Transkript uživo';
+
+  @override
+  String get writingUpNotes => 'Zapisujemo vaše beleške';
+
+  @override
+  String get summaryTodosAbout30s => 'Rezime i zadaci, oko 30 sekundi';
+
+  @override
+  String get notesReady => 'Beleške su spremne';
+
+  @override
+  String get notConnectedV3 => 'Nije povezano';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return 'Uključite Bluetooth da biste nastavili snimanje sa uređaja $device.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes min sačuvano na uređaju $device. Sinhronizovaće se kad se ponovo poveže.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device je na $percent%. Napunite ga večeras.';
+  }
+
+  @override
+  String get stoppedV3 => 'Zaustavljeno';
+
+  @override
+  String get connectorsV3 => 'Konektori';
+
+  @override
+  String get yourConnectors => 'Vaši konektori';
+
+  @override
+  String get recordingNow => 'Snima sada';
+
+  @override
+  String get pendantKind => 'Privezak';
+
+  @override
+  String get builtInMicV3 => 'Ugrađeni mikrofon';
+
+  @override
+  String get editSummaryV3 => 'Uredi rezime';
+
+  @override
+  String get editingSummary => 'Uređivanje rezimea';
+
+  @override
+  String get summarySaved => 'Rezime je sačuvan';
+
+  @override
+  String pairedCountV3(int count) {
+    return 'Upareno: $count';
+  }
+
+  @override
+  String get buttonSectionV3 => 'Dugme';
 }

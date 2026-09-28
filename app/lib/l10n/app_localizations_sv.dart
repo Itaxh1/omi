@@ -12559,4 +12559,148 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Omi kunde inte spara din röst. Försök igen från Inställningar.';
+
+  @override
+  String get seeAllV3 => 'Visa alla';
+
+  @override
+  String get pullDownToResume => 'Dra nedåt för att fortsätta';
+
+  @override
+  String get pullDownToStart => 'Dra nedåt för att starta';
+
+  @override
+  String get bluetoothOffV3 => 'Bluetooth av';
+
+  @override
+  String get tapToFix => 'Tryck för att åtgärda';
+
+  @override
+  String get omiNotFound => 'Omi hittades inte';
+
+  @override
+  String get tapForOptions => 'Tryck för alternativ';
+
+  @override
+  String get reconnectingV3 => 'Återansluter';
+
+  @override
+  String get omiKeepsRecording => 'Omi fortsätter spela in';
+
+  @override
+  String get pullToPause => 'Dra för att pausa';
+
+  @override
+  String get pullToResume => 'Dra för att fortsätta';
+
+  @override
+  String get pullToRecord => 'Dra för att spela in';
+
+  @override
+  String get releaseToPause => 'Släpp för att pausa';
+
+  @override
+  String get releaseToResume => 'Släpp för att fortsätta';
+
+  @override
+  String get releaseToRecord => 'Släpp för att spela in';
+
+  @override
+  String get pausedPullToUndo => 'Pausad. Dra nedåt igen för att ångra.';
+
+  @override
+  String get listeningAgainPullToUndo => 'Lyssnar igen. Dra nedåt igen för att ångra.';
+
+  @override
+  String get pullUpForYourOmi => 'Dra uppåt för din Omi';
+
+  @override
+  String get releaseToOpen => 'Släpp för att öppna';
+
+  @override
+  String get coachFirstNotes => 'Omi lyssnar. Dina första anteckningar visas här när du slutar prata.';
+
+  @override
+  String get thisIsOmi => 'Det här är Omi.';
+
+  @override
+  String get teachTipBody =>
+      'Rörliga prickar betyder att den lyssnar. Tryck för att se din Omi, eller dra uppåt från nederkanten. Dra ner sidan för att pausa.';
+
+  @override
+  String get yourOmi => 'Din Omi';
+
+  @override
+  String get onlyYouSeeRecordings => 'Bara du kan se dina inspelningar.';
+
+  @override
+  String get wordsShowUpHere => 'Orden visas här medan folk pratar.';
+
+  @override
+  String get newWords => 'Nya ord';
+
+  @override
+  String get liveTranscriptV3 => 'Live-transkription';
+
+  @override
+  String get writingUpNotes => 'Skriver dina anteckningar';
+
+  @override
+  String get summaryTodosAbout30s => 'Sammanfattning och att göra, ungefär 30 sekunder';
+
+  @override
+  String get notesReady => 'Anteckningarna är klara';
+
+  @override
+  String get notConnectedV3 => 'Inte ansluten';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return 'Slå på Bluetooth för att fortsätta spela in från $device.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes min sparade på $device. Synkas när den ansluter igen.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device är på $percent %. Ladda den i kväll.';
+  }
+
+  @override
+  String get stoppedV3 => 'Stoppad';
+
+  @override
+  String get connectorsV3 => 'Kopplingar';
+
+  @override
+  String get yourConnectors => 'Dina kopplingar';
+
+  @override
+  String get recordingNow => 'Spelar in nu';
+
+  @override
+  String get pendantKind => 'Hänge';
+
+  @override
+  String get builtInMicV3 => 'Inbyggd mikrofon';
+
+  @override
+  String get editSummaryV3 => 'Redigera sammanfattning';
+
+  @override
+  String get editingSummary => 'Redigerar sammanfattning';
+
+  @override
+  String get summarySaved => 'Sammanfattningen sparad';
+
+  @override
+  String pairedCountV3(int count) {
+    return '$count parkopplade';
+  }
+
+  @override
+  String get buttonSectionV3 => 'Knapp';
 }

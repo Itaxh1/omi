@@ -12449,4 +12449,148 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get voiceNotSavedV3 => 'Omi לא הצליח לשמור את הקול שלכם. נסו שוב מההגדרות.';
+
+  @override
+  String get seeAllV3 => 'הצג הכול';
+
+  @override
+  String get pullDownToResume => 'משכו למטה כדי להמשיך';
+
+  @override
+  String get pullDownToStart => 'משכו למטה כדי להתחיל';
+
+  @override
+  String get bluetoothOffV3 => 'Bluetooth כבוי';
+
+  @override
+  String get tapToFix => 'הקישו לתיקון';
+
+  @override
+  String get omiNotFound => 'Omi לא נמצא';
+
+  @override
+  String get tapForOptions => 'הקישו לאפשרויות';
+
+  @override
+  String get reconnectingV3 => 'מתחבר מחדש';
+
+  @override
+  String get omiKeepsRecording => 'Omi ממשיך להקליט';
+
+  @override
+  String get pullToPause => 'משכו כדי להשהות';
+
+  @override
+  String get pullToResume => 'משכו כדי להמשיך';
+
+  @override
+  String get pullToRecord => 'משכו כדי להקליט';
+
+  @override
+  String get releaseToPause => 'שחררו כדי להשהות';
+
+  @override
+  String get releaseToResume => 'שחררו כדי להמשיך';
+
+  @override
+  String get releaseToRecord => 'שחררו כדי להקליט';
+
+  @override
+  String get pausedPullToUndo => 'הושהה. משכו שוב למטה כדי לבטל.';
+
+  @override
+  String get listeningAgainPullToUndo => 'מאזין שוב. משכו שוב למטה כדי לבטל.';
+
+  @override
+  String get pullUpForYourOmi => 'משכו למעלה ל-Omi שלכם';
+
+  @override
+  String get releaseToOpen => 'שחררו כדי לפתוח';
+
+  @override
+  String get coachFirstNotes => 'Omi מאזין. ההערות הראשונות שלכם יופיעו כאן כשתפסיקו לדבר.';
+
+  @override
+  String get thisIsOmi => 'זה Omi.';
+
+  @override
+  String get teachTipBody =>
+      'נקודות זזות אומרות שהוא מאזין. הקישו כדי לראות את ה-Omi שלכם, או משכו למעלה מלמטה. משכו את הדף למטה כדי להשהות.';
+
+  @override
+  String get yourOmi => 'ה-Omi שלכם';
+
+  @override
+  String get onlyYouSeeRecordings => 'רק אתם יכולים לראות את ההקלטות שלכם.';
+
+  @override
+  String get wordsShowUpHere => 'המילים מופיעות כאן כשאנשים מדברים.';
+
+  @override
+  String get newWords => 'מילים חדשות';
+
+  @override
+  String get liveTranscriptV3 => 'תמלול חי';
+
+  @override
+  String get writingUpNotes => 'כותבים את ההערות שלכם';
+
+  @override
+  String get summaryTodosAbout30s => 'סיכום ומשימות, כ-30 שניות';
+
+  @override
+  String get notesReady => 'ההערות מוכנות';
+
+  @override
+  String get notConnectedV3 => 'לא מחובר';
+
+  @override
+  String turnOnBluetoothToKeep(String device) {
+    return 'הפעילו Bluetooth כדי להמשיך להקליט מ-$device.';
+  }
+
+  @override
+  String minutesSavedOnDevice(int minutes, String device) {
+    return '$minutes דק׳ נשמרו ב-$device. הן יסונכרנו כשהחיבור יחזור.';
+  }
+
+  @override
+  String deviceLowBattery(String device, int percent) {
+    return '$device ב-$percent%. טענו אותו הלילה.';
+  }
+
+  @override
+  String get stoppedV3 => 'נעצר';
+
+  @override
+  String get connectorsV3 => 'מחברים';
+
+  @override
+  String get yourConnectors => 'המחברים שלכם';
+
+  @override
+  String get recordingNow => 'מקליט עכשיו';
+
+  @override
+  String get pendantKind => 'תליון';
+
+  @override
+  String get builtInMicV3 => 'מיקרופון מובנה';
+
+  @override
+  String get editSummaryV3 => 'עריכת הסיכום';
+
+  @override
+  String get editingSummary => 'עורכים את הסיכום';
+
+  @override
+  String get summarySaved => 'הסיכום נשמר';
+
+  @override
+  String pairedCountV3(int count) {
+    return '$count מחוברים';
+  }
+
+  @override
+  String get buttonSectionV3 => 'כפתור';
 }

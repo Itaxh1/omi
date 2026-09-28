@@ -7,7 +7,7 @@ import 'package:omi/ui/ui.dart';
 // their last rows can scroll clear of it.
 
 /// The Ask bar's height (v3 Home: 60 pt).
-const double kAskBarHeight = 60;
+const double kAskBarHeight = 56;
 
 /// The home indicator's inset, or nothing on phones without one.
 double bottomNavBarReservedInset(BuildContext context) => MediaQuery.viewPaddingOf(context).bottom;

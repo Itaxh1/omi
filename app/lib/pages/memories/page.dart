@@ -73,7 +73,7 @@ class MemoriesPageState extends State<MemoriesPage> {
           backgroundColor: OmiColors.surface0,
           appBar: OmiScreenHeader(
             title: l10n.memories,
-            trailing: OmiRingButton(
+            trailing: OmiRingButton.glass(
               key: const Key('memories_add'),
               glyph: OmiGlyphs.plusLine,
               label: l10n.createMemoryTooltip,

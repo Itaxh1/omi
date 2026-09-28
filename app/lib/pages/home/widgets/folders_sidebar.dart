@@ -1,10 +1,13 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
 import 'package:omi/pages/conversations/all_conversations_page.dart';
 import 'package:omi/pages/conversations/widgets/create_folder_sheet.dart';
-import 'package:omi/providers/app_provider.dart';
+import 'package:omi/pages/devices/devices_screen.dart';
+import 'package:omi/providers/device_provider.dart';
 import 'package:omi/providers/conversation_provider.dart';
 import 'package:omi/providers/folder_provider.dart';
 import 'package:omi/ui/ui.dart';
@@ -62,9 +65,10 @@ class _Sidebar extends StatelessWidget {
       final kept = p.conversations.where((c) => !c.discarded);
       return (kept.length, kept.where((c) => (c.folderId ?? '').isEmpty).length);
     });
-    final installed = context.select<AppProvider, String>(
-      (p) => p.apps.where((a) => a.enabled).map((a) => a.name).take(3).join(', '),
-    );
+    final pairedName = context.select<DeviceProvider?, String?>((d) => d?.pairedDevice?.name)?.trim() ?? '';
+    final deviceName = pairedName.isNotEmpty
+        ? pairedName
+        : (Platform.isIOS ? l10n.memoryThisIphone : l10n.memoryThisPhone);
     return Material(
       color: OmiColors.surface0,
       child: Container(
@@ -145,20 +149,21 @@ class _Sidebar extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 14),
                 child: Column(
                   children: [
+                    // v8: Devices, then Connectors (was Apps / Browse all apps).
                     _FolderRow(
-                      key: const Key('sidebar_apps'),
-                      glyph: OmiGlyphs.apps,
-                      label: l10n.apps,
-                      detail: installed.isEmpty ? null : installed,
-                      onTap: () => _open(context, const AddAnAppPage()),
+                      key: const Key('sidebar_devices'),
+                      glyph: OmiGlyphs.pendantLine,
+                      label: l10n.devices,
+                      detail: deviceName,
+                      onTap: () => _open(context, const DevicesScreen()),
                     ),
                     _FolderRow(
-                      key: const Key('sidebar_browse_apps'),
-                      glyph: OmiGlyphs.browse,
-                      label: l10n.browseAllApps,
+                      key: const Key('sidebar_apps'),
+                      glyph: OmiGlyphs.plug,
+                      label: l10n.connectorsV3,
                       detail: '›',
                       last: true,
-                      onTap: () => _open(context, const AllAppsPage()),
+                      onTap: () => _open(context, const AddAnAppPage()),
                     ),
                   ],
                 ),

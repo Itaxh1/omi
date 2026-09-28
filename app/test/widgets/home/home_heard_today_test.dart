@@ -82,7 +82,7 @@ void main() {
     expect(HomeHeardToday.isToday(picked.first, now: now), isFalse);
   });
 
-  testWidgets('the label, the all link and one row per conversation with its device tile', (tester) async {
+  testWidgets('Conversations, See all and one row per conversation with its device tile', (tester) async {
     final rows = [
       _conversation('c1', 'Ship the widgets without waiting for chat', now, source: ConversationSource.omi),
       _conversation('c2', 'Quick check of the iPhone mic', now.subtract(const Duration(hours: 1)),
@@ -93,7 +93,8 @@ void main() {
     await _pump(tester, _provider(rows), rows);
     final l10n = AppLocalizations.of(tester.element(find.byType(HomeHeardToday)));
 
-    expect(find.text(l10n.heardToday), findsOneWidget);
+    expect(find.text(l10n.conversations), findsOneWidget);
+    expect(find.text(l10n.seeAllV3), findsOneWidget);
     expect(find.byKey(const Key('home_heard_all')), findsOneWidget);
     for (final c in rows) {
       expect(find.byKey(ValueKey('home_heard_${c.id}')), findsOneWidget);
@@ -106,12 +107,12 @@ void main() {
     expect(find.byType(Divider), findsNothing);
   });
 
-  testWidgets('when the rows are not today\'s the label says Latest', (tester) async {
+  testWidgets('v8 says Conversations whether or not the rows are today\'s', (tester) async {
     final rows = [_conversation('y', 'Yesterday', yesterday)];
     await _pump(tester, _provider(rows), rows, today: false);
     final l10n = AppLocalizations.of(tester.element(find.byType(HomeHeardToday)));
-    expect(find.text(l10n.latest), findsOneWidget);
-    expect(find.text(l10n.heardToday), findsNothing);
+    expect(find.text(l10n.conversations), findsOneWidget);
+    expect(find.text(l10n.latest), findsNothing);
   });
 
   testWidgets('titles share one size: 16.5 when they all fit, smaller (never under 14.5) when one is long',

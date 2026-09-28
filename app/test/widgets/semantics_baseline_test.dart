@@ -299,7 +299,7 @@ Future<SurfaceSemanticsReport> _measureHome(WidgetTester tester) async {
     app: _app(
       Scaffold(
         body: HomeHeardToday(conversations: [newest], onAll: () {}),
-        bottomNavigationBar: HomeAskBar(onOpen: () {}, onVoice: () {}),
+        bottomNavigationBar: HomeAskBar(onOpen: () {}),
       ),
       wrap: (child) => _withProviders(child, [
         ChangeNotifierProvider<HomeProvider>.value(value: home),
