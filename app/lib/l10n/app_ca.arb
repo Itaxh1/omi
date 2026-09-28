@@ -3865,5 +3865,21 @@
     "syncingToYourPhone": "Sincronitzant amb el telèfon",
     "lastWeekday": "El {weekday} passat",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, de la conversa de les {time}"
+    "memoryFromConversation": "{day}, de la conversa de les {time}",
+    "addAnApp": "Afegeix una app",
+    "allAppsV3": "Totes les apps",
+    "browseAllAppsDetail": "Cerca per nom o tria una categoria",
+    "appsSendTo": "Envia resums i tasques a",
+    "appsAskWith": "Pregunta a Omi amb",
+    "appAdded": "Afegida",
+    "appsCountV3": "{count, plural, =1{1 app} other{{count} apps}}",
+    "appsInCategory": "{count} apps a {category}",
+    "noAppsMatch": "Cap app coincideix amb «{query}»",
+    "pastChats": "Xats anteriors",
+    "newChatV3": "Xat nou",
+    "startFresh": "Comença de nou",
+    "deleteChatQuestion": "Vols suprimir aquest xat?",
+    "deleteChatMessage": "Desapareixerà dels xats anteriors per sempre.",
+    "deleteChatV3": "Suprimeix el xat",
+    "noPastChats": "Els teus xats amb Omi apareixen aquí."
 }

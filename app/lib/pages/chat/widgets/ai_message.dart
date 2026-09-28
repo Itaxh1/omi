@@ -221,9 +221,6 @@ Future<ServerConversation?> resolveChatCitationConversation({
 }
 
 class AIMessage extends StatefulWidget {
-  /// The answer starts this far in, beside the Omi mark (24 pt) and the gap after it.
-  static const double answerIndent = 24 + OmiSpacing.sm;
-
   final bool showTypingIndicator;
   final bool showThinkingAfterText;
   final ServerMessage message;
@@ -273,35 +270,37 @@ class _AIMessageState extends State<AIMessage> {
   @override
   Widget build(BuildContext context) {
     if (widget.replyFailed) return ChatReplyError(onRetry: widget.onRetry);
-    // v4 Ask: each answer is a turn beside the Omi mark, which moves while Omi works on it.
-    return Row(
+    // v3 Ask (`.an`): the answer is plain reading text, full width. While Omi works on it the
+    // mark turns beside what it is doing; the mark goes once words arrive.
+    final waiting = widget.showTypingIndicator && widget.message.text.isEmpty;
+    final body = buildMessageWidget(
+      widget.message,
+      widget.sendMessage,
+      widget.showTypingIndicator,
+      widget.displayOptions,
+      widget.appSender,
+      widget.updateConversation,
+      widget.setMessageNps,
+      onAskOmi: widget.onAskOmi,
+      showThinkingAfterText: widget.showThinkingAfterText,
+      fetchConversation: widget.fetchConversation,
+    );
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: OmiRingLogo(
-            key: const Key('chat_answer_mark'),
-            size: 24,
-            mode: widget.showTypingIndicator ? OmiRingMode.chase : OmiRingMode.still,
-          ),
-        ),
-        const SizedBox(width: OmiSpacing.sm),
-        Expanded(
-          // Selection stays on markdown text only. Wrapping citation
-          // GestureDetectors in SelectionArea eats taps on iOS.
-          child: buildMessageWidget(
-            widget.message,
-            widget.sendMessage,
-            widget.showTypingIndicator,
-            widget.displayOptions,
-            widget.appSender,
-            widget.updateConversation,
-            widget.setMessageNps,
-            onAskOmi: widget.onAskOmi,
-            showThinkingAfterText: widget.showThinkingAfterText,
-            fetchConversation: widget.fetchConversation,
-          ),
-        ),
+        if (waiting)
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const OmiRingLogo(key: Key('chat_answer_mark'), size: 18, mode: OmiRingMode.chase),
+              const SizedBox(width: 10),
+              // Selection stays on markdown text only. Wrapping citation GestureDetectors in
+              // SelectionArea eats taps on iOS.
+              Expanded(child: body),
+            ],
+          )
+        else
+          body,
         if (!widget.showTypingIndicator && widget.message.memoryAction != null) ...[
           const SizedBox(height: 8),
           Row(
@@ -766,43 +765,23 @@ class _MemoriesMessageWidgetState extends State<MemoriesMessageWidget> {
           )
         else if (widget.showTypingIndicator && widget.message.thinkings.any((t) => t.toLowerCase().contains('chart')))
           const _ChartShimmer(),
-        // v4 Ask: where the answer came from, as a row of cards that open each conversation.
-        if (widget.messageMemories.isNotEmpty) ...[
-          const SizedBox(height: OmiSpacing.sm),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Text(
-              context.l10n.answerSources.toUpperCase(),
-              style: OmiType.caption.copyWith(
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.5,
-                color: OmiColors.textTertiary,
-              ),
-            ),
-          ),
-          const SizedBox(height: OmiSpacing.xs),
-          SingleChildScrollView(
+        // v3 Ask (`.heard`): where the answer came from, one quiet row per conversation under a rule
+        // on the left; each opens its conversation.
+        if (widget.messageMemories.isNotEmpty)
+          Column(
             key: const ValueKey('chat-citation-list'),
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                for (var data in widget.messageMemories.indexed) ...[
-                  if (data.$1 > 0) const SizedBox(width: OmiSpacing.xs),
-                  _SourceCard(
-                    key: ValueKey('chat-citation-${data.$2.id}'),
-                    emoji: tryDecodeText(data.$2.structured.emoji),
-                    title: data.$2.structured.title,
-                    when: data.$2.createdAt,
-                    loading: conversationDetailLoading[data.$1],
-                    onTap: () => _openCitedConversation(data.$1, data.$2),
-                  ),
-                ],
-              ],
-            ),
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              for (var data in widget.messageMemories.indexed)
+                _HeardRow(
+                  key: ValueKey('chat-citation-${data.$2.id}'),
+                  title: data.$2.structured.title,
+                  when: data.$2.createdAt,
+                  loading: conversationDetailLoading[data.$1],
+                  onTap: () => _openCitedConversation(data.$1, data.$2),
+                ),
+            ],
           ),
-        ],
         if (widget.messageText.isNotEmpty && widget.messageText != '…' && !widget.showTypingIndicator)
           MessageActionBar(
             messageText: widget.messageText,
@@ -911,6 +890,56 @@ class _ThinkingLine extends StatelessWidget {
   }
 }
 
+/// A source under an answer (v3 `.heard`): a 2 pt rule on the left, the conversation at 16 on a
+/// 1.4 line over when it was, at 13 in the secondary ink.
+class _HeardRow extends StatelessWidget {
+  const _HeardRow({super.key, required this.title, required this.when, required this.loading, required this.onTap});
+
+  final String title;
+  final DateTime when;
+  final bool loading;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final format = OmiDateFormat.of(context);
+    final at = when.toLocal();
+    final day = format.dayTitle(at);
+    return Semantics(
+      button: true,
+      label: '$title, $day',
+      hint: context.l10n.openConversation,
+      excludeSemantics: true,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: loading ? null : onTap,
+        child: Container(
+          margin: const EdgeInsets.only(top: 14),
+          padding: const EdgeInsets.fromLTRB(14, 2, 0, 2),
+          decoration: BoxDecoration(border: Border(left: BorderSide(color: OmiColors.outline, width: 2))),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title.trim().isEmpty ? context.l10n.untitledConversation : title.trim(),
+                        maxLines: 2, overflow: TextOverflow.ellipsis, style: OmiType.callout.copyWith(height: 1.4)),
+                    const SizedBox(height: 3),
+                    Text(context.l10n.dayAtTime(day, format.time(at)),
+                        style: OmiType.footnote.copyWith(height: 1.4, color: OmiColors.textSecondary)),
+                  ],
+                ),
+              ),
+              if (loading) ...[const SizedBox(width: 10), const OmiSpinner(size: OmiSpinnerSize.small)],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 /// Placeholder where a chart will appear while the reply that draws it is still streaming.
 class _ChartShimmer extends StatelessWidget {
   const _ChartShimmer();
@@ -989,86 +1018,6 @@ class ChatReplyError extends StatelessWidget {
                 padding: const EdgeInsets.only(left: OmiSpacing.xs),
                 child: OmiButton.secondary(label: l10n.tryAgain, size: OmiButtonSize.compact, onPressed: onRetry),
               ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// A conversation an answer came from (v4 Ask source card): its emoji on a tile, its title, and
-/// when it happened ("Today · 3:14 PM"). Opens the conversation.
-class _SourceCard extends StatelessWidget {
-  const _SourceCard({
-    super.key,
-    required this.emoji,
-    required this.title,
-    required this.when,
-    required this.loading,
-    required this.onTap,
-  });
-
-  final String emoji;
-  final String title;
-  final DateTime when;
-  final bool loading;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final format = OmiDateFormat.of(context);
-    final local = when.toLocal();
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: onTap,
-      child: Container(
-        constraints: const BoxConstraints(maxWidth: 230),
-        padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 12, 10),
-        decoration: BoxDecoration(
-          color: OmiColors.surface1,
-          borderRadius: const BorderRadius.all(Radius.circular(12)),
-          border: Border.all(color: OmiColors.border, width: 0.5),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 30,
-              height: 30,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: OmiColors.surface2,
-                borderRadius: const BorderRadius.all(Radius.circular(9)),
-              ),
-              child: emoji.trim().isEmpty
-                  ? Icon(Icons.sticky_note_2_outlined, size: 16, color: OmiColors.textSecondary)
-                  : Text(emoji.trim(), style: const TextStyle(fontSize: 15)),
-            ),
-            const SizedBox(width: 10),
-            Flexible(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: OmiType.subhead.copyWith(fontSize: 14, fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    '${format.dayHeader(local)} · ${format.time(local)}',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: OmiType.caption.copyWith(fontSize: 12, color: OmiColors.textTertiary),
-                  ),
-                ],
-              ),
-            ),
-            if (loading) ...[
-              const SizedBox(width: OmiSpacing.xs),
-              OmiSpinner(size: OmiSpinnerSize.small, color: OmiColors.textSecondary),
-            ],
           ],
         ),
       ),

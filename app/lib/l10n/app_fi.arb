@@ -3865,5 +3865,21 @@
     "syncingToYourPhone": "Synkronoidaan puhelimeen",
     "lastWeekday": "Viime {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, klo {time} keskustelusta"
+    "memoryFromConversation": "{day}, klo {time} keskustelusta",
+    "addAnApp": "Lisää sovellus",
+    "allAppsV3": "Kaikki sovellukset",
+    "browseAllAppsDetail": "Hae nimellä tai valitse luokka",
+    "appsSendTo": "Lähetä yhteenvedot ja tehtävät kohteeseen",
+    "appsAskWith": "Kysy Omilta käyttäen",
+    "appAdded": "Lisätty",
+    "appsCountV3": "{count, plural, =1{1 sovellus} other{{count} sovellusta}}",
+    "appsInCategory": "{count} sovellusta luokassa {category}",
+    "noAppsMatch": "Haulla ”{query}” ei löytynyt sovelluksia",
+    "pastChats": "Aiemmat keskustelut",
+    "newChatV3": "Uusi keskustelu",
+    "startFresh": "Aloita alusta",
+    "deleteChatQuestion": "Poistetaanko tämä keskustelu?",
+    "deleteChatMessage": "Se poistuu aiemmista keskusteluista pysyvästi.",
+    "deleteChatV3": "Poista keskustelu",
+    "noPastChats": "Keskustelusi Omin kanssa näkyvät täällä."
 }

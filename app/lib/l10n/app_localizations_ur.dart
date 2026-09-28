@@ -12343,4 +12343,64 @@ class AppLocalizationsUr extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day، $time کی گفتگو سے';
   }
+
+  @override
+  String get addAnApp => 'ایپ شامل کریں';
+
+  @override
+  String get allAppsV3 => 'تمام ایپس';
+
+  @override
+  String get browseAllAppsDetail => 'نام سے تلاش کریں یا زمرہ منتخب کریں';
+
+  @override
+  String get appsSendTo => 'خلاصے اور کام بھیجیں';
+
+  @override
+  String get appsAskWith => 'اس کے ساتھ Omi سے پوچھیں';
+
+  @override
+  String get appAdded => 'شامل ہے';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ایپس',
+      one: '1 ایپ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count ایپس $category میں';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return '“$query” سے کوئی ایپ نہیں ملی';
+  }
+
+  @override
+  String get pastChats => 'پچھلی چیٹس';
+
+  @override
+  String get newChatV3 => 'نئی چیٹ';
+
+  @override
+  String get startFresh => 'نئے سرے سے شروع کریں';
+
+  @override
+  String get deleteChatQuestion => 'یہ چیٹ حذف کریں؟';
+
+  @override
+  String get deleteChatMessage => 'یہ پچھلی چیٹس سے ہمیشہ کے لیے ہٹ جائے گی۔';
+
+  @override
+  String get deleteChatV3 => 'چیٹ حذف کریں';
+
+  @override
+  String get noPastChats => 'Omi کے ساتھ آپ کی چیٹس یہاں نظر آئیں گی۔';
 }

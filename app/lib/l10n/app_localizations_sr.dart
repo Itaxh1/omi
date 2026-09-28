@@ -12343,4 +12343,64 @@ class AppLocalizationsSr extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, iz razgovora u $time';
   }
+
+  @override
+  String get addAnApp => 'Dodaj aplikaciju';
+
+  @override
+  String get allAppsV3 => 'Sve aplikacije';
+
+  @override
+  String get browseAllAppsDetail => 'Pretražite po nazivu ili izaberite kategoriju';
+
+  @override
+  String get appsSendTo => 'Šalji rezimee i zadatke u';
+
+  @override
+  String get appsAskWith => 'Pitaj Omi uz';
+
+  @override
+  String get appAdded => 'Dodato';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count aplikacija',
+      one: '1 aplikacija',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count aplikacija u $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'Nema aplikacija za „$query”';
+  }
+
+  @override
+  String get pastChats => 'Prethodni razgovori';
+
+  @override
+  String get newChatV3 => 'Novi razgovor';
+
+  @override
+  String get startFresh => 'Počni ispočetka';
+
+  @override
+  String get deleteChatQuestion => 'Izbrisati ovaj razgovor?';
+
+  @override
+  String get deleteChatMessage => 'Trajno nestaje iz prethodnih razgovora.';
+
+  @override
+  String get deleteChatV3 => 'Izbriši razgovor';
+
+  @override
+  String get noPastChats => 'Vaši razgovori sa Omijem pojavljuju se ovde.';
 }

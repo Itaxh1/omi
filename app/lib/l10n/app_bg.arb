@@ -3865,5 +3865,21 @@
     "syncingToYourPhone": "Синхронизиране с телефона",
     "lastWeekday": "Миналия {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, от разговора в {time}"
+    "memoryFromConversation": "{day}, от разговора в {time}",
+    "addAnApp": "Добави приложение",
+    "allAppsV3": "Всички приложения",
+    "browseAllAppsDetail": "Търсете по име или изберете категория",
+    "appsSendTo": "Изпращай резюмета и задачи до",
+    "appsAskWith": "Питай Omi с",
+    "appAdded": "Добавено",
+    "appsCountV3": "{count, plural, =1{1 приложение} other{{count} приложения}}",
+    "appsInCategory": "{count} приложения в {category}",
+    "noAppsMatch": "Няма приложения за „{query}“",
+    "pastChats": "Предишни чатове",
+    "newChatV3": "Нов чат",
+    "startFresh": "Започнете отначало",
+    "deleteChatQuestion": "Да се изтрие ли този чат?",
+    "deleteChatMessage": "Ще изчезне от предишните чатове завинаги.",
+    "deleteChatV3": "Изтрий чата",
+    "noPastChats": "Чатовете ви с Omi се показват тук."
 }

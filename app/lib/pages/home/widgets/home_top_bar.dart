@@ -7,6 +7,9 @@ import 'package:omi/backend/schema/phone_call.dart';
 import 'package:omi/pages/home/widgets/idle_capture_card.dart';
 import 'package:omi/providers/capture_provider.dart';
 import 'package:omi/providers/phone_call_provider.dart';
+import 'package:omi/providers/device_provider.dart';
+import 'package:omi/providers/sync_provider.dart';
+import 'package:omi/services/devices/bluetooth_readiness.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/enums.dart';
 import 'package:omi/utils/l10n_extensions.dart';
@@ -119,9 +122,22 @@ class HomeListeningLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final call = context.select<PhoneCallProvider, PhoneCallState>((p) => p.callState);
-    final (state, problem) = context.select<CaptureProvider, (ListeningLabelState, bool)>(
+    final (state, captureProblem) = context.select<CaptureProvider, (ListeningLabelState, bool)>(
       (c) => (stateOf(c, call), hasProblem(c)),
     );
+    // `.rng.syn` / `.rng.wait`: the mark turns slowly while recordings come off the pendant and
+    // quickly, dimmed, while it reconnects; the red dot also marks a pendant that can't connect.
+    final (paired, reconnecting) = context.select<DeviceProvider?, (bool, bool)>((d) {
+      final hasPaired = (d?.pairedDevice?.id ?? '').isNotEmpty;
+      return (hasPaired, hasPaired && d!.isConnecting && !d.isConnected);
+    });
+    final syncing = context.select<SyncProvider?, bool>((s) => s?.isSyncing ?? false);
+    final problem = captureProblem || reconnecting;
+    final turn = reconnecting
+        ? OmiRingTurn.reconnect
+        : syncing
+            ? OmiRingTurn.sync
+            : OmiRingTurn.none;
     final word = switch (state) {
       ListeningLabelState.listening => l10n.listening,
       ListeningLabelState.muted => null,
@@ -163,22 +179,30 @@ class HomeListeningLabel extends StatelessWidget {
                         size: markSize,
                         color: markColor,
                         mode: state == ListeningLabelState.listening ? OmiRingMode.wave : OmiRingMode.still,
+                        turn: turn,
                       ),
-                      if (problem)
-                        Positioned(
-                          top: -1,
-                          right: -1,
-                          child: Container(
-                            key: const Key('home_listening_alert'),
-                            width: 9,
-                            height: 9,
-                            decoration: BoxDecoration(
-                              color: OmiColors.danger,
-                              shape: BoxShape.circle,
-                              border: Border.all(color: OmiColors.surface0, width: 1.5),
-                            ),
-                          ),
+                      Positioned(
+                        top: -1,
+                        right: -1,
+                        // Bluetooth switching off with a pendant paired also lights the dot.
+                        child: ListenableBuilder(
+                          listenable: BluetoothReadiness.instance,
+                          builder: (context, _) {
+                            final btOff = paired && BluetoothReadiness.instance.state == BluetoothAdapterState.off;
+                            if (!problem && !btOff) return const SizedBox.shrink();
+                            return Container(
+                              key: const Key('home_listening_alert'),
+                              width: 9,
+                              height: 9,
+                              decoration: BoxDecoration(
+                                color: OmiColors.danger,
+                                shape: BoxShape.circle,
+                                border: Border.all(color: OmiColors.surface0, width: 1.5),
+                              ),
+                            );
+                          },
                         ),
+                      ),
                     ],
                   ),
                 ),

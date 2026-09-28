@@ -12335,4 +12335,64 @@ class AppLocalizationsFi extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, klo $time keskustelusta';
   }
+
+  @override
+  String get addAnApp => 'Lisää sovellus';
+
+  @override
+  String get allAppsV3 => 'Kaikki sovellukset';
+
+  @override
+  String get browseAllAppsDetail => 'Hae nimellä tai valitse luokka';
+
+  @override
+  String get appsSendTo => 'Lähetä yhteenvedot ja tehtävät kohteeseen';
+
+  @override
+  String get appsAskWith => 'Kysy Omilta käyttäen';
+
+  @override
+  String get appAdded => 'Lisätty';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count sovellusta',
+      one: '1 sovellus',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count sovellusta luokassa $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'Haulla ”$query” ei löytynyt sovelluksia';
+  }
+
+  @override
+  String get pastChats => 'Aiemmat keskustelut';
+
+  @override
+  String get newChatV3 => 'Uusi keskustelu';
+
+  @override
+  String get startFresh => 'Aloita alusta';
+
+  @override
+  String get deleteChatQuestion => 'Poistetaanko tämä keskustelu?';
+
+  @override
+  String get deleteChatMessage => 'Se poistuu aiemmista keskusteluista pysyvästi.';
+
+  @override
+  String get deleteChatV3 => 'Poista keskustelu';
+
+  @override
+  String get noPastChats => 'Keskustelusi Omin kanssa näkyvät täällä.';
 }

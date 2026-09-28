@@ -3900,5 +3900,21 @@
     "syncingToYourPhone": "Синхронизация с телефоном",
     "lastWeekday": "В прошлый {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, из разговора в {time}"
+    "memoryFromConversation": "{day}, из разговора в {time}",
+    "addAnApp": "Добавить приложение",
+    "allAppsV3": "Все приложения",
+    "browseAllAppsDetail": "Ищите по названию или выберите категорию",
+    "appsSendTo": "Отправлять сводки и задачи в",
+    "appsAskWith": "Спрашивать Omi с помощью",
+    "appAdded": "Добавлено",
+    "appsCountV3": "{count, plural, =1{1 приложение} other{{count} приложений}}",
+    "appsInCategory": "{count} приложений в «{category}»",
+    "noAppsMatch": "Нет приложений по запросу «{query}»",
+    "pastChats": "Прошлые чаты",
+    "newChatV3": "Новый чат",
+    "startFresh": "Начать заново",
+    "deleteChatQuestion": "Удалить этот чат?",
+    "deleteChatMessage": "Он навсегда исчезнет из прошлых чатов.",
+    "deleteChatV3": "Удалить чат",
+    "noPastChats": "Здесь появятся ваши чаты с Omi."
 }

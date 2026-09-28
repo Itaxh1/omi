@@ -556,6 +556,10 @@ abstract final class OmiType {
     letterSpacing: -0.75,
   );
 
+  /// 19 on a 1.45 line — an answer in Ask (v3 `.an`).
+  static TextStyle get answer => _tint(_answer);
+  static const TextStyle _answer = TextStyle(fontSize: 19, height: 1.45, fontWeight: FontWeight.w400);
+
   /// 18 — v3 leads: the Listening word, the initial on You, a firmware version.
   static TextStyle get lead => _tint(_lead);
   static const TextStyle _lead = TextStyle(fontSize: 18, height: 1.3, fontWeight: FontWeight.w600);

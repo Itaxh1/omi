@@ -11425,5 +11425,21 @@
     "syncingToYourPhone": "همگام‌سازی با تلفن",
     "lastWeekday": "{weekday} گذشته",
     "dayAtTime": "{day}، {time}",
-    "memoryFromConversation": "{day}، از گفتگوی ساعت {time}"
+    "memoryFromConversation": "{day}، از گفتگوی ساعت {time}",
+    "addAnApp": "افزودن برنامه",
+    "allAppsV3": "همه برنامه‌ها",
+    "browseAllAppsDetail": "با نام جستجو کنید یا یک دسته انتخاب کنید",
+    "appsSendTo": "ارسال خلاصه‌ها و کارها به",
+    "appsAskWith": "از Omi بپرسید با",
+    "appAdded": "افزوده شد",
+    "appsCountV3": "{count, plural, =1{۱ برنامه} other{{count} برنامه}}",
+    "appsInCategory": "{count} برنامه در {category}",
+    "noAppsMatch": "هیچ برنامه‌ای با «{query}» پیدا نشد",
+    "pastChats": "گفتگوهای قبلی",
+    "newChatV3": "گفتگوی جدید",
+    "startFresh": "از نو شروع کنید",
+    "deleteChatQuestion": "این گفتگو حذف شود؟",
+    "deleteChatMessage": "برای همیشه از گفتگوهای قبلی حذف می‌شود.",
+    "deleteChatV3": "حذف گفتگو",
+    "noPastChats": "گفتگوهای شما با Omi اینجا نشان داده می‌شود."
 }

@@ -27,7 +27,7 @@ class HumanMessage extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsetsDirectional.only(start: 40),
+      padding: const EdgeInsetsDirectional.only(start: 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -58,12 +58,12 @@ class HumanMessage extends StatelessWidget {
           Wrap(
             alignment: WrapAlignment.end,
             children: [
-              // v4 Ask: the reader's words in a raised bubble on the trailing side, its tail corner
-              // tucked in, at most 80% of the width.
+              // v3 Ask (`.me`): the reader's words in an ink-outlined bubble on the trailing side, its
+              // tail corner tucked in, at most 85 % of the width.
               Container(
-                constraints: BoxConstraints(maxWidth: MediaQuery.sizeOf(context).width * 0.8),
+                constraints: BoxConstraints(maxWidth: MediaQuery.sizeOf(context).width * 0.85),
                 decoration: BoxDecoration(
-                  color: OmiColors.surface2,
+                  border: Border.all(color: OmiColors.textPrimary, width: 1.5),
                   borderRadius: const BorderRadiusDirectional.only(
                     topStart: Radius.circular(18),
                     topEnd: Radius.circular(18),
@@ -71,10 +71,10 @@ class HumanMessage extends StatelessWidget {
                     bottomEnd: Radius.circular(4),
                   ).resolve(Directionality.of(context)),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                 child: SelectableText(
                   messageText.trimRight(),
-                  style: OmiType.body.copyWith(height: 23 / 17),
+                  style: OmiType.callout.copyWith(height: 1.4),
                   contextMenuBuilder: (context, editableTextState) {
                     return omiSelectionMenuBuilder(context, editableTextState, (text) {
                       onAskOmi?.call(text);

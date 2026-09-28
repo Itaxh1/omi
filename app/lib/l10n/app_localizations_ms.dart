@@ -12369,4 +12369,64 @@ class AppLocalizationsMs extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, daripada perbualan pukul $time';
   }
+
+  @override
+  String get addAnApp => 'Tambah apl';
+
+  @override
+  String get allAppsV3 => 'Semua apl';
+
+  @override
+  String get browseAllAppsDetail => 'Cari mengikut nama atau pilih kategori';
+
+  @override
+  String get appsSendTo => 'Hantar ringkasan dan tugasan ke';
+
+  @override
+  String get appsAskWith => 'Tanya Omi dengan';
+
+  @override
+  String get appAdded => 'Ditambah';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count apl',
+      one: '1 apl',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count apl dalam $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'Tiada apl sepadan dengan “$query”';
+  }
+
+  @override
+  String get pastChats => 'Sembang lepas';
+
+  @override
+  String get newChatV3 => 'Sembang baharu';
+
+  @override
+  String get startFresh => 'Mula semula';
+
+  @override
+  String get deleteChatQuestion => 'Padam sembang ini?';
+
+  @override
+  String get deleteChatMessage => 'Ia hilang daripada sembang lepas buat selamanya.';
+
+  @override
+  String get deleteChatV3 => 'Padam sembang';
+
+  @override
+  String get noPastChats => 'Sembang anda dengan Omi dipaparkan di sini.';
 }

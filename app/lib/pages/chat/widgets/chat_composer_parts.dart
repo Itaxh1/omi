@@ -13,7 +13,8 @@ import 'package:omi/utils/l10n_extensions.dart';
 /// v3: the composer draws no shadow (the field is outlined).
 List<BoxShadow> get kChatComposerShadow => const [];
 
-/// The 44 pt ink circle beside the composer (v3 `#attach`): Add (idle) or Discard (recording).
+/// The 44 pt ink circle beside the composer (v3 `.comp .cbtn`, which keeps `.comp button`'s ink
+/// fill under a 1.5 pt rim): Add (idle) or Discard (recording).
 ///
 /// Labelled for screen readers and long-press; [onPressed] null draws it disabled.
 class ChatComposerSideButton extends StatelessWidget {
@@ -33,7 +34,7 @@ class ChatComposerSideButton extends StatelessWidget {
         button: true,
         enabled: enabled,
         label: label,
-        child: GestureDetector(
+        child: OmiPressable(
           behavior: HitTestBehavior.opaque,
           onTap: onPressed,
           child: Container(
@@ -42,6 +43,7 @@ class ChatComposerSideButton extends StatelessWidget {
             decoration: BoxDecoration(
               color: enabled ? OmiColors.accent : OmiColors.surface3,
               shape: BoxShape.circle,
+              border: Border.all(color: OmiColors.outline, width: 1.5),
             ),
             child: Center(
               child: ExcludeSemantics(
@@ -70,11 +72,15 @@ class ChatComposerRoundButton extends StatelessWidget {
     required this.label,
     required this.onPressed,
     this.buttonKey,
+    this.filled = true,
   });
 
   final Widget icon;
   final String label;
   final VoidCallback? onPressed;
+
+  /// An ink circle (the design's mic, and stop / send while recording); false leaves the glyph bare.
+  final bool filled;
 
   /// Key for the tappable widget itself (automation addresses it).
   final Key? buttonKey;
@@ -89,7 +95,7 @@ class ChatComposerRoundButton extends StatelessWidget {
         button: true,
         enabled: enabled,
         label: label,
-        child: GestureDetector(
+        child: OmiPressable(
           key: buttonKey,
           behavior: HitTestBehavior.opaque,
           onTap: onPressed,
@@ -101,12 +107,19 @@ class ChatComposerRoundButton extends StatelessWidget {
                 height: 38,
                 width: 38,
                 decoration: BoxDecoration(
-                  color: enabled ? OmiColors.accent : OmiColors.surface3,
+                  color: filled ? (enabled ? OmiColors.accent : OmiColors.surface3) : null,
                   shape: BoxShape.circle,
                 ),
                 child: ExcludeSemantics(
                   child: IconTheme.merge(
-                    data: IconThemeData(size: 16, color: enabled ? OmiColors.onAccent : OmiColors.textDisabled),
+                    data: IconThemeData(
+                      size: filled ? 16 : 20,
+                      color: !enabled
+                          ? OmiColors.textDisabled
+                          : filled
+                              ? OmiColors.onAccent
+                              : OmiColors.textPrimary,
+                    ),
                     child: Center(child: icon),
                   ),
                 ),
@@ -137,7 +150,7 @@ class ChatSendButton extends StatelessWidget {
       enabled: enabled,
       label: label,
       excludeSemantics: true,
-      child: GestureDetector(
+      child: OmiPressable(
         key: buttonKey,
         behavior: HitTestBehavior.opaque,
         onTap: onPressed,

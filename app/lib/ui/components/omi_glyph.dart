@@ -65,6 +65,9 @@ abstract final class OmiGlyphs {
   static const String chevronDown = 'assets/icons/v3-chevron-down.svg';
   static const String plusLine = 'assets/icons/v3-plus.svg';
   static const String close = 'assets/icons/v3-close.svg';
+
+  /// Past chats (a clock turning back).
+  static const String history = 'assets/icons/v3-history.svg';
   static const String bluetooth = 'assets/icons/bluetooth.svg';
   static const String apps = 'assets/icons/v3-apps.svg';
   static const String browse = 'assets/icons/v3-browse.svg';

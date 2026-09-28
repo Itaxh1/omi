@@ -12312,4 +12312,64 @@ class AppLocalizationsHi extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, $time वाली बातचीत से';
   }
+
+  @override
+  String get addAnApp => 'एक ऐप जोड़ें';
+
+  @override
+  String get allAppsV3 => 'सभी ऐप';
+
+  @override
+  String get browseAllAppsDetail => 'नाम से खोजें या कोई श्रेणी चुनें';
+
+  @override
+  String get appsSendTo => 'सारांश और काम भेजें';
+
+  @override
+  String get appsAskWith => 'Omi से पूछें इनके साथ';
+
+  @override
+  String get appAdded => 'जोड़ा गया';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ऐप',
+      one: '1 ऐप',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count ऐप $category में';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return '“$query” से कोई ऐप नहीं मिला';
+  }
+
+  @override
+  String get pastChats => 'पिछली चैट';
+
+  @override
+  String get newChatV3 => 'नई चैट';
+
+  @override
+  String get startFresh => 'नए सिरे से शुरू करें';
+
+  @override
+  String get deleteChatQuestion => 'यह चैट हटाएं?';
+
+  @override
+  String get deleteChatMessage => 'यह पिछली चैट से हमेशा के लिए हट जाएगी।';
+
+  @override
+  String get deleteChatV3 => 'चैट हटाएं';
+
+  @override
+  String get noPastChats => 'Omi के साथ आपकी चैट यहाँ दिखेंगी।';
 }

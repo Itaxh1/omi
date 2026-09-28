@@ -3865,5 +3865,21 @@
     "syncingToYourPhone": "กำลังซิงก์ไปยังโทรศัพท์",
     "lastWeekday": "{weekday}ที่แล้ว",
     "dayAtTime": "{day} {time}",
-    "memoryFromConversation": "{day} จากบทสนทนาเวลา {time}"
+    "memoryFromConversation": "{day} จากบทสนทนาเวลา {time}",
+    "addAnApp": "เพิ่มแอป",
+    "allAppsV3": "แอปทั้งหมด",
+    "browseAllAppsDetail": "ค้นหาด้วยชื่อหรือเลือกหมวดหมู่",
+    "appsSendTo": "ส่งสรุปและสิ่งที่ต้องทำไปที่",
+    "appsAskWith": "ถาม Omi ด้วย",
+    "appAdded": "เพิ่มแล้ว",
+    "appsCountV3": "{count, plural, =1{1 แอป} other{{count} แอป}}",
+    "appsInCategory": "{count} แอปใน {category}",
+    "noAppsMatch": "ไม่มีแอปที่ตรงกับ “{query}”",
+    "pastChats": "แชตที่ผ่านมา",
+    "newChatV3": "แชตใหม่",
+    "startFresh": "เริ่มใหม่",
+    "deleteChatQuestion": "ลบแชตนี้ไหม",
+    "deleteChatMessage": "แชตนี้จะหายไปจากแชตที่ผ่านมาถาวร",
+    "deleteChatV3": "ลบแชต",
+    "noPastChats": "แชตของคุณกับ Omi จะแสดงที่นี่"
 }

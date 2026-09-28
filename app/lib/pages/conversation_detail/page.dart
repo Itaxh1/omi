@@ -25,6 +25,7 @@ import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/utils/logger.dart';
 import 'package:omi/utils/other/temp.dart';
 import 'package:omi/utils/platform/platform_manager.dart';
+import 'package:omi/pages/chat/open_ask.dart';
 import 'conversation_detail_provider.dart';
 import 'conversation_summary_selection.dart';
 import 'maps_util.dart';
@@ -203,7 +204,7 @@ class ConversationDetailPageState extends State<ConversationDetailPage> {
       case 'copy_summary':
         OmiClipboard.copy(context, ConversationSummarySelection.select(conversation).content, what: l10n.summary);
       case 'ask_omi':
-        routeToPage(
+        openAsk(
           context,
           ChatPage(
             initialChatContext:

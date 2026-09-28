@@ -11425,5 +11425,21 @@
     "syncingToYourPhone": "Синхронизација на телефонот",
     "lastWeekday": "Минатиот {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, од разговорот во {time}"
+    "memoryFromConversation": "{day}, од разговорот во {time}",
+    "addAnApp": "Додај апликација",
+    "allAppsV3": "Сите апликации",
+    "browseAllAppsDetail": "Пребарајте по име или изберете категорија",
+    "appsSendTo": "Испраќај резимеа и задачи до",
+    "appsAskWith": "Прашај го Omi со",
+    "appAdded": "Додадено",
+    "appsCountV3": "{count, plural, =1{1 апликација} other{{count} апликации}}",
+    "appsInCategory": "{count} апликации во {category}",
+    "noAppsMatch": "Нема апликации за „{query}“",
+    "pastChats": "Претходни разговори",
+    "newChatV3": "Нов разговор",
+    "startFresh": "Почни одново",
+    "deleteChatQuestion": "Да се избрише овој разговор?",
+    "deleteChatMessage": "Трајно исчезнува од претходните разговори.",
+    "deleteChatV3": "Избриши разговор",
+    "noPastChats": "Вашите разговори со Omi се прикажуваат тука."
 }

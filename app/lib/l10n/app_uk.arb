@@ -3865,5 +3865,21 @@
     "syncingToYourPhone": "Синхронізація з телефоном",
     "lastWeekday": "Минулого {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, з розмови о {time}"
+    "memoryFromConversation": "{day}, з розмови о {time}",
+    "addAnApp": "Додати застосунок",
+    "allAppsV3": "Усі застосунки",
+    "browseAllAppsDetail": "Шукайте за назвою або виберіть категорію",
+    "appsSendTo": "Надсилати підсумки й справи в",
+    "appsAskWith": "Питати Omi з",
+    "appAdded": "Додано",
+    "appsCountV3": "{count, plural, =1{1 застосунок} other{{count} застосунків}}",
+    "appsInCategory": "{count} застосунків у «{category}»",
+    "noAppsMatch": "Немає застосунків за запитом «{query}»",
+    "pastChats": "Попередні чати",
+    "newChatV3": "Новий чат",
+    "startFresh": "Почати заново",
+    "deleteChatQuestion": "Видалити цей чат?",
+    "deleteChatMessage": "Він назавжди зникне з попередніх чатів.",
+    "deleteChatV3": "Видалити чат",
+    "noPastChats": "Тут з'являться ваші чати з Omi."
 }

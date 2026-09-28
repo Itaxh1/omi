@@ -3865,5 +3865,21 @@
     "syncingToYourPhone": "Menyegerak ke telefon anda",
     "lastWeekday": "{weekday} lepas",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, daripada perbualan pukul {time}"
+    "memoryFromConversation": "{day}, daripada perbualan pukul {time}",
+    "addAnApp": "Tambah apl",
+    "allAppsV3": "Semua apl",
+    "browseAllAppsDetail": "Cari mengikut nama atau pilih kategori",
+    "appsSendTo": "Hantar ringkasan dan tugasan ke",
+    "appsAskWith": "Tanya Omi dengan",
+    "appAdded": "Ditambah",
+    "appsCountV3": "{count, plural, =1{1 apl} other{{count} apl}}",
+    "appsInCategory": "{count} apl dalam {category}",
+    "noAppsMatch": "Tiada apl sepadan dengan “{query}”",
+    "pastChats": "Sembang lepas",
+    "newChatV3": "Sembang baharu",
+    "startFresh": "Mula semula",
+    "deleteChatQuestion": "Padam sembang ini?",
+    "deleteChatMessage": "Ia hilang daripada sembang lepas buat selamanya.",
+    "deleteChatV3": "Padam sembang",
+    "noPastChats": "Sembang anda dengan Omi dipaparkan di sini."
 }

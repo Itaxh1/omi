@@ -11425,5 +11425,21 @@
     "syncingToYourPhone": "ನಿಮ್ಮ ಫೋನ್‌ಗೆ ಸಿಂಕ್ ಆಗುತ್ತಿದೆ",
     "lastWeekday": "ಕಳೆದ {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, {time} ರ ಸಂಭಾಷಣೆಯಿಂದ"
+    "memoryFromConversation": "{day}, {time} ರ ಸಂಭಾಷಣೆಯಿಂದ",
+    "addAnApp": "ಆಪ್ ಸೇರಿಸಿ",
+    "allAppsV3": "ಎಲ್ಲಾ ಆಪ್‌ಗಳು",
+    "browseAllAppsDetail": "ಹೆಸರಿನಿಂದ ಹುಡುಕಿ ಅಥವಾ ವರ್ಗವನ್ನು ಆರಿಸಿ",
+    "appsSendTo": "ಸಾರಾಂಶ ಮತ್ತು ಕೆಲಸಗಳನ್ನು ಇಲ್ಲಿಗೆ ಕಳುಹಿಸಿ",
+    "appsAskWith": "ಇದರೊಂದಿಗೆ Omi ಅನ್ನು ಕೇಳಿ",
+    "appAdded": "ಸೇರಿಸಲಾಗಿದೆ",
+    "appsCountV3": "{count, plural, =1{1 ಆಪ್} other{{count} ಆಪ್‌ಗಳು}}",
+    "appsInCategory": "{count} ಆಪ್‌ಗಳು {category} ನಲ್ಲಿ",
+    "noAppsMatch": "“{query}” ಗೆ ಹೊಂದುವ ಆಪ್ ಇಲ್ಲ",
+    "pastChats": "ಹಿಂದಿನ ಚಾಟ್‌ಗಳು",
+    "newChatV3": "ಹೊಸ ಚಾಟ್",
+    "startFresh": "ಹೊಸದಾಗಿ ಪ್ರಾರಂಭಿಸಿ",
+    "deleteChatQuestion": "ಈ ಚಾಟ್ ಅಳಿಸಬೇಕೆ?",
+    "deleteChatMessage": "ಇದು ಹಿಂದಿನ ಚಾಟ್‌ಗಳಿಂದ ಶಾಶ್ವತವಾಗಿ ಹೋಗುತ್ತದೆ.",
+    "deleteChatV3": "ಚಾಟ್ ಅಳಿಸಿ",
+    "noPastChats": "Omi ಜೊತೆಗಿನ ನಿಮ್ಮ ಚಾಟ್‌ಗಳು ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತವೆ."
 }

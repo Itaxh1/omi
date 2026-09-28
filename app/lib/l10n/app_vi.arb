@@ -3865,5 +3865,21 @@
     "syncingToYourPhone": "Đang đồng bộ về điện thoại",
     "lastWeekday": "{weekday} tuần trước",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, từ cuộc trò chuyện lúc {time}"
+    "memoryFromConversation": "{day}, từ cuộc trò chuyện lúc {time}",
+    "addAnApp": "Thêm ứng dụng",
+    "allAppsV3": "Tất cả ứng dụng",
+    "browseAllAppsDetail": "Tìm theo tên hoặc chọn một danh mục",
+    "appsSendTo": "Gửi tóm tắt và việc cần làm tới",
+    "appsAskWith": "Hỏi Omi bằng",
+    "appAdded": "Đã thêm",
+    "appsCountV3": "{count, plural, =1{1 ứng dụng} other{{count} ứng dụng}}",
+    "appsInCategory": "{count} ứng dụng trong {category}",
+    "noAppsMatch": "Không có ứng dụng khớp với “{query}”",
+    "pastChats": "Các cuộc trò chuyện trước",
+    "newChatV3": "Cuộc trò chuyện mới",
+    "startFresh": "Bắt đầu lại",
+    "deleteChatQuestion": "Xóa cuộc trò chuyện này?",
+    "deleteChatMessage": "Nó sẽ biến mất khỏi các cuộc trò chuyện trước vĩnh viễn.",
+    "deleteChatV3": "Xóa cuộc trò chuyện",
+    "noPastChats": "Các cuộc trò chuyện của bạn với Omi xuất hiện ở đây."
 }

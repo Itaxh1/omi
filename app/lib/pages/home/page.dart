@@ -15,7 +15,6 @@ import 'package:omi/backend/schema/bt_device/bt_device.dart';
 import 'package:omi/backend/schema/geolocation.dart';
 import 'package:omi/gen/pigeon_communicator.g.dart';
 import 'package:omi/pages/action_items/todo_list_page.dart';
-import 'package:omi/pages/apps/page.dart';
 import 'package:omi/pages/memories/page.dart';
 import 'package:omi/pages/chat/page.dart';
 import 'package:omi/pages/conversations/all_conversations_page.dart';
@@ -59,6 +58,8 @@ import 'package:omi/widgets/upgrade_alert.dart';
 import 'package:omi/widgets/bottom_nav_bar.dart';
 import 'package:omi/services/sockets/listen_client_state.dart';
 import 'package:omi/ui/ui.dart';
+import 'package:omi/pages/apps/apps_v3.dart';
+import 'package:omi/pages/chat/open_ask.dart';
 import 'home_deep_links.dart';
 import 'home_navigation.dart';
 import 'home_widgets_publisher.dart';
@@ -175,7 +176,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
 
   static Widget _sectionPage(int index) => switch (index) {
         2 => const TodoListPage(),
-        3 => const AppsPage(showAppBar: true),
+        3 => const AddAnAppPage(),
         _ => const AllConversationsPage(),
       };
 
@@ -667,12 +668,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
     );
   }
 
-  /// D1: chat is a normal pushed page everywhere (back chevron, edge swipe), not a full-screen modal.
+  /// v3: Ask rises over Home from the Ask bar (the design's `#chat`) and starts fresh.
   void _openChat({bool voice = false}) {
     OmiHaptics.selection();
     _recorderOpen.value = false;
     PlatformManager.instance.analytics.bottomNavigationTabClicked(voice ? 'Chat Voice' : 'Chat');
-    routeToPage(context, ChatPage(isPivotBottom: false, autoStartVoice: voice));
+    openAsk(context, ChatPage(isPivotBottom: false, autoStartVoice: voice));
   }
 
   /// Holding the dock's Omi mark: Memories (a hidden shortcut; screen readers get it as an action).

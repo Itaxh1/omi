@@ -22382,6 +22382,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{day}, from the {time} conversation'**
   String memoryFromConversation(String day, String time);
+
+  /// Apps (v3): the page title
+  ///
+  /// In en, this message translates to:
+  /// **'Add an app'**
+  String get addAnApp;
+
+  /// Apps (v3): the store page title
+  ///
+  /// In en, this message translates to:
+  /// **'All apps'**
+  String get allAppsV3;
+
+  /// Apps (v3): under Browse all apps
+  ///
+  /// In en, this message translates to:
+  /// **'Search by name or pick a category'**
+  String get browseAllAppsDetail;
+
+  /// Apps (v3): group of apps that receive Omi's notes
+  ///
+  /// In en, this message translates to:
+  /// **'Send summaries and to-dos to'**
+  String get appsSendTo;
+
+  /// Apps (v3): group of chat apps
+  ///
+  /// In en, this message translates to:
+  /// **'Ask Omi with'**
+  String get appsAskWith;
+
+  /// Apps (v3): the button on an app that is on
+  ///
+  /// In en, this message translates to:
+  /// **'Added'**
+  String get appAdded;
+
+  /// Apps (v3): how many apps the store shows
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 app} other{{count} apps}}'**
+  String appsCountV3(int count);
+
+  /// Apps (v3): how many apps one category has
+  ///
+  /// In en, this message translates to:
+  /// **'{count} apps in {category}'**
+  String appsInCategory(int count, String category);
+
+  /// Apps (v3): the store search found nothing
+  ///
+  /// In en, this message translates to:
+  /// **'No apps match “{query}”'**
+  String noAppsMatch(String query);
+
+  /// Ask (v3): the history page title and button
+  ///
+  /// In en, this message translates to:
+  /// **'Past chats'**
+  String get pastChats;
+
+  /// Ask (v3): the first row of Past chats
+  ///
+  /// In en, this message translates to:
+  /// **'New chat'**
+  String get newChatV3;
+
+  /// Ask (v3): under New chat
+  ///
+  /// In en, this message translates to:
+  /// **'Start fresh'**
+  String get startFresh;
+
+  /// Ask (v3): confirm before deleting a past chat
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this chat?'**
+  String get deleteChatQuestion;
+
+  /// Ask (v3): what deleting a past chat means
+  ///
+  /// In en, this message translates to:
+  /// **'It’s gone from Past chats for good.'**
+  String get deleteChatMessage;
+
+  /// Ask (v3): the confirm button
+  ///
+  /// In en, this message translates to:
+  /// **'Delete chat'**
+  String get deleteChatV3;
+
+  /// Ask (v3): Past chats when there are none
+  ///
+  /// In en, this message translates to:
+  /// **'Your chats with Omi show up here.'**
+  String get noPastChats;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

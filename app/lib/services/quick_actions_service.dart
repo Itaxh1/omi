@@ -16,6 +16,7 @@ import 'package:omi/utils/enums.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/utils/other/temp.dart';
 import 'package:omi/ui/ui.dart';
+import 'package:omi/pages/chat/open_ask.dart';
 
 const _kAddTask = 'add_task';
 const _kAskOmi = 'ask_omi';
@@ -92,12 +93,12 @@ class QuickActionsService {
       case _kAddTask:
         _navigateToTasksAndOpenSheet(navigator, context);
         break;
-      // D1: chat is a normal pushed page everywhere.
+      // v3: Ask rises over whatever is open.
       case _kAskOmi:
-        routeToPage(context, const ChatPage(isPivotBottom: false));
+        openAsk(context, const ChatPage(isPivotBottom: false));
         break;
       case _kVoiceMode:
-        routeToPage(context, const ChatPage(isPivotBottom: false, autoStartVoice: true));
+        openAsk(context, const ChatPage(isPivotBottom: false, autoStartVoice: true));
         break;
       case _kMute:
         unawaited(_toggleMute(context, mute: true));

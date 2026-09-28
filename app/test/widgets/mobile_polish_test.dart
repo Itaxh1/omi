@@ -62,7 +62,7 @@ void main() {
     String? selected;
     await tester.pumpWidget(_app(MediaQuery(
       data: const MediaQueryData(textScaler: TextScaler.linear(2)),
-      child: AskSuggestions(onSelected: (value) => selected = value),
+      child: AskSuggestions(animation: const AlwaysStoppedAnimation(1), onSelected: (value) => selected = value),
     )));
     final owe = find.byKey(const ValueKey('ask_suggestion_1'));
     await tester.ensureVisible(owe);

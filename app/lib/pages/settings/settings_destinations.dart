@@ -5,7 +5,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:omi/backend/http/api/announcements.dart';
 import 'package:omi/backend/preferences.dart';
 import 'package:omi/pages/announcements/changelog_sheet.dart';
-import 'package:omi/pages/apps/page.dart';
 import 'package:omi/pages/conversations/auto_sync_page.dart';
 import 'package:omi/pages/conversations/sync_page.dart';
 import 'package:omi/pages/memories/page.dart';
@@ -38,6 +37,7 @@ import 'package:omi/pages/settings/usage_page.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/other/temp.dart';
 import 'package:omi/utils/platform/platform_manager.dart';
+import 'package:omi/pages/apps/apps_v3.dart';
 
 /// Opens [destination] from Settings (a row or a search result).
 ///
@@ -77,8 +77,8 @@ Future<void> openSettingsDestination(BuildContext context, SettingsDestination d
     case SettingsDestination.integrations:
       await routeToPage(context, const IntegrationsPage());
     case SettingsDestination.apps:
-      // Rev 3: Apps moved from the tab bar into Settings.
-      await routeToPage(context, const AppsPage(showAppBar: true));
+      // v3: Add an app (the design's `appsAll`), with All apps behind Browse all apps.
+      await routeToPage(context, const AddAnAppPage());
     case SettingsDestination.permissions:
       PlatformManager.instance.analytics.permissionsSettingsOpened();
       await routeToPage(context, const PermissionsPage());

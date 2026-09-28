@@ -3865,5 +3865,21 @@
     "syncingToYourPhone": "Synchroniseren naar je telefoon",
     "lastWeekday": "Afgelopen {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, uit het gesprek van {time}"
+    "memoryFromConversation": "{day}, uit het gesprek van {time}",
+    "addAnApp": "Een app toevoegen",
+    "allAppsV3": "Alle apps",
+    "browseAllAppsDetail": "Zoek op naam of kies een categorie",
+    "appsSendTo": "Samenvattingen en taken sturen naar",
+    "appsAskWith": "Omi vragen met",
+    "appAdded": "Toegevoegd",
+    "appsCountV3": "{count, plural, =1{1 app} other{{count} apps}}",
+    "appsInCategory": "{count} apps in {category}",
+    "noAppsMatch": "Geen apps voor ‘{query}’",
+    "pastChats": "Eerdere chats",
+    "newChatV3": "Nieuwe chat",
+    "startFresh": "Opnieuw beginnen",
+    "deleteChatQuestion": "Deze chat verwijderen?",
+    "deleteChatMessage": "Hij verdwijnt voorgoed uit eerdere chats.",
+    "deleteChatV3": "Chat verwijderen",
+    "noPastChats": "Je chats met Omi verschijnen hier."
 }

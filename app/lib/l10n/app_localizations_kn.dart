@@ -12371,4 +12371,64 @@ class AppLocalizationsKn extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, $time ರ ಸಂಭಾಷಣೆಯಿಂದ';
   }
+
+  @override
+  String get addAnApp => 'ಆಪ್ ಸೇರಿಸಿ';
+
+  @override
+  String get allAppsV3 => 'ಎಲ್ಲಾ ಆಪ್‌ಗಳು';
+
+  @override
+  String get browseAllAppsDetail => 'ಹೆಸರಿನಿಂದ ಹುಡುಕಿ ಅಥವಾ ವರ್ಗವನ್ನು ಆರಿಸಿ';
+
+  @override
+  String get appsSendTo => 'ಸಾರಾಂಶ ಮತ್ತು ಕೆಲಸಗಳನ್ನು ಇಲ್ಲಿಗೆ ಕಳುಹಿಸಿ';
+
+  @override
+  String get appsAskWith => 'ಇದರೊಂದಿಗೆ Omi ಅನ್ನು ಕೇಳಿ';
+
+  @override
+  String get appAdded => 'ಸೇರಿಸಲಾಗಿದೆ';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ಆಪ್‌ಗಳು',
+      one: '1 ಆಪ್',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count ಆಪ್‌ಗಳು $category ನಲ್ಲಿ';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return '“$query” ಗೆ ಹೊಂದುವ ಆಪ್ ಇಲ್ಲ';
+  }
+
+  @override
+  String get pastChats => 'ಹಿಂದಿನ ಚಾಟ್‌ಗಳು';
+
+  @override
+  String get newChatV3 => 'ಹೊಸ ಚಾಟ್';
+
+  @override
+  String get startFresh => 'ಹೊಸದಾಗಿ ಪ್ರಾರಂಭಿಸಿ';
+
+  @override
+  String get deleteChatQuestion => 'ಈ ಚಾಟ್ ಅಳಿಸಬೇಕೆ?';
+
+  @override
+  String get deleteChatMessage => 'ಇದು ಹಿಂದಿನ ಚಾಟ್‌ಗಳಿಂದ ಶಾಶ್ವತವಾಗಿ ಹೋಗುತ್ತದೆ.';
+
+  @override
+  String get deleteChatV3 => 'ಚಾಟ್ ಅಳಿಸಿ';
+
+  @override
+  String get noPastChats => 'Omi ಜೊತೆಗಿನ ನಿಮ್ಮ ಚಾಟ್‌ಗಳು ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತವೆ.';
 }

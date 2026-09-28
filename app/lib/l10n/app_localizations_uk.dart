@@ -12353,4 +12353,64 @@ class AppLocalizationsUk extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, з розмови о $time';
   }
+
+  @override
+  String get addAnApp => 'Додати застосунок';
+
+  @override
+  String get allAppsV3 => 'Усі застосунки';
+
+  @override
+  String get browseAllAppsDetail => 'Шукайте за назвою або виберіть категорію';
+
+  @override
+  String get appsSendTo => 'Надсилати підсумки й справи в';
+
+  @override
+  String get appsAskWith => 'Питати Omi з';
+
+  @override
+  String get appAdded => 'Додано';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count застосунків',
+      one: '1 застосунок',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count застосунків у «$category»';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'Немає застосунків за запитом «$query»';
+  }
+
+  @override
+  String get pastChats => 'Попередні чати';
+
+  @override
+  String get newChatV3 => 'Новий чат';
+
+  @override
+  String get startFresh => 'Почати заново';
+
+  @override
+  String get deleteChatQuestion => 'Видалити цей чат?';
+
+  @override
+  String get deleteChatMessage => 'Він назавжди зникне з попередніх чатів.';
+
+  @override
+  String get deleteChatV3 => 'Видалити чат';
+
+  @override
+  String get noPastChats => 'Тут з\'являться ваші чати з Omi.';
 }

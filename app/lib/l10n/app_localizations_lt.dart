@@ -12348,4 +12348,64 @@ class AppLocalizationsLt extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, iš $time pokalbio';
   }
+
+  @override
+  String get addAnApp => 'Pridėti programėlę';
+
+  @override
+  String get allAppsV3 => 'Visos programėlės';
+
+  @override
+  String get browseAllAppsDetail => 'Ieškokite pagal pavadinimą arba pasirinkite kategoriją';
+
+  @override
+  String get appsSendTo => 'Siųsti santraukas ir darbus į';
+
+  @override
+  String get appsAskWith => 'Klauskite Omi su';
+
+  @override
+  String get appAdded => 'Pridėta';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count programėlės',
+      one: '1 programėlė',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count programėlės kategorijoje $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'Pagal „$query“ programėlių nėra';
+  }
+
+  @override
+  String get pastChats => 'Ankstesni pokalbiai';
+
+  @override
+  String get newChatV3 => 'Naujas pokalbis';
+
+  @override
+  String get startFresh => 'Pradėti iš naujo';
+
+  @override
+  String get deleteChatQuestion => 'Ištrinti šį pokalbį?';
+
+  @override
+  String get deleteChatMessage => 'Jis visam laikui dings iš ankstesnių pokalbių.';
+
+  @override
+  String get deleteChatV3 => 'Ištrinti pokalbį';
+
+  @override
+  String get noPastChats => 'Jūsų pokalbiai su Omi rodomi čia.';
 }

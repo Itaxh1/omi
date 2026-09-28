@@ -12319,4 +12319,64 @@ class AppLocalizationsEn extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, from the $time conversation';
   }
+
+  @override
+  String get addAnApp => 'Add an app';
+
+  @override
+  String get allAppsV3 => 'All apps';
+
+  @override
+  String get browseAllAppsDetail => 'Search by name or pick a category';
+
+  @override
+  String get appsSendTo => 'Send summaries and to-dos to';
+
+  @override
+  String get appsAskWith => 'Ask Omi with';
+
+  @override
+  String get appAdded => 'Added';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count apps',
+      one: '1 app',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count apps in $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'No apps match “$query”';
+  }
+
+  @override
+  String get pastChats => 'Past chats';
+
+  @override
+  String get newChatV3 => 'New chat';
+
+  @override
+  String get startFresh => 'Start fresh';
+
+  @override
+  String get deleteChatQuestion => 'Delete this chat?';
+
+  @override
+  String get deleteChatMessage => 'It’s gone from Past chats for good.';
+
+  @override
+  String get deleteChatV3 => 'Delete chat';
+
+  @override
+  String get noPastChats => 'Your chats with Omi show up here.';
 }

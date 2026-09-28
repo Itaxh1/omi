@@ -11425,5 +11425,21 @@
     "syncingToYourPhone": "உங்கள் ஃபோனுக்கு ஒத்திசைக்கிறது",
     "lastWeekday": "கடந்த {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, {time} உரையாடலிலிருந்து"
+    "memoryFromConversation": "{day}, {time} உரையாடலிலிருந்து",
+    "addAnApp": "ஒரு ஆப்பைச் சேர்",
+    "allAppsV3": "எல்லா ஆப்களும்",
+    "browseAllAppsDetail": "பெயரால் தேடுங்கள் அல்லது வகையைத் தேர்ந்தெடுங்கள்",
+    "appsSendTo": "சுருக்கங்களையும் செய்ய வேண்டியவற்றையும் அனுப்பு",
+    "appsAskWith": "இதனுடன் Omi-யிடம் கேளுங்கள்",
+    "appAdded": "சேர்க்கப்பட்டது",
+    "appsCountV3": "{count, plural, =1{1 ஆப்} other{{count} ஆப்கள்}}",
+    "appsInCategory": "{count} ஆப்கள் {category} இல்",
+    "noAppsMatch": "“{query}” க்கு ஆப் எதுவும் இல்லை",
+    "pastChats": "முந்தைய அரட்டைகள்",
+    "newChatV3": "புதிய அரட்டை",
+    "startFresh": "புதிதாகத் தொடங்குங்கள்",
+    "deleteChatQuestion": "இந்த அரட்டையை நீக்கவா?",
+    "deleteChatMessage": "இது முந்தைய அரட்டைகளிலிருந்து நிரந்தரமாக நீங்கும்.",
+    "deleteChatV3": "அரட்டையை நீக்கு",
+    "noPastChats": "Omi உடனான உங்கள் அரட்டைகள் இங்கே தோன்றும்."
 }

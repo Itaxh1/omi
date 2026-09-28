@@ -12369,4 +12369,64 @@ class AppLocalizationsPl extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, z rozmowy o $time';
   }
+
+  @override
+  String get addAnApp => 'Dodaj aplikację';
+
+  @override
+  String get allAppsV3 => 'Wszystkie aplikacje';
+
+  @override
+  String get browseAllAppsDetail => 'Szukaj po nazwie lub wybierz kategorię';
+
+  @override
+  String get appsSendTo => 'Wysyłaj podsumowania i zadania do';
+
+  @override
+  String get appsAskWith => 'Pytaj Omi z';
+
+  @override
+  String get appAdded => 'Dodano';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count aplikacji',
+      one: '1 aplikacja',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count aplikacji w $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'Brak aplikacji dla „$query”';
+  }
+
+  @override
+  String get pastChats => 'Poprzednie czaty';
+
+  @override
+  String get newChatV3 => 'Nowy czat';
+
+  @override
+  String get startFresh => 'Zacznij od nowa';
+
+  @override
+  String get deleteChatQuestion => 'Usunąć ten czat?';
+
+  @override
+  String get deleteChatMessage => 'Zniknie z poprzednich czatów na zawsze.';
+
+  @override
+  String get deleteChatV3 => 'Usuń czat';
+
+  @override
+  String get noPastChats => 'Tu pojawią się Twoje czaty z Omi.';
 }

@@ -15,6 +15,7 @@ import 'package:uuid/uuid.dart';
 
 import 'package:omi/backend/http/api/apps.dart';
 import 'package:omi/backend/http/api/messages.dart';
+import 'package:omi/backend/schema/chat_session.dart';
 import 'package:omi/backend/http/api/users.dart';
 import 'package:omi/backend/preferences.dart';
 import 'package:omi/services/voice_playback/omi_voice_playback_service.dart';
@@ -106,6 +107,106 @@ class MessageProvider extends ChangeNotifier {
   bool agentThinkingAfterText = false;
 
   String firstTimeLoadingText = '';
+
+  // --- Ask v3: fresh chats and Past chats (the backend's chat sessions) ---
+
+  /// The chat session the thread belongs to; null is the server's current session.
+  String? chatSessionId;
+
+  /// Ask opened fresh (the design's hello): nothing is loaded, and the first question starts a
+  /// new session, which becomes the current one.
+  bool _freshChat = false;
+  bool get isFreshChat => _freshChat;
+
+  /// Sessions already named, so a title is asked for once.
+  final Set<String> _titledSessions = {};
+
+  /// Bumped whenever the list of past chats may have changed (a chat started, named or deleted).
+  int chatSessionsRevision = 0;
+
+  /// Shows Ask fresh: the hello and suggestions, with the earlier chats in Past chats.
+  void startFreshChat() {
+    _freshChat = true;
+    chatSessionId = null;
+    _failedReplies.clear();
+    messages = [];
+    setLoadingMessages(false);
+    notifyListeners();
+  }
+
+  /// Opens a past chat: its messages, and later turns go to it.
+  Future<void> openChatSession(ChatSessionSummary session) async {
+    _freshChat = false;
+    chatSessionId = session.id;
+    _failedReplies.clear();
+    if (session.hasTitle) _titledSessions.add(session.id);
+    messages = [];
+    setLoadingMessages(true);
+    notifyListeners();
+    final sessionOverride = sessionMessagesOverride;
+    final loaded = sessionOverride != null
+        ? await sessionOverride(session.id)
+        : await getMessagesServer(chatSessionId: session.id);
+    if (chatSessionId != session.id) return; // another chat was opened meanwhile
+    messages = loaded..sort((a, b) => a.createdAt.compareTo(b.createdAt));
+    setLoadingMessages(false);
+    notifyListeners();
+  }
+
+  /// Test seam — replaces [createChatSessionServer] when a fresh chat's first question starts one.
+  @visibleForTesting
+  Future<ChatSessionSummary?> Function()? createChatSessionOverride;
+
+  /// Test seam — replaces [generateChatSessionTitleServer].
+  @visibleForTesting
+  Future<String?> Function(String sessionId, List<ServerMessage> messages)? titleChatSessionOverride;
+
+  /// Test seam — replaces [getMessagesServer] when a past chat opens.
+  @visibleForTesting
+  Future<List<ServerMessage>> Function(String sessionId)? sessionMessagesOverride;
+
+  /// Test seam — replaces [getChatSessionsServer] for Past chats.
+  @visibleForTesting
+  Future<List<ChatSessionSummary>> Function()? chatSessionsOverride;
+
+  /// The reader's past chats, newest first.
+  Future<List<ChatSessionSummary>> loadChatSessions() => (chatSessionsOverride ?? getChatSessionsServer)();
+
+  /// Deletes a past chat; the thread on screen starts fresh when it was that one.
+  Future<bool> deleteChatSession(String id) async {
+    final deleted = await deleteChatSessionServer(id);
+    if (deleted) {
+      chatSessionsRevision++;
+      if (chatSessionId == id) startFreshChat();
+    }
+    return deleted;
+  }
+
+  /// A fresh chat's first question starts its session (the main chat only); without one the turn
+  /// goes to the server's current session, as before.
+  Future<void> _ensureSession(String? appId) async {
+    if (!_freshChat || (appId ?? '').isNotEmpty) return;
+    _freshChat = false;
+    final created = await (createChatSessionOverride ?? createChatSessionServer)();
+    if (created != null) {
+      chatSessionId = created.id;
+      chatSessionsRevision++;
+    }
+  }
+
+  /// Names the chat from its first exchange, once.
+  void _titleSessionOnce() {
+    final id = chatSessionId;
+    if (id == null || _titledSessions.contains(id)) return;
+    _titledSessions.add(id);
+    final exchange = List<ServerMessage>.from(messages);
+    unawaited((titleChatSessionOverride ?? generateChatSessionTitleServer)(id, exchange).then((title) {
+      if (title != null) {
+        chatSessionsRevision++;
+        notifyListeners();
+      }
+    }).catchError((_) {}));
+  }
 
   List<App> chatApps = [];
   bool isLoadingChatApps = false;
@@ -491,6 +592,7 @@ class MessageProvider extends ChangeNotifier {
   }
 
   Future refreshMessages({bool dropdownSelected = false}) async {
+    _freshChat = false;
     _failedReplies.clear();
     setLoadingMessages(true);
     if (SharedPreferencesUtil().cachedMessages.isNotEmpty) {
@@ -525,8 +627,14 @@ class MessageProvider extends ChangeNotifier {
     }
     setLoadingMessages(true);
     final loadStarted = DateTime.now();
-    var mes = await (historyLoaderOverride ?? getMessagesServer)(
-        appId: appProvider?.selectedChatAppId, dropdownSelected: dropdownSelected);
+    final override = historyLoaderOverride;
+    var mes = override != null
+        ? await override(appId: appProvider?.selectedChatAppId, dropdownSelected: dropdownSelected)
+        : await getMessagesServer(
+            appId: appProvider?.selectedChatAppId,
+            dropdownSelected: dropdownSelected,
+            chatSessionId: chatSessionId,
+          );
     if (!hasCachedMessages) {
       firstTimeLoadingText = l10n?.msgLearningMemories ?? 'Learning from your memories…';
       notifyListeners();
@@ -905,12 +1013,18 @@ class MessageProvider extends ChangeNotifier {
     }
 
     try {
-      await for (var chunk in (replyStreamOverride ?? sendMessageStreamServer)(
-        text,
-        appId: currentAppId,
-        filesId: fileIds,
-        context: context,
-      )) {
+      await _ensureSession(currentAppId);
+      final override = replyStreamOverride;
+      final replies = override != null
+          ? override(text, appId: currentAppId, filesId: fileIds, context: context)
+          : sendMessageStreamServer(
+              text,
+              appId: currentAppId,
+              filesId: fileIds,
+              context: context,
+              chatSessionId: chatSessionId,
+            );
+      await for (var chunk in replies) {
         if (chunk.type == MessageChunkType.think) {
           flushBuffer();
           message.thinkings.add(chunk.text);
@@ -951,6 +1065,7 @@ class MessageProvider extends ChangeNotifier {
           _transferChatTelemetryAttempt(responseMessageId, message.id);
           _finishChatTelemetryAttempt(message.id, ProductOutcome.success);
           chatAttemptCompleted = true;
+          if ((currentAppId ?? '').isEmpty) _titleSessionOnce();
           notifyListeners();
           continue;
         }

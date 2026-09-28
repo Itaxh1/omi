@@ -40,6 +40,7 @@ import 'package:omi/pages/apps/app_detail/widgets/app_preview_gallery.dart';
 import 'package:omi/pages/apps/app_detail/widgets/app_setup_steps.dart';
 import 'package:omi/pages/apps/widgets/app_actions.dart';
 import 'package:omi/ui/ui.dart';
+import 'package:omi/pages/chat/open_ask.dart';
 
 class AppDetailPage extends StatefulWidget {
   final App app;
@@ -954,7 +955,7 @@ class _AppDetailPageState extends State<AppDetailPage> {
         messageProvider.sendInitialAppMessage(selectedApp);
       }
       PlatformManager.instance.analytics.appDetailChatClicked(appId: app.id, appName: app.name);
-      if (mounted) await routeToPage(context, const ChatPage(isPivotBottom: false));
+      if (mounted) await openAsk(context, const ChatPage(isPivotBottom: false, continueThread: true));
     } finally {
       if (mounted) setState(() => chatButtonLoading = false);
     }

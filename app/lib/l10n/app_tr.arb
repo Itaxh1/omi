@@ -3900,5 +3900,21 @@
     "syncingToYourPhone": "Telefonuna eşitleniyor",
     "lastWeekday": "Geçen {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, {time} konuşmasından"
+    "memoryFromConversation": "{day}, {time} konuşmasından",
+    "addAnApp": "Uygulama ekle",
+    "allAppsV3": "Tüm uygulamalar",
+    "browseAllAppsDetail": "Ada göre arayın veya bir kategori seçin",
+    "appsSendTo": "Özetleri ve yapılacakları gönder",
+    "appsAskWith": "Omi'ye şununla sor",
+    "appAdded": "Eklendi",
+    "appsCountV3": "{count, plural, =1{1 uygulama} other{{count} uygulama}}",
+    "appsInCategory": "{count} uygulama, {category}",
+    "noAppsMatch": "“{query}” ile eşleşen uygulama yok",
+    "pastChats": "Geçmiş sohbetler",
+    "newChatV3": "Yeni sohbet",
+    "startFresh": "Baştan başla",
+    "deleteChatQuestion": "Bu sohbet silinsin mi?",
+    "deleteChatMessage": "Geçmiş sohbetlerden kalıcı olarak kaldırılır.",
+    "deleteChatV3": "Sohbeti sil",
+    "noPastChats": "Omi ile sohbetleriniz burada görünür."
 }

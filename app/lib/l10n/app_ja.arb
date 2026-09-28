@@ -3865,5 +3865,21 @@
     "syncingToYourPhone": "スマホに同期中",
     "lastWeekday": "先週の{weekday}",
     "dayAtTime": "{day} {time}",
-    "memoryFromConversation": "{day}、{time}の会話から"
+    "memoryFromConversation": "{day}、{time}の会話から",
+    "addAnApp": "アプリを追加",
+    "allAppsV3": "すべてのアプリ",
+    "browseAllAppsDetail": "名前で検索するか、カテゴリを選びます",
+    "appsSendTo": "要約とToDoの送り先",
+    "appsAskWith": "Omiに聞くときに使う",
+    "appAdded": "追加済み",
+    "appsCountV3": "{count, plural, =1{1件のアプリ} other{{count}件のアプリ}}",
+    "appsInCategory": "{count}件のアプリ（{category}）",
+    "noAppsMatch": "「{query}」に一致するアプリはありません",
+    "pastChats": "過去のチャット",
+    "newChatV3": "新しいチャット",
+    "startFresh": "新しく始める",
+    "deleteChatQuestion": "このチャットを削除しますか？",
+    "deleteChatMessage": "過去のチャットから完全に消えます。",
+    "deleteChatV3": "チャットを削除",
+    "noPastChats": "Omiとのチャットはここに表示されます。"
 }

@@ -11425,5 +11425,21 @@
     "syncingToYourPhone": "Сінхранізацыя з тэлефонам",
     "lastWeekday": "Мінулы {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, з размовы ў {time}"
+    "memoryFromConversation": "{day}, з размовы ў {time}",
+    "addAnApp": "Дадаць праграму",
+    "allAppsV3": "Усе праграмы",
+    "browseAllAppsDetail": "Шукайце па назве або выберыце катэгорыю",
+    "appsSendTo": "Адпраўляць зводкі і справы ў",
+    "appsAskWith": "Пытайцеся ў Omi з",
+    "appAdded": "Дададзена",
+    "appsCountV3": "{count, plural, =1{1 праграма} other{{count} праграм}}",
+    "appsInCategory": "{count} праграм у {category}",
+    "noAppsMatch": "Няма праграм для «{query}»",
+    "pastChats": "Мінулыя чаты",
+    "newChatV3": "Новы чат",
+    "startFresh": "Пачаць нанова",
+    "deleteChatQuestion": "Выдаліць гэты чат?",
+    "deleteChatMessage": "Ён знікне з мінулых чатаў назаўсёды.",
+    "deleteChatV3": "Выдаліць чат",
+    "noPastChats": "Вашы чаты з Omi з'явяцца тут."
 }

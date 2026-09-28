@@ -12358,4 +12358,64 @@ class AppLocalizationsSl extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, iz pogovora ob $time';
   }
+
+  @override
+  String get addAnApp => 'Dodaj aplikacijo';
+
+  @override
+  String get allAppsV3 => 'Vse aplikacije';
+
+  @override
+  String get browseAllAppsDetail => 'Iščite po imenu ali izberite kategorijo';
+
+  @override
+  String get appsSendTo => 'Pošiljaj povzetke in opravila v';
+
+  @override
+  String get appsAskWith => 'Vprašajte Omi z';
+
+  @override
+  String get appAdded => 'Dodano';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count aplikacij',
+      one: '1 aplikacija',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count aplikacij v $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'Za »$query« ni aplikacij';
+  }
+
+  @override
+  String get pastChats => 'Prejšnji klepeti';
+
+  @override
+  String get newChatV3 => 'Nov klepet';
+
+  @override
+  String get startFresh => 'Začni znova';
+
+  @override
+  String get deleteChatQuestion => 'Izbrišem ta klepet?';
+
+  @override
+  String get deleteChatMessage => 'Iz prejšnjih klepetov bo za vedno izginil.';
+
+  @override
+  String get deleteChatV3 => 'Izbriši klepet';
+
+  @override
+  String get noPastChats => 'Tu se prikažejo vaši klepeti z Omijem.';
 }

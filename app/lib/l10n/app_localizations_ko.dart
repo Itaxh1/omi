@@ -12134,4 +12134,64 @@ class AppLocalizationsKo extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, $time 대화에서';
   }
+
+  @override
+  String get addAnApp => '앱 추가';
+
+  @override
+  String get allAppsV3 => '모든 앱';
+
+  @override
+  String get browseAllAppsDetail => '이름으로 검색하거나 카테고리를 고르세요';
+
+  @override
+  String get appsSendTo => '요약과 할 일을 보낼 곳';
+
+  @override
+  String get appsAskWith => '이것과 함께 Omi에게 묻기';
+
+  @override
+  String get appAdded => '추가됨';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '앱 $count개',
+      one: '앱 1개',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count개 앱 · $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return '‘$query’와 일치하는 앱이 없어요';
+  }
+
+  @override
+  String get pastChats => '지난 채팅';
+
+  @override
+  String get newChatV3 => '새 채팅';
+
+  @override
+  String get startFresh => '처음부터 시작';
+
+  @override
+  String get deleteChatQuestion => '이 채팅을 삭제할까요?';
+
+  @override
+  String get deleteChatMessage => '지난 채팅에서 영구히 사라져요.';
+
+  @override
+  String get deleteChatV3 => '채팅 삭제';
+
+  @override
+  String get noPastChats => 'Omi와 나눈 채팅이 여기에 표시돼요.';
 }

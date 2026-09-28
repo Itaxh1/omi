@@ -12339,4 +12339,64 @@ class AppLocalizationsSv extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, från samtalet kl. $time';
   }
+
+  @override
+  String get addAnApp => 'Lägg till en app';
+
+  @override
+  String get allAppsV3 => 'Alla appar';
+
+  @override
+  String get browseAllAppsDetail => 'Sök på namn eller välj en kategori';
+
+  @override
+  String get appsSendTo => 'Skicka sammanfattningar och att göra till';
+
+  @override
+  String get appsAskWith => 'Fråga Omi med';
+
+  @override
+  String get appAdded => 'Tillagd';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count appar',
+      one: '1 app',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count appar i $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'Inga appar matchar ”$query”';
+  }
+
+  @override
+  String get pastChats => 'Tidigare chattar';
+
+  @override
+  String get newChatV3 => 'Ny chatt';
+
+  @override
+  String get startFresh => 'Börja om';
+
+  @override
+  String get deleteChatQuestion => 'Radera den här chatten?';
+
+  @override
+  String get deleteChatMessage => 'Den försvinner från tidigare chattar för gott.';
+
+  @override
+  String get deleteChatV3 => 'Radera chatt';
+
+  @override
+  String get noPastChats => 'Dina chattar med Omi visas här.';
 }

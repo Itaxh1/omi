@@ -12329,4 +12329,64 @@ class AppLocalizationsCs extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, z konverzace v $time';
   }
+
+  @override
+  String get addAnApp => 'Přidat aplikaci';
+
+  @override
+  String get allAppsV3 => 'Všechny aplikace';
+
+  @override
+  String get browseAllAppsDetail => 'Hledejte podle názvu nebo vyberte kategorii';
+
+  @override
+  String get appsSendTo => 'Posílat shrnutí a úkoly do';
+
+  @override
+  String get appsAskWith => 'Ptejte se Omi s';
+
+  @override
+  String get appAdded => 'Přidáno';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count aplikací',
+      one: '1 aplikace',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count aplikací v $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'Pro „$query“ není žádná aplikace';
+  }
+
+  @override
+  String get pastChats => 'Předchozí chaty';
+
+  @override
+  String get newChatV3 => 'Nový chat';
+
+  @override
+  String get startFresh => 'Začít znovu';
+
+  @override
+  String get deleteChatQuestion => 'Smazat tento chat?';
+
+  @override
+  String get deleteChatMessage => 'Z předchozích chatů zmizí natrvalo.';
+
+  @override
+  String get deleteChatV3 => 'Smazat chat';
+
+  @override
+  String get noPastChats => 'Tady se zobrazí vaše chaty s Omi.';
 }

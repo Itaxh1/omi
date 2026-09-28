@@ -11425,5 +11425,21 @@
     "syncingToYourPhone": "Sinhronizacija v telefon",
     "lastWeekday": "Prejšnji {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, iz pogovora ob {time}"
+    "memoryFromConversation": "{day}, iz pogovora ob {time}",
+    "addAnApp": "Dodaj aplikacijo",
+    "allAppsV3": "Vse aplikacije",
+    "browseAllAppsDetail": "Iščite po imenu ali izberite kategorijo",
+    "appsSendTo": "Pošiljaj povzetke in opravila v",
+    "appsAskWith": "Vprašajte Omi z",
+    "appAdded": "Dodano",
+    "appsCountV3": "{count, plural, =1{1 aplikacija} other{{count} aplikacij}}",
+    "appsInCategory": "{count} aplikacij v {category}",
+    "noAppsMatch": "Za »{query}« ni aplikacij",
+    "pastChats": "Prejšnji klepeti",
+    "newChatV3": "Nov klepet",
+    "startFresh": "Začni znova",
+    "deleteChatQuestion": "Izbrišem ta klepet?",
+    "deleteChatMessage": "Iz prejšnjih klepetov bo za vedno izginil.",
+    "deleteChatV3": "Izbriši klepet",
+    "noPastChats": "Tu se prikažejo vaši klepeti z Omijem."
 }

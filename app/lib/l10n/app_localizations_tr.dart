@@ -12346,4 +12346,64 @@ class AppLocalizationsTr extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, $time konuşmasından';
   }
+
+  @override
+  String get addAnApp => 'Uygulama ekle';
+
+  @override
+  String get allAppsV3 => 'Tüm uygulamalar';
+
+  @override
+  String get browseAllAppsDetail => 'Ada göre arayın veya bir kategori seçin';
+
+  @override
+  String get appsSendTo => 'Özetleri ve yapılacakları gönder';
+
+  @override
+  String get appsAskWith => 'Omi\'ye şununla sor';
+
+  @override
+  String get appAdded => 'Eklendi';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count uygulama',
+      one: '1 uygulama',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count uygulama, $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return '“$query” ile eşleşen uygulama yok';
+  }
+
+  @override
+  String get pastChats => 'Geçmiş sohbetler';
+
+  @override
+  String get newChatV3 => 'Yeni sohbet';
+
+  @override
+  String get startFresh => 'Baştan başla';
+
+  @override
+  String get deleteChatQuestion => 'Bu sohbet silinsin mi?';
+
+  @override
+  String get deleteChatMessage => 'Geçmiş sohbetlerden kalıcı olarak kaldırılır.';
+
+  @override
+  String get deleteChatV3 => 'Sohbeti sil';
+
+  @override
+  String get noPastChats => 'Omi ile sohbetleriniz burada görünür.';
 }

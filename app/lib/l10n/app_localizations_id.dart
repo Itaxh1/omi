@@ -12346,4 +12346,64 @@ class AppLocalizationsId extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, dari percakapan pukul $time';
   }
+
+  @override
+  String get addAnApp => 'Tambahkan aplikasi';
+
+  @override
+  String get allAppsV3 => 'Semua aplikasi';
+
+  @override
+  String get browseAllAppsDetail => 'Cari berdasarkan nama atau pilih kategori';
+
+  @override
+  String get appsSendTo => 'Kirim ringkasan dan tugas ke';
+
+  @override
+  String get appsAskWith => 'Tanya Omi dengan';
+
+  @override
+  String get appAdded => 'Ditambahkan';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count aplikasi',
+      one: '1 aplikasi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count aplikasi di $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'Tidak ada aplikasi yang cocok dengan “$query”';
+  }
+
+  @override
+  String get pastChats => 'Chat sebelumnya';
+
+  @override
+  String get newChatV3 => 'Chat baru';
+
+  @override
+  String get startFresh => 'Mulai baru';
+
+  @override
+  String get deleteChatQuestion => 'Hapus chat ini?';
+
+  @override
+  String get deleteChatMessage => 'Chat ini hilang dari chat sebelumnya untuk selamanya.';
+
+  @override
+  String get deleteChatV3 => 'Hapus chat';
+
+  @override
+  String get noPastChats => 'Chat Anda dengan Omi muncul di sini.';
 }

@@ -42,3 +42,28 @@ Route<T> omiPageRoute<T>({
       );
   }
 }
+
+/// Ask (v3 `#chat`): a full-screen modal that rises from the bottom over 0.42 s on the design's
+/// sheet curve, cubic-bezier(.32,.72,0,1), and falls back when its close ring pops it. It carries
+/// its own close control, so it has no back swipe (see [omiPageRoute]). Under Reduce Motion it
+/// fades.
+Route<T> omiAskRoute<T>({required WidgetBuilder builder, RouteSettings? settings}) {
+  const curve = Cubic(0.32, 0.72, 0, 1);
+  return PageRouteBuilder<T>(
+    settings: settings,
+    fullscreenDialog: true,
+    transitionDuration: const Duration(milliseconds: 420),
+    reverseTransitionDuration: const Duration(milliseconds: 340),
+    pageBuilder: (context, _, __) => OmiSheetRecede(child: builder(context)),
+    transitionsBuilder: (context, animation, _, child) {
+      if (MediaQuery.maybeDisableAnimationsOf(context) ?? false) {
+        return FadeTransition(opacity: animation, child: child);
+      }
+      final rise = CurvedAnimation(parent: animation, curve: curve, reverseCurve: curve.flipped);
+      return SlideTransition(
+        position: Tween(begin: const Offset(0, 1.05), end: Offset.zero).animate(rise),
+        child: child,
+      );
+    },
+  );
+}

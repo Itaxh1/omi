@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter_timezone/flutter_timezone.dart';
 
 import 'package:omi/backend/http/shared.dart';
+import 'package:omi/backend/schema/chat_session.dart';
 import 'package:omi/backend/schema/gen/messages_wire.g.dart' as wire;
 import 'package:omi/backend/schema/message.dart';
 import 'package:omi/env/env.dart';
@@ -57,11 +58,13 @@ Future<List<ServerMessage>> getMessagesServer({
   bool dropdownSelected = false,
   int limit = 100,
   int offset = 0,
+  String? chatSessionId,
 }) async {
   if (appId == 'no_selected') appId = null;
+  final session = chatSessionId == null ? '' : '&chat_session_id=${Uri.encodeQueryComponent(chatSessionId)}';
   var response = await makeApiCall(
     url:
-        '${Env.apiBaseUrl}v2/messages?app_id=${appId ?? ''}&dropdown_selected=$dropdownSelected&limit=$limit&offset=$offset',
+        '${Env.apiBaseUrl}v2/messages?app_id=${appId ?? ''}&dropdown_selected=$dropdownSelected&limit=$limit&offset=$offset$session',
     headers: {},
     method: 'GET',
     body: '',
@@ -188,10 +191,15 @@ Stream<ServerMessageChunk> sendMessageStreamServer(
   String? appId,
   List<String>? filesId,
   ChatPageContext? context,
+  String? chatSessionId,
 }) async* {
   var url = '${Env.apiBaseUrl}v2/messages?app_id=$appId';
   if (appId == null || appId.isEmpty || appId == 'null' || appId == 'no_selected') {
     url = '${Env.apiBaseUrl}v2/messages';
+  }
+  // A past chat (Ask v3): the turn goes to that session, not the newest one.
+  if (chatSessionId != null) {
+    url += '${url.contains('?') ? '&' : '?'}chat_session_id=${Uri.encodeQueryComponent(chatSessionId)}';
   }
 
   var messageId = "1000"; // Default new message
@@ -334,4 +342,68 @@ Future<String> transcribeVoiceMessage(List<File> audioFiles, {String? language})
     throw Exception('Voice message transcription returned empty transcript');
   }
   return transcript;
+}
+
+// ---------------------------------------------------------------------------------------------
+// Chat sessions (Ask v3 Past chats). The backend's `/v2/chat-sessions`, shared with the desktop
+// app: a new session becomes the current one for requests that name none.
+// ---------------------------------------------------------------------------------------------
+
+/// The reader's chats with Omi (the main chat, no app), newest first.
+Future<List<ChatSessionSummary>> getChatSessionsServer({int limit = 50}) async {
+  final response = await makeApiCall(
+    url: '${Env.apiBaseUrl}v2/chat-sessions?limit=$limit',
+    headers: {},
+    method: 'GET',
+    body: '',
+  );
+  if (response == null || response.statusCode != 200) return [];
+  final list = jsonDecode(utf8.decode(response.bodyBytes));
+  if (list is! List) return [];
+  return [
+    for (final item in list)
+      if (item is Map<String, dynamic>) ChatSessionSummary.fromJson(item),
+  ].whereType<ChatSessionSummary>().toList();
+}
+
+/// Starts a chat (it becomes the current one). Null when the server did not answer.
+Future<ChatSessionSummary?> createChatSessionServer() async {
+  final response = await makeApiCall(
+    url: '${Env.apiBaseUrl}v2/chat-sessions',
+    headers: {},
+    method: 'POST',
+    body: jsonEncode({}),
+  );
+  if (response == null || response.statusCode != 200) return null;
+  final json = jsonDecode(utf8.decode(response.bodyBytes));
+  return json is Map<String, dynamic> ? ChatSessionSummary.fromJson(json) : null;
+}
+
+/// Deletes a chat and its messages.
+Future<bool> deleteChatSessionServer(String sessionId) async {
+  final response = await makeApiCall(
+    url: '${Env.apiBaseUrl}v2/chat-sessions/${Uri.encodeComponent(sessionId)}',
+    headers: {},
+    method: 'DELETE',
+    body: '',
+  );
+  return response != null && response.statusCode == 200;
+}
+
+/// Names a chat from its first messages (at most ten are sent). Null when the server did not answer.
+Future<String?> generateChatSessionTitleServer(String sessionId, List<ServerMessage> messages) async {
+  final turns = [
+    for (final m in messages.take(10))
+      if (m.text.trim().isNotEmpty) {'text': m.text, 'sender': m.sender == MessageSender.ai ? 'ai' : 'human'},
+  ];
+  if (turns.isEmpty) return null;
+  final response = await makeApiCall(
+    url: '${Env.apiBaseUrl}v2/chat/generate-title',
+    headers: {},
+    method: 'POST',
+    body: jsonEncode({'session_id': sessionId, 'messages': turns}),
+  );
+  if (response == null || response.statusCode != 200) return null;
+  final json = jsonDecode(utf8.decode(response.bodyBytes));
+  return json is Map<String, dynamic> ? json['title'] as String? : null;
 }

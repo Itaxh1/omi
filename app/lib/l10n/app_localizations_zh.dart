@@ -12108,4 +12108,64 @@ class AppLocalizationsZh extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day，来自 $time 的对话';
   }
+
+  @override
+  String get addAnApp => '添加应用';
+
+  @override
+  String get allAppsV3 => '全部应用';
+
+  @override
+  String get browseAllAppsDetail => '按名称搜索或选择一个类别';
+
+  @override
+  String get appsSendTo => '把摘要和待办发送到';
+
+  @override
+  String get appsAskWith => '用这些向 Omi 提问';
+
+  @override
+  String get appAdded => '已添加';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 个应用',
+      one: '1 个应用',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count 个应用（$category）';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return '没有与“$query”匹配的应用';
+  }
+
+  @override
+  String get pastChats => '过往聊天';
+
+  @override
+  String get newChatV3 => '新聊天';
+
+  @override
+  String get startFresh => '重新开始';
+
+  @override
+  String get deleteChatQuestion => '删除这个聊天？';
+
+  @override
+  String get deleteChatMessage => '它会从过往聊天中永久消失。';
+
+  @override
+  String get deleteChatV3 => '删除聊天';
+
+  @override
+  String get noPastChats => '你和 Omi 的聊天会显示在这里。';
 }

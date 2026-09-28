@@ -12328,4 +12328,64 @@ class AppLocalizationsVi extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, từ cuộc trò chuyện lúc $time';
   }
+
+  @override
+  String get addAnApp => 'Thêm ứng dụng';
+
+  @override
+  String get allAppsV3 => 'Tất cả ứng dụng';
+
+  @override
+  String get browseAllAppsDetail => 'Tìm theo tên hoặc chọn một danh mục';
+
+  @override
+  String get appsSendTo => 'Gửi tóm tắt và việc cần làm tới';
+
+  @override
+  String get appsAskWith => 'Hỏi Omi bằng';
+
+  @override
+  String get appAdded => 'Đã thêm';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ứng dụng',
+      one: '1 ứng dụng',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count ứng dụng trong $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'Không có ứng dụng khớp với “$query”';
+  }
+
+  @override
+  String get pastChats => 'Các cuộc trò chuyện trước';
+
+  @override
+  String get newChatV3 => 'Cuộc trò chuyện mới';
+
+  @override
+  String get startFresh => 'Bắt đầu lại';
+
+  @override
+  String get deleteChatQuestion => 'Xóa cuộc trò chuyện này?';
+
+  @override
+  String get deleteChatMessage => 'Nó sẽ biến mất khỏi các cuộc trò chuyện trước vĩnh viễn.';
+
+  @override
+  String get deleteChatV3 => 'Xóa cuộc trò chuyện';
+
+  @override
+  String get noPastChats => 'Các cuộc trò chuyện của bạn với Omi xuất hiện ở đây.';
 }

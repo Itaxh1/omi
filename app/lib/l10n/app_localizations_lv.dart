@@ -12357,4 +12357,64 @@ class AppLocalizationsLv extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, no sarunas plkst. $time';
   }
+
+  @override
+  String get addAnApp => 'Pievienot lietotni';
+
+  @override
+  String get allAppsV3 => 'Visas lietotnes';
+
+  @override
+  String get browseAllAppsDetail => 'Meklējiet pēc nosaukuma vai izvēlieties kategoriju';
+
+  @override
+  String get appsSendTo => 'Sūtīt kopsavilkumus un uzdevumus uz';
+
+  @override
+  String get appsAskWith => 'Jautājiet Omi ar';
+
+  @override
+  String get appAdded => 'Pievienota';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count lietotnes',
+      one: '1 lietotne',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count lietotnes kategorijā $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'Nav lietotņu vaicājumam “$query”';
+  }
+
+  @override
+  String get pastChats => 'Iepriekšējās tērzēšanas';
+
+  @override
+  String get newChatV3 => 'Jauna tērzēšana';
+
+  @override
+  String get startFresh => 'Sākt no jauna';
+
+  @override
+  String get deleteChatQuestion => 'Dzēst šo tērzēšanu?';
+
+  @override
+  String get deleteChatMessage => 'Tā uz visiem laikiem pazudīs no iepriekšējām tērzēšanām.';
+
+  @override
+  String get deleteChatV3 => 'Dzēst tērzēšanu';
+
+  @override
+  String get noPastChats => 'Jūsu tērzēšanas ar Omi parādās šeit.';
 }

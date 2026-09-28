@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:omi/pages/apps/page.dart';
 import 'package:omi/pages/conversations/all_conversations_page.dart';
 import 'package:omi/pages/conversations/widgets/create_folder_sheet.dart';
 import 'package:omi/providers/app_provider.dart';
@@ -11,6 +10,7 @@ import 'package:omi/providers/folder_provider.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/utils/other/temp.dart';
+import 'package:omi/pages/apps/apps_v3.dart';
 
 /// The folders sidebar (v3 `.side`): it slides in from the left at 82 % of the width (320 at most)
 /// from Home's folder button. "Conversations" over All conversations, each folder with its count,
@@ -150,7 +150,7 @@ class _Sidebar extends StatelessWidget {
                       glyph: OmiGlyphs.apps,
                       label: l10n.apps,
                       detail: installed.isEmpty ? null : installed,
-                      onTap: () => _open(context, const AppsPage(showAppBar: true)),
+                      onTap: () => _open(context, const AddAnAppPage()),
                     ),
                     _FolderRow(
                       key: const Key('sidebar_browse_apps'),
@@ -158,7 +158,7 @@ class _Sidebar extends StatelessWidget {
                       label: l10n.browseAllApps,
                       detail: '›',
                       last: true,
-                      onTap: () => _open(context, const AppsPage(showAppBar: true)),
+                      onTap: () => _open(context, const AllAppsPage()),
                     ),
                   ],
                 ),

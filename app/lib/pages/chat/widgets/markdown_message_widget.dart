@@ -9,10 +9,10 @@ Widget getMarkdownWidget(BuildContext context, String message, {Function(String)
   return MarkdownBody(
     data: message.trimRight(),
     selectable: false,
-    // v4 Ask answers: 17 pt reading text on 25 pt lines, bold as semibold, short headings, and a
-    // little air between list items.
+    // v3 Ask answers (`.an`): 19 pt on a 1.45 line, bold as semibold, short headings, and a little
+    // air between list items.
     styleSheet: MarkdownStyleSheet(
-      p: OmiType.body.copyWith(height: 25 / 17),
+      p: OmiType.answer,
       strong: const TextStyle(fontWeight: FontWeight.w600),
       h1: OmiType.title3.copyWith(fontWeight: FontWeight.w700, height: 1.3),
       h2: OmiType.headline.copyWith(fontSize: 19, height: 1.3),
@@ -25,8 +25,8 @@ Widget getMarkdownWidget(BuildContext context, String message, {Function(String)
       listBulletPadding: const EdgeInsets.only(right: 6),
       // Links are neutral (INV-UI-1): white and underlined, not a blue accent.
       a: TextStyle(color: OmiColors.textPrimary, decoration: TextDecoration.underline),
-      listBullet: OmiType.body.copyWith(height: 25 / 17),
-      blockquote: OmiType.body.copyWith(height: 25 / 17, backgroundColor: Colors.transparent),
+      listBullet: OmiType.answer,
+      blockquote: OmiType.answer.copyWith(backgroundColor: Colors.transparent),
       blockquoteDecoration: BoxDecoration(color: OmiColors.surface2, borderRadius: OmiRadius.smAll),
       code: TextStyle(
         color: OmiColors.textPrimary,

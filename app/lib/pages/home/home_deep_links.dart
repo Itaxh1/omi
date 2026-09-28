@@ -24,6 +24,7 @@ import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/utils/logger.dart';
 import 'package:omi/utils/other/temp.dart';
 import 'package:omi/utils/platform/platform_manager.dart';
+import 'package:omi/pages/chat/open_ask.dart';
 
 /// A parsed in-app link (`/conversation/abc?share=1`, `/apps/xyz`, `/settings/data-privacy`) as
 /// notifications, quick actions and app links deliver it to the home shell.
@@ -91,8 +92,8 @@ Future<void> openHomeDeepLink(
     case 'chat':
       await _prepareChat(context, id);
       if (!context.mounted) return;
-      // D1: chat is a normal pushed page everywhere.
-      unawaited(routeToPage(context, const ChatPage(isPivotBottom: false)));
+      // v3: Ask rises over Home, on the thread the link points at.
+      unawaited(openAsk(context, const ChatPage(isPivotBottom: false, continueThread: true)));
     case 'settings':
       // The sheet is pushed synchronously, so a page pushed next lands on top of it.
       unawaited(openSettings());

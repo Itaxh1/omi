@@ -11425,5 +11425,21 @@
     "syncingToYourPhone": "మీ ఫోన్‌కి సింక్ అవుతోంది",
     "lastWeekday": "గత {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, {time} సంభాషణ నుండి"
+    "memoryFromConversation": "{day}, {time} సంభాషణ నుండి",
+    "addAnApp": "యాప్ జోడించండి",
+    "allAppsV3": "అన్ని యాప్‌లు",
+    "browseAllAppsDetail": "పేరుతో వెతకండి లేదా వర్గాన్ని ఎంచుకోండి",
+    "appsSendTo": "సారాంశాలు, చేయవలసినవి ఇక్కడికి పంపండి",
+    "appsAskWith": "వీటితో Omi ని అడగండి",
+    "appAdded": "జోడించబడింది",
+    "appsCountV3": "{count, plural, =1{1 యాప్} other{{count} యాప్‌లు}}",
+    "appsInCategory": "{count} యాప్‌లు {category} లో",
+    "noAppsMatch": "“{query}” కు సరిపడే యాప్ లేదు",
+    "pastChats": "గత చాట్‌లు",
+    "newChatV3": "కొత్త చాట్",
+    "startFresh": "కొత్తగా మొదలుపెట్టండి",
+    "deleteChatQuestion": "ఈ చాట్‌ను తొలగించాలా?",
+    "deleteChatMessage": "ఇది గత చాట్‌ల నుండి శాశ్వతంగా పోతుంది.",
+    "deleteChatV3": "చాట్ తొలగించండి",
+    "noPastChats": "Omi తో మీ చాట్‌లు ఇక్కడ కనిపిస్తాయి."
 }

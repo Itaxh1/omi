@@ -12130,4 +12130,64 @@ class AppLocalizationsJa extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day、$timeの会話から';
   }
+
+  @override
+  String get addAnApp => 'アプリを追加';
+
+  @override
+  String get allAppsV3 => 'すべてのアプリ';
+
+  @override
+  String get browseAllAppsDetail => '名前で検索するか、カテゴリを選びます';
+
+  @override
+  String get appsSendTo => '要約とToDoの送り先';
+
+  @override
+  String get appsAskWith => 'Omiに聞くときに使う';
+
+  @override
+  String get appAdded => '追加済み';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count件のアプリ',
+      one: '1件のアプリ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count件のアプリ（$category）';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return '「$query」に一致するアプリはありません';
+  }
+
+  @override
+  String get pastChats => '過去のチャット';
+
+  @override
+  String get newChatV3 => '新しいチャット';
+
+  @override
+  String get startFresh => '新しく始める';
+
+  @override
+  String get deleteChatQuestion => 'このチャットを削除しますか？';
+
+  @override
+  String get deleteChatMessage => '過去のチャットから完全に消えます。';
+
+  @override
+  String get deleteChatV3 => 'チャットを削除';
+
+  @override
+  String get noPastChats => 'Omiとのチャットはここに表示されます。';
 }

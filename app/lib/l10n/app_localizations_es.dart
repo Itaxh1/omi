@@ -12366,4 +12366,64 @@ class AppLocalizationsEs extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, de la conversación de las $time';
   }
+
+  @override
+  String get addAnApp => 'Añadir una app';
+
+  @override
+  String get allAppsV3 => 'Todas las apps';
+
+  @override
+  String get browseAllAppsDetail => 'Busca por nombre o elige una categoría';
+
+  @override
+  String get appsSendTo => 'Envía resúmenes y tareas a';
+
+  @override
+  String get appsAskWith => 'Pregunta a Omi con';
+
+  @override
+  String get appAdded => 'Añadida';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count apps',
+      one: '1 app',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count apps en $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'Ninguna app coincide con «$query»';
+  }
+
+  @override
+  String get pastChats => 'Chats anteriores';
+
+  @override
+  String get newChatV3 => 'Chat nuevo';
+
+  @override
+  String get startFresh => 'Empieza de cero';
+
+  @override
+  String get deleteChatQuestion => '¿Eliminar este chat?';
+
+  @override
+  String get deleteChatMessage => 'Desaparecerá de los chats anteriores para siempre.';
+
+  @override
+  String get deleteChatV3 => 'Eliminar chat';
+
+  @override
+  String get noPastChats => 'Tus chats con Omi aparecen aquí.';
 }

@@ -1,9 +1,11 @@
-// Ask Omi: the hello and suggestions, composing, a reply and its actions, the Chat Apps drawer and
-// Clear Chat.
+// Ask Omi (v3): the hello and suggestions, a reply and its actions, Past chats.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:omi/pages/chat/page.dart';
+import 'package:omi/providers/message_provider.dart';
+import 'package:omi/backend/schema/chat_session.dart';
+import 'package:provider/provider.dart';
 
 import '../../journeys/support/hermetic_boot.dart';
 import '../harness.dart';
@@ -11,8 +13,6 @@ import '../harness.dart';
 const _page = 'lib/pages/chat/page.dart (ChatPage)';
 const _input = ValueKey('omi.chat.input');
 const _send = ValueKey('omi.chat.send');
-
-String _composer(AuditRun a) => a.tester.widget<TextField>(find.byKey(_input)).controller!.text;
 
 /// Sends [question] and waits for the fixture backend's deterministic reply.
 Future<void> _ask(AuditRun a, String question) async {
@@ -23,7 +23,7 @@ Future<void> _ask(AuditRun a, String question) async {
 final chatScenarios = <AuditScenario>[
   AuditScenario(
     id: 'chat-ask',
-    title: 'Ask Omi (v3): hello, a suggestion, draft, reply and copy',
+    title: 'Ask Omi (v3): hello, a suggestion asked, a follow-up and copy',
     page: _page,
     state: 'No saved personal data; the fixture backend streams a fixed assistant reply',
     run: (a) async {
@@ -34,14 +34,10 @@ final chatScenarios = <AuditScenario>[
       expect(find.byKey(const Key('ask_suggestions')), findsOneWidget);
       await a.shot('Open Ask Omi: the hello and three suggestions over the composer', step: 'empty');
       await a.tap(find.byKey(const ValueKey('ask_suggestion_1')));
-      expect(_composer(a), 'What do I still owe people?');
-      expect(a.server.countOf('POST', '/v2/messages'), 0);
-      await a.shot('Tap a suggestion; it fills the composer without sending', step: 'starter');
-      await a.enterText(find.byKey(_input), 'What did I agree to send Alex?');
-      await a.shot('Compose a question', step: 'draft');
-      await a.tap(find.byKey(_send));
       expect(a.server.countOf('POST', '/v2/messages'), 1);
-      await a.shot('Send and receive the fixture reply', step: 'reply');
+      await a.shot('Tap a suggestion: it is asked straight away and the answer comes back', step: 'reply');
+      await a.enterText(find.byKey(_input), 'What did I agree to send Alex?');
+      await a.shot('Compose a follow-up', step: 'draft');
       mockCommonPlatformChannels();
       await a.tester.tap(find.bySemanticsLabel('Copy Message'));
       await a.tester.pump();
@@ -50,16 +46,38 @@ final chatScenarios = <AuditScenario>[
     },
   ),
   AuditScenario(
-    id: 'chat-apps-drawer',
-    title: 'Chat Apps drawer and the Clear Chat confirmation',
-    page: _page,
-    state: 'No saved personal data and no enabled chat apps',
+    id: 'chat-past-chats',
+    title: 'Past chats: New chat, then earlier chats with when they were',
+    page: 'lib/pages/chat/past_chats_page.dart (PastChatsPage)',
+    state: 'Four earlier chats: today, yesterday, this week and last week',
     run: (a) async {
-      await a.pump(const ChatPage());
-      await a.tap(find.byKey(const Key('chat_apps')));
-      await a.shot('Open the Chat Apps drawer', step: 'drawer');
-      await a.tap(find.text('Clear Chat').first);
-      await a.shot('Tap Clear Chat at the bottom of the drawer', step: 'clear-confirm');
+      final now = DateTime.now();
+      final messages = MessageProvider()
+        ..chatSessionsOverride = () async => [
+              ChatSessionSummary(
+                  id: 's1',
+                  title: 'What did I decide today?',
+                  updatedAt: now.subtract(const Duration(hours: 1)),
+                  messageCount: 2),
+              ChatSessionSummary(
+                  id: 's2',
+                  title: 'Did Dan send the model link?',
+                  updatedAt: now.subtract(const Duration(days: 1)),
+                  messageCount: 4),
+              ChatSessionSummary(
+                  id: 's3',
+                  title: 'What did Priya say about the deck?',
+                  updatedAt: now.subtract(const Duration(days: 3)),
+                  messageCount: 2),
+              ChatSessionSummary(
+                  id: 's4',
+                  title: 'Summarise the pricing kickoff',
+                  updatedAt: now.subtract(const Duration(days: 9)),
+                  messageCount: 6),
+            ];
+      await a.pump(const ChatPage(), providers: [ChangeNotifierProvider<MessageProvider>.value(value: messages)]);
+      await a.tap(find.byKey(const Key('chat_history')));
+      await a.shot('Tap the clock in the Ask header: Past chats');
     },
   ),
   AuditScenario(

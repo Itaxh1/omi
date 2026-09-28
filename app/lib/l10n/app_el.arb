@@ -3865,5 +3865,21 @@
     "syncingToYourPhone": "Συγχρονισμός με το τηλέφωνο",
     "lastWeekday": "Την περασμένη {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, από τη συζήτηση των {time}"
+    "memoryFromConversation": "{day}, από τη συζήτηση των {time}",
+    "addAnApp": "Προσθήκη εφαρμογής",
+    "allAppsV3": "Όλες οι εφαρμογές",
+    "browseAllAppsDetail": "Αναζητήστε με όνομα ή διαλέξτε κατηγορία",
+    "appsSendTo": "Αποστολή περιλήψεων και εργασιών σε",
+    "appsAskWith": "Ρωτήστε το Omi με",
+    "appAdded": "Προστέθηκε",
+    "appsCountV3": "{count, plural, =1{1 εφαρμογή} other{{count} εφαρμογές}}",
+    "appsInCategory": "{count} εφαρμογές στο {category}",
+    "noAppsMatch": "Καμία εφαρμογή για «{query}»",
+    "pastChats": "Προηγούμενες συνομιλίες",
+    "newChatV3": "Νέα συνομιλία",
+    "startFresh": "Ξεκινήστε από την αρχή",
+    "deleteChatQuestion": "Διαγραφή αυτής της συνομιλίας;",
+    "deleteChatMessage": "Θα φύγει οριστικά από τις προηγούμενες συνομιλίες.",
+    "deleteChatV3": "Διαγραφή συνομιλίας",
+    "noPastChats": "Οι συνομιλίες σας με το Omi εμφανίζονται εδώ."
 }

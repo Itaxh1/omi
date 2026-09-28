@@ -3865,5 +3865,21 @@
     "syncingToYourPhone": "Sinhronizē ar tālruni",
     "lastWeekday": "Pagājušajā {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, no sarunas plkst. {time}"
+    "memoryFromConversation": "{day}, no sarunas plkst. {time}",
+    "addAnApp": "Pievienot lietotni",
+    "allAppsV3": "Visas lietotnes",
+    "browseAllAppsDetail": "Meklējiet pēc nosaukuma vai izvēlieties kategoriju",
+    "appsSendTo": "Sūtīt kopsavilkumus un uzdevumus uz",
+    "appsAskWith": "Jautājiet Omi ar",
+    "appAdded": "Pievienota",
+    "appsCountV3": "{count, plural, =1{1 lietotne} other{{count} lietotnes}}",
+    "appsInCategory": "{count} lietotnes kategorijā {category}",
+    "noAppsMatch": "Nav lietotņu vaicājumam “{query}”",
+    "pastChats": "Iepriekšējās tērzēšanas",
+    "newChatV3": "Jauna tērzēšana",
+    "startFresh": "Sākt no jauna",
+    "deleteChatQuestion": "Dzēst šo tērzēšanu?",
+    "deleteChatMessage": "Tā uz visiem laikiem pazudīs no iepriekšējām tērzēšanām.",
+    "deleteChatV3": "Dzēst tērzēšanu",
+    "noPastChats": "Jūsu tērzēšanas ar Omi parādās šeit."
 }

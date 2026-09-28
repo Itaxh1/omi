@@ -3865,5 +3865,21 @@
     "syncingToYourPhone": "Synchronizace do telefonu",
     "lastWeekday": "Minulý {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, z konverzace v {time}"
+    "memoryFromConversation": "{day}, z konverzace v {time}",
+    "addAnApp": "Přidat aplikaci",
+    "allAppsV3": "Všechny aplikace",
+    "browseAllAppsDetail": "Hledejte podle názvu nebo vyberte kategorii",
+    "appsSendTo": "Posílat shrnutí a úkoly do",
+    "appsAskWith": "Ptejte se Omi s",
+    "appAdded": "Přidáno",
+    "appsCountV3": "{count, plural, =1{1 aplikace} other{{count} aplikací}}",
+    "appsInCategory": "{count} aplikací v {category}",
+    "noAppsMatch": "Pro „{query}“ není žádná aplikace",
+    "pastChats": "Předchozí chaty",
+    "newChatV3": "Nový chat",
+    "startFresh": "Začít znovu",
+    "deleteChatQuestion": "Smazat tento chat?",
+    "deleteChatMessage": "Z předchozích chatů zmizí natrvalo.",
+    "deleteChatV3": "Smazat chat",
+    "noPastChats": "Tady se zobrazí vaše chaty s Omi."
 }

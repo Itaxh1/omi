@@ -3865,5 +3865,21 @@
     "syncingToYourPhone": "Synkar till telefonen",
     "lastWeekday": "I {weekday}s",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, från samtalet kl. {time}"
+    "memoryFromConversation": "{day}, från samtalet kl. {time}",
+    "addAnApp": "Lägg till en app",
+    "allAppsV3": "Alla appar",
+    "browseAllAppsDetail": "Sök på namn eller välj en kategori",
+    "appsSendTo": "Skicka sammanfattningar och att göra till",
+    "appsAskWith": "Fråga Omi med",
+    "appAdded": "Tillagd",
+    "appsCountV3": "{count, plural, =1{1 app} other{{count} appar}}",
+    "appsInCategory": "{count} appar i {category}",
+    "noAppsMatch": "Inga appar matchar ”{query}”",
+    "pastChats": "Tidigare chattar",
+    "newChatV3": "Ny chatt",
+    "startFresh": "Börja om",
+    "deleteChatQuestion": "Radera den här chatten?",
+    "deleteChatMessage": "Den försvinner från tidigare chattar för gott.",
+    "deleteChatV3": "Radera chatt",
+    "noPastChats": "Dina chattar med Omi visas här."
 }

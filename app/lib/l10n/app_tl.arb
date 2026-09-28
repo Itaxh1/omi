@@ -11425,5 +11425,21 @@
     "syncingToYourPhone": "Nagsi-sync sa phone mo",
     "lastWeekday": "Noong nakaraang {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, mula sa usapan nang {time}"
+    "memoryFromConversation": "{day}, mula sa usapan nang {time}",
+    "addAnApp": "Magdagdag ng app",
+    "allAppsV3": "Lahat ng app",
+    "browseAllAppsDetail": "Maghanap ayon sa pangalan o pumili ng kategorya",
+    "appsSendTo": "Ipadala ang mga buod at gagawin sa",
+    "appsAskWith": "Tanungin si Omi gamit ang",
+    "appAdded": "Naidagdag",
+    "appsCountV3": "{count, plural, =1{1 app} other{{count} app}}",
+    "appsInCategory": "{count} app sa {category}",
+    "noAppsMatch": "Walang app na tugma sa “{query}”",
+    "pastChats": "Mga nakaraang chat",
+    "newChatV3": "Bagong chat",
+    "startFresh": "Magsimula ulit",
+    "deleteChatQuestion": "Burahin ang chat na ito?",
+    "deleteChatMessage": "Mawawala ito sa mga nakaraang chat nang tuluyan.",
+    "deleteChatV3": "Burahin ang chat",
+    "noPastChats": "Dito lumalabas ang mga chat mo kay Omi."
 }

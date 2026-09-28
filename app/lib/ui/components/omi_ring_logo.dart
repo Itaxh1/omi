@@ -23,6 +23,18 @@ enum OmiRingMode {
   wave,
 }
 
+/// How the whole mark turns, on top of its [OmiRingMode] (v3 `.rng.syn` / `.rng.wait`).
+enum OmiRingTurn {
+  /// It stays put.
+  none,
+
+  /// One turn every 14 s: Omi is syncing recordings off the pendant.
+  sync,
+
+  /// One turn every 2.4 s with the dots at 60 %: Omi is reconnecting to the pendant.
+  reconnect,
+}
+
 /// The Omi mark (v3, the kit's `omi-mark-idle.svg`): eight round dots on a ring, drawn in code so
 /// it is sharp at any size and can animate.
 ///
@@ -39,6 +51,7 @@ class OmiRingLogo extends StatefulWidget {
     this.mode = OmiRingMode.still,
     this.semanticLabel,
     this.loops,
+    this.turn = OmiRingTurn.none,
   });
 
   /// Width and height, in logical pixels.
@@ -57,12 +70,19 @@ class OmiRingLogo extends StatefulWidget {
   /// control, which would animate (and draw power) for as long as the screen is open.
   final int? loops;
 
+  /// A slow or quick turn of the whole mark (syncing, reconnecting), independent of [mode].
+  final OmiRingTurn turn;
+
   @override
   State<OmiRingLogo> createState() => _OmiRingLogoState();
 }
 
-class _OmiRingLogoState extends State<OmiRingLogo> with SingleTickerProviderStateMixin {
+class _OmiRingLogoState extends State<OmiRingLogo> with TickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(vsync: this, duration: _periodFor(widget.mode));
+  late final AnimationController _turn = AnimationController(vsync: this, duration: _turnPeriod(widget.turn));
+
+  static Duration _turnPeriod(OmiRingTurn turn) =>
+      turn == OmiRingTurn.reconnect ? const Duration(milliseconds: 2400) : const Duration(seconds: 14);
 
   static Duration _periodFor(OmiRingMode mode) => switch (mode) {
         OmiRingMode.chase => const Duration(milliseconds: 1600),
@@ -85,9 +105,25 @@ class _OmiRingLogoState extends State<OmiRingLogo> with SingleTickerProviderStat
       _controller.duration = _periodFor(widget.mode);
       _sync();
     }
+    if (oldWidget.turn != widget.turn) {
+      _turn.duration = _turnPeriod(widget.turn);
+      _syncTurn();
+    }
+  }
+
+  void _syncTurn() {
+    final reduceMotion = MediaQuery.maybeDisableAnimationsOf(context) ?? false;
+    if (widget.turn == OmiRingTurn.none || reduceMotion) {
+      _turn.stop();
+      _turn.value = 0;
+    } else {
+      // Keep the angle it has; only the pace changes between sync and reconnect.
+      _turn.repeat();
+    }
   }
 
   void _sync() {
+    _syncTurn();
     final reduceMotion = MediaQuery.maybeDisableAnimationsOf(context) ?? false;
     if (widget.mode == OmiRingMode.still || reduceMotion) {
       _controller.stop();
@@ -100,6 +136,7 @@ class _OmiRingLogoState extends State<OmiRingLogo> with SingleTickerProviderStat
   @override
   void dispose() {
     _controller.dispose();
+    _turn.dispose();
     super.dispose();
   }
 
@@ -108,14 +145,15 @@ class _OmiRingLogoState extends State<OmiRingLogo> with SingleTickerProviderStat
     final color = widget.color ?? DefaultTextStyle.of(context).style.color ?? OmiColors.textPrimary;
     final ring = RepaintBoundary(
       child: AnimatedBuilder(
-        animation: _controller,
+        animation: Listenable.merge([_controller, _turn]),
         builder: (_, __) => CustomPaint(
           size: Size.square(widget.size),
           painter: _RingPainter(
-            color: color,
+            color: widget.turn == OmiRingTurn.reconnect ? color.withValues(alpha: color.a * 0.6) : color,
             t: _controller.value,
             mode: widget.mode,
             animating: _controller.isAnimating,
+            turn: _turn.isAnimating ? _turn.value : 0,
           ),
         ),
       ),
@@ -127,7 +165,10 @@ class _OmiRingLogoState extends State<OmiRingLogo> with SingleTickerProviderStat
 }
 
 class _RingPainter extends CustomPainter {
-  _RingPainter({required this.color, required this.t, required this.mode, required this.animating});
+  _RingPainter({required this.color, required this.t, required this.mode, required this.animating, this.turn = 0});
+
+  /// How far round the whole mark has turned, 0..1.
+  final double turn;
 
   final Color color;
 
@@ -160,6 +201,7 @@ class _RingPainter extends CustomPainter {
       scale = 0.92 + 0.08 * k;
     }
     if (animating && mode == OmiRingMode.orbit) rotation = t * 2 * math.pi;
+    rotation += turn * 2 * math.pi;
 
     final paint = Paint()
       ..strokeCap = StrokeCap.round
@@ -206,5 +248,5 @@ class _RingPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_RingPainter old) =>
-      old.t != t || old.color != color || old.mode != mode || old.animating != animating;
+      old.t != t || old.color != color || old.mode != mode || old.animating != animating || old.turn != turn;
 }

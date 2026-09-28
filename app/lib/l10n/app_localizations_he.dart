@@ -12231,4 +12231,64 @@ class AppLocalizationsHe extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, מהשיחה של $time';
   }
+
+  @override
+  String get addAnApp => 'הוספת אפליקציה';
+
+  @override
+  String get allAppsV3 => 'כל האפליקציות';
+
+  @override
+  String get browseAllAppsDetail => 'חפשו לפי שם או בחרו קטגוריה';
+
+  @override
+  String get appsSendTo => 'שליחת סיכומים ומשימות אל';
+
+  @override
+  String get appsAskWith => 'לשאול את Omi עם';
+
+  @override
+  String get appAdded => 'נוספה';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count אפליקציות',
+      one: 'אפליקציה אחת',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count אפליקציות ב$category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'אין אפליקציות שתואמות ל„$query”';
+  }
+
+  @override
+  String get pastChats => 'צ\'אטים קודמים';
+
+  @override
+  String get newChatV3 => 'צ\'אט חדש';
+
+  @override
+  String get startFresh => 'להתחיל מחדש';
+
+  @override
+  String get deleteChatQuestion => 'למחוק את הצ\'אט הזה?';
+
+  @override
+  String get deleteChatMessage => 'הוא ייעלם מהצ\'אטים הקודמים לתמיד.';
+
+  @override
+  String get deleteChatV3 => 'מחיקת הצ\'אט';
+
+  @override
+  String get noPastChats => 'הצ\'אטים שלכם עם Omi יופיעו כאן.';
 }

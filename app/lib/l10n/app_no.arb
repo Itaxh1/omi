@@ -3865,5 +3865,21 @@
     "syncingToYourPhone": "Synkroniserer til telefonen",
     "lastWeekday": "Forrige {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, fra samtalen kl. {time}"
+    "memoryFromConversation": "{day}, fra samtalen kl. {time}",
+    "addAnApp": "Legg til en app",
+    "allAppsV3": "Alle apper",
+    "browseAllAppsDetail": "Søk etter navn eller velg en kategori",
+    "appsSendTo": "Send sammendrag og gjøremål til",
+    "appsAskWith": "Spør Omi med",
+    "appAdded": "Lagt til",
+    "appsCountV3": "{count, plural, =1{1 app} other{{count} apper}}",
+    "appsInCategory": "{count} apper i {category}",
+    "noAppsMatch": "Ingen apper passer til «{query}»",
+    "pastChats": "Tidligere chatter",
+    "newChatV3": "Ny chat",
+    "startFresh": "Start på nytt",
+    "deleteChatQuestion": "Slette denne chatten?",
+    "deleteChatMessage": "Den forsvinner fra tidligere chatter for godt.",
+    "deleteChatV3": "Slett chat",
+    "noPastChats": "Chattene dine med Omi vises her."
 }

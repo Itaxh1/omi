@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:omi/backend/preferences.dart';
-import 'package:omi/pages/apps/page.dart';
 import 'package:omi/pages/devices/devices_screen.dart';
 import 'package:omi/pages/memories/page.dart';
 import 'package:omi/pages/settings/settings_destinations.dart';
@@ -13,6 +12,7 @@ import 'package:omi/providers/memories_provider.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/utils/other/temp.dart';
+import 'package:omi/pages/apps/apps_v3.dart';
 
 /// You (v3 `me`): a sheet from Home's initial button. The reader's name and Done; Look (White or
 /// Black); Listening (Start when Omi opens, the pendant button); You (Teach Omi your voice,
@@ -120,7 +120,7 @@ class _YouBodyState extends State<_YouBody> {
             key: const Key('you_apps'),
             title: l10n.apps,
             value: apps.isEmpty ? null : apps,
-            onTap: () => _open(const AppsPage(showAppBar: true)),
+            onTap: () => _open(const AddAnAppPage()),
           ),
           _Row(
             key: const Key('you_all_settings'),

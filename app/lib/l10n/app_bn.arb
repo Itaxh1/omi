@@ -11425,5 +11425,21 @@
     "syncingToYourPhone": "আপনার ফোনে সিঙ্ক হচ্ছে",
     "lastWeekday": "গত {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, {time}-এর কথোপকথন থেকে"
+    "memoryFromConversation": "{day}, {time}-এর কথোপকথন থেকে",
+    "addAnApp": "একটি অ্যাপ যোগ করুন",
+    "allAppsV3": "সব অ্যাপ",
+    "browseAllAppsDetail": "নাম দিয়ে খুঁজুন বা একটি বিভাগ বেছে নিন",
+    "appsSendTo": "সারাংশ ও করণীয় পাঠান",
+    "appsAskWith": "যার সঙ্গে Omi-কে জিজ্ঞাসা করবেন",
+    "appAdded": "যোগ করা হয়েছে",
+    "appsCountV3": "{count, plural, =1{1টি অ্যাপ} other{{count}টি অ্যাপ}}",
+    "appsInCategory": "{count}টি অ্যাপ {category}-এ",
+    "noAppsMatch": "“{query}” এর সাথে কোনো অ্যাপ মেলেনি",
+    "pastChats": "আগের চ্যাট",
+    "newChatV3": "নতুন চ্যাট",
+    "startFresh": "নতুন করে শুরু করুন",
+    "deleteChatQuestion": "এই চ্যাটটি মুছবেন?",
+    "deleteChatMessage": "এটি আগের চ্যাট থেকে চিরতরে মুছে যাবে।",
+    "deleteChatV3": "চ্যাট মুছুন",
+    "noPastChats": "Omi-এর সঙ্গে আপনার চ্যাট এখানে দেখাবে।"
 }

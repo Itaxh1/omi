@@ -12260,4 +12260,64 @@ class AppLocalizationsTh extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day จากบทสนทนาเวลา $time';
   }
+
+  @override
+  String get addAnApp => 'เพิ่มแอป';
+
+  @override
+  String get allAppsV3 => 'แอปทั้งหมด';
+
+  @override
+  String get browseAllAppsDetail => 'ค้นหาด้วยชื่อหรือเลือกหมวดหมู่';
+
+  @override
+  String get appsSendTo => 'ส่งสรุปและสิ่งที่ต้องทำไปที่';
+
+  @override
+  String get appsAskWith => 'ถาม Omi ด้วย';
+
+  @override
+  String get appAdded => 'เพิ่มแล้ว';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count แอป',
+      one: '1 แอป',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count แอปใน $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'ไม่มีแอปที่ตรงกับ “$query”';
+  }
+
+  @override
+  String get pastChats => 'แชตที่ผ่านมา';
+
+  @override
+  String get newChatV3 => 'แชตใหม่';
+
+  @override
+  String get startFresh => 'เริ่มใหม่';
+
+  @override
+  String get deleteChatQuestion => 'ลบแชตนี้ไหม';
+
+  @override
+  String get deleteChatMessage => 'แชตนี้จะหายไปจากแชตที่ผ่านมาถาวร';
+
+  @override
+  String get deleteChatV3 => 'ลบแชต';
+
+  @override
+  String get noPastChats => 'แชตของคุณกับ Omi จะแสดงที่นี่';
 }

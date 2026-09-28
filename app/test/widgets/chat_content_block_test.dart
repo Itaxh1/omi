@@ -247,11 +247,8 @@ void main() {
       ),
     );
 
-    // The answer column is the message width beside the Omi mark (v4 Ask turn).
-    expect(
-      tester.getSize(find.byKey(const ValueKey('chat-block-fallback-block-thinking'))).width,
-      320 - AIMessage.answerIndent,
-    );
+    // The answer runs the full message width (v3 `.an`, no mark beside it).
+    expect(tester.getSize(find.byKey(const ValueKey('chat-block-fallback-block-thinking'))).width, 320);
   });
 
   testWidgets('does not duplicate fallback prose in a day summary', (tester) async {

@@ -12398,4 +12398,64 @@ class AppLocalizationsCa extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, de la conversa de les $time';
   }
+
+  @override
+  String get addAnApp => 'Afegeix una app';
+
+  @override
+  String get allAppsV3 => 'Totes les apps';
+
+  @override
+  String get browseAllAppsDetail => 'Cerca per nom o tria una categoria';
+
+  @override
+  String get appsSendTo => 'Envia resums i tasques a';
+
+  @override
+  String get appsAskWith => 'Pregunta a Omi amb';
+
+  @override
+  String get appAdded => 'Afegida';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count apps',
+      one: '1 app',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count apps a $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'Cap app coincideix amb «$query»';
+  }
+
+  @override
+  String get pastChats => 'Xats anteriors';
+
+  @override
+  String get newChatV3 => 'Xat nou';
+
+  @override
+  String get startFresh => 'Comença de nou';
+
+  @override
+  String get deleteChatQuestion => 'Vols suprimir aquest xat?';
+
+  @override
+  String get deleteChatMessage => 'Desapareixerà dels xats anteriors per sempre.';
+
+  @override
+  String get deleteChatV3 => 'Suprimeix el xat';
+
+  @override
+  String get noPastChats => 'Els teus xats amb Omi apareixen aquí.';
 }

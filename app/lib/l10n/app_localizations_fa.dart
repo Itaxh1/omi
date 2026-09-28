@@ -12328,4 +12328,64 @@ class AppLocalizationsFa extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day، از گفتگوی ساعت $time';
   }
+
+  @override
+  String get addAnApp => 'افزودن برنامه';
+
+  @override
+  String get allAppsV3 => 'همه برنامه‌ها';
+
+  @override
+  String get browseAllAppsDetail => 'با نام جستجو کنید یا یک دسته انتخاب کنید';
+
+  @override
+  String get appsSendTo => 'ارسال خلاصه‌ها و کارها به';
+
+  @override
+  String get appsAskWith => 'از Omi بپرسید با';
+
+  @override
+  String get appAdded => 'افزوده شد';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count برنامه',
+      one: '۱ برنامه',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count برنامه در $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'هیچ برنامه‌ای با «$query» پیدا نشد';
+  }
+
+  @override
+  String get pastChats => 'گفتگوهای قبلی';
+
+  @override
+  String get newChatV3 => 'گفتگوی جدید';
+
+  @override
+  String get startFresh => 'از نو شروع کنید';
+
+  @override
+  String get deleteChatQuestion => 'این گفتگو حذف شود؟';
+
+  @override
+  String get deleteChatMessage => 'برای همیشه از گفتگوهای قبلی حذف می‌شود.';
+
+  @override
+  String get deleteChatV3 => 'حذف گفتگو';
+
+  @override
+  String get noPastChats => 'گفتگوهای شما با Omi اینجا نشان داده می‌شود.';
 }

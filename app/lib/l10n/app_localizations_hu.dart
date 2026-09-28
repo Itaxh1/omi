@@ -12380,4 +12380,64 @@ class AppLocalizationsHu extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, a $time-kori beszélgetésből';
   }
+
+  @override
+  String get addAnApp => 'Alkalmazás hozzáadása';
+
+  @override
+  String get allAppsV3 => 'Összes alkalmazás';
+
+  @override
+  String get browseAllAppsDetail => 'Keress név szerint, vagy válassz kategóriát';
+
+  @override
+  String get appsSendTo => 'Összefoglalók és teendők küldése ide';
+
+  @override
+  String get appsAskWith => 'Kérdezd az Omit ezzel';
+
+  @override
+  String get appAdded => 'Hozzáadva';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count alkalmazás',
+      one: '1 alkalmazás',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count alkalmazás itt: $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'Nincs találat erre: „$query”';
+  }
+
+  @override
+  String get pastChats => 'Korábbi csevegések';
+
+  @override
+  String get newChatV3 => 'Új csevegés';
+
+  @override
+  String get startFresh => 'Kezdj tiszta lappal';
+
+  @override
+  String get deleteChatQuestion => 'Törlöd ezt a csevegést?';
+
+  @override
+  String get deleteChatMessage => 'Véglegesen eltűnik a korábbi csevegések közül.';
+
+  @override
+  String get deleteChatV3 => 'Csevegés törlése';
+
+  @override
+  String get noPastChats => 'Az Omival folytatott csevegéseid itt jelennek meg.';
 }

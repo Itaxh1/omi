@@ -3900,5 +3900,21 @@
     "syncingToYourPhone": "Synchronizacja z telefonem",
     "lastWeekday": "W zeszły {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, z rozmowy o {time}"
+    "memoryFromConversation": "{day}, z rozmowy o {time}",
+    "addAnApp": "Dodaj aplikację",
+    "allAppsV3": "Wszystkie aplikacje",
+    "browseAllAppsDetail": "Szukaj po nazwie lub wybierz kategorię",
+    "appsSendTo": "Wysyłaj podsumowania i zadania do",
+    "appsAskWith": "Pytaj Omi z",
+    "appAdded": "Dodano",
+    "appsCountV3": "{count, plural, =1{1 aplikacja} other{{count} aplikacji}}",
+    "appsInCategory": "{count} aplikacji w {category}",
+    "noAppsMatch": "Brak aplikacji dla „{query}”",
+    "pastChats": "Poprzednie czaty",
+    "newChatV3": "Nowy czat",
+    "startFresh": "Zacznij od nowa",
+    "deleteChatQuestion": "Usunąć ten czat?",
+    "deleteChatMessage": "Zniknie z poprzednich czatów na zawsze.",
+    "deleteChatV3": "Usuń czat",
+    "noPastChats": "Tu pojawią się Twoje czaty z Omi."
 }

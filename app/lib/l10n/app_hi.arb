@@ -3865,5 +3865,21 @@
     "syncingToYourPhone": "आपके फ़ोन पर सिंक हो रहा है",
     "lastWeekday": "पिछले {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, {time} वाली बातचीत से"
+    "memoryFromConversation": "{day}, {time} वाली बातचीत से",
+    "addAnApp": "एक ऐप जोड़ें",
+    "allAppsV3": "सभी ऐप",
+    "browseAllAppsDetail": "नाम से खोजें या कोई श्रेणी चुनें",
+    "appsSendTo": "सारांश और काम भेजें",
+    "appsAskWith": "Omi से पूछें इनके साथ",
+    "appAdded": "जोड़ा गया",
+    "appsCountV3": "{count, plural, =1{1 ऐप} other{{count} ऐप}}",
+    "appsInCategory": "{count} ऐप {category} में",
+    "noAppsMatch": "“{query}” से कोई ऐप नहीं मिला",
+    "pastChats": "पिछली चैट",
+    "newChatV3": "नई चैट",
+    "startFresh": "नए सिरे से शुरू करें",
+    "deleteChatQuestion": "यह चैट हटाएं?",
+    "deleteChatMessage": "यह पिछली चैट से हमेशा के लिए हट जाएगी।",
+    "deleteChatV3": "चैट हटाएं",
+    "noPastChats": "Omi के साथ आपकी चैट यहाँ दिखेंगी।"
 }

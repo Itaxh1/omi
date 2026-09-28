@@ -3865,5 +3865,21 @@
     "syncingToYourPhone": "Se sincronizează pe telefon",
     "lastWeekday": "{weekday} trecută",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, din conversația de la {time}"
+    "memoryFromConversation": "{day}, din conversația de la {time}",
+    "addAnApp": "Adaugă o aplicație",
+    "allAppsV3": "Toate aplicațiile",
+    "browseAllAppsDetail": "Caută după nume sau alege o categorie",
+    "appsSendTo": "Trimite rezumatele și sarcinile către",
+    "appsAskWith": "Întreabă Omi cu",
+    "appAdded": "Adăugată",
+    "appsCountV3": "{count, plural, =1{1 aplicație} other{{count} aplicații}}",
+    "appsInCategory": "{count} aplicații în {category}",
+    "noAppsMatch": "Nicio aplicație pentru „{query}”",
+    "pastChats": "Conversații anterioare",
+    "newChatV3": "Conversație nouă",
+    "startFresh": "Începe de la capăt",
+    "deleteChatQuestion": "Ștergi această conversație?",
+    "deleteChatMessage": "Dispare definitiv din conversațiile anterioare.",
+    "deleteChatV3": "Șterge conversația",
+    "noPastChats": "Conversațiile tale cu Omi apar aici."
 }

@@ -12415,4 +12415,64 @@ class AppLocalizationsEl extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, από τη συζήτηση των $time';
   }
+
+  @override
+  String get addAnApp => 'Προσθήκη εφαρμογής';
+
+  @override
+  String get allAppsV3 => 'Όλες οι εφαρμογές';
+
+  @override
+  String get browseAllAppsDetail => 'Αναζητήστε με όνομα ή διαλέξτε κατηγορία';
+
+  @override
+  String get appsSendTo => 'Αποστολή περιλήψεων και εργασιών σε';
+
+  @override
+  String get appsAskWith => 'Ρωτήστε το Omi με';
+
+  @override
+  String get appAdded => 'Προστέθηκε';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count εφαρμογές',
+      one: '1 εφαρμογή',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count εφαρμογές στο $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'Καμία εφαρμογή για «$query»';
+  }
+
+  @override
+  String get pastChats => 'Προηγούμενες συνομιλίες';
+
+  @override
+  String get newChatV3 => 'Νέα συνομιλία';
+
+  @override
+  String get startFresh => 'Ξεκινήστε από την αρχή';
+
+  @override
+  String get deleteChatQuestion => 'Διαγραφή αυτής της συνομιλίας;';
+
+  @override
+  String get deleteChatMessage => 'Θα φύγει οριστικά από τις προηγούμενες συνομιλίες.';
+
+  @override
+  String get deleteChatV3 => 'Διαγραφή συνομιλίας';
+
+  @override
+  String get noPastChats => 'Οι συνομιλίες σας με το Omi εμφανίζονται εδώ.';
 }

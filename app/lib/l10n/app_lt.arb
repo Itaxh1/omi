@@ -3865,5 +3865,21 @@
     "syncingToYourPhone": "Sinchronizuojama į telefoną",
     "lastWeekday": "Praėjusį {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, iš {time} pokalbio"
+    "memoryFromConversation": "{day}, iš {time} pokalbio",
+    "addAnApp": "Pridėti programėlę",
+    "allAppsV3": "Visos programėlės",
+    "browseAllAppsDetail": "Ieškokite pagal pavadinimą arba pasirinkite kategoriją",
+    "appsSendTo": "Siųsti santraukas ir darbus į",
+    "appsAskWith": "Klauskite Omi su",
+    "appAdded": "Pridėta",
+    "appsCountV3": "{count, plural, =1{1 programėlė} other{{count} programėlės}}",
+    "appsInCategory": "{count} programėlės kategorijoje {category}",
+    "noAppsMatch": "Pagal „{query}“ programėlių nėra",
+    "pastChats": "Ankstesni pokalbiai",
+    "newChatV3": "Naujas pokalbis",
+    "startFresh": "Pradėti iš naujo",
+    "deleteChatQuestion": "Ištrinti šį pokalbį?",
+    "deleteChatMessage": "Jis visam laikui dings iš ankstesnių pokalbių.",
+    "deleteChatV3": "Ištrinti pokalbį",
+    "noPastChats": "Jūsų pokalbiai su Omi rodomi čia."
 }

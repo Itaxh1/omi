@@ -11425,5 +11425,21 @@
     "syncingToYourPhone": "तुमच्या फोनवर सिंक होत आहे",
     "lastWeekday": "मागील {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, {time} च्या संभाषणातून"
+    "memoryFromConversation": "{day}, {time} च्या संभाषणातून",
+    "addAnApp": "ॲप जोडा",
+    "allAppsV3": "सर्व ॲप्स",
+    "browseAllAppsDetail": "नावाने शोधा किंवा श्रेणी निवडा",
+    "appsSendTo": "सारांश आणि कामे पाठवा",
+    "appsAskWith": "यासह Omi ला विचारा",
+    "appAdded": "जोडले",
+    "appsCountV3": "{count, plural, =1{1 ॲप} other{{count} ॲप्स}}",
+    "appsInCategory": "{count} ॲप्स {category} मध्ये",
+    "noAppsMatch": "“{query}” शी जुळणारे ॲप नाही",
+    "pastChats": "मागील चॅट्स",
+    "newChatV3": "नवीन चॅट",
+    "startFresh": "नव्याने सुरू करा",
+    "deleteChatQuestion": "हे चॅट हटवायचे?",
+    "deleteChatMessage": "ते मागील चॅट्समधून कायमचे जाईल.",
+    "deleteChatV3": "चॅट हटवा",
+    "noPastChats": "Omi सोबतचे तुमचे चॅट्स येथे दिसतील."
 }

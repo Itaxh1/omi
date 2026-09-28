@@ -12254,4 +12254,64 @@ class AppLocalizationsAr extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day، من محادثة الساعة $time';
   }
+
+  @override
+  String get addAnApp => 'أضف تطبيقًا';
+
+  @override
+  String get allAppsV3 => 'كل التطبيقات';
+
+  @override
+  String get browseAllAppsDetail => 'ابحث بالاسم أو اختر فئة';
+
+  @override
+  String get appsSendTo => 'أرسل الملخصات والمهام إلى';
+
+  @override
+  String get appsAskWith => 'اسأل Omi مع';
+
+  @override
+  String get appAdded => 'مُضاف';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count تطبيقات',
+      one: 'تطبيق واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count تطبيقات في $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'لا توجد تطبيقات تطابق «$query»';
+  }
+
+  @override
+  String get pastChats => 'المحادثات السابقة';
+
+  @override
+  String get newChatV3 => 'محادثة جديدة';
+
+  @override
+  String get startFresh => 'ابدأ من جديد';
+
+  @override
+  String get deleteChatQuestion => 'حذف هذه المحادثة؟';
+
+  @override
+  String get deleteChatMessage => 'ستُحذف من المحادثات السابقة نهائيًا.';
+
+  @override
+  String get deleteChatV3 => 'حذف المحادثة';
+
+  @override
+  String get noPastChats => 'تظهر محادثاتك مع Omi هنا.';
 }

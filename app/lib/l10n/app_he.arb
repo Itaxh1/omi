@@ -11425,5 +11425,21 @@
     "syncingToYourPhone": "מסנכרן לטלפון",
     "lastWeekday": "{weekday} שעבר",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, מהשיחה של {time}"
+    "memoryFromConversation": "{day}, מהשיחה של {time}",
+    "addAnApp": "הוספת אפליקציה",
+    "allAppsV3": "כל האפליקציות",
+    "browseAllAppsDetail": "חפשו לפי שם או בחרו קטגוריה",
+    "appsSendTo": "שליחת סיכומים ומשימות אל",
+    "appsAskWith": "לשאול את Omi עם",
+    "appAdded": "נוספה",
+    "appsCountV3": "{count, plural, =1{אפליקציה אחת} other{{count} אפליקציות}}",
+    "appsInCategory": "{count} אפליקציות ב{category}",
+    "noAppsMatch": "אין אפליקציות שתואמות ל„{query}”",
+    "pastChats": "צ'אטים קודמים",
+    "newChatV3": "צ'אט חדש",
+    "startFresh": "להתחיל מחדש",
+    "deleteChatQuestion": "למחוק את הצ'אט הזה?",
+    "deleteChatMessage": "הוא ייעלם מהצ'אטים הקודמים לתמיד.",
+    "deleteChatV3": "מחיקת הצ'אט",
+    "noPastChats": "הצ'אטים שלכם עם Omi יופיעו כאן."
 }

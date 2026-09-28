@@ -3961,5 +3961,21 @@
     "syncingToYourPhone": "Szinkronizálás a telefonra",
     "lastWeekday": "Múlt {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, a {time}-kori beszélgetésből"
+    "memoryFromConversation": "{day}, a {time}-kori beszélgetésből",
+    "addAnApp": "Alkalmazás hozzáadása",
+    "allAppsV3": "Összes alkalmazás",
+    "browseAllAppsDetail": "Keress név szerint, vagy válassz kategóriát",
+    "appsSendTo": "Összefoglalók és teendők küldése ide",
+    "appsAskWith": "Kérdezd az Omit ezzel",
+    "appAdded": "Hozzáadva",
+    "appsCountV3": "{count, plural, =1{1 alkalmazás} other{{count} alkalmazás}}",
+    "appsInCategory": "{count} alkalmazás itt: {category}",
+    "noAppsMatch": "Nincs találat erre: „{query}”",
+    "pastChats": "Korábbi csevegések",
+    "newChatV3": "Új csevegés",
+    "startFresh": "Kezdj tiszta lappal",
+    "deleteChatQuestion": "Törlöd ezt a csevegést?",
+    "deleteChatMessage": "Véglegesen eltűnik a korábbi csevegések közül.",
+    "deleteChatV3": "Csevegés törlése",
+    "noPastChats": "Az Omival folytatott csevegéseid itt jelennek meg."
 }

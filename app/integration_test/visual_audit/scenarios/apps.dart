@@ -8,14 +8,13 @@ import 'package:omi/backend/schema/app.dart';
 import 'package:omi/pages/apps/add_app.dart';
 import 'package:omi/pages/apps/add_mcp_server_page.dart';
 import 'package:omi/pages/apps/app_detail/app_detail.dart';
-import 'package:omi/pages/apps/page.dart';
+import 'package:omi/pages/apps/apps_v3.dart';
 import 'package:omi/pages/apps/providers/add_app_provider.dart';
 import 'package:omi/pages/apps/update_app.dart';
 import 'package:omi/pages/apps/widgets/app_actions.dart';
 import 'package:omi/pages/apps/widgets/filter_sheet.dart';
 import 'package:omi/pages/settings/ai_app_generator_page.dart';
 import 'package:omi/providers/app_provider.dart';
-import 'package:omi/ui/ui.dart';
 
 import '../../journeys/support/fixture_backend.dart';
 import '../fakes.dart';
@@ -42,6 +41,58 @@ App _app({required String id, String name = 'Asana', String? uid, bool externalI
   );
 }
 
+App _v3App(String id, String name, String description, String category, Set<String> capabilities, int installs) => App(
+      id: id,
+      name: name,
+      author: 'Omi',
+      description: description,
+      image: '',
+      capabilities: capabilities,
+      status: 'approved',
+      category: category,
+      approved: true,
+      ratingCount: 1,
+      installs: installs,
+      enabled: false,
+      deleted: false,
+      isPaid: false,
+      isUserPaid: false,
+    );
+
+/// The design's catalogue (`AP` / `SA`): apps that take summaries and to-dos, and chat apps.
+AppProvider _v3Catalog() {
+  const send = {'external_integration', 'memories'};
+  const chat = {'chat'};
+  final apps = [
+    _v3App('notion', 'Notion', 'Summaries, one page per day', 'notes', send, 900),
+    _v3App('slack', 'Slack', 'To-dos, in a channel you pick', 'messaging', send, 800),
+    _v3App('gcal', 'Google Calendar', 'Turns dates you mention into events', 'calendar', send, 700),
+    _v3App('zapier', 'Zapier', 'Anything else, 6,000+ apps', 'productivity', send, 600),
+    _v3App('todoist', 'Todoist', 'Sends your to-dos to Todoist', 'productivity', send, 500),
+    _v3App('mail', 'Mail', 'Draft replies from what was said', 'messaging', chat, 400),
+    _v3App('translate', 'Translate', 'Live translation while recording', 'language', chat, 300),
+  ];
+  return AppProvider()
+    ..retrieveAppsGroupedOverride = (() async => [
+          {'title': 'Popular', 'data': apps},
+        ])
+    ..getEnabledAppsOverride = (() async => const ['notion', 'slack'])
+    ..retrievePopularAppsOverride = (() async => apps);
+}
+
+class _CategoriesProvider extends InertAddAppProvider {
+  @override
+  Future<void> getCategories() async {
+    categories = [
+      Category(title: 'Productivity', id: 'productivity'),
+      Category(title: 'Notes & docs', id: 'notes'),
+      Category(title: 'Messaging', id: 'messaging'),
+      Category(title: 'Calendar', id: 'calendar'),
+      Category(title: 'Language', id: 'language'),
+    ];
+  }
+}
+
 /// An AppProvider whose catalog is [apps] under one "Popular" section, with nothing enabled.
 AppProvider _catalog(List<App> apps) => AppProvider()
   ..retrieveAppsGroupedOverride = (() async => [
@@ -53,21 +104,19 @@ AppProvider _catalog(List<App> apps) => AppProvider()
 final appsScenarios = <AuditScenario>[
   AuditScenario(
     id: 'apps-store',
-    title: 'Apps store home',
-    page: 'lib/pages/apps/page.dart (AppsPage)',
-    state: 'AppProvider catalog with two approved apps under Popular; none enabled',
+    title: 'Add an app (v3): Browse all apps, then the apps that take your notes and the ones you ask with',
+    page: 'lib/pages/apps/apps_v3.dart (AddAnAppPage)',
+    state: 'Four apps that take summaries (Notion and Slack added) and two chat apps',
     run: (a) async {
-      final apps = [_app(id: 'asana'), _app(id: 'notion', name: 'Notion')];
-      await primeNetworkImages(a.tester, apps.map((app) => app.getImageUrl()));
-      await a.pump(const AppsPage(showAppBar: true), providers: [
-        ChangeNotifierProvider<AppProvider>.value(value: _catalog(apps)),
-        ChangeNotifierProvider<AddAppProvider>(create: (_) => InertAddAppProvider()),
+      await a.pump(const AddAnAppPage(), scaffold: false, providers: [
+        ChangeNotifierProvider<AppProvider>.value(value: _v3Catalog()),
+        ChangeNotifierProvider<AddAppProvider>(create: (_) => _CategoriesProvider()),
       ]);
-      await a.shot('Open the Apps tab', step: 'explore');
-      expect(find.byKey(const Key('apps_scope')), findsOneWidget);
-      await a.tap(find.descendant(of: find.byKey(const Key('apps_scope')), matching: find.text('Installed')));
-      expect(a.tester.widget<OmiSegmentedControl<bool>>(find.byKey(const Key('apps_scope'))).selected, isTrue);
-      await a.shot('Tap Installed: only the apps you have', step: 'installed');
+      await a.shot('Open Apps from the sidebar', step: 'add');
+      await a.tap(find.byKey(const Key('apps_browse_all')));
+      await a.shot('Tap Browse all apps: search, categories and every app', step: 'all');
+      await a.tap(find.byKey(const ValueKey('apps_category_messaging')));
+      await a.shot('Pick a category', step: 'category');
     },
   ),
   AuditScenario(

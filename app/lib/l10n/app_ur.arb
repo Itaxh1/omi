@@ -11425,5 +11425,21 @@
     "syncingToYourPhone": "آپ کے فون پر ہم آہنگی ہو رہی ہے",
     "lastWeekday": "پچھلے {weekday}",
     "dayAtTime": "{day}، {time}",
-    "memoryFromConversation": "{day}، {time} کی گفتگو سے"
+    "memoryFromConversation": "{day}، {time} کی گفتگو سے",
+    "addAnApp": "ایپ شامل کریں",
+    "allAppsV3": "تمام ایپس",
+    "browseAllAppsDetail": "نام سے تلاش کریں یا زمرہ منتخب کریں",
+    "appsSendTo": "خلاصے اور کام بھیجیں",
+    "appsAskWith": "اس کے ساتھ Omi سے پوچھیں",
+    "appAdded": "شامل ہے",
+    "appsCountV3": "{count, plural, =1{1 ایپ} other{{count} ایپس}}",
+    "appsInCategory": "{count} ایپس {category} میں",
+    "noAppsMatch": "“{query}” سے کوئی ایپ نہیں ملی",
+    "pastChats": "پچھلی چیٹس",
+    "newChatV3": "نئی چیٹ",
+    "startFresh": "نئے سرے سے شروع کریں",
+    "deleteChatQuestion": "یہ چیٹ حذف کریں؟",
+    "deleteChatMessage": "یہ پچھلی چیٹس سے ہمیشہ کے لیے ہٹ جائے گی۔",
+    "deleteChatV3": "چیٹ حذف کریں",
+    "noPastChats": "Omi کے ساتھ آپ کی چیٹس یہاں نظر آئیں گی۔"
 }

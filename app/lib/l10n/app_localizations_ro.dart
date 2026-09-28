@@ -12386,4 +12386,64 @@ class AppLocalizationsRo extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, din conversația de la $time';
   }
+
+  @override
+  String get addAnApp => 'Adaugă o aplicație';
+
+  @override
+  String get allAppsV3 => 'Toate aplicațiile';
+
+  @override
+  String get browseAllAppsDetail => 'Caută după nume sau alege o categorie';
+
+  @override
+  String get appsSendTo => 'Trimite rezumatele și sarcinile către';
+
+  @override
+  String get appsAskWith => 'Întreabă Omi cu';
+
+  @override
+  String get appAdded => 'Adăugată';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count aplicații',
+      one: '1 aplicație',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count aplicații în $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'Nicio aplicație pentru „$query”';
+  }
+
+  @override
+  String get pastChats => 'Conversații anterioare';
+
+  @override
+  String get newChatV3 => 'Conversație nouă';
+
+  @override
+  String get startFresh => 'Începe de la capăt';
+
+  @override
+  String get deleteChatQuestion => 'Ștergi această conversație?';
+
+  @override
+  String get deleteChatMessage => 'Dispare definitiv din conversațiile anterioare.';
+
+  @override
+  String get deleteChatV3 => 'Șterge conversația';
+
+  @override
+  String get noPastChats => 'Conversațiile tale cu Omi apar aici.';
 }

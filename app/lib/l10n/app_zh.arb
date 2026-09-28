@@ -3865,5 +3865,21 @@
     "syncingToYourPhone": "正在同步到手机",
     "lastWeekday": "上{weekday}",
     "dayAtTime": "{day} {time}",
-    "memoryFromConversation": "{day}，来自 {time} 的对话"
+    "memoryFromConversation": "{day}，来自 {time} 的对话",
+    "addAnApp": "添加应用",
+    "allAppsV3": "全部应用",
+    "browseAllAppsDetail": "按名称搜索或选择一个类别",
+    "appsSendTo": "把摘要和待办发送到",
+    "appsAskWith": "用这些向 Omi 提问",
+    "appAdded": "已添加",
+    "appsCountV3": "{count, plural, =1{1 个应用} other{{count} 个应用}}",
+    "appsInCategory": "{count} 个应用（{category}）",
+    "noAppsMatch": "没有与“{query}”匹配的应用",
+    "pastChats": "过往聊天",
+    "newChatV3": "新聊天",
+    "startFresh": "重新开始",
+    "deleteChatQuestion": "删除这个聊天？",
+    "deleteChatMessage": "它会从过往聊天中永久消失。",
+    "deleteChatV3": "删除聊天",
+    "noPastChats": "你和 Omi 的聊天会显示在这里。"
 }

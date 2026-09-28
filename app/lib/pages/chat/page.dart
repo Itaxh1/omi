@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:omi/utils/platform/platform_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
@@ -17,7 +16,6 @@ import 'package:omi/backend/preferences.dart';
 import 'package:omi/backend/schema/app.dart';
 import 'package:omi/backend/schema/conversation.dart';
 import 'package:omi/backend/schema/message.dart';
-import 'package:omi/pages/apps/widgets/capability_apps_page.dart';
 import 'package:omi/pages/chat/chat_scroll_policy.dart';
 import 'package:omi/pages/chat/widgets/ai_message.dart';
 import 'package:omi/pages/chat/widgets/jump_to_latest_button.dart';
@@ -37,8 +35,8 @@ import 'package:omi/providers/voice_recorder_provider.dart';
 import 'package:omi/services/integrations/apple_health_service.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/utils/other/temp.dart';
-import 'package:omi/pages/apps/widgets/app_actions.dart';
-import 'package:omi/pages/chat/widgets/chat_apps_drawer.dart';
+import 'package:omi/pages/chat/past_chats_page.dart';
+import 'package:omi/pages/chat/widgets/chat_apps_drawer.dart' show ChatAppAvatar;
 import 'package:omi/pages/chat/widgets/chat_composer_parts.dart';
 import 'package:omi/ui/ui.dart';
 
@@ -52,6 +50,10 @@ class ChatPage extends StatefulWidget {
   /// thread has loaded.
   final String? initialQuestion;
 
+  /// Opens on the current thread (a chat app's page, a chat link) instead of a fresh Ask (v3: each
+  /// Ask starts fresh, with the earlier chats in Past chats).
+  final bool continueThread;
+
   const ChatPage({
     super.key,
     this.isPivotBottom = false,
@@ -59,13 +61,27 @@ class ChatPage extends StatefulWidget {
     this.autoStartVoice = false,
     this.initialChatContext,
     this.initialQuestion,
+    this.continueThread = false,
   });
 
   @override
   State<ChatPage> createState() => ChatPageState();
 }
 
-class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, WidgetsBindingObserver {
+class ChatPageState extends State<ChatPage>
+    with AutomaticKeepAliveClientMixin, WidgetsBindingObserver, TickerProviderStateMixin {
+  /// The opening motion: the hello's lines, the count, the suggestions and the composer ([AskIntro]).
+  late final AnimationController _intro = AnimationController(vsync: this, duration: AskIntro.length);
+
+  void _playIntro() {
+    final reduceMotion = MediaQuery.maybeDisableAnimationsOf(context) ?? false;
+    if (reduceMotion) {
+      _intro.value = 1;
+    } else {
+      _intro.forward(from: 0);
+    }
+  }
+
   TextEditingController textController = TextEditingController();
   late ScrollController scrollController;
   late FocusNode textFieldFocusNode;
@@ -120,8 +136,14 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
       _messageProvider = provider;
       // Listen for quota exceeded from any send path (text or voice)
       provider.addListener(_onMessageProviderChanged);
-      if (provider.messages.isEmpty) {
-        provider.refreshMessages();
+      if (widget.continueThread) {
+        if (provider.messages.isEmpty) provider.refreshMessages();
+        _intro.value = 1;
+      } else {
+        // v3: Ask opens fresh on Omi; the earlier chats are in Past chats.
+        context.read<AppProvider>().setSelectedChatAppId(null);
+        provider.startFreshChat();
+        _playIntro();
       }
       // Fetch enabled chat apps
       provider.fetchChatApps();
@@ -212,6 +234,7 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
     textController.dispose();
     scrollController.dispose();
     textFieldFocusNode.dispose();
+    _intro.dispose();
     super.dispose();
   }
 
@@ -256,18 +279,6 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
         return Scaffold(
           key: scaffoldKey,
           appBar: _buildAppBar(context, provider),
-          endDrawer: ChatAppsDrawer(
-            onSelectApp: (id) => _handleAppSelection(id, context.read<AppProvider>()),
-            onEnableApps: _navigateToChatAppsPage,
-            onDisableApp: _disableChatApp,
-            onClearChat: _showClearChatDialog,
-          ),
-          onEndDrawerChanged: (isOpened) {
-            if (isOpened) {
-              // Unfocus text field when drawer opens
-              textFieldFocusNode.unfocus();
-            }
-          },
           body: GestureDetector(
             onTap: () {
               // Hide keyboard when tapping outside textfield
@@ -277,12 +288,12 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
               children: [
                 // Messages area - takes up remaining space
                 Expanded(
-                  child: provider.isLoadingMessages && !provider.hasCachedMessages
+                  child: provider.isLoadingMessages && (provider.messages.isEmpty || !provider.hasCachedMessages)
                       ? OmiLoadingState(label: provider.firstTimeLoadingText)
                       : provider.isClearingChat
                           ? OmiLoadingState(label: context.l10n.deletingMessages)
                           : (provider.messages.isEmpty)
-                              ? AskHello(isConnected: connectivityProvider.isConnected)
+                              ? AskHello(isConnected: connectivityProvider.isConnected, animation: _intro)
                               : LayoutBuilder(
                                   builder: (context, constraints) {
                                     return Theme(
@@ -420,11 +431,10 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
                               !provider.isLoadingMessages &&
                               connectivityProvider.isConnected)
                             AskSuggestions(
+                              animation: _intro,
                               onSelected: (prompt) {
-                                textController.text = prompt;
-                                textController.selection = TextSelection.collapsed(offset: prompt.length);
-                                textFieldFocusNode.requestFocus();
                                 OmiHaptics.selection();
+                                _sendMessageUtil(prompt);
                               },
                             ),
                           // Selected images display above the send bar
@@ -453,267 +463,273 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
                               );
                             },
                           ),
-                          // Send bar
-                          SafeArea(
-                            bottom: false,
-                            maintainBottomViewPadding: false,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                left: 18,
-                                right: 18,
-                                // `.cmp`: 10 pt under the suggestions (their own gap), 16 above the home
-                                // indicator.
-                                top: 0,
-                                bottom: widget.isPivotBottom
-                                    ? 6
-                                    : (textFieldFocusNode.hasFocus &&
-                                            (textController.text.length > 40 || textController.text.contains('\n'))
-                                        ? 4
-                                        : 16),
-                              ),
-                              child: Stack(
-                                clipBehavior: Clip.none,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      // Placeholder for the floating LEFT button so the pill
-                                      // sits at the right x-position. The actual button is
-                                      // rendered as a Positioned overlay below so the pill's
-                                      // shadow can't bleed onto it.
-                                      if (voiceRecorderProvider.isActive ||
-                                          (!voiceRecorderProvider.isActive && shouldShowMenuButton()))
-                                        const SizedBox(width: 52),
-                                      // CENTER pill — text field/waveform + right-side button stays inside.
-                                      Expanded(
-                                        child: Container(
-                                          // v3 `.field`: 52 pt, a 1 pt ink outline, the mic inside on the right.
-                                          constraints: const BoxConstraints(minHeight: 52),
-                                          padding: const EdgeInsets.only(left: 16, right: 3, top: 3, bottom: 3),
-                                          decoration: BoxDecoration(
-                                            color: OmiColors.surface0,
-                                            borderRadius: const BorderRadius.all(Radius.circular(26)),
-                                            border: Border.all(color: OmiColors.textPrimary),
-                                          ),
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              Expanded(
-                                                child: Column(
-                                                  mainAxisSize: MainAxisSize.min,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    if (_selectedContext != null && !voiceRecorderProvider.isActive)
-                                                      _SelectedTextChip(
-                                                        text: _selectedContext!,
-                                                        onRemove: () => setState(() => _selectedContext = null),
-                                                      ),
-                                                    voiceRecorderProvider.isActive
-                                                        ? VoiceRecorderWidget(
-                                                            onTranscriptReady: (transcript, autoSend) {
-                                                              textController.text = transcript;
-                                                              voiceRecorderProvider.close();
-                                                              context
-                                                                  .read<MessageProvider>()
-                                                                  .setNextMessageOriginIsVoice(true);
-                                                              if (autoSend && transcript.trim().isNotEmpty) {
-                                                                _sendMessageUtil(transcript.trim());
-                                                              }
-                                                            },
-                                                            onClose: () {
-                                                              voiceRecorderProvider.close();
-                                                            },
-                                                          )
-                                                        : Theme(
-                                                            data: Theme.of(context).copyWith(
-                                                              textSelectionTheme: TextSelectionThemeData(
-                                                                selectionColor:
-                                                                    OmiColors.textTertiary.withValues(alpha: 0.4),
-                                                                selectionHandleColor: OmiColors.textPrimary,
+                          // Send bar (`.comp`), rising in with the hello.
+                          AskRise(
+                            animation: _intro,
+                            interval: AskIntro.composer,
+                            child: SafeArea(
+                              bottom: false,
+                              maintainBottomViewPadding: false,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  left: 18,
+                                  right: 18,
+                                  // `.cmp`: 10 pt under the suggestions (their own gap), 16 above the home
+                                  // indicator.
+                                  top: 0,
+                                  bottom: widget.isPivotBottom
+                                      ? 6
+                                      : (textFieldFocusNode.hasFocus &&
+                                              (textController.text.length > 40 || textController.text.contains('\n'))
+                                          ? 4
+                                          : 16),
+                                ),
+                                child: Stack(
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        // Placeholder for the floating LEFT button so the pill
+                                        // sits at the right x-position. The actual button is
+                                        // rendered as a Positioned overlay below so the pill's
+                                        // shadow can't bleed onto it.
+                                        if (voiceRecorderProvider.isActive ||
+                                            (!voiceRecorderProvider.isActive && shouldShowMenuButton()))
+                                          const SizedBox(width: 52),
+                                        // CENTER pill — text field/waveform + right-side button stays inside.
+                                        Expanded(
+                                          child: Container(
+                                            // v3 `.field`: 52 pt, a 1 pt ink outline, the mic inside on the right.
+                                            constraints: const BoxConstraints(minHeight: 52),
+                                            padding: const EdgeInsets.only(left: 16, right: 3, top: 3, bottom: 3),
+                                            decoration: BoxDecoration(
+                                              color: OmiColors.surface0,
+                                              borderRadius: const BorderRadius.all(Radius.circular(26)),
+                                              border: Border.all(color: OmiColors.textPrimary, width: 1.5),
+                                            ),
+                                            child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                Expanded(
+                                                  child: Column(
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      if (_selectedContext != null && !voiceRecorderProvider.isActive)
+                                                        _SelectedTextChip(
+                                                          text: _selectedContext!,
+                                                          onRemove: () => setState(() => _selectedContext = null),
+                                                        ),
+                                                      voiceRecorderProvider.isActive
+                                                          ? VoiceRecorderWidget(
+                                                              onTranscriptReady: (transcript, autoSend) {
+                                                                textController.text = transcript;
+                                                                voiceRecorderProvider.close();
+                                                                context
+                                                                    .read<MessageProvider>()
+                                                                    .setNextMessageOriginIsVoice(true);
+                                                                if (autoSend && transcript.trim().isNotEmpty) {
+                                                                  _sendMessageUtil(transcript.trim());
+                                                                }
+                                                              },
+                                                              onClose: () {
+                                                                voiceRecorderProvider.close();
+                                                              },
+                                                            )
+                                                          : Theme(
+                                                              data: Theme.of(context).copyWith(
+                                                                textSelectionTheme: TextSelectionThemeData(
+                                                                  selectionColor:
+                                                                      OmiColors.textTertiary.withValues(alpha: 0.4),
+                                                                  selectionHandleColor: OmiColors.textPrimary,
+                                                                ),
+                                                              ),
+                                                              child: TextField(
+                                                                key: const ValueKey('omi.chat.input'),
+                                                                enabled: true,
+                                                                controller: textController,
+                                                                focusNode: textFieldFocusNode,
+                                                                obscureText: false,
+                                                                textAlign: TextAlign.start,
+                                                                // y: -0.35 nudges glyphs up. Font line metrics
+                                                                // place the visual baseline below the line box
+                                                                // center, so plain `.center` reads slightly low.
+                                                                textAlignVertical: const TextAlignVertical(y: -0.35),
+                                                                decoration: InputDecoration(
+                                                                  hintText: context.l10n.askAnything,
+                                                                  hintStyle: OmiType.callout.copyWith(
+                                                                    color: OmiColors.textTertiary,
+                                                                  ),
+                                                                  focusedBorder: InputBorder.none,
+                                                                  enabledBorder: InputBorder.none,
+                                                                  contentPadding: const EdgeInsets.symmetric(
+                                                                    horizontal: 4,
+                                                                    vertical: 10,
+                                                                  ),
+                                                                  isDense: true,
+                                                                ),
+                                                                minLines: 1,
+                                                                maxLines: 10,
+                                                                keyboardType: TextInputType.multiline,
+                                                                textCapitalization: TextCapitalization.sentences,
+                                                                style: OmiType.callout.copyWith(height: 1.2),
                                                               ),
                                                             ),
-                                                            child: TextField(
-                                                              key: const ValueKey('omi.chat.input'),
-                                                              enabled: true,
-                                                              controller: textController,
-                                                              focusNode: textFieldFocusNode,
-                                                              obscureText: false,
-                                                              textAlign: TextAlign.start,
-                                                              // y: -0.35 nudges glyphs up. Font line metrics
-                                                              // place the visual baseline below the line box
-                                                              // center, so plain `.center` reads slightly low.
-                                                              textAlignVertical: const TextAlignVertical(y: -0.35),
-                                                              decoration: InputDecoration(
-                                                                hintText: context.l10n.askAnything,
-                                                                hintStyle: OmiType.callout.copyWith(
-                                                                  color: OmiColors.textTertiary,
-                                                                ),
-                                                                focusedBorder: InputBorder.none,
-                                                                enabledBorder: InputBorder.none,
-                                                                contentPadding: const EdgeInsets.symmetric(
-                                                                  horizontal: 4,
-                                                                  vertical: 10,
-                                                                ),
-                                                                isDense: true,
-                                                              ),
-                                                              minLines: 1,
-                                                              maxLines: 10,
-                                                              keyboardType: TextInputType.multiline,
-                                                              textCapitalization: TextCapitalization.sentences,
-                                                              style: OmiType.callout.copyWith(height: 1.2),
-                                                            ),
-                                                          ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                              const SizedBox(width: 8),
-                                              // Right-side button — stays INSIDE the pill.
-                                              // Stop fills the draft; Send transcribes and sends.
-                                              if (voiceRecorderProvider.state == VoiceRecorderState.recording)
-                                                ChatComposerRoundButton(
-                                                  buttonKey: const ValueKey('omi.chat.voice.transcribe'),
-                                                  icon: const Icon(Icons.stop),
-                                                  label: context.l10n.stopRecording,
-                                                  onPressed: () {
-                                                    OmiHaptics.light();
-                                                    voiceRecorderProvider.processRecording();
-                                                  },
-                                                ),
-                                              if (voiceRecorderProvider.state == VoiceRecorderState.recording)
-                                                ChatComposerRoundButton(
-                                                  buttonKey: const ValueKey('omi.chat.voice.send'),
-                                                  icon: const FaIcon(FontAwesomeIcons.arrowUp),
-                                                  label: context.l10n.chatSendMessage,
-                                                  onPressed: () {
-                                                    OmiHaptics.medium();
-                                                    voiceRecorderProvider.requestAutoSendOnNextTranscript();
-                                                    voiceRecorderProvider.processRecording();
-                                                  },
-                                                ),
-                                              // Microphone button — round white pill matching the send button.
-                                              if (!voiceRecorderProvider.isActive &&
-                                                  shouldShowVoiceRecorderButton() &&
-                                                  textController.text.isEmpty)
-                                                ChatComposerRoundButton(
-                                                  icon: const FaIcon(FontAwesomeIcons.microphone),
-                                                  label: context.l10n.startVoiceRecording,
-                                                  onPressed: () {
-                                                    OmiHaptics.light();
-                                                    FocusScope.of(context).unfocus();
-                                                    voiceRecorderProvider.startRecording();
-                                                  },
-                                                ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      // v3 `#send`: a 52 pt ink circle beside the field.
-                                      if (!voiceRecorderProvider.isActive) ...[
-                                        const SizedBox(width: 8),
-                                        ValueListenableBuilder<TextEditingValue>(
-                                          valueListenable: textController,
-                                          builder: (context, value, child) {
-                                            final canSend = value.text.trim().isNotEmpty &&
-                                                shouldShowSendButton(provider) &&
-                                                !provider.isUploadingFiles &&
-                                                connectivityProvider.isConnected;
-                                            return ChatSendButton(
-                                              buttonKey: const ValueKey('omi.chat.send'),
-                                              label: context.l10n.chatSendMessage,
-                                              onPressed: canSend
-                                                  ? () {
+                                                const SizedBox(width: 8),
+                                                // Right-side button — stays INSIDE the pill.
+                                                // Stop fills the draft; Send transcribes and sends.
+                                                if (voiceRecorderProvider.state == VoiceRecorderState.recording)
+                                                  ChatComposerRoundButton(
+                                                    filled: true,
+                                                    buttonKey: const ValueKey('omi.chat.voice.transcribe'),
+                                                    icon: const Icon(Icons.stop),
+                                                    label: context.l10n.stopRecording,
+                                                    onPressed: () {
+                                                      OmiHaptics.light();
+                                                      voiceRecorderProvider.processRecording();
+                                                    },
+                                                  ),
+                                                if (voiceRecorderProvider.state == VoiceRecorderState.recording)
+                                                  ChatComposerRoundButton(
+                                                    filled: true,
+                                                    buttonKey: const ValueKey('omi.chat.voice.send'),
+                                                    icon: const FaIcon(FontAwesomeIcons.arrowUp),
+                                                    label: context.l10n.chatSendMessage,
+                                                    onPressed: () {
                                                       OmiHaptics.medium();
-                                                      final message = textController.text.trim();
-                                                      if (message.isEmpty) return;
-                                                      _sendMessageUtil(message);
-                                                    }
-                                                  : null,
-                                            );
-                                          },
+                                                      voiceRecorderProvider.requestAutoSendOnNextTranscript();
+                                                      voiceRecorderProvider.processRecording();
+                                                    },
+                                                  ),
+                                                // Microphone button — round white pill matching the send button.
+                                                if (!voiceRecorderProvider.isActive &&
+                                                    shouldShowVoiceRecorderButton() &&
+                                                    textController.text.isEmpty)
+                                                  ChatComposerRoundButton(
+                                                    icon: const OmiGlyph(OmiGlyphs.micLine, size: 18),
+                                                    label: context.l10n.startVoiceRecording,
+                                                    onPressed: () {
+                                                      OmiHaptics.light();
+                                                      FocusScope.of(context).unfocus();
+                                                      voiceRecorderProvider.startRecording();
+                                                    },
+                                                  ),
+                                              ],
+                                            ),
+                                          ),
                                         ),
+                                        // v3 `#send`: a 52 pt ink circle beside the field.
+                                        if (!voiceRecorderProvider.isActive) ...[
+                                          const SizedBox(width: 8),
+                                          ValueListenableBuilder<TextEditingValue>(
+                                            valueListenable: textController,
+                                            builder: (context, value, child) {
+                                              final canSend = value.text.trim().isNotEmpty &&
+                                                  shouldShowSendButton(provider) &&
+                                                  !provider.isUploadingFiles &&
+                                                  connectivityProvider.isConnected;
+                                              return ChatSendButton(
+                                                buttonKey: const ValueKey('omi.chat.send'),
+                                                label: context.l10n.chatSendMessage,
+                                                onPressed: canSend
+                                                    ? () {
+                                                        OmiHaptics.medium();
+                                                        final message = textController.text.trim();
+                                                        if (message.isEmpty) return;
+                                                        _sendMessageUtil(message);
+                                                      }
+                                                    : null,
+                                              );
+                                            },
+                                          ),
+                                        ],
                                       ],
-                                    ],
-                                  ),
-                                  // LEFT button — Discard (voice) or Plus (idle). Rendered AFTER
-                                  // the inner Row so it sits on top of the pill's shadow.
-                                  if (voiceRecorderProvider.isActive)
-                                    Positioned(
-                                      left: 0,
-                                      top: 0,
-                                      bottom: 0,
-                                      child: Center(
-                                        child: ChatComposerSideButton(
-                                          key: const ValueKey('omi.chat.voice.discard'),
-                                          icon: const Icon(Icons.close),
-                                          label: context.l10n.chatDiscardRecording,
-                                          onPressed: () {
-                                            OmiHaptics.light();
-                                            voiceRecorderProvider.discardRecording();
-                                          },
-                                        ),
-                                      ),
-                                    )
-                                  else if (!voiceRecorderProvider.isActive && shouldShowMenuButton())
-                                    Positioned(
-                                      left: 0,
-                                      top: 0,
-                                      bottom: 0,
-                                      child: Center(
-                                        child: PullDownButton(
-                                          itemBuilder: (context) => [
-                                            PullDownMenuItem(
-                                              title: context.l10n.takePhoto,
-                                              iconWidget: const FaIcon(FontAwesomeIcons.camera, size: 16),
-                                              onTap: () {
-                                                OmiHaptics.selection();
-                                                if (mounted) {
-                                                  this.context.read<MessageProvider>().captureImage();
-                                                }
-                                              },
-                                            ),
-                                            PullDownMenuItem(
-                                              title: context.l10n.photoLibrary,
-                                              iconWidget: const FaIcon(FontAwesomeIcons.images, size: 16),
-                                              onTap: () {
-                                                OmiHaptics.selection();
-                                                if (mounted) {
-                                                  this.context.read<MessageProvider>().selectImage();
-                                                }
-                                              },
-                                            ),
-                                            PullDownMenuItem(
-                                              title: context.l10n.chooseFile,
-                                              iconWidget: const FaIcon(FontAwesomeIcons.folder, size: 16),
-                                              onTap: () {
-                                                OmiHaptics.selection();
-                                                if (mounted) {
-                                                  this.context.read<MessageProvider>().selectFile();
-                                                }
-                                              },
-                                            ),
-                                          ],
-                                          position: PullDownMenuPosition.automatic,
-                                          buttonBuilder: (context, showMenu) => ChatComposerSideButton(
-                                            icon: const FaIcon(FontAwesomeIcons.plus),
-                                            label: context.l10n.chatAddAttachment,
-                                            onPressed: () async {
+                                    ),
+                                    // LEFT button — Discard (voice) or Plus (idle). Rendered AFTER
+                                    // the inner Row so it sits on top of the pill's shadow.
+                                    if (voiceRecorderProvider.isActive)
+                                      Positioned(
+                                        left: 0,
+                                        top: 0,
+                                        bottom: 0,
+                                        child: Center(
+                                          child: ChatComposerSideButton(
+                                            key: const ValueKey('omi.chat.voice.discard'),
+                                            icon: const Icon(Icons.close),
+                                            label: context.l10n.chatDiscardRecording,
+                                            onPressed: () {
                                               OmiHaptics.light();
-                                              if (provider.selectedFiles.length > 3) {
-                                                OmiFeedback.info(context, context.l10n.maxFilesLimit);
-                                                return;
-                                              }
-                                              if (textFieldFocusNode.hasFocus) {
-                                                FocusScope.of(context).unfocus();
-                                                await Future.delayed(const Duration(milliseconds: 280));
-                                                if (!context.mounted) return;
-                                              }
-                                              showMenu();
+                                              voiceRecorderProvider.discardRecording();
                                             },
                                           ),
                                         ),
+                                      )
+                                    else if (!voiceRecorderProvider.isActive && shouldShowMenuButton())
+                                      Positioned(
+                                        left: 0,
+                                        top: 0,
+                                        bottom: 0,
+                                        child: Center(
+                                          child: PullDownButton(
+                                            itemBuilder: (context) => [
+                                              PullDownMenuItem(
+                                                title: context.l10n.takePhoto,
+                                                iconWidget: const FaIcon(FontAwesomeIcons.camera, size: 16),
+                                                onTap: () {
+                                                  OmiHaptics.selection();
+                                                  if (mounted) {
+                                                    this.context.read<MessageProvider>().captureImage();
+                                                  }
+                                                },
+                                              ),
+                                              PullDownMenuItem(
+                                                title: context.l10n.photoLibrary,
+                                                iconWidget: const FaIcon(FontAwesomeIcons.images, size: 16),
+                                                onTap: () {
+                                                  OmiHaptics.selection();
+                                                  if (mounted) {
+                                                    this.context.read<MessageProvider>().selectImage();
+                                                  }
+                                                },
+                                              ),
+                                              PullDownMenuItem(
+                                                title: context.l10n.chooseFile,
+                                                iconWidget: const FaIcon(FontAwesomeIcons.folder, size: 16),
+                                                onTap: () {
+                                                  OmiHaptics.selection();
+                                                  if (mounted) {
+                                                    this.context.read<MessageProvider>().selectFile();
+                                                  }
+                                                },
+                                              ),
+                                            ],
+                                            position: PullDownMenuPosition.automatic,
+                                            buttonBuilder: (context, showMenu) => ChatComposerSideButton(
+                                              icon: const OmiGlyph(OmiGlyphs.plusLine, size: 18),
+                                              label: context.l10n.chatAddAttachment,
+                                              onPressed: () async {
+                                                OmiHaptics.light();
+                                                if (provider.selectedFiles.length > 3) {
+                                                  OmiFeedback.info(context, context.l10n.maxFilesLimit);
+                                                  return;
+                                                }
+                                                if (textFieldFocusNode.hasFocus) {
+                                                  FocusScope.of(context).unfocus();
+                                                  await Future.delayed(const Duration(milliseconds: 280));
+                                                  if (!context.mounted) return;
+                                                }
+                                                showMenu();
+                                              },
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -936,79 +952,6 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
         .whenComplete(() => _isProgrammaticScroll = false);
   }
 
-  void _handleAppSelection(String? val, AppProvider provider) {
-    if (val == null || val == provider.selectedChatAppId) {
-      return;
-    }
-
-    // Unfocus the text field to prevent keyboard issues
-    textFieldFocusNode.unfocus();
-
-    // select app by id
-    _selectApp(val, provider);
-  }
-
-  Future<void> _showClearChatDialog() async {
-    if (!mounted) return;
-    final l10n = context.l10n;
-    // Clearing cannot be undone: confirm every time, with the verb on the button.
-    final confirmed = await showOmiConfirm(
-      context,
-      title: l10n.clearChatQuestion,
-      message: l10n.clearChatConfirm,
-      confirmLabel: l10n.clearChat,
-      destructive: true,
-    );
-    if (confirmed && mounted) context.read<MessageProvider>().clearChat();
-  }
-
-  Future<void> _navigateToChatAppsPage() async {
-    if (!mounted) return;
-
-    PlatformManager.instance.analytics.pageOpened('Chat Apps');
-    // Navigate to chat capability apps page
-    await routeToPage(
-      context,
-      CapabilityAppsPage(
-        capability: AppCapability(id: 'chat', title: context.l10n.chatAssistantsTitle),
-        apps: const [],
-      ),
-    );
-
-    // Refresh chat apps when returning from the page
-    if (mounted) {
-      _refreshChatAppsFromLocal();
-    }
-  }
-
-  void _refreshChatAppsFromLocal() {
-    // Get enabled chat apps from local AppProvider immediately
-    final appProvider = context.read<AppProvider>();
-    final messageProvider = context.read<MessageProvider>();
-
-    // Filter apps that are enabled and work with chat
-    final localChatApps = appProvider.apps.where((app) => app.enabled && app.worksWithChat()).toList();
-
-    // Update immediately with local data
-    messageProvider.setChatApps(localChatApps);
-  }
-
-  /// Disables a chat app everywhere, with Undo (the same action as Disable on its detail page).
-  Future<void> _disableChatApp(App app) async {
-    final messageProvider = context.read<MessageProvider>();
-    Navigator.of(context).maybePop(); // close the drawer so the Undo toast is visible
-    await disableAppWithUndo(
-      context,
-      app,
-      onHidden: () => messageProvider.removeChatApp(app.id),
-      onRestored: () {
-        if (messageProvider.chatApps.every((a) => a.id != app.id)) {
-          messageProvider.setChatApps(List.of(messageProvider.chatApps)..add(app));
-        }
-      },
-    );
-  }
-
   void _selectApp(String appId, AppProvider appProvider) async {
     if (!mounted) return;
 
@@ -1042,8 +985,37 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
     }
   }
 
+  /// Past chats: a fresh chat, a chat app, or an earlier chat.
+  Future<void> _openPastChats() async {
+    FocusScope.of(context).unfocus();
+    OmiHaptics.selection();
+    final appProvider = context.read<AppProvider>();
+    final provider = context.read<MessageProvider>();
+    await routeToPage(
+      context,
+      PastChatsPage(
+        onNewChat: () {
+          appProvider.setSelectedChatAppId(null);
+          _chatScope = null;
+          provider.startFreshChat();
+          _playIntro();
+        },
+        onOpen: (session) {
+          appProvider.setSelectedChatAppId(null);
+          _intro.value = 1;
+          _hasInitialScrolled = false;
+          unawaited(provider.openChatSession(session));
+        },
+        onPickApp: (app) {
+          _intro.value = 1;
+          _selectApp(app.id, appProvider);
+        },
+      ),
+    );
+  }
+
   /// v3 Ask header (`#chat .sh`): a 38 pt close ring, the sheet's handle (or the chat app's name),
-  /// and the chat apps ring (apps and Clear chat).
+  /// and Past chats.
   PreferredSizeWidget _buildAppBar(BuildContext context, MessageProvider provider) {
     final l10n = context.l10n;
     return PreferredSize(
@@ -1098,14 +1070,11 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
                       ),
                     ),
                     OmiRingButton(
-                      key: const Key('chat_apps'),
-                      glyph: OmiGlyphs.apps,
+                      key: const Key('chat_history'),
+                      glyph: OmiGlyphs.history,
                       size: 38,
-                      label: l10n.chatAppsTitle,
-                      onPressed: () {
-                        FocusScope.of(context).unfocus();
-                        WidgetsBinding.instance.addPostFrameCallback((_) => scaffoldKey.currentState?.openEndDrawer());
-                      },
+                      label: l10n.pastChats,
+                      onPressed: _openPastChats,
                     ),
                   ],
                 ),

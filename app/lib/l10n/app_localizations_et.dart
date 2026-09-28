@@ -12327,4 +12327,64 @@ class AppLocalizationsEt extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, kell $time vestlusest';
   }
+
+  @override
+  String get addAnApp => 'Lisa rakendus';
+
+  @override
+  String get allAppsV3 => 'Kõik rakendused';
+
+  @override
+  String get browseAllAppsDetail => 'Otsi nime järgi või vali kategooria';
+
+  @override
+  String get appsSendTo => 'Saada kokkuvõtted ja ülesanded';
+
+  @override
+  String get appsAskWith => 'Küsi Omilt koos';
+
+  @override
+  String get appAdded => 'Lisatud';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count rakendust',
+      one: '1 rakendus',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count rakendust kategoorias $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return '„$query“ ei leidnud ühtegi rakendust';
+  }
+
+  @override
+  String get pastChats => 'Varasemad vestlused';
+
+  @override
+  String get newChatV3 => 'Uus vestlus';
+
+  @override
+  String get startFresh => 'Alusta otsast';
+
+  @override
+  String get deleteChatQuestion => 'Kas kustutada see vestlus?';
+
+  @override
+  String get deleteChatMessage => 'See kaob varasematest vestlustest jäädavalt.';
+
+  @override
+  String get deleteChatV3 => 'Kustuta vestlus';
+
+  @override
+  String get noPastChats => 'Sinu vestlused Omiga ilmuvad siia.';
 }

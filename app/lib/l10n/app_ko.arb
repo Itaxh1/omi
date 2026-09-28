@@ -3865,5 +3865,21 @@
     "syncingToYourPhone": "휴대폰으로 동기화 중",
     "lastWeekday": "지난 {weekday}",
     "dayAtTime": "{day} {time}",
-    "memoryFromConversation": "{day}, {time} 대화에서"
+    "memoryFromConversation": "{day}, {time} 대화에서",
+    "addAnApp": "앱 추가",
+    "allAppsV3": "모든 앱",
+    "browseAllAppsDetail": "이름으로 검색하거나 카테고리를 고르세요",
+    "appsSendTo": "요약과 할 일을 보낼 곳",
+    "appsAskWith": "이것과 함께 Omi에게 묻기",
+    "appAdded": "추가됨",
+    "appsCountV3": "{count, plural, =1{앱 1개} other{앱 {count}개}}",
+    "appsInCategory": "{count}개 앱 · {category}",
+    "noAppsMatch": "‘{query}’와 일치하는 앱이 없어요",
+    "pastChats": "지난 채팅",
+    "newChatV3": "새 채팅",
+    "startFresh": "처음부터 시작",
+    "deleteChatQuestion": "이 채팅을 삭제할까요?",
+    "deleteChatMessage": "지난 채팅에서 영구히 사라져요.",
+    "deleteChatV3": "채팅 삭제",
+    "noPastChats": "Omi와 나눈 채팅이 여기에 표시돼요."
 }

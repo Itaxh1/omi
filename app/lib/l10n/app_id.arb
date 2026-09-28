@@ -3900,5 +3900,21 @@
     "syncingToYourPhone": "Menyinkronkan ke ponsel",
     "lastWeekday": "{weekday} lalu",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, dari percakapan pukul {time}"
+    "memoryFromConversation": "{day}, dari percakapan pukul {time}",
+    "addAnApp": "Tambahkan aplikasi",
+    "allAppsV3": "Semua aplikasi",
+    "browseAllAppsDetail": "Cari berdasarkan nama atau pilih kategori",
+    "appsSendTo": "Kirim ringkasan dan tugas ke",
+    "appsAskWith": "Tanya Omi dengan",
+    "appAdded": "Ditambahkan",
+    "appsCountV3": "{count, plural, =1{1 aplikasi} other{{count} aplikasi}}",
+    "appsInCategory": "{count} aplikasi di {category}",
+    "noAppsMatch": "Tidak ada aplikasi yang cocok dengan “{query}”",
+    "pastChats": "Chat sebelumnya",
+    "newChatV3": "Chat baru",
+    "startFresh": "Mulai baru",
+    "deleteChatQuestion": "Hapus chat ini?",
+    "deleteChatMessage": "Chat ini hilang dari chat sebelumnya untuk selamanya.",
+    "deleteChatV3": "Hapus chat",
+    "noPastChats": "Chat Anda dengan Omi muncul di sini."
 }

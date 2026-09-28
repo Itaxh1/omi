@@ -3865,5 +3865,21 @@
     "syncingToYourPhone": "Sünkroonib telefoni",
     "lastWeekday": "Eelmisel {weekday}",
     "dayAtTime": "{day}, {time}",
-    "memoryFromConversation": "{day}, kell {time} vestlusest"
+    "memoryFromConversation": "{day}, kell {time} vestlusest",
+    "addAnApp": "Lisa rakendus",
+    "allAppsV3": "Kõik rakendused",
+    "browseAllAppsDetail": "Otsi nime järgi või vali kategooria",
+    "appsSendTo": "Saada kokkuvõtted ja ülesanded",
+    "appsAskWith": "Küsi Omilt koos",
+    "appAdded": "Lisatud",
+    "appsCountV3": "{count, plural, =1{1 rakendus} other{{count} rakendust}}",
+    "appsInCategory": "{count} rakendust kategoorias {category}",
+    "noAppsMatch": "„{query}“ ei leidnud ühtegi rakendust",
+    "pastChats": "Varasemad vestlused",
+    "newChatV3": "Uus vestlus",
+    "startFresh": "Alusta otsast",
+    "deleteChatQuestion": "Kas kustutada see vestlus?",
+    "deleteChatMessage": "See kaob varasematest vestlustest jäädavalt.",
+    "deleteChatV3": "Kustuta vestlus",
+    "noPastChats": "Sinu vestlused Omiga ilmuvad siia."
 }

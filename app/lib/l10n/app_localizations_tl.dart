@@ -12439,4 +12439,64 @@ class AppLocalizationsTl extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, mula sa usapan nang $time';
   }
+
+  @override
+  String get addAnApp => 'Magdagdag ng app';
+
+  @override
+  String get allAppsV3 => 'Lahat ng app';
+
+  @override
+  String get browseAllAppsDetail => 'Maghanap ayon sa pangalan o pumili ng kategorya';
+
+  @override
+  String get appsSendTo => 'Ipadala ang mga buod at gagawin sa';
+
+  @override
+  String get appsAskWith => 'Tanungin si Omi gamit ang';
+
+  @override
+  String get appAdded => 'Naidagdag';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count app',
+      one: '1 app',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count app sa $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'Walang app na tugma sa “$query”';
+  }
+
+  @override
+  String get pastChats => 'Mga nakaraang chat';
+
+  @override
+  String get newChatV3 => 'Bagong chat';
+
+  @override
+  String get startFresh => 'Magsimula ulit';
+
+  @override
+  String get deleteChatQuestion => 'Burahin ang chat na ito?';
+
+  @override
+  String get deleteChatMessage => 'Mawawala ito sa mga nakaraang chat nang tuluyan.';
+
+  @override
+  String get deleteChatV3 => 'Burahin ang chat';
+
+  @override
+  String get noPastChats => 'Dito lumalabas ang mga chat mo kay Omi.';
 }

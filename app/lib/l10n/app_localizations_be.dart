@@ -12362,4 +12362,64 @@ class AppLocalizationsBe extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, з размовы ў $time';
   }
+
+  @override
+  String get addAnApp => 'Дадаць праграму';
+
+  @override
+  String get allAppsV3 => 'Усе праграмы';
+
+  @override
+  String get browseAllAppsDetail => 'Шукайце па назве або выберыце катэгорыю';
+
+  @override
+  String get appsSendTo => 'Адпраўляць зводкі і справы ў';
+
+  @override
+  String get appsAskWith => 'Пытайцеся ў Omi з';
+
+  @override
+  String get appAdded => 'Дададзена';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count праграм',
+      one: '1 праграма',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count праграм у $category';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return 'Няма праграм для «$query»';
+  }
+
+  @override
+  String get pastChats => 'Мінулыя чаты';
+
+  @override
+  String get newChatV3 => 'Новы чат';
+
+  @override
+  String get startFresh => 'Пачаць нанова';
+
+  @override
+  String get deleteChatQuestion => 'Выдаліць гэты чат?';
+
+  @override
+  String get deleteChatMessage => 'Ён знікне з мінулых чатаў назаўсёды.';
+
+  @override
+  String get deleteChatV3 => 'Выдаліць чат';
+
+  @override
+  String get noPastChats => 'Вашы чаты з Omi з\'явяцца тут.';
 }

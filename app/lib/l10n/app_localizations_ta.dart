@@ -12415,4 +12415,64 @@ class AppLocalizationsTa extends AppLocalizations {
   String memoryFromConversation(String day, String time) {
     return '$day, $time உரையாடலிலிருந்து';
   }
+
+  @override
+  String get addAnApp => 'ஒரு ஆப்பைச் சேர்';
+
+  @override
+  String get allAppsV3 => 'எல்லா ஆப்களும்';
+
+  @override
+  String get browseAllAppsDetail => 'பெயரால் தேடுங்கள் அல்லது வகையைத் தேர்ந்தெடுங்கள்';
+
+  @override
+  String get appsSendTo => 'சுருக்கங்களையும் செய்ய வேண்டியவற்றையும் அனுப்பு';
+
+  @override
+  String get appsAskWith => 'இதனுடன் Omi-யிடம் கேளுங்கள்';
+
+  @override
+  String get appAdded => 'சேர்க்கப்பட்டது';
+
+  @override
+  String appsCountV3(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ஆப்கள்',
+      one: '1 ஆப்',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String appsInCategory(int count, String category) {
+    return '$count ஆப்கள் $category இல்';
+  }
+
+  @override
+  String noAppsMatch(String query) {
+    return '“$query” க்கு ஆப் எதுவும் இல்லை';
+  }
+
+  @override
+  String get pastChats => 'முந்தைய அரட்டைகள்';
+
+  @override
+  String get newChatV3 => 'புதிய அரட்டை';
+
+  @override
+  String get startFresh => 'புதிதாகத் தொடங்குங்கள்';
+
+  @override
+  String get deleteChatQuestion => 'இந்த அரட்டையை நீக்கவா?';
+
+  @override
+  String get deleteChatMessage => 'இது முந்தைய அரட்டைகளிலிருந்து நிரந்தரமாக நீங்கும்.';
+
+  @override
+  String get deleteChatV3 => 'அரட்டையை நீக்கு';
+
+  @override
+  String get noPastChats => 'Omi உடனான உங்கள் அரட்டைகள் இங்கே தோன்றும்.';
 }

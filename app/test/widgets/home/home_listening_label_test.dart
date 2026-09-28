@@ -7,7 +7,10 @@ import 'package:omi/backend/preferences.dart';
 import 'package:omi/backend/schema/phone_call.dart';
 import 'package:omi/l10n/app_localizations.dart';
 import 'package:omi/pages/home/widgets/home_top_bar.dart';
+import 'package:omi/backend/schema/bt_device/bt_device.dart';
 import 'package:omi/providers/capture_provider.dart';
+import 'package:omi/providers/device_provider.dart';
+import 'package:omi/providers/sync_provider.dart';
 import 'package:omi/providers/phone_call_provider.dart';
 import 'package:omi/backend/schema/message_event.dart';
 import 'package:omi/ui/ui.dart';
@@ -69,7 +72,30 @@ class _Call extends ChangeNotifier implements PhoneCallProvider {
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
-Future<ValueNotifier<bool>> _pump(WidgetTester tester, _Capture capture, {PhoneCallState call = PhoneCallState.idle}) async {
+class _Sync extends ChangeNotifier implements SyncProvider {
+  _Sync(this.syncing);
+  final bool syncing;
+  @override
+  bool get isSyncing => syncing;
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
+
+class _Devices extends ChangeNotifier implements DeviceProvider {
+  _Devices({this.connecting = false});
+  final bool connecting;
+  @override
+  BtDevice? get pairedDevice => BtDevice(id: 'd1', name: 'Omi', type: DeviceType.omi, rssi: -40);
+  @override
+  bool get isConnecting => connecting;
+  @override
+  bool get isConnected => !connecting;
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
+
+Future<ValueNotifier<bool>> _pump(WidgetTester tester, _Capture capture,
+    {PhoneCallState call = PhoneCallState.idle, SyncProvider? sync, DeviceProvider? devices}) async {
   final open = ValueNotifier(false);
   addTearDown(open.dispose);
   await tester.pumpWidget(
@@ -80,6 +106,8 @@ Future<ValueNotifier<bool>> _pump(WidgetTester tester, _Capture capture, {PhoneC
         providers: [
           ChangeNotifierProvider<CaptureProvider>.value(value: capture),
           ChangeNotifierProvider<PhoneCallProvider>.value(value: _Call(call)),
+          if (sync != null) ChangeNotifierProvider<SyncProvider>.value(value: sync),
+          if (devices != null) ChangeNotifierProvider<DeviceProvider>.value(value: devices),
         ],
         child: Scaffold(body: Center(child: HomeListeningLabel(recorderOpen: open))),
       ),
@@ -127,6 +155,21 @@ void main() {
     expect(open.value, isFalse);
   });
 
+  testWidgets('syncing turns the mark slowly; reconnecting turns it fast and lights the dot', (tester) async {
+    final live = _Capture(source: 'omi', recording: RecordingState.deviceRecord, hasDevice: true);
+    await _pump(tester, live);
+    expect(tester.widget<OmiRingLogo>(find.byType(OmiRingLogo)).turn, OmiRingTurn.none);
+
+    await _pump(tester, live, sync: _Sync(true), devices: _Devices());
+    expect(tester.widget<OmiRingLogo>(find.byType(OmiRingLogo)).turn, OmiRingTurn.sync);
+    expect(find.byKey(const Key('home_listening_alert')), findsNothing);
+
+    await _pump(tester, _Capture(), sync: _Sync(true), devices: _Devices(connecting: true));
+    expect(tester.widget<OmiRingLogo>(find.byType(OmiRingLogo)).turn, OmiRingTurn.reconnect);
+    expect(find.byKey(const Key('home_listening_alert')), findsOneWidget);
+    await tester.pumpWidget(const SizedBox());
+  });
+
   testWidgets('muted: the dots stay and the word goes; the screen reader still hears Muted', (tester) async {
     await _pump(tester, _Capture(source: 'omi', recording: RecordingState.pause, paused: true, hasDevice: true));
     final l10n = _l10n(tester);
@@ -143,7 +186,8 @@ void main() {
   });
 
   testWidgets('a problem the card explains shows the red dot on the mark', (tester) async {
-    await _pump(tester, _Capture(source: 'omi', recording: RecordingState.deviceRecord, hasDevice: true, micHeld: true));
+    await _pump(
+        tester, _Capture(source: 'omi', recording: RecordingState.deviceRecord, hasDevice: true, micHeld: true));
     expect(find.byKey(const Key('home_listening_alert')), findsOneWidget);
   });
 }

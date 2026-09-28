@@ -14836,5 +14836,87 @@
                 "type": "String"
             }
         }
+    },
+    "addAnApp": "Add an app",
+    "@addAnApp": {
+        "description": "Apps (v3): the page title"
+    },
+    "allAppsV3": "All apps",
+    "@allAppsV3": {
+        "description": "Apps (v3): the store page title"
+    },
+    "browseAllAppsDetail": "Search by name or pick a category",
+    "@browseAllAppsDetail": {
+        "description": "Apps (v3): under Browse all apps"
+    },
+    "appsSendTo": "Send summaries and to-dos to",
+    "@appsSendTo": {
+        "description": "Apps (v3): group of apps that receive Omi's notes"
+    },
+    "appsAskWith": "Ask Omi with",
+    "@appsAskWith": {
+        "description": "Apps (v3): group of chat apps"
+    },
+    "appAdded": "Added",
+    "@appAdded": {
+        "description": "Apps (v3): the button on an app that is on"
+    },
+    "appsCountV3": "{count, plural, =1{1 app} other{{count} apps}}",
+    "@appsCountV3": {
+        "description": "Apps (v3): how many apps the store shows",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "appsInCategory": "{count} apps in {category}",
+    "@appsInCategory": {
+        "description": "Apps (v3): how many apps one category has",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            },
+            "category": {
+                "type": "String"
+            }
+        }
+    },
+    "noAppsMatch": "No apps match “{query}”",
+    "@noAppsMatch": {
+        "description": "Apps (v3): the store search found nothing",
+        "placeholders": {
+            "query": {
+                "type": "String"
+            }
+        }
+    },
+    "pastChats": "Past chats",
+    "@pastChats": {
+        "description": "Ask (v3): the history page title and button"
+    },
+    "newChatV3": "New chat",
+    "@newChatV3": {
+        "description": "Ask (v3): the first row of Past chats"
+    },
+    "startFresh": "Start fresh",
+    "@startFresh": {
+        "description": "Ask (v3): under New chat"
+    },
+    "deleteChatQuestion": "Delete this chat?",
+    "@deleteChatQuestion": {
+        "description": "Ask (v3): confirm before deleting a past chat"
+    },
+    "deleteChatMessage": "It’s gone from Past chats for good.",
+    "@deleteChatMessage": {
+        "description": "Ask (v3): what deleting a past chat means"
+    },
+    "deleteChatV3": "Delete chat",
+    "@deleteChatV3": {
+        "description": "Ask (v3): the confirm button"
+    },
+    "noPastChats": "Your chats with Omi show up here.",
+    "@noPastChats": {
+        "description": "Ask (v3): Past chats when there are none"
     }
 }

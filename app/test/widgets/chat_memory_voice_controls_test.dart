@@ -88,7 +88,8 @@ void main() {
                     persistPref: (_, __) async {},
                   )),
         ],
-        child: const ChatPage(),
+        // An open thread: a fresh Ask would clear the seeded messages.
+        child: const ChatPage(continueThread: true),
       ),
     ));
     await tester.pump();
