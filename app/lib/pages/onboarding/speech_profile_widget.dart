@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:omi/pages/action_items/widgets/task_row_parts.dart';
 import 'package:omi/providers/capture_provider.dart';
 import 'package:omi/providers/goals_provider.dart';
+import 'package:omi/pages/onboarding/widgets/onboarding_card.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/enums.dart';
 import 'package:omi/utils/l10n_extensions.dart';
@@ -268,8 +269,8 @@ class _SpeechProfileWidgetState extends State<SpeechProfileWidget> with WidgetsB
       const SizedBox(height: 20),
       Text(_prompt,
           key: const Key('introduction_prompt'),
-          // v2 Voice: the sentence to say is set in the serif, like a line to read aloud.
-          style: OmiType.serifTitle.copyWith(height: 1.35)),
+          // v3 `.obread`: the line to read aloud, large.
+          style: OmiType.title1.copyWith(fontWeight: FontWeight.w600, letterSpacing: -0.56, height: 1.25)),
       const SizedBox(height: 12),
       if (ready && !flow.isGoalPrompt)
         Align(
@@ -563,17 +564,26 @@ class _SpeechProfileWidgetState extends State<SpeechProfileWidget> with WidgetsB
                             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                             // Text at the step layout's 20pt inset, as on every other step; in first run it
                             // starts under the progress bar and back button, where every step's content does.
-                            padding: EdgeInsets.fromLTRB(20, widget.flowSource == 'first_run' ? 64 : 20, 20, 20),
+                            padding: EdgeInsets.fromLTRB(OmiSize.screenMargin,
+                                widget.flowSource == 'first_run' ? 78 : 20, OmiSize.screenMargin, 20),
                             child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
                               // One title per stage: the review has its own ("Here is what I heard").
                               if (!reviewing) ...[
+                                // v3 `voice`: the waveform in its ring before the first line.
+                                if (flow.promptIndex == 0 && flow.stage == IntroductionStage.ready) ...[
+                                  const Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: OnboardingIconRing(glyph: OmiGlyphs.waveform),
+                                  ),
+                                  const SizedBox(height: 30),
+                                ],
                                 Semantics(
                                     header: true,
-                                    child: OmiBalancedText(context.l10n.voiceIntroTitle, style: OmiType.title1)),
+                                    child: OmiBalancedText(context.l10n.voiceIntroTitle,
+                                        style: OnboardingHeader.titleStyle)),
                                 if (flow.promptIndex == 0 && flow.stage == IntroductionStage.ready) ...[
                                   const SizedBox(height: 12),
-                                  OmiBalancedText(copy('intro'),
-                                      style: OmiType.callout.copyWith(color: OmiColors.textSecondary, height: 1.5)),
+                                  OmiBalancedText(copy('intro'), style: OnboardingHeader.bodyStyle),
                                 ],
                                 const SizedBox(height: 28),
                               ],
@@ -599,7 +609,7 @@ class _SpeechProfileWidgetState extends State<SpeechProfileWidget> with WidgetsB
                   // The step layout's footer: 16pt sides, 8pt above the bottom safe area, so the
                   // buttons sit where Continue does on every other step.
                   Padding(
-                      padding: const EdgeInsets.fromLTRB(OmiSpacing.md, OmiSpacing.xs, OmiSpacing.md, OmiSpacing.xs),
+                      padding: const EdgeInsets.fromLTRB(OmiSize.screenMargin, 12, OmiSize.screenMargin, 20),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.stretch,

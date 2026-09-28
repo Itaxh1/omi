@@ -11,7 +11,7 @@ import 'package:omi/providers/device_provider.dart';
 import 'package:omi/providers/home_provider.dart';
 import 'package:omi/providers/onboarding_provider.dart';
 
-/// Rev 3 onboarding: "What will you wear?" first, then the three-step Connect.
+/// v3 onboarding: "How will you record?", then (with an Omi) the three-step Connect.
 class _QuietOnboardingProvider extends OnboardingProvider {
   _QuietOnboardingProvider({bool connected = false}) {
     deviceList = [];
@@ -65,23 +65,24 @@ void main() {
   }
 
   group('OnboardingPickDeviceStep', () {
-    testWidgets('asks what you will wear; this phone moves on straight away', (tester) async {
+    testWidgets('asks how you will record; this phone is chosen and Continue moves on', (tester) async {
       var next = 0;
       await tester.pumpWidget(app(Scaffold(body: OnboardingPickDeviceStep(goNext: () => next++))));
-      expect(find.text('What will you wear?'), findsOneWidget);
-      expect(find.byKey(const Key('add_device_omi')), findsOneWidget);
+      expect(find.text('How will you record?'), findsOneWidget);
+      expect(find.byKey(const Key('onboarding_have_omi')), findsOneWidget);
+      expect(find.byKey(const Key('onboarding_use_phone')), findsOneWidget);
 
-      await tester.scrollUntilVisible(find.byKey(const Key('add_device_phone')), 200,
-          scrollable: find.byType(Scrollable).first);
-      await tester.tap(find.byKey(const Key('add_device_phone')));
+      await tester.tap(find.byKey(const Key('onboarding_pick_continue')));
       await tester.pump();
       expect(next, 1);
     });
 
-    testWidgets('a wearable opens Connect; Set up later comes back and moves on', (tester) async {
+    testWidgets('an Omi opens Connect; Set up later comes back and moves on', (tester) async {
       var next = 0;
       await tester.pumpWidget(app(Scaffold(body: OnboardingPickDeviceStep(goNext: () => next++))));
-      await tester.tap(find.byKey(const Key('add_device_omi')));
+      await tester.tap(find.byKey(const Key('onboarding_have_omi')));
+      await tester.pump();
+      await tester.tap(find.byKey(const Key('onboarding_pick_continue')));
       await settleRoute(tester);
       expect(find.byType(ConnectDevicePage), findsOneWidget);
       expect(next, 0);
@@ -95,11 +96,13 @@ void main() {
     testWidgets('backing out of Connect stays on the question', (tester) async {
       var next = 0;
       await tester.pumpWidget(app(Scaffold(body: OnboardingPickDeviceStep(goNext: () => next++))));
-      await tester.tap(find.byKey(const Key('add_device_omi')));
+      await tester.tap(find.byKey(const Key('onboarding_have_omi')));
+      await tester.pump();
+      await tester.tap(find.byKey(const Key('onboarding_pick_continue')));
       await settleRoute(tester);
       await tester.pageBack();
       await settleRoute(tester);
-      expect(find.text('What will you wear?'), findsOneWidget);
+      expect(find.text('How will you record?'), findsOneWidget);
       expect(next, 0);
     });
   });

@@ -40,6 +40,7 @@ void main() {
     expect(find.text('Introduce yourself'), findsOneWidget);
     expect(io.audio, isNull);
     expect(find.textContaining('My name is'), findsOneWidget);
+    await tester.ensureVisible(find.byKey(const Key('introduction_another')));
     await tester.tap(find.byKey(const Key('introduction_another')));
     await tester.pump();
     expect(find.textContaining('My favorite food'), findsOneWidget);

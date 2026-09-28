@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:omi/backend/preferences.dart';
 import 'package:omi/l10n/app_localizations.dart';
 import 'package:omi/pages/onboarding/name/name_widget.dart';
+import 'package:omi/providers/home_provider.dart';
 
 void main() {
   setUp(() async {
@@ -24,7 +26,10 @@ void main() {
               padding: EdgeInsets.only(bottom: bottomInset),
               viewPadding: EdgeInsets.only(bottom: bottomInset),
             ),
-            child: Scaffold(body: NameWidget(key: ValueKey(bottomInset), goNext: () {})),
+            child: ChangeNotifierProvider(
+              create: (_) => HomeProvider(),
+              child: Scaffold(body: NameWidget(key: ValueKey(bottomInset), goNext: () {})),
+            ),
           ),
         ),
       ),

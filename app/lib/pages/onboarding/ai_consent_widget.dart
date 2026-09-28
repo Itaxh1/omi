@@ -44,134 +44,73 @@ class _AiConsentWidgetState extends State<AiConsentWidget> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    // v3 "Three things to know": numbered, then I agree and the privacy policy.
     return OnboardingStep(
       card: OnboardingCard(
         crossAxisAlignment: CrossAxisAlignment.start,
         content: [
-          OnboardingHeader(title: l10n.consentTitle, subtitle: l10n.consentSubtitle),
-          const SizedBox(height: OmiSpacing.lg),
-          // v2: what is stored, who processes it and what the person controls, as one grouped card.
-          Container(
-            decoration: BoxDecoration(color: OmiColors.surface1, borderRadius: OmiRadius.rowAll),
-            child: Column(
-              children: [
-                _ConsentRow(glyph: OmiGlyphs.waveform, title: l10n.consentStoredTitle, body: l10n.consentStoredBody),
-                const _ConsentDivider(),
-                _ConsentRow(glyph: OmiGlyphs.cpu, title: l10n.consentProcessorsTitle, body: l10n.consentProcessorsBody),
-                const _ConsentDivider(),
-                _ConsentRow(glyph: OmiGlyphs.hand, title: l10n.consentControlTitle, body: l10n.consentControlBody),
-              ],
-            ),
-          ),
-          const SizedBox(height: OmiSpacing.xs),
-          Wrap(
-            spacing: OmiSpacing.md,
-            children: [
-              _ConsentLink(label: l10n.readPrivacyPolicy, recognizer: _privacyRecognizer),
-              _ConsentLink(label: l10n.termsOfService, recognizer: _termsRecognizer),
-            ],
-          ),
+          OnboardingHeader(title: l10n.consentThreeThings),
+          const SizedBox(height: 12),
+          _ConsentRow(number: 1, title: l10n.consentChooseTitle, body: l10n.consentChooseBody),
+          _ConsentRow(number: 2, title: l10n.consentAiTitle, body: l10n.consentProcessorsBody),
+          _ConsentRow(number: 3, title: l10n.consentDeleteTitle, body: l10n.consentControlBody, last: true),
         ],
         footer: [
-          const SizedBox(height: OmiSpacing.md),
           OmiButton(
             key: const Key('ai_consent_agree'),
-            label: context.l10n.agreeAndContinue,
+            label: l10n.iAgree,
             expand: true,
             onPressed: () {
               OmiHaptics.selection();
               widget.onAgree();
             },
           ),
-          const SizedBox(height: OmiSpacing.xxs),
-          OmiButton.tertiary(
-            key: const Key('ai_consent_use_different_account'),
-            label: context.l10n.useDifferentAccount,
-            expand: true,
-            onPressed: widget.onUseDifferentAccount,
-          ),
+          OnboardingLink(label: l10n.readThePrivacyPolicy, onTap: _privacyRecognizer.onTap!),
         ],
       ),
     );
   }
 }
 
+/// One of the three things (`.obrow`): its number in the faint ink, the point at 17/600 and what it
+/// means at 15 pt; a hairline under it.
 class _ConsentRow extends StatelessWidget {
-  const _ConsentRow({required this.glyph, required this.title, required this.body});
+  const _ConsentRow({required this.number, required this.title, required this.body, this.last = false});
 
-  final String glyph;
+  final int number;
   final String title;
   final String body;
+  final bool last;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(OmiSpacing.md),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 30,
-            height: 30,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(color: OmiColors.surface2, borderRadius: OmiRadius.smAll),
-            child: OmiGlyph(glyph, size: 17, color: OmiColors.textPrimary),
-          ),
-          const SizedBox(width: OmiSpacing.sm),
-          Expanded(
-            child: MergeSemantics(
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      decoration: BoxDecoration(border: last ? null : Border(bottom: BorderSide(color: OmiColors.divider))),
+      child: MergeSemantics(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 22,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 1),
+                child: Text('$number',
+                    style: OmiType.callout.copyWith(fontWeight: FontWeight.w600, color: OmiColors.faint)),
+              ),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: OmiType.headline),
-                  const SizedBox(height: 2),
-                  OmiBalancedText(body, style: OmiType.subhead.copyWith(color: OmiColors.textSecondary)),
+                  Text(title, style: OmiType.body.copyWith(fontWeight: FontWeight.w600, height: 1.4)),
+                  const SizedBox(height: 3),
+                  Text(body, style: OmiType.subhead.copyWith(color: OmiColors.textSecondary, height: 1.4)),
                 ],
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ConsentDivider extends StatelessWidget {
-  const _ConsentDivider();
-
-  @override
-  Widget build(BuildContext context) => Divider(height: 0.5, thickness: 0.5, indent: 58, color: OmiColors.border);
-}
-
-/// A "Read the Privacy Policy ›" link: a 44pt-tall text button that opens the document.
-class _ConsentLink extends StatelessWidget {
-  const _ConsentLink({required this.label, required this.recognizer});
-
-  final String label;
-  final TapGestureRecognizer recognizer;
-
-  @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      link: true,
-      label: label,
-      excludeSemantics: true,
-      onTap: recognizer.onTap,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: recognizer.onTap,
-        child: Container(
-          padding: OnboardingCard.textInset,
-          alignment: Alignment.centerLeft,
-          constraints: const BoxConstraints(minHeight: OmiSize.minTap),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(label, style: OmiType.subhead.copyWith(fontWeight: FontWeight.w600)),
-              const SizedBox(width: OmiSpacing.xxs),
-              OmiGlyph(OmiGlyphs.chevronRight, size: 12, color: OmiColors.textSecondary),
-            ],
-          ),
+          ],
         ),
       ),
     );

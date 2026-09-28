@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:omi/l10n/app_localizations.dart';
-import 'package:omi/pages/onboarding/permissions/onboarding_permissions_panel.dart';
 import 'package:omi/pages/onboarding/permissions/permissions_widget.dart';
 import 'package:omi/ui/components/omi_permission_row.dart';
 
@@ -13,27 +12,6 @@ Widget _app(Widget child) => MaterialApp(
       supportedLocales: AppLocalizations.supportedLocales,
       home: Scaffold(body: child),
     );
-
-class _FakeSource implements OnboardingPermissionsSource {
-  final Map<OnboardingPermission, OmiPermissionStatus> statuses = {
-    OnboardingPermission.location: OmiPermissionStatus.askable,
-    OnboardingPermission.notifications: OmiPermissionStatus.blocked,
-  };
-  final List<OnboardingPermission> requested = [];
-
-  @override
-  List<OnboardingPermission> get permissions =>
-      const [OnboardingPermission.location, OnboardingPermission.notifications];
-
-  @override
-  Future<OmiPermissionStatus> status(OnboardingPermission permission) async => statuses[permission]!;
-
-  @override
-  Future<void> request(OnboardingPermission permission) async {
-    requested.add(permission);
-    statuses[permission] = OmiPermissionStatus.granted;
-  }
-}
 
 void main() {
   test('maps permission_handler statuses to what the reader can do', () {
@@ -98,24 +76,23 @@ void main() {
     expect(opened, 1);
   });
 
-  testWidgets('onboarding: Continue never prompts; Allow prompts that one permission', (tester) async {
-    final source = _FakeSource();
+  testWidgets('onboarding (v3): Allow microphone asks the system once, then moves on whatever the answer',
+      (tester) async {
+    var asked = 0;
     var continued = 0;
-    await tester.pumpWidget(_app(PermissionsWidget(goNext: () => continued++, source: source)));
+    await tester.pumpWidget(_app(PermissionsWidget(
+      goNext: () => continued++,
+      requestMicrophone: () async {
+        asked++;
+        throw StateError('denied');
+      },
+    )));
     await tester.pumpAndSettle();
 
-    // One row each; the blocked one offers Settings, not a prompt.
-    expect(find.text('Allow'), findsOneWidget);
-    expect(find.text('Open Settings'), findsOneWidget);
-
+    expect(find.text('Allow the microphone'), findsOneWidget);
     await tester.tap(find.byKey(const Key('onboarding_permissions_continue')));
-    await tester.pump();
-    expect(continued, 1);
-    expect(source.requested, isEmpty, reason: 'Continue moves on without firing any system prompt');
-
-    await tester.tap(find.text('Allow'));
     await tester.pumpAndSettle();
-    expect(source.requested, [OnboardingPermission.location]);
-    expect(find.text('Allowed'), findsOneWidget);
+    expect(asked, 1);
+    expect(continued, 1, reason: 'a refusal still moves on; the phone asks again the first time it records');
   });
 }

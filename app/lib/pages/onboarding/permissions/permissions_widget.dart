@@ -1,43 +1,45 @@
 import 'package:flutter/material.dart';
 
-import 'package:omi/pages/onboarding/permissions/onboarding_permissions_panel.dart';
+import 'package:permission_handler/permission_handler.dart';
+
 import 'package:omi/pages/onboarding/widgets/onboarding_card.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 
-/// First-run permissions step. Each permission is allowed from its own row; Continue only moves
-/// on, whatever the reader allowed (docs/ux-contract.md §15).
+/// Allow the microphone (v3 `perm`): the mic in an 84 pt ring, why Omi needs it, and Allow
+/// microphone, which asks the system and moves on whatever the answer (docs/ux-contract.md §15).
+/// Location and notifications are asked where they are used, not here.
 class PermissionsWidget extends StatelessWidget {
   final VoidCallback goNext;
-  final OnboardingPermissionsSource? source;
 
-  const PermissionsWidget({super.key, required this.goNext, this.source});
+  /// The system prompt; tests replace it.
+  final Future<void> Function()? requestMicrophone;
+
+  const PermissionsWidget({super.key, required this.goNext, this.requestMicrophone});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return OnboardingStep(
       card: OnboardingCard(
         content: [
-          OnboardingHeader(title: context.l10n.permissionsFewTitle, subtitle: context.l10n.permissionsFewSubtitle),
-          const SizedBox(height: OmiSpacing.lg),
-          OnboardingPermissionsPanel(source: source),
-          const SizedBox(height: OmiSpacing.md),
-          Padding(
-            padding: OnboardingCard.textInset,
-            child: Text(
-              context.l10n.permissionsContinueNote,
-              style: OmiType.footnote.copyWith(color: OmiColors.textSecondary),
-            ),
-          ),
+          const SizedBox(height: 26),
+          const OnboardingIconRing(glyph: OmiGlyphs.micLine),
+          const SizedBox(height: 30),
+          OnboardingHeader(title: l10n.allowTheMicrophone, subtitle: l10n.allowMicrophoneWhy),
         ],
         footer: [
-          const SizedBox(height: OmiSpacing.xs),
           OmiButton(
             key: const Key('onboarding_permissions_continue'),
-            label: context.l10n.continueButton,
+            label: l10n.allowMicrophone,
             expand: true,
-            onPressed: () {
+            onPressed: () async {
               OmiHaptics.selection();
+              try {
+                await (requestMicrophone ?? () => Permission.microphone.request())();
+              } catch (_) {
+                // Moves on either way: the phone asks again the first time it records.
+              }
               goNext();
             },
           ),

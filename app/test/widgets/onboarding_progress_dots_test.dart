@@ -22,7 +22,11 @@ void main() {
     handle.dispose();
   });
 
-  test('the progress steps are the seven real first-run steps (Rev 3 asks for the device first)', () {
-    expect(OnboardingProgressStepsForTest.steps, hasLength(7));
+  test('five bars (v3): consent, the name, how you record, the microphone and your voice', () {
+    expect(OnboardingProgressStepsForTest.barCount, 5);
+    expect(OnboardingProgressStepsForTest.steps, hasLength(4));
+    expect(OnboardingProgressStepsForTest.barIndex(OnboardingWrapper.consentPage), 0);
+    expect([for (final page in OnboardingProgressStepsForTest.steps) OnboardingProgressStepsForTest.barIndex(page)],
+        [1, 2, 3, 4]);
   });
 }

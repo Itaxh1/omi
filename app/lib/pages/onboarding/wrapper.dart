@@ -4,19 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
-import 'package:omi/backend/http/api/knowledge_graph_api.dart';
 import 'package:omi/backend/http/api/users.dart';
 import 'package:omi/backend/preferences.dart';
 import 'package:omi/pages/home/page.dart';
 import 'package:omi/pages/onboarding/ai_consent_widget.dart';
 import 'package:omi/pages/onboarding/auth.dart';
-import 'package:omi/pages/onboarding/found_omi/found_omi_widget.dart';
-import 'package:omi/pages/onboarding/knowledge_graph_step.dart';
 import 'package:omi/pages/onboarding/name/name_widget.dart';
 import 'package:omi/pages/onboarding/pick_device_step.dart';
 import 'package:omi/pages/onboarding/permissions/permissions_checker.dart';
 import 'package:omi/pages/onboarding/permissions/permissions_widget.dart';
-import 'package:omi/pages/onboarding/primary_language/primary_language_widget.dart';
 import 'package:omi/pages/onboarding/complete_screen.dart';
 import 'package:omi/pages/onboarding/speech_profile_widget.dart';
 import 'package:omi/providers/home_provider.dart';
@@ -32,42 +28,57 @@ import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/auth/clear_user_state.dart';
 
 class OnboardingWrapper extends StatefulWidget {
-  const OnboardingWrapper({super.key, this.forceAuthPage = false});
+  const OnboardingWrapper({super.key, this.forceAuthPage = false, @visibleForTesting this.initialPage});
 
   final bool forceAuthPage;
+
+  /// The page to open on (the visual audit captures each step inside the wrapper's top row).
+  @visibleForTesting
+  final int? initialPage;
+
+  /// Page indices, for [initialPage].
+  static const int consentPage = _OnboardingWrapperState.kAiConsentPage;
+  static const int namePage = _OnboardingWrapperState.kNamePage;
+  static const int pickDevicePage = _OnboardingWrapperState.kPickDevicePage;
+  static const int permissionsPage = _OnboardingWrapperState.kPermissionsPage;
 
   @override
   State<OnboardingWrapper> createState() => _OnboardingWrapperState();
 }
 
 class _OnboardingWrapperState extends State<OnboardingWrapper> with TickerProviderStateMixin {
-  // Onboarding page indices (0 is sign-in)
+  // Onboarding page indices (0 is sign-in), in the v3 order: Welcome, Three things to know, What
+  // should Omi call you, How will you record, the microphone, Teach Omi your voice, You're set.
   static const int kAiConsentPage = 1; // Data-and-AI disclosure with explicit consent
-  static const int kPickDevicePage = 2; // Rev 3: "What will you wear?" is the first question
-  static const int kNamePage = 3;
-  static const int kPrimaryLanguagePage = 4;
-  static const int kFoundOmiPage = 5;
-  static const int kPermissionsPage = 6;
-  static const int kSpeechProfilePage = 7; // Guided voice introduction
-  static const int kKnowledgeGraphPage = 8; // Memory graph preview
-  static const int kCompletePage = 9; // "You're all set" completion screen
-  static const int kPageCount = 10;
+  static const int kNamePage = 2; // With the notes' language and Change
+  static const int kPickDevicePage = 3; // How will you record? (a wearable pairs from here)
+  static const int kPermissionsPage = 4;
+  static const int kSpeechProfilePage = 5; // Guided voice introduction (optional)
+  static const int kCompletePage = 6; // "You're set" completion screen
+  static const int kPageCount = 7;
 
-  /// The steps the progress dots count, in order. Auth, consent and the completion screen are not
-  /// steps: they are shown without dots.
+  /// The steps a reopened app resumes at, in order. Auth, consent and the completion screen are
+  /// not resumed.
   static const List<int> kProgressSteps = [
-    kPickDevicePage,
     kNamePage,
-    kPrimaryLanguagePage,
-    kFoundOmiPage,
+    kPickDevicePage,
     kPermissionsPage,
     kSpeechProfilePage,
-    kKnowledgeGraphPage,
   ];
+
+  /// The bars at the top count consent too (v3 `BAR`): consent, name, source, microphone, voice.
+  static int? barIndex(int page) => switch (page) {
+        kAiConsentPage => 0,
+        kNamePage => 1,
+        kPickDevicePage => 2,
+        kPermissionsPage => 3,
+        kSpeechProfilePage => 4,
+        _ => null,
+      };
+  static const int kBarCount = 5;
 
   TabController? _controller;
   bool get hasSpeechProfile => SharedPreferencesUtil().hasSpeakerProfile;
-  Future<void>? _knowledgeGraphPrebuildFuture;
   ProductAttempt? _onboardingAttempt;
 
   @override
@@ -79,16 +90,11 @@ class _OnboardingWrapperState extends State<OnboardingWrapper> with TickerProvid
         surface: ProductSurface.onboarding,
       );
     }
-    // Auth, AiConsent, PickDevice, Name, Lang, FoundOmi, Permissions, SpeechProfile, KnowledgeGraph,
-    // Complete
-    _controller = TabController(length: kPageCount, vsync: this);
+    _controller = TabController(length: kPageCount, vsync: this, initialIndex: widget.initialPage ?? 0);
     _controller!.addListener(() {
       if (!mounted) return;
       setState(() {});
       _rememberStep(_controller!.index);
-      if (_controller!.index == kSpeechProfilePage && _knowledgeGraphPrebuildFuture == null) {
-        _knowledgeGraphPrebuildFuture = _prebuildKnowledgeGraph().catchError((_) {});
-      }
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -97,7 +103,7 @@ class _OnboardingWrapperState extends State<OnboardingWrapper> with TickerProvid
       //   context.read<OnboardingProvider>().updatePermissions();
       // }
 
-      if (!widget.forceAuthPage && AuthService.instance.isSignedIn()) {
+      if (widget.initialPage == null && !widget.forceAuthPage && AuthService.instance.isSignedIn()) {
         // && !SharedPreferencesUtil().onboardingCompleted
         if (mounted) {
           context.read<HomeProvider>().setupHasSpeakerProfile();
@@ -166,16 +172,16 @@ class _OnboardingWrapperState extends State<OnboardingWrapper> with TickerProvid
   /// The step to reopen after the app was killed mid-onboarding: the last step the reader reached,
   /// or the first question.
   int _resumeStep() {
-    final saved = SharedPreferencesUtil().getInt(_resumeKey, defaultValue: kPickDevicePage);
-    return kProgressSteps.contains(saved) ? saved : kPickDevicePage;
+    final saved = SharedPreferencesUtil().getInt(_resumeKey, defaultValue: kNamePage);
+    return kProgressSteps.contains(saved) ? saved : kNamePage;
   }
 
   /// The step before the current one, or null when there is nothing to go back to (Auth, consent,
-  /// Name, completion).
+  /// completion). Name goes back to consent.
   int? get _previousStep {
     final position = kProgressSteps.indexOf(_controller!.index);
-    if (position <= 0) return null;
-    return kProgressSteps[position - 1];
+    if (position < 0) return null;
+    return position == 0 ? kAiConsentPage : kProgressSteps[position - 1];
   }
 
   bool _speechStepBusy = false;
@@ -198,24 +204,6 @@ class _OnboardingWrapperState extends State<OnboardingWrapper> with TickerProvid
     await SharedPreferencesUtil().clear();
     await AuthService.instance.signOut();
     navigator.pushAndRemoveUntil(omiPageRoute(builder: (_) => const AppShell()), (_) => false);
-  }
-
-  Future<void> _prebuildKnowledgeGraph() async {
-    try {
-      final current = await KnowledgeGraphApi.getKnowledgeGraph();
-      final nodes = current['nodes'] as List<dynamic>? ?? const [];
-      final hasGraph = nodes.any((node) => (node['id'] ?? '') != 'user-node');
-      if (hasGraph) return;
-    } catch (_) {
-      // Continue to rebuild below.
-    }
-
-    await KnowledgeGraphApi.rebuildKnowledgeGraph();
-    await KnowledgeGraphApi.waitForGraphStability(
-      timeout: const Duration(seconds: 25),
-      interval: const Duration(seconds: 2),
-      stabilityChecks: 1,
-    );
   }
 
   @override
@@ -260,15 +248,9 @@ class _OnboardingWrapperState extends State<OnboardingWrapper> with TickerProvid
         },
         onUseDifferentAccount: _useDifferentAccount,
       ),
-      OnboardingPickDeviceStep(
-        goNext: () {
-          _goNext(); // Go to Name page
-          PlatformManager.instance.analytics.onboardingStepCompleted('Pick Device');
-        },
-      ),
       NameWidget(
         goNext: () {
-          _goNext(); // Go to Primary Language page
+          _goNext(); // How will you record?
           IntercomManager.instance.updateUser(
             FirebaseAuth.instance.currentUser!.email,
             FirebaseAuth.instance.currentUser!.displayName,
@@ -277,23 +259,16 @@ class _OnboardingWrapperState extends State<OnboardingWrapper> with TickerProvid
           PlatformManager.instance.analytics.onboardingStepCompleted('Name');
         },
       ),
-      PrimaryLanguageWidget(
+      OnboardingPickDeviceStep(
         goNext: () {
-          _goNext(); // Go to Found Omi page
-          PlatformManager.instance.analytics.onboardingStepCompleted('Primary Language');
-        },
-      ),
-      FoundOmiWidget(
-        goNext: () {
-          _goNext(); // Go to Permissions page
-          PlatformManager.instance.analytics.onboardingStepCompleted('Acquisition Source');
+          _goNext(); // The microphone
+          PlatformManager.instance.analytics.onboardingStepCompleted('Pick Device');
         },
       ),
       PermissionsWidget(
         goNext: () {
-          // Straight to the voice introduction (phone mic; no device step). The review step was
-          // removed from onboarding to comply with App Store Guideline 5.6.3 (no rating prompts
-          // during onboarding).
+          // Straight to the voice introduction. The review step was removed from onboarding to
+          // comply with App Store Guideline 5.6.3 (no rating prompts during onboarding).
           _goNext();
           PlatformManager.instance.analytics.onboardingStepCompleted('Permissions');
         },
@@ -309,19 +284,13 @@ class _OnboardingWrapperState extends State<OnboardingWrapper> with TickerProvid
                 // All Done is not enroll success (#12765). Upload/embedding
                 // events fire only from the guided I/O upload receipt.
                 PlatformManager.instance.analytics.speechProfileContinued();
-                _controller!.animateTo(kKnowledgeGraphPage);
+                _controller!.animateTo(kCompletePage);
               },
               onSkip: () {
                 PlatformManager.instance.analytics.speechProfileSkipped();
-                _controller!.animateTo(kKnowledgeGraphPage);
+                _controller!.animateTo(kCompletePage);
               },
             ),
-      OnboardingKnowledgeGraphStep(
-        onContinue: () {
-          PlatformManager.instance.analytics.onboardingStepCompleted('Knowledge Graph');
-          _controller!.animateTo(kCompletePage);
-        },
-      ),
       OnboardingCompleteScreen(
         onComplete: () {
           SharedPreferencesUtil().onboardingCompleted = true;
@@ -354,23 +323,32 @@ class _OnboardingWrapperState extends State<OnboardingWrapper> with TickerProvid
               // v2: steps sit on the plain midnight page; Welcome and Complete draw the pendant.
               // Page component (no transition for content)
               pages[index],
-              if (kProgressSteps.contains(index))
+              // v3 `.obtop`: 12 pt under the status bar, the 40 pt back ring, then the step bars.
+              if (barIndex(index) != null)
                 SafeArea(
                   child: Padding(
-                    padding: const EdgeInsets.only(top: OmiSpacing.md),
-                    child: OnboardingProgressDots(
-                      current: kProgressSteps.indexOf(index),
-                      total: kProgressSteps.length,
-                    ),
-                  ),
-                ),
-              if (previous != null)
-                SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: OmiSpacing.xs, top: OmiSpacing.xxs),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: OmiBackButton.circled(key: const Key('onboarding_back'), onPressed: _goBack),
+                    padding: const EdgeInsets.fromLTRB(OmiSize.screenMargin, 12, OmiSize.screenMargin, 0),
+                    child: Row(
+                      children: [
+                        // Back on every step; on the first (consent) it signs out to Welcome.
+                        OmiRingButton(
+                          key: const Key('onboarding_back'),
+                          glyph: OmiGlyphs.back,
+                          label: MaterialLocalizations.of(context).backButtonTooltip,
+                          onPressed: index == kAiConsentPage
+                              ? () {
+                                  OmiHaptics.selection();
+                                  _useDifferentAccount();
+                                }
+                              : _goBack,
+                        ),
+                        const SizedBox(width: 14),
+                        Expanded(
+                          child: OnboardingProgressDots(current: barIndex(index)!, total: kBarCount),
+                        ),
+                        // The bars sit centred: the back ring's room is kept on the right too.
+                        const SizedBox(width: 54),
+                      ],
                     ),
                   ),
                 ),
@@ -385,7 +363,13 @@ class _OnboardingWrapperState extends State<OnboardingWrapper> with TickerProvid
 /// Exposes the counted steps to tests without widening the wrapper's state class.
 @visibleForTesting
 abstract final class OnboardingProgressStepsForTest {
+  /// The steps a return resumes at (after consent).
   static List<int> get steps => _OnboardingWrapperState.kProgressSteps;
+
+  /// The progress bars: consent, then each resumable step.
+  static int get barCount => _OnboardingWrapperState.kBarCount;
+
+  static int? barIndex(int page) => _OnboardingWrapperState.barIndex(page);
 }
 
 /// The first-run progress (v2): one short bar per real step, filled up to the current one, with a
@@ -400,26 +384,28 @@ class OnboardingProgressDots extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final motion = OmiMotion.of(context);
+    // v3 `.obbar`: one 3 pt segment per step, 4 pt apart, filling the row; done ones in ink.
     return Semantics(
       label: context.l10n.onboardingStepOf(current + 1, total),
       excludeSemantics: true,
       child: SizedBox(
-        height: kOmiMinTapTarget,
+        height: 40,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(total, (i) {
-            return AnimatedContainer(
-              duration: motion.standard,
-              curve: OmiMotion.springCurve,
-              margin: const EdgeInsets.symmetric(horizontal: 2.5),
-              width: 16,
-              height: 3,
-              decoration: BoxDecoration(
-                color: i <= current ? OmiColors.textPrimary : OmiColors.surface3,
-                borderRadius: OmiRadius.pillAll,
+          children: [
+            for (var i = 0; i < total; i++) ...[
+              if (i > 0) const SizedBox(width: 4),
+              Expanded(
+                child: AnimatedContainer(
+                  duration: motion.standard,
+                  height: 3,
+                  decoration: BoxDecoration(
+                    color: i <= current ? OmiColors.textPrimary : OmiColors.outline,
+                    borderRadius: const BorderRadius.all(Radius.circular(2)),
+                  ),
+                ),
               ),
-            );
-          }),
+            ],
+          ],
         ),
       ),
     );

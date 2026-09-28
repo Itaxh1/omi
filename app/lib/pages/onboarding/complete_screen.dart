@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:omi/backend/preferences.dart';
+import 'package:omi/pages/onboarding/permissions/onboarding_permissions_panel.dart';
 import 'package:omi/pages/onboarding/widgets/onboarding_card.dart';
 import 'package:omi/ui/ui.dart';
 
@@ -42,110 +43,73 @@ class _OnboardingCompleteScreenState extends State<OnboardingCompleteScreen> wit
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final name = SharedPreferencesUtil().givenName.trim();
+    // v3 `done`: the mark, "You're set, Alex.", what happens now, the background note, Open Omi.
     return ColoredBox(
       color: OmiColors.surface0,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          // Rev 3 (any device): the Omi mark turning in its halo, not a pendant; the title starts
-          // under it and the button stays at the bottom.
-          final hero = (constraints.maxHeight * 0.34).clamp(180.0, 300.0);
-          final textTop = (hero - MediaQuery.paddingOf(context).top + OmiSpacing.lg).clamp(0.0, constraints.maxHeight);
-          return Stack(
-            fit: StackFit.expand,
-            children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: SizedBox(
-                  height: hero,
-                  child: const Center(child: OmiRingLogo(size: 72, mode: OmiRingMode.orbit, loops: 1)),
-                ),
-              ),
-              Positioned.fill(
-                child: SafeArea(
-                  child: Padding(
-                    // The step layout's insets: Start using Omi sits exactly where Continue does on
-                    // every other step (16pt sides, 8pt above the bottom safe area).
-                    padding: const EdgeInsets.fromLTRB(OmiSpacing.md, 0, OmiSpacing.md, OmiSpacing.xs),
-                    child: AnimatedBuilder(
-                      animation: _fade,
-                      builder: (context, child) => Opacity(
-                        opacity: _fade.value,
-                        child: Transform.translate(offset: Offset(0, 12 * (1 - _fade.value)), child: child),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          SizedBox(height: textTop),
-                          Expanded(
-                            child: SingleChildScrollView(
-                              padding: OnboardingCard.textInset,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  Semantics(
-                                    header: true,
-                                    child: Text(
-                                      name.isEmpty
-                                          ? context.l10n.onboardingYoureAllSet
-                                          : context.l10n.onboardingAllSetName(name),
-                                      style: OmiType.serifDisplay,
-                                    ),
-                                  ),
-                                  const SizedBox(height: OmiSpacing.lg),
-                                  // v2: three things to know, a label and one line each.
-                                  _Tip(
-                                      label: context.l10n.completeListeningTitle,
-                                      text: context.l10n.completeListeningBody),
-                                  _Tip(label: context.l10n.today, text: context.l10n.completeHomeBody),
-                                  _Tip(label: context.l10n.completeAskTitle, text: context.l10n.completeAskAnyBody),
-                                  _Tip(label: context.l10n.devices, text: context.l10n.completeDevicesBody),
-                                ],
-                              ),
-                            ),
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(OmiSize.screenMargin, 12, OmiSize.screenMargin, 20),
+          child: AnimatedBuilder(
+            animation: _fade,
+            builder: (context, child) => Opacity(
+              opacity: _fade.value,
+              child: Transform.translate(offset: Offset(0, 12 * (1 - _fade.value)), child: child),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // As Welcome: the mark 116 pt down, the headline 35 pt under it.
+                        const SizedBox(height: 104),
+                        const OmiRingLogo(size: 40, mode: OmiRingMode.wave),
+                        const SizedBox(height: 35),
+                        Semantics(
+                          header: true,
+                          child: Text(
+                            name.isEmpty ? l10n.youreSet : l10n.youreSetName(name),
+                            style: OnboardingHeader.titleStyle,
                           ),
-                          const SizedBox(height: OmiSpacing.md),
-                          OmiButton(
-                            key: const Key('onboarding_complete_start'),
-                            label: context.l10n.startUsingOmi,
-                            expand: true,
-                            onPressed: () {
-                              OmiHaptics.success();
-                              widget.onComplete();
-                            },
-                          ),
-                        ],
-                      ),
+                        ),
+                        const SizedBox(height: 12),
+                        Text(l10n.youreSetBody, style: OnboardingHeader.bodyStyle),
+                        const SizedBox(height: 22),
+                        // `.fwwarn`: a quiet note with a rule on its left.
+                        Container(
+                          padding: const EdgeInsets.only(left: 12),
+                          decoration:
+                              BoxDecoration(border: Border(left: BorderSide(color: OmiColors.textPrimary, width: 1.5))),
+                          child: Text(l10n.keepAppRunningNote,
+                              style: OmiType.detail.copyWith(height: 1.45, color: OmiColors.ink80)),
+                        ),
+                        // What the design leaves out: notifications, places and (Android) running in
+                        // the background, each with why and its own Allow. Open Omi never prompts
+                        // (docs/ux-contract.md §15); Settings → Permissions has the same rows.
+                        const SizedBox(height: 26),
+                        const OnboardingPermissionsPanel(),
+                      ],
                     ),
                   ),
                 ),
-              ),
-            ],
-          );
-        },
-      ),
-    );
-  }
-}
-
-class _Tip extends StatelessWidget {
-  const _Tip({required this.label, required this.text});
-
-  final String label;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: OmiSpacing.md),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(width: 96, child: Text(label, style: OmiType.subhead.copyWith(fontWeight: FontWeight.w700))),
-          Expanded(
-              child:
-                  OmiBalancedText(text, style: OmiType.subhead.copyWith(color: OmiColors.textSecondary, height: 1.35))),
-        ],
+                const SizedBox(height: 12),
+                OmiButton(
+                  key: const Key('onboarding_complete_start'),
+                  label: l10n.openOmi,
+                  expand: true,
+                  onPressed: () {
+                    OmiHaptics.success();
+                    widget.onComplete();
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
