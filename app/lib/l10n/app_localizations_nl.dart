@@ -12020,4 +12020,355 @@ class AppLocalizationsNl extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get todoCardTitle => 'To-do\'s';
+
+  @override
+  String get notInAFolder => 'Niet in een map';
+
+  @override
+  String stripSyncing(int minutes) {
+    return '$minutes min synchroniseren';
+  }
+
+  @override
+  String get change => 'Wijzigen';
+
+  @override
+  String syncingFrom(String name) {
+    return 'Synchroniseren vanaf $name';
+  }
+
+  @override
+  String minutesLeft(int minutes) {
+    return 'nog $minutes min';
+  }
+
+  @override
+  String get viewTranscriptV3 => 'Transcript bekijken';
+
+  @override
+  String get moveToFolderV3 => 'Verplaatsen naar map';
+
+  @override
+  String get copySummaryV3 => 'Kopieer samenvatting';
+
+  @override
+  String get deleteConversationV3 => 'Gesprek verwijderen';
+
+  @override
+  String get copyTranscriptV3 => 'Kopieer transcript';
+
+  @override
+  String get noFolderV3 => 'Geen map';
+
+  @override
+  String get todosTab => 'To-do\'s';
+
+  @override
+  String get shareLink => 'Link delen';
+
+  @override
+  String get askOmiAboutThis => 'Vraag Omi hiernaar';
+
+  @override
+  String get openInMaps => 'Open in Kaarten';
+
+  @override
+  String minutesShortV3(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get noTodosInConversation => 'Geen taken in dit gesprek';
+
+  @override
+  String get nameSpeakers => 'Sprekers benoemen';
+
+  @override
+  String get backToSummary => 'Terug naar samenvatting';
+
+  @override
+  String speakerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count sprekers',
+      one: '1 spreker',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noTranscriptYet => 'Nog geen transcript';
+
+  @override
+  String dueOn(String day) {
+    return 'Deadline $day';
+  }
+
+  @override
+  String get lateTag => 'Te laat';
+
+  @override
+  String get allConversations => 'Alle gesprekken';
+
+  @override
+  String get newFolderV3 => 'Nieuwe map';
+
+  @override
+  String get doubleTapV3 => 'Dubbel tikken';
+
+  @override
+  String get browseAllApps => 'Alle apps bekijken';
+
+  @override
+  String get todoNewTag => 'Nieuw';
+
+  @override
+  String memoriesGraphCaption(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count herinneringen. Tik op een naam om te zien wat Omi erover weet.',
+      one: '1 herinnering. Tik op een naam om te zien wat Omi erover weet.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String memoriesAbout(String name) {
+    return 'Herinneringen over $name';
+  }
+
+  @override
+  String get memoriesEmptyV3 => 'Wat Omi leert over jou en de mensen met wie je praat, komt hier.';
+
+  @override
+  String get look => 'Weergave';
+
+  @override
+  String get lookWhite => 'Wit';
+
+  @override
+  String get lookBlack => 'Zwart';
+
+  @override
+  String get startWhenOmiOpens => 'Starten als Omi opent';
+
+  @override
+  String get pendantButton => 'Knop van de hanger';
+
+  @override
+  String get allSettings => 'Alle instellingen';
+
+  @override
+  String get whatTheLightMeans => 'Wat het lampje betekent';
+
+  @override
+  String get lightSolidRed => 'Continu rood';
+
+  @override
+  String get lightSolidRedMeaning => 'Aan, niet verbonden met je telefoon';
+
+  @override
+  String get lightBlinkingRed => 'Knippert rood';
+
+  @override
+  String get lightBlinkingRedMeaning => 'Wacht op de tijd van je telefoon. Verbinden stelt die in.';
+
+  @override
+  String get lightSolidBlue => 'Continu blauw';
+
+  @override
+  String get lightSolidBlueMeaning => 'Aan en verbonden';
+
+  @override
+  String get lightGreenRed => 'Knippert groen en rood';
+
+  @override
+  String get lightGreenRedMeaning => 'Aan het laden, niet verbonden';
+
+  @override
+  String get lightGreenBlue => 'Knippert groen en blauw';
+
+  @override
+  String get lightGreenBlueMeaning => 'Aan het laden, verbonden';
+
+  @override
+  String get lightSolidGreen => 'Continu groen';
+
+  @override
+  String get lightSolidGreenMeaning => 'Volledig opgeladen';
+
+  @override
+  String get recordFrom => 'Opnemen met';
+
+  @override
+  String get recordingLower => 'neemt op';
+
+  @override
+  String get builtInMic => 'ingebouwde microfoon';
+
+  @override
+  String syncingMinutesFrom(int minutes, String name) {
+    return '$minutes min synchroniseren vanaf $name…';
+  }
+
+  @override
+  String get alsoWorksWith => 'Omi werkt ook met Bee, Fieldy, Friend, Limitless, Plaud en Ray-Ban Meta.';
+
+  @override
+  String get bluetoothIsOff => 'Bluetooth staat uit';
+
+  @override
+  String get bluetoothOffExplainer =>
+      'Je Omi kan geen verbinding maken. Hij bewaart wat hij hoort en stuurt het als je terug bent.';
+
+  @override
+  String get turnOn => 'Aanzetten';
+
+  @override
+  String get updateReady => 'Update klaar';
+
+  @override
+  String firmwareVersionLine(String version) {
+    return 'Versie $version';
+  }
+
+  @override
+  String get onYourOmi => 'Op je Omi';
+
+  @override
+  String get newVersion => 'Nieuwe versie';
+
+  @override
+  String get whatDoYouWantToKnow => 'Wat wil je weten?';
+
+  @override
+  String get askSuggestDecide => 'Wat heb ik vandaag besloten?';
+
+  @override
+  String get askSuggestOwe => 'Wat ben ik mensen nog verschuldigd?';
+
+  @override
+  String get askSuggestNotice => 'Wat viel Omi op?';
+
+  @override
+  String conversationsTodayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count gesprekken vandaag.',
+      one: '1 gesprek vandaag.',
+      zero: 'Vandaag geen gesprekken.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get readThePrivacyPolicy => 'Lees het privacybeleid';
+
+  @override
+  String get consentThreeThings => 'Drie dingen om te weten';
+
+  @override
+  String get consentChooseTitle => 'Jij kiest wanneer Omi luistert.';
+
+  @override
+  String get consentChooseBody =>
+      'Tik bovenaan Home op het Omi-teken om te starten of te pauzeren, of gebruik de knop op je apparaat.';
+
+  @override
+  String get consentAiTitle => 'Omi schrijft je notities met AI.';
+
+  @override
+  String get consentDeleteTitle => 'Je kunt alles verwijderen.';
+
+  @override
+  String get iAgree => 'Akkoord';
+
+  @override
+  String get nameFromAccount => 'Dit komt uit je account. Pas het aan als je wilt.';
+
+  @override
+  String notesLanguage(String language) {
+    return 'Notities worden in het $language geschreven.';
+  }
+
+  @override
+  String get howWillYouRecord => 'Hoe ga je opnemen?';
+
+  @override
+  String get addOrSwitchDevicesAnyTime => 'Je kunt altijd apparaten toevoegen of wisselen.';
+
+  @override
+  String get iHaveAnOmi => 'Ik heb een Omi';
+
+  @override
+  String get iHaveAnOmiDetail => 'Hanger, Omi Glass of Apple Watch';
+
+  @override
+  String get justThisPhoneForNow => 'Voorlopig alleen deze telefoon';
+
+  @override
+  String get useTheIphoneMicrophone => 'De microfoon van de iPhone gebruiken';
+
+  @override
+  String get useThePhoneMicrophone => 'De microfoon van de telefoon gebruiken';
+
+  @override
+  String get iUseAnotherDevice => 'Ik gebruik Plaud, Bee, Limitless of een ander apparaat';
+
+  @override
+  String get allowTheMicrophone => 'Sta de microfoon toe';
+
+  @override
+  String get allowMicrophoneWhy =>
+      'Omi neemt alleen op terwijl het Omi-teken bovenaan Home beweegt. Pauzeer wanneer je wilt.';
+
+  @override
+  String get allowMicrophone => 'Microfoon toestaan';
+
+  @override
+  String get youreSet => 'Je bent klaar.';
+
+  @override
+  String youreSetName(String name) {
+    return 'Je bent klaar, $name.';
+  }
+
+  @override
+  String get youreSetBody =>
+      'Omi is klaar. Het Omi-teken bovenaan Home beweegt terwijl hij luistert. Tik erop om te pauzeren of van apparaat te wisselen.';
+
+  @override
+  String get keepAppRunningNote =>
+      'Laat de app op de achtergrond draaien. Als je hem geforceerd sluit, stopt Omi met luisteren.';
+
+  @override
+  String get openOmi => 'Open Omi';
+
+  @override
+  String get welcomeListensSubtitle =>
+      'Omi luistert wanneer jij dat wilt en maakt van wat er gezegd is notities, taken en herinneringen.';
+
+  @override
+  String get syncingToYourPhone => 'Synchroniseren naar je telefoon';
+
+  @override
+  String lastWeekday(String weekday) {
+    return 'Afgelopen $weekday';
+  }
+
+  @override
+  String dayAtTime(String day, String time) {
+    return '$day, $time';
+  }
+
+  @override
+  String memoryFromConversation(String day, String time) {
+    return '$day, uit het gesprek van $time';
+  }
 }

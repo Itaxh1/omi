@@ -11984,4 +11984,355 @@ class AppLocalizationsFi extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get todoCardTitle => 'Tehtävät';
+
+  @override
+  String get notInAFolder => 'Ei kansiossa';
+
+  @override
+  String stripSyncing(int minutes) {
+    return 'synkronoi $minutes min';
+  }
+
+  @override
+  String get change => 'Vaihda';
+
+  @override
+  String syncingFrom(String name) {
+    return 'Synkronoidaan laitteesta $name';
+  }
+
+  @override
+  String minutesLeft(int minutes) {
+    return '$minutes min jäljellä';
+  }
+
+  @override
+  String get viewTranscriptV3 => 'Näytä litterointi';
+
+  @override
+  String get moveToFolderV3 => 'Siirrä kansioon';
+
+  @override
+  String get copySummaryV3 => 'Kopioi tiivistelmä';
+
+  @override
+  String get deleteConversationV3 => 'Poista keskustelu';
+
+  @override
+  String get copyTranscriptV3 => 'Kopioi litterointi';
+
+  @override
+  String get noFolderV3 => 'Ei kansiota';
+
+  @override
+  String get todosTab => 'Tehtävät';
+
+  @override
+  String get shareLink => 'Jaa linkki';
+
+  @override
+  String get askOmiAboutThis => 'Kysy Omilta tästä';
+
+  @override
+  String get openInMaps => 'Avaa Kartoissa';
+
+  @override
+  String minutesShortV3(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get noTodosInConversation => 'Tässä keskustelussa ei ole tehtäviä';
+
+  @override
+  String get nameSpeakers => 'Nimeä puhujat';
+
+  @override
+  String get backToSummary => 'Takaisin yhteenvetoon';
+
+  @override
+  String speakerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count puhujaa',
+      one: '1 puhuja',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noTranscriptYet => 'Ei vielä litterointia';
+
+  @override
+  String dueOn(String day) {
+    return 'Eräpäivä $day';
+  }
+
+  @override
+  String get lateTag => 'Myöhässä';
+
+  @override
+  String get allConversations => 'Kaikki keskustelut';
+
+  @override
+  String get newFolderV3 => 'Uusi kansio';
+
+  @override
+  String get doubleTapV3 => 'Kaksoisnapautus';
+
+  @override
+  String get browseAllApps => 'Selaa kaikkia sovelluksia';
+
+  @override
+  String get todoNewTag => 'Uusi';
+
+  @override
+  String memoriesGraphCaption(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count muistoa. Napauta nimeä nähdäksesi, mitä Omi siitä tietää.',
+      one: '1 muisto. Napauta nimeä nähdäksesi, mitä Omi siitä tietää.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String memoriesAbout(String name) {
+    return 'Muistot: $name';
+  }
+
+  @override
+  String get memoriesEmptyV3 => 'Tähän tulee se, mitä Omi oppii sinusta ja ihmisistä, joiden kanssa puhut.';
+
+  @override
+  String get look => 'Ulkoasu';
+
+  @override
+  String get lookWhite => 'Valkoinen';
+
+  @override
+  String get lookBlack => 'Musta';
+
+  @override
+  String get startWhenOmiOpens => 'Aloita, kun Omi avautuu';
+
+  @override
+  String get pendantButton => 'Riipuksen painike';
+
+  @override
+  String get allSettings => 'Kaikki asetukset';
+
+  @override
+  String get whatTheLightMeans => 'Mitä valo tarkoittaa';
+
+  @override
+  String get lightSolidRed => 'Palaa punaisena';
+
+  @override
+  String get lightSolidRedMeaning => 'Päällä, ei yhteyttä puhelimeen';
+
+  @override
+  String get lightBlinkingRed => 'Vilkkuu punaisena';
+
+  @override
+  String get lightBlinkingRedMeaning => 'Odottaa aikaa puhelimelta. Yhdistäminen asettaa sen.';
+
+  @override
+  String get lightSolidBlue => 'Palaa sinisenä';
+
+  @override
+  String get lightSolidBlueMeaning => 'Päällä ja yhdistetty';
+
+  @override
+  String get lightGreenRed => 'Vilkkuu vihreänä ja punaisena';
+
+  @override
+  String get lightGreenRedMeaning => 'Latautuu, ei yhteyttä';
+
+  @override
+  String get lightGreenBlue => 'Vilkkuu vihreänä ja sinisenä';
+
+  @override
+  String get lightGreenBlueMeaning => 'Latautuu, yhdistetty';
+
+  @override
+  String get lightSolidGreen => 'Palaa vihreänä';
+
+  @override
+  String get lightSolidGreenMeaning => 'Täyteen ladattu';
+
+  @override
+  String get recordFrom => 'Tallenna laitteesta';
+
+  @override
+  String get recordingLower => 'tallentaa';
+
+  @override
+  String get builtInMic => 'sisäinen mikrofoni';
+
+  @override
+  String syncingMinutesFrom(int minutes, String name) {
+    return 'Synkronoidaan $minutes min laitteesta $name…';
+  }
+
+  @override
+  String get alsoWorksWith =>
+      'Omi toimii myös Bee-, Fieldy-, Friend-, Limitless-, Plaud- ja Ray-Ban Meta -laitteiden kanssa.';
+
+  @override
+  String get bluetoothIsOff => 'Bluetooth on pois päältä';
+
+  @override
+  String get bluetoothOffExplainer => 'Omi ei saa yhteyttä. Se tallentaa kuulemansa ja lähettää sen, kun palaat.';
+
+  @override
+  String get turnOn => 'Ota käyttöön';
+
+  @override
+  String get updateReady => 'Päivitys valmis';
+
+  @override
+  String firmwareVersionLine(String version) {
+    return 'Versio $version';
+  }
+
+  @override
+  String get onYourOmi => 'Omissasi';
+
+  @override
+  String get newVersion => 'Uusi versio';
+
+  @override
+  String get whatDoYouWantToKnow => 'Mitä haluat tietää?';
+
+  @override
+  String get askSuggestDecide => 'Mitä päätin tänään?';
+
+  @override
+  String get askSuggestOwe => 'Mitä olen vielä velkaa muille?';
+
+  @override
+  String get askSuggestNotice => 'Mitä Omi huomasi?';
+
+  @override
+  String conversationsTodayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count keskustelua tänään.',
+      one: '1 keskustelu tänään.',
+      zero: 'Ei keskusteluja tänään.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get readThePrivacyPolicy => 'Lue tietosuojakäytäntö';
+
+  @override
+  String get consentThreeThings => 'Kolme asiaa, jotka kannattaa tietää';
+
+  @override
+  String get consentChooseTitle => 'Sinä päätät, milloin Omi kuuntelee.';
+
+  @override
+  String get consentChooseBody =>
+      'Aloita tai keskeytä napauttamalla Omi-merkkiä etusivun yläosassa tai käytä laitteen painiketta.';
+
+  @override
+  String get consentAiTitle => 'Omi kirjoittaa muistiinpanosi tekoälyn avulla.';
+
+  @override
+  String get consentDeleteTitle => 'Voit poistaa mitä tahansa.';
+
+  @override
+  String get iAgree => 'Hyväksyn';
+
+  @override
+  String get nameFromAccount => 'Otimme tämän tililtäsi. Muuta, jos haluat.';
+
+  @override
+  String notesLanguage(String language) {
+    return 'Muistiinpanot kirjoitetaan kielellä $language.';
+  }
+
+  @override
+  String get howWillYouRecord => 'Miten tallennat?';
+
+  @override
+  String get addOrSwitchDevicesAnyTime => 'Voit lisätä tai vaihtaa laitteita milloin tahansa.';
+
+  @override
+  String get iHaveAnOmi => 'Minulla on Omi';
+
+  @override
+  String get iHaveAnOmiDetail => 'Riipus, Omi Glass tai Apple Watch';
+
+  @override
+  String get justThisPhoneForNow => 'Toistaiseksi vain tämä puhelin';
+
+  @override
+  String get useTheIphoneMicrophone => 'Käytä iPhonen mikrofonia';
+
+  @override
+  String get useThePhoneMicrophone => 'Käytä puhelimen mikrofonia';
+
+  @override
+  String get iUseAnotherDevice => 'Käytän Plaudia, Beetä, Limitlessiä tai muuta laitetta';
+
+  @override
+  String get allowTheMicrophone => 'Salli mikrofoni';
+
+  @override
+  String get allowMicrophoneWhy =>
+      'Omi tallentaa vain, kun etusivun yläosan Omi-merkki liikkuu. Keskeytä milloin haluat.';
+
+  @override
+  String get allowMicrophone => 'Salli mikrofoni';
+
+  @override
+  String get youreSet => 'Valmista.';
+
+  @override
+  String youreSetName(String name) {
+    return 'Valmista, $name.';
+  }
+
+  @override
+  String get youreSetBody =>
+      'Omi on valmis. Etusivun yläosan Omi-merkki liikkuu, kun se kuuntelee. Napauta sitä keskeyttääksesi tai vaihtaaksesi laitetta.';
+
+  @override
+  String get keepAppRunningNote =>
+      'Anna sovelluksen olla käynnissä taustalla. Jos pakotat sen sulkeutumaan, Omi lakkaa kuuntelemasta.';
+
+  @override
+  String get openOmi => 'Avaa Omi';
+
+  @override
+  String get welcomeListensSubtitle =>
+      'Omi kuuntelee, kun pyydät, ja muuttaa sanotun muistiinpanoiksi, tehtäviksi ja muistoiksi.';
+
+  @override
+  String get syncingToYourPhone => 'Synkronoidaan puhelimeen';
+
+  @override
+  String lastWeekday(String weekday) {
+    return 'Viime $weekday';
+  }
+
+  @override
+  String dayAtTime(String day, String time) {
+    return '$day, $time';
+  }
+
+  @override
+  String memoryFromConversation(String day, String time) {
+    return '$day, klo $time keskustelusta';
+  }
 }

@@ -4,7 +4,6 @@ import 'package:omi/pages/conversations/widgets/processing_capture.dart';
 import 'package:omi/pages/home/widgets/recorder_card.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/l10n_extensions.dart';
-import 'package:omi/widgets/bottom_nav_bar.dart';
 
 /// The recorder card over Home (v3 §4.2): it rises from the bottom, just above the Ask bar, with
 /// 14 pt side insets, when the Listening label opens it. A tap anywhere outside closes it and is
@@ -37,7 +36,8 @@ class RecorderCardOverlay extends StatelessWidget {
             Positioned(
               left: sideInset,
               right: sideInset,
-              bottom: askBarBottomOffset(context) + kAskBarHeight + sideInset,
+              // `.rp`: 132 pt above the home indicator (the Ask bar sits 16 above it).
+              bottom: MediaQuery.viewPaddingOf(context).bottom + 132,
               child: const _Rise(
                 child: ConversationCaptureWidget(showsCall: true, recorder: true, idle: RecorderIdleCard()),
               ),

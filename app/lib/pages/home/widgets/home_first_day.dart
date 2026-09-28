@@ -7,7 +7,7 @@ import 'package:omi/backend/schema/message.dart';
 import 'package:omi/pages/chat/page.dart';
 import 'package:omi/pages/conversation_capturing/page.dart';
 import 'package:omi/pages/devices/add_device_page.dart';
-import 'package:omi/pages/home/widgets/battery_info_widget.dart';
+import 'package:omi/pages/home/widgets/phone_capture.dart';
 import 'package:omi/pages/home/widgets/home_sections.dart';
 import 'package:omi/pages/home/widgets/idle_capture_card.dart';
 import 'package:omi/pages/settings/settings_destinations.dart';

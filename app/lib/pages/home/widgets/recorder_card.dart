@@ -4,20 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:omi/pages/conversations/widgets/live_capture_card.dart';
-import 'package:omi/pages/devices/recording_source_sheet.dart';
-import 'package:omi/pages/home/widgets/battery_info_widget.dart';
+import 'package:omi/pages/devices/devices_screen.dart';
+import 'package:omi/pages/home/widgets/phone_capture.dart';
 import 'package:omi/pages/home/widgets/home_heard_today.dart';
 import 'package:omi/pages/home/widgets/idle_capture_card.dart';
 import 'package:omi/providers/capture_provider.dart';
 import 'package:omi/providers/device_provider.dart';
 import 'package:omi/providers/sync_provider.dart';
 import 'package:omi/ui/ui.dart';
+import 'package:omi/utils/other/temp.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/widgets/capture_sources.dart';
 
 /// The recorder card's shell (v3 §4.2): the 3D grey glass ([OmiGlassCard], 28 pt corners) with a
 /// footer shared by the live and idle cards: the sync line while recordings come off the pendant,
-/// and the full-width "Switch device ›" row, which opens Recording from.
+/// and the full-width "Switch device ›" row, which opens Devices.
 class RecorderShell extends StatelessWidget {
   const RecorderShell({super.key, required this.child});
 
@@ -50,10 +51,10 @@ class _RecorderFooter extends StatelessWidget {
       children: [
         Consumer<SyncProvider>(
           builder: (context, sync, _) {
-            final active = sync.isSyncing || sync.isFetchingConversations;
-            if (!active) return const SizedBox.shrink();
+            if (!(sync.isSyncing || sync.isFetchingConversations)) return const SizedBox.shrink();
             final progress = sync.walsSyncedProgress.clamp(0.0, 1.0);
             final done = sync.isFetchingConversations || progress >= 1;
+            final line = OmiType.detail.copyWith(height: 1.4, color: OmiColors.ink80);
             return Padding(
               padding: const EdgeInsets.only(top: 12),
               child: Column(
@@ -63,38 +64,36 @@ class _RecorderFooter extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: Text(
-                          done ? '✓ ${l10n.pendantRecordingsSynced}' : l10n.syncingFromPendant,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: OmiType.footnote.copyWith(fontWeight: FontWeight.w600),
-                        ),
+                        child: Text(done ? l10n.pendantRecordingsSynced : l10n.syncingToYourPhone,
+                            maxLines: 1, overflow: TextOverflow.ellipsis, style: line),
                       ),
-                      if (!done) ...[
-                        const SizedBox(width: OmiSpacing.xs),
-                        Text(
-                          '${(progress * 100).round()}%',
-                          style: OmiType.footnote.copyWith(
-                            color: OmiColors.textSecondary,
-                            fontFeatures: const [FontFeature.tabularFigures()],
-                          ),
-                        ),
-                      ],
+                      if (!done) Text(l10n.minutesLeft((sync.missingWalsInSeconds / 60).ceil()), style: line),
                     ],
                   ),
-                  if (!done) ...[const SizedBox(height: 8), OmiProgressBar(value: progress)],
+                  if (!done) ...[
+                    const SizedBox(height: 8),
+                    ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(2)),
+                      child: LinearProgressIndicator(
+                        value: progress,
+                        minHeight: 4,
+                        backgroundColor: OmiColors.divider,
+                        valueColor: AlwaysStoppedAnimation(OmiColors.textPrimary),
+                      ),
+                    ),
+                  ],
                 ],
               ),
             );
           },
         ),
-        const SizedBox(height: 10),
-        Divider(height: 1, thickness: 1, color: OmiColors.border),
+        const SizedBox(height: 12),
+        Divider(height: 1, thickness: 1, color: OmiColors.divider),
         RecorderRow(
           key: const Key('recorder_switch_device'),
           label: l10n.switchDevice,
           chevron: true,
-          onTap: () => showRecordingSourceSheet(context),
+          onTap: () => routeToPage(context, const DevicesScreen()),
         ),
       ],
     );
@@ -129,10 +128,12 @@ class RecorderRow extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis,
-                      style: OmiType.body.copyWith(fontWeight: FontWeight.w500)),
+                  child: Text(label,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: OmiType.subhead.copyWith(fontWeight: FontWeight.w500, height: 1.4)),
                 ),
-                if (chevron) Text('›', style: OmiType.title3.copyWith(color: OmiColors.textTertiary, height: 1)),
+                if (chevron) Text('›', style: OmiType.title3.copyWith(color: OmiColors.faint, height: 1)),
               ],
             ),
           ),
@@ -144,7 +145,8 @@ class RecorderRow extends StatelessWidget {
 
 /// The recorder card's live rows (v3 §4.2), drawn from the same inputs as the capture card: the
 /// device's photo (or the phone's tile), its name over "Listening · 8 min · 🔋45%", and the 48 pt
-/// Mute/Unmute button; then a warning the card explains, a note, and "End conversation".
+/// Mute/Unmute button; then a warning the card explains and a note. Tapping the card opens the live
+/// page, which ends the conversation (Stop).
 class RecorderCard extends StatelessWidget {
   const RecorderCard({super.key, required this.card});
 
@@ -170,7 +172,11 @@ class RecorderCard extends StatelessWidget {
     final parts = [
       c.status,
       if (c.detail != null) c.detail!,
-      if (c.elapsed != null) LiveCaptureCard.formatElapsed(c.elapsed!),
+      // `.rstat`: "8 min" (the first minute still counts its seconds).
+      if (c.elapsed != null)
+        c.elapsed!.inMinutes < 1
+            ? LiveCaptureCard.formatElapsed(c.elapsed!)
+            : l10n.minutesShortV3(c.elapsed!.inMinutes),
     ];
     final showBattery = wearable && battery >= 0;
     return Column(
@@ -205,7 +211,7 @@ class RecorderCard extends StatelessWidget {
           action: !isCall && c.onPauseToggle != null
               ? OmiIconButton.filled(
                   key: const Key('recorder_mute'),
-                  icon: OmiGlyph(c.paused ? OmiGlyphs.playFill : OmiGlyphs.pauseFill, size: 20),
+                  icon: OmiGlyph(c.paused ? OmiGlyphs.playFill : OmiGlyphs.pauseFill, size: 18),
                   label: c.paused ? l10n.unmute : l10n.mute,
                   fillColor: OmiColors.accent,
                   color: OmiColors.onAccent,
@@ -247,16 +253,11 @@ class RecorderCard extends StatelessWidget {
               style: OmiType.footnote.copyWith(color: OmiColors.textSecondary),
             ),
           ),
-        if (!isCall && c.onFinish != null) ...[
-          const SizedBox(height: 10),
-          Divider(height: 1, thickness: 1, color: OmiColors.border),
-          RecorderRow(key: const Key('recorder_end'), label: l10n.endConversation, onTap: c.onFinish!),
-        ],
       ],
     );
   }
 
-  static TextStyle get _detailStyle => OmiType.footnote.copyWith(
+  static TextStyle get _detailStyle => OmiType.cardSubtitle.copyWith(
         color: OmiColors.textSecondary,
         fontFeatures: const [FontFeature.tabularFigures()],
       );
@@ -276,14 +277,16 @@ class RecorderDeviceRow extends StatelessWidget {
     return Row(
       children: [
         ExcludeSemantics(child: visual),
-        const SizedBox(width: 14),
+        const SizedBox(width: 12),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(name, maxLines: 1, overflow: TextOverflow.ellipsis,
-                  style: OmiType.body.copyWith(fontWeight: FontWeight.w600, height: 1.2)),
+              Text(name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: OmiType.body.copyWith(fontWeight: FontWeight.w600, letterSpacing: -0.17, height: 1.4)),
               const SizedBox(height: 2),
               detail,
             ],
@@ -331,7 +334,7 @@ class RecorderIdleCard extends StatelessWidget {
         ),
         action: OmiIconButton.filled(
           key: const Key('recorder_start'),
-          icon: const OmiGlyph(OmiGlyphs.playFill, size: 20),
+          icon: const OmiGlyph(OmiGlyphs.playFill, size: 18),
           label: l10n.start,
           fillColor: OmiColors.accent,
           color: OmiColors.onAccent,
@@ -387,8 +390,8 @@ class _BatteryPainter extends CustomPainter {
     final inner = body.deflate(1.6);
     if (level > 0) {
       canvas.drawRRect(
-        RRect.fromRectAndRadius(Rect.fromLTWH(inner.left, inner.top, inner.width * level, inner.height),
-            const Radius.circular(1)),
+        RRect.fromRectAndRadius(
+            Rect.fromLTWH(inner.left, inner.top, inner.width * level, inner.height), const Radius.circular(1)),
         fill,
       );
     }

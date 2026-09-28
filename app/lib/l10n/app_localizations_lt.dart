@@ -11999,4 +11999,353 @@ class AppLocalizationsLt extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get todoCardTitle => 'Darbai';
+
+  @override
+  String get notInAFolder => 'Ne aplanke';
+
+  @override
+  String stripSyncing(int minutes) {
+    return 'sinchronizuojama $minutes min.';
+  }
+
+  @override
+  String get change => 'Keisti';
+
+  @override
+  String syncingFrom(String name) {
+    return 'Sinchronizuojama iš $name';
+  }
+
+  @override
+  String minutesLeft(int minutes) {
+    return 'liko $minutes min.';
+  }
+
+  @override
+  String get viewTranscriptV3 => 'Rodyti transkripciją';
+
+  @override
+  String get moveToFolderV3 => 'Perkelti į aplanką';
+
+  @override
+  String get copySummaryV3 => 'Kopijuoti santrauką';
+
+  @override
+  String get deleteConversationV3 => 'Ištrinti pokalbį';
+
+  @override
+  String get copyTranscriptV3 => 'Kopijuoti transkripciją';
+
+  @override
+  String get noFolderV3 => 'Be aplanko';
+
+  @override
+  String get todosTab => 'Darbai';
+
+  @override
+  String get shareLink => 'Bendrinti nuorodą';
+
+  @override
+  String get askOmiAboutThis => 'Klausti Omi apie tai';
+
+  @override
+  String get openInMaps => 'Atidaryti žemėlapyje';
+
+  @override
+  String minutesShortV3(int minutes) {
+    return '$minutes min.';
+  }
+
+  @override
+  String get noTodosInConversation => 'Šiame pokalbyje užduočių nėra';
+
+  @override
+  String get nameSpeakers => 'Pavadinti kalbėtojus';
+
+  @override
+  String get backToSummary => 'Grįžti į santrauką';
+
+  @override
+  String speakerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kalbėtojai',
+      one: '1 kalbėtojas',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noTranscriptYet => 'Nuorašo dar nėra';
+
+  @override
+  String dueOn(String day) {
+    return 'Terminas: $day';
+  }
+
+  @override
+  String get lateTag => 'Vėluoja';
+
+  @override
+  String get allConversations => 'Visi pokalbiai';
+
+  @override
+  String get newFolderV3 => 'Naujas aplankas';
+
+  @override
+  String get doubleTapV3 => 'Dvigubas bakstelėjimas';
+
+  @override
+  String get browseAllApps => 'Naršyti visas programas';
+
+  @override
+  String get todoNewTag => 'Nauja';
+
+  @override
+  String memoriesGraphCaption(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count prisiminimai. Palieskite vardą ir pamatysite, ką Omi žino.',
+      one: '1 prisiminimas. Palieskite vardą ir pamatysite, ką Omi žino.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String memoriesAbout(String name) {
+    return 'Prisiminimai apie $name';
+  }
+
+  @override
+  String get memoriesEmptyV3 => 'Čia rodoma, ką Omi sužino apie jus ir žmones, su kuriais kalbatės.';
+
+  @override
+  String get look => 'Išvaizda';
+
+  @override
+  String get lookWhite => 'Balta';
+
+  @override
+  String get lookBlack => 'Juoda';
+
+  @override
+  String get startWhenOmiOpens => 'Pradėti atidarius Omi';
+
+  @override
+  String get pendantButton => 'Pakabuko mygtukas';
+
+  @override
+  String get allSettings => 'Visi nustatymai';
+
+  @override
+  String get whatTheLightMeans => 'Ką reiškia lemputė';
+
+  @override
+  String get lightSolidRed => 'Šviečia raudonai';
+
+  @override
+  String get lightSolidRedMeaning => 'Įjungtas, neprijungtas prie telefono';
+
+  @override
+  String get lightBlinkingRed => 'Mirksi raudonai';
+
+  @override
+  String get lightBlinkingRedMeaning => 'Laukia laiko iš telefono. Prisijungus jis nustatomas.';
+
+  @override
+  String get lightSolidBlue => 'Šviečia mėlynai';
+
+  @override
+  String get lightSolidBlueMeaning => 'Įjungtas ir prijungtas';
+
+  @override
+  String get lightGreenRed => 'Mirksi žaliai ir raudonai';
+
+  @override
+  String get lightGreenRedMeaning => 'Kraunasi, neprijungtas';
+
+  @override
+  String get lightGreenBlue => 'Mirksi žaliai ir mėlynai';
+
+  @override
+  String get lightGreenBlueMeaning => 'Kraunasi, prijungtas';
+
+  @override
+  String get lightSolidGreen => 'Šviečia žaliai';
+
+  @override
+  String get lightSolidGreenMeaning => 'Visiškai įkrautas';
+
+  @override
+  String get recordFrom => 'Įrašyti iš';
+
+  @override
+  String get recordingLower => 'įrašo';
+
+  @override
+  String get builtInMic => 'integruotas mikrofonas';
+
+  @override
+  String syncingMinutesFrom(int minutes, String name) {
+    return 'Sinchronizuojama $minutes min. iš $name…';
+  }
+
+  @override
+  String get alsoWorksWith => 'Omi taip pat veikia su Bee, Fieldy, Friend, Limitless, Plaud ir Ray-Ban Meta.';
+
+  @override
+  String get bluetoothIsOff => 'Bluetooth išjungtas';
+
+  @override
+  String get bluetoothOffExplainer => 'Omi negali prisijungti. Jis saugo, ką girdi, ir išsiųs, kai grįšite.';
+
+  @override
+  String get turnOn => 'Įjungti';
+
+  @override
+  String get updateReady => 'Atnaujinimas paruoštas';
+
+  @override
+  String firmwareVersionLine(String version) {
+    return 'Versija $version';
+  }
+
+  @override
+  String get onYourOmi => 'Jūsų Omi';
+
+  @override
+  String get newVersion => 'Nauja versija';
+
+  @override
+  String get whatDoYouWantToKnow => 'Ką norite sužinoti?';
+
+  @override
+  String get askSuggestDecide => 'Ką šiandien nusprendžiau?';
+
+  @override
+  String get askSuggestOwe => 'Ką dar esu skolingas žmonėms?';
+
+  @override
+  String get askSuggestNotice => 'Ką pastebėjo Omi?';
+
+  @override
+  String conversationsTodayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count pokalbiai šiandien.',
+      one: '1 pokalbis šiandien.',
+      zero: 'Šiandien pokalbių nėra.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get readThePrivacyPolicy => 'Skaityti privatumo politiką';
+
+  @override
+  String get consentThreeThings => 'Trys dalykai, kuriuos verta žinoti';
+
+  @override
+  String get consentChooseTitle => 'Jūs renkatės, kada Omi klauso.';
+
+  @override
+  String get consentChooseBody =>
+      'Norėdami pradėti ar pristabdyti, palieskite Omi ženklą pagrindinio ekrano viršuje arba naudokite įrenginio mygtuką.';
+
+  @override
+  String get consentAiTitle => 'Omi užrašus rašo naudodamas DI.';
+
+  @override
+  String get consentDeleteTitle => 'Galite ištrinti bet ką.';
+
+  @override
+  String get iAgree => 'Sutinku';
+
+  @override
+  String get nameFromAccount => 'Paėmėme tai iš jūsų paskyros. Jei norite, pakeiskite.';
+
+  @override
+  String notesLanguage(String language) {
+    return 'Užrašai bus rašomi kalba: $language.';
+  }
+
+  @override
+  String get howWillYouRecord => 'Kaip įrašinėsite?';
+
+  @override
+  String get addOrSwitchDevicesAnyTime => 'Įrenginius galite pridėti ar keisti bet kada.';
+
+  @override
+  String get iHaveAnOmi => 'Turiu Omi';
+
+  @override
+  String get iHaveAnOmiDetail => 'Pakabukas, Omi Glass ar Apple Watch';
+
+  @override
+  String get justThisPhoneForNow => 'Kol kas tik šis telefonas';
+
+  @override
+  String get useTheIphoneMicrophone => 'Naudoti iPhone mikrofoną';
+
+  @override
+  String get useThePhoneMicrophone => 'Naudoti telefono mikrofoną';
+
+  @override
+  String get iUseAnotherDevice => 'Naudoju Plaud, Bee, Limitless ar kitą įrenginį';
+
+  @override
+  String get allowTheMicrophone => 'Leiskite mikrofoną';
+
+  @override
+  String get allowMicrophoneWhy =>
+      'Omi įrašo tik tada, kai juda Omi ženklas pagrindinio ekrano viršuje. Pristabdykite bet kada.';
+
+  @override
+  String get allowMicrophone => 'Leisti mikrofoną';
+
+  @override
+  String get youreSet => 'Viskas paruošta.';
+
+  @override
+  String youreSetName(String name) {
+    return 'Viskas paruošta, $name.';
+  }
+
+  @override
+  String get youreSetBody =>
+      'Omi paruoštas. Kol jis klauso, pagrindinio ekrano viršuje juda Omi ženklas. Palieskite jį, kad pristabdytumėte ar pakeistumėte įrenginį.';
+
+  @override
+  String get keepAppRunningNote => 'Palikite programą veikti fone. Priverstinai ją uždarius, Omi nustoja klausytis.';
+
+  @override
+  String get openOmi => 'Atidaryti Omi';
+
+  @override
+  String get welcomeListensSubtitle =>
+      'Omi klauso, kai paprašote, ir pasakytą paverčia užrašais, užduotimis ir prisiminimais.';
+
+  @override
+  String get syncingToYourPhone => 'Sinchronizuojama į telefoną';
+
+  @override
+  String lastWeekday(String weekday) {
+    return 'Praėjusį $weekday';
+  }
+
+  @override
+  String dayAtTime(String day, String time) {
+    return '$day, $time';
+  }
+
+  @override
+  String memoryFromConversation(String day, String time) {
+    return '$day, iš $time pokalbio';
+  }
 }

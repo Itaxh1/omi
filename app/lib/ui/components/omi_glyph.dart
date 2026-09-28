@@ -45,6 +45,30 @@ abstract final class OmiGlyphs {
   static const String devicePin = 'assets/icons/device-pin.svg';
   static const String todo = 'assets/icons/todo.svg';
 
+  // v3 line icons, drawn as the mock draws them (1.8–2.4 pt strokes).
+  static const String back = 'assets/icons/v3-back.svg';
+  static const String more = 'assets/icons/v3-more.svg';
+  static const String calendar = 'assets/icons/v3-calendar.svg';
+  static const String folderLine = 'assets/icons/v3-folder.svg';
+  static const String lines = 'assets/icons/v3-lines.svg';
+  static const String source = 'assets/icons/v3-source.svg';
+  static const String shareLine = 'assets/icons/v3-share.svg';
+  static const String copyLine = 'assets/icons/v3-copy.svg';
+  static const String pinLine = 'assets/icons/v3-pin.svg';
+  static const String trashLine = 'assets/icons/v3-trash.svg';
+  static const String personLine = 'assets/icons/v3-person.svg';
+  static const String tick = 'assets/icons/v3-tick.svg';
+  static const String micLine = 'assets/icons/v3-mic.svg';
+  static const String searchLine = 'assets/icons/v3-search.svg';
+  static const String send = 'assets/icons/v3-up.svg';
+  static const String chevronUp = 'assets/icons/v3-chevron-up.svg';
+  static const String chevronDown = 'assets/icons/v3-chevron-down.svg';
+  static const String plusLine = 'assets/icons/v3-plus.svg';
+  static const String close = 'assets/icons/v3-close.svg';
+  static const String bluetooth = 'assets/icons/bluetooth.svg';
+  static const String apps = 'assets/icons/v3-apps.svg';
+  static const String browse = 'assets/icons/v3-browse.svg';
+
   /// The tile icon for a capture source (`ConversationSource.name` / `liveCaptureSource`): the
   /// pendant family, the phone, the watch, glasses, and a pin for other wearables.
   static String forSource(String? source) => switch (source) {

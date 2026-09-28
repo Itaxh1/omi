@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -19,7 +20,10 @@ import 'package:omi/widgets/bottom_nav_bar.dart';
 /// listening lives in the top bar's label and the recorder card it opens, not on the page. The
 /// first day welcomes instead and adds Getting started and Good to know, so Home is never empty.
 class HomeContentPage extends StatefulWidget {
-  const HomeContentPage({super.key});
+  const HomeContentPage({super.key, this.recorderOpen});
+
+  /// Whether the recorder card is up; the To-do card steps aside under it.
+  final ValueListenable<bool>? recorderOpen;
 
   @override
   State<HomeContentPage> createState() => HomeContentPageState();
@@ -55,50 +59,71 @@ class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliv
         final firstDay = settled && count == 0;
         final heard = HomeHeardToday.pick(convoProvider);
         final heardToday = heard.isNotEmpty && HomeHeardToday.isToday(heard.first);
-        return DecoratedBox(
-          decoration: BoxDecoration(gradient: HomeTone.gradient()),
-          child: RefreshIndicator(
-            onRefresh: () async {
-              OmiHaptics.medium();
-              await convoProvider.getInitialConversations();
-            },
-            color: OmiColors.onAccent,
-            backgroundColor: OmiColors.accent,
-            child: CustomScrollView(
-              controller: _scrollController,
-              physics: const AlwaysScrollableScrollPhysics(),
-              slivers: [
-                SliverToBoxAdapter(child: firstDay ? const HomeFirstDayHeader() : _buildHeadline(context)),
-                if (firstDay) const SliverToBoxAdapter(child: FirstDayListeningHero()),
-                const SliverToBoxAdapter(child: CaptureRecoveryBanner()),
-                SliverPadding(
-                  padding: const EdgeInsets.symmetric(horizontal: OmiSize.screenMargin),
-                  sliver: SliverList.list(
-                    children: [
-                      // Until the first few conversations: the setup checklist (folds away when done).
-                      if (settled && count < 3) HomeGettingStarted(conversationCount: count),
-                      if (heard.isNotEmpty)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 22),
-                          child: HomeHeardToday(
-                            conversations: heard,
-                            today: heardToday,
-                            onAll: () => context.read<HomeProvider>().setIndex(1),
+        // The To-do card sits in the warm zone at the same height above the Ask bar on every phone;
+        // when the page is taller than the screen (the first day) it follows the content instead.
+        final underCard = askBarBottomOffset(context) + kAskBarHeight + HomeTone.cardAboveAsk;
+        return RefreshIndicator(
+          onRefresh: () async {
+            OmiHaptics.medium();
+            await convoProvider.getInitialConversations();
+          },
+          color: OmiColors.onAccent,
+          backgroundColor: OmiColors.accent,
+          child: CustomScrollView(
+            controller: _scrollController,
+            physics: const AlwaysScrollableScrollPhysics(),
+            slivers: [
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    if (firstDay) ...[
+                      const HomeFirstDayHeader(),
+                      const FirstDayListeningHero(),
+                    ] else
+                      _buildHeadline(context),
+                    const CaptureRecoveryBanner(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: OmiSize.screenMargin),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          // Until the first few conversations: the setup checklist (folds away when done).
+                          if (settled && count < 3) HomeGettingStarted(conversationCount: count),
+                          if (heard.isNotEmpty)
+                            HomeHeardToday(
+                              conversations: heard,
+                              today: heardToday,
+                              onAll: () => context.read<HomeProvider>().setIndex(1),
+                            ),
+                        ],
+                      ),
+                    ),
+                    if (settled && firstDay) const HomeGoodToKnow(),
+                    const SizedBox(height: HomeTone.cardBelowRows),
+                    const Spacer(),
+                    if (settled)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: OmiSize.screenMargin),
+                        child: ValueListenableBuilder<bool>(
+                          valueListenable: widget.recorderOpen ?? const AlwaysStoppedAnimation(false),
+                          child: HomeTodoCard(onOpen: () => context.read<HomeProvider>().setIndex(2)),
+                          builder: (context, open, card) => IgnorePointer(
+                            ignoring: open,
+                            child: AnimatedOpacity(
+                              opacity: open ? 0 : 1,
+                              duration: OmiMotion.of(context).quick,
+                              child: card,
+                            ),
                           ),
                         ),
-                      if (settled)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 36),
-                          child: HomeTodoCard(onOpen: () => context.read<HomeProvider>().setIndex(2)),
-                        ),
-                    ],
-                  ),
+                      ),
+                    SizedBox(height: underCard),
+                  ],
                 ),
-                if (settled && firstDay) const SliverToBoxAdapter(child: HomeGoodToKnow()),
-                // Room under the last section for the pinned Ask bar.
-                SliverToBoxAdapter(child: SizedBox(height: homeChatBarClearance(context))),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },
@@ -109,19 +134,18 @@ class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliv
     return provider.conversations.where((c) => !c.discarded).length;
   }
 
-  /// The headline (v3): a two-to-three-word phrase for the hour, changing every two hours, 34/600.
-  /// Never a date.
+  /// The headline (v3 `h1.lede`): a two-to-three-word phrase for the hour, changing every two
+  /// hours, 34/600 at −.03em on a 1.15 line, 44 pt under the top bar. Never a date.
   Widget _buildHeadline(BuildContext context) {
     final greeting = HomeGreeting.forHour(context.l10n, DateTime.now().hour);
     return Padding(
-      // 44 pt under the top bar, as the design sets it.
-      padding: const EdgeInsets.fromLTRB(OmiSize.screenMargin, 36, OmiSize.screenMargin, 0),
+      padding: const EdgeInsets.fromLTRB(OmiSize.screenMargin, 44, OmiSize.screenMargin, 0),
       child: Semantics(
         header: true,
         child: Text(
           greeting,
           key: const Key('home_headline'),
-          style: OmiType.largeTitle,
+          style: OmiType.largeTitle.copyWith(height: 1.15),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
@@ -133,6 +157,12 @@ class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliv
 /// Home's background (v3 `.home-bg`), fixed to the screen, not the scroll: the page colour for the
 /// top 62 %, half warm by 72 %, fully warm white by 82 %.
 abstract final class HomeTone {
+  /// The least room between the last row and the To-do card (`#todos`: 40 pt margin, 36 padding).
+  static const double cardBelowRows = 76;
+
+  /// From the To-do card's bottom edge to the Ask bar's top (the design at 390 × 844: 105 pt).
+  static const double cardAboveAsk = 105;
+
   static LinearGradient gradient() {
     final paper = OmiColors.surface0;
     final tone = OmiColors.tone;

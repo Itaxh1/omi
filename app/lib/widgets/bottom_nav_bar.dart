@@ -12,9 +12,9 @@ const double kAskBarHeight = 60;
 /// The home indicator's inset, or nothing on phones without one.
 double bottomNavBarReservedInset(BuildContext context) => MediaQuery.viewPaddingOf(context).bottom;
 
-/// From the bottom of the screen to the Ask bar's bottom edge: 24 pt above the home indicator (58
-/// on an iPhone with one, as the design pins it), or 24 from the edge on phones without one.
-double askBarBottomOffset(BuildContext context) => bottomNavBarReservedInset(context) + OmiSpacing.xl;
+/// From the bottom of the screen to the Ask bar's bottom edge: 16 pt above the home indicator
+/// (v3 `.askw`: bottom calc(safe-area + 16px)), or 16 from the edge on phones without one.
+double askBarBottomOffset(BuildContext context) => bottomNavBarReservedInset(context) + OmiSpacing.md;
 
 /// Room scrolled content keeps under the Ask bar.
 double bottomNavBarClearance(BuildContext context) => askBarBottomOffset(context) + kAskBarHeight + OmiSpacing.lg;

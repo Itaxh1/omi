@@ -91,22 +91,42 @@ class _FirmwareUpdateState extends State<FirmwareUpdate> with FirmwareMixin {
 
   Widget _buildSectionHeader(String title, {String? subtitle}) => OmiSectionHeader(title, subtitle: subtitle);
 
-  Widget _buildVersionItem(
-      {required FaIconData icon, required String label, required String version, Color? chipColor}) {
-    return Padding(
-      padding: const EdgeInsets.all(OmiSpacing.md),
-      child: Row(
+  /// A version card (v3 `.fwv`): what it is, small, over the version at 18/600.
+  Widget _buildVersionItem({required String label, required String version}) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(14)),
+        border: Border.all(color: OmiColors.outline),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(width: 24, height: 24, child: FaIcon(icon, color: OmiColors.textTertiary, size: 18)),
-          const SizedBox(width: OmiSpacing.md),
-          Expanded(child: Text(label, style: OmiType.body)),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: OmiSpacing.sm, vertical: 6),
-            decoration: BoxDecoration(color: chipColor ?? OmiColors.surface2, borderRadius: OmiRadius.pillAll),
-            child: Text(version, style: OmiType.footnote.copyWith(fontWeight: FontWeight.w500)),
-          ),
+          Text(label, style: OmiType.fine.copyWith(color: OmiColors.textSecondary)),
+          const SizedBox(height: 2),
+          Text(version, style: OmiType.lead),
         ],
       ),
+    );
+  }
+
+  /// The pendant and what is happening, as the v3 screen opens (`.pend2` + `h1.cvh`).
+  Widget _hero(String title) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 10),
+        const Center(child: OmiOrb(size: 132, live: true)),
+        const SizedBox(height: 18),
+        Semantics(
+          header: true,
+          child: Text(
+            title,
+            style: OmiType.pageTitle,
+          ),
+        ),
+        const SizedBox(height: 12),
+      ],
     );
   }
 
@@ -114,7 +134,10 @@ class _FirmwareUpdateState extends State<FirmwareUpdate> with FirmwareMixin {
     return Container(
       width: double.infinity,
       padding: padding,
-      decoration: BoxDecoration(color: OmiColors.surface1, borderRadius: OmiRadius.xlAll),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(14)),
+        border: Border.all(color: OmiColors.outline),
+      ),
       child: child,
     );
   }
@@ -199,8 +222,8 @@ class _FirmwareUpdateState extends State<FirmwareUpdate> with FirmwareMixin {
               Container(
                 width: 80,
                 height: 80,
-                decoration: BoxDecoration(color: OmiColors.successSurface, shape: BoxShape.circle),
-                child: Center(child: FaIcon(FontAwesomeIcons.check, color: OmiColors.success, size: 32)),
+                decoration: BoxDecoration(color: OmiColors.accent, shape: BoxShape.circle),
+                child: Center(child: OmiGlyph(OmiGlyphs.tick, size: 32, color: OmiColors.onAccent)),
               ),
               const SizedBox(height: OmiSpacing.xl),
               Semantics(header: true, child: Text(context.l10n.firmwareUpdated, style: OmiType.title3)),
@@ -338,32 +361,26 @@ class _FirmwareUpdateState extends State<FirmwareUpdate> with FirmwareMixin {
                   ),
                 ),
                 const SizedBox(width: OmiSpacing.xs),
-                FaIcon(FontAwesomeIcons.circleCheck, color: OmiColors.success, size: 14),
+                OmiGlyph(OmiGlyphs.tick, size: 14, color: OmiColors.textPrimary),
               ],
             ),
           ),
         ],
-        // Version cards
-        _card(
-          child: Column(
-            children: [
-              _buildVersionItem(
-                icon: FontAwesomeIcons.microchip,
-                label: context.l10n.currentVersion,
-                version: widget.device!.firmwareRevision,
-                chipColor: shouldUpdate ? OmiColors.dangerSurface : null,
+        if (shouldUpdate) _hero(context.l10n.updateReady),
+        // Version cards: on the device, and the new one.
+        Row(
+          children: [
+            Expanded(
+              child: _buildVersionItem(label: context.l10n.onYourOmi, version: widget.device!.firmwareRevision),
+            ),
+            if (shouldUpdate && latestFirmwareDetails['version'] != null) ...[
+              const SizedBox(width: 10),
+              Expanded(
+                child:
+                    _buildVersionItem(label: context.l10n.newVersion, version: '${latestFirmwareDetails['version']}'),
               ),
-              if (shouldUpdate && latestFirmwareDetails['version'] != null) ...[
-                Divider(height: 1, color: OmiColors.border),
-                _buildVersionItem(
-                  icon: FontAwesomeIcons.cloudArrowDown,
-                  label: context.l10n.latestVersion,
-                  version: '${latestFirmwareDetails['version']}',
-                  chipColor: OmiColors.successSurface,
-                ),
-              ],
             ],
-          ),
+          ],
         ),
 
         // Changelog
@@ -462,15 +479,14 @@ class _FirmwareUpdateState extends State<FirmwareUpdate> with FirmwareMixin {
       canPop: !busy,
       child: Scaffold(
         backgroundColor: OmiColors.surface0,
-        appBar: OmiAppBar(
-          automaticallyImplyLeading: false,
-          // No way back while the device is being written; the PopScope blocks system back too.
-          leading: busy ? null : const OmiBackButton(),
-          title: Text(widget.isRollback ? context.l10n.stableFirmware : context.l10n.firmwareUpdate),
+        // No way back while the device is being written; the PopScope blocks system back too.
+        appBar: OmiScreenHeader(
+          title: widget.isRollback ? context.l10n.stableFirmware : context.l10n.firmware,
+          onBack: busy ? () {} : null,
         ),
         body: SafeArea(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: OmiSpacing.lg, vertical: OmiSpacing.md),
+            padding: const EdgeInsets.fromLTRB(OmiSize.screenMargin, 4, OmiSize.screenMargin, 20),
             child: isLoading
                 ? _buildLoadingSection()
                 : busy

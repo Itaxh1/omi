@@ -8,22 +8,12 @@ import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 
 // Pieces of the chat composer that carry no page state. The text field and the Send button stay
-// in `chat/page.dart`: they are the catalogued controls (omi.chat.input / omi.chat.send).
+// in `chat/page.dart`: they are the catalogued controls (omi.chat.input / omi.chat.send), keyed there.
 
-/// The soft shadow that lifts the composer pill and its side button off the transcript. In daylight
-/// it is the glass's faint ink shadow; a dark halo would read as a smudge on the pale page.
-List<BoxShadow> get kChatComposerShadow => OmiColors.isLight
-    ? [
-        BoxShadow(color: OmiColors.palette.glassShadow, blurRadius: 30, offset: const Offset(0, 10)),
-        BoxShadow(color: OmiColors.palette.glassShadowTight, blurRadius: 2, offset: const Offset(0, 1)),
-      ]
-    : const [
-        BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.65), blurRadius: 60, spreadRadius: 14, offset: Offset(0, -16)),
-        BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.45), blurRadius: 32, spreadRadius: 6, offset: Offset(0, -8)),
-        BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.25), blurRadius: 10, offset: Offset(0, 2)),
-      ];
+/// v3: the composer draws no shadow (the field is outlined).
+List<BoxShadow> get kChatComposerShadow => const [];
 
-/// The 48 pt round button beside the composer pill: Add (idle) or Stop (recording).
+/// The 44 pt ink circle beside the composer (v3 `#attach`): Add (idle) or Discard (recording).
 ///
 /// Labelled for screen readers and long-press; [onPressed] null draws it disabled.
 class ChatComposerSideButton extends StatelessWidget {
@@ -47,18 +37,16 @@ class ChatComposerSideButton extends StatelessWidget {
           behavior: HitTestBehavior.opaque,
           onTap: onPressed,
           child: Container(
-            height: 48,
-            width: 48,
+            height: 44,
+            width: 44,
             decoration: BoxDecoration(
-              color: OmiColors.surface1,
+              color: enabled ? OmiColors.accent : OmiColors.surface3,
               shape: BoxShape.circle,
-              border: Border.all(color: OmiColors.surface3, width: 1),
-              boxShadow: kChatComposerShadow,
             ),
             child: Center(
               child: ExcludeSemantics(
                 child: IconTheme.merge(
-                  data: IconThemeData(color: enabled ? OmiColors.textPrimary : OmiColors.textDisabled, size: 18),
+                  data: IconThemeData(color: enabled ? OmiColors.onAccent : OmiColors.textDisabled, size: 18),
                   child: icon,
                 ),
               ),
@@ -125,6 +113,40 @@ class ChatComposerRoundButton extends StatelessWidget {
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Send (v3 `#send`): a 52 pt ink circle with the up arrow. It does nothing until there is something
+/// to send (and says so to screen readers).
+class ChatSendButton extends StatelessWidget {
+  const ChatSendButton({super.key, required this.buttonKey, required this.label, required this.onPressed});
+
+  /// The tappable's key (the page passes the catalogued `omi.chat.send`).
+  final Key buttonKey;
+  final String label;
+  final VoidCallback? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final enabled = onPressed != null;
+    return Semantics(
+      button: true,
+      enabled: enabled,
+      label: label,
+      excludeSemantics: true,
+      child: GestureDetector(
+        key: buttonKey,
+        behavior: HitTestBehavior.opaque,
+        onTap: onPressed,
+        child: Container(
+          width: 52,
+          height: 52,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(color: OmiColors.accent, shape: BoxShape.circle),
+          child: OmiGlyph(OmiGlyphs.send, size: 18, color: OmiColors.onAccent),
         ),
       ),
     );

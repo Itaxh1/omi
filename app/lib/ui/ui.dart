@@ -55,6 +55,7 @@ export 'components/omi_sheet.dart';
 export 'components/omi_spinner.dart';
 export 'components/omi_surface.dart';
 export 'components/omi_toolbar_capsule.dart';
+export 'components/omi_v3.dart';
 export 'feedback/omi_clipboard.dart';
 export 'feedback/omi_dialogs.dart';
 export 'feedback/omi_feedback.dart';

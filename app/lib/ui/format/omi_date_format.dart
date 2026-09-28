@@ -64,6 +64,17 @@ class OmiDateFormat {
     return (value.year == today.year ? DateFormat.MMMEd(localeName) : DateFormat.yMMMEd(localeName)).format(value);
   }
 
+  /// A list's day group in full (v3): "Today", "Yesterday", else "Monday, September 21" (with the
+  /// year when it is not the current one).
+  String dayTitle(DateTime value) {
+    final day = _dayOnly(value);
+    final today = _dayOnly(_clock());
+    if (day == today) return _l10n.today;
+    if (day == DateTime(today.year, today.month, today.day - 1)) return _l10n.yesterday;
+    return (value.year == today.year ? DateFormat.MMMMEEEEd(localeName) : DateFormat.yMMMMEEEEd(localeName))
+        .format(value);
+  }
+
   /// The day in full, for a page's greeting: "Thursday, September 24" (locale order).
   String longDay(DateTime value) => DateFormat.MMMMEEEEd(localeName).format(value);
 

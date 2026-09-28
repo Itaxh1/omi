@@ -1,28 +1,22 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-
-import 'package:provider/provider.dart';
 
 import 'package:omi/backend/schema/conversation.dart';
-import 'package:omi/pages/conversation_detail/page.dart';
+import 'package:omi/pages/conversations/open_conversation.dart';
 import 'package:omi/providers/conversation_provider.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/l10n_extensions.dart';
-import 'package:omi/utils/other/temp.dart';
-import 'package:omi/utils/platform/platform_manager.dart';
 
-/// Home's "Heard today" (v3): a 13 pt section label with an underlined "all" link, then up to five
-/// conversation rows with no dividers. Each row is a 42 pt tile holding the device's icon only,
-/// the title on one line, and the time under it.
+/// Home's "Heard today" (v3): a 13 pt section label with an underlined "all" link, then up to three
+/// conversation rows with no dividers (three, so the To-do card and the Ask bar sit in the same
+/// place on every iPhone). Each row is a 42 pt tile holding the device's icon only, the title on
+/// one line, and the time under it.
 ///
 /// The titles share one font size: it starts at 16.5 and steps down by 0.25 until every title
 /// fits its line, never below 14.5, then the longest ones end in an ellipsis.
 class HomeHeardToday extends StatelessWidget {
   const HomeHeardToday({super.key, required this.conversations, required this.onAll, this.today = true});
 
-  /// Up to five, newest first ([pick]).
+  /// Up to three, newest first ([pick]).
   final List<ServerConversation> conversations;
 
   /// Opens All conversations.
@@ -31,16 +25,21 @@ class HomeHeardToday extends StatelessWidget {
   /// Whether [conversations] are today's; otherwise the label says Latest.
   final bool today;
 
-  static const int limit = 5;
+  static const int limit = 3;
   static const double tile = 42;
   static const double gap = 12;
   static const double maxTitle = 16.5;
   static const double minTitle = 14.5;
   static const double titleStep = 0.25;
 
+  /// The label block: 22 pt above the label, 10 below it (v3 `h2` and `#convs`).
+  static const double labelTop = 22;
+  static const double labelBottom = 10;
+
   /// Today's conversations, newest first, up to [limit]; when there are none today, the latest
   /// [limit] instead (the label then says Latest, see [isToday]).
-  static List<ServerConversation> pick(ConversationProvider provider, {int limit = HomeHeardToday.limit, DateTime? now}) {
+  static List<ServerConversation> pick(ConversationProvider provider,
+      {int limit = HomeHeardToday.limit, DateTime? now}) {
     final all = _newestFirst(provider);
     final todays = all.where((c) => isToday(c, now: now)).take(limit).toList();
     return todays.isNotEmpty ? todays : all.take(limit).toList();
@@ -55,7 +54,10 @@ class HomeHeardToday extends StatelessWidget {
 
   static List<ServerConversation> _newestFirst(ConversationProvider provider) {
     final dates = provider.groupedConversations.keys.toList()..sort((a, b) => b.compareTo(a));
-    return [for (final date in dates) ...provider.groupedConversations[date] ?? const <ServerConversation>[]];
+    return [
+      for (final date in dates)
+        ...(provider.groupedConversations[date] ?? const <ServerConversation>[]).where((c) => !c.discarded),
+    ];
   }
 
   /// The one title size at which every title in [titles] fits [width] on one line, from [maxTitle]
@@ -65,7 +67,7 @@ class HomeHeardToday extends StatelessWidget {
     while (size > minTitle) {
       final fits = titles.every((title) {
         final painter = TextPainter(
-          text: TextSpan(text: title, style: _titleStyle(size)),
+          text: TextSpan(text: title, style: titleStyle(size)),
           maxLines: 1,
           textScaler: scaler,
           textDirection: direction,
@@ -80,8 +82,21 @@ class HomeHeardToday extends StatelessWidget {
     return minTitle;
   }
 
-  static TextStyle _titleStyle(double size) =>
-      OmiType.subhead.copyWith(fontSize: size, fontWeight: FontWeight.w500, height: 1.15);
+  /// `#convs .tx b`: 500, line height 1.15, −.015em.
+  static TextStyle titleStyle(double size) => OmiType.subhead.copyWith(
+        fontSize: size,
+        fontWeight: FontWeight.w500,
+        height: 1.15,
+        letterSpacing: -0.015 * size,
+      );
+
+  /// `#convs .tx .when`: 13 pt, +.01em, tabular, in the secondary ink.
+  static TextStyle get timeStyle => OmiType.footnote.copyWith(
+        color: OmiColors.textSecondary,
+        height: 1.15,
+        letterSpacing: 0.13,
+        fontFeatures: const [FontFeature.tabularFigures()],
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -89,24 +104,33 @@ class HomeHeardToday extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _SectionLabel(title: today ? l10n.heardToday : l10n.latest, action: l10n.all.toLowerCase(), onAction: onAll),
-        LayoutBuilder(
-          builder: (context, constraints) {
-            final width = constraints.maxWidth - HomeHeardToday.tile - HomeHeardToday.gap;
-            final size = fitTitles(
-              [for (final c in conversations) _title(context, c)],
-              width,
-              MediaQuery.textScalerOf(context),
-              Directionality.of(context),
-            );
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                for (final (i, c) in conversations.indexed) _HeardRow(conversation: c, index: i, titleSize: size),
-              ],
-            );
-          },
+        OmiSectionLabel(
+          title: today ? l10n.heardToday : l10n.latest,
+          action: l10n.all.toLowerCase(),
+          actionKey: const Key('home_heard_all'),
+          onAction: onAll,
+          top: labelTop,
+          bottom: labelBottom,
         ),
+        // The rows span Home's margins, so the title width comes from the screen. (A LayoutBuilder
+        // here would break Home's fill-the-screen sliver, which measures its content's intrinsic
+        // height.)
+        Builder(builder: (context) {
+          final width =
+              MediaQuery.sizeOf(context).width - 2 * OmiSize.screenMargin - HomeHeardToday.tile - HomeHeardToday.gap;
+          final size = fitTitles(
+            [for (final c in conversations) _title(context, c)],
+            width,
+            MediaQuery.textScalerOf(context),
+            Directionality.of(context),
+          );
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              for (final (i, c) in conversations.indexed) _HeardRow(conversation: c, index: i, titleSize: size),
+            ],
+          );
+        }),
       ],
     );
   }
@@ -114,51 +138,6 @@ class HomeHeardToday extends StatelessWidget {
   static String _title(BuildContext context, ServerConversation c) {
     final title = c.structured.title.trim();
     return title.isEmpty ? context.l10n.untitledConversation : title;
-  }
-}
-
-/// A 13 pt/600 label in the secondary ink, with an underlined link on the right.
-class _SectionLabel extends StatelessWidget {
-  const _SectionLabel({required this.title, required this.action, required this.onAction});
-
-  final String title;
-  final String action;
-  final VoidCallback onAction;
-
-  @override
-  Widget build(BuildContext context) {
-    final style = OmiType.footnote.copyWith(color: OmiColors.textSecondary, fontWeight: FontWeight.w600);
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 6),
-      child: Row(
-        children: [
-          Expanded(child: Semantics(header: true, child: Text(title, style: style))),
-          Semantics(
-            button: true,
-            label: action,
-            excludeSemantics: true,
-            onTap: onAction,
-            child: OmiPressable(
-              onTap: () {
-                OmiHaptics.selection();
-                onAction();
-              },
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(minHeight: OmiSize.minTap, minWidth: OmiSize.minTap),
-                child: Center(
-                  widthFactor: 1,
-                  child: Text(
-                    action,
-                    key: const Key('home_heard_all'),
-                    style: style.copyWith(decoration: TextDecoration.underline, decorationColor: OmiColors.textSecondary),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
 
@@ -175,6 +154,11 @@ class _HeardRow extends StatelessWidget {
     final c = conversation;
     final at = (c.startedAt ?? c.createdAt).toLocal();
     final title = HomeHeardToday._title(context, c);
+    final scaler = MediaQuery.textScalerOf(context);
+    // The grid shares the tile's height between the two lines: the title sits in the upper half,
+    // the time in the lower, 1 pt apart at the least.
+    final lines = scaler.scale(titleSize) * 1.15 + scaler.scale(13) * 1.15;
+    final between = 1 + ((HomeHeardToday.tile - lines - 1) / 2).clamp(0.0, 20.0);
     return Semantics(
       button: true,
       label: title,
@@ -183,7 +167,7 @@ class _HeardRow extends StatelessWidget {
       child: OmiPressable(
         key: ValueKey('home_heard_${c.id}'),
         behavior: HitTestBehavior.opaque,
-        onTap: () => _open(context),
+        onTap: () => openConversationDetail(context, c, index: index),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 9),
           child: Row(
@@ -195,17 +179,10 @@ class _HeardRow extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(title, maxLines: 1, overflow: TextOverflow.ellipsis, style: HomeHeardToday._titleStyle(titleSize)),
-                    const SizedBox(height: 1),
-                    Text(
-                      OmiDateFormat.of(context).time(at),
-                      maxLines: 1,
-                      style: OmiType.footnote.copyWith(
-                        color: OmiColors.textSecondary,
-                        height: 1.15,
-                        fontFeatures: const [FontFeature.tabularFigures()],
-                      ),
-                    ),
+                    Text(title,
+                        maxLines: 1, overflow: TextOverflow.ellipsis, style: HomeHeardToday.titleStyle(titleSize)),
+                    SizedBox(height: between),
+                    Text(OmiDateFormat.of(context).time(at), maxLines: 1, style: HomeHeardToday.timeStyle),
                   ],
                 ),
               ),
@@ -215,34 +192,20 @@ class _HeardRow extends StatelessWidget {
       ),
     );
   }
-
-  void _open(BuildContext context) {
-    OmiHaptics.selection();
-    final provider = context.read<ConversationProvider>();
-    final hours = DateTime.now().difference(conversation.createdAt).inHours;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      provider.onConversationTap(conversation.id);
-      unawaited(SchedulerBinding.instance.scheduleTask<void>(() {
-        PlatformManager.instance.analytics.conversationListItemClickedWithTimeDifference(
-          conversation: conversation,
-          conversationIndex: index,
-          hoursSinceConversation: hours,
-        );
-      }, Priority.idle));
-    });
-    routeToPage(context, ConversationDetailPage(conversation: conversation));
-  }
 }
 
-/// The 42 pt icon tile (v3): warm-white fill, a hairline, and a cement-grey glyph. Device icons in
-/// the Heard today rows and the recorder card, the to-do mark on the To-do card.
+/// The 42 pt icon tile (v3): warm-white fill (ink 8 % in Black), a hairline, 13 pt corners and a
+/// cement-grey glyph. Device icons in the Heard today rows and the recorder card, the to-do mark on
+/// the To-do card (12 pt corners there).
 class OmiDeviceTile extends StatelessWidget {
-  const OmiDeviceTile({super.key, required this.icon, this.size = HomeHeardToday.tile, this.glyph = 26});
+  const OmiDeviceTile(
+      {super.key, required this.icon, this.size = HomeHeardToday.tile, this.glyph = 25, this.radius = 13});
 
   /// An [OmiGlyphs] path.
   final String icon;
   final double size;
   final double glyph;
+  final double radius;
 
   @override
   Widget build(BuildContext context) {
@@ -250,8 +213,8 @@ class OmiDeviceTile extends StatelessWidget {
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: OmiColors.tone,
-        borderRadius: OmiRadius.tileAll,
+        color: OmiColors.tile,
+        borderRadius: BorderRadius.all(Radius.circular(radius)),
         border: Border.all(color: OmiColors.border, width: 1),
       ),
       alignment: Alignment.center,

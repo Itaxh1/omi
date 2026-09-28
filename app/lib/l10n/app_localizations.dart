@@ -21794,6 +21794,594 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, =0{Nothing due} =1{1 open to-do} other{{count} open to-dos}}'**
   String todoOpenCount(int count);
+
+  /// Home To-do card title (v3), as the design writes it
+  ///
+  /// In en, this message translates to:
+  /// **'To-do'**
+  String get todoCardTitle;
+
+  /// Folders sidebar (v3): conversations in no folder
+  ///
+  /// In en, this message translates to:
+  /// **'Not in a folder'**
+  String get notInAFolder;
+
+  /// Listening strip (v3): minutes of pendant audio still syncing, after 'Listening ·'
+  ///
+  /// In en, this message translates to:
+  /// **'syncing {minutes} min'**
+  String stripSyncing(int minutes);
+
+  /// Listening strip panel (v3): change the recording source
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get change;
+
+  /// Listening strip panel (v3): recordings coming off the named device
+  ///
+  /// In en, this message translates to:
+  /// **'Syncing from {name}'**
+  String syncingFrom(String name);
+
+  /// Sync progress (v3): minutes of audio still to sync
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min left'**
+  String minutesLeft(int minutes);
+
+  /// Conversation menu (v3), sentence case as the design writes it
+  ///
+  /// In en, this message translates to:
+  /// **'View transcript'**
+  String get viewTranscriptV3;
+
+  /// Conversation menu (v3), sentence case as the design writes it
+  ///
+  /// In en, this message translates to:
+  /// **'Move to folder'**
+  String get moveToFolderV3;
+
+  /// Conversation menu (v3), sentence case as the design writes it
+  ///
+  /// In en, this message translates to:
+  /// **'Copy summary'**
+  String get copySummaryV3;
+
+  /// Conversation menu (v3), sentence case as the design writes it
+  ///
+  /// In en, this message translates to:
+  /// **'Delete conversation'**
+  String get deleteConversationV3;
+
+  /// Transcript menu (v3), sentence case as the design writes it
+  ///
+  /// In en, this message translates to:
+  /// **'Copy transcript'**
+  String get copyTranscriptV3;
+
+  /// Conversation folder chip (v3) when the conversation is in no folder
+  ///
+  /// In en, this message translates to:
+  /// **'No folder'**
+  String get noFolderV3;
+
+  /// Conversation tab (v3): the conversation's to-dos
+  ///
+  /// In en, this message translates to:
+  /// **'To-dos'**
+  String get todosTab;
+
+  /// Conversation menu (v3): share the conversation's link
+  ///
+  /// In en, this message translates to:
+  /// **'Share link'**
+  String get shareLink;
+
+  /// Conversation menu (v3): open Ask with this conversation
+  ///
+  /// In en, this message translates to:
+  /// **'Ask Omi about this'**
+  String get askOmiAboutThis;
+
+  /// Conversation menu (v3): the place the conversation happened, in the Maps app
+  ///
+  /// In en, this message translates to:
+  /// **'Open in Maps'**
+  String get openInMaps;
+
+  /// A length in minutes (v3 chips): '14 min'
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min'**
+  String minutesShortV3(int minutes);
+
+  /// Conversation To-dos tab (v3) when there are none
+  ///
+  /// In en, this message translates to:
+  /// **'No to-dos in this conversation'**
+  String get noTodosInConversation;
+
+  /// Transcript menu (v3): give the unnamed speakers names
+  ///
+  /// In en, this message translates to:
+  /// **'Name speakers'**
+  String get nameSpeakers;
+
+  /// Transcript menu (v3): return to the conversation's summary
+  ///
+  /// In en, this message translates to:
+  /// **'Back to summary'**
+  String get backToSummary;
+
+  /// Transcript chip (v3): how many people spoke
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 speaker} other{{count} speakers}}'**
+  String speakerCount(int count);
+
+  /// Transcript screen (v3) when nothing was transcribed
+  ///
+  /// In en, this message translates to:
+  /// **'No transcript yet'**
+  String get noTranscriptYet;
+
+  /// To-do list (v3): when an overdue to-do was due, e.g. 'Due Wednesday'
+  ///
+  /// In en, this message translates to:
+  /// **'Due {day}'**
+  String dueOn(String day);
+
+  /// To-do list tag (v3), in red: the to-do is past due
+  ///
+  /// In en, this message translates to:
+  /// **'Late'**
+  String get lateTag;
+
+  /// Folders sidebar (v3): every conversation
+  ///
+  /// In en, this message translates to:
+  /// **'All conversations'**
+  String get allConversations;
+
+  /// Folders sidebar (v3), sentence case as the design writes it
+  ///
+  /// In en, this message translates to:
+  /// **'New folder'**
+  String get newFolderV3;
+
+  /// Devices (v3): the pendant's double tap, sentence case as the design writes it
+  ///
+  /// In en, this message translates to:
+  /// **'Double tap'**
+  String get doubleTapV3;
+
+  /// Folders sidebar (v3): the app store
+  ///
+  /// In en, this message translates to:
+  /// **'Browse all apps'**
+  String get browseAllApps;
+
+  /// To-do list tag (v3), in grey: Omi added the to-do in the last day
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get todoNewTag;
+
+  /// Memories (v3), under the graph
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 memory. Tap a name to see what Omi knows about it.} other{{count} memories. Tap a name to see what Omi knows about it.}}'**
+  String memoriesGraphCaption(int count);
+
+  /// Memories (v3) filtered to one name from the graph
+  ///
+  /// In en, this message translates to:
+  /// **'Memories about {name}'**
+  String memoriesAbout(String name);
+
+  /// Memories (v3) before there are any
+  ///
+  /// In en, this message translates to:
+  /// **'What Omi learns about you and the people you talk to shows up here.'**
+  String get memoriesEmptyV3;
+
+  /// You sheet (v3): the app's appearance
+  ///
+  /// In en, this message translates to:
+  /// **'Look'**
+  String get look;
+
+  /// You sheet (v3): the light look
+  ///
+  /// In en, this message translates to:
+  /// **'White'**
+  String get lookWhite;
+
+  /// You sheet (v3): the dark look
+  ///
+  /// In en, this message translates to:
+  /// **'Black'**
+  String get lookBlack;
+
+  /// You sheet (v3): listen as soon as the app opens
+  ///
+  /// In en, this message translates to:
+  /// **'Start when Omi opens'**
+  String get startWhenOmiOpens;
+
+  /// You sheet and Devices (v3): what the pendant's button does
+  ///
+  /// In en, this message translates to:
+  /// **'Pendant button'**
+  String get pendantButton;
+
+  /// You sheet (v3): opens the full Settings
+  ///
+  /// In en, this message translates to:
+  /// **'All settings'**
+  String get allSettings;
+
+  /// Devices and onboarding (v3): the pendant's LED states
+  ///
+  /// In en, this message translates to:
+  /// **'What the light means'**
+  String get whatTheLightMeans;
+
+  /// What the light means (v3): one LED state
+  ///
+  /// In en, this message translates to:
+  /// **'Solid red'**
+  String get lightSolidRed;
+
+  /// What the light means (v3): one LED state
+  ///
+  /// In en, this message translates to:
+  /// **'On, not connected to your phone'**
+  String get lightSolidRedMeaning;
+
+  /// What the light means (v3): one LED state
+  ///
+  /// In en, this message translates to:
+  /// **'Blinking red'**
+  String get lightBlinkingRed;
+
+  /// What the light means (v3): one LED state
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for the time from your phone. Connecting fixes it.'**
+  String get lightBlinkingRedMeaning;
+
+  /// What the light means (v3): one LED state
+  ///
+  /// In en, this message translates to:
+  /// **'Solid blue'**
+  String get lightSolidBlue;
+
+  /// What the light means (v3): one LED state
+  ///
+  /// In en, this message translates to:
+  /// **'On and connected'**
+  String get lightSolidBlueMeaning;
+
+  /// What the light means (v3): one LED state
+  ///
+  /// In en, this message translates to:
+  /// **'Blinking green and red'**
+  String get lightGreenRed;
+
+  /// What the light means (v3): one LED state
+  ///
+  /// In en, this message translates to:
+  /// **'Charging, not connected'**
+  String get lightGreenRedMeaning;
+
+  /// What the light means (v3): one LED state
+  ///
+  /// In en, this message translates to:
+  /// **'Blinking green and blue'**
+  String get lightGreenBlue;
+
+  /// What the light means (v3): one LED state
+  ///
+  /// In en, this message translates to:
+  /// **'Charging, connected'**
+  String get lightGreenBlueMeaning;
+
+  /// What the light means (v3): one LED state
+  ///
+  /// In en, this message translates to:
+  /// **'Solid green'**
+  String get lightSolidGreen;
+
+  /// What the light means (v3): one LED state
+  ///
+  /// In en, this message translates to:
+  /// **'Fully charged'**
+  String get lightSolidGreenMeaning;
+
+  /// Devices (v3): the list of sources
+  ///
+  /// In en, this message translates to:
+  /// **'Record from'**
+  String get recordFrom;
+
+  /// Devices (v3): the source recording now, after its name
+  ///
+  /// In en, this message translates to:
+  /// **'recording'**
+  String get recordingLower;
+
+  /// Devices (v3): this phone's microphone, after its name
+  ///
+  /// In en, this message translates to:
+  /// **'built-in mic'**
+  String get builtInMic;
+
+  /// Devices (v3): recordings coming off the pendant
+  ///
+  /// In en, this message translates to:
+  /// **'Syncing {minutes} min from {name}…'**
+  String syncingMinutesFrom(int minutes, String name);
+
+  /// Devices (v3): other wearables Omi supports
+  ///
+  /// In en, this message translates to:
+  /// **'Omi also works with Bee, Fieldy, Friend, Limitless, Plaud and Ray-Ban Meta.'**
+  String get alsoWorksWith;
+
+  /// Devices (v3): the phone's Bluetooth is switched off
+  ///
+  /// In en, this message translates to:
+  /// **'Bluetooth is off'**
+  String get bluetoothIsOff;
+
+  /// Devices (v3): what Bluetooth being off means
+  ///
+  /// In en, this message translates to:
+  /// **'Your Omi can’t connect. It keeps what it hears and sends it when you’re back.'**
+  String get bluetoothOffExplainer;
+
+  /// Devices (v3): switch Bluetooth on
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on'**
+  String get turnOn;
+
+  /// Devices and Firmware (v3): new pendant firmware is available
+  ///
+  /// In en, this message translates to:
+  /// **'Update ready'**
+  String get updateReady;
+
+  /// Devices (v3): a firmware version
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version}'**
+  String firmwareVersionLine(String version);
+
+  /// Firmware (v3): the version the pendant runs
+  ///
+  /// In en, this message translates to:
+  /// **'On your Omi'**
+  String get onYourOmi;
+
+  /// Firmware (v3): the version to install
+  ///
+  /// In en, this message translates to:
+  /// **'New version'**
+  String get newVersion;
+
+  /// Ask (v3): under the greeting
+  ///
+  /// In en, this message translates to:
+  /// **'What do you want to know?'**
+  String get whatDoYouWantToKnow;
+
+  /// Ask suggestion (v3)
+  ///
+  /// In en, this message translates to:
+  /// **'What did I decide today?'**
+  String get askSuggestDecide;
+
+  /// Ask suggestion (v3)
+  ///
+  /// In en, this message translates to:
+  /// **'What do I still owe people?'**
+  String get askSuggestOwe;
+
+  /// Ask suggestion (v3)
+  ///
+  /// In en, this message translates to:
+  /// **'What did Omi notice?'**
+  String get askSuggestNotice;
+
+  /// Ask (v3): the greeting's second line
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No conversations today.} =1{1 conversation today.} other{{count} conversations today.}}'**
+  String conversationsTodayCount(int count);
+
+  /// Onboarding consent (v3), sentence case as the design writes it
+  ///
+  /// In en, this message translates to:
+  /// **'Read the privacy policy'**
+  String get readThePrivacyPolicy;
+
+  /// Onboarding consent title (v3)
+  ///
+  /// In en, this message translates to:
+  /// **'Three things to know'**
+  String get consentThreeThings;
+
+  /// Onboarding consent point 1 (v3)
+  ///
+  /// In en, this message translates to:
+  /// **'You choose when Omi listens.'**
+  String get consentChooseTitle;
+
+  /// Onboarding consent point 1 detail (v3)
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the Omi mark at the top of Home to start or pause, or use the button on your device.'**
+  String get consentChooseBody;
+
+  /// Onboarding consent point 2 (v3)
+  ///
+  /// In en, this message translates to:
+  /// **'Omi uses AI to write your notes.'**
+  String get consentAiTitle;
+
+  /// Onboarding consent point 3 (v3)
+  ///
+  /// In en, this message translates to:
+  /// **'You can delete anything.'**
+  String get consentDeleteTitle;
+
+  /// Onboarding consent button (v3)
+  ///
+  /// In en, this message translates to:
+  /// **'I agree'**
+  String get iAgree;
+
+  /// Onboarding name step (v3), under the title
+  ///
+  /// In en, this message translates to:
+  /// **'We took this from your account. Change it if you like.'**
+  String get nameFromAccount;
+
+  /// Onboarding name step (v3): the language notes are written in; Change follows
+  ///
+  /// In en, this message translates to:
+  /// **'Notes will be written in {language}.'**
+  String notesLanguage(String language);
+
+  /// Onboarding source step title (v3)
+  ///
+  /// In en, this message translates to:
+  /// **'How will you record?'**
+  String get howWillYouRecord;
+
+  /// Onboarding source step (v3), under the title
+  ///
+  /// In en, this message translates to:
+  /// **'You can add or switch devices any time.'**
+  String get addOrSwitchDevicesAnyTime;
+
+  /// Onboarding source choice (v3)
+  ///
+  /// In en, this message translates to:
+  /// **'I have an Omi'**
+  String get iHaveAnOmi;
+
+  /// Onboarding source choice detail (v3)
+  ///
+  /// In en, this message translates to:
+  /// **'Pendant, Omi Glass or Apple Watch'**
+  String get iHaveAnOmiDetail;
+
+  /// Onboarding source choice (v3)
+  ///
+  /// In en, this message translates to:
+  /// **'Just this phone for now'**
+  String get justThisPhoneForNow;
+
+  /// Onboarding source choice detail on iPhone (v3)
+  ///
+  /// In en, this message translates to:
+  /// **'Use the iPhone microphone'**
+  String get useTheIphoneMicrophone;
+
+  /// Onboarding source choice detail on Android (v3)
+  ///
+  /// In en, this message translates to:
+  /// **'Use the phone\'s microphone'**
+  String get useThePhoneMicrophone;
+
+  /// Onboarding source link (v3)
+  ///
+  /// In en, this message translates to:
+  /// **'I use Plaud, Bee, Limitless or another device'**
+  String get iUseAnotherDevice;
+
+  /// Onboarding microphone step title (v3)
+  ///
+  /// In en, this message translates to:
+  /// **'Allow the microphone'**
+  String get allowTheMicrophone;
+
+  /// Onboarding microphone step (v3), why
+  ///
+  /// In en, this message translates to:
+  /// **'Omi records only while the Omi mark at the top of Home is moving. Pause it whenever you want.'**
+  String get allowMicrophoneWhy;
+
+  /// Onboarding microphone step button (v3)
+  ///
+  /// In en, this message translates to:
+  /// **'Allow microphone'**
+  String get allowMicrophone;
+
+  /// Onboarding done (v3), without a name
+  ///
+  /// In en, this message translates to:
+  /// **'You’re set.'**
+  String get youreSet;
+
+  /// Onboarding done title (v3)
+  ///
+  /// In en, this message translates to:
+  /// **'You’re set, {name}.'**
+  String youreSetName(String name);
+
+  /// Onboarding done (v3), what happens now
+  ///
+  /// In en, this message translates to:
+  /// **'Omi is ready. The Omi mark at the top of Home moves while it listens. Tap it to pause or switch devices.'**
+  String get youreSetBody;
+
+  /// Onboarding done (v3), a quiet note
+  ///
+  /// In en, this message translates to:
+  /// **'Leave the app running in the background. If you force-close it, Omi stops listening.'**
+  String get keepAppRunningNote;
+
+  /// Onboarding done button (v3)
+  ///
+  /// In en, this message translates to:
+  /// **'Open Omi'**
+  String get openOmi;
+
+  /// Welcome (v3), under the title
+  ///
+  /// In en, this message translates to:
+  /// **'Omi listens when you ask it to and turns what was said into notes, to-dos and memories.'**
+  String get welcomeListensSubtitle;
+
+  /// Recorder card (v3): recordings coming off the pendant
+  ///
+  /// In en, this message translates to:
+  /// **'Syncing to your phone'**
+  String get syncingToYourPhone;
+
+  /// Memories (v3): when a memory was learned, earlier this week (e.g. Last Thursday)
+  ///
+  /// In en, this message translates to:
+  /// **'Last {weekday}'**
+  String lastWeekday(String weekday);
+
+  /// Memories (v3): when a memory was learned, a day and a time (e.g. Today, 12:40)
+  ///
+  /// In en, this message translates to:
+  /// **'{day}, {time}'**
+  String dayAtTime(String day, String time);
+
+  /// Memories (v3): a memory learned from a conversation, the day and the conversation's start time
+  ///
+  /// In en, this message translates to:
+  /// **'{day}, from the {time} conversation'**
+  String memoryFromConversation(String day, String time);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -12088,4 +12088,355 @@ class AppLocalizationsTl extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get todoCardTitle => 'Gagawin';
+
+  @override
+  String get notInAFolder => 'Wala sa folder';
+
+  @override
+  String stripSyncing(int minutes) {
+    return 'nagsi-sync ng $minutes min';
+  }
+
+  @override
+  String get change => 'Palitan';
+
+  @override
+  String syncingFrom(String name) {
+    return 'Nagsi-sync mula sa $name';
+  }
+
+  @override
+  String minutesLeft(int minutes) {
+    return '$minutes min na lang';
+  }
+
+  @override
+  String get viewTranscriptV3 => 'Tingnan ang Transcript';
+
+  @override
+  String get moveToFolderV3 => 'Ilipat sa Folder';
+
+  @override
+  String get copySummaryV3 => 'Kopyahin ang Buod';
+
+  @override
+  String get deleteConversationV3 => 'Tanggalin ang Pag-uusap';
+
+  @override
+  String get copyTranscriptV3 => 'Kopyahin ang Transcript';
+
+  @override
+  String get noFolderV3 => 'Walang Folder';
+
+  @override
+  String get todosTab => 'Gagawin';
+
+  @override
+  String get shareLink => 'Ibahagi ang link';
+
+  @override
+  String get askOmiAboutThis => 'Tanungin si Omi tungkol dito';
+
+  @override
+  String get openInMaps => 'Buksan sa Maps';
+
+  @override
+  String minutesShortV3(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get noTodosInConversation => 'Walang gagawin sa usapang ito';
+
+  @override
+  String get nameSpeakers => 'Pangalanan ang mga nagsasalita';
+
+  @override
+  String get backToSummary => 'Bumalik sa buod';
+
+  @override
+  String speakerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count nagsasalita',
+      one: '1 nagsasalita',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noTranscriptYet => 'Wala pang transcript';
+
+  @override
+  String dueOn(String day) {
+    return 'Takdang araw: $day';
+  }
+
+  @override
+  String get lateTag => 'Huli';
+
+  @override
+  String get allConversations => 'Lahat ng usapan';
+
+  @override
+  String get newFolderV3 => 'Bagong Folder';
+
+  @override
+  String get doubleTapV3 => 'Double Tap';
+
+  @override
+  String get browseAllApps => 'Tingnan ang lahat ng app';
+
+  @override
+  String get todoNewTag => 'Bago';
+
+  @override
+  String memoriesGraphCaption(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count alaala. I-tap ang pangalan para makita ang alam ni Omi.',
+      one: '1 alaala. I-tap ang pangalan para makita ang alam ni Omi.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String memoriesAbout(String name) {
+    return 'Mga alaala tungkol kay $name';
+  }
+
+  @override
+  String get memoriesEmptyV3 => 'Dito lalabas ang natututunan ni Omi tungkol sa iyo at sa mga kausap mo.';
+
+  @override
+  String get look => 'Hitsura';
+
+  @override
+  String get lookWhite => 'Puti';
+
+  @override
+  String get lookBlack => 'Itim';
+
+  @override
+  String get startWhenOmiOpens => 'Magsimula kapag binuksan ang Omi';
+
+  @override
+  String get pendantButton => 'Button ng pendant';
+
+  @override
+  String get allSettings => 'Lahat ng setting';
+
+  @override
+  String get whatTheLightMeans => 'Ano ang ibig sabihin ng ilaw';
+
+  @override
+  String get lightSolidRed => 'Tuloy-tuloy na pula';
+
+  @override
+  String get lightSolidRedMeaning => 'Naka-on, hindi nakakonekta sa phone';
+
+  @override
+  String get lightBlinkingRed => 'Kumukurap na pula';
+
+  @override
+  String get lightBlinkingRedMeaning => 'Hinihintay ang oras mula sa phone. Maitatakda ito kapag kumonekta.';
+
+  @override
+  String get lightSolidBlue => 'Tuloy-tuloy na asul';
+
+  @override
+  String get lightSolidBlueMeaning => 'Naka-on at nakakonekta';
+
+  @override
+  String get lightGreenRed => 'Kumukurap na berde at pula';
+
+  @override
+  String get lightGreenRedMeaning => 'Nagcha-charge, hindi nakakonekta';
+
+  @override
+  String get lightGreenBlue => 'Kumukurap na berde at asul';
+
+  @override
+  String get lightGreenBlueMeaning => 'Nagcha-charge, nakakonekta';
+
+  @override
+  String get lightSolidGreen => 'Tuloy-tuloy na berde';
+
+  @override
+  String get lightSolidGreenMeaning => 'Puno na ang charge';
+
+  @override
+  String get recordFrom => 'Mag-record mula sa';
+
+  @override
+  String get recordingLower => 'nagre-record';
+
+  @override
+  String get builtInMic => 'built-in na mic';
+
+  @override
+  String syncingMinutesFrom(int minutes, String name) {
+    return 'Nagsi-sync ng $minutes min mula sa $name…';
+  }
+
+  @override
+  String get alsoWorksWith => 'Gumagana rin ang Omi sa Bee, Fieldy, Friend, Limitless, Plaud at Ray-Ban Meta.';
+
+  @override
+  String get bluetoothIsOff => 'Naka-off ang Bluetooth';
+
+  @override
+  String get bluetoothOffExplainer =>
+      'Hindi makakonekta ang Omi mo. Itinatabi nito ang naririnig at ipapadala pagbalik mo.';
+
+  @override
+  String get turnOn => 'I-on';
+
+  @override
+  String get updateReady => 'Handa na ang update';
+
+  @override
+  String firmwareVersionLine(String version) {
+    return 'Bersyon $version';
+  }
+
+  @override
+  String get onYourOmi => 'Sa Omi mo';
+
+  @override
+  String get newVersion => 'Bagong bersyon';
+
+  @override
+  String get whatDoYouWantToKnow => 'Ano ang gusto mong malaman?';
+
+  @override
+  String get askSuggestDecide => 'Ano ang napagpasyahan ko ngayon?';
+
+  @override
+  String get askSuggestOwe => 'Ano pa ang utang ko sa mga tao?';
+
+  @override
+  String get askSuggestNotice => 'Ano ang napansin ni Omi?';
+
+  @override
+  String conversationsTodayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count usapan ngayon.',
+      one: '1 usapan ngayon.',
+      zero: 'Walang usapan ngayon.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get readThePrivacyPolicy => 'Basahin ang Patakaran sa Privacy';
+
+  @override
+  String get consentThreeThings => 'Tatlong bagay na dapat malaman';
+
+  @override
+  String get consentChooseTitle => 'Ikaw ang pipili kung kailan makikinig si Omi.';
+
+  @override
+  String get consentChooseBody =>
+      'I-tap ang tanda ng Omi sa itaas ng Home para magsimula o mag-pause, o gamitin ang button ng device mo.';
+
+  @override
+  String get consentAiTitle => 'Gumagamit si Omi ng AI para isulat ang mga tala mo.';
+
+  @override
+  String get consentDeleteTitle => 'Puwede mong burahin ang kahit ano.';
+
+  @override
+  String get iAgree => 'Sang-ayon ako';
+
+  @override
+  String get nameFromAccount => 'Kinuha namin ito sa account mo. Palitan kung gusto mo.';
+
+  @override
+  String notesLanguage(String language) {
+    return 'Isusulat ang mga tala sa $language.';
+  }
+
+  @override
+  String get howWillYouRecord => 'Paano ka magre-record?';
+
+  @override
+  String get addOrSwitchDevicesAnyTime => 'Puwede kang magdagdag o magpalit ng device anumang oras.';
+
+  @override
+  String get iHaveAnOmi => 'May Omi ako';
+
+  @override
+  String get iHaveAnOmiDetail => 'Pendant, Omi Glass o Apple Watch';
+
+  @override
+  String get justThisPhoneForNow => 'Itong phone muna';
+
+  @override
+  String get useTheIphoneMicrophone => 'Gamitin ang mikropono ng iPhone';
+
+  @override
+  String get useThePhoneMicrophone => 'Gamitin ang mikropono ng phone';
+
+  @override
+  String get iUseAnotherDevice => 'Gumagamit ako ng Plaud, Bee, Limitless o ibang device';
+
+  @override
+  String get allowTheMicrophone => 'Payagan ang mikropono';
+
+  @override
+  String get allowMicrophoneWhy =>
+      'Nagre-record lang si Omi habang gumagalaw ang tanda ng Omi sa itaas ng Home. I-pause kahit kailan.';
+
+  @override
+  String get allowMicrophone => 'Payagan ang mikropono';
+
+  @override
+  String get youreSet => 'Handa ka na.';
+
+  @override
+  String youreSetName(String name) {
+    return 'Handa ka na, $name.';
+  }
+
+  @override
+  String get youreSetBody =>
+      'Handa na si Omi. Gumagalaw ang tanda ng Omi sa itaas ng Home habang nakikinig ito. I-tap ito para mag-pause o magpalit ng device.';
+
+  @override
+  String get keepAppRunningNote =>
+      'Hayaang tumatakbo ang app sa background. Kapag sapilitan mong isinara, titigil si Omi sa pakikinig.';
+
+  @override
+  String get openOmi => 'Buksan ang Omi';
+
+  @override
+  String get welcomeListensSubtitle =>
+      'Nakikinig si Omi kapag sinabi mo at ginagawang tala, gagawin at alaala ang mga napag-usapan.';
+
+  @override
+  String get syncingToYourPhone => 'Nagsi-sync sa phone mo';
+
+  @override
+  String lastWeekday(String weekday) {
+    return 'Noong nakaraang $weekday';
+  }
+
+  @override
+  String dayAtTime(String day, String time) {
+    return '$day, $time';
+  }
+
+  @override
+  String memoryFromConversation(String day, String time) {
+    return '$day, mula sa usapan nang $time';
+  }
 }

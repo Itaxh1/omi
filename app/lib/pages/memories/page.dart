@@ -1,366 +1,366 @@
 import 'dart:async';
 
-import 'package:omi/utils/platform/platform_manager.dart';
 import 'package:flutter/material.dart';
 
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:omi/widgets/shimmer_with_timeout.dart';
 
-import 'package:omi/backend/schema/memory.dart';
-import 'package:omi/providers/home_provider.dart';
+import 'package:omi/backend/http/api/knowledge_graph_api.dart';
+import 'package:omi/backend/preferences.dart';
+import 'package:omi/pages/home/widgets/listening_strip.dart';
+import 'package:omi/pages/memories/memory_bulk_actions.dart';
+import 'package:omi/pages/memories/widgets/memory_dialog.dart';
+import 'package:omi/pages/memories/widgets/memory_row.dart';
 import 'package:omi/providers/memories_provider.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/l10n_extensions.dart';
-import 'package:omi/utils/other/temp.dart';
-import 'package:omi/utils/ui_guidelines.dart';
-import 'package:omi/widgets/extensions/functions.dart';
-import 'widgets/memory_dialog.dart';
-import 'widgets/memory_edit_sheet.dart';
-import 'widgets/memory_graph_page.dart';
-import 'widgets/memory_history_status_banner.dart';
-import 'widgets/memory_item.dart';
-import 'widgets/memory_management_sheet.dart';
-import 'widgets/memories_load_error.dart';
+import 'package:omi/utils/platform/platform_manager.dart';
+import 'package:omi/widgets/extensions/string.dart';
 
+/// Memories (v3 `memsc`): the people and topics Omi knows, drawn as a small graph around "You";
+/// how many memories there are; then each memory with where it came from. Tapping a name in the
+/// graph shows only the memories that mention it; tapping a memory edits it; + adds one.
 class MemoriesPage extends StatefulWidget {
-  const MemoriesPage({super.key});
+  const MemoriesPage({super.key, this.loadGraph});
+
+  /// The knowledge graph; the API by default.
+  final Future<Map<String, dynamic>> Function()? loadGraph;
 
   @override
   State<MemoriesPage> createState() => MemoriesPageState();
 }
 
-class MemoriesPageState extends State<MemoriesPage> with AutomaticKeepAliveClientMixin {
+class MemoriesPageState extends State<MemoriesPage> {
+  final ScrollController _scroll = ScrollController();
+  String? _focus;
+
   @override
-  bool get wantKeepAlive => true;
-
-  final TextEditingController _searchController = TextEditingController();
-  final ScrollController _scrollController = ScrollController();
-
-  bool _isInitialLoad = true;
-  String? _highlightedMemoryId;
-  Timer? _highlightTimer;
-
-  Future<void> _createMemory(MemoriesProvider provider) async {
-    final existingIds = provider.memories.map((m) => m.id).toSet();
-    final saved = await showMemoryDialog(context, provider);
-    if (!mounted || saved != true) return;
-    final added = provider.memories.where((m) => !existingIds.contains(m.id));
-    if (added.isEmpty) return;
-    _highlightTimer?.cancel();
-    setState(() => _highlightedMemoryId = added.last.id);
-    _highlightTimer = Timer(const Duration(seconds: 3), () {
-      if (mounted) setState(() => _highlightedMemoryId = null);
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final provider = context.read<MemoriesProvider>();
+      if (provider.memories.isEmpty) unawaited(provider.init());
     });
   }
 
   @override
   void dispose() {
-    _highlightTimer?.cancel();
-    _searchController.dispose();
-    _scrollController.dispose();
+    _scroll.dispose();
     super.dispose();
   }
 
-  @override
-  void initState() {
-    super.initState();
-    (() async {
-      final provider = context.read<MemoriesProvider>();
-      try {
-        await provider.init();
-      } finally {
-        // Always leave the initial-load state, even if init() threw. Otherwise
-        // `provider.loading && _isInitialLoad` stays true and the page is stuck
-        // on the loading skeleton forever.
-        if (mounted) {
-          setState(() {
-            _isInitialLoad = false;
-          });
-        }
-      }
-    }).withPostFrameCallback();
+  void scrollToTop() {
+    if (_scroll.hasClients) {
+      _scroll.animateTo(0, duration: OmiMotion.emphasizedDuration, curve: OmiMotion.emphasizedCurve);
+    }
   }
 
-  Widget _buildHeader(MemoriesProvider provider, {required bool loading}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // v2 Memories: what the list is, under the title.
-        Padding(
-          padding: const EdgeInsets.fromLTRB(OmiSpacing.md + OmiSpacing.xxs, 0, OmiSpacing.md, OmiSpacing.xxs),
-          child: Text(context.l10n.memoriesSubtitle, style: OmiType.subhead.copyWith(color: OmiColors.textSecondary)),
-        ),
-        _buildSearchRow(provider, loading: loading),
-        if (!loading) _buildCategoryChips(provider),
-      ],
-    );
-  }
-
-  /// v2 Memories: the categories as one row of chips under search (the management sheet keeps the
-  /// rest of the filters). Same provider calls as the sheet.
-  Widget _buildCategoryChips(MemoriesProvider provider) {
-    final l10n = context.l10n;
-    final options = <(String, MemoryCategory?)>[
-      (l10n.filterAll, null),
-      (l10n.filterSystem, MemoryCategory.system),
-      (l10n.filterInteresting, MemoryCategory.interesting),
-      (l10n.filterManual, MemoryCategory.manual),
-    ];
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.symmetric(horizontal: OmiSpacing.md),
-      child: Row(
-        children: [
-          for (final (label, category) in options) ...[
-            OmiChip(
-              key: Key('memories_chip_${category?.name ?? 'all'}'),
-              label: label,
-              selected: category == null
-                  ? provider.selectedCategories.isEmpty
-                  : provider.selectedCategories.contains(category),
-              onTap: () => category == null ? provider.clearCategoryFilter() : provider.toggleCategoryFilter(category),
-            ),
-            const SizedBox(width: OmiSpacing.xs),
-          ],
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSearchRow(MemoriesProvider provider, {required bool loading}) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(OmiSpacing.md, OmiSpacing.sm, OmiSpacing.md, OmiSpacing.xxs),
-      child: Row(
-        children: [
-          Expanded(
-            child: Consumer<HomeProvider>(
-              builder: (context, home, child) => OmiSearchField(
-                placeholder: context.l10n.searchMemories,
-                controller: _searchController,
-                focusNode: loading ? null : home.memoriesSearchFieldFocusNode,
-                onChanged: provider.setSearchQuery,
-                onCleared: () => PlatformManager.instance.analytics.memorySearchCleared(provider.memories.length),
-                onSubmitted: (value) {
-                  if (value.isNotEmpty) {
-                    PlatformManager.instance.analytics.memorySearched(value, provider.filteredMemories.length);
-                  }
-                },
-              ),
-            ),
-          ),
-          const SizedBox(width: OmiSpacing.xxs),
-          OmiIconButton.filled(
-            icon: const FaIcon(FontAwesomeIcons.brain, size: 16),
-            label: context.l10n.memoryGraph,
-            diameter: 40,
-            onPressed: loading ? null : () => routeToPage(context, const MemoryGraphPage()),
-          ),
-          OmiIconButton.filled(
-            icon: const FaIcon(FontAwesomeIcons.sliders, size: 16),
-            label: context.l10n.memoryManagement,
-            diameter: 40,
-            onPressed: loading ? null : () => _showMemoryManagementSheet(context, provider),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildEmptyState(MemoriesProvider provider) {
-    final l10n = context.l10n;
-    final searching = provider.searchQuery.isNotEmpty;
-    final filtered = provider.memories.isNotEmpty || provider.filterThisDeviceOnly;
-    return KeyedSubtree(
-      key: const Key('memories_empty_state'),
-      child: OmiEmptyState(
-        icon: searching ? Icons.search_off_rounded : Icons.psychology_outlined,
-        title: searching
-            ? l10n.noMemoriesFound
-            : filtered
-                ? l10n.noMemoriesInCategories
-                : l10n.noMemoriesYet,
-        action: OmiButton(
-          key: const Key('memories_empty_action'),
-          variant: searching || filtered ? OmiButtonVariant.secondary : OmiButtonVariant.primary,
-          size: OmiButtonSize.compact,
-          label: searching
-              ? l10n.clearSearch
-              : filtered
-                  ? l10n.resetFilters
-                  : l10n.addFirstMemory,
-          onPressed: () {
-            if (searching) {
-              _searchController.clear();
-              provider.setSearchQuery('');
-            } else if (filtered) {
-              provider.clearCategoryFilter();
-              provider.setFilterThisDeviceOnly(false);
-              provider.setCollectionView(MemoryCollectionView.all);
-            } else {
-              _createMemory(provider);
-            }
-          },
-        ),
-      ),
-    );
+  Future<void> _create(MemoriesProvider provider) async {
+    PlatformManager.instance.analytics.memoriesPageCreateMemoryBtn();
+    await showMemoryDialog(context, provider);
   }
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    final l10n = context.l10n;
     return Consumer<MemoriesProvider>(
       builder: (context, provider, _) {
+        final all = provider.filteredMemories.where((m) => !m.deleted).toList();
+        final focus = _focus?.toLowerCase();
+        final shown =
+            focus == null ? all : all.where((m) => m.content.decodeString.toLowerCase().contains(focus)).toList();
         return Scaffold(
           backgroundColor: OmiColors.surface0,
-          appBar: OmiAppBar(
-            leading: const OmiBackButton(),
-            title: Text(context.l10n.memories),
+          appBar: OmiScreenHeader(
+            title: l10n.memories,
+            trailing: OmiRingButton(
+              key: const Key('memories_add'),
+              glyph: OmiGlyphs.plusLine,
+              label: l10n.createMemoryTooltip,
+              onPressed: () => _create(provider),
+            ),
           ),
-          body: Stack(
+          bottomNavigationBar: const ListeningStrip(),
+          body: RefreshIndicator(
+            onRefresh: provider.init,
+            color: OmiColors.onAccent,
+            backgroundColor: OmiColors.accent,
+            child: ListView(
+              controller: _scroll,
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: const EdgeInsets.fromLTRB(OmiSize.screenMargin, 10, OmiSize.screenMargin, 20),
+              children: [
+                if (all.isNotEmpty) ...[
+                  MemoryGraphPreview(
+                    loadGraph: widget.loadGraph ?? KnowledgeGraphApi.getKnowledgeGraph,
+                    selected: _focus,
+                    onSelect: (label) => setState(() => _focus = _focus == label ? null : label),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    _focus == null ? l10n.memoriesGraphCaption(all.length) : l10n.memoriesAbout(_focus!),
+                    style: OmiType.footnote.copyWith(height: 1.4, color: OmiColors.textSecondary),
+                  ),
+                  const SizedBox(height: 18),
+                ],
+                if (provider.loading && all.isEmpty)
+                  const Padding(padding: EdgeInsets.only(top: 80), child: Center(child: OmiSpinner()))
+                else if (all.isEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 60),
+                    child: Text(
+                      l10n.memoriesEmptyV3,
+                      textAlign: TextAlign.center,
+                      style: OmiType.callout.copyWith(height: 1.5, color: OmiColors.textSecondary),
+                    ),
+                  )
+                else ...[
+                  for (final m in shown) MemoryRow(key: ValueKey('memory_row_${m.id}'), memory: m, provider: provider),
+                  if (_focus == null) MemoryBulkActions(provider: provider),
+                ],
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+/// The mock's graph (`#memB svg`): the reader in the middle as a filled dot, up to six of the most
+/// connected people and topics around them as open rings with their names, thin lines between.
+class MemoryGraphPreview extends StatefulWidget {
+  const MemoryGraphPreview({super.key, required this.loadGraph, required this.onSelect, this.selected});
+
+  final Future<Map<String, dynamic>> Function() loadGraph;
+  final ValueChanged<String> onSelect;
+  final String? selected;
+
+  static const double height = 257;
+
+  @override
+  State<MemoryGraphPreview> createState() => _MemoryGraphPreviewState();
+}
+
+class _GraphNode {
+  _GraphNode(this.id, this.label);
+  final String id;
+  final String label;
+  Offset at = Offset.zero;
+}
+
+class _MemoryGraphPreviewState extends State<MemoryGraphPreview> {
+  List<_GraphNode> _nodes = [];
+  List<(int, int)> _edges = [];
+  bool _loaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    unawaited(_load());
+  }
+
+  Future<void> _load() async {
+    try {
+      final data = await widget.loadGraph();
+      if (!mounted) return;
+      final nodes = (data['nodes'] as List<dynamic>? ?? const []).whereType<Map>().toList();
+      final edges = (data['edges'] as List<dynamic>? ?? const []).whereType<Map>().toList();
+      final name = SharedPreferencesUtil().givenName.trim().toLowerCase();
+      bool isUser(Map n) {
+        final label = (n['label'] ?? '').toString().trim().toLowerCase();
+        return (n['node_type'] ?? '').toString() == 'user' ||
+            label == 'me' ||
+            label == 'the user' ||
+            (name.isNotEmpty && label == name);
+      }
+
+      final userIds = {
+        for (final n in nodes)
+          if (isUser(n)) (n['id'] ?? '').toString()
+      };
+      final degree = <String, int>{};
+      for (final e in edges) {
+        for (final k in ['source_id', 'target_id']) {
+          final id = (e[k] ?? '').toString();
+          degree[id] = (degree[id] ?? 0) + 1;
+        }
+      }
+      final others = nodes.where((n) => !isUser(n) && (n['label'] ?? '').toString().trim().isNotEmpty).toList()
+        ..sort((a, b) => (degree[(b['id'] ?? '').toString()] ?? 0).compareTo(degree[(a['id'] ?? '').toString()] ?? 0));
+      final top = others.take(6).toList();
+      // Around the reader, a node linked to the one before it goes next to it, so lines between
+      // names stay short and do not cross the middle.
+      final neighbours = <String, Set<String>>{};
+      for (final e in edges) {
+        final a = (e['source_id'] ?? '').toString(), b = (e['target_id'] ?? '').toString();
+        neighbours.putIfAbsent(a, () => {}).add(b);
+        neighbours.putIfAbsent(b, () => {}).add(a);
+      }
+      final picked = <Map>[];
+      final left = [...top];
+      while (left.isNotEmpty) {
+        final last = picked.isEmpty ? null : (picked.last['id'] ?? '').toString();
+        final next = left.firstWhere((n) => neighbours[last]?.contains((n['id'] ?? '').toString()) ?? false,
+            orElse: () => left.first);
+        picked.add(next);
+        left.remove(next);
+      }
+      final list = [
+        _GraphNode('you', ''),
+        for (final n in picked) _GraphNode((n['id'] ?? '').toString(), (n['label'] ?? '').toString().trim()),
+      ];
+      final index = {for (final (i, n) in list.indexed) n.id: i};
+      final pairs = <(int, int)>{};
+      for (var i = 1; i < list.length; i++) {
+        pairs.add((0, i));
+      }
+      for (final e in edges) {
+        var a = (e['source_id'] ?? '').toString();
+        var b = (e['target_id'] ?? '').toString();
+        if (userIds.contains(a)) a = 'you';
+        if (userIds.contains(b)) b = 'you';
+        final ia = index[a], ib = index[b];
+        if (ia != null && ib != null && ia != ib && ia != 0 && ib != 0) pairs.add(ia < ib ? (ia, ib) : (ib, ia));
+      }
+      setState(() {
+        _nodes = list;
+        _edges = pairs.toList();
+        _loaded = true;
+      });
+    } catch (_) {
+      if (mounted) setState(() => _loaded = true);
+    }
+  }
+
+  /// The mock's places around the reader, clockwise from the top left, for a 346 pt wide graph.
+  static const List<(double, double)> _slots = [(-104, -66), (74, -83), (123, 10), (86, 93), (-25, 107), (-116, 59)];
+
+  /// Which of [_slots] [n] names use, spread round the circle.
+  static List<int> _slotsFor(int n) => switch (n) {
+        1 => const [1],
+        2 => const [0, 3],
+        3 => const [0, 2, 4],
+        4 => const [0, 1, 3, 5],
+        5 => const [0, 1, 2, 3, 5],
+        _ => const [0, 1, 2, 3, 4, 5],
+      };
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_loaded || _nodes.length < 2) return const SizedBox.shrink();
+    final l10n = context.l10n;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final w = constraints.maxWidth;
+        const h = MemoryGraphPreview.height;
+        final center = Offset(w / 2, h * 0.48);
+        final n = _nodes.length - 1;
+        final slots = _slotsFor(n);
+        for (var i = 1; i <= n; i++) {
+          final (dx, dy) = _slots[slots[i - 1]];
+          _nodes[i].at = center + Offset(dx * w / 346, dy * h / MemoryGraphPreview.height);
+        }
+        _nodes[0].at = center;
+        final label = OmiType.caption1.copyWith(color: OmiColors.textPrimary, height: 1.2);
+        return SizedBox(
+          height: h,
+          child: Stack(
             children: [
-              RefreshIndicator(
-                onRefresh: () async {
-                  OmiHaptics.medium();
-                  await provider.init();
-                },
-                child: provider.loading && _isInitialLoad
-                    ? CustomScrollView(
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        slivers: [
-                          SliverToBoxAdapter(child: _buildHeader(provider, loading: true)),
-                          SliverFillRemaining(child: _buildShimmerMemoryList()),
-                        ],
-                      )
-                    : CustomScrollView(
-                        controller: _scrollController,
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        slivers: [
-                          SliverToBoxAdapter(child: _buildHeader(provider, loading: false)),
-                          if (provider.memoryBeliefEnabled &&
-                              provider.showHistory &&
-                              (provider.ledgerHistoryTruncated || provider.ledgerHistoryHasMore))
-                            SliverToBoxAdapter(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-                                child: MemoryHistoryStatusBanner(
-                                  onLoadMore: provider.ledgerHistoryHasMore ? provider.loadMoreHistory : null,
-                                ),
-                              ),
-                            ),
-                          if (provider.showLoadError || provider.filteredMemories.isEmpty)
-                            SliverFillRemaining(
-                              hasScrollBody: false,
-                              child: MemoriesEmptyOrError(
-                                showLoadError: provider.showLoadError,
-                                onRetry: () => provider.loadMemories(),
-                                emptyState: _buildEmptyState(provider),
-                              ),
-                            )
-                          else
-                            SliverPadding(
-                              padding: const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 120),
-                              sliver: SliverList(
-                                delegate: SliverChildBuilderDelegate((context, index) {
-                                  final count = provider.filteredMemories.length;
-                                  // After the last row: how memories move from short- to long-term.
-                                  if (index == count) {
-                                    return Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(OmiSpacing.md, OmiSpacing.sm, OmiSpacing.md, 0),
-                                      child: Text(
-                                        context.l10n.memoriesTierNote,
-                                        style: OmiType.footnote.copyWith(color: OmiColors.textSecondary),
-                                      ),
-                                    );
-                                  }
-                                  final memory = provider.filteredMemories[index];
-                                  return MemoryItem(
-                                    memory: memory,
-                                    first: index == 0,
-                                    last: index == count - 1,
-                                    highlighted: memory.id == _highlightedMemoryId,
-                                    provider: provider,
-                                    onTap:
-                                        (BuildContext context, Memory tappedMemory, MemoriesProvider tappedProvider) {
-                                      PlatformManager.instance.analytics.memoryListItemClicked(tappedMemory);
-                                      _showQuickEditSheet(context, tappedMemory, tappedProvider);
-                                    },
-                                  );
-                                }, childCount: provider.filteredMemories.length + 1),
-                              ),
-                            ),
-                        ],
-                      ),
-              ),
-              Positioned(
-                right: 20,
-                bottom: 100,
-                // One named node: FloatingActionButton's tooltip names a wrapper, not the button.
-                child: Semantics(
-                  button: true,
-                  label: context.l10n.createMemoryTooltip,
-                  excludeSemantics: true,
-                  onTap: () => _createMemory(provider),
-                  child: FloatingActionButton(
-                    heroTag: 'memories_fab',
-                    onPressed: () {
-                      _createMemory(provider);
-                      PlatformManager.instance.analytics.memoriesPageCreateMemoryBtn();
-                    },
-                    backgroundColor: OmiColors.accent,
-                    foregroundColor: OmiColors.onAccent,
-                    child: const Icon(Icons.add),
+              Positioned.fill(
+                child: CustomPaint(
+                  painter: _GraphPainter(
+                    points: [for (final node in _nodes) node.at],
+                    edges: _edges,
+                    line: OmiColors.faint.withValues(alpha: 0.5),
+                    ink: OmiColors.textPrimary,
+                    paper: OmiColors.surface0,
+                    selected: _nodes.indexWhere((node) => node.label == widget.selected),
                   ),
                 ),
               ),
+              Positioned(
+                left: center.dx - 30,
+                top: center.dy + 12,
+                width: 60,
+                child: Text(l10n.you, textAlign: TextAlign.center, style: label),
+              ),
+              for (final node in _nodes.skip(1))
+                Positioned(
+                  left: node.at.dx - 44,
+                  top: node.at.dy - 16,
+                  width: 88,
+                  height: 46,
+                  child: Semantics(
+                    button: true,
+                    selected: widget.selected == node.label,
+                    label: node.label,
+                    excludeSemantics: true,
+                    child: GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () {
+                        OmiHaptics.selection();
+                        widget.onSelect(node.label);
+                      },
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Text(
+                          node.label,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                          style: label.copyWith(
+                              fontWeight: widget.selected == node.label ? FontWeight.w700 : FontWeight.w400),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
             ],
           ),
         );
       },
     );
   }
+}
 
-  Widget _buildShimmerMemoryList() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 120),
-      child: ListView.builder(
-        itemCount: 8, // Show 8 shimmer items
-        itemBuilder: (context, index) {
-          return ShimmerWithTimeout(
-            baseColor: OmiColors.surface1,
-            highlightColor: OmiColors.surface3,
-            child: Container(
-              margin: const EdgeInsets.only(bottom: AppStyles.spacingM),
-              height: 88, // Approximate height of a memory item
-              decoration: BoxDecoration(
-                color: OmiColors.surface1,
-                borderRadius: OmiRadius.mdAll,
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
+class _GraphPainter extends CustomPainter {
+  _GraphPainter({
+    required this.points,
+    required this.edges,
+    required this.line,
+    required this.ink,
+    required this.paper,
+    required this.selected,
+  });
 
-  void _showQuickEditSheet(BuildContext context, Memory memory, MemoriesProvider provider) {
-    showMemoryQuickEditSheet(context, memory, provider);
-  }
+  final List<Offset> points;
+  final List<(int, int)> edges;
+  final Color line;
+  final Color ink;
+  final Color paper;
+  final int selected;
 
-  void scrollToTop() {
-    if (_scrollController.hasClients) {
-      _scrollController.animateTo(0.0, duration: OmiMotion.emphasizedDuration, curve: OmiMotion.emphasizedCurve);
+  @override
+  void paint(Canvas canvas, Size size) {
+    final stroke = Paint()
+      ..color = line
+      ..strokeWidth = 1;
+    for (final (a, b) in edges) {
+      canvas.drawLine(points[a], points[b], stroke);
+    }
+    canvas.drawCircle(points[0], 9, Paint()..color = ink);
+    final ring = Paint()
+      ..color = ink
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.5;
+    for (var i = 1; i < points.length; i++) {
+      canvas.drawCircle(points[i], 7, Paint()..color = i == selected ? ink : paper);
+      canvas.drawCircle(points[i], 7, ring);
     }
   }
 
-  void _showMemoryManagementSheet(BuildContext context, MemoriesProvider provider) {
-    PlatformManager.instance.analytics.memoriesManagementSheetOpened();
-    showOmiSheet<void>(
-      context: context,
-      title: context.l10n.memoryManagement,
-      padding: EdgeInsets.zero,
-      builder: (context) => MemoryManagementSheet(provider: provider),
-    );
-  }
+  @override
+  bool shouldRepaint(_GraphPainter old) =>
+      old.points != points || old.edges != edges || old.selected != selected || old.ink != ink;
 }

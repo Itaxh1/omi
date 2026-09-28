@@ -25,7 +25,6 @@ import 'package:omi/utils/processing_timeout.dart';
 import 'package:omi/backend/schema/phone_call.dart';
 import 'package:omi/providers/phone_call_provider.dart';
 import 'package:omi/pages/conversations/widgets/live_capture_card.dart';
-import 'package:omi/pages/home/widgets/capture_now_row.dart';
 import 'package:omi/pages/home/widgets/recorder_card.dart';
 import 'package:omi/pages/phone_calls/active_call_page.dart';
 import 'package:omi/ui/ui.dart';
@@ -35,7 +34,6 @@ class ConversationCaptureWidget extends StatefulWidget {
     super.key,
     this.showsCall = false,
     this.idle,
-    this.compact = false,
     this.recorder = false,
   });
 
@@ -45,9 +43,6 @@ class ConversationCaptureWidget extends StatefulWidget {
   /// Shown when nothing records (Home's "Not listening" card). A pendant that dropped mid-capture
   /// shows its Disconnected card in this place instead, so the two never stack.
   final Widget? idle;
-
-  /// Home v5: the card's inputs drawn as one row ([CaptureNowRow]) in the 22 pt row card.
-  final bool compact;
 
   /// v3: the card's inputs drawn as the recorder card ([RecorderCard]) in its glass shell
   /// ([RecorderShell]), which the Listening label raises over Home.
@@ -203,31 +198,24 @@ class _ConversationCaptureWidgetState extends State<ConversationCaptureWidget> {
     );
   }
 
-  /// The card's inputs, drawn as the full card, (Home v5) the Now row, or (v3) the recorder card.
-  Widget _capture(LiveCaptureCard card) => widget.recorder
-      ? RecorderCard(card: card)
-      : widget.compact
-          ? CaptureNowRow(card: card)
-          : card;
+  /// The card's inputs, drawn as the full card or (v3) the recorder card.
+  Widget _capture(LiveCaptureCard card) => widget.recorder ? RecorderCard(card: card) : card;
 
   /// The live card's orb, wave and capsules sit on the design's 16pt card padding.
   static const _liveCardPadding = EdgeInsets.all(OmiSpacing.md);
 
-  /// The Now row's padding (Home v5): 12 pt, 14 at the leading edge.
-  static const _rowPadding = EdgeInsets.fromLTRB(14, 12, 12, 12);
-
-  /// The live card (Liquid Dock): a 28 pt card with the design's rim and top light. The Now row
-  /// sits in the 22 pt row card instead.
+  /// The live card (Liquid Dock): a 28 pt card with the design's rim and top light; the recorder
+  /// card's glass shell in v3.
   Widget _cardShell(Widget child, {EdgeInsets? padding}) => widget.recorder
       ? RecorderShell(child: child)
       : Padding(
-        padding: const EdgeInsets.fromLTRB(OmiSpacing.md, OmiSpacing.lg, OmiSpacing.md, OmiSpacing.sm),
-        child: OmiCard(
-          radius: widget.compact ? OmiRadius.row : OmiRadius.cardLarge,
-          padding: widget.compact ? _rowPadding : (padding ?? const EdgeInsets.all(OmiSpacing.md)),
-          child: SizedBox(width: double.maxFinite, child: child),
-        ),
-      );
+          padding: const EdgeInsets.fromLTRB(OmiSpacing.md, OmiSpacing.lg, OmiSpacing.md, OmiSpacing.sm),
+          child: OmiCard(
+            radius: OmiRadius.cardLarge,
+            padding: padding ?? const EdgeInsets.all(OmiSpacing.md),
+            child: SizedBox(width: double.maxFinite, child: child),
+          ),
+        );
 
   /// Updates the remembered pendant capture and says whether it dropped: no source is live, the
   /// pendant it came from is still paired but not connected. See [_droppedSource].

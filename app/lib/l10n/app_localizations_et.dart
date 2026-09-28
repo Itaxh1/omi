@@ -11977,4 +11977,354 @@ class AppLocalizationsEt extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get todoCardTitle => 'Tegemised';
+
+  @override
+  String get notInAFolder => 'Kaustata';
+
+  @override
+  String stripSyncing(int minutes) {
+    return 'sünkroonib $minutes min';
+  }
+
+  @override
+  String get change => 'Muuda';
+
+  @override
+  String syncingFrom(String name) {
+    return 'Sünkroonib seadmest $name';
+  }
+
+  @override
+  String minutesLeft(int minutes) {
+    return '$minutes min jäänud';
+  }
+
+  @override
+  String get viewTranscriptV3 => 'Vaata transkriptsiooni';
+
+  @override
+  String get moveToFolderV3 => 'Teisalda kausta';
+
+  @override
+  String get copySummaryV3 => 'Kopeeri kokkuvõte';
+
+  @override
+  String get deleteConversationV3 => 'Kustuta vestlus';
+
+  @override
+  String get copyTranscriptV3 => 'Kopeeri transkriptsioon';
+
+  @override
+  String get noFolderV3 => 'Kausta pole';
+
+  @override
+  String get todosTab => 'Tegemised';
+
+  @override
+  String get shareLink => 'Jaga linki';
+
+  @override
+  String get askOmiAboutThis => 'Küsi Omilt selle kohta';
+
+  @override
+  String get openInMaps => 'Ava kaardil';
+
+  @override
+  String minutesShortV3(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get noTodosInConversation => 'Selles vestluses pole ülesandeid';
+
+  @override
+  String get nameSpeakers => 'Nimeta kõnelejad';
+
+  @override
+  String get backToSummary => 'Tagasi kokkuvõtte juurde';
+
+  @override
+  String speakerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kõnelejat',
+      one: '1 kõneleja',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noTranscriptYet => 'Transkriptsiooni veel pole';
+
+  @override
+  String dueOn(String day) {
+    return 'Tähtaeg: $day';
+  }
+
+  @override
+  String get lateTag => 'Hilinenud';
+
+  @override
+  String get allConversations => 'Kõik vestlused';
+
+  @override
+  String get newFolderV3 => 'Uus kaust';
+
+  @override
+  String get doubleTapV3 => 'Topeltpuudutus';
+
+  @override
+  String get browseAllApps => 'Sirvi kõiki rakendusi';
+
+  @override
+  String get todoNewTag => 'Uus';
+
+  @override
+  String memoriesGraphCaption(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count mälestust. Puuduta nime, et näha, mida Omi sellest teab.',
+      one: '1 mälestus. Puuduta nime, et näha, mida Omi sellest teab.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String memoriesAbout(String name) {
+    return 'Mälestused: $name';
+  }
+
+  @override
+  String get memoriesEmptyV3 => 'Siin kuvatakse, mida Omi sinu ja inimeste kohta, kellega räägid, teada saab.';
+
+  @override
+  String get look => 'Välimus';
+
+  @override
+  String get lookWhite => 'Valge';
+
+  @override
+  String get lookBlack => 'Must';
+
+  @override
+  String get startWhenOmiOpens => 'Alusta, kui Omi avaneb';
+
+  @override
+  String get pendantButton => 'Ripatsi nupp';
+
+  @override
+  String get allSettings => 'Kõik seaded';
+
+  @override
+  String get whatTheLightMeans => 'Mida tuli tähendab';
+
+  @override
+  String get lightSolidRed => 'Püsiv punane';
+
+  @override
+  String get lightSolidRedMeaning => 'Sees, telefoniga pole ühendatud';
+
+  @override
+  String get lightBlinkingRed => 'Vilgub punaselt';
+
+  @override
+  String get lightBlinkingRedMeaning => 'Ootab telefonilt kellaaega. Ühendamine seab selle.';
+
+  @override
+  String get lightSolidBlue => 'Püsiv sinine';
+
+  @override
+  String get lightSolidBlueMeaning => 'Sees ja ühendatud';
+
+  @override
+  String get lightGreenRed => 'Vilgub roheliselt ja punaselt';
+
+  @override
+  String get lightGreenRedMeaning => 'Laeb, pole ühendatud';
+
+  @override
+  String get lightGreenBlue => 'Vilgub roheliselt ja siniselt';
+
+  @override
+  String get lightGreenBlueMeaning => 'Laeb, ühendatud';
+
+  @override
+  String get lightSolidGreen => 'Püsiv roheline';
+
+  @override
+  String get lightSolidGreenMeaning => 'Täis laetud';
+
+  @override
+  String get recordFrom => 'Salvesta seadmest';
+
+  @override
+  String get recordingLower => 'salvestab';
+
+  @override
+  String get builtInMic => 'sisseehitatud mikrofon';
+
+  @override
+  String syncingMinutesFrom(int minutes, String name) {
+    return 'Sünkroonin $minutes min seadmest $name…';
+  }
+
+  @override
+  String get alsoWorksWith => 'Omi töötab ka Bee, Fieldy, Friendi, Limitlessi, Plaudi ja Ray-Ban Metaga.';
+
+  @override
+  String get bluetoothIsOff => 'Bluetooth on väljas';
+
+  @override
+  String get bluetoothOffExplainer => 'Sinu Omi ei saa ühendust. See hoiab kuuldu alles ja saadab, kui oled tagasi.';
+
+  @override
+  String get turnOn => 'Lülita sisse';
+
+  @override
+  String get updateReady => 'Uuendus on valmis';
+
+  @override
+  String firmwareVersionLine(String version) {
+    return 'Versioon $version';
+  }
+
+  @override
+  String get onYourOmi => 'Sinu Omis';
+
+  @override
+  String get newVersion => 'Uus versioon';
+
+  @override
+  String get whatDoYouWantToKnow => 'Mida sa tahad teada?';
+
+  @override
+  String get askSuggestDecide => 'Mida ma täna otsustasin?';
+
+  @override
+  String get askSuggestOwe => 'Mida ma inimestele veel võlgnen?';
+
+  @override
+  String get askSuggestNotice => 'Mida Omi märkas?';
+
+  @override
+  String conversationsTodayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count vestlust täna.',
+      one: '1 vestlus täna.',
+      zero: 'Täna vestlusi pole.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get readThePrivacyPolicy => 'Loe privaatsuspoliitikat';
+
+  @override
+  String get consentThreeThings => 'Kolm asja, mida teada';
+
+  @override
+  String get consentChooseTitle => 'Sina valid, millal Omi kuulab.';
+
+  @override
+  String get consentChooseBody =>
+      'Alustamiseks või peatamiseks puuduta avalehe ülaosas Omi märki või kasuta seadme nuppu.';
+
+  @override
+  String get consentAiTitle => 'Omi kasutab märkmete kirjutamiseks tehisintellekti.';
+
+  @override
+  String get consentDeleteTitle => 'Saad kõike kustutada.';
+
+  @override
+  String get iAgree => 'Nõustun';
+
+  @override
+  String get nameFromAccount => 'Võtsime selle sinu kontolt. Muuda, kui soovid.';
+
+  @override
+  String notesLanguage(String language) {
+    return 'Märkmed kirjutatakse keeles $language.';
+  }
+
+  @override
+  String get howWillYouRecord => 'Millega salvestad?';
+
+  @override
+  String get addOrSwitchDevicesAnyTime => 'Seadmeid saab igal ajal lisada või vahetada.';
+
+  @override
+  String get iHaveAnOmi => 'Mul on Omi';
+
+  @override
+  String get iHaveAnOmiDetail => 'Ripats, Omi Glass või Apple Watch';
+
+  @override
+  String get justThisPhoneForNow => 'Praegu ainult see telefon';
+
+  @override
+  String get useTheIphoneMicrophone => 'Kasuta iPhone’i mikrofoni';
+
+  @override
+  String get useThePhoneMicrophone => 'Kasuta telefoni mikrofoni';
+
+  @override
+  String get iUseAnotherDevice => 'Kasutan Plaudi, Bee’d, Limitlessi või muud seadet';
+
+  @override
+  String get allowTheMicrophone => 'Luba mikrofon';
+
+  @override
+  String get allowMicrophoneWhy =>
+      'Omi salvestab ainult siis, kui avalehe ülaosas olev Omi märk liigub. Peata igal ajal.';
+
+  @override
+  String get allowMicrophone => 'Luba mikrofon';
+
+  @override
+  String get youreSet => 'Kõik on valmis.';
+
+  @override
+  String youreSetName(String name) {
+    return 'Kõik on valmis, $name.';
+  }
+
+  @override
+  String get youreSetBody =>
+      'Omi on valmis. Avalehe ülaosas olev Omi märk liigub, kui see kuulab. Puuduta, et peatada või seadet vahetada.';
+
+  @override
+  String get keepAppRunningNote =>
+      'Jäta rakendus taustal tööle. Kui sulged selle sunniviisiliselt, lõpetab Omi kuulamise.';
+
+  @override
+  String get openOmi => 'Ava Omi';
+
+  @override
+  String get welcomeListensSubtitle =>
+      'Omi kuulab, kui sa seda palud, ja muudab öeldu märkmeteks, ülesanneteks ja mälestusteks.';
+
+  @override
+  String get syncingToYourPhone => 'Sünkroonib telefoni';
+
+  @override
+  String lastWeekday(String weekday) {
+    return 'Eelmisel $weekday';
+  }
+
+  @override
+  String dayAtTime(String day, String time) {
+    return '$day, $time';
+  }
+
+  @override
+  String memoryFromConversation(String day, String time) {
+    return '$day, kell $time vestlusest';
+  }
 }

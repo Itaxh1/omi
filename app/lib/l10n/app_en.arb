@@ -14355,5 +14355,486 @@
                 "type": "int"
             }
         }
+    },
+    "todoCardTitle": "To-do",
+    "@todoCardTitle": {
+        "description": "Home To-do card title (v3), as the design writes it"
+    },
+    "notInAFolder": "Not in a folder",
+    "@notInAFolder": {
+        "description": "Folders sidebar (v3): conversations in no folder"
+    },
+    "stripSyncing": "syncing {minutes} min",
+    "@stripSyncing": {
+        "description": "Listening strip (v3): minutes of pendant audio still syncing, after 'Listening ·'",
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "change": "Change",
+    "@change": {
+        "description": "Listening strip panel (v3): change the recording source"
+    },
+    "syncingFrom": "Syncing from {name}",
+    "@syncingFrom": {
+        "description": "Listening strip panel (v3): recordings coming off the named device",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "minutesLeft": "{minutes} min left",
+    "@minutesLeft": {
+        "description": "Sync progress (v3): minutes of audio still to sync",
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "viewTranscriptV3": "View transcript",
+    "@viewTranscriptV3": {
+        "description": "Conversation menu (v3), sentence case as the design writes it"
+    },
+    "moveToFolderV3": "Move to folder",
+    "@moveToFolderV3": {
+        "description": "Conversation menu (v3), sentence case as the design writes it"
+    },
+    "copySummaryV3": "Copy summary",
+    "@copySummaryV3": {
+        "description": "Conversation menu (v3), sentence case as the design writes it"
+    },
+    "deleteConversationV3": "Delete conversation",
+    "@deleteConversationV3": {
+        "description": "Conversation menu (v3), sentence case as the design writes it"
+    },
+    "copyTranscriptV3": "Copy transcript",
+    "@copyTranscriptV3": {
+        "description": "Transcript menu (v3), sentence case as the design writes it"
+    },
+    "noFolderV3": "No folder",
+    "@noFolderV3": {
+        "description": "Conversation folder chip (v3) when the conversation is in no folder"
+    },
+    "todosTab": "To-dos",
+    "@todosTab": {
+        "description": "Conversation tab (v3): the conversation's to-dos"
+    },
+    "shareLink": "Share link",
+    "@shareLink": {
+        "description": "Conversation menu (v3): share the conversation's link"
+    },
+    "askOmiAboutThis": "Ask Omi about this",
+    "@askOmiAboutThis": {
+        "description": "Conversation menu (v3): open Ask with this conversation"
+    },
+    "openInMaps": "Open in Maps",
+    "@openInMaps": {
+        "description": "Conversation menu (v3): the place the conversation happened, in the Maps app"
+    },
+    "minutesShortV3": "{minutes} min",
+    "@minutesShortV3": {
+        "description": "A length in minutes (v3 chips): '14 min'",
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "noTodosInConversation": "No to-dos in this conversation",
+    "@noTodosInConversation": {
+        "description": "Conversation To-dos tab (v3) when there are none"
+    },
+    "nameSpeakers": "Name speakers",
+    "@nameSpeakers": {
+        "description": "Transcript menu (v3): give the unnamed speakers names"
+    },
+    "backToSummary": "Back to summary",
+    "@backToSummary": {
+        "description": "Transcript menu (v3): return to the conversation's summary"
+    },
+    "speakerCount": "{count, plural, =1{1 speaker} other{{count} speakers}}",
+    "@speakerCount": {
+        "description": "Transcript chip (v3): how many people spoke",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "noTranscriptYet": "No transcript yet",
+    "@noTranscriptYet": {
+        "description": "Transcript screen (v3) when nothing was transcribed"
+    },
+    "dueOn": "Due {day}",
+    "@dueOn": {
+        "description": "To-do list (v3): when an overdue to-do was due, e.g. 'Due Wednesday'",
+        "placeholders": {
+            "day": {
+                "type": "String"
+            }
+        }
+    },
+    "lateTag": "Late",
+    "@lateTag": {
+        "description": "To-do list tag (v3), in red: the to-do is past due"
+    },
+    "allConversations": "All conversations",
+    "@allConversations": {
+        "description": "Folders sidebar (v3): every conversation"
+    },
+    "newFolderV3": "New folder",
+    "@newFolderV3": {
+        "description": "Folders sidebar (v3), sentence case as the design writes it"
+    },
+    "doubleTapV3": "Double tap",
+    "@doubleTapV3": {
+        "description": "Devices (v3): the pendant's double tap, sentence case as the design writes it"
+    },
+    "browseAllApps": "Browse all apps",
+    "@browseAllApps": {
+        "description": "Folders sidebar (v3): the app store"
+    },
+    "todoNewTag": "New",
+    "@todoNewTag": {
+        "description": "To-do list tag (v3), in grey: Omi added the to-do in the last day"
+    },
+    "memoriesGraphCaption": "{count, plural, =1{1 memory. Tap a name to see what Omi knows about it.} other{{count} memories. Tap a name to see what Omi knows about it.}}",
+    "@memoriesGraphCaption": {
+        "description": "Memories (v3), under the graph",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "memoriesAbout": "Memories about {name}",
+    "@memoriesAbout": {
+        "description": "Memories (v3) filtered to one name from the graph",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "memoriesEmptyV3": "What Omi learns about you and the people you talk to shows up here.",
+    "@memoriesEmptyV3": {
+        "description": "Memories (v3) before there are any"
+    },
+    "look": "Look",
+    "@look": {
+        "description": "You sheet (v3): the app's appearance"
+    },
+    "lookWhite": "White",
+    "@lookWhite": {
+        "description": "You sheet (v3): the light look"
+    },
+    "lookBlack": "Black",
+    "@lookBlack": {
+        "description": "You sheet (v3): the dark look"
+    },
+    "startWhenOmiOpens": "Start when Omi opens",
+    "@startWhenOmiOpens": {
+        "description": "You sheet (v3): listen as soon as the app opens"
+    },
+    "pendantButton": "Pendant button",
+    "@pendantButton": {
+        "description": "You sheet and Devices (v3): what the pendant's button does"
+    },
+    "allSettings": "All settings",
+    "@allSettings": {
+        "description": "You sheet (v3): opens the full Settings"
+    },
+    "whatTheLightMeans": "What the light means",
+    "@whatTheLightMeans": {
+        "description": "Devices and onboarding (v3): the pendant's LED states"
+    },
+    "lightSolidRed": "Solid red",
+    "@lightSolidRed": {
+        "description": "What the light means (v3): one LED state"
+    },
+    "lightSolidRedMeaning": "On, not connected to your phone",
+    "@lightSolidRedMeaning": {
+        "description": "What the light means (v3): one LED state"
+    },
+    "lightBlinkingRed": "Blinking red",
+    "@lightBlinkingRed": {
+        "description": "What the light means (v3): one LED state"
+    },
+    "lightBlinkingRedMeaning": "Waiting for the time from your phone. Connecting fixes it.",
+    "@lightBlinkingRedMeaning": {
+        "description": "What the light means (v3): one LED state"
+    },
+    "lightSolidBlue": "Solid blue",
+    "@lightSolidBlue": {
+        "description": "What the light means (v3): one LED state"
+    },
+    "lightSolidBlueMeaning": "On and connected",
+    "@lightSolidBlueMeaning": {
+        "description": "What the light means (v3): one LED state"
+    },
+    "lightGreenRed": "Blinking green and red",
+    "@lightGreenRed": {
+        "description": "What the light means (v3): one LED state"
+    },
+    "lightGreenRedMeaning": "Charging, not connected",
+    "@lightGreenRedMeaning": {
+        "description": "What the light means (v3): one LED state"
+    },
+    "lightGreenBlue": "Blinking green and blue",
+    "@lightGreenBlue": {
+        "description": "What the light means (v3): one LED state"
+    },
+    "lightGreenBlueMeaning": "Charging, connected",
+    "@lightGreenBlueMeaning": {
+        "description": "What the light means (v3): one LED state"
+    },
+    "lightSolidGreen": "Solid green",
+    "@lightSolidGreen": {
+        "description": "What the light means (v3): one LED state"
+    },
+    "lightSolidGreenMeaning": "Fully charged",
+    "@lightSolidGreenMeaning": {
+        "description": "What the light means (v3): one LED state"
+    },
+    "recordFrom": "Record from",
+    "@recordFrom": {
+        "description": "Devices (v3): the list of sources"
+    },
+    "recordingLower": "recording",
+    "@recordingLower": {
+        "description": "Devices (v3): the source recording now, after its name"
+    },
+    "builtInMic": "built-in mic",
+    "@builtInMic": {
+        "description": "Devices (v3): this phone's microphone, after its name"
+    },
+    "syncingMinutesFrom": "Syncing {minutes} min from {name}…",
+    "@syncingMinutesFrom": {
+        "description": "Devices (v3): recordings coming off the pendant",
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            },
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "alsoWorksWith": "Omi also works with Bee, Fieldy, Friend, Limitless, Plaud and Ray-Ban Meta.",
+    "@alsoWorksWith": {
+        "description": "Devices (v3): other wearables Omi supports"
+    },
+    "bluetoothIsOff": "Bluetooth is off",
+    "@bluetoothIsOff": {
+        "description": "Devices (v3): the phone's Bluetooth is switched off"
+    },
+    "bluetoothOffExplainer": "Your Omi can’t connect. It keeps what it hears and sends it when you’re back.",
+    "@bluetoothOffExplainer": {
+        "description": "Devices (v3): what Bluetooth being off means"
+    },
+    "turnOn": "Turn on",
+    "@turnOn": {
+        "description": "Devices (v3): switch Bluetooth on"
+    },
+    "updateReady": "Update ready",
+    "@updateReady": {
+        "description": "Devices and Firmware (v3): new pendant firmware is available"
+    },
+    "firmwareVersionLine": "Version {version}",
+    "@firmwareVersionLine": {
+        "description": "Devices (v3): a firmware version",
+        "placeholders": {
+            "version": {
+                "type": "String"
+            }
+        }
+    },
+    "onYourOmi": "On your Omi",
+    "@onYourOmi": {
+        "description": "Firmware (v3): the version the pendant runs"
+    },
+    "newVersion": "New version",
+    "@newVersion": {
+        "description": "Firmware (v3): the version to install"
+    },
+    "whatDoYouWantToKnow": "What do you want to know?",
+    "@whatDoYouWantToKnow": {
+        "description": "Ask (v3): under the greeting"
+    },
+    "askSuggestDecide": "What did I decide today?",
+    "@askSuggestDecide": {
+        "description": "Ask suggestion (v3)"
+    },
+    "askSuggestOwe": "What do I still owe people?",
+    "@askSuggestOwe": {
+        "description": "Ask suggestion (v3)"
+    },
+    "askSuggestNotice": "What did Omi notice?",
+    "@askSuggestNotice": {
+        "description": "Ask suggestion (v3)"
+    },
+    "conversationsTodayCount": "{count, plural, =0{No conversations today.} =1{1 conversation today.} other{{count} conversations today.}}",
+    "@conversationsTodayCount": {
+        "description": "Ask (v3): the greeting's second line",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "readThePrivacyPolicy": "Read the privacy policy",
+    "@readThePrivacyPolicy": {
+        "description": "Onboarding consent (v3), sentence case as the design writes it"
+    },
+    "consentThreeThings": "Three things to know",
+    "@consentThreeThings": {
+        "description": "Onboarding consent title (v3)"
+    },
+    "consentChooseTitle": "You choose when Omi listens.",
+    "@consentChooseTitle": {
+        "description": "Onboarding consent point 1 (v3)"
+    },
+    "consentChooseBody": "Tap the Omi mark at the top of Home to start or pause, or use the button on your device.",
+    "@consentChooseBody": {
+        "description": "Onboarding consent point 1 detail (v3)"
+    },
+    "consentAiTitle": "Omi uses AI to write your notes.",
+    "@consentAiTitle": {
+        "description": "Onboarding consent point 2 (v3)"
+    },
+    "consentDeleteTitle": "You can delete anything.",
+    "@consentDeleteTitle": {
+        "description": "Onboarding consent point 3 (v3)"
+    },
+    "iAgree": "I agree",
+    "@iAgree": {
+        "description": "Onboarding consent button (v3)"
+    },
+    "nameFromAccount": "We took this from your account. Change it if you like.",
+    "@nameFromAccount": {
+        "description": "Onboarding name step (v3), under the title"
+    },
+    "notesLanguage": "Notes will be written in {language}.",
+    "@notesLanguage": {
+        "description": "Onboarding name step (v3): the language notes are written in; Change follows",
+        "placeholders": {
+            "language": {
+                "type": "String"
+            }
+        }
+    },
+    "howWillYouRecord": "How will you record?",
+    "@howWillYouRecord": {
+        "description": "Onboarding source step title (v3)"
+    },
+    "addOrSwitchDevicesAnyTime": "You can add or switch devices any time.",
+    "@addOrSwitchDevicesAnyTime": {
+        "description": "Onboarding source step (v3), under the title"
+    },
+    "iHaveAnOmi": "I have an Omi",
+    "@iHaveAnOmi": {
+        "description": "Onboarding source choice (v3)"
+    },
+    "iHaveAnOmiDetail": "Pendant, Omi Glass or Apple Watch",
+    "@iHaveAnOmiDetail": {
+        "description": "Onboarding source choice detail (v3)"
+    },
+    "justThisPhoneForNow": "Just this phone for now",
+    "@justThisPhoneForNow": {
+        "description": "Onboarding source choice (v3)"
+    },
+    "useTheIphoneMicrophone": "Use the iPhone microphone",
+    "@useTheIphoneMicrophone": {
+        "description": "Onboarding source choice detail on iPhone (v3)"
+    },
+    "useThePhoneMicrophone": "Use the phone's microphone",
+    "@useThePhoneMicrophone": {
+        "description": "Onboarding source choice detail on Android (v3)"
+    },
+    "iUseAnotherDevice": "I use Plaud, Bee, Limitless or another device",
+    "@iUseAnotherDevice": {
+        "description": "Onboarding source link (v3)"
+    },
+    "allowTheMicrophone": "Allow the microphone",
+    "@allowTheMicrophone": {
+        "description": "Onboarding microphone step title (v3)"
+    },
+    "allowMicrophoneWhy": "Omi records only while the Omi mark at the top of Home is moving. Pause it whenever you want.",
+    "@allowMicrophoneWhy": {
+        "description": "Onboarding microphone step (v3), why"
+    },
+    "allowMicrophone": "Allow microphone",
+    "@allowMicrophone": {
+        "description": "Onboarding microphone step button (v3)"
+    },
+    "youreSet": "You’re set.",
+    "@youreSet": {
+        "description": "Onboarding done (v3), without a name"
+    },
+    "youreSetName": "You’re set, {name}.",
+    "@youreSetName": {
+        "description": "Onboarding done title (v3)",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "youreSetBody": "Omi is ready. The Omi mark at the top of Home moves while it listens. Tap it to pause or switch devices.",
+    "@youreSetBody": {
+        "description": "Onboarding done (v3), what happens now"
+    },
+    "keepAppRunningNote": "Leave the app running in the background. If you force-close it, Omi stops listening.",
+    "@keepAppRunningNote": {
+        "description": "Onboarding done (v3), a quiet note"
+    },
+    "openOmi": "Open Omi",
+    "@openOmi": {
+        "description": "Onboarding done button (v3)"
+    },
+    "welcomeListensSubtitle": "Omi listens when you ask it to and turns what was said into notes, to-dos and memories.",
+    "@welcomeListensSubtitle": {
+        "description": "Welcome (v3), under the title"
+    },
+    "syncingToYourPhone": "Syncing to your phone",
+    "@syncingToYourPhone": {
+        "description": "Recorder card (v3): recordings coming off the pendant"
+    },
+    "lastWeekday": "Last {weekday}",
+    "@lastWeekday": {
+        "description": "Memories (v3): when a memory was learned, earlier this week (e.g. Last Thursday)",
+        "placeholders": {
+            "weekday": {
+                "type": "String"
+            }
+        }
+    },
+    "dayAtTime": "{day}, {time}",
+    "@dayAtTime": {
+        "description": "Memories (v3): when a memory was learned, a day and a time (e.g. Today, 12:40)",
+        "placeholders": {
+            "day": {
+                "type": "String"
+            },
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "memoryFromConversation": "{day}, from the {time} conversation",
+    "@memoryFromConversation": {
+        "description": "Memories (v3): a memory learned from a conversation, the day and the conversation's start time",
+        "placeholders": {
+            "day": {
+                "type": "String"
+            },
+            "time": {
+                "type": "String"
+            }
+        }
     }
 }

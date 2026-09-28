@@ -11991,4 +11991,351 @@ class AppLocalizationsMr extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get todoCardTitle => 'करायची कामे';
+
+  @override
+  String get notInAFolder => 'कोणत्याही फोल्डरमध्ये नाही';
+
+  @override
+  String stripSyncing(int minutes) {
+    return '$minutes मिनिटे सिंक होत आहे';
+  }
+
+  @override
+  String get change => 'बदला';
+
+  @override
+  String syncingFrom(String name) {
+    return '$name वरून सिंक होत आहे';
+  }
+
+  @override
+  String minutesLeft(int minutes) {
+    return '$minutes मिनिटे बाकी';
+  }
+
+  @override
+  String get viewTranscriptV3 => 'ट्रान्सक्रिप्ट पाहा';
+
+  @override
+  String get moveToFolderV3 => 'फोल्डरमध्ये हलवा';
+
+  @override
+  String get copySummaryV3 => 'सारांश कॉपी करा';
+
+  @override
+  String get deleteConversationV3 => 'संभाषण हटवा';
+
+  @override
+  String get copyTranscriptV3 => 'प्रतिलेख कॉपी करा';
+
+  @override
+  String get noFolderV3 => 'कोणता फोल्डर नाही';
+
+  @override
+  String get todosTab => 'करायची कामे';
+
+  @override
+  String get shareLink => 'लिंक शेअर करा';
+
+  @override
+  String get askOmiAboutThis => 'याबद्दल Omi ला विचारा';
+
+  @override
+  String get openInMaps => 'नकाशात उघडा';
+
+  @override
+  String minutesShortV3(int minutes) {
+    return '$minutes मिनिटे';
+  }
+
+  @override
+  String get noTodosInConversation => 'या संभाषणात कोणतीही कामे नाहीत';
+
+  @override
+  String get nameSpeakers => 'वक्त्यांना नावे द्या';
+
+  @override
+  String get backToSummary => 'सारांशाकडे परत जा';
+
+  @override
+  String speakerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count वक्ते',
+      one: '1 वक्ता',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noTranscriptYet => 'अद्याप प्रतिलिपी नाही';
+
+  @override
+  String dueOn(String day) {
+    return 'मुदत: $day';
+  }
+
+  @override
+  String get lateTag => 'उशीर';
+
+  @override
+  String get allConversations => 'सर्व संभाषणे';
+
+  @override
+  String get newFolderV3 => 'नवीन फोल्डर';
+
+  @override
+  String get doubleTapV3 => 'दुहेरी टॅप';
+
+  @override
+  String get browseAllApps => 'सर्व अ‍ॅप्स पहा';
+
+  @override
+  String get todoNewTag => 'नवीन';
+
+  @override
+  String memoriesGraphCaption(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count आठवणी. Omi ला काय माहीत आहे ते पाहण्यासाठी नावावर टॅप करा.',
+      one: '1 आठवण. Omi ला काय माहीत आहे ते पाहण्यासाठी नावावर टॅप करा.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String memoriesAbout(String name) {
+    return '$name बद्दलच्या आठवणी';
+  }
+
+  @override
+  String get memoriesEmptyV3 => 'Omi तुमच्याबद्दल आणि तुम्ही ज्यांच्याशी बोलता त्यांच्याबद्दल जे शिकते ते इथे दिसते.';
+
+  @override
+  String get look => 'रूप';
+
+  @override
+  String get lookWhite => 'पांढरा';
+
+  @override
+  String get lookBlack => 'काळा';
+
+  @override
+  String get startWhenOmiOpens => 'Omi उघडताच सुरू करा';
+
+  @override
+  String get pendantButton => 'पेंडंट बटण';
+
+  @override
+  String get allSettings => 'सर्व सेटिंग्ज';
+
+  @override
+  String get whatTheLightMeans => 'प्रकाशाचा अर्थ';
+
+  @override
+  String get lightSolidRed => 'स्थिर लाल';
+
+  @override
+  String get lightSolidRedMeaning => 'चालू, फोनशी जोडलेले नाही';
+
+  @override
+  String get lightBlinkingRed => 'लुकलुकणारा लाल';
+
+  @override
+  String get lightBlinkingRedMeaning => 'फोनवरून वेळेची वाट पाहत आहे. जोडल्यावर सेट होते.';
+
+  @override
+  String get lightSolidBlue => 'स्थिर निळा';
+
+  @override
+  String get lightSolidBlueMeaning => 'चालू आणि जोडलेले';
+
+  @override
+  String get lightGreenRed => 'लुकलुकणारा हिरवा आणि लाल';
+
+  @override
+  String get lightGreenRedMeaning => 'चार्ज होत आहे, जोडलेले नाही';
+
+  @override
+  String get lightGreenBlue => 'लुकलुकणारा हिरवा आणि निळा';
+
+  @override
+  String get lightGreenBlueMeaning => 'चार्ज होत आहे, जोडलेले';
+
+  @override
+  String get lightSolidGreen => 'स्थिर हिरवा';
+
+  @override
+  String get lightSolidGreenMeaning => 'पूर्ण चार्ज';
+
+  @override
+  String get recordFrom => 'येथून रेकॉर्ड करा';
+
+  @override
+  String get recordingLower => 'रेकॉर्ड होत आहे';
+
+  @override
+  String get builtInMic => 'अंगभूत माइक';
+
+  @override
+  String syncingMinutesFrom(int minutes, String name) {
+    return '$minutes मिनिटे $name वरून सिंक होत आहेत…';
+  }
+
+  @override
+  String get alsoWorksWith => 'Omi Bee, Fieldy, Friend, Limitless, Plaud आणि Ray-Ban Meta सोबतही चालते.';
+
+  @override
+  String get bluetoothIsOff => 'ब्लूटूथ बंद आहे';
+
+  @override
+  String get bluetoothOffExplainer => 'तुमचे Omi जोडू शकत नाही. ते जे ऐकते ते ठेवते आणि तुम्ही परत आल्यावर पाठवते.';
+
+  @override
+  String get turnOn => 'चालू करा';
+
+  @override
+  String get updateReady => 'अपडेट तयार';
+
+  @override
+  String firmwareVersionLine(String version) {
+    return 'आवृत्ती $version';
+  }
+
+  @override
+  String get onYourOmi => 'तुमच्या Omi वर';
+
+  @override
+  String get newVersion => 'नवीन आवृत्ती';
+
+  @override
+  String get whatDoYouWantToKnow => 'तुम्हाला काय जाणून घ्यायचे आहे?';
+
+  @override
+  String get askSuggestDecide => 'आज मी काय ठरवले?';
+
+  @override
+  String get askSuggestOwe => 'अजून लोकांना मी काय देणे आहे?';
+
+  @override
+  String get askSuggestNotice => 'Omi ला काय लक्षात आले?';
+
+  @override
+  String conversationsTodayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'आज $count संभाषणे.',
+      one: 'आज 1 संभाषण.',
+      zero: 'आज कोणतेही संभाषण नाही.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get readThePrivacyPolicy => 'गोपनीयता धोरण वाचा';
+
+  @override
+  String get consentThreeThings => 'जाणून घ्याव्या अशा तीन गोष्टी';
+
+  @override
+  String get consentChooseTitle => 'Omi कधी ऐकेल हे तुम्ही ठरवता.';
+
+  @override
+  String get consentChooseBody =>
+      'सुरू किंवा थांबवण्यासाठी होमच्या वर Omi चिन्हावर टॅप करा, किंवा डिव्हाइसवरील बटण वापरा.';
+
+  @override
+  String get consentAiTitle => 'तुमच्या नोट्स लिहिण्यासाठी Omi AI वापरते.';
+
+  @override
+  String get consentDeleteTitle => 'तुम्ही काहीही हटवू शकता.';
+
+  @override
+  String get iAgree => 'मी सहमत आहे';
+
+  @override
+  String get nameFromAccount => 'हे तुमच्या खात्यातून घेतले आहे. हवे असल्यास बदला.';
+
+  @override
+  String notesLanguage(String language) {
+    return 'नोट्स $language मध्ये लिहिल्या जातील.';
+  }
+
+  @override
+  String get howWillYouRecord => 'तुम्ही कसे रेकॉर्ड कराल?';
+
+  @override
+  String get addOrSwitchDevicesAnyTime => 'तुम्ही कधीही डिव्हाइस जोडू किंवा बदलू शकता.';
+
+  @override
+  String get iHaveAnOmi => 'माझ्याकडे Omi आहे';
+
+  @override
+  String get iHaveAnOmiDetail => 'पेंडंट, Omi Glass किंवा Apple Watch';
+
+  @override
+  String get justThisPhoneForNow => 'सध्या फक्त हा फोन';
+
+  @override
+  String get useTheIphoneMicrophone => 'iPhone चा मायक्रोफोन वापरा';
+
+  @override
+  String get useThePhoneMicrophone => 'फोनचा मायक्रोफोन वापरा';
+
+  @override
+  String get iUseAnotherDevice => 'मी Plaud, Bee, Limitless किंवा दुसरे डिव्हाइस वापरतो';
+
+  @override
+  String get allowTheMicrophone => 'मायक्रोफोनला परवानगी द्या';
+
+  @override
+  String get allowMicrophoneWhy => 'होमच्या वरचे Omi चिन्ह हलत असतानाच Omi रेकॉर्ड करते. हवे तेव्हा थांबवा.';
+
+  @override
+  String get allowMicrophone => 'मायक्रोफोनला परवानगी द्या';
+
+  @override
+  String get youreSet => 'सर्व तयार आहे.';
+
+  @override
+  String youreSetName(String name) {
+    return 'सर्व तयार आहे, $name.';
+  }
+
+  @override
+  String get youreSetBody =>
+      'Omi तयार आहे. ऐकताना होमच्या वरचे Omi चिन्ह हलते. थांबवण्यासाठी किंवा डिव्हाइस बदलण्यासाठी त्यावर टॅप करा.';
+
+  @override
+  String get keepAppRunningNote => 'अ‍ॅप पार्श्वभूमीत चालू ठेवा. जबरदस्तीने बंद केल्यास Omi ऐकणे थांबवते.';
+
+  @override
+  String get openOmi => 'Omi उघडा';
+
+  @override
+  String get welcomeListensSubtitle => 'तुम्ही सांगाल तेव्हा Omi ऐकते आणि बोललेले नोट्स, कामे आणि आठवणींमध्ये बदलते.';
+
+  @override
+  String get syncingToYourPhone => 'तुमच्या फोनवर सिंक होत आहे';
+
+  @override
+  String lastWeekday(String weekday) {
+    return 'मागील $weekday';
+  }
+
+  @override
+  String dayAtTime(String day, String time) {
+    return '$day, $time';
+  }
+
+  @override
+  String memoryFromConversation(String day, String time) {
+    return '$day, $time च्या संभाषणातून';
+  }
 }

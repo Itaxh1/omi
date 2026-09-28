@@ -55,6 +55,7 @@ class OmiPalette {
     required this.dangerSurface,
     required this.cement,
     required this.tone,
+    required this.tile,
   });
 
   final Brightness brightness;
@@ -104,8 +105,11 @@ class OmiPalette {
   /// Cement grey (v3): device and to-do glyphs in their tiles.
   final Color cement;
 
-  /// Warm white (v3): the lower Home zone and the icon tiles. Ink at 5 % over the page in Black.
+  /// Warm white (v3): the lower Home zone. Ink at 5 % over the page in Black.
   final Color tone;
+
+  /// The 42 pt icon tiles (v3): the warm white in White, ink at 8 % over the page in Black.
+  final Color tile;
 
   bool get isLight => brightness == Brightness.light;
 
@@ -159,6 +163,7 @@ class OmiPalette {
     dangerSurface: Color(0x24F0575C),
     cement: Color(0xFFB3AEA6),
     tone: Color(0xFF161616),
+    tile: Color(0xFF1E1E1E),
   );
 
   /// v3 "White": paper page and white cards with a 7 % hairline, ink text, warm white (#FAF8F4)
@@ -209,6 +214,7 @@ class OmiPalette {
     dangerSurface: Color(0x1AD93A3F),
     cement: Color(0xFF5F5B55),
     tone: Color(0xFFFAF8F4),
+    tile: Color(0xFFFAF8F4),
   );
 }
 
@@ -338,8 +344,26 @@ abstract final class OmiColors {
   /// Cement grey (v3): the device and to-do glyphs in their warm tiles.
   static Color get cement => _palette.cement;
 
-  /// Warm white (v3): the lower Home zone and the icon tiles.
+  /// Warm white (v3): the lower Home zone.
   static Color get tone => _palette.tone;
+
+  /// The 42 pt icon tiles (v3).
+  static Color get tile => _palette.tile;
+
+  /// The Ask bar's drop shadow (v3 `.askw`: black at 18 %).
+  static const Color askShadow = Color(0x2E000000);
+
+  /// v3 `--i14`: outlines of round buttons, chips and the search field.
+  static Color get outline => _palette.textPrimary.withValues(alpha: 0.14);
+
+  /// v3 `--i08`: dividers between list rows.
+  static Color get divider => _palette.textPrimary.withValues(alpha: 0.08);
+
+  /// v3 `--i35`: chevrons, placeholders and other marks that are not text to read.
+  static Color get faint => _palette.textPrimary.withValues(alpha: 0.35);
+
+  /// v3 `--i80`: body copy under a heading (summary bullets, transcript lines, chip labels).
+  static Color get ink80 => _palette.textPrimary.withValues(alpha: 0.8);
 }
 
 /// Omi's type ramp, modelled on iOS text styles so that sizes land where the app's text already
@@ -522,6 +546,32 @@ abstract final class OmiType {
 
   /// [base] in the active palette's [OmiColors.textPrimary] and the app's [fontFamily], made once
   /// per palette.
+  /// 30 semibold, −.025em on a 1.12 line — a v3 page title (onboarding steps, a conversation's
+  /// title, the firmware hero).
+  static TextStyle get pageTitle => _tint(_pageTitle);
+  static const TextStyle _pageTitle = TextStyle(
+    fontSize: 30,
+    height: 1.12,
+    fontWeight: FontWeight.w600,
+    letterSpacing: -0.75,
+  );
+
+  /// 18 — v3 leads: the Listening word, the initial on You, a firmware version.
+  static TextStyle get lead => _tint(_lead);
+  static const TextStyle _lead = TextStyle(fontSize: 18, height: 1.3, fontWeight: FontWeight.w600);
+
+  /// 14 on a 1.4 line — v3 detail lines under a row's name (due dates, device status, options).
+  static TextStyle get detail => _tint(_detail);
+  static const TextStyle _detail = TextStyle(fontSize: 14, height: 1.4, fontWeight: FontWeight.w400);
+
+  /// 13.5 on a 1.4 line — a v3 card's second line (the To-do card, recorder status).
+  static TextStyle get cardSubtitle => _tint(_cardSubtitle);
+  static const TextStyle _cardSubtitle = TextStyle(fontSize: 13.5, height: 1.4, fontWeight: FontWeight.w400);
+
+  /// 12.5 — v3 fine print (sign-in terms, small labels).
+  static TextStyle get fine => _tint(_fine);
+  static const TextStyle _fine = TextStyle(fontSize: 12.5, height: 1.4, fontWeight: FontWeight.w400);
+
   static TextStyle _tint(TextStyle base) => _tinted.putIfAbsent(
         base,
         () => base.copyWith(color: OmiColors.textPrimary, fontFamily: base.fontFamily ?? fontFamily),
@@ -608,7 +658,7 @@ abstract final class OmiSize {
   static const double minTap = 44;
 
   /// A primary capsule button's height at the default text size.
-  static const double primaryButton = 50;
+  static const double primaryButton = 54;
 
   /// A circular header button (back, close, account).
   static const double navButton = 44;

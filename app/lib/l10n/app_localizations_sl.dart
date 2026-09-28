@@ -12010,4 +12010,352 @@ class AppLocalizationsSl extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get todoCardTitle => 'Opravila';
+
+  @override
+  String get notInAFolder => 'Ni v mapi';
+
+  @override
+  String stripSyncing(int minutes) {
+    return 'sinhronizacija $minutes min';
+  }
+
+  @override
+  String get change => 'Spremeni';
+
+  @override
+  String syncingFrom(String name) {
+    return 'Sinhronizacija iz $name';
+  }
+
+  @override
+  String minutesLeft(int minutes) {
+    return 'še $minutes min';
+  }
+
+  @override
+  String get viewTranscriptV3 => 'Oglejte si prepis';
+
+  @override
+  String get moveToFolderV3 => 'Premakni v Mapo';
+
+  @override
+  String get copySummaryV3 => 'Kopiraj povzetek';
+
+  @override
+  String get deleteConversationV3 => 'Izbriši pogovor';
+
+  @override
+  String get copyTranscriptV3 => 'Kopiraj prepis';
+
+  @override
+  String get noFolderV3 => 'Brez mape';
+
+  @override
+  String get todosTab => 'Opravila';
+
+  @override
+  String get shareLink => 'Deli povezavo';
+
+  @override
+  String get askOmiAboutThis => 'Vprašaj Omi o tem';
+
+  @override
+  String get openInMaps => 'Odpri v Zemljevidih';
+
+  @override
+  String minutesShortV3(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get noTodosInConversation => 'V tem pogovoru ni opravil';
+
+  @override
+  String get nameSpeakers => 'Poimenuj govorce';
+
+  @override
+  String get backToSummary => 'Nazaj na povzetek';
+
+  @override
+  String speakerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count govorcev',
+      one: '1 govorec',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noTranscriptYet => 'Prepisa še ni';
+
+  @override
+  String dueOn(String day) {
+    return 'Rok: $day';
+  }
+
+  @override
+  String get lateTag => 'Zamuja';
+
+  @override
+  String get allConversations => 'Vsi pogovori';
+
+  @override
+  String get newFolderV3 => 'Nova Mapa';
+
+  @override
+  String get doubleTapV3 => 'Dvojni dotik';
+
+  @override
+  String get browseAllApps => 'Brskaj po vseh aplikacijah';
+
+  @override
+  String get todoNewTag => 'Novo';
+
+  @override
+  String memoriesGraphCaption(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count spominov. Tapnite ime, da vidite, kaj Omi ve o njem.',
+      one: '1 spomin. Tapnite ime, da vidite, kaj Omi ve o njem.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String memoriesAbout(String name) {
+    return 'Spomini o: $name';
+  }
+
+  @override
+  String get memoriesEmptyV3 => 'Tukaj se pokaže, kar Omi izve o vas in ljudeh, s katerimi govorite.';
+
+  @override
+  String get look => 'Videz';
+
+  @override
+  String get lookWhite => 'Bela';
+
+  @override
+  String get lookBlack => 'Črna';
+
+  @override
+  String get startWhenOmiOpens => 'Začni, ko se Omi odpre';
+
+  @override
+  String get pendantButton => 'Gumb obeska';
+
+  @override
+  String get allSettings => 'Vse nastavitve';
+
+  @override
+  String get whatTheLightMeans => 'Kaj pomeni lučka';
+
+  @override
+  String get lightSolidRed => 'Stalno rdeča';
+
+  @override
+  String get lightSolidRedMeaning => 'Vklopljen, ni povezan s telefonom';
+
+  @override
+  String get lightBlinkingRed => 'Utripa rdeče';
+
+  @override
+  String get lightBlinkingRedMeaning => 'Čaka na čas s telefona. Povezava ga nastavi.';
+
+  @override
+  String get lightSolidBlue => 'Stalno modra';
+
+  @override
+  String get lightSolidBlueMeaning => 'Vklopljen in povezan';
+
+  @override
+  String get lightGreenRed => 'Utripa zeleno in rdeče';
+
+  @override
+  String get lightGreenRedMeaning => 'Se polni, ni povezan';
+
+  @override
+  String get lightGreenBlue => 'Utripa zeleno in modro';
+
+  @override
+  String get lightGreenBlueMeaning => 'Se polni, povezan';
+
+  @override
+  String get lightSolidGreen => 'Stalno zelena';
+
+  @override
+  String get lightSolidGreenMeaning => 'Povsem napolnjen';
+
+  @override
+  String get recordFrom => 'Snemaj z';
+
+  @override
+  String get recordingLower => 'snema';
+
+  @override
+  String get builtInMic => 'vgrajeni mikrofon';
+
+  @override
+  String syncingMinutesFrom(int minutes, String name) {
+    return 'Sinhronizacija $minutes min iz $name…';
+  }
+
+  @override
+  String get alsoWorksWith => 'Omi deluje tudi z Bee, Fieldy, Friend, Limitless, Plaud in Ray-Ban Meta.';
+
+  @override
+  String get bluetoothIsOff => 'Bluetooth je izklopljen';
+
+  @override
+  String get bluetoothOffExplainer => 'Omi se ne more povezati. Shrani, kar sliši, in pošlje, ko se vrnete.';
+
+  @override
+  String get turnOn => 'Vklopi';
+
+  @override
+  String get updateReady => 'Posodobitev je pripravljena';
+
+  @override
+  String firmwareVersionLine(String version) {
+    return 'Različica $version';
+  }
+
+  @override
+  String get onYourOmi => 'Na vašem Omi';
+
+  @override
+  String get newVersion => 'Nova različica';
+
+  @override
+  String get whatDoYouWantToKnow => 'Kaj želite izvedeti?';
+
+  @override
+  String get askSuggestDecide => 'Kaj sem danes odločil?';
+
+  @override
+  String get askSuggestOwe => 'Kaj sem ljudem še dolžan?';
+
+  @override
+  String get askSuggestNotice => 'Kaj je opazil Omi?';
+
+  @override
+  String conversationsTodayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count pogovorov danes.',
+      one: '1 pogovor danes.',
+      zero: 'Danes ni pogovorov.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get readThePrivacyPolicy => 'Preberi pravilnik o zasebnosti';
+
+  @override
+  String get consentThreeThings => 'Tri stvari, ki jih morate vedeti';
+
+  @override
+  String get consentChooseTitle => 'Vi izberete, kdaj Omi posluša.';
+
+  @override
+  String get consentChooseBody =>
+      'Tapnite znak Omi na vrhu domačega zaslona za začetek ali premor ali uporabite gumb na napravi.';
+
+  @override
+  String get consentAiTitle => 'Omi zapiske piše z umetno inteligenco.';
+
+  @override
+  String get consentDeleteTitle => 'Izbrišete lahko karkoli.';
+
+  @override
+  String get iAgree => 'Strinjam se';
+
+  @override
+  String get nameFromAccount => 'To smo vzeli iz vašega računa. Spremenite, če želite.';
+
+  @override
+  String notesLanguage(String language) {
+    return 'Zapiski bodo v jeziku: $language.';
+  }
+
+  @override
+  String get howWillYouRecord => 'Kako boste snemali?';
+
+  @override
+  String get addOrSwitchDevicesAnyTime => 'Naprave lahko kadarkoli dodate ali zamenjate.';
+
+  @override
+  String get iHaveAnOmi => 'Imam Omi';
+
+  @override
+  String get iHaveAnOmiDetail => 'Obesek, Omi Glass ali Apple Watch';
+
+  @override
+  String get justThisPhoneForNow => 'Za zdaj samo ta telefon';
+
+  @override
+  String get useTheIphoneMicrophone => 'Uporabi mikrofon iPhona';
+
+  @override
+  String get useThePhoneMicrophone => 'Uporabi mikrofon telefona';
+
+  @override
+  String get iUseAnotherDevice => 'Uporabljam Plaud, Bee, Limitless ali drugo napravo';
+
+  @override
+  String get allowTheMicrophone => 'Dovolite mikrofon';
+
+  @override
+  String get allowMicrophoneWhy => 'Omi snema le, ko se znak Omi na vrhu domačega zaslona premika. Premor kadarkoli.';
+
+  @override
+  String get allowMicrophone => 'Dovoli mikrofon';
+
+  @override
+  String get youreSet => 'Vse je pripravljeno.';
+
+  @override
+  String youreSetName(String name) {
+    return 'Vse je pripravljeno, $name.';
+  }
+
+  @override
+  String get youreSetBody =>
+      'Omi je pripravljen. Znak Omi na vrhu domačega zaslona se premika, ko posluša. Tapnite ga za premor ali zamenjavo naprave.';
+
+  @override
+  String get keepAppRunningNote => 'Pustite aplikacijo teči v ozadju. Če jo prisilno zaprete, Omi preneha poslušati.';
+
+  @override
+  String get openOmi => 'Odpri Omi';
+
+  @override
+  String get welcomeListensSubtitle =>
+      'Omi posluša, ko ga prosite, in izrečeno spremeni v zapiske, opravila in spomine.';
+
+  @override
+  String get syncingToYourPhone => 'Sinhronizacija v telefon';
+
+  @override
+  String lastWeekday(String weekday) {
+    return 'Prejšnji $weekday';
+  }
+
+  @override
+  String dayAtTime(String day, String time) {
+    return '$day, $time';
+  }
+
+  @override
+  String memoryFromConversation(String day, String time) {
+    return '$day, iz pogovora ob $time';
+  }
 }

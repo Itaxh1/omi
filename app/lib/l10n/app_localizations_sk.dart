@@ -11972,4 +11972,353 @@ class AppLocalizationsSk extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get todoCardTitle => 'Úlohy';
+
+  @override
+  String get notInAFolder => 'Mimo priečinka';
+
+  @override
+  String stripSyncing(int minutes) {
+    return 'synchronizuje sa $minutes min';
+  }
+
+  @override
+  String get change => 'Zmeniť';
+
+  @override
+  String syncingFrom(String name) {
+    return 'Synchronizácia z $name';
+  }
+
+  @override
+  String minutesLeft(int minutes) {
+    return 'zostáva $minutes min';
+  }
+
+  @override
+  String get viewTranscriptV3 => 'Zobraziť prepis';
+
+  @override
+  String get moveToFolderV3 => 'Presunúť do priečinka';
+
+  @override
+  String get copySummaryV3 => 'Kopírovať zhrnutie';
+
+  @override
+  String get deleteConversationV3 => 'Odstrániť konverzáciu';
+
+  @override
+  String get copyTranscriptV3 => 'Kopírovať prepis';
+
+  @override
+  String get noFolderV3 => 'Žiadny priečinok';
+
+  @override
+  String get todosTab => 'Úlohy';
+
+  @override
+  String get shareLink => 'Zdieľať odkaz';
+
+  @override
+  String get askOmiAboutThis => 'Opýtať sa Omi na toto';
+
+  @override
+  String get openInMaps => 'Otvoriť v Mapách';
+
+  @override
+  String minutesShortV3(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get noTodosInConversation => 'V tomto rozhovore nie sú žiadne úlohy';
+
+  @override
+  String get nameSpeakers => 'Pomenovať hovoriacich';
+
+  @override
+  String get backToSummary => 'Späť na zhrnutie';
+
+  @override
+  String speakerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count hovoriaci',
+      one: '1 hovoriaci',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noTranscriptYet => 'Zatiaľ žiadny prepis';
+
+  @override
+  String dueOn(String day) {
+    return 'Termín: $day';
+  }
+
+  @override
+  String get lateTag => 'Mešká';
+
+  @override
+  String get allConversations => 'Všetky rozhovory';
+
+  @override
+  String get newFolderV3 => 'Nový priečinok';
+
+  @override
+  String get doubleTapV3 => 'Dvojité ťuknutie';
+
+  @override
+  String get browseAllApps => 'Prehliadať všetky aplikácie';
+
+  @override
+  String get todoNewTag => 'Nové';
+
+  @override
+  String memoriesGraphCaption(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count spomienok. Ťuknutím na meno uvidíte, čo o ňom Omi vie.',
+      one: '1 spomienka. Ťuknutím na meno uvidíte, čo o ňom Omi vie.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String memoriesAbout(String name) {
+    return 'Spomienky na $name';
+  }
+
+  @override
+  String get memoriesEmptyV3 => 'Tu sa zobrazí, čo sa Omi dozvie o vás a ľuďoch, s ktorými hovoríte.';
+
+  @override
+  String get look => 'Vzhľad';
+
+  @override
+  String get lookWhite => 'Biely';
+
+  @override
+  String get lookBlack => 'Čierny';
+
+  @override
+  String get startWhenOmiOpens => 'Spustiť pri otvorení Omi';
+
+  @override
+  String get pendantButton => 'Tlačidlo prívesku';
+
+  @override
+  String get allSettings => 'Všetky nastavenia';
+
+  @override
+  String get whatTheLightMeans => 'Čo znamená svetlo';
+
+  @override
+  String get lightSolidRed => 'Svieti načerveno';
+
+  @override
+  String get lightSolidRedMeaning => 'Zapnuté, nepripojené k telefónu';
+
+  @override
+  String get lightBlinkingRed => 'Bliká načerveno';
+
+  @override
+  String get lightBlinkingRedMeaning => 'Čaká na čas z telefónu. Pripojenie ho nastaví.';
+
+  @override
+  String get lightSolidBlue => 'Svieti namodro';
+
+  @override
+  String get lightSolidBlueMeaning => 'Zapnuté a pripojené';
+
+  @override
+  String get lightGreenRed => 'Bliká nazeleno a načerveno';
+
+  @override
+  String get lightGreenRedMeaning => 'Nabíja sa, nepripojené';
+
+  @override
+  String get lightGreenBlue => 'Bliká nazeleno a namodro';
+
+  @override
+  String get lightGreenBlueMeaning => 'Nabíja sa, pripojené';
+
+  @override
+  String get lightSolidGreen => 'Svieti nazeleno';
+
+  @override
+  String get lightSolidGreenMeaning => 'Úplne nabité';
+
+  @override
+  String get recordFrom => 'Nahrávať z';
+
+  @override
+  String get recordingLower => 'nahráva';
+
+  @override
+  String get builtInMic => 'vstavaný mikrofón';
+
+  @override
+  String syncingMinutesFrom(int minutes, String name) {
+    return 'Synchronizácia $minutes min z $name…';
+  }
+
+  @override
+  String get alsoWorksWith => 'Omi funguje aj s Bee, Fieldy, Friend, Limitless, Plaud a Ray-Ban Meta.';
+
+  @override
+  String get bluetoothIsOff => 'Bluetooth je vypnutý';
+
+  @override
+  String get bluetoothOffExplainer => 'Omi sa nemôže pripojiť. Uchová, čo počuje, a pošle to, keď budete späť.';
+
+  @override
+  String get turnOn => 'Zapnúť';
+
+  @override
+  String get updateReady => 'Aktualizácia je pripravená';
+
+  @override
+  String firmwareVersionLine(String version) {
+    return 'Verzia $version';
+  }
+
+  @override
+  String get onYourOmi => 'Vo vašom Omi';
+
+  @override
+  String get newVersion => 'Nová verzia';
+
+  @override
+  String get whatDoYouWantToKnow => 'Čo chcete vedieť?';
+
+  @override
+  String get askSuggestDecide => 'Čo som dnes rozhodol?';
+
+  @override
+  String get askSuggestOwe => 'Čo ešte dlhujem ľuďom?';
+
+  @override
+  String get askSuggestNotice => 'Čo si Omi všimol?';
+
+  @override
+  String conversationsTodayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count rozhovorov dnes.',
+      one: '1 rozhovor dnes.',
+      zero: 'Dnes žiadne rozhovory.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get readThePrivacyPolicy => 'Prečítať zásady ochrany osobných údajov';
+
+  @override
+  String get consentThreeThings => 'Tri veci, ktoré treba vedieť';
+
+  @override
+  String get consentChooseTitle => 'Vy si vyberáte, kedy Omi počúva.';
+
+  @override
+  String get consentChooseBody =>
+      'Ťuknutím na značku Omi hore na domovskej obrazovke spustíte alebo pozastavíte, prípadne použite tlačidlo na zariadení.';
+
+  @override
+  String get consentAiTitle => 'Omi píše vaše poznámky pomocou AI.';
+
+  @override
+  String get consentDeleteTitle => 'Vymazať môžete čokoľvek.';
+
+  @override
+  String get iAgree => 'Súhlasím';
+
+  @override
+  String get nameFromAccount => 'Prevzali sme to z vášho účtu. Pokojne to zmeňte.';
+
+  @override
+  String notesLanguage(String language) {
+    return 'Poznámky budú v jazyku: $language.';
+  }
+
+  @override
+  String get howWillYouRecord => 'Ako budete nahrávať?';
+
+  @override
+  String get addOrSwitchDevicesAnyTime => 'Zariadenia môžete kedykoľvek pridať alebo zmeniť.';
+
+  @override
+  String get iHaveAnOmi => 'Mám Omi';
+
+  @override
+  String get iHaveAnOmiDetail => 'Prívesok, Omi Glass alebo Apple Watch';
+
+  @override
+  String get justThisPhoneForNow => 'Zatiaľ len tento telefón';
+
+  @override
+  String get useTheIphoneMicrophone => 'Použiť mikrofón iPhonu';
+
+  @override
+  String get useThePhoneMicrophone => 'Použiť mikrofón telefónu';
+
+  @override
+  String get iUseAnotherDevice => 'Používam Plaud, Bee, Limitless alebo iné zariadenie';
+
+  @override
+  String get allowTheMicrophone => 'Povoľte mikrofón';
+
+  @override
+  String get allowMicrophoneWhy =>
+      'Omi nahráva, len keď sa značka Omi hore na domovskej obrazovke hýbe. Pozastavte kedykoľvek.';
+
+  @override
+  String get allowMicrophone => 'Povoliť mikrofón';
+
+  @override
+  String get youreSet => 'Hotovo.';
+
+  @override
+  String youreSetName(String name) {
+    return 'Hotovo, $name.';
+  }
+
+  @override
+  String get youreSetBody =>
+      'Omi je pripravený. Značka Omi hore na domovskej obrazovke sa hýbe, keď počúva. Ťuknutím pozastavíte alebo zmeníte zariadenie.';
+
+  @override
+  String get keepAppRunningNote => 'Nechajte aplikáciu bežať na pozadí. Ak ju vynútene zavriete, Omi prestane počúvať.';
+
+  @override
+  String get openOmi => 'Otvoriť Omi';
+
+  @override
+  String get welcomeListensSubtitle =>
+      'Omi počúva, keď ho o to požiadate, a z toho, čo zaznelo, urobí poznámky, úlohy a spomienky.';
+
+  @override
+  String get syncingToYourPhone => 'Synchronizácia do telefónu';
+
+  @override
+  String lastWeekday(String weekday) {
+    return 'Minulý $weekday';
+  }
+
+  @override
+  String dayAtTime(String day, String time) {
+    return '$day, $time';
+  }
+
+  @override
+  String memoryFromConversation(String day, String time) {
+    return '$day, z konverzácie o $time';
+  }
 }

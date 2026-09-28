@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:omi/ui/components/omi_nav_buttons.dart';
+import 'package:omi/l10n/app_localizations.dart';
 import 'package:omi/ui/omi_tokens.dart';
 
 /// Shows a modal bottom sheet in the app's one sheet shell and returns its result.
@@ -32,7 +32,7 @@ Future<T?> showOmiSheet<T>({
   bool isDismissible = true,
   bool enableDrag = true,
   bool useRootNavigator = false,
-  EdgeInsetsGeometry padding = const EdgeInsets.symmetric(horizontal: OmiSpacing.md),
+  EdgeInsetsGeometry padding = const EdgeInsets.symmetric(horizontal: OmiSize.screenMargin),
   RouteSettings? routeSettings,
 }) {
   return showOmiModalSheet<T>(
@@ -43,8 +43,9 @@ Future<T?> showOmiSheet<T>({
     enableDrag: enableDrag,
     useRootNavigator: useRootNavigator,
     routeSettings: routeSettings,
-    // Size (36x4) and colour come from the app theme's bottomSheetTheme (buildOmiTheme).
-    showDragHandle: true,
+    // v3 sheets have no handle: the title row and Done say what it is and how to leave; a swipe
+    // down still closes it.
+    showDragHandle: false,
     color: () => OmiColors.sheet,
     shape: RoundedRectangleBorder(borderRadius: OmiRadius.sheetTopFor(Theme.of(context).platform)),
     builder: (sheetContext) => OmiSheetScaffold(
@@ -152,36 +153,124 @@ class OmiSheetScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     final hasHeader = title != null || showCloseButton;
     final keyboard = MediaQuery.viewInsetsOf(context).bottom;
-    return Padding(
-      padding: EdgeInsets.only(bottom: keyboard),
-      child: SafeArea(
-        top: false,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (hasHeader)
-              Padding(
-                padding: const EdgeInsetsDirectional.only(start: OmiSpacing.md, end: OmiSpacing.xxs),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: title == null
-                          ? const SizedBox.shrink()
-                          : Semantics(
-                              header: true,
-                              child:
-                                  Text(title!, style: OmiType.headline, maxLines: 2, overflow: TextOverflow.ellipsis),
-                            ),
-                    ),
-                    if (showCloseButton) OmiCloseButton(onPressed: onClose, color: OmiColors.textSecondary),
-                  ],
+    // v3 `.sheet`: a 1.5 pt ink line along the rounded top edge.
+    return CustomPaint(
+      foregroundPainter: _SheetTopEdge(color: OmiColors.textPrimary, radius: OmiRadius.sheet),
+      child: Padding(
+        padding: EdgeInsets.only(bottom: keyboard),
+        child: SafeArea(
+          top: false,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              if (hasHeader)
+                // `.sh`: 20 pt above, the title at 20/600, Done on the right, 12 pt below.
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(OmiSize.screenMargin, 20, OmiSize.screenMargin, 12),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: title == null
+                            ? const SizedBox.shrink()
+                            : Semantics(
+                                header: true,
+                                child: Text(
+                                  title!,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: OmiType.title3
+                                      .copyWith(fontWeight: FontWeight.w600, letterSpacing: -0.4, height: 1.4),
+                                ),
+                              ),
+                      ),
+                      if (showCloseButton) ...[
+                        const SizedBox(width: OmiSpacing.sm),
+                        OmiDonePill(onPressed: onClose ?? () => Navigator.of(context).maybePop()),
+                      ],
+                    ],
+                  ),
                 ),
-              ),
-            Flexible(child: Padding(padding: padding, child: child)),
-          ],
+              Flexible(child: Padding(padding: padding, child: child)),
+            ],
+          ),
         ),
       ),
     );
   }
+}
+
+/// "Done" (`.x`): a 34 pt pill with a 1.5 pt ink outline, 14/600. Closes a v3 sheet.
+class OmiDonePill extends StatelessWidget {
+  const OmiDonePill({super.key, required this.onPressed, this.label});
+
+  final VoidCallback onPressed;
+
+  /// Defaults to Done.
+  final String? label;
+
+  @override
+  Widget build(BuildContext context) {
+    final done = label ??
+        Localizations.of<AppLocalizations>(context, AppLocalizations)?.done ??
+        MaterialLocalizations.of(context).closeButtonLabel;
+    return Semantics(
+      button: true,
+      label: done,
+      excludeSemantics: true,
+      child: GestureDetector(
+        key: const Key('sheet_done'),
+        behavior: HitTestBehavior.opaque,
+        onTap: onPressed,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: Container(
+            height: 34,
+            padding: const EdgeInsets.symmetric(horizontal: 14),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              borderRadius: OmiRadius.pillAll,
+              border: Border.all(color: OmiColors.textPrimary, width: 1.5),
+            ),
+            child: Text(
+              done,
+              style: OmiType.subhead.copyWith(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  height: 1.2), // omi-ux-allow: font-size-literal -- the design's 14 pt Done
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The ink line along a sheet's rounded top edge.
+class _SheetTopEdge extends CustomPainter {
+  _SheetTopEdge({required this.color, required this.radius});
+
+  final Color color;
+  final double radius;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    const w = 1.5;
+    final r = radius - w / 2;
+    final path = Path()
+      ..moveTo(w / 2, radius)
+      ..arcToPoint(Offset(radius, w / 2), radius: Radius.circular(r))
+      ..lineTo(size.width - radius, w / 2)
+      ..arcToPoint(Offset(size.width - w / 2, radius), radius: Radius.circular(r));
+    canvas.drawPath(
+      path,
+      Paint()
+        ..color = color
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = w,
+    );
+  }
+
+  @override
+  bool shouldRepaint(_SheetTopEdge old) => old.color != color || old.radius != radius;
 }

@@ -59,6 +59,9 @@ class HomeTodoCard extends StatefulWidget {
 
   static DateTime _startOfDay(DateTime d) => DateTime(d.year, d.month, d.day);
 
+  /// The card sits 14 pt inside the page gutter (`.todo1`: width calc(100% − 28px)).
+  static const double inset = 14;
+
   @override
   State<HomeTodoCard> createState() => _HomeTodoCardState();
 }
@@ -83,64 +86,75 @@ class _HomeTodoCardState extends State<HomeTodoCard> {
         final open = provider.incompleteItems;
         final count = HomeTodoCard.lateTasks(open).length + HomeTodoCard.dueToday(open).length;
         final subtitle = HomeTodoCard.subtitle(context, open);
-        return Stack(
-          clipBehavior: Clip.none,
-          children: [
-            OmiCard(
-              key: const Key('home_todo_card'),
-              radius: OmiRadius.card,
-              padding: const EdgeInsets.fromLTRB(14, 18, 18, 18),
-              onTap: () {
-                OmiHaptics.selection();
-                widget.onOpen();
-              },
-              semanticLabel: '${l10n.toDo}. $subtitle',
-              child: Row(
-                children: [
-                  const OmiDeviceTile(icon: OmiGlyphs.todo, glyph: 22),
-                  const SizedBox(width: 14),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(l10n.toDo, style: OmiType.callout.copyWith(fontWeight: FontWeight.w600, height: 1.2)),
-                        const SizedBox(height: 2),
-                        Text(
-                          subtitle,
-                          key: const Key('home_todo_subtitle'),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: OmiType.footnote.copyWith(color: OmiColors.textSecondary),
-                        ),
-                      ],
+        // `.todo1`: 14 pt inside the gutter, 26 pt corners, a hairline, no shadow.
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: HomeTodoCard.inset),
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              OmiCard(
+                key: const Key('home_todo_card'),
+                radius: OmiRadius.card,
+                padding: const EdgeInsets.fromLTRB(15, 19, 19, 19),
+                onTap: widget.onOpen,
+                semanticLabel: '${l10n.todoCardTitle}. $subtitle',
+                child: Row(
+                  children: [
+                    const OmiDeviceTile(icon: OmiGlyphs.todo, glyph: 22, radius: 12),
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(l10n.todoCardTitle,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: OmiType.callout.copyWith(fontWeight: FontWeight.w600, height: 1.4)),
+                          const SizedBox(height: 2),
+                          Text(
+                            subtitle,
+                            key: const Key('home_todo_subtitle'),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: OmiType.cardSubtitle.copyWith(color: OmiColors.textSecondary),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: OmiSpacing.xs),
-                  Text('›', style: OmiType.title3.copyWith(color: OmiColors.textTertiary, height: 1)),
-                ],
+                    const SizedBox(width: OmiSpacing.xs),
+                    ExcludeSemantics(
+                      child: Text('›', style: OmiType.title3.copyWith(color: OmiColors.textTertiary, height: 1.4)),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            // The count badge, like an app icon's: the to-dos that are late or due today.
-            if (count > 0)
-              Positioned(
-                top: -6,
-                right: -4,
-                child: ExcludeSemantics(
-                  child: Container(
-                    key: const Key('home_todo_badge'),
-                    constraints: const BoxConstraints(minWidth: 22, minHeight: 22),
-                    padding: const EdgeInsets.symmetric(horizontal: 7),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(color: OmiColors.danger, borderRadius: OmiRadius.pillAll),
-                    child: Text(
-                      '$count',
-                      style: OmiType.caption1.copyWith(color: Colors.white, fontWeight: FontWeight.w700, height: 1.2),
+              // The count badge, like an app icon's: the to-dos that are late or due today. A 3 pt
+              // ring in the page colour lifts it off the card's corner.
+              if (count > 0)
+                Positioned(
+                  top: -10,
+                  right: -8,
+                  child: ExcludeSemantics(
+                    child: Container(
+                      key: const Key('home_todo_badge'),
+                      constraints: const BoxConstraints(minWidth: 30, minHeight: 30),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: OmiColors.danger,
+                        borderRadius: OmiRadius.pillAll,
+                        border: Border.all(color: OmiColors.surface0, width: 3),
+                      ),
+                      child: Text(
+                        '$count',
+                        style: OmiType.footnote.copyWith(color: Colors.white, fontWeight: FontWeight.w700, height: 1),
+                      ),
                     ),
                   ),
                 ),
-              ),
-          ],
+            ],
+          ),
         );
       },
     );

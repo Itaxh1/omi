@@ -11979,4 +11979,353 @@ class AppLocalizationsVi extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get todoCardTitle => 'Việc cần làm';
+
+  @override
+  String get notInAFolder => 'Không trong thư mục';
+
+  @override
+  String stripSyncing(int minutes) {
+    return 'đang đồng bộ $minutes phút';
+  }
+
+  @override
+  String get change => 'Đổi';
+
+  @override
+  String syncingFrom(String name) {
+    return 'Đang đồng bộ từ $name';
+  }
+
+  @override
+  String minutesLeft(int minutes) {
+    return 'còn $minutes phút';
+  }
+
+  @override
+  String get viewTranscriptV3 => 'Xem Bản ghi';
+
+  @override
+  String get moveToFolderV3 => 'Di chuyển đến thư mục';
+
+  @override
+  String get copySummaryV3 => 'Sao chép tóm tắt';
+
+  @override
+  String get deleteConversationV3 => 'Xóa cuộc trò chuyện';
+
+  @override
+  String get copyTranscriptV3 => 'Sao chép bản ghi';
+
+  @override
+  String get noFolderV3 => 'Không có thư mục';
+
+  @override
+  String get todosTab => 'Việc cần làm';
+
+  @override
+  String get shareLink => 'Chia sẻ liên kết';
+
+  @override
+  String get askOmiAboutThis => 'Hỏi Omi về điều này';
+
+  @override
+  String get openInMaps => 'Mở trong Bản đồ';
+
+  @override
+  String minutesShortV3(int minutes) {
+    return '$minutes phút';
+  }
+
+  @override
+  String get noTodosInConversation => 'Không có việc cần làm trong cuộc trò chuyện này';
+
+  @override
+  String get nameSpeakers => 'Đặt tên người nói';
+
+  @override
+  String get backToSummary => 'Quay lại tóm tắt';
+
+  @override
+  String speakerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count người nói',
+      one: '1 người nói',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noTranscriptYet => 'Chưa có bản ghi';
+
+  @override
+  String dueOn(String day) {
+    return 'Hạn $day';
+  }
+
+  @override
+  String get lateTag => 'Trễ';
+
+  @override
+  String get allConversations => 'Tất cả cuộc trò chuyện';
+
+  @override
+  String get newFolderV3 => 'Thư mục mới';
+
+  @override
+  String get doubleTapV3 => 'Nhấn đúp';
+
+  @override
+  String get browseAllApps => 'Xem tất cả ứng dụng';
+
+  @override
+  String get todoNewTag => 'Mới';
+
+  @override
+  String memoriesGraphCaption(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ký ức. Chạm vào một tên để xem Omi biết gì.',
+      one: '1 ký ức. Chạm vào một tên để xem Omi biết gì.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String memoriesAbout(String name) {
+    return 'Ký ức về $name';
+  }
+
+  @override
+  String get memoriesEmptyV3 => 'Những gì Omi biết về bạn và những người bạn trò chuyện sẽ hiện ở đây.';
+
+  @override
+  String get look => 'Giao diện';
+
+  @override
+  String get lookWhite => 'Trắng';
+
+  @override
+  String get lookBlack => 'Đen';
+
+  @override
+  String get startWhenOmiOpens => 'Bắt đầu khi mở Omi';
+
+  @override
+  String get pendantButton => 'Nút mặt dây';
+
+  @override
+  String get allSettings => 'Tất cả cài đặt';
+
+  @override
+  String get whatTheLightMeans => 'Ý nghĩa của đèn';
+
+  @override
+  String get lightSolidRed => 'Đỏ liên tục';
+
+  @override
+  String get lightSolidRedMeaning => 'Đang bật, chưa kết nối với điện thoại';
+
+  @override
+  String get lightBlinkingRed => 'Đỏ nhấp nháy';
+
+  @override
+  String get lightBlinkingRedMeaning => 'Đang chờ giờ từ điện thoại. Kết nối sẽ đặt giờ.';
+
+  @override
+  String get lightSolidBlue => 'Xanh dương liên tục';
+
+  @override
+  String get lightSolidBlueMeaning => 'Đang bật và đã kết nối';
+
+  @override
+  String get lightGreenRed => 'Xanh lá và đỏ nhấp nháy';
+
+  @override
+  String get lightGreenRedMeaning => 'Đang sạc, chưa kết nối';
+
+  @override
+  String get lightGreenBlue => 'Xanh lá và xanh dương nhấp nháy';
+
+  @override
+  String get lightGreenBlueMeaning => 'Đang sạc, đã kết nối';
+
+  @override
+  String get lightSolidGreen => 'Xanh lá liên tục';
+
+  @override
+  String get lightSolidGreenMeaning => 'Đã sạc đầy';
+
+  @override
+  String get recordFrom => 'Ghi âm từ';
+
+  @override
+  String get recordingLower => 'đang ghi';
+
+  @override
+  String get builtInMic => 'micrô tích hợp';
+
+  @override
+  String syncingMinutesFrom(int minutes, String name) {
+    return 'Đang đồng bộ $minutes phút từ $name…';
+  }
+
+  @override
+  String get alsoWorksWith => 'Omi cũng dùng được với Bee, Fieldy, Friend, Limitless, Plaud và Ray-Ban Meta.';
+
+  @override
+  String get bluetoothIsOff => 'Bluetooth đang tắt';
+
+  @override
+  String get bluetoothOffExplainer => 'Omi không kết nối được. Omi giữ lại những gì nghe được và gửi khi bạn quay lại.';
+
+  @override
+  String get turnOn => 'Bật';
+
+  @override
+  String get updateReady => 'Đã có bản cập nhật';
+
+  @override
+  String firmwareVersionLine(String version) {
+    return 'Phiên bản $version';
+  }
+
+  @override
+  String get onYourOmi => 'Trên Omi của bạn';
+
+  @override
+  String get newVersion => 'Phiên bản mới';
+
+  @override
+  String get whatDoYouWantToKnow => 'Bạn muốn biết điều gì?';
+
+  @override
+  String get askSuggestDecide => 'Hôm nay tôi đã quyết định gì?';
+
+  @override
+  String get askSuggestOwe => 'Tôi còn nợ ai điều gì?';
+
+  @override
+  String get askSuggestNotice => 'Omi nhận thấy điều gì?';
+
+  @override
+  String conversationsTodayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Hôm nay có $count cuộc trò chuyện.',
+      one: 'Hôm nay có 1 cuộc trò chuyện.',
+      zero: 'Hôm nay chưa có cuộc trò chuyện.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get readThePrivacyPolicy => 'Đọc Chính sách quyền riêng tư';
+
+  @override
+  String get consentThreeThings => 'Ba điều cần biết';
+
+  @override
+  String get consentChooseTitle => 'Bạn chọn khi nào Omi lắng nghe.';
+
+  @override
+  String get consentChooseBody =>
+      'Chạm vào dấu Omi ở đầu màn hình chính để bắt đầu hoặc tạm dừng, hoặc dùng nút trên thiết bị.';
+
+  @override
+  String get consentAiTitle => 'Omi dùng AI để viết ghi chú cho bạn.';
+
+  @override
+  String get consentDeleteTitle => 'Bạn có thể xóa bất cứ thứ gì.';
+
+  @override
+  String get iAgree => 'Tôi đồng ý';
+
+  @override
+  String get nameFromAccount => 'Chúng tôi lấy từ tài khoản của bạn. Đổi nếu bạn muốn.';
+
+  @override
+  String notesLanguage(String language) {
+    return 'Ghi chú sẽ được viết bằng $language.';
+  }
+
+  @override
+  String get howWillYouRecord => 'Bạn sẽ ghi âm bằng gì?';
+
+  @override
+  String get addOrSwitchDevicesAnyTime => 'Bạn có thể thêm hoặc đổi thiết bị bất cứ lúc nào.';
+
+  @override
+  String get iHaveAnOmi => 'Tôi có Omi';
+
+  @override
+  String get iHaveAnOmiDetail => 'Mặt dây, Omi Glass hoặc Apple Watch';
+
+  @override
+  String get justThisPhoneForNow => 'Tạm thời chỉ điện thoại này';
+
+  @override
+  String get useTheIphoneMicrophone => 'Dùng micrô của iPhone';
+
+  @override
+  String get useThePhoneMicrophone => 'Dùng micrô của điện thoại';
+
+  @override
+  String get iUseAnotherDevice => 'Tôi dùng Plaud, Bee, Limitless hoặc thiết bị khác';
+
+  @override
+  String get allowTheMicrophone => 'Cho phép micrô';
+
+  @override
+  String get allowMicrophoneWhy =>
+      'Omi chỉ ghi âm khi dấu Omi ở đầu màn hình chính đang chuyển động. Tạm dừng bất cứ lúc nào.';
+
+  @override
+  String get allowMicrophone => 'Cho phép micrô';
+
+  @override
+  String get youreSet => 'Xong rồi.';
+
+  @override
+  String youreSetName(String name) {
+    return 'Xong rồi, $name.';
+  }
+
+  @override
+  String get youreSetBody =>
+      'Omi đã sẵn sàng. Dấu Omi ở đầu màn hình chính chuyển động khi đang nghe. Chạm vào để tạm dừng hoặc đổi thiết bị.';
+
+  @override
+  String get keepAppRunningNote => 'Hãy để ứng dụng chạy nền. Nếu buộc đóng, Omi sẽ ngừng nghe.';
+
+  @override
+  String get openOmi => 'Mở Omi';
+
+  @override
+  String get welcomeListensSubtitle =>
+      'Omi lắng nghe khi bạn muốn và biến những gì đã nói thành ghi chú, việc cần làm và ký ức.';
+
+  @override
+  String get syncingToYourPhone => 'Đang đồng bộ về điện thoại';
+
+  @override
+  String lastWeekday(String weekday) {
+    return '$weekday tuần trước';
+  }
+
+  @override
+  String dayAtTime(String day, String time) {
+    return '$day, $time';
+  }
+
+  @override
+  String memoryFromConversation(String day, String time) {
+    return '$day, từ cuộc trò chuyện lúc $time';
+  }
 }

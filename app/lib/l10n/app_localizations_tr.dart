@@ -11997,4 +11997,353 @@ class AppLocalizationsTr extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get todoCardTitle => 'Yapılacaklar';
+
+  @override
+  String get notInAFolder => 'Klasörde değil';
+
+  @override
+  String stripSyncing(int minutes) {
+    return '$minutes dk eşitleniyor';
+  }
+
+  @override
+  String get change => 'Değiştir';
+
+  @override
+  String syncingFrom(String name) {
+    return '$name cihazından eşitleniyor';
+  }
+
+  @override
+  String minutesLeft(int minutes) {
+    return '$minutes dk kaldı';
+  }
+
+  @override
+  String get viewTranscriptV3 => 'Transkripti Görüntüle';
+
+  @override
+  String get moveToFolderV3 => 'Klasöre Taşı';
+
+  @override
+  String get copySummaryV3 => 'Özeti kopyala';
+
+  @override
+  String get deleteConversationV3 => 'Sohbeti Sil';
+
+  @override
+  String get copyTranscriptV3 => 'Transkripti kopyala';
+
+  @override
+  String get noFolderV3 => 'Klasör yok';
+
+  @override
+  String get todosTab => 'Yapılacaklar';
+
+  @override
+  String get shareLink => 'Bağlantıyı paylaş';
+
+  @override
+  String get askOmiAboutThis => 'Bunu Omi\'ye sor';
+
+  @override
+  String get openInMaps => 'Haritalar\'da aç';
+
+  @override
+  String minutesShortV3(int minutes) {
+    return '$minutes dk';
+  }
+
+  @override
+  String get noTodosInConversation => 'Bu konuşmada yapılacak iş yok';
+
+  @override
+  String get nameSpeakers => 'Konuşmacıları adlandır';
+
+  @override
+  String get backToSummary => 'Özete dön';
+
+  @override
+  String speakerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count konuşmacı',
+      one: '1 konuşmacı',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noTranscriptYet => 'Henüz döküm yok';
+
+  @override
+  String dueOn(String day) {
+    return 'Son tarih: $day';
+  }
+
+  @override
+  String get lateTag => 'Gecikti';
+
+  @override
+  String get allConversations => 'Tüm konuşmalar';
+
+  @override
+  String get newFolderV3 => 'Yeni Klasör';
+
+  @override
+  String get doubleTapV3 => 'Çift Dokunma';
+
+  @override
+  String get browseAllApps => 'Tüm uygulamalara göz at';
+
+  @override
+  String get todoNewTag => 'Yeni';
+
+  @override
+  String memoriesGraphCaption(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count anı. Omi\'nin ne bildiğini görmek için bir ada dokun.',
+      one: '1 anı. Omi\'nin ne bildiğini görmek için bir ada dokun.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String memoriesAbout(String name) {
+    return '$name hakkında anılar';
+  }
+
+  @override
+  String get memoriesEmptyV3 => 'Omi\'nin senin ve konuştuğun kişiler hakkında öğrendikleri burada görünür.';
+
+  @override
+  String get look => 'Görünüm';
+
+  @override
+  String get lookWhite => 'Beyaz';
+
+  @override
+  String get lookBlack => 'Siyah';
+
+  @override
+  String get startWhenOmiOpens => 'Omi açılınca başla';
+
+  @override
+  String get pendantButton => 'Kolye düğmesi';
+
+  @override
+  String get allSettings => 'Tüm ayarlar';
+
+  @override
+  String get whatTheLightMeans => 'Işık ne anlama gelir';
+
+  @override
+  String get lightSolidRed => 'Sabit kırmızı';
+
+  @override
+  String get lightSolidRedMeaning => 'Açık, telefona bağlı değil';
+
+  @override
+  String get lightBlinkingRed => 'Yanıp sönen kırmızı';
+
+  @override
+  String get lightBlinkingRedMeaning => 'Telefondan saati bekliyor. Bağlanınca ayarlanır.';
+
+  @override
+  String get lightSolidBlue => 'Sabit mavi';
+
+  @override
+  String get lightSolidBlueMeaning => 'Açık ve bağlı';
+
+  @override
+  String get lightGreenRed => 'Yanıp sönen yeşil ve kırmızı';
+
+  @override
+  String get lightGreenRedMeaning => 'Şarj oluyor, bağlı değil';
+
+  @override
+  String get lightGreenBlue => 'Yanıp sönen yeşil ve mavi';
+
+  @override
+  String get lightGreenBlueMeaning => 'Şarj oluyor, bağlı';
+
+  @override
+  String get lightSolidGreen => 'Sabit yeşil';
+
+  @override
+  String get lightSolidGreenMeaning => 'Tam şarjlı';
+
+  @override
+  String get recordFrom => 'Kayıt kaynağı';
+
+  @override
+  String get recordingLower => 'kaydediyor';
+
+  @override
+  String get builtInMic => 'dahili mikrofon';
+
+  @override
+  String syncingMinutesFrom(int minutes, String name) {
+    return '$minutes dk $name cihazından eşitleniyor…';
+  }
+
+  @override
+  String get alsoWorksWith => 'Omi, Bee, Fieldy, Friend, Limitless, Plaud ve Ray-Ban Meta ile de çalışır.';
+
+  @override
+  String get bluetoothIsOff => 'Bluetooth kapalı';
+
+  @override
+  String get bluetoothOffExplainer => 'Omi bağlanamıyor. Duyduklarını saklar ve geri döndüğünde gönderir.';
+
+  @override
+  String get turnOn => 'Aç';
+
+  @override
+  String get updateReady => 'Güncelleme hazır';
+
+  @override
+  String firmwareVersionLine(String version) {
+    return 'Sürüm $version';
+  }
+
+  @override
+  String get onYourOmi => 'Omi\'nde';
+
+  @override
+  String get newVersion => 'Yeni sürüm';
+
+  @override
+  String get whatDoYouWantToKnow => 'Ne bilmek istersin?';
+
+  @override
+  String get askSuggestDecide => 'Bugün neye karar verdim?';
+
+  @override
+  String get askSuggestOwe => 'Hâlâ insanlara ne borçluyum?';
+
+  @override
+  String get askSuggestNotice => 'Omi neyi fark etti?';
+
+  @override
+  String conversationsTodayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Bugün $count konuşma.',
+      one: 'Bugün 1 konuşma.',
+      zero: 'Bugün konuşma yok.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get readThePrivacyPolicy => 'Gizlilik Politikası\'nı oku';
+
+  @override
+  String get consentThreeThings => 'Bilmen gereken üç şey';
+
+  @override
+  String get consentChooseTitle => 'Omi\'nin ne zaman dinleyeceğine sen karar verirsin.';
+
+  @override
+  String get consentChooseBody =>
+      'Başlatmak ya da duraklatmak için Ana ekranın üstündeki Omi işaretine dokun veya cihazının düğmesini kullan.';
+
+  @override
+  String get consentAiTitle => 'Omi notlarını yapay zekâyla yazar.';
+
+  @override
+  String get consentDeleteTitle => 'Her şeyi silebilirsin.';
+
+  @override
+  String get iAgree => 'Kabul ediyorum';
+
+  @override
+  String get nameFromAccount => 'Bunu hesabından aldık. İstersen değiştir.';
+
+  @override
+  String notesLanguage(String language) {
+    return 'Notlar $language yazılacak.';
+  }
+
+  @override
+  String get howWillYouRecord => 'Nasıl kayıt yapacaksın?';
+
+  @override
+  String get addOrSwitchDevicesAnyTime => 'Cihaz eklemek veya değiştirmek her zaman mümkün.';
+
+  @override
+  String get iHaveAnOmi => 'Omi\'m var';
+
+  @override
+  String get iHaveAnOmiDetail => 'Kolye, Omi Glass veya Apple Watch';
+
+  @override
+  String get justThisPhoneForNow => 'Şimdilik sadece bu telefon';
+
+  @override
+  String get useTheIphoneMicrophone => 'iPhone\'un mikrofonunu kullan';
+
+  @override
+  String get useThePhoneMicrophone => 'Telefonun mikrofonunu kullan';
+
+  @override
+  String get iUseAnotherDevice => 'Plaud, Bee, Limitless veya başka bir cihaz kullanıyorum';
+
+  @override
+  String get allowTheMicrophone => 'Mikrofona izin ver';
+
+  @override
+  String get allowMicrophoneWhy =>
+      'Omi yalnızca Ana ekranın üstündeki Omi işareti hareket ederken kayıt yapar. İstediğin zaman duraklat.';
+
+  @override
+  String get allowMicrophone => 'Mikrofona izin ver';
+
+  @override
+  String get youreSet => 'Hazırsın.';
+
+  @override
+  String youreSetName(String name) {
+    return 'Hazırsın, $name.';
+  }
+
+  @override
+  String get youreSetBody =>
+      'Omi hazır. Dinlerken Ana ekranın üstündeki Omi işareti hareket eder. Duraklatmak veya cihaz değiştirmek için ona dokun.';
+
+  @override
+  String get keepAppRunningNote => 'Uygulamayı arka planda açık bırak. Zorla kapatırsan Omi dinlemeyi bırakır.';
+
+  @override
+  String get openOmi => 'Omi\'yi aç';
+
+  @override
+  String get welcomeListensSubtitle =>
+      'Omi istediğinde dinler ve söylenenleri notlara, yapılacaklara ve anılara dönüştürür.';
+
+  @override
+  String get syncingToYourPhone => 'Telefonuna eşitleniyor';
+
+  @override
+  String lastWeekday(String weekday) {
+    return 'Geçen $weekday';
+  }
+
+  @override
+  String dayAtTime(String day, String time) {
+    return '$day, $time';
+  }
+
+  @override
+  String memoryFromConversation(String day, String time) {
+    return '$day, $time konuşmasından';
+  }
 }

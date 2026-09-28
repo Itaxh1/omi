@@ -11913,4 +11913,351 @@ class AppLocalizationsTh extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get todoCardTitle => 'สิ่งที่ต้องทำ';
+
+  @override
+  String get notInAFolder => 'ไม่อยู่ในโฟลเดอร์';
+
+  @override
+  String stripSyncing(int minutes) {
+    return 'กำลังซิงก์ $minutes นาที';
+  }
+
+  @override
+  String get change => 'เปลี่ยน';
+
+  @override
+  String syncingFrom(String name) {
+    return 'กำลังซิงก์จาก $name';
+  }
+
+  @override
+  String minutesLeft(int minutes) {
+    return 'เหลือ $minutes นาที';
+  }
+
+  @override
+  String get viewTranscriptV3 => 'ดูบันทึกคำพูด';
+
+  @override
+  String get moveToFolderV3 => 'ย้ายไปยังโฟลเดอร์';
+
+  @override
+  String get copySummaryV3 => 'คัดลอกสรุป';
+
+  @override
+  String get deleteConversationV3 => 'ลบการสนทนา';
+
+  @override
+  String get copyTranscriptV3 => 'คัดลอกบทถอดความ';
+
+  @override
+  String get noFolderV3 => 'ไม่มีโฟลเดอร์';
+
+  @override
+  String get todosTab => 'สิ่งที่ต้องทำ';
+
+  @override
+  String get shareLink => 'แชร์ลิงก์';
+
+  @override
+  String get askOmiAboutThis => 'ถาม Omi เรื่องนี้';
+
+  @override
+  String get openInMaps => 'เปิดในแผนที่';
+
+  @override
+  String minutesShortV3(int minutes) {
+    return '$minutes นาที';
+  }
+
+  @override
+  String get noTodosInConversation => 'ไม่มีสิ่งที่ต้องทำในบทสนทนานี้';
+
+  @override
+  String get nameSpeakers => 'ตั้งชื่อผู้พูด';
+
+  @override
+  String get backToSummary => 'กลับไปที่สรุป';
+
+  @override
+  String speakerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ผู้พูด $count คน',
+      one: 'ผู้พูด 1 คน',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noTranscriptYet => 'ยังไม่มีข้อความถอดเสียง';
+
+  @override
+  String dueOn(String day) {
+    return 'ครบกำหนด$day';
+  }
+
+  @override
+  String get lateTag => 'เลยกำหนด';
+
+  @override
+  String get allConversations => 'บทสนทนาทั้งหมด';
+
+  @override
+  String get newFolderV3 => 'โฟลเดอร์ใหม่';
+
+  @override
+  String get doubleTapV3 => 'แตะสองครั้ง';
+
+  @override
+  String get browseAllApps => 'ดูแอปทั้งหมด';
+
+  @override
+  String get todoNewTag => 'ใหม่';
+
+  @override
+  String memoriesGraphCaption(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ความทรงจำ $count รายการ แตะชื่อเพื่อดูว่า Omi รู้อะไรบ้าง',
+      one: 'ความทรงจำ 1 รายการ แตะชื่อเพื่อดูว่า Omi รู้อะไรบ้าง',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String memoriesAbout(String name) {
+    return 'ความทรงจำเกี่ยวกับ $name';
+  }
+
+  @override
+  String get memoriesEmptyV3 => 'สิ่งที่ Omi เรียนรู้เกี่ยวกับคุณและคนที่คุณคุยด้วยจะแสดงที่นี่';
+
+  @override
+  String get look => 'รูปลักษณ์';
+
+  @override
+  String get lookWhite => 'ขาว';
+
+  @override
+  String get lookBlack => 'ดำ';
+
+  @override
+  String get startWhenOmiOpens => 'เริ่มเมื่อเปิด Omi';
+
+  @override
+  String get pendantButton => 'ปุ่มจี้';
+
+  @override
+  String get allSettings => 'การตั้งค่าทั้งหมด';
+
+  @override
+  String get whatTheLightMeans => 'ไฟหมายถึงอะไร';
+
+  @override
+  String get lightSolidRed => 'แดงค้าง';
+
+  @override
+  String get lightSolidRedMeaning => 'เปิดอยู่ ยังไม่เชื่อมต่อกับโทรศัพท์';
+
+  @override
+  String get lightBlinkingRed => 'แดงกะพริบ';
+
+  @override
+  String get lightBlinkingRedMeaning => 'รอเวลาจากโทรศัพท์ เชื่อมต่อแล้วจะตั้งเวลาให้';
+
+  @override
+  String get lightSolidBlue => 'น้ำเงินค้าง';
+
+  @override
+  String get lightSolidBlueMeaning => 'เปิดอยู่และเชื่อมต่อแล้ว';
+
+  @override
+  String get lightGreenRed => 'เขียวและแดงกะพริบ';
+
+  @override
+  String get lightGreenRedMeaning => 'กำลังชาร์จ ยังไม่เชื่อมต่อ';
+
+  @override
+  String get lightGreenBlue => 'เขียวและน้ำเงินกะพริบ';
+
+  @override
+  String get lightGreenBlueMeaning => 'กำลังชาร์จ เชื่อมต่อแล้ว';
+
+  @override
+  String get lightSolidGreen => 'เขียวค้าง';
+
+  @override
+  String get lightSolidGreenMeaning => 'ชาร์จเต็มแล้ว';
+
+  @override
+  String get recordFrom => 'บันทึกจาก';
+
+  @override
+  String get recordingLower => 'กำลังบันทึก';
+
+  @override
+  String get builtInMic => 'ไมค์ในตัว';
+
+  @override
+  String syncingMinutesFrom(int minutes, String name) {
+    return 'กำลังซิงก์ $minutes นาทีจาก $name…';
+  }
+
+  @override
+  String get alsoWorksWith => 'Omi ใช้กับ Bee, Fieldy, Friend, Limitless, Plaud และ Ray-Ban Meta ได้ด้วย';
+
+  @override
+  String get bluetoothIsOff => 'บลูทูธปิดอยู่';
+
+  @override
+  String get bluetoothOffExplainer => 'Omi เชื่อมต่อไม่ได้ จะเก็บสิ่งที่ได้ยินไว้และส่งเมื่อคุณกลับมา';
+
+  @override
+  String get turnOn => 'เปิด';
+
+  @override
+  String get updateReady => 'อัปเดตพร้อมแล้ว';
+
+  @override
+  String firmwareVersionLine(String version) {
+    return 'เวอร์ชัน $version';
+  }
+
+  @override
+  String get onYourOmi => 'บน Omi ของคุณ';
+
+  @override
+  String get newVersion => 'เวอร์ชันใหม่';
+
+  @override
+  String get whatDoYouWantToKnow => 'อยากรู้อะไร';
+
+  @override
+  String get askSuggestDecide => 'วันนี้ฉันตัดสินใจอะไรบ้าง';
+
+  @override
+  String get askSuggestOwe => 'ฉันยังค้างอะไรใครอยู่บ้าง';
+
+  @override
+  String get askSuggestNotice => 'Omi สังเกตเห็นอะไร';
+
+  @override
+  String conversationsTodayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'วันนี้มี $count บทสนทนา',
+      one: 'วันนี้มี 1 บทสนทนา',
+      zero: 'วันนี้ยังไม่มีบทสนทนา',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get readThePrivacyPolicy => 'อ่านนโยบายความเป็นส่วนตัว';
+
+  @override
+  String get consentThreeThings => 'สามเรื่องที่ควรรู้';
+
+  @override
+  String get consentChooseTitle => 'คุณเลือกได้ว่า Omi จะฟังเมื่อไร';
+
+  @override
+  String get consentChooseBody => 'แตะเครื่องหมาย Omi ด้านบนของหน้าหลักเพื่อเริ่มหรือหยุดชั่วคราว หรือใช้ปุ่มบนอุปกรณ์';
+
+  @override
+  String get consentAiTitle => 'Omi ใช้ AI เขียนบันทึกให้คุณ';
+
+  @override
+  String get consentDeleteTitle => 'คุณลบอะไรก็ได้';
+
+  @override
+  String get iAgree => 'ยอมรับ';
+
+  @override
+  String get nameFromAccount => 'เราใช้ชื่อจากบัญชีของคุณ เปลี่ยนได้ตามต้องการ';
+
+  @override
+  String notesLanguage(String language) {
+    return 'บันทึกจะเขียนเป็นภาษา$language';
+  }
+
+  @override
+  String get howWillYouRecord => 'คุณจะบันทึกด้วยอะไร';
+
+  @override
+  String get addOrSwitchDevicesAnyTime => 'เพิ่มหรือเปลี่ยนอุปกรณ์ได้ทุกเมื่อ';
+
+  @override
+  String get iHaveAnOmi => 'มี Omi อยู่แล้ว';
+
+  @override
+  String get iHaveAnOmiDetail => 'จี้ Omi Glass หรือ Apple Watch';
+
+  @override
+  String get justThisPhoneForNow => 'ใช้โทรศัพท์เครื่องนี้ไปก่อน';
+
+  @override
+  String get useTheIphoneMicrophone => 'ใช้ไมโครโฟนของ iPhone';
+
+  @override
+  String get useThePhoneMicrophone => 'ใช้ไมโครโฟนของโทรศัพท์';
+
+  @override
+  String get iUseAnotherDevice => 'ใช้ Plaud, Bee, Limitless หรืออุปกรณ์อื่น';
+
+  @override
+  String get allowTheMicrophone => 'อนุญาตไมโครโฟน';
+
+  @override
+  String get allowMicrophoneWhy =>
+      'Omi จะบันทึกเฉพาะตอนที่เครื่องหมาย Omi ด้านบนของหน้าหลักขยับอยู่ หยุดชั่วคราวได้ทุกเมื่อ';
+
+  @override
+  String get allowMicrophone => 'อนุญาตไมโครโฟน';
+
+  @override
+  String get youreSet => 'พร้อมแล้ว';
+
+  @override
+  String youreSetName(String name) {
+    return 'พร้อมแล้ว $name';
+  }
+
+  @override
+  String get youreSetBody =>
+      'Omi พร้อมแล้ว เครื่องหมาย Omi ด้านบนของหน้าหลักจะขยับขณะฟัง แตะเพื่อหยุดชั่วคราวหรือเปลี่ยนอุปกรณ์';
+
+  @override
+  String get keepAppRunningNote => 'เปิดแอปค้างไว้เบื้องหลัง หากบังคับปิด Omi จะหยุดฟัง';
+
+  @override
+  String get openOmi => 'เปิด Omi';
+
+  @override
+  String get welcomeListensSubtitle => 'Omi ฟังเมื่อคุณสั่ง แล้วเปลี่ยนสิ่งที่พูดเป็นบันทึก สิ่งที่ต้องทำ และความทรงจำ';
+
+  @override
+  String get syncingToYourPhone => 'กำลังซิงก์ไปยังโทรศัพท์';
+
+  @override
+  String lastWeekday(String weekday) {
+    return '$weekdayที่แล้ว';
+  }
+
+  @override
+  String dayAtTime(String day, String time) {
+    return '$day $time';
+  }
+
+  @override
+  String memoryFromConversation(String day, String time) {
+    return '$day จากบทสนทนาเวลา $time';
+  }
 }

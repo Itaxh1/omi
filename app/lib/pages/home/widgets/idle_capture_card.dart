@@ -8,7 +8,7 @@ import 'package:omi/backend/preferences.dart';
 import 'package:omi/backend/schema/phone_call.dart';
 import 'package:omi/pages/conversations/widgets/live_capture_card.dart';
 import 'package:omi/pages/devices/add_device_page.dart';
-import 'package:omi/pages/home/widgets/battery_info_widget.dart';
+import 'package:omi/pages/home/widgets/phone_capture.dart';
 import 'package:omi/providers/capture_provider.dart';
 import 'package:omi/providers/device_provider.dart';
 import 'package:omi/providers/phone_call_provider.dart';

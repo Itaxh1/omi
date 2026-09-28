@@ -12049,4 +12049,353 @@ class AppLocalizationsCa extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get todoCardTitle => 'Per fer';
+
+  @override
+  String get notInAFolder => 'Sense carpeta';
+
+  @override
+  String stripSyncing(int minutes) {
+    return 'sincronitzant $minutes min';
+  }
+
+  @override
+  String get change => 'Canvia';
+
+  @override
+  String syncingFrom(String name) {
+    return 'Sincronitzant des de $name';
+  }
+
+  @override
+  String minutesLeft(int minutes) {
+    return 'queden $minutes min';
+  }
+
+  @override
+  String get viewTranscriptV3 => 'Veure transcripció';
+
+  @override
+  String get moveToFolderV3 => 'Moure a la carpeta';
+
+  @override
+  String get copySummaryV3 => 'Copiar resum';
+
+  @override
+  String get deleteConversationV3 => 'Suprimir conversa';
+
+  @override
+  String get copyTranscriptV3 => 'Copiar transcripció';
+
+  @override
+  String get noFolderV3 => 'Sense carpeta';
+
+  @override
+  String get todosTab => 'Per fer';
+
+  @override
+  String get shareLink => 'Comparteix l\'enllaç';
+
+  @override
+  String get askOmiAboutThis => 'Pregunta a Omi sobre això';
+
+  @override
+  String get openInMaps => 'Obre a Mapes';
+
+  @override
+  String minutesShortV3(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get noTodosInConversation => 'No hi ha tasques en aquesta conversa';
+
+  @override
+  String get nameSpeakers => 'Posa nom als interlocutors';
+
+  @override
+  String get backToSummary => 'Torna al resum';
+
+  @override
+  String speakerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count interlocutors',
+      one: '1 interlocutor',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noTranscriptYet => 'Encara no hi ha transcripció';
+
+  @override
+  String dueOn(String day) {
+    return 'Venç: $day';
+  }
+
+  @override
+  String get lateTag => 'Endarrerida';
+
+  @override
+  String get allConversations => 'Totes les converses';
+
+  @override
+  String get newFolderV3 => 'Carpeta nova';
+
+  @override
+  String get doubleTapV3 => 'Doble toc';
+
+  @override
+  String get browseAllApps => 'Explora totes les apps';
+
+  @override
+  String get todoNewTag => 'Nova';
+
+  @override
+  String memoriesGraphCaption(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count records. Toca un nom per veure què en sap l\'Omi.',
+      one: '1 record. Toca un nom per veure què en sap l\'Omi.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String memoriesAbout(String name) {
+    return 'Records sobre $name';
+  }
+
+  @override
+  String get memoriesEmptyV3 => 'Aquí apareix el que l\'Omi aprèn de tu i de la gent amb qui parles.';
+
+  @override
+  String get look => 'Aspecte';
+
+  @override
+  String get lookWhite => 'Blanc';
+
+  @override
+  String get lookBlack => 'Negre';
+
+  @override
+  String get startWhenOmiOpens => 'Comença en obrir l\'Omi';
+
+  @override
+  String get pendantButton => 'Botó del penjoll';
+
+  @override
+  String get allSettings => 'Tots els ajustos';
+
+  @override
+  String get whatTheLightMeans => 'Què vol dir el llum';
+
+  @override
+  String get lightSolidRed => 'Vermell fix';
+
+  @override
+  String get lightSolidRedMeaning => 'Encès, sense connexió amb el telèfon';
+
+  @override
+  String get lightBlinkingRed => 'Vermell intermitent';
+
+  @override
+  String get lightBlinkingRedMeaning => 'Espera l\'hora del telèfon. En connectar-lo es configura.';
+
+  @override
+  String get lightSolidBlue => 'Blau fix';
+
+  @override
+  String get lightSolidBlueMeaning => 'Encès i connectat';
+
+  @override
+  String get lightGreenRed => 'Verd i vermell intermitents';
+
+  @override
+  String get lightGreenRedMeaning => 'Carregant, sense connexió';
+
+  @override
+  String get lightGreenBlue => 'Verd i blau intermitents';
+
+  @override
+  String get lightGreenBlueMeaning => 'Carregant, connectat';
+
+  @override
+  String get lightSolidGreen => 'Verd fix';
+
+  @override
+  String get lightSolidGreenMeaning => 'Carregat del tot';
+
+  @override
+  String get recordFrom => 'Grava des de';
+
+  @override
+  String get recordingLower => 'gravant';
+
+  @override
+  String get builtInMic => 'micròfon integrat';
+
+  @override
+  String syncingMinutesFrom(int minutes, String name) {
+    return 'Sincronitzant $minutes min des de $name…';
+  }
+
+  @override
+  String get alsoWorksWith => 'L\'Omi també funciona amb Bee, Fieldy, Friend, Limitless, Plaud i Ray-Ban Meta.';
+
+  @override
+  String get bluetoothIsOff => 'El Bluetooth està desactivat';
+
+  @override
+  String get bluetoothOffExplainer => 'L\'Omi no es pot connectar. Guarda el que sent i ho envia quan tornis.';
+
+  @override
+  String get turnOn => 'Activa';
+
+  @override
+  String get updateReady => 'Actualització a punt';
+
+  @override
+  String firmwareVersionLine(String version) {
+    return 'Versió $version';
+  }
+
+  @override
+  String get onYourOmi => 'A l\'Omi';
+
+  @override
+  String get newVersion => 'Versió nova';
+
+  @override
+  String get whatDoYouWantToKnow => 'Què vols saber?';
+
+  @override
+  String get askSuggestDecide => 'Què he decidit avui?';
+
+  @override
+  String get askSuggestOwe => 'Què encara dec a la gent?';
+
+  @override
+  String get askSuggestNotice => 'Què ha notat l\'Omi?';
+
+  @override
+  String conversationsTodayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count converses avui.',
+      one: '1 conversa avui.',
+      zero: 'Avui cap conversa.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get readThePrivacyPolicy => 'Llegeix la Política de privadesa';
+
+  @override
+  String get consentThreeThings => 'Tres coses que cal saber';
+
+  @override
+  String get consentChooseTitle => 'Tu tries quan escolta l\'Omi.';
+
+  @override
+  String get consentChooseBody =>
+      'Toca la marca de l\'Omi a dalt de l\'Inici per començar o pausar, o fes servir el botó del dispositiu.';
+
+  @override
+  String get consentAiTitle => 'L\'Omi fa servir IA per escriure les teves notes.';
+
+  @override
+  String get consentDeleteTitle => 'Pots esborrar qualsevol cosa.';
+
+  @override
+  String get iAgree => 'D\'acord';
+
+  @override
+  String get nameFromAccount => 'L\'hem agafat del teu compte. Canvia\'l si vols.';
+
+  @override
+  String notesLanguage(String language) {
+    return 'Les notes seran en $language.';
+  }
+
+  @override
+  String get howWillYouRecord => 'Com gravaràs?';
+
+  @override
+  String get addOrSwitchDevicesAnyTime => 'Pots afegir o canviar de dispositiu quan vulguis.';
+
+  @override
+  String get iHaveAnOmi => 'Tinc un Omi';
+
+  @override
+  String get iHaveAnOmiDetail => 'Penjoll, Omi Glass o Apple Watch';
+
+  @override
+  String get justThisPhoneForNow => 'De moment, només aquest telèfon';
+
+  @override
+  String get useTheIphoneMicrophone => 'Fes servir el micròfon de l\'iPhone';
+
+  @override
+  String get useThePhoneMicrophone => 'Fes servir el micròfon del telèfon';
+
+  @override
+  String get iUseAnotherDevice => 'Faig servir Plaud, Bee, Limitless o un altre dispositiu';
+
+  @override
+  String get allowTheMicrophone => 'Permet el micròfon';
+
+  @override
+  String get allowMicrophoneWhy =>
+      'L\'Omi només grava mentre la marca de dalt de l\'Inici es mou. Pausa-ho quan vulguis.';
+
+  @override
+  String get allowMicrophone => 'Permet el micròfon';
+
+  @override
+  String get youreSet => 'Tot a punt.';
+
+  @override
+  String youreSetName(String name) {
+    return 'Tot a punt, $name.';
+  }
+
+  @override
+  String get youreSetBody =>
+      'L\'Omi està a punt. La marca de dalt de l\'Inici es mou mentre escolta. Toca-la per pausar o canviar de dispositiu.';
+
+  @override
+  String get keepAppRunningNote => 'Deixa l\'app oberta en segon pla. Si la tanques del tot, l\'Omi deixa d\'escoltar.';
+
+  @override
+  String get openOmi => 'Obre l\'Omi';
+
+  @override
+  String get welcomeListensSubtitle =>
+      'L\'Omi escolta quan li ho demanes i converteix el que s\'ha dit en notes, tasques i records.';
+
+  @override
+  String get syncingToYourPhone => 'Sincronitzant amb el telèfon';
+
+  @override
+  String lastWeekday(String weekday) {
+    return 'El $weekday passat';
+  }
+
+  @override
+  String dayAtTime(String day, String time) {
+    return '$day, $time';
+  }
+
+  @override
+  String memoryFromConversation(String day, String time) {
+    return '$day, de la conversa de les $time';
+  }
 }

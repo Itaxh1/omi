@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 import 'package:omi/pages/capture/connect.dart';
 import 'package:omi/pages/devices/device_picker.dart';
-import 'package:omi/pages/home/widgets/battery_info_widget.dart';
+import 'package:omi/pages/home/widgets/phone_capture.dart';
 import 'package:omi/providers/capture_provider.dart';
 import 'package:omi/providers/home_provider.dart';
 import 'package:omi/ui/ui.dart';

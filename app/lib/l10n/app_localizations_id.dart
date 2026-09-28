@@ -11996,4 +11996,354 @@ class AppLocalizationsId extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get todoCardTitle => 'Tugas';
+
+  @override
+  String get notInAFolder => 'Tidak dalam folder';
+
+  @override
+  String stripSyncing(int minutes) {
+    return 'menyinkronkan $minutes mnt';
+  }
+
+  @override
+  String get change => 'Ubah';
+
+  @override
+  String syncingFrom(String name) {
+    return 'Menyinkronkan dari $name';
+  }
+
+  @override
+  String minutesLeft(int minutes) {
+    return 'sisa $minutes mnt';
+  }
+
+  @override
+  String get viewTranscriptV3 => 'Lihat Transkrip';
+
+  @override
+  String get moveToFolderV3 => 'Pindahkan ke Folder';
+
+  @override
+  String get copySummaryV3 => 'Salin ringkasan';
+
+  @override
+  String get deleteConversationV3 => 'Hapus Percakapan';
+
+  @override
+  String get copyTranscriptV3 => 'Salin transkrip';
+
+  @override
+  String get noFolderV3 => 'Tanpa folder';
+
+  @override
+  String get todosTab => 'Tugas';
+
+  @override
+  String get shareLink => 'Bagikan tautan';
+
+  @override
+  String get askOmiAboutThis => 'Tanya Omi tentang ini';
+
+  @override
+  String get openInMaps => 'Buka di Peta';
+
+  @override
+  String minutesShortV3(int minutes) {
+    return '$minutes mnt';
+  }
+
+  @override
+  String get noTodosInConversation => 'Tidak ada tugas dalam percakapan ini';
+
+  @override
+  String get nameSpeakers => 'Beri nama pembicara';
+
+  @override
+  String get backToSummary => 'Kembali ke ringkasan';
+
+  @override
+  String speakerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count pembicara',
+      one: '1 pembicara',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noTranscriptYet => 'Belum ada transkrip';
+
+  @override
+  String dueOn(String day) {
+    return 'Jatuh tempo $day';
+  }
+
+  @override
+  String get lateTag => 'Terlambat';
+
+  @override
+  String get allConversations => 'Semua percakapan';
+
+  @override
+  String get newFolderV3 => 'Folder Baru';
+
+  @override
+  String get doubleTapV3 => 'Ketuk Ganda';
+
+  @override
+  String get browseAllApps => 'Jelajahi semua aplikasi';
+
+  @override
+  String get todoNewTag => 'Baru';
+
+  @override
+  String memoriesGraphCaption(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count memori. Ketuk nama untuk melihat apa yang Omi ketahui.',
+      one: '1 memori. Ketuk nama untuk melihat apa yang Omi ketahui.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String memoriesAbout(String name) {
+    return 'Memori tentang $name';
+  }
+
+  @override
+  String get memoriesEmptyV3 => 'Hal yang Omi pelajari tentang Anda dan orang yang Anda ajak bicara muncul di sini.';
+
+  @override
+  String get look => 'Tampilan';
+
+  @override
+  String get lookWhite => 'Putih';
+
+  @override
+  String get lookBlack => 'Hitam';
+
+  @override
+  String get startWhenOmiOpens => 'Mulai saat Omi dibuka';
+
+  @override
+  String get pendantButton => 'Tombol liontin';
+
+  @override
+  String get allSettings => 'Semua pengaturan';
+
+  @override
+  String get whatTheLightMeans => 'Arti lampu';
+
+  @override
+  String get lightSolidRed => 'Merah menyala';
+
+  @override
+  String get lightSolidRedMeaning => 'Menyala, tidak terhubung ke ponsel';
+
+  @override
+  String get lightBlinkingRed => 'Merah berkedip';
+
+  @override
+  String get lightBlinkingRedMeaning => 'Menunggu waktu dari ponsel. Menghubungkan akan mengaturnya.';
+
+  @override
+  String get lightSolidBlue => 'Biru menyala';
+
+  @override
+  String get lightSolidBlueMeaning => 'Menyala dan terhubung';
+
+  @override
+  String get lightGreenRed => 'Hijau dan merah berkedip';
+
+  @override
+  String get lightGreenRedMeaning => 'Mengisi daya, tidak terhubung';
+
+  @override
+  String get lightGreenBlue => 'Hijau dan biru berkedip';
+
+  @override
+  String get lightGreenBlueMeaning => 'Mengisi daya, terhubung';
+
+  @override
+  String get lightSolidGreen => 'Hijau menyala';
+
+  @override
+  String get lightSolidGreenMeaning => 'Terisi penuh';
+
+  @override
+  String get recordFrom => 'Rekam dari';
+
+  @override
+  String get recordingLower => 'merekam';
+
+  @override
+  String get builtInMic => 'mikrofon bawaan';
+
+  @override
+  String syncingMinutesFrom(int minutes, String name) {
+    return 'Menyinkronkan $minutes mnt dari $name…';
+  }
+
+  @override
+  String get alsoWorksWith => 'Omi juga bekerja dengan Bee, Fieldy, Friend, Limitless, Plaud, dan Ray-Ban Meta.';
+
+  @override
+  String get bluetoothIsOff => 'Bluetooth mati';
+
+  @override
+  String get bluetoothOffExplainer =>
+      'Omi tidak bisa terhubung. Omi menyimpan yang didengar dan mengirimnya saat Anda kembali.';
+
+  @override
+  String get turnOn => 'Nyalakan';
+
+  @override
+  String get updateReady => 'Pembaruan siap';
+
+  @override
+  String firmwareVersionLine(String version) {
+    return 'Versi $version';
+  }
+
+  @override
+  String get onYourOmi => 'Di Omi Anda';
+
+  @override
+  String get newVersion => 'Versi baru';
+
+  @override
+  String get whatDoYouWantToKnow => 'Apa yang ingin Anda ketahui?';
+
+  @override
+  String get askSuggestDecide => 'Apa yang saya putuskan hari ini?';
+
+  @override
+  String get askSuggestOwe => 'Apa yang masih saya utang ke orang lain?';
+
+  @override
+  String get askSuggestNotice => 'Apa yang Omi perhatikan?';
+
+  @override
+  String conversationsTodayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count percakapan hari ini.',
+      one: '1 percakapan hari ini.',
+      zero: 'Tidak ada percakapan hari ini.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get readThePrivacyPolicy => 'Baca Kebijakan Privasi';
+
+  @override
+  String get consentThreeThings => 'Tiga hal yang perlu diketahui';
+
+  @override
+  String get consentChooseTitle => 'Anda memilih kapan Omi mendengarkan.';
+
+  @override
+  String get consentChooseBody =>
+      'Ketuk tanda Omi di atas Beranda untuk mulai atau jeda, atau gunakan tombol di perangkat Anda.';
+
+  @override
+  String get consentAiTitle => 'Omi menggunakan AI untuk menulis catatan Anda.';
+
+  @override
+  String get consentDeleteTitle => 'Anda bisa menghapus apa saja.';
+
+  @override
+  String get iAgree => 'Saya setuju';
+
+  @override
+  String get nameFromAccount => 'Kami mengambilnya dari akun Anda. Ubah jika mau.';
+
+  @override
+  String notesLanguage(String language) {
+    return 'Catatan akan ditulis dalam $language.';
+  }
+
+  @override
+  String get howWillYouRecord => 'Bagaimana Anda akan merekam?';
+
+  @override
+  String get addOrSwitchDevicesAnyTime => 'Anda bisa menambah atau mengganti perangkat kapan saja.';
+
+  @override
+  String get iHaveAnOmi => 'Saya punya Omi';
+
+  @override
+  String get iHaveAnOmiDetail => 'Liontin, Omi Glass, atau Apple Watch';
+
+  @override
+  String get justThisPhoneForNow => 'Ponsel ini saja dulu';
+
+  @override
+  String get useTheIphoneMicrophone => 'Gunakan mikrofon iPhone';
+
+  @override
+  String get useThePhoneMicrophone => 'Gunakan mikrofon ponsel';
+
+  @override
+  String get iUseAnotherDevice => 'Saya pakai Plaud, Bee, Limitless, atau perangkat lain';
+
+  @override
+  String get allowTheMicrophone => 'Izinkan mikrofon';
+
+  @override
+  String get allowMicrophoneWhy => 'Omi merekam hanya saat tanda Omi di atas Beranda bergerak. Jeda kapan saja.';
+
+  @override
+  String get allowMicrophone => 'Izinkan mikrofon';
+
+  @override
+  String get youreSet => 'Semua siap.';
+
+  @override
+  String youreSetName(String name) {
+    return 'Semua siap, $name.';
+  }
+
+  @override
+  String get youreSetBody =>
+      'Omi siap. Tanda Omi di atas Beranda bergerak saat mendengarkan. Ketuk untuk menjeda atau mengganti perangkat.';
+
+  @override
+  String get keepAppRunningNote =>
+      'Biarkan aplikasi berjalan di latar belakang. Jika Anda menutup paksa, Omi berhenti mendengarkan.';
+
+  @override
+  String get openOmi => 'Buka Omi';
+
+  @override
+  String get welcomeListensSubtitle =>
+      'Omi mendengarkan saat Anda minta dan mengubah percakapan menjadi catatan, tugas, dan memori.';
+
+  @override
+  String get syncingToYourPhone => 'Menyinkronkan ke ponsel';
+
+  @override
+  String lastWeekday(String weekday) {
+    return '$weekday lalu';
+  }
+
+  @override
+  String dayAtTime(String day, String time) {
+    return '$day, $time';
+  }
+
+  @override
+  String memoryFromConversation(String day, String time) {
+    return '$day, dari percakapan pukul $time';
+  }
 }

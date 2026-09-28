@@ -12037,4 +12037,353 @@ class AppLocalizationsRo extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get todoCardTitle => 'De făcut';
+
+  @override
+  String get notInAFolder => 'În niciun dosar';
+
+  @override
+  String stripSyncing(int minutes) {
+    return 'se sincronizează $minutes min';
+  }
+
+  @override
+  String get change => 'Schimbă';
+
+  @override
+  String syncingFrom(String name) {
+    return 'Se sincronizează de pe $name';
+  }
+
+  @override
+  String minutesLeft(int minutes) {
+    return 'au mai rămas $minutes min';
+  }
+
+  @override
+  String get viewTranscriptV3 => 'Vizualizează transcrierea';
+
+  @override
+  String get moveToFolderV3 => 'Mutați în dosar';
+
+  @override
+  String get copySummaryV3 => 'Copiază rezumatul';
+
+  @override
+  String get deleteConversationV3 => 'Șterge conversația';
+
+  @override
+  String get copyTranscriptV3 => 'Copiază transcrierea';
+
+  @override
+  String get noFolderV3 => 'Fără dosar';
+
+  @override
+  String get todosTab => 'De făcut';
+
+  @override
+  String get shareLink => 'Partajează linkul';
+
+  @override
+  String get askOmiAboutThis => 'Întreabă Omi despre asta';
+
+  @override
+  String get openInMaps => 'Deschide în Hărți';
+
+  @override
+  String minutesShortV3(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get noTodosInConversation => 'Nicio sarcină în această conversație';
+
+  @override
+  String get nameSpeakers => 'Denumește vorbitorii';
+
+  @override
+  String get backToSummary => 'Înapoi la rezumat';
+
+  @override
+  String speakerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count vorbitori',
+      one: '1 vorbitor',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noTranscriptYet => 'Încă nu există transcriere';
+
+  @override
+  String dueOn(String day) {
+    return 'Termen: $day';
+  }
+
+  @override
+  String get lateTag => 'Întârziată';
+
+  @override
+  String get allConversations => 'Toate conversațiile';
+
+  @override
+  String get newFolderV3 => 'Dosar nou';
+
+  @override
+  String get doubleTapV3 => 'Dublă apăsare';
+
+  @override
+  String get browseAllApps => 'Vezi toate aplicațiile';
+
+  @override
+  String get todoNewTag => 'Nouă';
+
+  @override
+  String memoriesGraphCaption(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count amintiri. Atinge un nume ca să vezi ce știe Omi.',
+      one: '1 amintire. Atinge un nume ca să vezi ce știe Omi.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String memoriesAbout(String name) {
+    return 'Amintiri despre $name';
+  }
+
+  @override
+  String get memoriesEmptyV3 => 'Aici apare ce învață Omi despre tine și oamenii cu care vorbești.';
+
+  @override
+  String get look => 'Aspect';
+
+  @override
+  String get lookWhite => 'Alb';
+
+  @override
+  String get lookBlack => 'Negru';
+
+  @override
+  String get startWhenOmiOpens => 'Pornește când se deschide Omi';
+
+  @override
+  String get pendantButton => 'Butonul pandantivului';
+
+  @override
+  String get allSettings => 'Toate setările';
+
+  @override
+  String get whatTheLightMeans => 'Ce înseamnă lumina';
+
+  @override
+  String get lightSolidRed => 'Roșu continuu';
+
+  @override
+  String get lightSolidRedMeaning => 'Pornit, neconectat la telefon';
+
+  @override
+  String get lightBlinkingRed => 'Roșu intermitent';
+
+  @override
+  String get lightBlinkingRedMeaning => 'Așteaptă ora de la telefon. Conectarea o setează.';
+
+  @override
+  String get lightSolidBlue => 'Albastru continuu';
+
+  @override
+  String get lightSolidBlueMeaning => 'Pornit și conectat';
+
+  @override
+  String get lightGreenRed => 'Verde și roșu intermitent';
+
+  @override
+  String get lightGreenRedMeaning => 'Se încarcă, neconectat';
+
+  @override
+  String get lightGreenBlue => 'Verde și albastru intermitent';
+
+  @override
+  String get lightGreenBlueMeaning => 'Se încarcă, conectat';
+
+  @override
+  String get lightSolidGreen => 'Verde continuu';
+
+  @override
+  String get lightSolidGreenMeaning => 'Încărcat complet';
+
+  @override
+  String get recordFrom => 'Înregistrează de pe';
+
+  @override
+  String get recordingLower => 'înregistrează';
+
+  @override
+  String get builtInMic => 'microfon încorporat';
+
+  @override
+  String syncingMinutesFrom(int minutes, String name) {
+    return 'Se sincronizează $minutes min de pe $name…';
+  }
+
+  @override
+  String get alsoWorksWith => 'Omi funcționează și cu Bee, Fieldy, Friend, Limitless, Plaud și Ray-Ban Meta.';
+
+  @override
+  String get bluetoothIsOff => 'Bluetooth este oprit';
+
+  @override
+  String get bluetoothOffExplainer => 'Omi nu se poate conecta. Păstrează ce aude și trimite când revii.';
+
+  @override
+  String get turnOn => 'Pornește';
+
+  @override
+  String get updateReady => 'Actualizare disponibilă';
+
+  @override
+  String firmwareVersionLine(String version) {
+    return 'Versiunea $version';
+  }
+
+  @override
+  String get onYourOmi => 'Pe Omi';
+
+  @override
+  String get newVersion => 'Versiune nouă';
+
+  @override
+  String get whatDoYouWantToKnow => 'Ce vrei să afli?';
+
+  @override
+  String get askSuggestDecide => 'Ce am decis azi?';
+
+  @override
+  String get askSuggestOwe => 'Ce le mai datorez oamenilor?';
+
+  @override
+  String get askSuggestNotice => 'Ce a observat Omi?';
+
+  @override
+  String conversationsTodayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count conversații azi.',
+      one: '1 conversație azi.',
+      zero: 'Nicio conversație azi.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get readThePrivacyPolicy => 'Citește Politica de confidențialitate';
+
+  @override
+  String get consentThreeThings => 'Trei lucruri de știut';
+
+  @override
+  String get consentChooseTitle => 'Tu alegi când ascultă Omi.';
+
+  @override
+  String get consentChooseBody =>
+      'Atinge semnul Omi din partea de sus a ecranului principal ca să pornești sau să întrerupi, sau folosește butonul dispozitivului.';
+
+  @override
+  String get consentAiTitle => 'Omi folosește AI ca să-ți scrie notițele.';
+
+  @override
+  String get consentDeleteTitle => 'Poți șterge orice.';
+
+  @override
+  String get iAgree => 'Sunt de acord';
+
+  @override
+  String get nameFromAccount => 'L-am luat din contul tău. Schimbă-l dacă vrei.';
+
+  @override
+  String notesLanguage(String language) {
+    return 'Notițele vor fi scrise în $language.';
+  }
+
+  @override
+  String get howWillYouRecord => 'Cum vei înregistra?';
+
+  @override
+  String get addOrSwitchDevicesAnyTime => 'Poți adăuga sau schimba dispozitive oricând.';
+
+  @override
+  String get iHaveAnOmi => 'Am un Omi';
+
+  @override
+  String get iHaveAnOmiDetail => 'Pandantiv, Omi Glass sau Apple Watch';
+
+  @override
+  String get justThisPhoneForNow => 'Deocamdată doar acest telefon';
+
+  @override
+  String get useTheIphoneMicrophone => 'Folosește microfonul iPhone-ului';
+
+  @override
+  String get useThePhoneMicrophone => 'Folosește microfonul telefonului';
+
+  @override
+  String get iUseAnotherDevice => 'Folosesc Plaud, Bee, Limitless sau alt dispozitiv';
+
+  @override
+  String get allowTheMicrophone => 'Permite microfonul';
+
+  @override
+  String get allowMicrophoneWhy =>
+      'Omi înregistrează doar cât timp semnul Omi din partea de sus a ecranului principal se mișcă. Întrerupe oricând.';
+
+  @override
+  String get allowMicrophone => 'Permite microfonul';
+
+  @override
+  String get youreSet => 'Totul e gata.';
+
+  @override
+  String youreSetName(String name) {
+    return 'Totul e gata, $name.';
+  }
+
+  @override
+  String get youreSetBody =>
+      'Omi e gata. Semnul Omi din partea de sus a ecranului principal se mișcă cât ascultă. Atinge-l ca să întrerupi sau să schimbi dispozitivul.';
+
+  @override
+  String get keepAppRunningNote => 'Lasă aplicația să ruleze în fundal. Dacă o închizi forțat, Omi nu mai ascultă.';
+
+  @override
+  String get openOmi => 'Deschide Omi';
+
+  @override
+  String get welcomeListensSubtitle =>
+      'Omi ascultă când îi ceri și transformă ce s-a spus în notițe, sarcini și amintiri.';
+
+  @override
+  String get syncingToYourPhone => 'Se sincronizează pe telefon';
+
+  @override
+  String lastWeekday(String weekday) {
+    return '$weekday trecută';
+  }
+
+  @override
+  String dayAtTime(String day, String time) {
+    return '$day, $time';
+  }
+
+  @override
+  String memoryFromConversation(String day, String time) {
+    return '$day, din conversația de la $time';
+  }
 }

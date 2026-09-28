@@ -11,8 +11,9 @@ import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/enums.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 
-/// Home's top bar (v3): 56 pt, on the page, no logo. A plain-glass folder button on the left
-/// (Folders), the Listening label in the middle, and the reader's initial on the right (You).
+/// Home's top bar (v3 `.top`): 16 pt under the status bar, a 56 pt row on the page, no logo. A
+/// plain-glass folder button on the left (Folders), the Listening label centred, and the reader's
+/// initial on the right (You). Both circles are 50 pt and sit on the 22 pt gutter.
 class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeTopBar({super.key, required this.recorderOpen, required this.onFolders, required this.onYou});
 
@@ -21,50 +22,42 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onFolders;
   final VoidCallback onYou;
 
-  static const double height = 56;
+  static const double gap = 16;
+  static const double row = 56;
   static const double buttonSize = 50;
 
   @override
-  Size get preferredSize => const Size.fromHeight(height);
+  Size get preferredSize => const Size.fromHeight(gap + row);
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final initial = SharedPreferencesUtil().givenName.trim();
+    final name = SharedPreferencesUtil().givenName.trim();
     return SafeArea(
       bottom: false,
-      child: SizedBox(
-        height: height,
-        child: Padding(
-          // The 50 pt circles sit 3 pt inside the page margin, as the design's 22 pt gutter reads.
-          padding: const EdgeInsets.symmetric(horizontal: OmiSize.screenMargin - 3),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(OmiSize.screenMargin, gap, OmiSize.screenMargin, 0),
+        child: SizedBox(
+          height: row,
           child: Row(
             children: [
-              OmiIconButton.glass(
+              OmiPlainGlassButton(
                 key: const Key('home_folders_button'),
-                icon: OmiGlyph(OmiGlyphs.folder, size: 22, color: OmiColors.textPrimary),
                 label: l10n.conversations,
-                diameter: buttonSize,
-                onPressed: () {
-                  OmiHaptics.selection();
-                  onFolders();
-                },
+                onPressed: onFolders,
+                child: OmiGlyph(OmiGlyphs.folder, size: 23, color: OmiColors.textPrimary),
               ),
               Expanded(child: Center(child: HomeListeningLabel(recorderOpen: recorderOpen))),
-              OmiIconButton.glass(
+              OmiPlainGlassButton(
                 key: const Key('home_you_button'),
-                icon: initial.isEmpty
-                    ? OmiGlyph(OmiGlyphs.person, size: 20, color: OmiColors.textPrimary)
-                    : Text(
-                        initial.characters.first.toUpperCase(),
-                        style: OmiType.body.copyWith(fontWeight: FontWeight.w600, height: 1),
-                      ),
                 label: l10n.you,
-                diameter: buttonSize,
-                onPressed: () {
-                  OmiHaptics.selection();
-                  onYou();
-                },
+                onPressed: onYou,
+                child: name.isEmpty
+                    ? OmiGlyph(OmiGlyphs.person, size: 21, color: OmiColors.textPrimary)
+                    : Text(
+                        name.characters.first.toUpperCase(),
+                        style: OmiType.lead.copyWith(fontWeight: FontWeight.w700, height: 1),
+                      ),
               ),
             ],
           ),
@@ -156,7 +149,7 @@ class HomeListeningLabel extends StatelessWidget {
             recorderOpen.value = !open;
           },
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: OmiSpacing.sm, vertical: OmiSpacing.xs),
+            padding: const EdgeInsets.symmetric(horizontal: OmiSpacing.sm, vertical: 9),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -190,13 +183,13 @@ class HomeListeningLabel extends StatelessWidget {
                   ),
                 ),
                 if (word != null) ...[
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 12),
                   Text(
                     word,
                     key: const Key('home_listening_word'),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: OmiType.body.copyWith(fontSize: 18, fontWeight: FontWeight.w600, height: 1.2), // omi-ux-allow: font-size-literal -- the design's 18 pt Listening label
+                    style: OmiType.lead.copyWith(fontWeight: FontWeight.w600, height: 1.2),
                   ),
                 ],
               ],

@@ -114,6 +114,11 @@ class OmiGlassCard extends StatelessWidget {
   // tokens.css `.glass-card`, light and dark.
   static const List<Color> _fillLight = [Color(0xD1EEEEF1), Color(0xBDDEDEE2), Color(0xB8D0D0D5)];
   static const List<Color> _fillDark = [Color(0xC74E4E54), Color(0xBD3A3A3F), Color(0xBD2C2C30)];
+
+  // Where nothing blurs (Android, Increase Contrast) the same fill is laid over the page opaquely, so
+  // what is behind the card never shows through its words.
+  static const List<Color> _solidLight = [Color(0xFFF0EFF0), Color(0xFFE3E2E3), Color(0xFFD8D7D8)];
+  static const List<Color> _solidDark = [Color(0xFF424247), Color(0xFF313135), Color(0xFF262629)];
   static const Color _edgeLight = Color(0xB3FFFFFF);
   static const Color _edgeDark = Color(0x1FFFFFFF);
   static const List<BoxShadow> _shadowsLight = [
@@ -129,13 +134,14 @@ class OmiGlassCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final light = OmiColors.isLight;
+    final blurs = OmiGlass._blurs(context);
     final borderRadius = BorderRadius.circular(radius);
     Widget body = Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: light ? _fillLight : _fillDark,
+          colors: blurs ? (light ? _fillLight : _fillDark) : (light ? _solidLight : _solidDark),
           stops: const [0, 0.55, 1],
         ),
         borderRadius: borderRadius,
@@ -144,12 +150,67 @@ class OmiGlassCard extends StatelessWidget {
       padding: padding,
       child: child,
     );
-    if (OmiGlass._blurs(context)) {
+    if (blurs) {
       body = BackdropFilter(filter: ui.ImageFilter.blur(sigmaX: 17, sigmaY: 17), child: body);
     }
     return DecoratedBox(
       decoration: BoxDecoration(borderRadius: borderRadius, boxShadow: light ? _shadowsLight : _shadowsDark),
       child: ClipRRect(borderRadius: borderRadius, child: body),
+    );
+  }
+}
+
+/// The v3 plain glass (the top bar's 50 pt circles): the page's colour at 55 % (white at 8 % in
+/// Black) over a 20 pt blur, a 1 pt outline, and nothing else: no shadow, no gloss, no inner line.
+/// Presses scale to 0.93.
+class OmiPlainGlassButton extends StatelessWidget {
+  const OmiPlainGlassButton({
+    super.key,
+    required this.child,
+    required this.label,
+    required this.onPressed,
+    this.size = 50,
+  });
+
+  final Widget child;
+
+  /// The screen-reader name (and tooltip).
+  final String label;
+  final VoidCallback onPressed;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = OmiColors.palette;
+    Widget circle = Container(
+      width: size,
+      height: size,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: palette.glass,
+        shape: BoxShape.circle,
+        border: Border.all(color: palette.glassRim),
+      ),
+      child: IconTheme.merge(data: IconThemeData(color: OmiColors.textPrimary), child: child),
+    );
+    if (OmiGlass._blurs(context)) {
+      circle = ClipOval(
+        child: BackdropFilter(filter: ui.ImageFilter.blur(sigmaX: 10, sigmaY: 10), child: circle),
+      );
+    }
+    return Semantics(
+      button: true,
+      label: label,
+      excludeSemantics: true,
+      onTap: onPressed,
+      child: OmiPressable(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          OmiHaptics.selection();
+          onPressed();
+        },
+        child: circle,
+      ),
     );
   }
 }

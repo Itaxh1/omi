@@ -1,86 +1,51 @@
 import 'dart:async';
-import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_provider_utilities/flutter_provider_utilities.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_down_button/pull_down_button.dart';
 import 'package:share_plus/share_plus.dart';
 
 import 'package:omi/backend/http/api/conversations.dart';
 import 'package:omi/backend/http/api/messages.dart' show ChatPageContext;
 import 'package:omi/backend/preferences.dart';
 import 'package:omi/backend/schema/conversation.dart';
+import 'package:omi/backend/schema/structured.dart';
 import 'package:omi/pages/chat/page.dart';
-import 'package:omi/pages/conversation_detail/widgets/conversation_ask_bar.dart';
-import 'package:omi/pages/conversations/conversation_action_analytics.dart';
 import 'package:omi/pages/conversations/conversation_actions.dart';
+import 'package:omi/pages/home/widgets/listening_strip.dart';
 import 'package:omi/providers/conversation_provider.dart';
-import 'package:omi/providers/integration_provider.dart';
-import 'package:omi/pages/settings/integrations_page.dart' show IntegrationApp, IntegrationsPage;
-import 'package:omi/services/audio_download_service.dart';
+import 'package:omi/providers/folder_provider.dart';
 import 'package:omi/ui/ui.dart';
+import 'package:omi/pages/conversations/conversation_action_analytics.dart';
+import 'package:omi/utils/analytics/analytics_manager.dart';
+import 'package:omi/utils/analytics/product_telemetry.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/utils/logger.dart';
 import 'package:omi/utils/other/temp.dart';
-import 'package:omi/utils/analytics/product_telemetry.dart';
-import 'package:omi/utils/analytics/analytics_manager.dart';
-import 'package:omi/utils/conversations/capture_groups.dart';
 import 'package:omi/utils/platform/platform_manager.dart';
-import 'package:omi/utils/share_sheet.dart';
-import 'package:omi/widgets/conversation_bottom_bar.dart';
-import 'package:omi/widgets/extensions/string.dart';
 import 'conversation_detail_provider.dart';
 import 'conversation_summary_selection.dart';
+import 'maps_util.dart';
 import 'share.dart';
 import 'test_prompts.dart';
-import 'widgets/audio_download_progress_sheet.dart';
-import 'capture_group_separation.dart';
-import 'widgets/calendar_event_sheets.dart';
-import 'widgets/capture_recordings.dart';
-import 'widgets/conversation_detail_header.dart';
-import 'widgets/conversation_tasks_tab.dart';
-import 'widgets/detail_search_bar.dart';
-import 'widgets/summary_tab.dart';
+import 'transcript_page.dart';
+import 'widgets/conversation_folder_sheet.dart';
 import 'widgets/share_to_contacts_sheet.dart';
-import 'widgets/transcript_tab.dart';
+import 'widgets/summary_v3.dart';
 
-/// Offset of the floating bottom bar from the bottom of the screen.
-///
-/// 32pt is the bar's resting position and already clears the iPhone home
-/// indicator. Android 16 draws a 3-button navigation bar up to 48dp tall over
-/// this edge-to-edge body, which covered the lower part of the bar's buttons,
-/// so the bar never sits lower than the inset the window reports.
-double detailFloatingBarBottom(double bottomSystemInset) => math.max(32, bottomSystemInset);
-
-/// Chooses the first useful detail tab for a conversation.
-///
-/// A caller-supplied tab is authoritative: search deep links use it to
-/// preserve the user's context. When no tab was requested, a completed
-/// conversation with transcript text but no generated summary opens on the
-/// transcript so retained fragment data is immediately visible.
-int conversationDetailInitialTabIndex(ServerConversation conversation, {int? requestedTabIndex}) {
-  if (requestedTabIndex != null) return requestedTabIndex;
-  if (conversation.status != ConversationStatus.completed) return 1;
-
-  final hasTranscript = conversation.transcriptSegments.any((segment) => segment.text.trim().isNotEmpty);
-  final hasSummary = ConversationSummarySelection.select(conversation).kind != ConversationSummaryKind.empty;
-  return hasTranscript && !hasSummary ? 0 : 1;
-}
-
-/// Tab indices of the detail page. The Tasks tab exists only while the conversation has tasks.
-const int _transcriptTabIndex = 0;
-const int _summaryTabIndex = 1;
-const int _tasksTabIndex = 2;
-
-/// Whether the overflow menu shows developer tools (Copy Conversation ID, Test Prompt): debug
-/// builds, or Developer Settings → Conversation Developer Tools (`devModeEnabled`).
+/// Whether the menu shows developer tools (Copy conversation ID, Test prompt): debug builds, or
+/// Developer Settings → Conversation Developer Tools (`devModeEnabled`).
 @visibleForTesting
 bool conversationDetailShowsDeveloperTools() => kDebugMode || SharedPreferencesUtil().devModeEnabled;
 
+/// The conversation's two tabs (v3).
+enum ConversationView { summary, todos }
+
+/// A conversation (v3 `conv`): the back ring and "⋯" on top; the title, a chip with when and how
+/// long and a chip with its folder; Summary and To-dos tabs. "⋯" holds View transcript, Move to
+/// folder, Share link, Copy summary, Ask Omi about this, Open in Maps and Delete conversation.
 class ConversationDetailPage extends StatefulWidget {
   final ServerConversation conversation;
 
@@ -88,11 +53,9 @@ class ConversationDetailPage extends StatefulWidget {
   final bool isFromOnboarding;
   final bool openShareToContactsOnLoad;
 
-  /// Null lets the page choose the first useful tab after detail hydration.
-  /// A non-null value preserves an explicit deep link or navigation context.
+  /// Kept for existing callers (search deep links): v3 has no transcript tab, so an index of 0
+  /// opens the transcript screen on top.
   final int? initialTabIndex;
-
-  /// When set (e.g. from search match snippet), open transcript and play this moment.
   final double? initialSeekStart;
   final double? initialSeekEnd;
 
@@ -110,636 +73,163 @@ class ConversationDetailPage extends StatefulWidget {
   State<ConversationDetailPage> createState() => ConversationDetailPageState();
 }
 
-class ConversationDetailPageState extends State<ConversationDetailPage> with TickerProviderStateMixin {
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-  final focusTitleField = FocusNode();
-  final focusOverviewField = FocusNode();
-  final GlobalKey _shareButtonKey = GlobalKey();
-  TabController? _controller;
-  ConversationTab selectedTab = ConversationTab.summary;
-
-  // Callback to seek audio to transcript segment (start, end) in wall seconds
-  Future<void> Function(double start, double end)? _seekToSegmentCallback;
-  bool _isSharing = false;
-  bool _reviewInterrupted = false;
-  bool _isTogglingStarred = false;
-  bool _isDownloadingAudio = false;
+class ConversationDetailPageState extends State<ConversationDetailPage> {
+  ConversationView _view = ConversationView.summary;
   bool _providerInitialized = false;
-  bool _didInitialSeek = false;
-  bool _hasExplicitTabSelection = false;
   bool _resultViewedRecorded = false;
-
-  // Search functionality
-  bool _isSearching = false;
-  String _searchQuery = '';
-  final TextEditingController _searchController = TextEditingController();
-  final FocusNode _searchFocusNode = FocusNode();
-  int _currentSearchIndex = 0;
-  int _totalSearchResults = 0;
-  final List<(Timer, Completer<void>)> _ownedDelays = [];
-  final _separation = CaptureGroupSeparationController();
-
-  void _updateSearchResults() {
-    if (_searchQuery.isEmpty) {
-      _totalSearchResults = 0;
-      _currentSearchIndex = 0;
-      return;
-    }
-
-    final provider = Provider.of<ConversationDetailProvider>(context, listen: false);
-    final query = _searchQuery.toLowerCase();
-    int countIn(String text) {
-      int count = 0;
-      int index = 0;
-      while ((index = text.indexOf(query, index)) != -1) {
-        count++;
-        index += query.length;
-      }
-      return count;
-    }
-
-    int count = 0;
-    if (selectedTab == ConversationTab.transcript) {
-      for (var segment in provider.conversation.transcriptSegments) {
-        count += countIn(segment.text.toLowerCase());
-      }
-    } else if (selectedTab == ConversationTab.summary) {
-      final summarySelection = provider.getSummarySelection();
-      if (summarySelection.content.isNotEmpty) {
-        count += countIn(summarySelection.content.decodeString.toLowerCase());
-      }
-    }
-
-    _totalSearchResults = count;
-    _currentSearchIndex = count > 0 ? 1 : 0;
-  }
-
-  void _navigateSearch(bool next) {
-    if (_totalSearchResults == 0) return;
-
-    setState(() {
-      if (next) {
-        _currentSearchIndex = _currentSearchIndex >= _totalSearchResults ? 1 : _currentSearchIndex + 1;
-      } else {
-        _currentSearchIndex = _currentSearchIndex <= 1 ? _totalSearchResults : _currentSearchIndex - 1;
-      }
-    });
-  }
-
-  int getCurrentResultIndexForHighlighting() {
-    return _currentSearchIndex - 1;
-  }
-
-  void _closeSearch() {
-    setState(() {
-      _isSearching = false;
-      _searchQuery = '';
-      _searchController.clear();
-      _totalSearchResults = 0;
-      _currentSearchIndex = 0;
-      _searchFocusNode.unfocus();
-    });
-  }
-
-  void _closeSearchIfEmpty() {
-    if (_isSearching && _searchQuery.isEmpty) _closeSearch();
-  }
-
-  static ConversationTab _tabForIndex(int index) => switch (index) {
-        _transcriptTabIndex => ConversationTab.transcript,
-        _tasksTabIndex => ConversationTab.actionItems,
-        _ => ConversationTab.summary,
-      };
-
-  static int _indexForTab(ConversationTab tab) => switch (tab) {
-        ConversationTab.transcript => _transcriptTabIndex,
-        ConversationTab.summary => _summaryTabIndex,
-        ConversationTab.actionItems => _tasksTabIndex,
-      };
-
-  void _createTabController({required int length, required int initialIndex}) {
-    _controller = TabController(length: length, vsync: this, initialIndex: initialIndex.clamp(0, length - 1));
-    _controller!.addListener(_onTabChanged);
-  }
-
-  /// The Tasks tab exists only while there are tasks, so a swipe never lands on a tab the
-  /// bottom bar has no button for. Rebuilds the controller when that changes.
-  void _syncTabCount(bool hasTasks) {
-    final length = hasTasks ? 3 : 2;
-    final old = _controller;
-    if (old == null || old.length == length) return;
-    old.removeListener(_onTabChanged);
-    _createTabController(length: length, initialIndex: old.index);
-    selectedTab = _tabForIndex(_controller!.index);
-    WidgetsBinding.instance.addPostFrameCallback((_) => old.dispose());
-  }
-
-  void _onTabChanged() {
-    final tab = _tabForIndex(_controller!.index);
-    if (tab == selectedTab) return;
-    setState(() {
-      selectedTab = tab;
-      PlatformManager.instance.analytics.conversationDetailTabChanged(switch (tab) {
-        ConversationTab.transcript => 'Transcript',
-        ConversationTab.summary => 'Summary',
-        ConversationTab.actionItems => 'Action Items',
-      });
-      if (_searchQuery.isNotEmpty) _updateSearchResults();
-    });
-  }
+  final GlobalKey _moreKey = GlobalKey();
 
   @override
   void initState() {
     super.initState();
-
-    // The supplied conversation can be a list projection whose app results
-    // are hydrated after the first frame. Start on Summary, then select the
-    // transcript only once the final summary state is known.
-    final initialTabIndex = widget.initialTabIndex ?? _summaryTabIndex;
-    _createTabController(length: 3, initialIndex: initialTabIndex);
-    selectedTab = _tabForIndex(_controller!.index);
-
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (!mounted) return;
-
-      final provider = Provider.of<ConversationDetailProvider>(context, listen: false);
-      final conversationProvider = Provider.of<ConversationProvider>(context, listen: false);
+      final provider = context.read<ConversationDetailProvider>();
+      final conversationProvider = context.read<ConversationProvider>();
       final identityEpoch = AnalyticsManager.identityEpoch;
 
-      // Ensure the provider has the conversation data from the widget parameter
       provider.setCachedConversation(widget.conversation);
       _providerInitialized = true;
-
-      // Find the proper date and index for this conversation in the grouped conversations
-      final result = conversationProvider.getConversationDateAndIndex(widget.conversation);
-      if (result != null) {
-        final (date, _) = result;
-        provider.updateConversation(widget.conversation.id, date);
+      final located = conversationProvider.getConversationDateAndIndex(widget.conversation);
+      if (located != null) {
+        provider.updateConversation(widget.conversation.id, located.$1);
       } else {
-        final effectiveDate = widget.conversation.startedAt ?? widget.conversation.createdAt;
-        provider.selectedDate = conversationLocalDayKey(effectiveDate);
+        provider.selectedDate = conversationLocalDayKey(widget.conversation.startedAt ?? widget.conversation.createdAt);
       }
-
       await provider.initConversation();
+      if (!mounted) return;
       _recordResultViewed(provider, identityEpoch);
-      if (provider.conversation.appResults.isEmpty) {
-        final conversationId = provider.conversation.id;
-        if (conversationProvider.getConversationDateAndIndexById(conversationId) != null) {
-          // The initial list payload is enough to render the detail page. Fill
-          // in omitted app results after the first usable frame instead of
-          // holding the destination's startup sequence on this request. The
-          // provider re-locates the conversation by ID after the await because
-          // refreshes can reorder or replace the grouped list meanwhile.
-          unawaited(_refreshDetailsAndSelectInitialTab(conversationProvider, provider, conversationId, identityEpoch));
-        } else {
-          provider.updateConversation(provider.conversation.id, provider.selectedDate);
-          _selectInitialTabIfNeeded(provider.conversation);
-        }
-      } else {
-        _selectInitialTabIfNeeded(provider.conversation);
+      if (provider.conversation.appResults.isEmpty &&
+          conversationProvider.getConversationDateAndIndexById(provider.conversation.id) != null) {
+        // Fill in app results the list omitted, after the first usable frame.
+        final id = provider.conversation.id;
+        unawaited(conversationProvider.updateSearchedConvoDetails(id).catchError((_) {}).then((_) {
+          if (mounted && provider.conversationOrNull?.id == id) provider.updateConversation(id, provider.selectedDate);
+        }));
       }
-
-      // Auto-open share to contacts sheet if requested (from important conversation notification)
+      if (widget.initialTabIndex == 0 && mounted) {
+        unawaited(routeToPage(context, ConversationTranscriptPage(provider: provider)));
+      }
       if (widget.openShareToContactsOnLoad && mounted) {
-        // Small delay to ensure the page is fully rendered
-        await _delay(const Duration(milliseconds: 500));
-        if (mounted) {
-          _showShareToContactsBottomSheet();
-        }
+        await Future<void>.delayed(const Duration(milliseconds: 500));
+        if (mounted) showShareToContactsBottomSheet(context, provider.conversation);
       }
     });
   }
 
   void _recordResultViewed(ConversationDetailProvider provider, int identityEpoch) {
-    if (_resultViewedRecorded || !mounted || identityEpoch != AnalyticsManager.identityEpoch) return;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_resultViewedRecorded || !mounted || identityEpoch != AnalyticsManager.identityEpoch) return;
-      final route = ModalRoute.of(context);
-      if (route != null && !route.isCurrent) return;
-      final conversation = provider.conversationOrNull;
-      if (conversation == null ||
-          conversation.id.isEmpty ||
-          conversation.id != widget.conversation.id ||
-          !_hasRenderedDetailContent(provider)) {
-        return;
-      }
-      _resultViewedRecorded = true;
-      ProductTelemetry.instance.value(
-        ProductValue.resultViewed,
-        surface: ProductSurface.conversationDetail,
-        objectId: RecordReference.fromId(conversation.id),
-      );
-    });
-  }
-
-  bool _hasRenderedDetailContent(ConversationDetailProvider provider) {
+    if (_resultViewedRecorded || identityEpoch != AnalyticsManager.identityEpoch) return;
     final conversation = provider.conversationOrNull;
-    if (conversation == null) return false;
-    return switch (selectedTab) {
-      ConversationTab.transcript => conversation.transcriptSegments.any((segment) => segment.text.trim().isNotEmpty),
-      ConversationTab.summary => provider.getSummarySelection().content.trim().isNotEmpty,
-      ConversationTab.actionItems =>
-        conversation.structured.actionItems.any((item) => !item.deleted && item.description.trim().isNotEmpty),
-    };
-  }
-
-  Future<void> _refreshDetailsAndSelectInitialTab(
-    ConversationProvider conversationProvider,
-    ConversationDetailProvider provider,
-    String conversationId,
-    int identityEpoch,
-  ) async {
-    if (identityEpoch != AnalyticsManager.identityEpoch) return;
-    try {
-      await conversationProvider.updateSearchedConvoDetails(conversationId);
-    } catch (_) {
-      // The list projection is still valid enough to render. Apply the same
-      // fallback selection below if the detail refresh is unavailable.
-    }
-    if (!mounted ||
-        identityEpoch != AnalyticsManager.identityEpoch ||
-        provider.conversationOrNull?.id != conversationId) {
-      return;
-    }
-    provider.updateConversation(conversationId, provider.selectedDate);
-    _selectInitialTabIfNeeded(provider.conversation);
-    _recordResultViewed(provider, identityEpoch);
-  }
-
-  void _selectInitialTabIfNeeded(ServerConversation conversation) {
-    if (!mounted ||
-        widget.initialTabIndex != null ||
-        _hasExplicitTabSelection ||
-        _controller?.index != _summaryTabIndex) {
-      return;
-    }
-    final index = conversationDetailInitialTabIndex(conversation);
-    if (index == _summaryTabIndex) return;
-    setState(() {
-      selectedTab = ConversationTab.transcript;
-    });
-    _controller?.animateTo(index);
-  }
-
-  @override
-  void dispose() {
-    _cancelOwnedTimers();
-    _separation.dispose();
-    _controller?.dispose();
-    focusTitleField.dispose();
-    focusOverviewField.dispose();
-    _searchController.dispose();
-    _searchFocusNode.dispose();
-    super.dispose();
-  }
-
-  /// Test seam for the cancel-completes-waiter contract. Production callers use [_delay].
-  @visibleForTesting
-  Future<void> ownedDelayForTesting(Duration duration) => _delay(duration);
-
-  Future<void> _delay(Duration duration) {
-    if (!mounted) return Future.value();
-    final completer = Completer<void>();
-    late final Timer timer;
-    timer = Timer(duration, () {
-      _ownedDelays.remove((timer, completer));
-      if (!completer.isCompleted) completer.complete();
-    });
-    _ownedDelays.add((timer, completer));
-    return completer.future;
-  }
-
-  void _cancelOwnedTimers() {
-    for (final (timer, completer) in _ownedDelays) {
-      timer.cancel();
-      // Complete normally: `await _delay` sits in audio cleanup's try/finally.
-      // An error would look like a download failure and arm another delay in catch.
-      if (!completer.isCompleted) completer.complete();
-    }
-    _ownedDelays.clear();
-  }
-
-  /// Show the share to contacts bottom sheet
-  void _showShareToContactsBottomSheet() {
-    final provider = Provider.of<ConversationDetailProvider>(context, listen: false);
-    showShareToContactsBottomSheet(context, provider.conversation);
-  }
-
-  String _getTabTitle(BuildContext context, ConversationTab tab) {
-    switch (tab) {
-      case ConversationTab.transcript:
-        return context.l10n.transcriptTab;
-      case ConversationTab.summary:
-        return context.l10n.conversationTab;
-      case ConversationTab.actionItems:
-        return context.l10n.actionItemsTab;
-    }
-  }
-
-  Future<void> _maybePlayInitialSeek() async {
-    if (_didInitialSeek || !mounted) return;
-    final start = widget.initialSeekStart;
-    if (start == null || _seekToSegmentCallback == null) return;
-    _didInitialSeek = true;
-    final end = widget.initialSeekEnd ?? start;
-    if (selectedTab != ConversationTab.transcript) {
-      setState(() {
-        selectedTab = ConversationTab.transcript;
-      });
-      _controller?.animateTo(_transcriptTabIndex);
-    }
-    try {
-      await _seekToSegmentCallback!(start, end);
-      if (mounted) OmiHaptics.light();
-    } catch (_) {
-      // Audio may be unavailable offline; search still opened the transcript tab.
-    }
-  }
-
-  void _openRecordings(List<CaptureRecording> recordings) {
-    showCaptureRecordingsSheet(
-      context,
-      recordings: recordings,
-      controller: _separation,
-      onOpen: _openRecording,
-      onSeparate: _separateRecording,
+    if (conversation == null || conversation.id != widget.conversation.id) return;
+    if (provider.getSummarySelection().content.trim().isEmpty) return;
+    _resultViewedRecorded = true;
+    ProductTelemetry.instance.value(
+      ProductValue.resultViewed,
+      surface: ProductSurface.conversationDetail,
+      objectId: RecordReference.fromId(conversation.id),
     );
   }
 
-  /// Opens another device's recording of this event: the loaded row when the
-  /// list has it (even hidden behind the event's row), otherwise a fetch.
-  Future<void> _openRecording(CaptureRecording recording) async {
-    final list = context.read<ConversationProvider>();
-    final target = await CaptureGroupPresentation.resolveMember(
-      recording.id,
-      loaded: list.conversations.followedBy(list.searchedConversations),
-      fetch: getConversationById,
-    );
-    if (!mounted) return;
-    if (target == null) {
-      OmiFeedback.error(context, context.l10n.captureRecordingOpenFailed);
-      return;
-    }
-    Navigator.pushReplacement(
-      context,
-      omiPageRoute(
-        builder: (_) => ConversationDetailPage(
-          conversation: target,
-          isFromOnboarding: widget.isFromOnboarding,
-          initialTabIndex: _controller?.index,
-        ),
-      ),
-    );
-  }
-
-  /// Separation is sticky on the server; afterwards the detail and the list
-  /// reload so both show the new membership.
-  Future<bool> _separateRecording(CaptureRecording recording) {
-    trackConversationAction(ConversationActionAction.separate, ConversationActionSurface.detailBody);
-    final detail = context.read<ConversationDetailProvider>();
-    final list = context.read<ConversationProvider>();
-    return _separation.separate(recording.id, reload: () async {
-      await detail.refreshConversation();
-      await (list.hasActiveSearch ? list.searchConversations(list.previousQuery) : list.forceRefreshConversations());
-    });
-  }
-
-  static const _overflowActions = {
-    'copy_transcript': ConversationActionAction.copyTranscript,
-    'copy_summary': ConversationActionAction.copySummary,
-    'download_audio': ConversationActionAction.shareAudio,
-    'test_prompt': ConversationActionAction.testPrompt,
-    'reprocess': ConversationActionAction.reprocess,
-    'link_event': ConversationActionAction.linkEvent,
-    'copy_conversation_id': ConversationActionAction.copyConversationId,
-    'rename': ConversationActionAction.rename,
+  /// The ⋯ menu's choices as conversation actions (the same names the menu reported before v3).
+  static const _menuActions = {
     'move_to_folder': ConversationActionAction.moveFolder,
-    'recordings': ConversationActionAction.recordingsOpen,
+    'share': ConversationActionAction.share,
+    'copy_summary': ConversationActionAction.copySummary,
+    'ask_omi': ConversationActionAction.askOmi,
+    'copy_conversation_id': ConversationActionAction.copyConversationId,
+    'test_prompt': ConversationActionAction.testPrompt,
     'delete': ConversationActionAction.delete,
   };
 
-  void _handleMenuSelection(BuildContext context, String value, ConversationDetailProvider provider) async {
-    // Track the menu action selection
-    PlatformManager.instance.analytics.conversationThreeDotsMenuActionSelected(
-      conversationId: provider.conversation.id,
-      action: value,
-    );
-
-    final tracked = _overflowActions[value];
-    if (tracked != null) trackConversationAction(tracked, ConversationActionSurface.overflow);
-
-    switch (value) {
-      case 'copy_transcript':
-        _copyContent(context, provider.conversation.getTranscript(generate: true), context.l10n.transcript);
-        break;
-      case 'copy_summary':
-        final conversation = provider.conversation;
-        _copyContent(context, ConversationSummarySelection.select(conversation).content, context.l10n.summary);
-        break;
-      case 'download_audio':
-        await _downloadAudio(context, provider);
-        break;
-      case 'test_prompt':
-        routeToPage(context, TestPromptsPage(conversation: provider.conversation));
-        break;
-      case 'reprocess':
-        if (!provider.loadingReprocessConversation) {
-          await provider.reprocessConversation();
-        }
-        break;
-      case 'link_event':
-        _handleLinkEvent(context, provider);
-        break;
-      case 'copy_conversation_id':
-        _copyContent(context, provider.conversation.id, null);
-        break;
-      case 'rename':
-        final controller = provider.titleController;
-        provider.titleFocusNode?.requestFocus();
-        if (controller != null)
-          controller.selection = TextSelection(baseOffset: 0, extentOffset: controller.text.length);
-        break;
-      case 'move_to_folder':
-        await showConversationFolderSheet(context, provider.conversation, source: 'detail_page_menu');
-        break;
-      case 'recordings':
-        final recordings = CaptureGroupPresentation.recordings(provider.conversation);
-        if (recordings.isNotEmpty) _openRecordings(recordings);
-        break;
-      case 'delete':
-        _handleDelete(context, provider);
-        break;
-    }
-  }
-
-  Future<void> _handleLinkEvent(BuildContext context, ConversationDetailProvider provider) async {
-    final integrationProvider = Provider.of<IntegrationProvider>(context, listen: false);
-    final isConnected = integrationProvider.hasLoaded
-        ? integrationProvider.isAppConnected(IntegrationApp.googleCalendar)
-        : SharedPreferencesUtil().getBool('google_calendar_connected');
-
-    if (isConnected) {
-      await showLinkEventSheet(context);
-      return;
-    }
-    final connect = await showOmiConfirm(
-      context,
-      title: context.l10n.googleCalendarNotConnected,
-      message: context.l10n.googleCalendarConnectPrompt,
-      confirmLabel: context.l10n.connect,
-    );
-    if (connect && context.mounted) routeToPage(context, const IntegrationsPage());
-  }
-
-  /// One delete path with the list (D5): confirm unless opted out, close the page, then the list
-  /// shows Undo while the provider holds the server delete back.
-  Future<void> _handleDelete(BuildContext context, ConversationDetailProvider provider) async {
-    OmiHaptics.medium();
-    if (!await confirmConversationDelete(context) || !context.mounted) return;
+  Future<void> _openMenu(ConversationDetailProvider provider) async {
+    final l10n = context.l10n;
     final conversation = provider.conversation;
-    final listContext = Navigator.of(context).context;
-    Navigator.pop(context, {'deleted': true}); // Close detail page
-    unawaited(deleteConversationsWithUndo(listContext, [conversation]));
-  }
-
-  void _copyContent(BuildContext context, String content, String? what) {
-    OmiHaptics.light();
-    OmiClipboard.copy(context, content, what: what);
-  }
-
-  Future<void> _downloadAudio(BuildContext context, ConversationDetailProvider provider) async {
-    if (!mounted) return;
-
-    setState(() {
-      _isDownloadingAudio = true;
-    });
-
-    final audioFileCount = provider.conversation.audioFiles.length;
-    final startTime = DateTime.now();
-
-    // Track share start
-    PlatformManager.instance.analytics.audioShareStarted(
-      conversationId: provider.conversation.id,
-      audioFileCount: audioFileCount,
+    final place = conversation.geolocation;
+    final hasPlace = place?.latitude != null && place?.longitude != null;
+    PlatformManager.instance.analytics.conversationThreeDotsMenuOpened(conversationId: conversation.id);
+    final dev = conversationDetailShowsDeveloperTools();
+    final choice = await showOmiPopoverMenu<String>(context, entries: [
+      OmiMenuEntry(
+          value: 'view_transcript',
+          label: l10n.viewTranscriptV3,
+          glyph: OmiGlyphs.lines,
+          key: const Key('menu_transcript')),
+      OmiMenuEntry(value: 'move_to_folder', label: l10n.moveToFolderV3, glyph: OmiGlyphs.folderLine),
+      OmiMenuEntry(value: 'share', label: l10n.shareLink, glyph: OmiGlyphs.shareLine),
+      OmiMenuEntry(value: 'copy_summary', label: l10n.copySummaryV3, glyph: OmiGlyphs.copyLine),
+      OmiMenuEntry(
+        value: 'ask_omi',
+        label: l10n.askOmiAboutThis,
+        icon: OmiRingLogo(size: 18, color: OmiColors.textPrimary),
+      ),
+      if (hasPlace)
+        OmiMenuEntry(
+          value: 'open_in_maps',
+          label:
+              (place!.address ?? '').trim().isEmpty ? l10n.openInMaps : '${l10n.openInMaps} · ${place.address!.trim()}',
+          glyph: OmiGlyphs.pinLine,
+        ),
+      if (dev) ...[
+        OmiMenuEntry(
+            value: 'copy_conversation_id',
+            label: l10n.copyConversationId,
+            glyph: OmiGlyphs.copyLine,
+            dividerBefore: true),
+        OmiMenuEntry(value: 'test_prompt', label: l10n.testPrompt, glyph: OmiGlyphs.lines),
+      ],
+      OmiMenuEntry(
+        value: 'delete',
+        label: l10n.deleteConversationV3,
+        glyph: OmiGlyphs.trashLine,
+        strong: true,
+        dividerBefore: true,
+        key: const Key('menu_delete'),
+      ),
+    ]);
+    if (choice == null || !mounted) return;
+    PlatformManager.instance.analytics.conversationThreeDotsMenuActionSelected(
+      conversationId: conversation.id,
+      action: choice,
     );
-
-    AudioDownloadService? service;
-    // The sheet pops itself with its own context; Cancel, back and the scrim stop the download.
-    final sheet = AudioDownloadSheetHandle.show(context, onCancel: () => service?.dispose());
-
-    void showFailure() {
-      if (!context.mounted) return;
-      OmiFeedback.error(
-        context,
-        context.l10n.audioDownloadFailed,
-        actionLabel: context.l10n.tryAgain,
-        onAction: () => _downloadAudio(context, provider),
-      );
-    }
-
-    try {
-      service = AudioDownloadService();
-
-      final file = await service.downloadAndCombineAudio(
-        provider.conversation,
-        onProgress: (progress) => sheet.progress.value = progress,
-        onStageChange: (stage) {
-          sheet.state.value = switch (stage) {
-            AudioDownloadStage.preparing => AudioDownloadState.preparing,
-            AudioDownloadStage.downloading => AudioDownloadState.downloading,
-            AudioDownloadStage.processing => AudioDownloadState.processing,
-          };
-        },
-      );
-      if (sheet.cancelled) return;
-
-      if (file != null) {
-        sheet.state.value = AudioDownloadState.success;
-        await _delay(const Duration(milliseconds: 500));
-        sheet.close();
-        if (sheet.cancelled) return;
-
-        final mimeType = file.path.endsWith('.mp3') ? 'audio/mpeg' : 'audio/wav';
-        await SharePlus.instance.share(
-          ShareParams(
-            files: [XFile(file.path, mimeType: mimeType)],
-            sharePositionOrigin: shareSheetOrigin(_shareButtonKey),
+    final tracked = _menuActions[choice];
+    if (tracked != null) trackConversationAction(tracked, ConversationActionSurface.overflow);
+    switch (choice) {
+      case 'view_transcript':
+        unawaited(routeToPage(context, ConversationTranscriptPage(provider: provider)));
+      case 'move_to_folder':
+        await showConversationFolderSheet(context, conversation, source: 'detail_page_menu');
+      case 'share':
+        await _share(provider);
+      case 'copy_summary':
+        OmiClipboard.copy(context, ConversationSummarySelection.select(conversation).content, what: l10n.summary);
+      case 'ask_omi':
+        routeToPage(
+          context,
+          ChatPage(
+            initialChatContext:
+                ChatPageContext(type: 'conversation', id: conversation.id, title: conversation.structured.title),
           ),
         );
-
-        // Track successful completion
-        final durationSeconds = DateTime.now().difference(startTime).inSeconds;
-        PlatformManager.instance.analytics.audioShareCompleted(
-          conversationId: provider.conversation.id,
-          audioFileCount: audioFileCount,
-          wasCombined: audioFileCount > 1,
-          durationSeconds: durationSeconds,
-        );
-
-        await service.cleanup();
-      } else {
-        sheet.close();
-        PlatformManager.instance.analytics.audioShareFailed(
-          conversationId: provider.conversation.id,
-          errorMessage: 'No audio files available',
-        );
-        showFailure();
-      }
-    } catch (e) {
-      Logger.debug('Error downloading audio: $e');
-      sheet.close();
-      if (!sheet.cancelled) {
-        PlatformManager.instance.analytics.audioShareFailed(
-          conversationId: provider.conversation.id,
-          errorMessage: e.toString(),
-        );
-        showFailure();
-      }
-    } finally {
-      sheet.close();
-      service?.dispose();
-      if (mounted) {
-        setState(() {
-          _isDownloadingAudio = false;
-        });
-      }
+      case 'open_in_maps':
+        MapsUtil.launchMap(place!.latitude!, place.longitude!);
+      case 'copy_conversation_id':
+        OmiClipboard.copy(context, conversation.id);
+      case 'test_prompt':
+        routeToPage(context, TestPromptsPage(conversation: conversation));
+      case 'delete':
+        OmiHaptics.medium();
+        if (!await confirmConversationDelete(context) || !mounted) return;
+        final listContext = Navigator.of(context).context;
+        Navigator.pop(context, {'deleted': true});
+        if (listContext.mounted) unawaited(deleteConversationsWithUndo(listContext, [conversation]));
     }
   }
 
-  Future<void> _toggleStarred(ConversationDetailProvider provider) async {
-    setState(() => _isTogglingStarred = true);
-    OmiHaptics.medium();
-    try {
-      final newStarredState = !provider.conversation.starred;
-      final success = await setConversationStarred(provider.conversation.id, newStarredState);
-      if (!mounted) return;
-      if (success) {
-        provider.conversation.starred = newStarredState;
-        context.read<ConversationProvider>().updateConversationInSortedList(provider.conversation);
-        PlatformManager.instance.analytics.conversationStarToggled(
-          conversation: provider.conversation,
-          starred: newStarredState,
-          source: 'detail_page_button',
-        );
-      } else {
-        OmiFeedback.error(context, context.l10n.failedToUpdateStarred);
-      }
-    } catch (e) {
-      Logger.debug('Failed to toggle starred status: $e');
-    } finally {
-      if (mounted) setState(() => _isTogglingStarred = false);
-    }
-  }
-
-  /// Shares the conversation's link: Share opens the system share sheet straight away, with no
-  /// question first. A private conversation becomes link-visible for the sheet and goes back to
-  /// private if the sheet reports that it was dismissed without sharing.
-  Future<void> _shareConversation(ConversationDetailProvider provider) async {
-    OmiHaptics.medium();
+  /// Share link: a private conversation becomes link-visible for the sheet and goes back to private
+  /// if the sheet is dismissed without sharing.
+  Future<void> _share(ConversationDetailProvider provider) async {
     final conversation = provider.conversation;
     final wasPrivate = conversation.visibility != ConversationVisibility.shared;
-
-    setState(() => _isSharing = true);
     try {
       if (wasPrivate) {
         final shared = await setConversationVisibility(conversation.id);
@@ -750,405 +240,262 @@ class ConversationDetailPageState extends State<ConversationDetailPage> with Tic
         }
         provider.updateVisibilityLocally(ConversationVisibility.shared);
       }
-      final origin = shareSheetOrigin(_shareButtonKey);
-      // The sheet is up once the call is made; the button stops spinning while it is shown.
-      final result = shareConversationLink(conversation, sharePositionOrigin: origin);
-      await _delay(const Duration(milliseconds: 150));
-      if (mounted) setState(() => _isSharing = false);
-      final outcome = await result;
+      final box = _moreKey.currentContext?.findRenderObject() as RenderBox?;
+      final origin = box == null ? null : box.localToGlobal(Offset.zero) & box.size;
+      final outcome = await shareConversationLink(conversation, sharePositionOrigin: origin);
       if (wasPrivate && outcome.status == ShareResultStatus.dismissed) {
-        final reverted = await setConversationVisibility(
-          conversation.id,
-          visibility: ConversationVisibility.private_.value,
-        );
+        final reverted =
+            await setConversationVisibility(conversation.id, visibility: ConversationVisibility.private_.value);
         if (reverted && mounted) provider.updateVisibilityLocally(ConversationVisibility.private_);
       }
     } catch (e) {
       Logger.debug('Failed to share conversation: $e');
-    } finally {
-      if (mounted && _isSharing) setState(() => _isSharing = false);
     }
-  }
-
-  List<PullDownMenuEntry> _menuItems(BuildContext context, ConversationDetailProvider provider) {
-    final l10n = context.l10n;
-    final showDeveloperTools = conversationDetailShowsDeveloperTools();
-    final conversation = provider.conversation;
-    final hasRecordings = CaptureGroupPresentation.recordings(conversation).isNotEmpty;
-    return [
-      // The conversation's own actions first; Star and Share live in the top bar; Delete stays last.
-      if (!conversation.discarded)
-        PullDownMenuItem(
-          title: l10n.renameConversation,
-          iconWidget: const FaIcon(FontAwesomeIcons.pen, size: 16),
-          onTap: () => _handleMenuSelection(context, 'rename', provider),
-        ),
-      PullDownMenuItem(
-        title: l10n.moveToFolder,
-        iconWidget: const FaIcon(FontAwesomeIcons.folder, size: 16),
-        onTap: () => _handleMenuSelection(context, 'move_to_folder', provider),
-      ),
-      if (hasRecordings)
-        PullDownMenuItem(
-          title: l10n.recordings,
-          iconWidget: const FaIcon(FontAwesomeIcons.layerGroup, size: 16),
-          onTap: () => _handleMenuSelection(context, 'recordings', provider),
-        ),
-      const PullDownMenuDivider.large(),
-      if (selectedTab != ConversationTab.actionItems)
-        PullDownMenuItem(
-          title: l10n.search,
-          iconWidget: const FaIcon(FontAwesomeIcons.magnifyingGlass, size: 16),
-          onTap: () {
-            trackConversationAction(ConversationActionAction.search, ConversationActionSurface.overflow);
-            if (_isSearching) {
-              _closeSearch();
-            } else {
-              setState(() => _isSearching = true);
-              _searchFocusNode.requestFocus();
-              PlatformManager.instance.analytics.conversationDetailSearchClicked(
-                conversationId: provider.conversation.id,
-              );
-            }
-            OmiHaptics.medium();
-          },
-        ),
-      PullDownMenuItem(
-        title: l10n.copyTranscript,
-        iconWidget: const FaIcon(FontAwesomeIcons.copy, size: 16),
-        onTap: () => _handleMenuSelection(context, 'copy_transcript', provider),
-      ),
-      PullDownMenuItem(
-        title: l10n.copySummary,
-        iconWidget: const FaIcon(FontAwesomeIcons.clone, size: 16),
-        onTap: () => _handleMenuSelection(context, 'copy_summary', provider),
-      ),
-      if (provider.conversation.hasAudio())
-        PullDownMenuItem(
-          title: l10n.shareAudio,
-          iconWidget: const FaIcon(FontAwesomeIcons.share, size: 16),
-          onTap: _isDownloadingAudio ? null : () => _handleMenuSelection(context, 'download_audio', provider),
-        ),
-      if (provider.conversation.calendarEvent == null)
-        PullDownMenuItem(
-          title: l10n.linkEvent,
-          iconWidget: ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(4)),
-            child: Image.asset('assets/integration_app_logos/google-calendar.png', width: 17, height: 17),
-          ),
-          onTap: () => _handleMenuSelection(context, 'link_event', provider),
-        ),
-      if (!provider.conversation.discarded)
-        PullDownMenuItem(
-          title: l10n.reprocessConversation,
-          iconWidget: const FaIcon(FontAwesomeIcons.arrowsRotate, size: 16),
-          onTap: () => _handleMenuSelection(context, 'reprocess', provider),
-        ),
-      if (showDeveloperTools) ...[
-        PullDownMenuItem(
-          title: l10n.copyConversationId,
-          iconWidget: const FaIcon(FontAwesomeIcons.clipboard, size: 16),
-          onTap: () => _handleMenuSelection(context, 'copy_conversation_id', provider),
-        ),
-        PullDownMenuItem(
-          title: l10n.testPrompt,
-          iconWidget: const FaIcon(FontAwesomeIcons.commentDots, size: 16),
-          onTap: () => _handleMenuSelection(context, 'test_prompt', provider),
-        ),
-      ],
-      PullDownMenuItem(
-        title: l10n.deleteConversation,
-        isDestructive: true,
-        iconWidget: FaIcon(FontAwesomeIcons.trashCan, size: 16, color: OmiColors.danger),
-        onTap: () => _handleMenuSelection(context, 'delete', provider),
-      ),
-    ];
-  }
-
-  /// Header actions (v2): Star, Share and one overflow (Rename, Move to Folder, Recordings and the
-  /// rest, Delete last) in one glass capsule. Ask about this conversation is the bar at the bottom.
-  Widget _buildHeaderActions(BuildContext context, ConversationDetailProvider provider) {
-    final l10n = context.l10n;
-    final starred = provider.conversation.starred;
-    return Padding(
-      padding: const EdgeInsets.only(right: OmiSpacing.xs),
-      child: OmiToolbarCapsule(
-        children: [
-          OmiIconButton(
-            key: const Key('conversation_star'),
-            icon: _isTogglingStarred
-                ? const OmiSpinner(size: OmiSpinnerSize.small)
-                : FaIcon(starred ? FontAwesomeIcons.solidStar : FontAwesomeIcons.star, size: 16),
-            label: starred ? l10n.unstarConversation : l10n.starConversation,
-            color: starred ? OmiColors.warning : null,
-            onPressed: _isTogglingStarred
-                ? null
-                : () {
-                    trackConversationAction(
-                      starred ? ConversationActionAction.unstar : ConversationActionAction.star,
-                      ConversationActionSurface.topBar,
-                    );
-                    _toggleStarred(provider);
-                  },
-          ),
-          // Also the share sheet's anchor (iPad needs one).
-          KeyedSubtree(
-            key: _shareButtonKey,
-            child: OmiIconButton(
-              key: const Key('conversation_share'),
-              icon: _isSharing
-                  ? const OmiSpinner(size: OmiSpinnerSize.small)
-                  : const FaIcon(FontAwesomeIcons.arrowUpFromBracket, size: 16),
-              label: l10n.share,
-              onPressed: _isSharing
-                  ? null
-                  : () {
-                      trackConversationAction(ConversationActionAction.share, ConversationActionSurface.topBar);
-                      _shareConversation(provider);
-                    },
-            ),
-          ),
-          PullDownButton(
-            itemBuilder: (context) => _menuItems(context, provider),
-            buttonBuilder: (context, showMenu) => OmiIconButton(
-              key: const Key('conversation_more'),
-              icon: const FaIcon(FontAwesomeIcons.ellipsisVertical, size: 16),
-              label: l10n.moreOptions,
-              onPressed: () {
-                OmiHaptics.medium();
-                PlatformManager.instance.analytics.conversationThreeDotsMenuOpened(
-                  conversationId: provider.conversation.id,
-                );
-                showMenu();
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  /// The recording's player (the one [ConversationBottomBar] owns), drawn as an inline card.
-  Widget _buildAudioCard(ServerConversation conversation, {required bool hasSegments, required bool hasTasks}) {
-    return ConversationBottomBar(
-      onAudioInteraction: () {
-        if (mounted && !_reviewInterrupted) setState(() => _reviewInterrupted = true);
-      },
-      mode: ConversationBottomBarMode.detail,
-      selectedTab: selectedTab,
-      conversation: conversation,
-      hasSegments: hasSegments,
-      hasActionItems: hasTasks,
-      onSeekFunctionReady: (seekFunction) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (mounted) {
-            setState(() => _seekToSegmentCallback = seekFunction);
-            _maybePlayInitialSeek();
-          }
-        });
-      },
-      onTabSelected: (tab) {
-        _hasExplicitTabSelection = true;
-        final index = _indexForTab(tab);
-        if (index < _controller!.length) _controller!.animateTo(index);
-      },
-      onStopPressed: () {},
-    );
-  }
-
-  /// Ask Omi about this conversation (#4515); chat is a pushed page (D1).
-  void _askAboutConversation(ConversationDetailProvider provider) {
-    OmiHaptics.medium();
-    trackConversationAction(ConversationActionAction.askOmi, ConversationActionSurface.detailBody);
-    final convo = provider.conversation;
-    routeToPage(
-      context,
-      ChatPage(initialChatContext: ChatPageContext(type: 'conversation', id: convo.id, title: convo.structured.title)),
-    );
-  }
-
-  void _onSearchChanged(String value) {
-    setState(() {
-      _searchQuery = value;
-      _updateSearchResults();
-      if (value.isNotEmpty) {
-        final provider = Provider.of<ConversationDetailProvider>(context, listen: false);
-        PlatformManager.instance.analytics.conversationDetailSearchQueryEntered(
-          conversationId: provider.conversation.id,
-          query: value,
-          resultsCount: _totalSearchResults,
-          activeTab: _getTabTitle(context, selectedTab),
-        );
-      }
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    // Empty shell on first build (before initState's setCachedConversation
-    // post-frame); after init, an unresolved conversation pops the route.
-    final detailProvider = context.watch<ConversationDetailProvider>();
-    final conversation = detailProvider.conversationOrNull;
+    final provider = context.watch<ConversationDetailProvider>();
+    final conversation = provider.conversationOrNull;
     if (conversation == null) {
       if (_providerInitialized) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (!mounted) return;
-          if (Navigator.of(context).canPop()) {
-            Navigator.of(context).pop();
-          }
+          if (mounted && Navigator.of(context).canPop()) Navigator.of(context).pop();
         });
       }
-      return const Scaffold();
+      return Scaffold(backgroundColor: OmiColors.surface0);
     }
-
-    final hasTasks = conversation.structured.actionItems.any((item) => !item.deleted);
-    if (_providerInitialized) _syncTabCount(hasTasks);
-    final hasSegments = conversation.transcriptSegments.isNotEmpty ||
-        conversation.photos.isNotEmpty ||
-        conversation.externalIntegration != null;
-
+    final l10n = context.l10n;
+    final todos = conversation.structured.actionItems.where((i) => !i.deleted).toList();
     return MessageListener<ConversationDetailProvider>(
       showError: (error) {
-        if (error == 'REPROCESS_FAILED') OmiFeedback.error(context, context.l10n.errorProcessingConversation);
+        if (error == 'REPROCESS_FAILED') OmiFeedback.error(context, l10n.errorProcessingConversation);
       },
-      showInfo: (info) {},
+      showInfo: (_) {},
       child: Scaffold(
-        key: scaffoldKey,
-        extendBody: true,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          leading: const Center(child: OmiBackButton.circled()),
-          // No title: the tab bar below already names the active view, so a
-          // header label only crowds the row with the back button and actions.
-          // _getTabTitle still backs the `active_tab` search analytics property.
-          titleSpacing: 0,
-          actions: [_buildHeaderActions(context, detailProvider)],
+        backgroundColor: OmiColors.surface0,
+        appBar: OmiScreenHeader(
+          trailing: KeyedSubtree(
+            key: _moreKey,
+            child: OmiRingButton(
+              key: const Key('conversation_more'),
+              glyph: OmiGlyphs.more,
+              label: l10n.moreOptions,
+              onPressed: () => _openMenu(provider),
+            ),
+          ),
         ),
-        body: Stack(
+        bottomNavigationBar: const ListeningStrip(),
+        body: ListView(
+          padding: const EdgeInsets.fromLTRB(OmiSize.screenMargin, 14, OmiSize.screenMargin, 20),
           children: [
-            GestureDetector(
-              excludeFromSemantics: true,
-              behavior: HitTestBehavior.translucent,
-              // Tapping content closes an empty search. There is deliberately no horizontal
-              // gesture here: a sideways swipe moves between the tabs, never to another
-              // conversation (D2), and the iOS edge swipe always goes back.
-              onTap: _closeSearchIfEmpty,
-              child: Column(
-                children: [
-                  // Title and facts, shared by every tab (#17297).
-                  ConversationDetailHeader(onOpenRecordings: _openRecordings),
-                  // v2: the recording as an inline card, then Summary · Transcript · Tasks.
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(OmiSpacing.md, OmiSpacing.sm, OmiSpacing.md, 0),
-                    child: _buildAudioCard(conversation, hasSegments: hasSegments, hasTasks: hasTasks),
-                  ),
-                  if (hasSegments)
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(OmiSpacing.md, OmiSpacing.sm, OmiSpacing.md, OmiSpacing.xxs),
-                      child: OmiSegmentedControl<ConversationTab>(
-                        key: const Key('conversation_tabs'),
-                        segments: [
-                          OmiSegment(value: ConversationTab.summary, label: context.l10n.summary),
-                          OmiSegment(value: ConversationTab.transcript, label: context.l10n.transcript),
-                          if (_controller!.length > _tasksTabIndex)
-                            OmiSegment(
-                              value: ConversationTab.actionItems,
-                              label:
-                                  '${context.l10n.tasks} · ${conversation.structured.actionItems.where((i) => !i.deleted).length}',
-                            ),
-                        ],
-                        selected: selectedTab,
-                        onChanged: (tab) {
-                          _hasExplicitTabSelection = true;
-                          final index = _indexForTab(tab);
-                          if (index < _controller!.length) _controller!.animateTo(index);
-                        },
-                      ),
-                    ),
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: OmiSpacing.md),
-                    child: TabBarView(
-                      controller: _controller,
-                      children: [
-                        TranscriptWidgets(
-                          searchQuery: _searchQuery,
-                          currentResultIndex: getCurrentResultIndexForHighlighting(),
-                          onTapWhenSearchEmpty: _closeSearchIfEmpty,
-                          onSegmentTap: (segment) async {
-                            if (selectedTab != ConversationTab.transcript) {
-                              setState(() {
-                                selectedTab = ConversationTab.transcript;
-                              });
-                              _controller!.animateTo(_transcriptTabIndex);
-                            }
-
-                            // Seek to segment using callback (start + end for bounded play)
-                            if (_seekToSegmentCallback != null) {
-                              await _seekToSegmentCallback!(segment.start, segment.end);
-                              OmiHaptics.light();
-                            }
-                          },
-                        ),
-                        SummaryTab(
-                          reviewEnabled: !widget.isFromOnboarding &&
-                              widget.initialSeekStart == null &&
-                              selectedTab == ConversationTab.summary &&
-                              !_controller!.indexIsChanging &&
-                              !_isSearching &&
-                              !_isSharing &&
-                              !_isDownloadingAudio &&
-                              !_reviewInterrupted,
-                          searchQuery: _searchQuery,
-                          currentResultIndex: getCurrentResultIndexForHighlighting(),
-                          onTapWhenSearchEmpty: _closeSearchIfEmpty,
-                        ),
-                        if (_controller!.length > _tasksTabIndex) const ActionItemsTab(),
-                      ],
-                    ),
-                  )),
-                ],
+            Semantics(
+              header: true,
+              child: Text(
+                conversation.structured.title.trim().isEmpty
+                    ? l10n.untitledConversation
+                    : conversation.structured.title.trim(),
+                key: const Key('conversation_title'),
+                style: ConversationTitleStyle.style,
               ),
             ),
-
-            // Ask about this conversation — hidden while the keyboard is up (e.g. inline summary edit).
-            if (MediaQuery.of(context).viewInsets.bottom == 0)
-              Positioned(
-                // Stable key: the body Stack's collection-`if` diff must match by identity, not
-                // slot, or the search overlay below is remounted and drops its keyboard.
-                key: const ValueKey('detail_floating_bottom_bar'),
-                left: OmiSpacing.md,
-                right: OmiSpacing.md,
-                bottom: MediaQuery.viewPaddingOf(context).bottom > 0 ? 30 : OmiSpacing.md,
-                child: ConversationAskBar(onTap: () => _askAboutConversation(detailProvider)),
-              ),
-
-            // Search bar over the content
-            if (_isSearching)
-              Positioned(
-                // Stable key — same reason as the floating bottom bar above.
-                // Without it the keyboard pop-up flickered closed because
-                // the body Stack's diff was reusing this Positioned's
-                // element into the bar's slot and remounting the TextField.
-                key: const ValueKey('detail_search_overlay'),
-                top: 0,
-                left: 0,
-                right: 0,
-                child: DetailSearchBar(
-                  controller: _searchController,
-                  focusNode: _searchFocusNode,
-                  query: _searchQuery,
-                  currentIndex: _currentSearchIndex,
-                  totalResults: _totalSearchResults,
-                  onChanged: _onSearchChanged,
-                  onPrevious: () => _navigateSearch(false),
-                  onNext: () => _navigateSearch(true),
-                  onCancel: _closeSearch,
-                ),
-              ),
+            const SizedBox(height: 12),
+            _Chips(conversation: conversation),
+            const SizedBox(height: 22),
+            OmiTextTabs<ConversationView>(
+              tabs: [
+                OmiTextTab(value: ConversationView.summary, label: l10n.summary),
+                OmiTextTab(
+                    value: ConversationView.todos, label: l10n.todosTab, count: todos.isEmpty ? null : todos.length),
+              ],
+              selected: _view,
+              onChanged: (view) => setState(() => _view = view),
+            ),
+            const SizedBox(height: 4),
+            if (_view == ConversationView.summary)
+              _Summary(conversation: conversation, provider: provider)
+            else
+              _Todos(conversation: conversation, todos: todos),
           ],
         ),
       ),
+    );
+  }
+}
+
+/// The title of a conversation and its transcript (`h1.cvh`): 30/600 at −.025em, 1.12 line.
+abstract final class ConversationTitleStyle {
+  static TextStyle get style => OmiType.pageTitle;
+}
+
+/// When and how long; the folder (tap to move it).
+class _Chips extends StatelessWidget {
+  const _Chips({required this.conversation});
+
+  final ServerConversation conversation;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final start = (conversation.startedAt ?? conversation.createdAt).toLocal();
+    final end = conversation.finishedAt?.toLocal();
+    final dates = OmiDateFormat.of(context);
+    final minutes = end == null ? null : (end.difference(start).inSeconds / 60).ceil();
+    final when = [
+      '${dates.dayHeader(start)} ${dates.time(start)}',
+      if (minutes != null && minutes > 0) l10n.minutesShortV3(minutes),
+    ].join(' · ');
+    final folders = context.watch<FolderProvider>().folders;
+    String? folder;
+    for (final f in folders) {
+      if (f.id == conversation.folderId) folder = f.name;
+    }
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: [
+        OmiPillChip(label: when, glyph: OmiGlyphs.calendar),
+        OmiPillChip(
+          key: const Key('conversation_folder_chip'),
+          label: folder ?? l10n.noFolderV3,
+          glyph: OmiGlyphs.folderLine,
+          semanticHint: l10n.moveToFolderV3,
+          onTap: () => showConversationFolderSheet(context, conversation, source: 'detail_page_sheet'),
+        ),
+      ],
+    );
+  }
+}
+
+/// The Summary tab: the summary, or what is happening instead (summarizing, nothing to summarize).
+class _Summary extends StatelessWidget {
+  const _Summary({required this.conversation, required this.provider});
+
+  final ServerConversation conversation;
+  final ConversationDetailProvider provider;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final content = provider.getSummarySelection().content.trim();
+    if (content.isNotEmpty) return SummaryV3(markdown: content);
+    final processing =
+        conversation.status == ConversationStatus.processing || conversation.status == ConversationStatus.in_progress;
+    final hasTranscript = conversation.transcriptSegments.any((s) => s.text.trim().isNotEmpty);
+    return Padding(
+      padding: const EdgeInsets.only(top: 18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            processing ? l10n.summarizingConversation.replaceAll('\n', ' ') : l10n.noSummaryYet,
+            style: OmiType.body.copyWith(fontWeight: FontWeight.w400, height: 1.5, color: OmiColors.textSecondary),
+          ),
+          if (hasTranscript)
+            Padding(
+              padding: const EdgeInsets.only(top: 12),
+              child: OmiPillChip(
+                key: const Key('conversation_show_transcript'),
+                label: l10n.viewTranscriptV3,
+                glyph: OmiGlyphs.lines,
+                onTap: () => routeToPage(context, ConversationTranscriptPage(provider: provider)),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+/// The To-dos tab (`#cvTodo`): the conversation's to-dos, a ring and the words.
+class _Todos extends StatefulWidget {
+  const _Todos({required this.conversation, required this.todos});
+
+  final ServerConversation conversation;
+  final List<ActionItem> todos;
+
+  @override
+  State<_Todos> createState() => _TodosState();
+}
+
+class _TodosState extends State<_Todos> {
+  final Map<String, bool> _pending = {};
+
+  Future<void> _toggle(ActionItem item, bool value) async {
+    setState(() => _pending[item.description] = value);
+    try {
+      await context
+          .read<ConversationProvider>()
+          .updateGlobalActionItemState(widget.conversation, item.description, value);
+      final index = widget.conversation.structured.actionItems.indexWhere((i) => i.description == item.description);
+      if (index != -1) {
+        if (value) {
+          PlatformManager.instance.analytics.checkedActionItem(widget.conversation, index);
+        } else {
+          PlatformManager.instance.analytics.uncheckedActionItem(widget.conversation, index);
+        }
+      }
+    } catch (e) {
+      Logger.debug('Error updating to-do: $e');
+      if (mounted) OmiFeedback.error(context, context.l10n.failedToUpdateActionItem);
+    } finally {
+      if (mounted) setState(() => _pending.remove(item.description));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    if (widget.todos.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.only(top: 18),
+        child: Text(l10n.noTodosInConversation,
+            style: OmiType.body.copyWith(fontWeight: FontWeight.w400, height: 1.5, color: OmiColors.textSecondary)),
+      );
+    }
+    return Column(
+      children: [
+        for (final item in widget.todos)
+          Container(
+            key: ValueKey('conversation_todo_${item.description.hashCode}'),
+            decoration: BoxDecoration(border: Border(bottom: BorderSide(color: OmiColors.divider))),
+            padding: const EdgeInsets.symmetric(vertical: 1),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Transform.translate(
+                  offset: const Offset(-12, 2),
+                  child: OmiCheckRing(
+                    done: _pending[item.description] ?? item.completed,
+                    semanticLabel:
+                        (_pending[item.description] ?? item.completed) ? l10n.markIncomplete : l10n.markComplete,
+                    onChanged: (value) => _toggle(item, value),
+                  ),
+                ),
+                Expanded(
+                  child: Transform.translate(
+                    offset: const Offset(-10, 0),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      child: Text(
+                        item.description.trim(),
+                        style: OmiType.body.copyWith(
+                          fontWeight: FontWeight.w500,
+                          height: 1.3,
+                          color:
+                              (_pending[item.description] ?? item.completed) ? OmiColors.faint : OmiColors.textPrimary,
+                          decoration:
+                              (_pending[item.description] ?? item.completed) ? TextDecoration.lineThrough : null,
+                          decorationColor: OmiColors.faint,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+      ],
     );
   }
 }

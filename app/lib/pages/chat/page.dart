@@ -31,7 +31,6 @@ import 'package:omi/providers/conversation_provider.dart';
 import 'package:omi/providers/home_provider.dart';
 import 'package:omi/providers/integration_provider.dart';
 import 'package:omi/providers/message_provider.dart';
-import 'package:omi/providers/memories_provider.dart';
 import 'package:omi/pages/chat/widgets/chat_starters.dart';
 import 'package:omi/providers/usage_provider.dart';
 import 'package:omi/providers/voice_recorder_provider.dart';
@@ -283,20 +282,7 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
                       : provider.isClearingChat
                           ? OmiLoadingState(label: context.l10n.deletingMessages)
                           : (provider.messages.isEmpty)
-                              ? ChatStarters(
-                                  isConnected: connectivityProvider.isConnected,
-                                  hasExistingData: _chatScope != null ||
-                                      (context.watch<ConversationProvider?>()?.conversations.isNotEmpty ?? false) ||
-                                      (context.watch<MemoriesProvider?>()?.memories.isNotEmpty ?? false) ||
-                                      SharedPreferencesUtil().cachedMemories.isNotEmpty ||
-                                      SharedPreferencesUtil().pendingMemories.isNotEmpty,
-                                  onSelected: (prompt) {
-                                    textController.text = prompt;
-                                    textController.selection = TextSelection.collapsed(offset: prompt.length);
-                                    textFieldFocusNode.requestFocus();
-                                    OmiHaptics.selection();
-                                  },
-                                )
+                              ? AskHello(isConnected: connectivityProvider.isConnected)
                               : LayoutBuilder(
                                   builder: (context, constraints) {
                                     return Theme(
@@ -429,6 +415,18 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
 
                       return Column(
                         children: [
+                          // v3: suggestions above the composer until the first question.
+                          if (provider.messages.isEmpty &&
+                              !provider.isLoadingMessages &&
+                              connectivityProvider.isConnected)
+                            AskSuggestions(
+                              onSelected: (prompt) {
+                                textController.text = prompt;
+                                textController.selection = TextSelection.collapsed(offset: prompt.length);
+                                textFieldFocusNode.requestFocus();
+                                OmiHaptics.selection();
+                              },
+                            ),
                           // Selected images display above the send bar
                           const ChatSelectedFilesStrip(),
                           if (!connectivityProvider.isConnected) const _OfflineHint(),
@@ -461,15 +459,17 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
                             maintainBottomViewPadding: false,
                             child: Padding(
                               padding: EdgeInsets.only(
-                                left: 8,
-                                right: 8,
-                                top: provider.selectedFiles.isNotEmpty ? 0 : 8,
+                                left: 18,
+                                right: 18,
+                                // `.cmp`: 10 pt under the suggestions (their own gap), 16 above the home
+                                // indicator.
+                                top: 0,
                                 bottom: widget.isPivotBottom
                                     ? 6
                                     : (textFieldFocusNode.hasFocus &&
                                             (textController.text.length > 40 || textController.text.contains('\n'))
                                         ? 4
-                                        : 10),
+                                        : 16),
                               ),
                               child: Stack(
                                 clipBehavior: Clip.none,
@@ -483,17 +483,17 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
                                       // shadow can't bleed onto it.
                                       if (voiceRecorderProvider.isActive ||
                                           (!voiceRecorderProvider.isActive && shouldShowMenuButton()))
-                                        const SizedBox(width: 56),
+                                        const SizedBox(width: 52),
                                       // CENTER pill — text field/waveform + right-side button stays inside.
                                       Expanded(
                                         child: Container(
-                                          // 4 + 44 pt target + 4 keeps the pill as tall as the 38 pt button did.
-                                          padding: const EdgeInsets.only(left: 14, right: 4, top: 4, bottom: 4),
+                                          // v3 `.field`: 52 pt, a 1 pt ink outline, the mic inside on the right.
+                                          constraints: const BoxConstraints(minHeight: 52),
+                                          padding: const EdgeInsets.only(left: 16, right: 3, top: 3, bottom: 3),
                                           decoration: BoxDecoration(
-                                            color: OmiColors.surface1,
-                                            borderRadius: OmiRadius.pillAll,
-                                            border: Border.all(color: OmiColors.surface3, width: 1),
-                                            boxShadow: kChatComposerShadow,
+                                            color: OmiColors.surface0,
+                                            borderRadius: const BorderRadius.all(Radius.circular(26)),
+                                            border: Border.all(color: OmiColors.textPrimary),
                                           ),
                                           child: Row(
                                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -603,39 +603,35 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
                                                     voiceRecorderProvider.startRecording();
                                                   },
                                                 ),
-                                              // Send button — only when there's text and not in voice mode.
-                                              // Offline or uploading it stays visible but is drawn disabled.
-                                              if (!voiceRecorderProvider.isActive && shouldShowSendButton(provider))
-                                                ValueListenableBuilder<TextEditingValue>(
-                                                  valueListenable: textController,
-                                                  builder: (context, value, child) {
-                                                    bool hasText = value.text.trim().isNotEmpty;
-                                                    if (!hasText) return const SizedBox.shrink();
-
-                                                    bool canSend = hasText &&
-                                                        !provider.sendingMessage &&
-                                                        !provider.isUploadingFiles &&
-                                                        connectivityProvider.isConnected;
-
-                                                    return ChatComposerRoundButton(
-                                                      buttonKey: const ValueKey('omi.chat.send'),
-                                                      icon: const FaIcon(FontAwesomeIcons.arrowUp),
-                                                      label: context.l10n.chatSendMessage,
-                                                      onPressed: canSend
-                                                          ? () {
-                                                              OmiHaptics.medium();
-                                                              String message = textController.text.trim();
-                                                              if (message.isEmpty) return;
-                                                              _sendMessageUtil(message);
-                                                            }
-                                                          : null,
-                                                    );
-                                                  },
-                                                ),
                                             ],
                                           ),
                                         ),
                                       ),
+                                      // v3 `#send`: a 52 pt ink circle beside the field.
+                                      if (!voiceRecorderProvider.isActive) ...[
+                                        const SizedBox(width: 8),
+                                        ValueListenableBuilder<TextEditingValue>(
+                                          valueListenable: textController,
+                                          builder: (context, value, child) {
+                                            final canSend = value.text.trim().isNotEmpty &&
+                                                shouldShowSendButton(provider) &&
+                                                !provider.isUploadingFiles &&
+                                                connectivityProvider.isConnected;
+                                            return ChatSendButton(
+                                              buttonKey: const ValueKey('omi.chat.send'),
+                                              label: context.l10n.chatSendMessage,
+                                              onPressed: canSend
+                                                  ? () {
+                                                      OmiHaptics.medium();
+                                                      final message = textController.text.trim();
+                                                      if (message.isEmpty) return;
+                                                      _sendMessageUtil(message);
+                                                    }
+                                                  : null,
+                                            );
+                                          },
+                                        ),
+                                      ],
                                     ],
                                   ),
                                   // LEFT button — Discard (voice) or Plus (idle). Rendered AFTER
@@ -1046,69 +1042,78 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
     }
   }
 
+  /// v3 Ask header (`#chat .sh`): a 38 pt close ring, the sheet's handle (or the chat app's name),
+  /// and the chat apps ring (apps and Clear chat).
   PreferredSizeWidget _buildAppBar(BuildContext context, MessageProvider provider) {
     final l10n = context.l10n;
-    return AppBar(
-      elevation: 0,
-      leading: const Center(child: OmiBackButton.circled()),
-      title: Consumer<AppProvider>(
-        builder: (context, appProvider, child) {
-          final selectedApp = provider.chatApps.firstWhereOrNull((app) => app.id == appProvider.selectedChatAppId);
-          // v4 Ask header: who answers, and (for Omi) what it answers from.
-          final name = Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              selectedApp != null
-                  ? ChatAppAvatar(app: selectedApp)
-                  : const OmiRingLogo(size: 16, mode: OmiRingMode.still),
-              const SizedBox(width: 6),
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 160),
-                child: Text(
-                  selectedApp != null ? selectedApp.getName() : l10n.omiAppName,
-                  style: OmiType.headline,
-                  overflow: TextOverflow.ellipsis,
+    return PreferredSize(
+      preferredSize: Size.fromHeight(56 + (provider.isLoadingMessages ? 32 : 0)),
+      child: SafeArea(
+        bottom: false,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 6),
+              child: SizedBox(
+                height: 38,
+                child: Row(
+                  children: [
+                    OmiRingButton(
+                      key: const Key('chat_close'),
+                      glyph: OmiGlyphs.close,
+                      glyphSize: 16,
+                      size: 38,
+                      label: MaterialLocalizations.of(context).closeButtonLabel,
+                      onPressed: () => Navigator.of(context).maybePop(),
+                    ),
+                    Expanded(
+                      child: Center(
+                        child: Consumer<AppProvider>(
+                          builder: (context, appProvider, child) {
+                            final selectedApp =
+                                provider.chatApps.firstWhereOrNull((app) => app.id == appProvider.selectedChatAppId);
+                            if (selectedApp == null) {
+                              return Container(
+                                width: 36,
+                                height: 4,
+                                decoration: BoxDecoration(color: OmiColors.outline, borderRadius: OmiRadius.pillAll),
+                              );
+                            }
+                            return Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ChatAppAvatar(app: selectedApp),
+                                const SizedBox(width: 6),
+                                ConstrainedBox(
+                                  constraints: const BoxConstraints(maxWidth: 160),
+                                  child: Text(selectedApp.getName(),
+                                      style: OmiType.headline.copyWith(fontWeight: FontWeight.w600),
+                                      overflow: TextOverflow.ellipsis),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    OmiRingButton(
+                      key: const Key('chat_apps'),
+                      glyph: OmiGlyphs.apps,
+                      size: 38,
+                      label: l10n.chatAppsTitle,
+                      onPressed: () {
+                        FocusScope.of(context).unfocus();
+                        WidgetsBinding.instance.addPostFrameCallback((_) => scaffoldKey.currentState?.openEndDrawer());
+                      },
+                    ),
+                  ],
                 ),
               ),
-            ],
-          );
-          if (selectedApp != null) return name;
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              name,
-              Text(
-                l10n.chatHeaderSubtitle,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: OmiType.caption.copyWith(fontSize: 12, color: OmiColors.textTertiary),
-              ),
-            ],
-          );
-        },
-      ),
-      centerTitle: true,
-      actions: [
-        OmiIconButton.filled(
-          icon: const Icon(Icons.extension),
-          label: l10n.chatAppsTitle,
-          onPressed: () {
-            OmiHaptics.selection();
-            // Dismiss the keyboard before opening the drawer, once the scaffold has settled.
-            FocusScope.of(context).unfocus();
-            WidgetsBinding.instance.addPostFrameCallback((_) => scaffoldKey.currentState?.openEndDrawer());
-          },
-        ),
-        const SizedBox(width: OmiSpacing.xxs),
-      ],
-      bottom: provider.isLoadingMessages
-          ? PreferredSize(
-              preferredSize: const Size.fromHeight(32),
-              child: Container(
-                width: double.infinity,
+            ),
+            if (provider.isLoadingMessages)
+              SizedBox(
                 height: 32,
-                color: OmiColors.surface2,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -1118,8 +1123,9 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
                   ],
                 ),
               ),
-            )
-          : null,
+          ],
+        ),
+      ),
     );
   }
 }

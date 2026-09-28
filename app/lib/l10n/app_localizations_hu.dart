@@ -12030,4 +12030,354 @@ class AppLocalizationsHu extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get todoCardTitle => 'Teendők';
+
+  @override
+  String get notInAFolder => 'Mappán kívül';
+
+  @override
+  String stripSyncing(int minutes) {
+    return '$minutes perc szinkronizálása';
+  }
+
+  @override
+  String get change => 'Módosítás';
+
+  @override
+  String syncingFrom(String name) {
+    return 'Szinkronizálás innen: $name';
+  }
+
+  @override
+  String minutesLeft(int minutes) {
+    return 'még $minutes perc';
+  }
+
+  @override
+  String get viewTranscriptV3 => 'Átirat megtekintése';
+
+  @override
+  String get moveToFolderV3 => 'Áthelyezés mappába';
+
+  @override
+  String get copySummaryV3 => 'Összefoglaló másolása';
+
+  @override
+  String get deleteConversationV3 => 'Beszélgetés törlése';
+
+  @override
+  String get copyTranscriptV3 => 'Átirat másolása';
+
+  @override
+  String get noFolderV3 => 'Nincs mappa';
+
+  @override
+  String get todosTab => 'Teendők';
+
+  @override
+  String get shareLink => 'Link megosztása';
+
+  @override
+  String get askOmiAboutThis => 'Kérdezd erről az Omit';
+
+  @override
+  String get openInMaps => 'Megnyitás a Térképben';
+
+  @override
+  String minutesShortV3(int minutes) {
+    return '$minutes perc';
+  }
+
+  @override
+  String get noTodosInConversation => 'Ebben a beszélgetésben nincs teendő';
+
+  @override
+  String get nameSpeakers => 'Beszélők elnevezése';
+
+  @override
+  String get backToSummary => 'Vissza az összefoglalóhoz';
+
+  @override
+  String speakerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count beszélő',
+      one: '1 beszélő',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noTranscriptYet => 'Még nincs átirat';
+
+  @override
+  String dueOn(String day) {
+    return 'Határidő: $day';
+  }
+
+  @override
+  String get lateTag => 'Késésben';
+
+  @override
+  String get allConversations => 'Összes beszélgetés';
+
+  @override
+  String get newFolderV3 => 'Új mappa';
+
+  @override
+  String get doubleTapV3 => 'Dupla érintés';
+
+  @override
+  String get browseAllApps => 'Összes alkalmazás';
+
+  @override
+  String get todoNewTag => 'Új';
+
+  @override
+  String memoriesGraphCaption(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count emlék. Koppints egy névre, és megnézheted, mit tud róla az Omi.',
+      one: '1 emlék. Koppints egy névre, és megnézheted, mit tud róla az Omi.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String memoriesAbout(String name) {
+    return 'Emlékek: $name';
+  }
+
+  @override
+  String get memoriesEmptyV3 => 'Itt jelenik meg, amit az Omi megtud rólad és azokról, akikkel beszélsz.';
+
+  @override
+  String get look => 'Megjelenés';
+
+  @override
+  String get lookWhite => 'Fehér';
+
+  @override
+  String get lookBlack => 'Fekete';
+
+  @override
+  String get startWhenOmiOpens => 'Indítás az Omi megnyitásakor';
+
+  @override
+  String get pendantButton => 'A medál gombja';
+
+  @override
+  String get allSettings => 'Összes beállítás';
+
+  @override
+  String get whatTheLightMeans => 'Mit jelent a fény';
+
+  @override
+  String get lightSolidRed => 'Folyamatos piros';
+
+  @override
+  String get lightSolidRedMeaning => 'Bekapcsolva, nem kapcsolódik a telefonhoz';
+
+  @override
+  String get lightBlinkingRed => 'Villogó piros';
+
+  @override
+  String get lightBlinkingRedMeaning => 'Várja az időt a telefontól. A csatlakozás beállítja.';
+
+  @override
+  String get lightSolidBlue => 'Folyamatos kék';
+
+  @override
+  String get lightSolidBlueMeaning => 'Bekapcsolva és csatlakoztatva';
+
+  @override
+  String get lightGreenRed => 'Villogó zöld és piros';
+
+  @override
+  String get lightGreenRedMeaning => 'Töltődik, nincs csatlakoztatva';
+
+  @override
+  String get lightGreenBlue => 'Villogó zöld és kék';
+
+  @override
+  String get lightGreenBlueMeaning => 'Töltődik, csatlakoztatva';
+
+  @override
+  String get lightSolidGreen => 'Folyamatos zöld';
+
+  @override
+  String get lightSolidGreenMeaning => 'Teljesen feltöltve';
+
+  @override
+  String get recordFrom => 'Felvétel innen';
+
+  @override
+  String get recordingLower => 'rögzít';
+
+  @override
+  String get builtInMic => 'beépített mikrofon';
+
+  @override
+  String syncingMinutesFrom(int minutes, String name) {
+    return '$minutes perc szinkronizálása innen: $name…';
+  }
+
+  @override
+  String get alsoWorksWith => 'Az Omi a Bee, Fieldy, Friend, Limitless, Plaud és Ray-Ban Meta eszközökkel is működik.';
+
+  @override
+  String get bluetoothIsOff => 'A Bluetooth ki van kapcsolva';
+
+  @override
+  String get bluetoothOffExplainer => 'Az Omi nem tud csatlakozni. Megőrzi, amit hall, és elküldi, amikor visszatérsz.';
+
+  @override
+  String get turnOn => 'Bekapcsolás';
+
+  @override
+  String get updateReady => 'Frissítés elérhető';
+
+  @override
+  String firmwareVersionLine(String version) {
+    return 'Verzió: $version';
+  }
+
+  @override
+  String get onYourOmi => 'Az Omin';
+
+  @override
+  String get newVersion => 'Új verzió';
+
+  @override
+  String get whatDoYouWantToKnow => 'Mit szeretnél tudni?';
+
+  @override
+  String get askSuggestDecide => 'Mit döntöttem ma?';
+
+  @override
+  String get askSuggestOwe => 'Mivel tartozom még másoknak?';
+
+  @override
+  String get askSuggestNotice => 'Mit vett észre az Omi?';
+
+  @override
+  String conversationsTodayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count beszélgetés ma.',
+      one: '1 beszélgetés ma.',
+      zero: 'Ma nem volt beszélgetés.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get readThePrivacyPolicy => 'Adatvédelmi szabályzat elolvasása';
+
+  @override
+  String get consentThreeThings => 'Három dolog, amit tudnod kell';
+
+  @override
+  String get consentChooseTitle => 'Te döntöd el, mikor figyel az Omi.';
+
+  @override
+  String get consentChooseBody =>
+      'Az indításhoz vagy szüneteltetéshez koppints a Kezdőlap tetején az Omi jelre, vagy használd az eszköz gombját.';
+
+  @override
+  String get consentAiTitle => 'Az Omi mesterséges intelligenciával írja a jegyzeteidet.';
+
+  @override
+  String get consentDeleteTitle => 'Bármit törölhetsz.';
+
+  @override
+  String get iAgree => 'Elfogadom';
+
+  @override
+  String get nameFromAccount => 'A fiókodból vettük. Módosítsd nyugodtan.';
+
+  @override
+  String notesLanguage(String language) {
+    return 'A jegyzetek nyelve: $language.';
+  }
+
+  @override
+  String get howWillYouRecord => 'Mivel fogsz rögzíteni?';
+
+  @override
+  String get addOrSwitchDevicesAnyTime => 'Az eszközöket bármikor hozzáadhatod vagy cserélheted.';
+
+  @override
+  String get iHaveAnOmi => 'Van Omim';
+
+  @override
+  String get iHaveAnOmiDetail => 'Medál, Omi Glass vagy Apple Watch';
+
+  @override
+  String get justThisPhoneForNow => 'Egyelőre csak ez a telefon';
+
+  @override
+  String get useTheIphoneMicrophone => 'Az iPhone mikrofonjának használata';
+
+  @override
+  String get useThePhoneMicrophone => 'A telefon mikrofonjának használata';
+
+  @override
+  String get iUseAnotherDevice => 'Plaudot, Bee-t, Limitlesst vagy más eszközt használok';
+
+  @override
+  String get allowTheMicrophone => 'Engedélyezd a mikrofont';
+
+  @override
+  String get allowMicrophoneWhy =>
+      'Az Omi csak akkor rögzít, amikor a Kezdőlap tetején mozog az Omi jel. Bármikor szüneteltetheted.';
+
+  @override
+  String get allowMicrophone => 'Mikrofon engedélyezése';
+
+  @override
+  String get youreSet => 'Minden kész.';
+
+  @override
+  String youreSetName(String name) {
+    return 'Minden kész, $name.';
+  }
+
+  @override
+  String get youreSetBody =>
+      'Az Omi készen áll. A Kezdőlap tetején lévő Omi jel mozog, amíg figyel. Koppints rá a szüneteltetéshez vagy eszközváltáshoz.';
+
+  @override
+  String get keepAppRunningNote =>
+      'Hagyd futni az alkalmazást a háttérben. Ha kényszerrel bezárod, az Omi abbahagyja a figyelést.';
+
+  @override
+  String get openOmi => 'Omi megnyitása';
+
+  @override
+  String get welcomeListensSubtitle =>
+      'Az Omi akkor figyel, amikor kéred, és a hallottakból jegyzeteket, teendőket és emlékeket készít.';
+
+  @override
+  String get syncingToYourPhone => 'Szinkronizálás a telefonra';
+
+  @override
+  String lastWeekday(String weekday) {
+    return 'Múlt $weekday';
+  }
+
+  @override
+  String dayAtTime(String day, String time) {
+    return '$day, $time';
+  }
+
+  @override
+  String memoryFromConversation(String day, String time) {
+    return '$day, a $time-kori beszélgetésből';
+  }
 }

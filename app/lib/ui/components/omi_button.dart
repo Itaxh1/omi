@@ -222,14 +222,21 @@ class _OmiButtonState extends State<OmiButton> {
     final override = widget.colors;
     if (override != null) return (background: override.background, foreground: override.foreground);
     if (!enabled) {
+      // v3 `.obgo:disabled`: the same ink at a quarter.
       return switch (widget.variant) {
         OmiButtonVariant.tertiary => (background: Colors.transparent, foreground: OmiColors.textTertiary),
+        OmiButtonVariant.primary => (
+            background: OmiColors.accent.withValues(alpha: 0.25),
+            foreground: OmiColors.onAccent
+          ),
+        OmiButtonVariant.secondary => (background: Colors.transparent, foreground: OmiColors.textTertiary),
         _ => (background: OmiColors.surface2, foreground: OmiColors.textTertiary),
       };
     }
     return switch (widget.variant) {
       OmiButtonVariant.primary => (background: OmiColors.accent, foreground: OmiColors.onAccent),
-      OmiButtonVariant.secondary => (background: OmiColors.surface3, foreground: OmiColors.textPrimary),
+      // v3 `.obalt`: outlined in ink.
+      OmiButtonVariant.secondary => (background: Colors.transparent, foreground: OmiColors.textPrimary),
       OmiButtonVariant.destructive => (background: OmiColors.dangerSurface, foreground: OmiColors.danger),
       OmiButtonVariant.tertiary => (background: Colors.transparent, foreground: OmiColors.textPrimary),
       OmiButtonVariant.toolbar => (background: OmiColors.surface1, foreground: OmiColors.textPrimary),
@@ -242,8 +249,8 @@ class _OmiButtonState extends State<OmiButton> {
     final enabled = widget.onPressed != null;
     final colors = _colors(enabled);
     final visualHeight = widget.height ?? (compact ? 36.0 : OmiSize.primaryButton);
-    // v2: 17pt semibold on a full-size capsule, 15pt on a compact one.
-    final baseStyle = compact ? OmiType.subhead : OmiType.body;
+    // v3 `.obgo`: 16pt semibold on a full-size capsule, 15pt on a compact one.
+    final baseStyle = compact ? OmiType.subhead : OmiType.callout;
     final textStyle = (widget.labelStyle ?? baseStyle.copyWith(fontWeight: FontWeight.w600)).copyWith(
       color: colors.foreground,
     );
@@ -288,8 +295,12 @@ class _OmiButtonState extends State<OmiButton> {
         padding: WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: horizontalPadding)),
         minimumSize: WidgetStatePropertyAll(Size(widget.width ?? visualHeight, visualHeight)),
         fixedSize: widget.width != null ? WidgetStatePropertyAll(Size(widget.width!, visualHeight)) : null,
-        // v2: every text button is a capsule (radius = height / 2).
-        shape: const WidgetStatePropertyAll(StadiumBorder()),
+        // Every text button is a capsule (radius = height / 2); v3's secondary is outlined in ink.
+        shape: WidgetStatePropertyAll(
+          widget.variant == OmiButtonVariant.secondary && widget.colors == null
+              ? StadiumBorder(side: BorderSide(color: enabled ? OmiColors.textPrimary : OmiColors.outline, width: 1.5))
+              : const StadiumBorder(),
+        ),
         // A visual under 44pt gets padded out to a 48pt target; a regular button needs no padding.
         tapTargetSize: visualHeight < 44 ? MaterialTapTargetSize.padded : MaterialTapTargetSize.shrinkWrap,
         textStyle: WidgetStatePropertyAll(textStyle),

@@ -12003,4 +12003,354 @@ class AppLocalizationsUk extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get todoCardTitle => 'Справи';
+
+  @override
+  String get notInAFolder => 'Поза текою';
+
+  @override
+  String stripSyncing(int minutes) {
+    return 'синхронізація $minutes хв';
+  }
+
+  @override
+  String get change => 'Змінити';
+
+  @override
+  String syncingFrom(String name) {
+    return 'Синхронізація з $name';
+  }
+
+  @override
+  String minutesLeft(int minutes) {
+    return 'залишилося $minutes хв';
+  }
+
+  @override
+  String get viewTranscriptV3 => 'Показати розшифровку';
+
+  @override
+  String get moveToFolderV3 => 'Перемістити до папки';
+
+  @override
+  String get copySummaryV3 => 'Копіювати підсумок';
+
+  @override
+  String get deleteConversationV3 => 'Видалити розмову';
+
+  @override
+  String get copyTranscriptV3 => 'Копіювати транскрипт';
+
+  @override
+  String get noFolderV3 => 'Без папки';
+
+  @override
+  String get todosTab => 'Справи';
+
+  @override
+  String get shareLink => 'Поділитися посиланням';
+
+  @override
+  String get askOmiAboutThis => 'Запитати Omi про це';
+
+  @override
+  String get openInMaps => 'Відкрити в Картах';
+
+  @override
+  String minutesShortV3(int minutes) {
+    return '$minutes хв';
+  }
+
+  @override
+  String get noTodosInConversation => 'У цій розмові немає завдань';
+
+  @override
+  String get nameSpeakers => 'Назвати співрозмовників';
+
+  @override
+  String get backToSummary => 'Назад до підсумку';
+
+  @override
+  String speakerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count співрозмовники',
+      one: '1 співрозмовник',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noTranscriptYet => 'Розшифровки поки немає';
+
+  @override
+  String dueOn(String day) {
+    return 'Термін: $day';
+  }
+
+  @override
+  String get lateTag => 'Прострочено';
+
+  @override
+  String get allConversations => 'Усі розмови';
+
+  @override
+  String get newFolderV3 => 'Нова папка';
+
+  @override
+  String get doubleTapV3 => 'Подвійне натискання';
+
+  @override
+  String get browseAllApps => 'Усі застосунки';
+
+  @override
+  String get todoNewTag => 'Нове';
+
+  @override
+  String memoriesGraphCaption(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count спогадів. Торкніться імені, щоб побачити, що знає Omi.',
+      one: '1 спогад. Торкніться імені, щоб побачити, що знає Omi.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String memoriesAbout(String name) {
+    return 'Спогади про: $name';
+  }
+
+  @override
+  String get memoriesEmptyV3 => 'Тут з\'явиться те, що Omi дізнається про вас і людей, з якими ви говорите.';
+
+  @override
+  String get look => 'Вигляд';
+
+  @override
+  String get lookWhite => 'Білий';
+
+  @override
+  String get lookBlack => 'Чорний';
+
+  @override
+  String get startWhenOmiOpens => 'Починати, коли відкривається Omi';
+
+  @override
+  String get pendantButton => 'Кнопка кулона';
+
+  @override
+  String get allSettings => 'Усі налаштування';
+
+  @override
+  String get whatTheLightMeans => 'Що означає індикатор';
+
+  @override
+  String get lightSolidRed => 'Світить червоним';
+
+  @override
+  String get lightSolidRedMeaning => 'Увімкнено, не підключено до телефона';
+
+  @override
+  String get lightBlinkingRed => 'Блимає червоним';
+
+  @override
+  String get lightBlinkingRedMeaning => 'Чекає час від телефона. Підключення його встановить.';
+
+  @override
+  String get lightSolidBlue => 'Світить синім';
+
+  @override
+  String get lightSolidBlueMeaning => 'Увімкнено й підключено';
+
+  @override
+  String get lightGreenRed => 'Блимає зеленим і червоним';
+
+  @override
+  String get lightGreenRedMeaning => 'Заряджається, не підключено';
+
+  @override
+  String get lightGreenBlue => 'Блимає зеленим і синім';
+
+  @override
+  String get lightGreenBlueMeaning => 'Заряджається, підключено';
+
+  @override
+  String get lightSolidGreen => 'Світить зеленим';
+
+  @override
+  String get lightSolidGreenMeaning => 'Повністю заряджено';
+
+  @override
+  String get recordFrom => 'Записувати з';
+
+  @override
+  String get recordingLower => 'записує';
+
+  @override
+  String get builtInMic => 'вбудований мікрофон';
+
+  @override
+  String syncingMinutesFrom(int minutes, String name) {
+    return 'Синхронізація $minutes хв з $name…';
+  }
+
+  @override
+  String get alsoWorksWith => 'Omi також працює з Bee, Fieldy, Friend, Limitless, Plaud і Ray-Ban Meta.';
+
+  @override
+  String get bluetoothIsOff => 'Bluetooth вимкнено';
+
+  @override
+  String get bluetoothOffExplainer => 'Omi не може підключитися. Він зберігає почуте й надішле, коли ви повернетеся.';
+
+  @override
+  String get turnOn => 'Увімкнути';
+
+  @override
+  String get updateReady => 'Оновлення готове';
+
+  @override
+  String firmwareVersionLine(String version) {
+    return 'Версія $version';
+  }
+
+  @override
+  String get onYourOmi => 'На вашому Omi';
+
+  @override
+  String get newVersion => 'Нова версія';
+
+  @override
+  String get whatDoYouWantToKnow => 'Що ви хочете дізнатися?';
+
+  @override
+  String get askSuggestDecide => 'Що я вирішив сьогодні?';
+
+  @override
+  String get askSuggestOwe => 'Що я ще винен людям?';
+
+  @override
+  String get askSuggestNotice => 'Що помітив Omi?';
+
+  @override
+  String conversationsTodayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count розмов сьогодні.',
+      one: '1 розмова сьогодні.',
+      zero: 'Сьогодні розмов немає.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get readThePrivacyPolicy => 'Прочитати політику конфіденційності';
+
+  @override
+  String get consentThreeThings => 'Три речі, які варто знати';
+
+  @override
+  String get consentChooseTitle => 'Ви обираєте, коли Omi слухає.';
+
+  @override
+  String get consentChooseBody =>
+      'Торкніться знака Omi вгорі головного екрана, щоб почати чи призупинити, або скористайтеся кнопкою пристрою.';
+
+  @override
+  String get consentAiTitle => 'Omi пише нотатки за допомогою ШІ.';
+
+  @override
+  String get consentDeleteTitle => 'Ви можете видалити будь-що.';
+
+  @override
+  String get iAgree => 'Погоджуюся';
+
+  @override
+  String get nameFromAccount => 'Ми взяли це з вашого акаунта. Змініть, якщо хочете.';
+
+  @override
+  String notesLanguage(String language) {
+    return 'Нотатки будуть мовою: $language.';
+  }
+
+  @override
+  String get howWillYouRecord => 'Як ви будете записувати?';
+
+  @override
+  String get addOrSwitchDevicesAnyTime => 'Додати чи змінити пристрій можна будь-коли.';
+
+  @override
+  String get iHaveAnOmi => 'У мене є Omi';
+
+  @override
+  String get iHaveAnOmiDetail => 'Кулон, Omi Glass або Apple Watch';
+
+  @override
+  String get justThisPhoneForNow => 'Поки що лише цей телефон';
+
+  @override
+  String get useTheIphoneMicrophone => 'Використовувати мікрофон iPhone';
+
+  @override
+  String get useThePhoneMicrophone => 'Використовувати мікрофон телефона';
+
+  @override
+  String get iUseAnotherDevice => 'У мене Plaud, Bee, Limitless чи інший пристрій';
+
+  @override
+  String get allowTheMicrophone => 'Дозвольте мікрофон';
+
+  @override
+  String get allowMicrophoneWhy =>
+      'Omi записує, лише поки рухається знак Omi вгорі головного екрана. Призупиняйте будь-коли.';
+
+  @override
+  String get allowMicrophone => 'Дозволити мікрофон';
+
+  @override
+  String get youreSet => 'Усе готово.';
+
+  @override
+  String youreSetName(String name) {
+    return 'Усе готово, $name.';
+  }
+
+  @override
+  String get youreSetBody =>
+      'Omi готовий. Поки він слухає, знак Omi вгорі головного екрана рухається. Торкніться його, щоб призупинити чи змінити пристрій.';
+
+  @override
+  String get keepAppRunningNote =>
+      'Залиште застосунок працювати у фоні. Якщо закрити його примусово, Omi перестане слухати.';
+
+  @override
+  String get openOmi => 'Відкрити Omi';
+
+  @override
+  String get welcomeListensSubtitle =>
+      'Omi слухає, коли ви просите, і перетворює сказане на нотатки, завдання та спогади.';
+
+  @override
+  String get syncingToYourPhone => 'Синхронізація з телефоном';
+
+  @override
+  String lastWeekday(String weekday) {
+    return 'Минулого $weekday';
+  }
+
+  @override
+  String dayAtTime(String day, String time) {
+    return '$day, $time';
+  }
+
+  @override
+  String memoryFromConversation(String day, String time) {
+    return '$day, з розмови о $time';
+  }
 }

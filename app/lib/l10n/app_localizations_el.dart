@@ -12063,4 +12063,356 @@ class AppLocalizationsEl extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get todoCardTitle => 'Εκκρεμότητες';
+
+  @override
+  String get notInAFolder => 'Εκτός φακέλου';
+
+  @override
+  String stripSyncing(int minutes) {
+    return 'συγχρονισμός $minutes λεπ.';
+  }
+
+  @override
+  String get change => 'Αλλαγή';
+
+  @override
+  String syncingFrom(String name) {
+    return 'Συγχρονισμός από $name';
+  }
+
+  @override
+  String minutesLeft(int minutes) {
+    return 'απομένουν $minutes λεπ.';
+  }
+
+  @override
+  String get viewTranscriptV3 => 'Προβολή μεταγραφής';
+
+  @override
+  String get moveToFolderV3 => 'Μετακίνηση σε φάκελο';
+
+  @override
+  String get copySummaryV3 => 'Αντιγραφή σύνοψης';
+
+  @override
+  String get deleteConversationV3 => 'Διαγραφή συνομιλίας';
+
+  @override
+  String get copyTranscriptV3 => 'Αντιγραφή απομαγνητοφώνησης';
+
+  @override
+  String get noFolderV3 => 'Χωρίς φάκελο';
+
+  @override
+  String get todosTab => 'Εκκρεμότητες';
+
+  @override
+  String get shareLink => 'Κοινοποίηση συνδέσμου';
+
+  @override
+  String get askOmiAboutThis => 'Ρώτησε το Omi γι’ αυτό';
+
+  @override
+  String get openInMaps => 'Άνοιγμα στους Χάρτες';
+
+  @override
+  String minutesShortV3(int minutes) {
+    return '$minutes λεπ.';
+  }
+
+  @override
+  String get noTodosInConversation => 'Δεν υπάρχουν εργασίες σε αυτή τη συζήτηση';
+
+  @override
+  String get nameSpeakers => 'Ονομασία ομιλητών';
+
+  @override
+  String get backToSummary => 'Επιστροφή στη σύνοψη';
+
+  @override
+  String speakerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ομιλητές',
+      one: '1 ομιλητής',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noTranscriptYet => 'Δεν υπάρχει ακόμη απομαγνητοφώνηση';
+
+  @override
+  String dueOn(String day) {
+    return 'Λήξη: $day';
+  }
+
+  @override
+  String get lateTag => 'Καθυστέρηση';
+
+  @override
+  String get allConversations => 'Όλες οι συζητήσεις';
+
+  @override
+  String get newFolderV3 => 'Νέος φάκελος';
+
+  @override
+  String get doubleTapV3 => 'Διπλό Πάτημα';
+
+  @override
+  String get browseAllApps => 'Όλες οι εφαρμογές';
+
+  @override
+  String get todoNewTag => 'Νέα';
+
+  @override
+  String memoriesGraphCaption(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count αναμνήσεις. Πάτησε ένα όνομα για να δεις τι ξέρει το Omi.',
+      one: '1 ανάμνηση. Πάτησε ένα όνομα για να δεις τι ξέρει το Omi.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String memoriesAbout(String name) {
+    return 'Αναμνήσεις για $name';
+  }
+
+  @override
+  String get memoriesEmptyV3 =>
+      'Ό,τι μαθαίνει το Omi για σένα και τους ανθρώπους με τους οποίους μιλάς εμφανίζεται εδώ.';
+
+  @override
+  String get look => 'Εμφάνιση';
+
+  @override
+  String get lookWhite => 'Λευκό';
+
+  @override
+  String get lookBlack => 'Μαύρο';
+
+  @override
+  String get startWhenOmiOpens => 'Έναρξη όταν ανοίγει το Omi';
+
+  @override
+  String get pendantButton => 'Κουμπί μενταγιόν';
+
+  @override
+  String get allSettings => 'Όλες οι ρυθμίσεις';
+
+  @override
+  String get whatTheLightMeans => 'Τι σημαίνει το φως';
+
+  @override
+  String get lightSolidRed => 'Σταθερό κόκκινο';
+
+  @override
+  String get lightSolidRedMeaning => 'Ανοιχτό, χωρίς σύνδεση με το τηλέφωνο';
+
+  @override
+  String get lightBlinkingRed => 'Αναβοσβήνει κόκκινο';
+
+  @override
+  String get lightBlinkingRedMeaning => 'Περιμένει την ώρα από το τηλέφωνο. Η σύνδεση τη ρυθμίζει.';
+
+  @override
+  String get lightSolidBlue => 'Σταθερό μπλε';
+
+  @override
+  String get lightSolidBlueMeaning => 'Ανοιχτό και συνδεδεμένο';
+
+  @override
+  String get lightGreenRed => 'Αναβοσβήνει πράσινο και κόκκινο';
+
+  @override
+  String get lightGreenRedMeaning => 'Φορτίζει, χωρίς σύνδεση';
+
+  @override
+  String get lightGreenBlue => 'Αναβοσβήνει πράσινο και μπλε';
+
+  @override
+  String get lightGreenBlueMeaning => 'Φορτίζει, συνδεδεμένο';
+
+  @override
+  String get lightSolidGreen => 'Σταθερό πράσινο';
+
+  @override
+  String get lightSolidGreenMeaning => 'Πλήρως φορτισμένο';
+
+  @override
+  String get recordFrom => 'Εγγραφή από';
+
+  @override
+  String get recordingLower => 'εγγράφει';
+
+  @override
+  String get builtInMic => 'ενσωματωμένο μικρόφωνο';
+
+  @override
+  String syncingMinutesFrom(int minutes, String name) {
+    return 'Συγχρονισμός $minutes λεπ. από $name…';
+  }
+
+  @override
+  String get alsoWorksWith => 'Το Omi λειτουργεί επίσης με Bee, Fieldy, Friend, Limitless, Plaud και Ray-Ban Meta.';
+
+  @override
+  String get bluetoothIsOff => 'Το Bluetooth είναι απενεργοποιημένο';
+
+  @override
+  String get bluetoothOffExplainer =>
+      'Το Omi δεν μπορεί να συνδεθεί. Κρατά ό,τι ακούει και το στέλνει όταν επιστρέψεις.';
+
+  @override
+  String get turnOn => 'Ενεργοποίηση';
+
+  @override
+  String get updateReady => 'Η ενημέρωση είναι έτοιμη';
+
+  @override
+  String firmwareVersionLine(String version) {
+    return 'Έκδοση $version';
+  }
+
+  @override
+  String get onYourOmi => 'Στο Omi σου';
+
+  @override
+  String get newVersion => 'Νέα έκδοση';
+
+  @override
+  String get whatDoYouWantToKnow => 'Τι θέλεις να μάθεις;';
+
+  @override
+  String get askSuggestDecide => 'Τι αποφάσισα σήμερα;';
+
+  @override
+  String get askSuggestOwe => 'Τι χρωστάω ακόμη σε άλλους;';
+
+  @override
+  String get askSuggestNotice => 'Τι παρατήρησε το Omi;';
+
+  @override
+  String conversationsTodayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count συζητήσεις σήμερα.',
+      one: '1 συζήτηση σήμερα.',
+      zero: 'Καμία συζήτηση σήμερα.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get readThePrivacyPolicy => 'Διάβασε την Πολιτική απορρήτου';
+
+  @override
+  String get consentThreeThings => 'Τρία πράγματα που πρέπει να ξέρεις';
+
+  @override
+  String get consentChooseTitle => 'Εσύ επιλέγεις πότε ακούει το Omi.';
+
+  @override
+  String get consentChooseBody =>
+      'Πάτησε το σήμα του Omi στην κορυφή της Αρχικής για έναρξη ή παύση ή χρησιμοποίησε το κουμπί της συσκευής.';
+
+  @override
+  String get consentAiTitle => 'Το Omi χρησιμοποιεί AI για να γράφει τις σημειώσεις σου.';
+
+  @override
+  String get consentDeleteTitle => 'Μπορείς να διαγράψεις οτιδήποτε.';
+
+  @override
+  String get iAgree => 'Συμφωνώ';
+
+  @override
+  String get nameFromAccount => 'Το πήραμε από τον λογαριασμό σου. Άλλαξέ το αν θέλεις.';
+
+  @override
+  String notesLanguage(String language) {
+    return 'Οι σημειώσεις θα γράφονται στα $language.';
+  }
+
+  @override
+  String get howWillYouRecord => 'Πώς θα καταγράφεις;';
+
+  @override
+  String get addOrSwitchDevicesAnyTime => 'Μπορείς να προσθέσεις ή να αλλάξεις συσκευές ανά πάσα στιγμή.';
+
+  @override
+  String get iHaveAnOmi => 'Έχω Omi';
+
+  @override
+  String get iHaveAnOmiDetail => 'Μενταγιόν, Omi Glass ή Apple Watch';
+
+  @override
+  String get justThisPhoneForNow => 'Μόνο αυτό το τηλέφωνο προς το παρόν';
+
+  @override
+  String get useTheIphoneMicrophone => 'Χρήση του μικροφώνου του iPhone';
+
+  @override
+  String get useThePhoneMicrophone => 'Χρήση του μικροφώνου του τηλεφώνου';
+
+  @override
+  String get iUseAnotherDevice => 'Χρησιμοποιώ Plaud, Bee, Limitless ή άλλη συσκευή';
+
+  @override
+  String get allowTheMicrophone => 'Επίτρεψε το μικρόφωνο';
+
+  @override
+  String get allowMicrophoneWhy =>
+      'Το Omi καταγράφει μόνο όσο κινείται το σήμα του Omi στην κορυφή της Αρχικής. Κάνε παύση όποτε θέλεις.';
+
+  @override
+  String get allowMicrophone => 'Να επιτρέπεται το μικρόφωνο';
+
+  @override
+  String get youreSet => 'Είσαι έτοιμος.';
+
+  @override
+  String youreSetName(String name) {
+    return 'Είσαι έτοιμος, $name.';
+  }
+
+  @override
+  String get youreSetBody =>
+      'Το Omi είναι έτοιμο. Το σήμα του Omi στην κορυφή της Αρχικής κινείται όσο ακούει. Πάτησέ το για παύση ή αλλαγή συσκευής.';
+
+  @override
+  String get keepAppRunningNote =>
+      'Άφησε την εφαρμογή να τρέχει στο παρασκήνιο. Αν την κλείσεις αναγκαστικά, το Omi σταματά να ακούει.';
+
+  @override
+  String get openOmi => 'Άνοιγμα Omi';
+
+  @override
+  String get welcomeListensSubtitle =>
+      'Το Omi ακούει όταν του το ζητάς και κάνει όσα ειπώθηκαν σημειώσεις, εργασίες και αναμνήσεις.';
+
+  @override
+  String get syncingToYourPhone => 'Συγχρονισμός με το τηλέφωνο';
+
+  @override
+  String lastWeekday(String weekday) {
+    return 'Την περασμένη $weekday';
+  }
+
+  @override
+  String dayAtTime(String day, String time) {
+    return '$day, $time';
+  }
+
+  @override
+  String memoryFromConversation(String day, String time) {
+    return '$day, από τη συζήτηση των $time';
+  }
 }

@@ -11763,4 +11763,349 @@ class AppLocalizationsZh extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get todoCardTitle => '待办';
+
+  @override
+  String get notInAFolder => '不在任何文件夹中';
+
+  @override
+  String stripSyncing(int minutes) {
+    return '正在同步 $minutes 分钟';
+  }
+
+  @override
+  String get change => '更改';
+
+  @override
+  String syncingFrom(String name) {
+    return '正在从 $name 同步';
+  }
+
+  @override
+  String minutesLeft(int minutes) {
+    return '还剩 $minutes 分钟';
+  }
+
+  @override
+  String get viewTranscriptV3 => '查看文字记录';
+
+  @override
+  String get moveToFolderV3 => '移动到文件夹';
+
+  @override
+  String get copySummaryV3 => '复制摘要';
+
+  @override
+  String get deleteConversationV3 => '删除对话';
+
+  @override
+  String get copyTranscriptV3 => '复制文字记录';
+
+  @override
+  String get noFolderV3 => '无文件夹';
+
+  @override
+  String get todosTab => '待办';
+
+  @override
+  String get shareLink => '分享链接';
+
+  @override
+  String get askOmiAboutThis => '向 Omi 询问此事';
+
+  @override
+  String get openInMaps => '在地图中打开';
+
+  @override
+  String minutesShortV3(int minutes) {
+    return '$minutes 分钟';
+  }
+
+  @override
+  String get noTodosInConversation => '此对话中没有待办事项';
+
+  @override
+  String get nameSpeakers => '为说话人命名';
+
+  @override
+  String get backToSummary => '返回摘要';
+
+  @override
+  String speakerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 位说话人',
+      one: '1 位说话人',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noTranscriptYet => '暂无转录';
+
+  @override
+  String dueOn(String day) {
+    return '截止：$day';
+  }
+
+  @override
+  String get lateTag => '已逾期';
+
+  @override
+  String get allConversations => '所有对话';
+
+  @override
+  String get newFolderV3 => '新建文件夹';
+
+  @override
+  String get doubleTapV3 => '双击';
+
+  @override
+  String get browseAllApps => '浏览所有应用';
+
+  @override
+  String get todoNewTag => '新';
+
+  @override
+  String memoriesGraphCaption(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 条记忆。点按名字查看 Omi 知道的内容。',
+      one: '1 条记忆。点按名字查看 Omi 知道的内容。',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String memoriesAbout(String name) {
+    return '关于 $name 的记忆';
+  }
+
+  @override
+  String get memoriesEmptyV3 => 'Omi 了解到的关于你和你交谈对象的信息会显示在这里。';
+
+  @override
+  String get look => '外观';
+
+  @override
+  String get lookWhite => '白色';
+
+  @override
+  String get lookBlack => '黑色';
+
+  @override
+  String get startWhenOmiOpens => '打开 Omi 时开始';
+
+  @override
+  String get pendantButton => '吊坠按钮';
+
+  @override
+  String get allSettings => '所有设置';
+
+  @override
+  String get whatTheLightMeans => '指示灯的含义';
+
+  @override
+  String get lightSolidRed => '红灯常亮';
+
+  @override
+  String get lightSolidRedMeaning => '已开机，未连接手机';
+
+  @override
+  String get lightBlinkingRed => '红灯闪烁';
+
+  @override
+  String get lightBlinkingRedMeaning => '等待手机同步时间，连接后即可设置。';
+
+  @override
+  String get lightSolidBlue => '蓝灯常亮';
+
+  @override
+  String get lightSolidBlueMeaning => '已开机并已连接';
+
+  @override
+  String get lightGreenRed => '绿灯和红灯交替闪烁';
+
+  @override
+  String get lightGreenRedMeaning => '正在充电，未连接';
+
+  @override
+  String get lightGreenBlue => '绿灯和蓝灯交替闪烁';
+
+  @override
+  String get lightGreenBlueMeaning => '正在充电，已连接';
+
+  @override
+  String get lightSolidGreen => '绿灯常亮';
+
+  @override
+  String get lightSolidGreenMeaning => '已充满电';
+
+  @override
+  String get recordFrom => '录音来源';
+
+  @override
+  String get recordingLower => '录音中';
+
+  @override
+  String get builtInMic => '内置麦克风';
+
+  @override
+  String syncingMinutesFrom(int minutes, String name) {
+    return '正在同步 $minutes 分钟（来自 $name）…';
+  }
+
+  @override
+  String get alsoWorksWith => 'Omi 也支持 Bee、Fieldy、Friend、Limitless、Plaud 和 Ray-Ban Meta。';
+
+  @override
+  String get bluetoothIsOff => '蓝牙已关闭';
+
+  @override
+  String get bluetoothOffExplainer => 'Omi 无法连接。它会保存听到的内容，等你回来后再发送。';
+
+  @override
+  String get turnOn => '开启';
+
+  @override
+  String get updateReady => '更新已就绪';
+
+  @override
+  String firmwareVersionLine(String version) {
+    return '版本 $version';
+  }
+
+  @override
+  String get onYourOmi => '你的 Omi 上';
+
+  @override
+  String get newVersion => '新版本';
+
+  @override
+  String get whatDoYouWantToKnow => '你想知道什么？';
+
+  @override
+  String get askSuggestDecide => '我今天决定了什么？';
+
+  @override
+  String get askSuggestOwe => '我还欠别人什么？';
+
+  @override
+  String get askSuggestNotice => 'Omi 注意到了什么？';
+
+  @override
+  String conversationsTodayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '今天有 $count 段对话。',
+      one: '今天有 1 段对话。',
+      zero: '今天还没有对话。',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get readThePrivacyPolicy => '阅读隐私政策';
+
+  @override
+  String get consentThreeThings => '需要了解的三件事';
+
+  @override
+  String get consentChooseTitle => '由你决定 Omi 何时聆听。';
+
+  @override
+  String get consentChooseBody => '点按主屏幕顶部的 Omi 标志即可开始或暂停，也可以用设备上的按钮。';
+
+  @override
+  String get consentAiTitle => 'Omi 使用 AI 为你撰写笔记。';
+
+  @override
+  String get consentDeleteTitle => '你可以删除任何内容。';
+
+  @override
+  String get iAgree => '我同意';
+
+  @override
+  String get nameFromAccount => '这是从你的账户中获取的，可随意修改。';
+
+  @override
+  String notesLanguage(String language) {
+    return '笔记将以$language撰写。';
+  }
+
+  @override
+  String get howWillYouRecord => '你打算用什么录音？';
+
+  @override
+  String get addOrSwitchDevicesAnyTime => '你可以随时添加或切换设备。';
+
+  @override
+  String get iHaveAnOmi => '我有 Omi';
+
+  @override
+  String get iHaveAnOmiDetail => '吊坠、Omi Glass 或 Apple Watch';
+
+  @override
+  String get justThisPhoneForNow => '暂时只用这部手机';
+
+  @override
+  String get useTheIphoneMicrophone => '使用 iPhone 麦克风';
+
+  @override
+  String get useThePhoneMicrophone => '使用手机麦克风';
+
+  @override
+  String get iUseAnotherDevice => '我在用 Plaud、Bee、Limitless 或其他设备';
+
+  @override
+  String get allowTheMicrophone => '允许使用麦克风';
+
+  @override
+  String get allowMicrophoneWhy => '只有当主屏幕顶部的 Omi 标志在动时，Omi 才会录音。随时可以暂停。';
+
+  @override
+  String get allowMicrophone => '允许麦克风';
+
+  @override
+  String get youreSet => '一切就绪。';
+
+  @override
+  String youreSetName(String name) {
+    return '一切就绪，$name。';
+  }
+
+  @override
+  String get youreSetBody => 'Omi 已就绪。聆听时，主屏幕顶部的 Omi 标志会动。点按它可暂停或切换设备。';
+
+  @override
+  String get keepAppRunningNote => '请让应用在后台运行。如果强制关闭，Omi 会停止聆听。';
+
+  @override
+  String get openOmi => '打开 Omi';
+
+  @override
+  String get welcomeListensSubtitle => 'Omi 在你需要时聆听，并把对话变成笔记、待办和记忆。';
+
+  @override
+  String get syncingToYourPhone => '正在同步到手机';
+
+  @override
+  String lastWeekday(String weekday) {
+    return '上$weekday';
+  }
+
+  @override
+  String dayAtTime(String day, String time) {
+    return '$day $time';
+  }
+
+  @override
+  String memoryFromConversation(String day, String time) {
+    return '$day，来自 $time 的对话';
+  }
 }

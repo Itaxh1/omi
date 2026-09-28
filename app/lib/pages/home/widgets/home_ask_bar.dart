@@ -46,10 +46,10 @@ class HomeAskBar extends StatelessWidget {
             decoration: BoxDecoration(
               color: OmiColors.accent,
               borderRadius: OmiRadius.pillAll,
-              // `.askw`: 0 12px 28px, a soft shadow.
-              boxShadow: [BoxShadow(color: OmiColors.shadowSoft, offset: const Offset(0, 12), blurRadius: 28)],
+              // `.askw`: 0 12px 28px at 18 %.
+              boxShadow: const [BoxShadow(color: OmiColors.askShadow, offset: Offset(0, 12), blurRadius: 28)],
             ),
-            padding: const EdgeInsets.fromLTRB(20, 0, 8, 0),
+            padding: const EdgeInsets.fromLTRB(21, 0, 8, 0),
             child: Row(
               children: [
                 Expanded(
@@ -97,7 +97,7 @@ class _MicButton extends StatelessWidget {
           height: 44,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.all(color: ink.withValues(alpha: 0.5), width: 1.5),
+            border: Border.all(color: ink.withValues(alpha: 0.4)),
           ),
           alignment: Alignment.center,
           child: OmiGlyph(OmiGlyphs.mic, size: 20, color: ink),

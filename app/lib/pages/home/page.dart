@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:upgrader/upgrader.dart';
 
@@ -15,23 +14,18 @@ import 'package:omi/backend/preferences.dart';
 import 'package:omi/backend/schema/bt_device/bt_device.dart';
 import 'package:omi/backend/schema/geolocation.dart';
 import 'package:omi/gen/pigeon_communicator.g.dart';
-import 'package:omi/pages/action_items/action_items_page.dart';
+import 'package:omi/pages/action_items/todo_list_page.dart';
 import 'package:omi/pages/apps/page.dart';
 import 'package:omi/pages/memories/page.dart';
 import 'package:omi/pages/chat/page.dart';
-import 'package:omi/pages/conversations/conversations_page.dart';
-import 'package:omi/pages/conversations/auto_sync_page.dart';
-import 'package:omi/pages/conversations/sync_page.dart';
-import 'package:omi/pages/action_items/widgets/task_selection_action_bar.dart';
-import 'package:omi/pages/conversations/widgets/merge_action_bar.dart';
-import 'package:omi/pages/conversations/conversation_map_page.dart';
+import 'package:omi/pages/conversations/all_conversations_page.dart';
 import 'package:omi/pages/home/home_content.dart';
 import 'package:omi/pages/home/widgets/home_ask_bar.dart';
-import 'package:omi/pages/home/widgets/home_section_stack.dart';
+import 'package:omi/pages/home/widgets/folders_sidebar.dart';
 import 'package:omi/pages/home/widgets/home_top_bar.dart';
 import 'package:omi/pages/home/widgets/recorder_overlay.dart';
-import 'package:omi/pages/phone_calls/active_call_banner.dart';
 import 'package:omi/pages/settings/settings_drawer.dart';
+import 'package:omi/pages/settings/you_sheet.dart';
 import 'package:omi/pages/settings/task_integrations_page.dart';
 import 'package:omi/providers/action_items_provider.dart';
 import 'package:omi/providers/app_provider.dart';
@@ -60,9 +54,7 @@ import 'package:omi/utils/analytics/analytics_manager.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/utils/logger.dart';
 import 'package:omi/utils/platform/platform_manager.dart';
-import 'package:omi/widgets/calendar_date_picker_sheet.dart';
 import 'package:omi/widgets/freemium_switch_dialog.dart';
-import 'package:omi/widgets/shimmer_with_timeout.dart';
 import 'package:omi/widgets/upgrade_alert.dart';
 import 'package:omi/widgets/bottom_nav_bar.dart';
 import 'package:omi/services/sockets/listen_client_state.dart';
@@ -145,14 +137,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
   StreamSubscription? _notificationStreamSubscription;
 
   final GlobalKey<HomeContentPageState> _homeContentPageKey = GlobalKey<HomeContentPageState>();
-  final GlobalKey<State<ConversationsPage>> _conversationsPageKey = GlobalKey<State<ConversationsPage>>();
-  final GlobalKey<State<ActionItemsPage>> _actionItemsPageKey = GlobalKey<State<ActionItemsPage>>();
-  final GlobalKey<AppsPageState> _appsPageKey = GlobalKey<AppsPageState>();
-  // Keep the IndexedStack slots stable, but defer constructing non-selected
-  // tabs until the user visits them. Once created, a tab remains in the stack
-  // so its scroll position and other state are preserved.
-  final List<Widget?> _pages = List<Widget?>.filled(4, null);
-  final Set<int> _scheduledPageInitializations = <int>{};
 
   // Freemium switch handler for auto-switch dialogs
   final FreemiumSwitchHandler _freemiumHandler = FreemiumSwitchHandler();
@@ -170,99 +154,35 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
 
   /// Whether the recorder card is up over Home (v3): the top bar's Listening label toggles it, a
   /// tap outside closes it.
+  /// Home's controller, kept so dispose can clear the section hook without a context lookup.
+  HomeProvider? _homeProvider;
+
   final ValueNotifier<bool> _recorderOpen = ValueNotifier<bool>(false);
 
   CaptureProvider? _captureProvider;
   DeviceProvider? _deviceProviderForQuickActions;
   CaptureProvider? _captureProviderForQuickActions;
   Timer? _announcementTimer;
-  final List<Timer> _prewarmTimers = [];
 
-  void _ensurePageInitialized(int pageIndex) {
-    if (pageIndex < 0 || pageIndex >= _pages.length || _pages[pageIndex] != null) return;
-
-    switch (pageIndex) {
-      case 0:
-        _pages[pageIndex] = HomeContentPage(key: _homeContentPageKey);
-        break;
-      case 1:
-        _pages[pageIndex] = ConversationsPage(key: _conversationsPageKey);
-        break;
-      case 2:
-        _pages[pageIndex] = ActionItemsPage(key: _actionItemsPageKey, onAddGoal: _addGoal);
-        break;
-      case 3:
-        _pages[pageIndex] = AppsPage(key: _appsPageKey);
-        break;
-    }
+  /// v3: Home is the root and everything else is pushed on top of it. `HomeProvider.setIndex`
+  /// (links, notifications, widgets, quick actions) opens Conversations (1), To do (2) or Apps (3).
+  void _onSectionRequested(int index) {
+    if (index <= 0 || !mounted) return;
+    context.read<HomeProvider>().selectedIndex = 0;
+    _recorderOpen.value = false;
+    unawaited(routeToPage(context, _sectionPage(index)));
   }
 
-  void _schedulePageInitialization(int pageIndex) {
-    if (pageIndex < 0 || pageIndex >= _pages.length || _pages[pageIndex] != null) return;
-    if (!_scheduledPageInitializations.add(pageIndex)) return;
+  static Widget _sectionPage(int index) => switch (index) {
+        2 => const TodoListPage(),
+        3 => const AppsPage(showAppBar: true),
+        _ => const AllConversationsPage(),
+      };
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scheduledPageInitializations.remove(pageIndex);
-      if (!mounted || _pages[pageIndex] != null) return;
-      setState(() => _ensurePageInitialized(pageIndex));
-    });
-    // addPostFrameCallback does not schedule a frame by itself. Background
-    // prewarming often runs while the UI is idle, so explicitly request one.
-    WidgetsBinding.instance.ensureVisualUpdate();
-  }
-
-  void _prewarmRemainingTabs(int selectedIndex) {
-    for (final timer in _prewarmTimers) {
-      timer.cancel();
-    }
-    _prewarmTimers.clear();
-    var delay = const Duration(milliseconds: 350);
-    for (var index = 0; index < _pages.length; index++) {
-      if (index == selectedIndex) continue;
-      final pageIndex = index;
-      _prewarmTimers.add(
-        Timer(delay, () {
-          if (!mounted) return;
-          _schedulePageInitialization(pageIndex);
-        }),
-      );
-      delay += const Duration(milliseconds: 180);
-    }
-  }
-
-  List<Widget> _buildPages(int selectedIndex) {
-    return [
-      for (var index = 0; index < _pages.length; index++)
-        TickerMode(
-          enabled: index == selectedIndex,
-          child: RepaintBoundary(child: _pages[index] ?? _TabLoadingSkeleton(tabIndex: index)),
-        ),
-    ];
-  }
-
-  /// Back from a pushed section to Today.
-  void _backToToday() {
-    OmiHaptics.selection();
-    context.read<HomeProvider>().setIndex(0);
-  }
-
-  /// Folders (v3): Conversations, where the folder tabs are.
+  /// The folder button: the folders sidebar.
   void _openFolders() {
     _recorderOpen.value = false;
-    _ensurePageInitialized(1);
-    context.read<HomeProvider>().setIndex(1);
-  }
-
-  void _addGoal() {
-    _ensurePageInitialized(1);
-    context.read<HomeProvider>().setIndex(1);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-      final conversationsState = _conversationsPageKey.currentState;
-      if (conversationsState != null) {
-        (conversationsState as dynamic).addGoal();
-      }
-    });
+    unawaited(FoldersSidebar.show(context));
   }
 
   BackgroundResourceSnapshot _captureBackgroundResourceSnapshot({
@@ -451,11 +371,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
     final initialLink = HomeDeepLink.parse(widget.navigateToRoute);
     final homePageIdx = initialLink?.tabIndex ?? 0;
 
-    // Home controller
-    context.read<HomeProvider>().selectedIndex = homePageIdx;
-    _ensurePageInitialized(homePageIdx);
+    // Home controller: Home stays the root; a link's section opens on top of it.
+    final home = _homeProvider = context.read<HomeProvider>();
+    home.selectedIndex = 0;
+    home.onSelectedIndexChanged = _onSectionRequested;
+    if (homePageIdx > 0) WidgetsBinding.instance.addPostFrameCallback((_) => _onSectionRequested(homePageIdx));
     WidgetsBinding.instance.addObserver(this);
-    _prewarmRemainingTabs(homePageIdx);
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       // Android needs a foreground service to keep capture/location work alive.
@@ -507,10 +428,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
     final link = HomeDeepLink.parse(route);
     if (link == null || !mounted) return;
     final tab = link.tabIndex;
-    if (tab != null) {
-      _ensurePageInitialized(tab);
-      context.read<HomeProvider>().setIndex(tab);
-    }
+    if (tab != null && tab > 0) _onSectionRequested(tab);
     await openHomeDeepLink(context, link, openSettings: _openSettings);
   }
 
@@ -711,92 +629,39 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
           }
           return child!;
         },
-        child: Selector<HomeProvider, int>(
-          selector: (_, homeProvider) => homeProvider.selectedIndex,
-          builder: (context, selectedIndex, _) {
-            // D6: Android back on another tab returns to Home before it leaves the app.
-            return PopScope(
-              canPop: selectedIndex == 0,
-              onPopInvokedWithResult: (didPop, _) {
-                if (didPop || selectedIndex == 0) return;
-                OmiHaptics.selection();
-                context.read<HomeProvider>().setIndex(0);
-                _schedulePageInitialization(0);
+        // v3: Home is the one root screen, on the warm gradient fixed to the screen: the top bar,
+        // the content, the pinned Ask bar and the recorder card over them.
+        child: DecoratedBox(
+          decoration: BoxDecoration(gradient: HomeTone.gradient()),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            resizeToAvoidBottomInset: false,
+            appBar: HomeTopBar(
+              recorderOpen: _recorderOpen,
+              onFolders: _openFolders,
+              onYou: () {
+                _recorderOpen.value = false;
+                PlatformManager.instance.analytics.pageOpened('You');
+                unawaited(YouSheet.show(context, openSettings: _openSettings));
               },
-              child: Scaffold(
-                backgroundColor: OmiColors.surface0,
-                resizeToAvoidBottomInset: false,
-                appBar: selectedIndex == 5
-                    ? null
-                    : selectedIndex == 0
-                        ? HomeTopBar(
-                            recorderOpen: _recorderOpen,
-                            onFolders: _openFolders,
-                            onYou: () {
-                              _recorderOpen.value = false;
-                              PlatformManager.instance.analytics.pageOpened('Settings');
-                              unawaited(_openSettings());
-                            },
-                          )
-                        : _buildAppBar(context),
-                body: GestureDetector(
-                  onTap: () {
-                    primaryFocus?.unfocus();
-                    // context.read<HomeProvider>().memoryFieldFocusNode.unfocus();
-                    // context.read<HomeProvider>().chatFieldFocusNode.unfocus();
-                  },
-                  child: Stack(
-                    children: [
-                      Column(
-                        children: [
-                          // Show slim green call bar on non-home/conversations tabs when a call is active
-                          if (selectedIndex > 1) const ActiveCallTopBar(),
-                          Expanded(
-                            child: HomeSectionStack(
-                              selectedIndex: selectedIndex,
-                              pages: _buildPages(selectedIndex),
-                              onBack: _backToToday,
-                            ),
-                          ),
-                        ],
-                      ),
-                      // v2.1: the one bottom control is Ask; search fields and selection bars take the
-                      // bottom while they are up.
-                      Consumer3<HomeProvider, ConversationProvider, ActionItemsProvider>(
-                        builder: (context, home, conversations, tasks, child) {
-                          if (home.isChatFieldFocused ||
-                              home.isAppsSearchFieldFocused ||
-                              home.isMemoriesSearchFieldFocused ||
-                              (selectedIndex == 1 && conversations.isSelectionModeActive) ||
-                              (selectedIndex == 2 && tasks.isSelectionMode)) {
-                            return const SizedBox.shrink();
-                          }
-                          return Positioned(
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            child: HomeAskBar(
-                              onOpen: _openChat,
-                              onVoice: () => _openChat(voice: true),
-                              onHold: _openMemories,
-                            ),
-                          );
-                        },
-                      ),
-                      // v3: the recorder card rises over Home, above the Ask bar, from the Listening label.
-                      if (selectedIndex == 0) Positioned.fill(child: RecorderCardOverlay(open: _recorderOpen)),
-                      // Merge action bar - floats above bottom nav when in selection mode
-                      if (selectedIndex == 1) const Positioned(left: 0, right: 0, bottom: 0, child: MergeActionBar()),
-                      // Task selection action bar - floats above bottom nav on the
-                      // tasks tab when selection mode is active in ActionItemsProvider.
-                      if (selectedIndex == 2)
-                        const Positioned(left: 0, right: 0, bottom: 0, child: TaskSelectionActionBar()),
-                    ],
+            ),
+            body: Stack(
+              children: [
+                Positioned.fill(child: HomeContentPage(key: _homeContentPageKey, recorderOpen: _recorderOpen)),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: HomeAskBar(
+                    onOpen: _openChat,
+                    onVoice: () => _openChat(voice: true),
+                    onHold: _openMemories,
                   ),
                 ),
-              ),
-            );
-          },
+                Positioned.fill(child: RecorderCardOverlay(open: _recorderOpen)),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -816,121 +681,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
     routeToPage(context, const MemoriesPage());
   }
 
-  /// The pushed sections' header (Home has [HomeTopBar]): "< Today" on the leading edge and each
-  /// section's actions in one glass capsule on the trailing edge.
-  PreferredSizeWidget _buildAppBar(BuildContext context) {
-    return AppBar(
-      automaticallyImplyLeading: false,
-      backgroundColor: OmiColors.surface0,
-      titleSpacing: OmiSpacing.sm,
-      elevation: 0,
-      // The header's glass casts a small contact shadow; the bar must not cut it into a hard edge.
-      clipBehavior: Clip.none,
-      title: Selector<HomeProvider, int>(
-        selector: (_, home) => home.selectedIndex,
-        builder: (context, index, _) => Row(
-          children: [
-            _TodayBackButton(onTap: _backToToday),
-            const Spacer(),
-            if (index == 1) ..._conversationsActions(context),
-            if (index == 2) _tasksActions(context),
-            if (index == 3) const AppsCreateMenu(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  /// Conversations: sync (when a device is paired or files wait on it), the map, the date filter
-  /// while one is set, then Select.
-  List<Widget> _conversationsActions(BuildContext context) {
-    return [
-      Consumer3<DeviceProvider, SyncProvider, ConversationProvider>(
-        builder: (context, deviceProvider, syncProvider, convoProvider, _) {
-          final device = deviceProvider.pairedDevice;
-          final hasPendingOnDevice = syncProvider.missingWalsOnDevice.isNotEmpty;
-          return OmiToolbarCapsule(
-            children: [
-              if (device != null || hasPendingOnDevice)
-                OmiIconButton(
-                  icon: Icon(Icons.sd_card_outlined, color: hasPendingOnDevice ? OmiColors.warning : null),
-                  label: context.l10n.sync,
-                  onPressed: () {
-                    OmiHaptics.selection();
-                    final page = deviceProvider.supportsMultiFileSync ? const AutoSyncPage() : const SyncPage();
-                    routeToPage(context, page);
-                  },
-                ),
-              OmiIconButton(
-                key: const Key('conversation_map_button'),
-                icon: const Icon(Icons.map_outlined),
-                label: context.l10n.conversationMap,
-                onPressed: () => routeToPage(
-                  context,
-                  ConversationMapPage(conversations: convoProvider.displayedConversations),
-                ),
-              ),
-              if (convoProvider.selectedStartDate != null)
-                OmiIconButton(
-                  icon: const FaIcon(FontAwesomeIcons.calendarDay, size: 16),
-                  label: context.l10n.filters,
-                  onPressed: () async {
-                    OmiHaptics.selection();
-                    await showConversationDateRangePicker(context);
-                  },
-                ),
-            ],
-          );
-        },
-      ),
-      const SizedBox(width: OmiSpacing.xs),
-      OmiToolbarTextButton(
-        key: const Key('conversations_select'),
-        label: context.l10n.selectOption,
-        onPressed: () {
-          OmiHaptics.selection();
-          context.read<ConversationProvider>().enterSelectionMode();
-        },
-      ),
-    ];
-  }
-
-  /// Tasks: export and the completed view.
-  Widget _tasksActions(BuildContext context) {
-    return Consumer<ActionItemsProvider>(
-      builder: (context, actionItemsProvider, _) {
-        final showCompleted = actionItemsProvider.showCompletedView;
-        return OmiToolbarCapsule(
-          children: [
-            OmiIconButton(
-              icon: const FaIcon(FontAwesomeIcons.arrowUpFromBracket, size: 16),
-              label: context.l10n.exportButton,
-              onPressed: () {
-                OmiHaptics.selection();
-                PlatformManager.instance.analytics.exportTasksBannerClicked();
-                routeToPage(context, const TaskIntegrationsPage());
-              },
-            ),
-            OmiIconButton(
-              icon: FaIcon(
-                showCompleted ? FontAwesomeIcons.solidCircleCheck : FontAwesomeIcons.circleCheck,
-                size: 16,
-              ),
-              label: context.l10n.completed,
-              onPressed: () {
-                OmiHaptics.light();
-                actionItemsProvider.toggleShowCompletedView();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   void dispose() {
     _homeWidgets?.dispose();
+    // Only this Home's own hook: a later Home may already have set its own.
+    if (_homeProvider?.onSelectedIndexChanged == _onSectionRequested) _homeProvider?.onSelectedIndexChanged = null;
+    _homeProvider = null;
     _recorderOpen.dispose();
     HomeNavigation.unregister(_openRoute);
     _promptGate.detach();
@@ -941,10 +697,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
     OmiFeedback.bottomClearance = null;
     _announcementTimer?.cancel();
     _announcementTimer = null;
-    for (final timer in _prewarmTimers) {
-      timer.cancel();
-    }
-    _prewarmTimers.clear();
     WidgetsBinding.instance.removeObserver(this);
     // Cancel stream subscription to prevent memory leak
     _notificationStreamSubscription?.cancel();
@@ -974,80 +726,5 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
       ForegroundUtil.stopForegroundTask();
     }
     super.dispose();
-  }
-}
-
-/// v4 push: "< Today" on glass at the top of a pushed section.
-class _TodayBackButton extends StatelessWidget {
-  const _TodayBackButton({required this.onTap});
-
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final label = context.l10n.today;
-    return Semantics(
-      button: true,
-      label: label,
-      excludeSemantics: true,
-      onTap: onTap,
-      child: GestureDetector(
-        key: const Key('home_back_today'),
-        behavior: HitTestBehavior.opaque,
-        onTap: onTap,
-        child: SizedBox(
-          height: OmiSize.minTap,
-          child: Center(
-            child: SizedBox(
-              height: 40,
-              child: OmiGlass(
-                inHeader: true,
-                borderRadius: const BorderRadius.all(Radius.circular(12)),
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.only(start: 6, end: 14),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.chevron_left_rounded, size: 26, color: OmiColors.textPrimary),
-                      Text(label, style: OmiType.body.copyWith(fontWeight: FontWeight.w600)),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _TabLoadingSkeleton extends StatelessWidget {
-  const _TabLoadingSkeleton({required this.tabIndex});
-
-  final int tabIndex;
-
-  @override
-  Widget build(BuildContext context) {
-    final itemCount = tabIndex == 3 ? 6 : 5;
-    return IgnorePointer(
-      child: ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(20, 24, 20, 120),
-        itemCount: itemCount,
-        itemBuilder: (context, index) => Padding(
-          padding: const EdgeInsets.only(bottom: 14),
-          child: ShimmerWithTimeout(
-            baseColor: OmiColors.surface1,
-            highlightColor: OmiColors.surface2,
-            child: Container(
-              height: index == 0 ? 34 : 76,
-              width: double.infinity,
-              decoration: BoxDecoration(color: OmiColors.surface1, borderRadius: OmiRadius.lgAll),
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }

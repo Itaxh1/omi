@@ -11990,4 +11990,353 @@ class AppLocalizationsSv extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get todoCardTitle => 'Att göra';
+
+  @override
+  String get notInAFolder => 'Inte i en mapp';
+
+  @override
+  String stripSyncing(int minutes) {
+    return 'synkar $minutes min';
+  }
+
+  @override
+  String get change => 'Ändra';
+
+  @override
+  String syncingFrom(String name) {
+    return 'Synkar från $name';
+  }
+
+  @override
+  String minutesLeft(int minutes) {
+    return '$minutes min kvar';
+  }
+
+  @override
+  String get viewTranscriptV3 => 'Visa transkription';
+
+  @override
+  String get moveToFolderV3 => 'Flytta till mapp';
+
+  @override
+  String get copySummaryV3 => 'Kopiera sammanfattning';
+
+  @override
+  String get deleteConversationV3 => 'Radera konversation';
+
+  @override
+  String get copyTranscriptV3 => 'Kopiera transkription';
+
+  @override
+  String get noFolderV3 => 'Ingen mapp';
+
+  @override
+  String get todosTab => 'Att göra';
+
+  @override
+  String get shareLink => 'Dela länk';
+
+  @override
+  String get askOmiAboutThis => 'Fråga Omi om detta';
+
+  @override
+  String get openInMaps => 'Öppna i Kartor';
+
+  @override
+  String minutesShortV3(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get noTodosInConversation => 'Inga uppgifter i det här samtalet';
+
+  @override
+  String get nameSpeakers => 'Namnge talare';
+
+  @override
+  String get backToSummary => 'Tillbaka till sammanfattningen';
+
+  @override
+  String speakerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count talare',
+      one: '1 talare',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get noTranscriptYet => 'Ingen transkription ännu';
+
+  @override
+  String dueOn(String day) {
+    return 'Förfaller $day';
+  }
+
+  @override
+  String get lateTag => 'Försenad';
+
+  @override
+  String get allConversations => 'Alla samtal';
+
+  @override
+  String get newFolderV3 => 'Ny mapp';
+
+  @override
+  String get doubleTapV3 => 'Dubbeltryck';
+
+  @override
+  String get browseAllApps => 'Bläddra bland alla appar';
+
+  @override
+  String get todoNewTag => 'Ny';
+
+  @override
+  String memoriesGraphCaption(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count minnen. Tryck på ett namn för att se vad Omi vet om det.',
+      one: '1 minne. Tryck på ett namn för att se vad Omi vet om det.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String memoriesAbout(String name) {
+    return 'Minnen om $name';
+  }
+
+  @override
+  String get memoriesEmptyV3 => 'Det Omi lär sig om dig och de du pratar med visas här.';
+
+  @override
+  String get look => 'Utseende';
+
+  @override
+  String get lookWhite => 'Vit';
+
+  @override
+  String get lookBlack => 'Svart';
+
+  @override
+  String get startWhenOmiOpens => 'Starta när Omi öppnas';
+
+  @override
+  String get pendantButton => 'Hängets knapp';
+
+  @override
+  String get allSettings => 'Alla inställningar';
+
+  @override
+  String get whatTheLightMeans => 'Vad lampan betyder';
+
+  @override
+  String get lightSolidRed => 'Fast rött';
+
+  @override
+  String get lightSolidRedMeaning => 'På, inte ansluten till telefonen';
+
+  @override
+  String get lightBlinkingRed => 'Blinkar rött';
+
+  @override
+  String get lightBlinkingRedMeaning => 'Väntar på tiden från telefonen. Anslutningen ställer in den.';
+
+  @override
+  String get lightSolidBlue => 'Fast blått';
+
+  @override
+  String get lightSolidBlueMeaning => 'På och ansluten';
+
+  @override
+  String get lightGreenRed => 'Blinkar grönt och rött';
+
+  @override
+  String get lightGreenRedMeaning => 'Laddar, inte ansluten';
+
+  @override
+  String get lightGreenBlue => 'Blinkar grönt och blått';
+
+  @override
+  String get lightGreenBlueMeaning => 'Laddar, ansluten';
+
+  @override
+  String get lightSolidGreen => 'Fast grönt';
+
+  @override
+  String get lightSolidGreenMeaning => 'Fulladdad';
+
+  @override
+  String get recordFrom => 'Spela in från';
+
+  @override
+  String get recordingLower => 'spelar in';
+
+  @override
+  String get builtInMic => 'inbyggd mikrofon';
+
+  @override
+  String syncingMinutesFrom(int minutes, String name) {
+    return 'Synkar $minutes min från $name…';
+  }
+
+  @override
+  String get alsoWorksWith => 'Omi fungerar också med Bee, Fieldy, Friend, Limitless, Plaud och Ray-Ban Meta.';
+
+  @override
+  String get bluetoothIsOff => 'Bluetooth är av';
+
+  @override
+  String get bluetoothOffExplainer =>
+      'Din Omi kan inte ansluta. Den sparar det den hör och skickar det när du är tillbaka.';
+
+  @override
+  String get turnOn => 'Slå på';
+
+  @override
+  String get updateReady => 'Uppdatering klar';
+
+  @override
+  String firmwareVersionLine(String version) {
+    return 'Version $version';
+  }
+
+  @override
+  String get onYourOmi => 'På din Omi';
+
+  @override
+  String get newVersion => 'Ny version';
+
+  @override
+  String get whatDoYouWantToKnow => 'Vad vill du veta?';
+
+  @override
+  String get askSuggestDecide => 'Vad bestämde jag i dag?';
+
+  @override
+  String get askSuggestOwe => 'Vad är jag fortfarande skyldig folk?';
+
+  @override
+  String get askSuggestNotice => 'Vad märkte Omi?';
+
+  @override
+  String conversationsTodayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count samtal i dag.',
+      one: '1 samtal i dag.',
+      zero: 'Inga samtal i dag.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get readThePrivacyPolicy => 'Läs integritetspolicyn';
+
+  @override
+  String get consentThreeThings => 'Tre saker att veta';
+
+  @override
+  String get consentChooseTitle => 'Du väljer när Omi lyssnar.';
+
+  @override
+  String get consentChooseBody =>
+      'Tryck på Omi-märket högst upp på Hem för att starta eller pausa, eller använd knappen på enheten.';
+
+  @override
+  String get consentAiTitle => 'Omi använder AI för att skriva dina anteckningar.';
+
+  @override
+  String get consentDeleteTitle => 'Du kan radera vad som helst.';
+
+  @override
+  String get iAgree => 'Jag godkänner';
+
+  @override
+  String get nameFromAccount => 'Vi hämtade det från ditt konto. Ändra om du vill.';
+
+  @override
+  String notesLanguage(String language) {
+    return 'Anteckningarna skrivs på $language.';
+  }
+
+  @override
+  String get howWillYouRecord => 'Hur vill du spela in?';
+
+  @override
+  String get addOrSwitchDevicesAnyTime => 'Du kan lägga till eller byta enheter när som helst.';
+
+  @override
+  String get iHaveAnOmi => 'Jag har en Omi';
+
+  @override
+  String get iHaveAnOmiDetail => 'Hänge, Omi Glass eller Apple Watch';
+
+  @override
+  String get justThisPhoneForNow => 'Bara den här telefonen tills vidare';
+
+  @override
+  String get useTheIphoneMicrophone => 'Använd iPhones mikrofon';
+
+  @override
+  String get useThePhoneMicrophone => 'Använd telefonens mikrofon';
+
+  @override
+  String get iUseAnotherDevice => 'Jag använder Plaud, Bee, Limitless eller en annan enhet';
+
+  @override
+  String get allowTheMicrophone => 'Tillåt mikrofonen';
+
+  @override
+  String get allowMicrophoneWhy => 'Omi spelar bara in medan Omi-märket högst upp på Hem rör sig. Pausa när du vill.';
+
+  @override
+  String get allowMicrophone => 'Tillåt mikrofon';
+
+  @override
+  String get youreSet => 'Allt är klart.';
+
+  @override
+  String youreSetName(String name) {
+    return 'Allt är klart, $name.';
+  }
+
+  @override
+  String get youreSetBody =>
+      'Omi är redo. Omi-märket högst upp på Hem rör sig medan den lyssnar. Tryck på det för att pausa eller byta enhet.';
+
+  @override
+  String get keepAppRunningNote => 'Låt appen köras i bakgrunden. Om du tvångsstänger den slutar Omi lyssna.';
+
+  @override
+  String get openOmi => 'Öppna Omi';
+
+  @override
+  String get welcomeListensSubtitle =>
+      'Omi lyssnar när du ber om det och gör det som sades till anteckningar, uppgifter och minnen.';
+
+  @override
+  String get syncingToYourPhone => 'Synkar till telefonen';
+
+  @override
+  String lastWeekday(String weekday) {
+    return 'I ${weekday}s';
+  }
+
+  @override
+  String dayAtTime(String day, String time) {
+    return '$day, $time';
+  }
+
+  @override
+  String memoryFromConversation(String day, String time) {
+    return '$day, från samtalet kl. $time';
+  }
 }
