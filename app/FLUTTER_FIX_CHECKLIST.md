@@ -172,9 +172,13 @@ and an unsigned build cannot establish these hardware results.
 - All 20 focused gesture, listening-label and recorder-action tests pass,
   including persistence across preferences reload and widget recreation.
 - Analyzer ratchet and localization consistency checks pass.
-- Requested installation procedure: clear only this preview app's local saved
-  credentials and shared widget data, uninstall its container/cache, then install
-  the freshly signed build. No cloud account or server conversations are deleted.
-  A clean local install resets the hint count and starts onboarding again.
-- Physical installation evidence is recorded separately after the signed build;
-  these notes do not claim an install before device verification.
+- All 23 hermetic mobile journey checks pass again. Full preflight still fails
+  the existing branch-wide file-size ratchet; it is not a green full preflight.
+- Completed the clean install on Ashwin's iPhone on September 28, 2026. Verified
+  deletion of this preview app's local Keychain items and shared widget data,
+  uninstalled its container/cache, and installed signed build `09db62eb21`.
+  No cloud account or server conversations were deleted. No local cache was
+  restored. The clean install resets the hint count.
+- Launched without a debugger and inspected the settled device screenshot:
+  the initial welcome screen offers Apple/Google sign-in, with no saved session.
+  Signed build, reset, uninstall, install and launch receipts are saved locally.
