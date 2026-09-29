@@ -3999,5 +3999,18 @@
     "feedbackReasonRecordingOther": "Iets anders",
     "searchPeople": "Personen zoeken",
     "addQueryAsNewPerson": "\"{query}\" toevoegen als nieuwe persoon",
-    "showAllPeople": "Alle {count} personen weergeven"
+    "showAllPeople": "Alle {count} personen weergeven",
+    "lookingForYourPendant": "Je hanger zoeken",
+    "holdPendantClose": "Houd de hanger dichtbij. Hij zou moeten oplichten.",
+    "foundPendants": "{count, plural, =1{Eén gevonden} other{{count} gevonden}}",
+    "holdOn": "Een ogenblik",
+    "pendantConnected": "Je hanger is verbonden",
+    "pendantConnectedBody": "{device}, batterij {percent}%. Hij begint met opnemen zodra jij dat zegt.",
+    "pendantConnectedBodyNoBattery": "{device}. Hij begint met opnemen zodra jij dat zegt.",
+    "startRecordingV3": "Opname starten",
+    "otherDevicesV3": "Andere apparaten",
+    "scanAgainV3": "Opnieuw zoeken",
+    "howToPairV3": "Zo koppel je",
+    "omiNotInRangeUsePhone": "{device} is buiten bereik. Voorlopig deze telefoon gebruiken?",
+    "usePhoneV3": "Telefoon gebruiken"
 }

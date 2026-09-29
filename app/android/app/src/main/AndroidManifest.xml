@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Android 16 Live Updates: the recording's notification is promoted, with a status bar chip. -->
+    <uses-permission android:name="android.permission.POST_PROMOTED_NOTIFICATIONS" />
     <!-- Tell Google Play Store that your app uses Bluetooth LE
      Set android:required="true" if bluetooth is necessary -->
     <uses-feature
@@ -101,6 +103,11 @@
         <receiver
             android:name="id.flutter.flutter_background_service.BootReceiver"
             tools:node="remove" />
+
+        <!-- Pause, Resume and Stop on the recording's Live Update (our own PendingIntents only). -->
+        <receiver
+            android:name="com.friend.ios.capture.CaptureLiveUpdateReceiver"
+            android:exported="false" />
 
         <service
             android:name=".NotificationOnKillService"

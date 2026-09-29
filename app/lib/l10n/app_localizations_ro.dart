@@ -12825,4 +12825,57 @@ class AppLocalizationsRo extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Afișează toate cele $count persoane';
   }
+
+  @override
+  String get lookingForYourPendant => 'Căutăm pandantivul tău';
+
+  @override
+  String get holdPendantClose => 'Ține pandantivul aproape. Ar trebui să se aprindă.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Am găsit $count',
+      one: 'Am găsit unul',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'O clipă';
+
+  @override
+  String get pendantConnected => 'Pandantivul tău e conectat';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, baterie $percent%. Va începe să înregistreze când spui tu.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Va începe să înregistreze când spui tu.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Începe înregistrarea';
+
+  @override
+  String get otherDevicesV3 => 'Alte dispozitive';
+
+  @override
+  String get scanAgainV3 => 'Caută din nou';
+
+  @override
+  String get howToPairV3 => 'Cum se asociază';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device nu e în raza de acțiune. Folosești acest telefon deocamdată?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Folosește telefonul';
 }

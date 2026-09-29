@@ -3999,5 +3999,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "Caută persoane",
     "addQueryAsNewPerson": "Adaugă \"{query}\" ca persoană nouă",
-    "showAllPeople": "Afișează toate cele {count} persoane"
+    "showAllPeople": "Afișează toate cele {count} persoane",
+    "lookingForYourPendant": "Căutăm pandantivul tău",
+    "holdPendantClose": "Ține pandantivul aproape. Ar trebui să se aprindă.",
+    "foundPendants": "{count, plural, =1{Am găsit unul} other{Am găsit {count}}}",
+    "holdOn": "O clipă",
+    "pendantConnected": "Pandantivul tău e conectat",
+    "pendantConnectedBody": "{device}, baterie {percent}%. Va începe să înregistreze când spui tu.",
+    "pendantConnectedBodyNoBattery": "{device}. Va începe să înregistreze când spui tu.",
+    "startRecordingV3": "Începe înregistrarea",
+    "otherDevicesV3": "Alte dispozitive",
+    "scanAgainV3": "Caută din nou",
+    "howToPairV3": "Cum se asociază",
+    "omiNotInRangeUsePhone": "{device} nu e în raza de acțiune. Folosești acest telefon deocamdată?",
+    "usePhoneV3": "Folosește telefonul"
 }

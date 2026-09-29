@@ -12792,4 +12792,57 @@ class AppLocalizationsPt extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Mostrar todas as $count pessoas';
   }
+
+  @override
+  String get lookingForYourPendant => 'Procurando seu pingente';
+
+  @override
+  String get holdPendantClose => 'Mantenha o pingente por perto. Ele deve acender.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Encontramos $count',
+      one: 'Encontramos um',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Um momento';
+
+  @override
+  String get pendantConnected => 'Seu pingente está conectado';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, $percent% de bateria. Vai começar a gravar quando você mandar.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Vai começar a gravar quando você mandar.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Começar a gravar';
+
+  @override
+  String get otherDevicesV3 => 'Outros dispositivos';
+
+  @override
+  String get scanAgainV3 => 'Procurar de novo';
+
+  @override
+  String get howToPairV3 => 'Como parear';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device está fora de alcance. Usar este telefone por enquanto?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Usar telefone';
 }

@@ -4041,5 +4041,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "Søg efter personer",
     "addQueryAsNewPerson": "Tilføj \"{query}\" som en ny person",
-    "showAllPeople": "Vis alle {count} personer"
+    "showAllPeople": "Vis alle {count} personer",
+    "lookingForYourPendant": "Leder efter dit vedhæng",
+    "holdPendantClose": "Hold vedhænget tæt på. Det burde lyse op.",
+    "foundPendants": "{count, plural, =1{Fandt én} other{Fandt {count}}}",
+    "holdOn": "Et øjeblik",
+    "pendantConnected": "Dit vedhæng er forbundet",
+    "pendantConnectedBody": "{device}, {percent} % batteri. Den begynder at optage, når du siger til.",
+    "pendantConnectedBodyNoBattery": "{device}. Den begynder at optage, når du siger til.",
+    "startRecordingV3": "Start optagelse",
+    "otherDevicesV3": "Andre enheder",
+    "scanAgainV3": "Søg igen",
+    "howToPairV3": "Sådan parrer du",
+    "omiNotInRangeUsePhone": "{device} er uden for rækkevidde. Vil du bruge denne telefon indtil videre?",
+    "usePhoneV3": "Brug telefonen"
 }

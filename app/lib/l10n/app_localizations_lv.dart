@@ -12796,4 +12796,57 @@ class AppLocalizationsLv extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Rādīt visas personas ($count)';
   }
+
+  @override
+  String get lookingForYourPendant => 'Meklējam jūsu kulonu';
+
+  @override
+  String get holdPendantClose => 'Turiet kulonu tuvu. Tam vajadzētu iedegties.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Atrasti: $count',
+      one: 'Atrasts viens',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Mirklīti';
+
+  @override
+  String get pendantConnected => 'Jūsu kulons ir savienots';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, akumulators $percent%. Sāks ierakstīt, kad jūs teiksiet.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Sāks ierakstīt, kad jūs teiksiet.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Sākt ierakstu';
+
+  @override
+  String get otherDevicesV3 => 'Citas ierīces';
+
+  @override
+  String get scanAgainV3 => 'Meklēt vēlreiz';
+
+  @override
+  String get howToPairV3 => 'Kā savienot pārī';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device nav sasniedzamības zonā. Pagaidām izmantot šo tālruni?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Izmantot tālruni';
 }

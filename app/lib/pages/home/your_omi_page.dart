@@ -18,6 +18,7 @@ import 'package:omi/pages/devices/light_legend_page.dart';
 import 'package:omi/pages/home/widgets/home_heard_today.dart' show OmiDeviceTile;
 import 'package:omi/pages/home/widgets/home_recorder_actions.dart';
 import 'package:omi/pages/home/widgets/home_top_bar.dart';
+import 'package:omi/pages/home/widgets/phone_capture.dart';
 import 'package:omi/providers/capture_provider.dart';
 import 'package:omi/providers/conversation_provider.dart';
 import 'package:omi/providers/device_provider.dart';
@@ -268,6 +269,14 @@ class _YourOmiBody extends StatelessWidget {
           text: l10n.turnOnBluetoothToKeep(device.name),
           action: l10n.turnOn,
           onAction: () => BluetoothReadiness.instance.ensureReady(BluetoothUse.connection),
+        )
+      else if (state == HomeRecorderState.notFound)
+        _Warning(
+          key: const Key('your_omi_not_in_range'),
+          text: l10n.omiNotInRangeUsePhone(device.name),
+          action: l10n.usePhoneV3,
+          // Already open here, so the phone recording shows in place.
+          onAction: () => unawaited(PhoneCapture.start(context, openLive: false)),
         )
       else if (device.battery != null && device.battery! >= 0 && device.battery! <= 10)
         _Warning(key: const Key('your_omi_low_battery'), text: l10n.deviceLowBattery(device.name, device.battery!))

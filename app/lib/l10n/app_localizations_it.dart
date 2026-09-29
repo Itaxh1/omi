@@ -12840,4 +12840,57 @@ class AppLocalizationsIt extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Mostra tutte le $count persone';
   }
+
+  @override
+  String get lookingForYourPendant => 'Cerco il tuo ciondolo';
+
+  @override
+  String get holdPendantClose => 'Tieni il ciondolo vicino. Dovrebbe accendersi.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Trovati $count',
+      one: 'Trovato uno',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Un attimo';
+
+  @override
+  String get pendantConnected => 'Il tuo ciondolo è connesso';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, batteria al $percent%. Inizierà a registrare quando lo dirai tu.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Inizierà a registrare quando lo dirai tu.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Inizia a registrare';
+
+  @override
+  String get otherDevicesV3 => 'Altri dispositivi';
+
+  @override
+  String get scanAgainV3 => 'Cerca di nuovo';
+
+  @override
+  String get howToPairV3 => 'Come associarlo';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device è fuori portata. Usare questo telefono per ora?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Usa il telefono';
 }

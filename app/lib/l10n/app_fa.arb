@@ -11559,5 +11559,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "جستجوی افراد",
     "addQueryAsNewPerson": "افزودن \"{query}\" به عنوان فرد جدید",
-    "showAllPeople": "نمایش همه افراد ({count})"
+    "showAllPeople": "نمایش همه افراد ({count})",
+    "lookingForYourPendant": "در حال جستجوی آویز شما",
+    "holdPendantClose": "آویز را نزدیک نگه دارید. باید روشن شود.",
+    "foundPendants": "{count, plural, =1{یکی پیدا شد} other{{count} مورد پیدا شد}}",
+    "holdOn": "لحظه‌ای صبر کنید",
+    "pendantConnected": "آویز شما وصل شد",
+    "pendantConnectedBody": "{device}، باتری {percent}٪. هر وقت بگویید ضبط را شروع می‌کند.",
+    "pendantConnectedBodyNoBattery": "{device}. هر وقت بگویید ضبط را شروع می‌کند.",
+    "startRecordingV3": "شروع ضبط",
+    "otherDevicesV3": "دستگاه‌های دیگر",
+    "scanAgainV3": "جستجوی دوباره",
+    "howToPairV3": "نحوه جفت کردن",
+    "omiNotInRangeUsePhone": "{device} در محدوده نیست. فعلاً از این تلفن استفاده شود؟",
+    "usePhoneV3": "استفاده از تلفن"
 }

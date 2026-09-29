@@ -12785,4 +12785,57 @@ class AppLocalizationsTr extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Tüm $count kişiyi göster';
   }
+
+  @override
+  String get lookingForYourPendant => 'Kolyen aranıyor';
+
+  @override
+  String get holdPendantClose => 'Kolyeyi yakın tut. Işığı yanmalı.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tane bulundu',
+      one: 'Bir tane bulundu',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Bir saniye';
+
+  @override
+  String get pendantConnected => 'Kolyen bağlandı';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, pil %$percent. Sen söyleyince kayda başlar.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Sen söyleyince kayda başlar.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Kaydı başlat';
+
+  @override
+  String get otherDevicesV3 => 'Diğer cihazlar';
+
+  @override
+  String get scanAgainV3 => 'Tekrar ara';
+
+  @override
+  String get howToPairV3 => 'Nasıl eşlenir';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device kapsama alanı dışında. Şimdilik bu telefonu kullanalım mı?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Telefonu kullan';
 }

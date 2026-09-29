@@ -12812,4 +12812,57 @@ class AppLocalizationsRu extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Показать всех людей ($count)';
   }
+
+  @override
+  String get lookingForYourPendant => 'Ищем ваш кулон';
+
+  @override
+  String get holdPendantClose => 'Держите кулон рядом. Он должен загореться.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Найдено: $count',
+      one: 'Найден один',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Секунду';
+
+  @override
+  String get pendantConnected => 'Ваш кулон подключён';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, заряд $percent%. Начнёт запись, когда вы скажете.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Начнёт запись, когда вы скажете.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Начать запись';
+
+  @override
+  String get otherDevicesV3 => 'Другие устройства';
+
+  @override
+  String get scanAgainV3 => 'Искать снова';
+
+  @override
+  String get howToPairV3 => 'Как подключить';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device вне зоны доступа. Пока использовать этот телефон?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Использовать телефон';
 }

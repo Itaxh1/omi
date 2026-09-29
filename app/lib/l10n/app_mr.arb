@@ -11559,5 +11559,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "लोक शोधा",
     "addQueryAsNewPerson": "\"{query}\" ला नवीन व्यक्ती म्हणून जोडा",
-    "showAllPeople": "सर्व {count} लोक दाखवा"
+    "showAllPeople": "सर्व {count} लोक दाखवा",
+    "lookingForYourPendant": "तुमचे पेंडंट शोधत आहे",
+    "holdPendantClose": "पेंडंट जवळ धरा. त्याचा दिवा लागला पाहिजे.",
+    "foundPendants": "{count, plural, =1{एक सापडले} other{{count} सापडले}}",
+    "holdOn": "थोडा वेळ थांबा",
+    "pendantConnected": "तुमचे पेंडंट जोडले गेले",
+    "pendantConnectedBody": "{device}, बॅटरी {percent}%. तुम्ही सांगाल तेव्हा रेकॉर्डिंग सुरू होईल.",
+    "pendantConnectedBodyNoBattery": "{device}. तुम्ही सांगाल तेव्हा रेकॉर्डिंग सुरू होईल.",
+    "startRecordingV3": "रेकॉर्डिंग सुरू करा",
+    "otherDevicesV3": "इतर डिव्हाइस",
+    "scanAgainV3": "पुन्हा शोधा",
+    "howToPairV3": "कसे जोडायचे",
+    "omiNotInRangeUsePhone": "{device} कक्षेत नाही. सध्या हा फोन वापरायचा?",
+    "usePhoneV3": "फोन वापरा"
 }

@@ -4095,5 +4095,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "Személyek keresése",
     "addQueryAsNewPerson": "„{query}” hozzáadása új személyként",
-    "showAllPeople": "Az összes ({count}) személy megjelenítése"
+    "showAllPeople": "Az összes ({count}) személy megjelenítése",
+    "lookingForYourPendant": "Keressük a medálodat",
+    "holdPendantClose": "Tartsd közel a medált. Fel kell villannia.",
+    "foundPendants": "{count, plural, =1{Találtunk egyet} other{{count} találat}}",
+    "holdOn": "Egy pillanat",
+    "pendantConnected": "A medálod csatlakozott",
+    "pendantConnectedBody": "{device}, akkumulátor: {percent}%. Akkor kezd rögzíteni, amikor szólsz.",
+    "pendantConnectedBodyNoBattery": "{device}. Akkor kezd rögzíteni, amikor szólsz.",
+    "startRecordingV3": "Rögzítés indítása",
+    "otherDevicesV3": "Egyéb eszközök",
+    "scanAgainV3": "Keresés újra",
+    "howToPairV3": "Párosítás lépései",
+    "omiNotInRangeUsePhone": "{device} hatótávolságon kívül van. Egyelőre ezt a telefont használod?",
+    "usePhoneV3": "Telefon használata"
 }

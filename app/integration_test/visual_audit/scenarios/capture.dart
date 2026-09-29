@@ -240,6 +240,7 @@ Future<void> _runHome(
   AuditRun a,
   AuditLive live, {
   bool pendantConnected = false,
+  bool pendantAway = false,
   bool call = false,
   Finder? tap,
   Finder? longPress,
@@ -253,7 +254,8 @@ Future<void> _runHome(
     ChangeNotifierProvider<DeviceProvider>.value(
         value: pendantConnected
             ? AuditDeviceProvider(connected: true, battery: 72, device: auditPendant)
-            : AuditDeviceProvider()),
+            // Paired, not connected: the pendant is out of range.
+            : AuditDeviceProvider(device: pendantAway ? auditPendant : null)),
     ChangeNotifierProvider<CaptureProvider>.value(value: AuditCaptureProvider(live)),
     if (call) ChangeNotifierProvider<PhoneCallProvider>.value(value: _CallInProgress()),
   ]);
@@ -418,6 +420,19 @@ final captureScenarios = <AuditScenario>[
         pendantConnected: true,
         tap: find.byKey(const Key('home_listening_label')),
         action: 'Tap Off in the top bar'),
+  ),
+  AuditScenario(
+    id: 'your-omi-not-found',
+    title: 'Your Omi while the pendant is away: Use phone',
+    page: 'lib/pages/home/your_omi_page.dart (YourOmiPage)',
+    state: 'The Omi pendant is paired but out of range and nothing records; the label (Omi not found) is tapped',
+    run: (a) => _runHome(
+        a,
+        withData: true,
+        AuditLive.idle,
+        pendantAway: true,
+        tap: find.byKey(const Key('home_listening_label')),
+        action: 'Tap Omi not found'),
   ),
   AuditScenario(
     id: 'your-omi-phone',

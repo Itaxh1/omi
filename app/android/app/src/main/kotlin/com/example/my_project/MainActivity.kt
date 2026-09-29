@@ -10,6 +10,7 @@ import com.friend.ios.batch.CaptureAdmissionPolicy
 import com.friend.ios.batch.OmiBackgroundAudioStreamer
 import com.friend.ios.batch.CaptureAdmissionLatch
 import com.friend.ios.phonemic.*
+import com.friend.ios.capture.CaptureLiveUpdate
 import com.friend.ios.sync.SyncTransferForegroundService
 import com.friend.ios.sync.SyncTransferPlugin
 import android.os.Bundle
@@ -52,6 +53,8 @@ class MainActivity: FlutterActivity() {
         PhoneMicController.instance.bindFlutterApi(PhoneMicFlutterApi(flutterEngine.dartExecutor.binaryMessenger))
         PhoneMicHostApi.setUp(flutterEngine.dartExecutor.binaryMessenger, PhoneMicHostApiImpl(PhoneMicController.instance))
         SyncTransferPlugin.register(flutterEngine, this)
+        // The recording on the lock screen and in the status bar (Live Update).
+        CaptureLiveUpdate.attach(this, flutterEngine.dartExecutor.binaryMessenger)
         TtsMp3DecoderPlugin.register(flutterEngine)
         TtsPcmPlayerPlugin.register(flutterEngine)
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, NATIVE_BLE_TRANSCRIPT_CHANNEL).setMethodCallHandler {
@@ -151,6 +154,7 @@ class MainActivity: FlutterActivity() {
         // leaves native deferring audio to an engine that is gone (issue #10847).
         // configureFlutterEngine re-arms both on the next attach.
         OmiBleManager.isFlutterAlive = false
+        CaptureLiveUpdate.detachEngine()
         // Dart owns transfer lifetime; once the engine is gone the FGS cannot
         // finish a sync and must not keep the notification/wake lock.
         SyncTransferForegroundService.stop(this)

@@ -7,12 +7,12 @@ import 'harness.dart';
 import 'suite.dart';
 
 void main() {
-  final output = Platform.environment['OMI_AUDIT_OUTPUT'];
+  final output = auditSetting('OMI_AUDIT_OUTPUT');
   if (output == null || output.isEmpty) throw StateError('Set OMI_AUDIT_OUTPUT to an empty directory outside Git');
   // Ids this suite does not have are pages with no equivalent at this revision; the script has
   // already rejected ids that no suite knows, and the gallery shows these as "did not exist".
   final only =
-      (Platform.environment['OMI_AUDIT_ONLY'] ?? '').split(',').map((s) => s.trim()).where((s) => s.isNotEmpty);
+      (auditSetting('OMI_AUDIT_ONLY') ?? '').split(',').map((s) => s.trim()).where((s) => s.isNotEmpty);
   final selected =
       only.isEmpty ? auditSuite.scenarios : auditSuite.scenarios.where((s) => only.contains(s.id)).toList();
   final dir = Directory(output)..createSync(recursive: true);

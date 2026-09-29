@@ -11559,5 +11559,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "חיפוש אנשים",
     "addQueryAsNewPerson": "הוספת \"{query}\" כאדם חדש",
-    "showAllPeople": "הצג את כל האנשים ({count})"
+    "showAllPeople": "הצג את כל האנשים ({count})",
+    "lookingForYourPendant": "מחפשים את התליון שלך",
+    "holdPendantClose": "החזיקו את התליון קרוב. הוא אמור להידלק.",
+    "foundPendants": "{count, plural, =1{נמצא אחד} other{נמצאו {count}}}",
+    "holdOn": "רגע אחד",
+    "pendantConnected": "התליון שלך מחובר",
+    "pendantConnectedBody": "{device}, סוללה {percent}%. ההקלטה תתחיל כשתגידו.",
+    "pendantConnectedBodyNoBattery": "{device}. ההקלטה תתחיל כשתגידו.",
+    "startRecordingV3": "התחלת הקלטה",
+    "otherDevicesV3": "מכשירים אחרים",
+    "scanAgainV3": "חיפוש חוזר",
+    "howToPairV3": "איך מצמידים",
+    "omiNotInRangeUsePhone": "{device} מחוץ לטווח. להשתמש בטלפון הזה בינתיים?",
+    "usePhoneV3": "שימוש בטלפון"
 }

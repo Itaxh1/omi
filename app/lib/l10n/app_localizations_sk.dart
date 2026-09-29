@@ -12760,4 +12760,57 @@ class AppLocalizationsSk extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Zobraziť všetky osoby ($count)';
   }
+
+  @override
+  String get lookingForYourPendant => 'Hľadáme váš prívesok';
+
+  @override
+  String get holdPendantClose => 'Držte prívesok blízko. Mal by sa rozsvietiť.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Nájdené: $count',
+      one: 'Našiel sa jeden',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Chvíľku';
+
+  @override
+  String get pendantConnected => 'Váš prívesok je pripojený';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, batéria $percent %. Začne nahrávať, keď poviete.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Začne nahrávať, keď poviete.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Začať nahrávať';
+
+  @override
+  String get otherDevicesV3 => 'Iné zariadenia';
+
+  @override
+  String get scanAgainV3 => 'Hľadať znova';
+
+  @override
+  String get howToPairV3 => 'Ako spárovať';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device nie je v dosahu. Použiť zatiaľ tento telefón?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Použiť telefón';
 }

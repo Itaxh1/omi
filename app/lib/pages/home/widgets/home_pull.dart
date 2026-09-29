@@ -149,7 +149,8 @@ class _HomePullGesturesState extends State<HomePullGestures> with SingleTickerPr
     }
     _springBackFrom(_offset.value);
     if (!fire) return;
-    OmiHaptics.medium();
+    // Pausing, resuming or starting listening is the firm one; opening Your Omi is a tap.
+    mode == _Pull.down ? OmiHaptics.medium() : OmiHaptics.selection();
     if (mode == _Pull.down) {
       widget.onPullDown();
     } else {

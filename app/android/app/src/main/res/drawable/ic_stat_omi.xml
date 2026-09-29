@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The Omi mark (v3): eight dots on a ring, for the status bar and notifications. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M10.085,2.043a1.915,1.915 0,1 0,3.830,0a1.915,1.915 0,1 0,-3.830,0zM17.126,4.959a1.915,1.915 0,1 0,3.830,0a1.915,1.915 0,1 0,-3.830,0zM20.043,12.000a1.915,1.915 0,1 0,3.830,0a1.915,1.915 0,1 0,-3.830,0zM17.126,19.041a1.915,1.915 0,1 0,3.830,0a1.915,1.915 0,1 0,-3.830,0zM10.085,21.957a1.915,1.915 0,1 0,3.830,0a1.915,1.915 0,1 0,-3.830,0zM3.044,19.041a1.915,1.915 0,1 0,3.830,0a1.915,1.915 0,1 0,-3.830,0zM0.128,12.000a1.915,1.915 0,1 0,3.830,0a1.915,1.915 0,1 0,-3.830,0zM3.044,4.959a1.915,1.915 0,1 0,3.830,0a1.915,1.915 0,1 0,-3.830,0z" />
+</vector>

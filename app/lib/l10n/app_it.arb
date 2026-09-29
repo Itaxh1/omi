@@ -3999,5 +3999,18 @@
     "feedbackReasonRecordingOther": "Altro",
     "searchPeople": "Cerca persone",
     "addQueryAsNewPerson": "Aggiungi \"{query}\" come nuova persona",
-    "showAllPeople": "Mostra tutte le {count} persone"
+    "showAllPeople": "Mostra tutte le {count} persone",
+    "lookingForYourPendant": "Cerco il tuo ciondolo",
+    "holdPendantClose": "Tieni il ciondolo vicino. Dovrebbe accendersi.",
+    "foundPendants": "{count, plural, =1{Trovato uno} other{Trovati {count}}}",
+    "holdOn": "Un attimo",
+    "pendantConnected": "Il tuo ciondolo è connesso",
+    "pendantConnectedBody": "{device}, batteria al {percent}%. Inizierà a registrare quando lo dirai tu.",
+    "pendantConnectedBodyNoBattery": "{device}. Inizierà a registrare quando lo dirai tu.",
+    "startRecordingV3": "Inizia a registrare",
+    "otherDevicesV3": "Altri dispositivi",
+    "scanAgainV3": "Cerca di nuovo",
+    "howToPairV3": "Come associarlo",
+    "omiNotInRangeUsePhone": "{device} è fuori portata. Usare questo telefono per ora?",
+    "usePhoneV3": "Usa il telefono"
 }

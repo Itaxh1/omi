@@ -4034,5 +4034,18 @@
     "feedbackReasonRecordingOther": "Coś innego",
     "searchPeople": "Szukaj osób",
     "addQueryAsNewPerson": "Dodaj „{query}” jako nową osobę",
-    "showAllPeople": "Pokaż wszystkie osoby ({count})"
+    "showAllPeople": "Pokaż wszystkie osoby ({count})",
+    "lookingForYourPendant": "Szukamy Twojego wisiorka",
+    "holdPendantClose": "Trzymaj wisiorek blisko. Powinien się zaświecić.",
+    "foundPendants": "{count, plural, =1{Znaleziono jeden} other{Znaleziono: {count}}}",
+    "holdOn": "Chwileczkę",
+    "pendantConnected": "Twój wisiorek jest połączony",
+    "pendantConnectedBody": "{device}, bateria {percent}%. Zacznie nagrywać, kiedy zechcesz.",
+    "pendantConnectedBodyNoBattery": "{device}. Zacznie nagrywać, kiedy zechcesz.",
+    "startRecordingV3": "Zacznij nagrywać",
+    "otherDevicesV3": "Inne urządzenia",
+    "scanAgainV3": "Szukaj ponownie",
+    "howToPairV3": "Jak sparować",
+    "omiNotInRangeUsePhone": "{device} jest poza zasięgiem. Użyć na razie tego telefonu?",
+    "usePhoneV3": "Użyj telefonu"
 }

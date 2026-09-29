@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 import 'package:omi/backend/preferences.dart';
 import 'package:omi/backend/schema/phone_call.dart';
-import 'package:omi/pages/devices/add_device_page.dart';
+import 'package:omi/pages/devices/pair_device_sheet.dart';
 import 'package:omi/pages/devices/light_legend_page.dart';
 import 'package:omi/pages/home/device.dart';
 import 'package:omi/pages/home/firmware_update.dart';
@@ -196,7 +196,7 @@ class DevicesScreen extends StatelessWidget {
             child: OmiPressable(
               key: const Key('devices_add'),
               behavior: HitTestBehavior.opaque,
-              onTap: () => routeToPage(context, const AddDevicePage()),
+              onTap: () => unawaited(PairDeviceSheet.show(context)),
               child: Padding(
                 padding: const EdgeInsets.only(top: 28, bottom: 10),
                 child: Row(

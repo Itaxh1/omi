@@ -3999,5 +3999,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "Meklēt cilvēkus",
     "addQueryAsNewPerson": "Pievienot \"{query}\" kā jaunu personu",
-    "showAllPeople": "Rādīt visas personas ({count})"
+    "showAllPeople": "Rādīt visas personas ({count})",
+    "lookingForYourPendant": "Meklējam jūsu kulonu",
+    "holdPendantClose": "Turiet kulonu tuvu. Tam vajadzētu iedegties.",
+    "foundPendants": "{count, plural, =1{Atrasts viens} other{Atrasti: {count}}}",
+    "holdOn": "Mirklīti",
+    "pendantConnected": "Jūsu kulons ir savienots",
+    "pendantConnectedBody": "{device}, akumulators {percent}%. Sāks ierakstīt, kad jūs teiksiet.",
+    "pendantConnectedBodyNoBattery": "{device}. Sāks ierakstīt, kad jūs teiksiet.",
+    "startRecordingV3": "Sākt ierakstu",
+    "otherDevicesV3": "Citas ierīces",
+    "scanAgainV3": "Meklēt vēlreiz",
+    "howToPairV3": "Kā savienot pārī",
+    "omiNotInRangeUsePhone": "{device} nav sasniedzamības zonā. Pagaidām izmantot šo tālruni?",
+    "usePhoneV3": "Izmantot tālruni"
 }

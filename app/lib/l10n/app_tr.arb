@@ -4034,5 +4034,18 @@
     "feedbackReasonRecordingOther": "Başka bir şey",
     "searchPeople": "Kişi ara",
     "addQueryAsNewPerson": "\"{query}\" adlı yeni bir kişi ekle",
-    "showAllPeople": "Tüm {count} kişiyi göster"
+    "showAllPeople": "Tüm {count} kişiyi göster",
+    "lookingForYourPendant": "Kolyen aranıyor",
+    "holdPendantClose": "Kolyeyi yakın tut. Işığı yanmalı.",
+    "foundPendants": "{count, plural, =1{Bir tane bulundu} other{{count} tane bulundu}}",
+    "holdOn": "Bir saniye",
+    "pendantConnected": "Kolyen bağlandı",
+    "pendantConnectedBody": "{device}, pil %{percent}. Sen söyleyince kayda başlar.",
+    "pendantConnectedBodyNoBattery": "{device}. Sen söyleyince kayda başlar.",
+    "startRecordingV3": "Kaydı başlat",
+    "otherDevicesV3": "Diğer cihazlar",
+    "scanAgainV3": "Tekrar ara",
+    "howToPairV3": "Nasıl eşlenir",
+    "omiNotInRangeUsePhone": "{device} kapsama alanı dışında. Şimdilik bu telefonu kullanalım mı?",
+    "usePhoneV3": "Telefonu kullan"
 }

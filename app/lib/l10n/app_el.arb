@@ -3999,5 +3999,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "Αναζήτηση ατόμων",
     "addQueryAsNewPerson": "Προσθήκη του «{query}» ως νέο άτομο",
-    "showAllPeople": "Εμφάνιση όλων των ατόμων ({count})"
+    "showAllPeople": "Εμφάνιση όλων των ατόμων ({count})",
+    "lookingForYourPendant": "Αναζήτηση του μενταγιόν σας",
+    "holdPendantClose": "Κρατήστε το μενταγιόν κοντά. Θα πρέπει να ανάψει.",
+    "foundPendants": "{count, plural, =1{Βρέθηκε ένα} other{Βρέθηκαν {count}}}",
+    "holdOn": "Μια στιγμή",
+    "pendantConnected": "Το μενταγιόν σας συνδέθηκε",
+    "pendantConnectedBody": "{device}, μπαταρία {percent}%. Θα αρχίσει να ηχογραφεί όταν το πείτε.",
+    "pendantConnectedBodyNoBattery": "{device}. Θα αρχίσει να ηχογραφεί όταν το πείτε.",
+    "startRecordingV3": "Έναρξη εγγραφής",
+    "otherDevicesV3": "Άλλες συσκευές",
+    "scanAgainV3": "Νέα αναζήτηση",
+    "howToPairV3": "Πώς γίνεται η σύζευξη",
+    "omiNotInRangeUsePhone": "Το {device} είναι εκτός εμβέλειας. Να χρησιμοποιηθεί αυτό το τηλέφωνο προς το παρόν;",
+    "usePhoneV3": "Χρήση τηλεφώνου"
 }

@@ -12563,4 +12563,57 @@ class AppLocalizationsJa extends AppLocalizations {
   String showAllPeople(int count) {
     return 'すべての人物（$count）を表示';
   }
+
+  @override
+  String get lookingForYourPendant => 'ペンダントを探しています';
+
+  @override
+  String get holdPendantClose => 'ペンダントを近づけてください。ライトが点灯します。';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count台見つかりました',
+      one: '1台見つかりました',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => '少々お待ちください';
+
+  @override
+  String get pendantConnected => 'ペンダントが接続されました';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device、バッテリー$percent%。指示すると録音を始めます。';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device。指示すると録音を始めます。';
+  }
+
+  @override
+  String get startRecordingV3 => '録音を開始';
+
+  @override
+  String get otherDevicesV3 => 'その他のデバイス';
+
+  @override
+  String get scanAgainV3 => 'もう一度探す';
+
+  @override
+  String get howToPairV3 => 'ペアリングの方法';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$deviceが範囲外です。今はこのスマホを使いますか？';
+  }
+
+  @override
+  String get usePhoneV3 => 'スマホを使う';
 }

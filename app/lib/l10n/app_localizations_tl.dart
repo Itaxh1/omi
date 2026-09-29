@@ -12879,4 +12879,57 @@ class AppLocalizationsTl extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Ipakita ang lahat ng $count na tao';
   }
+
+  @override
+  String get lookingForYourPendant => 'Hinahanap ang iyong pendant';
+
+  @override
+  String get holdPendantClose => 'Ilapit ang pendant. Dapat itong umilaw.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'May nakitang $count',
+      one: 'May nakitang isa',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Sandali lang';
+
+  @override
+  String get pendantConnected => 'Nakakonekta na ang iyong pendant';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, $percent% baterya. Magsisimula itong mag-record kapag sinabi mo.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Magsisimula itong mag-record kapag sinabi mo.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Simulan ang pag-record';
+
+  @override
+  String get otherDevicesV3 => 'Ibang mga device';
+
+  @override
+  String get scanAgainV3 => 'Maghanap ulit';
+
+  @override
+  String get howToPairV3 => 'Paano i-pair';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return 'Wala sa saklaw ang $device. Gamitin muna ang phone na ito?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Gamitin ang phone';
 }

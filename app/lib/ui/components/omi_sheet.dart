@@ -133,6 +133,7 @@ class OmiSheetScaffold extends StatelessWidget {
     this.title,
     this.showCloseButton = true,
     this.onClose,
+    this.closeLabel,
     this.padding = const EdgeInsets.symmetric(horizontal: OmiSpacing.md),
   });
 
@@ -145,6 +146,9 @@ class OmiSheetScaffold extends StatelessWidget {
 
   /// Close action; defaults to popping the sheet.
   final VoidCallback? onClose;
+
+  /// The close pill's word; Done by default (Cancel while a step can still be abandoned).
+  final String? closeLabel;
 
   /// Padding around [child].
   final EdgeInsetsGeometry padding;
@@ -186,7 +190,7 @@ class OmiSheetScaffold extends StatelessWidget {
                       ),
                       if (showCloseButton) ...[
                         const SizedBox(width: OmiSpacing.sm),
-                        OmiDonePill(onPressed: onClose ?? () => Navigator.of(context).maybePop()),
+                        OmiDonePill(label: closeLabel, onPressed: onClose ?? () => Navigator.of(context).maybePop()),
                       ],
                     ],
                   ),

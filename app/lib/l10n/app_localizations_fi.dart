@@ -12774,4 +12774,57 @@ class AppLocalizationsFi extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Näytä kaikki ($count) henkilöä';
   }
+
+  @override
+  String get lookingForYourPendant => 'Etsitään riipustasi';
+
+  @override
+  String get holdPendantClose => 'Pidä riipus lähellä. Sen pitäisi syttyä.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Löytyi $count',
+      one: 'Löytyi yksi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Hetkinen';
+
+  @override
+  String get pendantConnected => 'Riipuksesi on yhdistetty';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, akku $percent %. Se alkaa tallentaa, kun sanot.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Se alkaa tallentaa, kun sanot.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Aloita tallennus';
+
+  @override
+  String get otherDevicesV3 => 'Muut laitteet';
+
+  @override
+  String get scanAgainV3 => 'Etsi uudelleen';
+
+  @override
+  String get howToPairV3 => 'Näin paritat';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device ei ole kantaman sisällä. Käytetäänkö toistaiseksi tätä puhelinta?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Käytä puhelinta';
 }

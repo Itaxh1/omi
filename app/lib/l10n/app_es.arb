@@ -3999,5 +3999,18 @@
     "feedbackReasonRecordingOther": "Otra cosa",
     "searchPeople": "Buscar personas",
     "addQueryAsNewPerson": "Añadir \"{query}\" como nueva persona",
-    "showAllPeople": "Mostrar todas las personas ({count})"
+    "showAllPeople": "Mostrar todas las personas ({count})",
+    "lookingForYourPendant": "Buscando tu colgante",
+    "holdPendantClose": "Mantén el colgante cerca. Debería iluminarse.",
+    "foundPendants": "{count, plural, =1{Encontramos uno} other{Encontramos {count}}}",
+    "holdOn": "Un momento",
+    "pendantConnected": "Tu colgante está conectado",
+    "pendantConnectedBody": "{device}, {percent} % de batería. Empezará a grabar cuando tú digas.",
+    "pendantConnectedBodyNoBattery": "{device}. Empezará a grabar cuando tú digas.",
+    "startRecordingV3": "Empezar a grabar",
+    "otherDevicesV3": "Otros dispositivos",
+    "scanAgainV3": "Buscar de nuevo",
+    "howToPairV3": "Cómo vincularlo",
+    "omiNotInRangeUsePhone": "{device} está fuera de alcance. ¿Usar este teléfono por ahora?",
+    "usePhoneV3": "Usar teléfono"
 }

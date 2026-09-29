@@ -23186,6 +23186,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Show all {count} people'**
   String showAllPeople(int count);
+
+  /// Add a device (v3 pair): the sheet's title while it searches
+  ///
+  /// In en, this message translates to:
+  /// **'Looking for your pendant'**
+  String get lookingForYourPendant;
+
+  /// Add a device (v3 pair): under the searching ring
+  ///
+  /// In en, this message translates to:
+  /// **'Hold the pendant close. It should light up.'**
+  String get holdPendantClose;
+
+  /// Add a device (v3 pair): the title once pendants are found nearby
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Found one} other{Found {count}}}'**
+  String foundPendants(int count);
+
+  /// Add a device (v3 pair): under the ring while it pairs
+  ///
+  /// In en, this message translates to:
+  /// **'Hold on'**
+  String get holdOn;
+
+  /// Add a device (v3 pair): the last step's headline
+  ///
+  /// In en, this message translates to:
+  /// **'Your pendant’s connected'**
+  String get pendantConnected;
+
+  /// Add a device (v3 pair): under the headline, the pendant's name and charge
+  ///
+  /// In en, this message translates to:
+  /// **'{device}, {percent}% battery. It’ll start recording when you say so.'**
+  String pendantConnectedBody(String device, int percent);
+
+  /// Add a device (v3 pair): under the headline when the charge isn't known yet
+  ///
+  /// In en, this message translates to:
+  /// **'{device}. It’ll start recording when you say so.'**
+  String pendantConnectedBodyNoBattery(String device);
+
+  /// Add a device (v3 pair): the last step's button
+  ///
+  /// In en, this message translates to:
+  /// **'Start recording'**
+  String get startRecordingV3;
+
+  /// Add a device (v3 pair): link to glasses, watches and other recorders
+  ///
+  /// In en, this message translates to:
+  /// **'Other devices'**
+  String get otherDevicesV3;
+
+  /// Add a device (v3 pair): search again when nothing turned up
+  ///
+  /// In en, this message translates to:
+  /// **'Scan again'**
+  String get scanAgainV3;
+
+  /// Add a device (v3 pair): opens the pairing guide when nothing turned up
+  ///
+  /// In en, this message translates to:
+  /// **'How to pair'**
+  String get howToPairV3;
+
+  /// Your Omi (v8 rpWarn): the pendant can't be found
+  ///
+  /// In en, this message translates to:
+  /// **'{device} isn’t in range. Use this phone for now?'**
+  String omiNotInRangeUsePhone(String device);
+
+  /// Your Omi (v8 rpWarn): record with this phone while the pendant is away
+  ///
+  /// In en, this message translates to:
+  /// **'Use phone'**
+  String get usePhoneV3;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

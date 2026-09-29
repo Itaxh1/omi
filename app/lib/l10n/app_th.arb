@@ -3999,5 +3999,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "ค้นหาบุคคล",
     "addQueryAsNewPerson": "เพิ่ม \"{query}\" เป็นบุคคลใหม่",
-    "showAllPeople": "แสดงทั้งหมด {count} คน"
+    "showAllPeople": "แสดงทั้งหมด {count} คน",
+    "lookingForYourPendant": "กำลังค้นหาจี้ของคุณ",
+    "holdPendantClose": "ถือจี้ไว้ใกล้ๆ ไฟควรติดขึ้น",
+    "foundPendants": "{count, plural, =1{พบหนึ่งเครื่อง} other{พบ {count} เครื่อง}}",
+    "holdOn": "รอสักครู่",
+    "pendantConnected": "เชื่อมต่อจี้ของคุณแล้ว",
+    "pendantConnectedBody": "{device} แบตเตอรี่ {percent}% จะเริ่มบันทึกเมื่อคุณสั่ง",
+    "pendantConnectedBodyNoBattery": "{device} จะเริ่มบันทึกเมื่อคุณสั่ง",
+    "startRecordingV3": "เริ่มบันทึก",
+    "otherDevicesV3": "อุปกรณ์อื่น",
+    "scanAgainV3": "ค้นหาอีกครั้ง",
+    "howToPairV3": "วิธีจับคู่",
+    "omiNotInRangeUsePhone": "{device} อยู่นอกระยะ ใช้โทรศัพท์เครื่องนี้ไปก่อนไหม",
+    "usePhoneV3": "ใช้โทรศัพท์"
 }

@@ -3999,5 +3999,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "Ieškoti žmonių",
     "addQueryAsNewPerson": "Pridėti „{query}“ kaip naują asmenį",
-    "showAllPeople": "Rodyti visus asmenis ({count})"
+    "showAllPeople": "Rodyti visus asmenis ({count})",
+    "lookingForYourPendant": "Ieškome jūsų pakabuko",
+    "holdPendantClose": "Laikykite pakabuką arti. Jis turėtų užsidegti.",
+    "foundPendants": "{count, plural, =1{Rastas vienas} other{Rasta: {count}}}",
+    "holdOn": "Akimirką",
+    "pendantConnected": "Jūsų pakabukas prijungtas",
+    "pendantConnectedBody": "{device}, baterija {percent} %. Pradės įrašinėti, kai pasakysite.",
+    "pendantConnectedBodyNoBattery": "{device}. Pradės įrašinėti, kai pasakysite.",
+    "startRecordingV3": "Pradėti įrašymą",
+    "otherDevicesV3": "Kiti įrenginiai",
+    "scanAgainV3": "Ieškoti dar kartą",
+    "howToPairV3": "Kaip susieti",
+    "omiNotInRangeUsePhone": "{device} nepasiekiamas. Kol kas naudoti šį telefoną?",
+    "usePhoneV3": "Naudoti telefoną"
 }

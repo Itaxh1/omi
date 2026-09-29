@@ -26,6 +26,25 @@ import 'package:omi/ui/omi_tokens.dart';
 import '../journeys/support/fixture_backend.dart';
 import '../journeys/support/hermetic_boot.dart';
 
+/// An audit setting: the environment on the host, or a `--dart-define` of the same name on a
+/// simulator or device, where the app has no host environment.
+String? auditSetting(String name) {
+  final value = Platform.environment[name];
+  if (value != null && value.isNotEmpty) return value;
+  final defined = switch (name) {
+    'OMI_AUDIT_OUTPUT' => const String.fromEnvironment('OMI_AUDIT_OUTPUT'),
+    'OMI_AUDIT_ONLY' => const String.fromEnvironment('OMI_AUDIT_ONLY'),
+    'OMI_AUDIT_VIEWPORT' => const String.fromEnvironment('OMI_AUDIT_VIEWPORT'),
+    'OMI_AUDIT_TEXT_SCALE' => const String.fromEnvironment('OMI_AUDIT_TEXT_SCALE'),
+    'OMI_AUDIT_LINT' => const String.fromEnvironment('OMI_AUDIT_LINT'),
+    'OMI_AUDIT_NO_PNG' => const String.fromEnvironment('OMI_AUDIT_NO_PNG'),
+    'OMI_AUDIT_FONTS' => const String.fromEnvironment('OMI_AUDIT_FONTS'),
+    'OMI_AUDIT_THEME' => const String.fromEnvironment('OMI_AUDIT_THEME'),
+    _ => '',
+  };
+  return defined.isEmpty ? null : defined;
+}
+
 /// The scenarios for one family of app revisions, with the theme and default providers they pump
 /// into. `registry.dart` is the suite for current main; `compat/<name>/registry.dart` holds the
 /// equivalent pages for older revisions, under the same ids where an equivalent exists.
@@ -99,16 +118,16 @@ const _surface = ValueKey('audit-surface');
 
 /// 390x844 logical pixels, captured at 2x. OMI_AUDIT_VIEWPORT=WxH captures at another phone size
 /// (e.g. 375x667 for an iPhone SE, 360x740 for a small Android phone).
-final Size auditViewport = _sizeFrom(Platform.environment['OMI_AUDIT_VIEWPORT']) ?? const Size(390, 844);
+final Size auditViewport = _sizeFrom(auditSetting('OMI_AUDIT_VIEWPORT')) ?? const Size(390, 844);
 
 /// OMI_AUDIT_TEXT_SCALE: the reader's text size (1.0 by default; 1.3 is "Larger Text").
-final double? _auditTextScale = double.tryParse(Platform.environment['OMI_AUDIT_TEXT_SCALE'] ?? '');
+final double? _auditTextScale = double.tryParse(auditSetting('OMI_AUDIT_TEXT_SCALE') ?? '');
 
 /// OMI_AUDIT_LINT=1: every capture also records layout findings (errors such as overflow, one word
 /// alone on a wrapped line, text cut short) in `layout.json` instead of stopping at the first error.
 /// OMI_AUDIT_NO_PNG=1 skips the images (a lint-only pass).
-final bool _lint = Platform.environment['OMI_AUDIT_LINT'] == '1';
-final bool _noPng = Platform.environment['OMI_AUDIT_NO_PNG'] == '1';
+final bool _lint = auditSetting('OMI_AUDIT_LINT') == '1';
+final bool _noPng = auditSetting('OMI_AUDIT_NO_PNG') == '1';
 
 Size? _sizeFrom(String? value) {
   final parts = (value ?? '').toLowerCase().split('x');
@@ -209,7 +228,7 @@ Future<void> _loadFonts() async {
 
 /// OMI_AUDIT_FONTS, else `<flutter>/bin/cache/artifacts/material_fonts` found above flutter_tester.
 Directory? _materialFontsDir() {
-  final explicit = Platform.environment['OMI_AUDIT_FONTS'];
+  final explicit = auditSetting('OMI_AUDIT_FONTS');
   if (explicit != null && explicit.isNotEmpty) return Directory(explicit);
   var dir = File(Platform.resolvedExecutable).parent;
   for (var i = 0; i < 8; i++) {
@@ -403,7 +422,7 @@ void runAuditScenarios(AuditSuite suite, {List<AuditScenario>? only, Directory? 
   setUpAll(() async {
     HttpOverrides.global = LoopbackOnly();
     // OMI_AUDIT_THEME=light captures every scenario in the light palette (Settings → Appearance).
-    OmiColors.use(Platform.environment['OMI_AUDIT_THEME'] == 'light' ? OmiPalette.light : OmiPalette.dark);
+    OmiColors.use(auditSetting('OMI_AUDIT_THEME') == 'light' ? OmiPalette.light : OmiPalette.dark);
     await _loadFonts();
     _outputDir = output?..createSync(recursive: true);
   });

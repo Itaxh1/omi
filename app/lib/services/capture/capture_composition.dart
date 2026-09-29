@@ -10,6 +10,7 @@ import 'package:omi/services/capture/capture_seams.dart';
 import 'package:omi/services/capture/capture_wedge_monitor.dart';
 import 'package:omi/services/capture/capture_system_surface.dart';
 import 'package:omi/services/capture/capture_voice_meter.dart';
+import 'package:omi/services/bridges/android_live_update_bridge.dart';
 import 'package:omi/services/bridges/live_activity_bridge.dart';
 import 'package:omi/services/capture/capture_external_actions.dart';
 import 'package:omi/services/capture/capture_session_owner.dart';
@@ -152,6 +153,9 @@ CaptureProvider composeProductionCaptureProvider({
     );
     CaptureVoiceMeter.active = voiceMeter;
     unawaited(CaptureSystemSurface(provider, LiveActivityBridge(), voiceMeter: voiceMeter).start());
+  } else if (Platform.isAndroid) {
+    // The recording as a Live Update: the notification keeps its own clock, so no voice meter.
+    unawaited(CaptureSystemSurface(provider, AndroidLiveUpdateBridge()).start());
   }
   return provider;
 }

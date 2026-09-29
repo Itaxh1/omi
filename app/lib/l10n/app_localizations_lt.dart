@@ -12787,4 +12787,57 @@ class AppLocalizationsLt extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Rodyti visus asmenis ($count)';
   }
+
+  @override
+  String get lookingForYourPendant => 'Ieškome jūsų pakabuko';
+
+  @override
+  String get holdPendantClose => 'Laikykite pakabuką arti. Jis turėtų užsidegti.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Rasta: $count',
+      one: 'Rastas vienas',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Akimirką';
+
+  @override
+  String get pendantConnected => 'Jūsų pakabukas prijungtas';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, baterija $percent %. Pradės įrašinėti, kai pasakysite.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Pradės įrašinėti, kai pasakysite.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Pradėti įrašymą';
+
+  @override
+  String get otherDevicesV3 => 'Kiti įrenginiai';
+
+  @override
+  String get scanAgainV3 => 'Ieškoti dar kartą';
+
+  @override
+  String get howToPairV3 => 'Kaip susieti';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device nepasiekiamas. Kol kas naudoti šį telefoną?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Naudoti telefoną';
 }

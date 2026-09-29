@@ -3999,5 +3999,18 @@
     "feedbackReasonRecordingOther": "Vấn đề khác",
     "searchPeople": "Tìm kiếm người",
     "addQueryAsNewPerson": "Thêm \"{query}\" như một người mới",
-    "showAllPeople": "Hiển thị tất cả {count} người"
+    "showAllPeople": "Hiển thị tất cả {count} người",
+    "lookingForYourPendant": "Đang tìm mặt dây của bạn",
+    "holdPendantClose": "Giữ mặt dây gần. Đèn sẽ sáng lên.",
+    "foundPendants": "{count, plural, =1{Đã tìm thấy một} other{Đã tìm thấy {count}}}",
+    "holdOn": "Chờ một chút",
+    "pendantConnected": "Mặt dây của bạn đã kết nối",
+    "pendantConnectedBody": "{device}, pin {percent}%. Sẽ bắt đầu ghi khi bạn yêu cầu.",
+    "pendantConnectedBodyNoBattery": "{device}. Sẽ bắt đầu ghi khi bạn yêu cầu.",
+    "startRecordingV3": "Bắt đầu ghi",
+    "otherDevicesV3": "Thiết bị khác",
+    "scanAgainV3": "Tìm lại",
+    "howToPairV3": "Cách ghép nối",
+    "omiNotInRangeUsePhone": "{device} ngoài vùng kết nối. Tạm dùng điện thoại này nhé?",
+    "usePhoneV3": "Dùng điện thoại"
 }

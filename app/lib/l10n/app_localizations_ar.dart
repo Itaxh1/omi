@@ -12692,4 +12692,57 @@ class AppLocalizationsAr extends AppLocalizations {
   String showAllPeople(int count) {
     return 'إظهار كل الأشخاص ($count)';
   }
+
+  @override
+  String get lookingForYourPendant => 'جارٍ البحث عن قلادتك';
+
+  @override
+  String get holdPendantClose => 'أمسك القلادة بالقرب منك. يجب أن يضيء ضوؤها.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'عُثر على $count',
+      one: 'عُثر على واحدة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'لحظة من فضلك';
+
+  @override
+  String get pendantConnected => 'قلادتك متصلة';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device، البطارية $percent%. سيبدأ التسجيل عندما تطلب ذلك.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. سيبدأ التسجيل عندما تطلب ذلك.';
+  }
+
+  @override
+  String get startRecordingV3 => 'ابدأ التسجيل';
+
+  @override
+  String get otherDevicesV3 => 'أجهزة أخرى';
+
+  @override
+  String get scanAgainV3 => 'ابحث مرة أخرى';
+
+  @override
+  String get howToPairV3 => 'طريقة الإقران';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device ليست في النطاق. هل تستخدم هذا الهاتف الآن؟';
+  }
+
+  @override
+  String get usePhoneV3 => 'استخدم الهاتف';
 }

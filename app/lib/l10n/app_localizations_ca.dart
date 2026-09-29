@@ -12838,4 +12838,57 @@ class AppLocalizationsCa extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Mostra totes les persones ($count)';
   }
+
+  @override
+  String get lookingForYourPendant => 'Buscant el teu penjoll';
+
+  @override
+  String get holdPendantClose => 'Mantén el penjoll a prop. S’hauria d’encendre.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'N’hem trobat $count',
+      one: 'N’hem trobat un',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Un moment';
+
+  @override
+  String get pendantConnected => 'El teu penjoll està connectat';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, bateria al $percent%. Començarà a gravar quan ho diguis.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Començarà a gravar quan ho diguis.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Comença a gravar';
+
+  @override
+  String get otherDevicesV3 => 'Altres dispositius';
+
+  @override
+  String get scanAgainV3 => 'Torna a cercar';
+
+  @override
+  String get howToPairV3 => 'Com vincular-lo';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device no és a l’abast. Vols fer servir aquest telèfon de moment?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Usa el telèfon';
 }

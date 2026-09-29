@@ -12810,4 +12810,57 @@ class AppLocalizationsNl extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Alle $count personen weergeven';
   }
+
+  @override
+  String get lookingForYourPendant => 'Je hanger zoeken';
+
+  @override
+  String get holdPendantClose => 'Houd de hanger dichtbij. Hij zou moeten oplichten.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count gevonden',
+      one: 'Eén gevonden',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Een ogenblik';
+
+  @override
+  String get pendantConnected => 'Je hanger is verbonden';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, batterij $percent%. Hij begint met opnemen zodra jij dat zegt.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Hij begint met opnemen zodra jij dat zegt.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Opname starten';
+
+  @override
+  String get otherDevicesV3 => 'Andere apparaten';
+
+  @override
+  String get scanAgainV3 => 'Opnieuw zoeken';
+
+  @override
+  String get howToPairV3 => 'Zo koppel je';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device is buiten bereik. Voorlopig deze telefoon gebruiken?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Telefoon gebruiken';
 }

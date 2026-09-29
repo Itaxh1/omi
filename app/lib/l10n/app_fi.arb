@@ -3999,5 +3999,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "Etsi ihmisiä",
     "addQueryAsNewPerson": "Lisää \"{query}\" uutena henkilönä",
-    "showAllPeople": "Näytä kaikki ({count}) henkilöä"
+    "showAllPeople": "Näytä kaikki ({count}) henkilöä",
+    "lookingForYourPendant": "Etsitään riipustasi",
+    "holdPendantClose": "Pidä riipus lähellä. Sen pitäisi syttyä.",
+    "foundPendants": "{count, plural, =1{Löytyi yksi} other{Löytyi {count}}}",
+    "holdOn": "Hetkinen",
+    "pendantConnected": "Riipuksesi on yhdistetty",
+    "pendantConnectedBody": "{device}, akku {percent} %. Se alkaa tallentaa, kun sanot.",
+    "pendantConnectedBodyNoBattery": "{device}. Se alkaa tallentaa, kun sanot.",
+    "startRecordingV3": "Aloita tallennus",
+    "otherDevicesV3": "Muut laitteet",
+    "scanAgainV3": "Etsi uudelleen",
+    "howToPairV3": "Näin paritat",
+    "omiNotInRangeUsePhone": "{device} ei ole kantaman sisällä. Käytetäänkö toistaiseksi tätä puhelinta?",
+    "usePhoneV3": "Käytä puhelinta"
 }

@@ -12767,4 +12767,57 @@ class AppLocalizationsBn extends AppLocalizations {
   String showAllPeople(int count) {
     return 'সমস্ত ($count) জনকে দেখান';
   }
+
+  @override
+  String get lookingForYourPendant => 'আপনার পেনডেন্ট খোঁজা হচ্ছে';
+
+  @override
+  String get holdPendantClose => 'পেনডেন্টটি কাছে ধরুন। এটি জ্বলে ওঠা উচিত।';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countটি পাওয়া গেছে',
+      one: 'একটি পাওয়া গেছে',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'একটু অপেক্ষা করুন';
+
+  @override
+  String get pendantConnected => 'আপনার পেনডেন্ট সংযুক্ত হয়েছে';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, ব্যাটারি $percent%। আপনি বললেই রেকর্ড শুরু করবে।';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device। আপনি বললেই রেকর্ড শুরু করবে।';
+  }
+
+  @override
+  String get startRecordingV3 => 'রেকর্ডিং শুরু করুন';
+
+  @override
+  String get otherDevicesV3 => 'অন্যান্য ডিভাইস';
+
+  @override
+  String get scanAgainV3 => 'আবার খুঁজুন';
+
+  @override
+  String get howToPairV3 => 'কীভাবে যুক্ত করবেন';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device সীমার বাইরে। আপাতত এই ফোন ব্যবহার করবেন?';
+  }
+
+  @override
+  String get usePhoneV3 => 'ফোন ব্যবহার করুন';
 }

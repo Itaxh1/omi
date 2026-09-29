@@ -317,7 +317,7 @@ class _OnboardingScanStepState extends State<OnboardingScanStep> {
           // `.found` sits 30 pt under the picture (the picture's 8 pt collapses into it).
           SizedBox(height: found.isNotEmpty ? 30 : 8),
           for (final (i, device) in found.indexed)
-            _FoundRow(
+            PendantFoundRow(
               key: ValueKey('onboarding_found_${device.id}'),
               device: device,
               first: i == 0,
@@ -345,9 +345,10 @@ class _OnboardingScanStepState extends State<OnboardingScanStep> {
   }
 }
 
-/// A pendant found nearby (`.found`): its name at 17/600 over "A3F2 · nearby", and Pair.
-class _FoundRow extends StatelessWidget {
-  const _FoundRow({
+/// A pendant found nearby (`.found`): its name at 17/600 over "A3F2 · nearby", and Pair. Also the
+/// rows of Devices → Add a device.
+class PendantFoundRow extends StatelessWidget {
+  const PendantFoundRow({
     super.key,
     required this.device,
     required this.first,

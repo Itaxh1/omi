@@ -3999,5 +3999,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "ابحث عن الأشخاص",
     "addQueryAsNewPerson": "إضافة \"{query}\" كشخص جديد",
-    "showAllPeople": "إظهار كل الأشخاص ({count})"
+    "showAllPeople": "إظهار كل الأشخاص ({count})",
+    "lookingForYourPendant": "جارٍ البحث عن قلادتك",
+    "holdPendantClose": "أمسك القلادة بالقرب منك. يجب أن يضيء ضوؤها.",
+    "foundPendants": "{count, plural, =1{عُثر على واحدة} other{عُثر على {count}}}",
+    "holdOn": "لحظة من فضلك",
+    "pendantConnected": "قلادتك متصلة",
+    "pendantConnectedBody": "{device}، البطارية {percent}%. سيبدأ التسجيل عندما تطلب ذلك.",
+    "pendantConnectedBodyNoBattery": "{device}. سيبدأ التسجيل عندما تطلب ذلك.",
+    "startRecordingV3": "ابدأ التسجيل",
+    "otherDevicesV3": "أجهزة أخرى",
+    "scanAgainV3": "ابحث مرة أخرى",
+    "howToPairV3": "طريقة الإقران",
+    "omiNotInRangeUsePhone": "{device} ليست في النطاق. هل تستخدم هذا الهاتف الآن؟",
+    "usePhoneV3": "استخدم الهاتف"
 }

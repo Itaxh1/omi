@@ -12811,4 +12811,57 @@ class AppLocalizationsMs extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Tunjukkan semua $count orang';
   }
+
+  @override
+  String get lookingForYourPendant => 'Mencari loket anda';
+
+  @override
+  String get holdPendantClose => 'Pegang loket dekat. Ia sepatutnya menyala.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ditemui',
+      one: 'Satu ditemui',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Sebentar';
+
+  @override
+  String get pendantConnected => 'Loket anda telah disambungkan';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, bateri $percent%. Ia akan mula merakam apabila anda kata.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Ia akan mula merakam apabila anda kata.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Mula merakam';
+
+  @override
+  String get otherDevicesV3 => 'Peranti lain';
+
+  @override
+  String get scanAgainV3 => 'Cari lagi';
+
+  @override
+  String get howToPairV3 => 'Cara berpasangan';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device di luar julat. Guna telefon ini buat masa ini?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Guna telefon';
 }

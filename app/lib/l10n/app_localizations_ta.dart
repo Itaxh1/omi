@@ -12855,4 +12855,57 @@ class AppLocalizationsTa extends AppLocalizations {
   String showAllPeople(int count) {
     return 'அனைத்து ($count) நபர்களையும் காட்டு';
   }
+
+  @override
+  String get lookingForYourPendant => 'உங்கள் பதக்கத்தைத் தேடுகிறது';
+
+  @override
+  String get holdPendantClose => 'பதக்கத்தை அருகில் வைத்திருங்கள். அது ஒளிர வேண்டும்.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count கிடைத்தன',
+      one: 'ஒன்று கிடைத்தது',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'ஒரு நிமிடம்';
+
+  @override
+  String get pendantConnected => 'உங்கள் பதக்கம் இணைக்கப்பட்டது';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, பேட்டரி $percent%. நீங்கள் சொல்லும்போது பதிவு செய்யத் தொடங்கும்.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. நீங்கள் சொல்லும்போது பதிவு செய்யத் தொடங்கும்.';
+  }
+
+  @override
+  String get startRecordingV3 => 'பதிவைத் தொடங்கு';
+
+  @override
+  String get otherDevicesV3 => 'பிற சாதனங்கள்';
+
+  @override
+  String get scanAgainV3 => 'மீண்டும் தேடு';
+
+  @override
+  String get howToPairV3 => 'இணைப்பது எப்படி';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device வரம்பில் இல்லை. தற்போதைக்கு இந்த ஃபோனைப் பயன்படுத்தவா?';
+  }
+
+  @override
+  String get usePhoneV3 => 'ஃபோனைப் பயன்படுத்து';
 }

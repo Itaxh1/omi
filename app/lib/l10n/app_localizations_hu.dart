@@ -12819,4 +12819,57 @@ class AppLocalizationsHu extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Az összes ($count) személy megjelenítése';
   }
+
+  @override
+  String get lookingForYourPendant => 'Keressük a medálodat';
+
+  @override
+  String get holdPendantClose => 'Tartsd közel a medált. Fel kell villannia.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count találat',
+      one: 'Találtunk egyet',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Egy pillanat';
+
+  @override
+  String get pendantConnected => 'A medálod csatlakozott';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, akkumulátor: $percent%. Akkor kezd rögzíteni, amikor szólsz.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Akkor kezd rögzíteni, amikor szólsz.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Rögzítés indítása';
+
+  @override
+  String get otherDevicesV3 => 'Egyéb eszközök';
+
+  @override
+  String get scanAgainV3 => 'Keresés újra';
+
+  @override
+  String get howToPairV3 => 'Párosítás lépései';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device hatótávolságon kívül van. Egyelőre ezt a telefont használod?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Telefon használata';
 }

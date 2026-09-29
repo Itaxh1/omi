@@ -3999,5 +3999,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "Søk etter personer",
     "addQueryAsNewPerson": "Legg til \"{query}\" som en ny person",
-    "showAllPeople": "Vis alle {count} personer"
+    "showAllPeople": "Vis alle {count} personer",
+    "lookingForYourPendant": "Leter etter anhenget ditt",
+    "holdPendantClose": "Hold anhenget nær. Det skal lyse opp.",
+    "foundPendants": "{count, plural, =1{Fant én} other{Fant {count}}}",
+    "holdOn": "Et øyeblikk",
+    "pendantConnected": "Anhenget ditt er koblet til",
+    "pendantConnectedBody": "{device}, {percent} % batteri. Den begynner å ta opp når du sier fra.",
+    "pendantConnectedBodyNoBattery": "{device}. Den begynner å ta opp når du sier fra.",
+    "startRecordingV3": "Start opptak",
+    "otherDevicesV3": "Andre enheter",
+    "scanAgainV3": "Søk igjen",
+    "howToPairV3": "Slik parer du",
+    "omiNotInRangeUsePhone": "{device} er utenfor rekkevidde. Vil du bruke denne telefonen inntil videre?",
+    "usePhoneV3": "Bruk telefonen"
 }

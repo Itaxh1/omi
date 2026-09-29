@@ -12542,4 +12542,57 @@ class AppLocalizationsZh extends AppLocalizations {
   String showAllPeople(int count) {
     return '显示全部 $count 人';
   }
+
+  @override
+  String get lookingForYourPendant => '正在寻找你的吊坠';
+
+  @override
+  String get holdPendantClose => '把吊坠靠近手机，它应该会亮起来。';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '找到 $count 个',
+      one: '找到一个',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => '请稍候';
+
+  @override
+  String get pendantConnected => '你的吊坠已连接';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device，电量 $percent%。你说开始时它就会开始录音。';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device。你说开始时它就会开始录音。';
+  }
+
+  @override
+  String get startRecordingV3 => '开始录音';
+
+  @override
+  String get otherDevicesV3 => '其他设备';
+
+  @override
+  String get scanAgainV3 => '重新搜索';
+
+  @override
+  String get howToPairV3 => '如何配对';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device 不在范围内。先用这部手机吗？';
+  }
+
+  @override
+  String get usePhoneV3 => '使用手机';
 }

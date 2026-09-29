@@ -3999,5 +3999,18 @@
     "feedbackReasonRecordingOther": "その他",
     "searchPeople": "人物を検索",
     "addQueryAsNewPerson": "「{query}」を新しい人物として追加",
-    "showAllPeople": "すべての人物（{count}）を表示"
+    "showAllPeople": "すべての人物（{count}）を表示",
+    "lookingForYourPendant": "ペンダントを探しています",
+    "holdPendantClose": "ペンダントを近づけてください。ライトが点灯します。",
+    "foundPendants": "{count, plural, =1{1台見つかりました} other{{count}台見つかりました}}",
+    "holdOn": "少々お待ちください",
+    "pendantConnected": "ペンダントが接続されました",
+    "pendantConnectedBody": "{device}、バッテリー{percent}%。指示すると録音を始めます。",
+    "pendantConnectedBodyNoBattery": "{device}。指示すると録音を始めます。",
+    "startRecordingV3": "録音を開始",
+    "otherDevicesV3": "その他のデバイス",
+    "scanAgainV3": "もう一度探す",
+    "howToPairV3": "ペアリングの方法",
+    "omiNotInRangeUsePhone": "{device}が範囲外です。今はこのスマホを使いますか？",
+    "usePhoneV3": "スマホを使う"
 }

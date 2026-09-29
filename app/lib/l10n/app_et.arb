@@ -3999,5 +3999,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "Otsi inimesi",
     "addQueryAsNewPerson": "Lisa \"{query}\" uue inimesena",
-    "showAllPeople": "Kuva kõik inimesed ({count})"
+    "showAllPeople": "Kuva kõik inimesed ({count})",
+    "lookingForYourPendant": "Otsime su ripatsit",
+    "holdPendantClose": "Hoia ripatsit lähedal. See peaks süttima.",
+    "foundPendants": "{count, plural, =1{Leiti üks} other{Leiti {count}}}",
+    "holdOn": "Üks hetk",
+    "pendantConnected": "Su ripats on ühendatud",
+    "pendantConnectedBody": "{device}, aku {percent}%. Salvestamine algab, kui sa ütled.",
+    "pendantConnectedBodyNoBattery": "{device}. Salvestamine algab, kui sa ütled.",
+    "startRecordingV3": "Alusta salvestamist",
+    "otherDevicesV3": "Muud seadmed",
+    "scanAgainV3": "Otsi uuesti",
+    "howToPairV3": "Kuidas siduda",
+    "omiNotInRangeUsePhone": "{device} pole levialas. Kas kasutada praegu seda telefoni?",
+    "usePhoneV3": "Kasuta telefoni"
 }

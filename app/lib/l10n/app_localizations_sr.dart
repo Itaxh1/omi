@@ -12781,4 +12781,57 @@ class AppLocalizationsSr extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Прикажи све особе ($count)';
   }
+
+  @override
+  String get lookingForYourPendant => 'Tražimo vaš privezak';
+
+  @override
+  String get holdPendantClose => 'Držite privezak blizu. Trebalo bi da zasvetli.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Pronađeno: $count',
+      one: 'Pronađen jedan',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Trenutak';
+
+  @override
+  String get pendantConnected => 'Vaš privezak je povezan';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, baterija $percent%. Počeće da snima kada vi kažete.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Počeće da snima kada vi kažete.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Počni snimanje';
+
+  @override
+  String get otherDevicesV3 => 'Drugi uređaji';
+
+  @override
+  String get scanAgainV3 => 'Traži ponovo';
+
+  @override
+  String get howToPairV3 => 'Kako uparati';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device nije u dometu. Da li da za sada koristite ovaj telefon?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Koristi telefon';
 }

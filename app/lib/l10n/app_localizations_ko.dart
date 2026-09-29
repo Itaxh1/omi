@@ -12567,4 +12567,57 @@ class AppLocalizationsKo extends AppLocalizations {
   String showAllPeople(int count) {
     return '모두 $count명 표시';
   }
+
+  @override
+  String get lookingForYourPendant => '펜던트를 찾는 중';
+
+  @override
+  String get holdPendantClose => '펜던트를 가까이 두세요. 불이 켜질 거예요.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count개 찾음',
+      one: '1개 찾음',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => '잠시만요';
+
+  @override
+  String get pendantConnected => '펜던트가 연결됐어요';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, 배터리 $percent%. 말씀하시면 녹음을 시작해요.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. 말씀하시면 녹음을 시작해요.';
+  }
+
+  @override
+  String get startRecordingV3 => '녹음 시작';
+
+  @override
+  String get otherDevicesV3 => '다른 기기';
+
+  @override
+  String get scanAgainV3 => '다시 찾기';
+
+  @override
+  String get howToPairV3 => '페어링 방법';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device이(가) 범위 밖에 있어요. 지금은 이 휴대폰을 쓸까요?';
+  }
+
+  @override
+  String get usePhoneV3 => '휴대폰 사용';
 }

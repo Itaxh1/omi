@@ -3999,5 +3999,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "Cari orang",
     "addQueryAsNewPerson": "Tambah \"{query}\" sebagai orang baru",
-    "showAllPeople": "Tunjukkan semua {count} orang"
+    "showAllPeople": "Tunjukkan semua {count} orang",
+    "lookingForYourPendant": "Mencari loket anda",
+    "holdPendantClose": "Pegang loket dekat. Ia sepatutnya menyala.",
+    "foundPendants": "{count, plural, =1{Satu ditemui} other{{count} ditemui}}",
+    "holdOn": "Sebentar",
+    "pendantConnected": "Loket anda telah disambungkan",
+    "pendantConnectedBody": "{device}, bateri {percent}%. Ia akan mula merakam apabila anda kata.",
+    "pendantConnectedBodyNoBattery": "{device}. Ia akan mula merakam apabila anda kata.",
+    "startRecordingV3": "Mula merakam",
+    "otherDevicesV3": "Peranti lain",
+    "scanAgainV3": "Cari lagi",
+    "howToPairV3": "Cara berpasangan",
+    "omiNotInRangeUsePhone": "{device} di luar julat. Guna telefon ini buat masa ini?",
+    "usePhoneV3": "Guna telefon"
 }

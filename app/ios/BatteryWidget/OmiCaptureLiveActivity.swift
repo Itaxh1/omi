@@ -3,19 +3,48 @@ import SwiftUI
 import UIKit
 import WidgetKit
 
-// Values below come from the omi-ios-v2 design package: tokens/tokens.json,
-// generator/s_system.py (LockScreen, Island) and specs/geometry/iphone16.
-// Text and controls keep one size on every iPhone; only the pendant (hero art)
-// scales with the device, as the in-app Live screen does on SE/mini/16/Max.
+// The v3 look (the app's mono palette, `OmiColors`): paper and ink, one grey for secondary words,
+// the warm tone behind secondary buttons. Text and controls keep one size on every iPhone; only the
+// pendant (hero art) scales with the device, as Your Omi does in the app.
 
-/// Liquid Dock tokens (the app's `OmiColors`).
+/// v3 tokens. The Lock Screen card follows the phone's light or dark look; the island is always
+/// black, so it keeps the dark set.
 enum CapturePalette {
-    static let label = Color.white
-    static let secondary = Color(red: 0xA9 / 255, green: 0xAE / 255, blue: 0xB9 / 255)
-    static let ink = Color(red: 0x0A / 255, green: 0x0B / 255, blue: 0x0F / 255)
+    private static func rgb(_ hex: Int) -> Color {
+        Color(red: Double((hex >> 16) & 0xFF) / 255, green: Double((hex >> 8) & 0xFF) / 255, blue: Double(hex & 0xFF) / 255)
+    }
+
+    private static func uiRGB(_ hex: Int, alpha: CGFloat) -> UIColor {
+        UIColor(red: CGFloat((hex >> 16) & 0xFF) / 255, green: CGFloat((hex >> 8) & 0xFF) / 255,
+                blue: CGFloat(hex & 0xFF) / 255, alpha: alpha)
+    }
+
     static let led = Color(red: 0x4C / 255, green: 0x9B / 255, blue: 0xFF / 255)
-    /// The dock's glass: rgba(20,22,27,.94).
-    static let card = Color(red: 20 / 255, green: 22 / 255, blue: 27 / 255).opacity(0.94)
+    /// The Lock Screen card: paper (white, or #0A0A0A in dark), a touch translucent like the system's.
+    static let card = Color(UIColor { traits in
+        traits.userInterfaceStyle == .dark
+            ? CapturePalette.uiRGB(0x0A0A0A, alpha: 0.92) : CapturePalette.uiRGB(0xFFFFFF, alpha: 0.94)
+    })
+
+    static func ink(for scheme: ColorScheme) -> CaptureInk {
+        scheme == .dark ? island : CaptureInk(
+            primary: rgb(0x0A0A0A), secondary: rgb(0x656565), tone: rgb(0xF1EFEA),
+            fill: rgb(0x0A0A0A), onFill: .white)
+    }
+
+    static let island = CaptureInk(
+        primary: .white, secondary: rgb(0xABABAB), tone: Color.white.opacity(0.14),
+        fill: .white, onFill: rgb(0x0A0A0A))
+}
+
+/// The colours one presentation draws with: words, secondary words, the Pause pill (tone) and the
+/// Stop pill (fill, with its words in onFill).
+struct CaptureInk {
+    let primary: Color
+    let secondary: Color
+    let tone: Color
+    let fill: Color
+    let onFill: Color
 }
 
 /// The app's listening wave (Liquid Dock): the prototype's bar heights, each easing down to 45 %
@@ -60,6 +89,9 @@ struct CaptureSnapshot {
         !isStale && !state.paused && (state.status == "listening" || state.status == "recording")
     }
 
+    /// This phone's microphone is recording, not the pendant.
+    var isPhone: Bool { state.source == "phone" }
+
     /// While the mic is on, the second this update carries: the orb breathes on it (the app's orb
     /// breathes too). Nil when nothing is captured, so everything holds still.
     var breath: Int? { isReceivingAudio ? state.elapsed : nil }
@@ -96,22 +128,20 @@ struct OmiCaptureLiveActivity: Widget {
         ActivityConfiguration(for: OmiCaptureAttributes.self) { context in
             CaptureLockScreenView(snapshot: context.omiSnapshot)
                 .activityBackgroundTint(CapturePalette.card)
-                .activitySystemActionForegroundColor(CapturePalette.label)
                 .widgetURL(captureURL(context.attributes.recordingId))
         } dynamicIsland: { context in
             let snapshot = context.omiSnapshot
+            let ink = CapturePalette.island
             let island = DynamicIsland {
-                // Island.dc.html: 372 x 172 with 18/22 padding, one 40 pt row, a
-                // 22 pt waveform and 38 pt buttons, 12 pt apart. iOS caps the
-                // expanded island near 160 pt and puts the camera between the
-                // leading and trailing regions, so the row is split around it and
-                // the subtitle (no room beside the camera on any iPhone) is left
-                // to the Lock Screen card.
+                // One row beside the camera (pendant and word | clock), then the wave and the two
+                // buttons. iOS caps the expanded island near 160 pt and puts the camera between the
+                // leading and trailing regions, so the row is split around it and the second line
+                // (no room beside the camera on any iPhone) is left to the Lock Screen card.
                 DynamicIslandExpandedRegion(.leading) {
-                    CaptureIslandLeading(snapshot: snapshot)
+                    CaptureIslandLeading(snapshot: snapshot, ink: ink)
                 }
                 DynamicIslandExpandedRegion(.trailing) {
-                    CaptureClock(snapshot: snapshot, size: 30)
+                    CaptureClock(snapshot: snapshot, ink: ink, size: 30)
                         .frame(maxHeight: .infinity, alignment: .center)
                         // Clear of the island's ~44 pt top corner curve.
                         .padding(.top, 6)
@@ -121,15 +151,15 @@ struct OmiCaptureLiveActivity: Widget {
                     // Measured on a 402 pt iPhone: the bottom region starts ~78 pt
                     // into a 160 pt island, which leaves exactly 22 + 10 + 38.
                     VStack(spacing: 10) {
-                        CaptureWaveform(snapshot: snapshot, height: 22)
-                        CaptureActions(snapshot: snapshot, height: 38, secondaryFill: 0.14)
+                        CaptureWaveform(snapshot: snapshot, ink: ink, height: 22)
+                        CaptureActions(snapshot: snapshot, ink: ink, height: 38)
                     }
                 }
             } compactLeading: {
-                // Island.dc.html compact: the orb, its dot the pendant's LED (breathing while the mic
-                // is on), and beside it the app's listening wave in miniature.
+                // The pendant, its light breathing while the mic is on, and beside it the listening
+                // wave in miniature.
                 HStack(spacing: 5) {
-                    CapturePendant(active: snapshot.isReceivingAudio, size: 24, breath: snapshot.breath)
+                    CapturePendant(active: snapshot.isReceivingAudio, size: 24, breath: snapshot.breath, phone: snapshot.isPhone)
                     if snapshot.isReceivingAudio {
                         CaptureMiniWave(tick: snapshot.rippleTick, height: 14)
                     }
@@ -138,13 +168,13 @@ struct OmiCaptureLiveActivity: Widget {
             } compactTrailing: {
                 CaptureCompactClock(snapshot: snapshot)
             } minimal: {
-                // Minimal (another Live Activity is showing): the orb alone, still breathing.
-                CapturePendant(active: snapshot.isReceivingAudio, size: 22, breath: snapshot.breath)
+                // Minimal (another Live Activity is showing): the pendant alone, still breathing.
+                CapturePendant(active: snapshot.isReceivingAudio, size: 22, breath: snapshot.breath, phone: snapshot.isPhone)
             }
             .widgetURL(captureURL(context.attributes.recordingId))
-            .keylineTint(CapturePalette.led)
+            .keylineTint(Color.white.opacity(0.4))
             // Default side margins leave ~100 pt beside the camera; 12 pt gives
-            // the pendant and a short title room without shrinking text.
+            // the pendant and a short word room without shrinking text.
             if #available(iOS 17.0, *) {
                 return island.contentMargins(.horizontal, 12, for: .expanded)
             }
@@ -163,58 +193,56 @@ private func captureURL(_ id: String) -> URL? {
     return components.url
 }
 
-/// LockScreen.json (393 pt): 14 pt top/bottom, 16 pt sides, a 48 pt row
-/// (36 pt pendant, 12 pt gap, title/subtitle, 30 pt clock), 12 pt, a 26 pt
-/// waveform, 12 pt, 40 pt buttons.
+/// The Lock Screen card, as Your Omi opens in the app: the pendant, what it is doing ("Listening")
+/// over where the sound comes from ("Omi · Transcribing live"), the clock on the right; the wave;
+/// then Pause (the tone pill) and Stop (the ink pill). Paper and ink, following light and dark.
 @available(iOS 16.1, *)
 struct CaptureLockScreenView: View {
     let snapshot: CaptureSnapshot
+    @Environment(\.colorScheme) private var scheme
 
     var body: some View {
+        let ink = CapturePalette.ink(for: scheme)
         VStack(spacing: 12) {
             HStack(spacing: 12) {
-                CapturePendant(active: snapshot.isReceivingAudio, size: 36 * CaptureLayout.heroScale, breath: snapshot.breath)
-                CaptureStatus(snapshot: snapshot, showSource: true)
+                CapturePendant(active: snapshot.isReceivingAudio, size: 40 * CaptureLayout.heroScale, breath: snapshot.breath, phone: snapshot.isPhone)
+                CaptureStatus(snapshot: snapshot, ink: ink, showSource: true)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                CaptureClock(snapshot: snapshot, size: 30)
+                CaptureClock(snapshot: snapshot, ink: ink, size: 30)
             }
             .frame(minHeight: 48)
-            CaptureWaveform(snapshot: snapshot, height: 26)
-            CaptureActions(snapshot: snapshot, height: 40, secondaryFill: 0.12)
+            CaptureWaveform(snapshot: snapshot, ink: ink, height: 24)
+            CaptureActions(snapshot: snapshot, ink: ink, height: 40)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 14)
-        .foregroundStyle(CapturePalette.label)
-        // glass-thick top highlight: rgba(255,255,255,.06) fading out by 50%.
-        .background(LinearGradient(stops: [
-            .init(color: .white.opacity(0.06), location: 0),
-            .init(color: .clear, location: 0.5),
-        ], startPoint: .top, endPoint: .bottom))
+        .foregroundStyle(ink.primary)
         .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
     }
 }
 
-/// Pendant and title beside the camera. Where the title does not fit next to
+/// Pendant and word beside the camera. Where the word does not fit next to
 /// the pendant it is dropped rather than shrunk; text never scales down.
 @available(iOS 16.1, *)
 private struct CaptureIslandLeading: View {
     let snapshot: CaptureSnapshot
+    let ink: CaptureInk
 
     var body: some View {
-        // Island.dc.html: the orb, "Listening" and "Transcribing live" beside the camera. Where the
-        // subtitle or then the title does not fit (~111 pt on most iPhones) it is dropped, never shrunk.
+        // The pendant, "Listening" and "Transcribing live" beside the camera. Where the second line or
+        // then the word does not fit (~111 pt on most iPhones) it is dropped, never shrunk.
         ViewThatFits(in: .horizontal) {
             HStack(spacing: 8) {
-                CapturePendant(active: snapshot.isReceivingAudio, size: 32, breath: snapshot.breath)
-                CaptureStatus(snapshot: snapshot, showSource: false)
+                CapturePendant(active: snapshot.isReceivingAudio, size: 32, breath: snapshot.breath, phone: snapshot.isPhone)
+                CaptureStatus(snapshot: snapshot, ink: ink, showSource: false)
                     .fixedSize()
             }
             HStack(spacing: 6) {
-                CapturePendant(active: snapshot.isReceivingAudio, size: 32, breath: snapshot.breath)
-                CaptureStatus(snapshot: snapshot, showSource: false, titleOnly: true)
+                CapturePendant(active: snapshot.isReceivingAudio, size: 32, breath: snapshot.breath, phone: snapshot.isPhone)
+                CaptureStatus(snapshot: snapshot, ink: ink, showSource: false, titleOnly: true)
                     .fixedSize()
             }
-            CapturePendant(active: snapshot.isReceivingAudio, size: 32, breath: snapshot.breath)
+            CapturePendant(active: snapshot.isReceivingAudio, size: 32, breath: snapshot.breath, phone: snapshot.isPhone)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         // Clear of the island's ~44 pt top corner curve.
@@ -228,19 +256,20 @@ private struct CaptureIslandLeading: View {
 @available(iOS 16.1, *)
 private struct CaptureStatus: View {
     let snapshot: CaptureSnapshot
+    let ink: CaptureInk
     let showSource: Bool
     var titleOnly = false
 
     private var state: OmiCaptureAttributes.ContentState { snapshot.state }
 
+    /// The app's words for what Omi is doing (the Listening label's).
     private var title: LocalizedStringKey {
         if snapshot.isStale { return "Open Omi to reconnect" }
         if state.actionFailed { return "Open Omi to continue" }
         switch state.status {
         case "ended": return "Finished"
-        // The reader's Mute; the OS holding the microphone is a pause that resumes by itself.
-        case "paused": return "Muted"
-        case "interrupted": return "Paused"
+        // The reader's Pause, and the OS holding the microphone (which resumes by itself).
+        case "paused", "interrupted": return "Paused"
         case "connecting": return "Connecting…"
         case "recording": return "Recording"
         case "reconnecting": return "Reconnecting…"
@@ -248,8 +277,9 @@ private struct CaptureStatus: View {
         }
     }
 
-    private var source: LocalizedStringKey {
-        state.source == "phone" ? "Phone microphone" : "Omi pendant"
+    /// Where the sound comes from, as Devices names it: "This iPhone", or the pendant, "Omi".
+    private var source: Text {
+        state.source == "phone" ? Text("This iPhone") : Text(verbatim: "Omi")
     }
 
     /// What is happening to the audio right now; nil falls back to the source.
@@ -263,54 +293,69 @@ private struct CaptureStatus: View {
         }
     }
 
-    private var subtitle: Text {
-        guard let detail else { return Text(source) }
-        return showSource ? Text(source) + Text(" · ") + Text(detail) : Text(detail)
+    /// "Omi · Transcribing live" when it fits on one line, else just where the sound comes from, so
+    /// the card keeps one height. The island shows only what is happening.
+    @ViewBuilder
+    private var subtitle: some View {
+        if let detail {
+            if showSource {
+                ViewThatFits(in: .horizontal) {
+                    (source + Text(verbatim: " · ") + Text(detail)).lineLimit(1)
+                    source.lineLimit(1)
+                }
+            } else {
+                Text(detail).lineLimit(2)
+            }
+        } else {
+            source.lineLimit(1)
+        }
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            // subheadline 15/600 and footnote 13 from the type ramp.
+        VStack(alignment: .leading, spacing: 1) {
+            // The app's type: the word at 17/600, the line under it at 13.
             Text(title)
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(CapturePalette.label)
+                .font(.system(size: 17, weight: .semibold))
+                .foregroundStyle(ink.primary)
                 .lineLimit(1)
             if !titleOnly {
                 subtitle
-                    .font(.footnote)
-                    .foregroundStyle(CapturePalette.secondary)
-                    .lineLimit(2)
+                    .font(.system(size: 13))
+                    .foregroundStyle(ink.secondary)
             }
         }
         .fixedSize(horizontal: false, vertical: true)
     }
 }
 
-/// The 30 pt / 600 clock, flush right in a slot sized for its longest value.
+/// The clock (the app's live clock: medium weight, tabular), flush right in a slot sized for its
+/// longest value.
 @available(iOS 16.1, *)
 private struct CaptureClock: View {
     let snapshot: CaptureSnapshot
+    let ink: CaptureInk
     @ScaledMetric private var size: CGFloat
 
-    init(snapshot: CaptureSnapshot, size: CGFloat) {
+    init(snapshot: CaptureSnapshot, ink: CaptureInk, size: CGFloat) {
         self.snapshot = snapshot
+        self.ink = ink
         _size = ScaledMetric(wrappedValue: size, relativeTo: .title)
     }
 
     var body: some View {
-        CaptureClockText(snapshot: snapshot)
-            .font(.system(size: size, weight: .semibold))
+        CaptureClockText(snapshot: snapshot, color: ink.primary)
+            .font(.system(size: size, weight: .medium))
             .frame(width: size * snapshot.clockEms, alignment: .trailing)
     }
 }
 
-/// HomeScreen.json: 15 pt / 600 clock, 14 pt from the island's trailing edge.
+/// The compact island's clock: 15 pt, 14 pt from the island's trailing edge.
 @available(iOS 16.1, *)
 private struct CaptureCompactClock: View {
     let snapshot: CaptureSnapshot
 
     var body: some View {
-        CaptureClockText(snapshot: snapshot)
+        CaptureClockText(snapshot: snapshot, color: CapturePalette.island.primary)
             .font(.system(size: 15, weight: .semibold))
             .frame(width: 15 * snapshot.clockEms, alignment: .trailing)
             .padding(.trailing, 4)
@@ -320,16 +365,17 @@ private struct CaptureCompactClock: View {
 @available(iOS 16.1, *)
 private struct CaptureClockText: View {
     let snapshot: CaptureSnapshot
+    let color: Color
 
     var body: some View {
         let state = snapshot.state
         Group {
             if snapshot.isStale {
-                Text("—")
+                Text(verbatim: "—")
             } else if state.paused || state.status == "ended" {
                 // Frozen value in the same format the live timer uses.
                 let seconds = max(0, state.elapsed)
-                Text(seconds >= 3600
+                Text(verbatim: seconds >= 3600
                     ? String(format: "%d:%02d:%02d", seconds / 3600, seconds / 60 % 60, seconds % 60)
                     : String(format: "%d:%02d", seconds / 60, seconds % 60))
             } else {
@@ -342,7 +388,7 @@ private struct CaptureClockText: View {
         }
         .monospacedDigit()
         .multilineTextAlignment(.trailing)
-        .foregroundStyle(CapturePalette.label)
+        .foregroundStyle(color)
         .lineLimit(1)
         .accessibilityLabel(Text("Recording duration"))
     }
@@ -350,16 +396,31 @@ private struct CaptureClockText: View {
 
 /// The Omi pendant, as the app shows it: its photo with the light on while audio is captured, its
 /// lights-off photo otherwise. While the mic is on a soft blue halo breathes behind it on alternate
-/// seconds (the app's orb: 1 → .55 → 1 over 2.4 s).
+/// seconds (the pendant's own light).
 struct CapturePendant: View {
     let active: Bool
     let size: CGFloat
     /// While the mic is on, the second of the latest update: the halo is soft on odd seconds.
     var breath: Int? = nil
+    /// The recording is this phone's: its glyph in a tone circle instead of the pendant's photo.
+    var phone = false
 
     var body: some View {
+        if phone {
+            Image(systemName: "iphone")
+                .font(.system(size: size * 0.5, weight: .regular))
+                .foregroundStyle(.primary.opacity(active ? 1 : 0.6))
+                .frame(width: size, height: size)
+                .background(Circle().fill(.primary.opacity(0.1)))
+                .accessibilityHidden(true)
+        } else {
+            pendantPhoto
+        }
+    }
+
+    private var pendantPhoto: some View {
         let soft = active && (breath ?? 0) % 2 == 1
-        Image(active ? "device-omi" : "device-omi-off")
+        return Image(active ? "device-omi" : "device-omi-off")
             .resizable()
             .scaledToFit()
             .frame(width: size, height: size)
@@ -369,8 +430,8 @@ struct CapturePendant: View {
     }
 }
 
-/// The app's listening wave in miniature for the compact island: five bars easing along each
-/// update while the mic is on, as the Home card's wave ripples.
+/// The listening wave in miniature for the compact island: five bars easing along each update
+/// while the mic is on.
 @available(iOS 16.1, *)
 private struct CaptureMiniWave: View {
     let tick: Int
@@ -381,7 +442,7 @@ private struct CaptureMiniWave: View {
             ForEach(0..<5, id: \.self) { index in
                 let base = CaptureRipple.levels[(index * 7 + 3) % CaptureRipple.levels.count]
                 Capsule()
-                    .fill(CapturePalette.label.opacity(0.9))
+                    .fill(CapturePalette.island.primary.opacity(0.9))
                     .frame(width: 2.5, height: max(3, height * CGFloat(base * CaptureRipple.pulse(index * 3, tick: tick))))
             }
         }
@@ -391,14 +452,14 @@ private struct CaptureMiniWave: View {
     }
 }
 
-/// The listening wave on the Lock Screen and in the expanded island: the app's ripple (bars
-/// 2 pt wide, 2.2 pt apart, heights from the prototype). While audio flows each update eases the
-/// ripple on across the second; heard voice lifts it to full height, a quiet room keeps it softer.
-/// Paused, it settles to a hairline; a source that cannot be metered ripples at the same pace while
-/// the mic is on.
+/// The listening wave on the Lock Screen and in the expanded island, in ink: bars 2 pt wide,
+/// 2.2 pt apart. While audio flows each update eases the ripple on across the second; heard voice
+/// lifts it to full height, a quiet room keeps it softer. Paused, it settles to a hairline; a
+/// source that cannot be metered ripples at the same pace while the mic is on.
 @available(iOS 16.1, *)
 private struct CaptureWaveform: View {
     let snapshot: CaptureSnapshot
+    let ink: CaptureInk
     let height: CGFloat
     private static let barWidth: CGFloat = 2
     private static let gap: CGFloat = 2.2
@@ -414,7 +475,7 @@ private struct CaptureWaveform: View {
                 HStack(alignment: .center, spacing: Self.gap) {
                     ForEach(0..<count, id: \.self) { index in
                         Capsule()
-                            .fill(CapturePalette.label.opacity(0.92))
+                            .fill(ink.primary.opacity(0.9))
                             .frame(
                                 width: Self.barWidth,
                                 height: barHeight(index, amplitude: amplitude, tick: state.levelsEnd)
@@ -426,7 +487,7 @@ private struct CaptureWaveform: View {
             } else if state.metered || state.paused {
                 // Nothing to draw: one hairline instead of a row of dots.
                 Capsule()
-                    .fill(CapturePalette.label.opacity(0.24))
+                    .fill(ink.primary.opacity(0.2))
                     .frame(width: width, height: 1.5)
                     .frame(width: width, height: height)
             } else {
@@ -435,7 +496,7 @@ private struct CaptureWaveform: View {
                 HStack(alignment: .center, spacing: Self.gap) {
                     ForEach(0..<count, id: \.self) { index in
                         Capsule()
-                            .fill(CapturePalette.label.opacity(snapshot.isReceivingAudio ? 0.8 : 0.2))
+                            .fill(ink.primary.opacity(snapshot.isReceivingAudio ? 0.8 : 0.2))
                             .frame(width: Self.barWidth, height: barHeight(index, amplitude: 0.8, tick: snapshot.rippleTick))
                     }
                 }
@@ -455,23 +516,22 @@ private struct CaptureWaveform: View {
     }
 }
 
-/// Equal capsules 8 pt apart: secondary rgba(255,255,255,.12/.14), primary
-/// #ECEEF2 with ink text, 15 pt / 700: Mute (or Unmute) and Stop.
+/// Your Omi's two buttons, 8 pt apart: Pause (or Resume) on the tone, Stop in ink, 15 pt words.
 @available(iOS 16.1, *)
 private struct CaptureActions: View {
     let snapshot: CaptureSnapshot
+    let ink: CaptureInk
     let height: CGFloat
-    let secondaryFill: Double
 
     private var state: OmiCaptureAttributes.ContentState { snapshot.state }
 
     var body: some View {
         if #available(iOS 17.0, *), !snapshot.isStale, state.status != "ended" {
             HStack(spacing: 8) {
-                // Unmute is offered only after the reader muted; recovery states keep Mute.
+                // Resume only after the reader paused; recovery states keep Pause.
                 if state.canPause {
-                    let muted = state.status == "paused"
-                    action(muted ? "Unmute" : "Mute", value: muted ? "resume" : "pause", enabled: true)
+                    let paused = state.status == "paused"
+                    action(paused ? "Resume" : "Pause", value: paused ? "resume" : "pause", enabled: true)
                 }
                 // Stop saves this conversation and stops listening until Start in Omi, so the
                 // activity closes.
@@ -483,19 +543,19 @@ private struct CaptureActions: View {
 
     @available(iOS 17.0, *)
     private func action(_ label: LocalizedStringKey, value: String, enabled: Bool, primary: Bool = false) -> some View {
-        // An unavailable primary action drops to the secondary pill so its label stays legible.
+        // An unavailable primary action drops to the tone pill so its label stays legible.
         let available = enabled && !state.busy
         let filled = primary && available
         return Button(intent: OmiCaptureIntent(recordingId: snapshot.recordingId,
                                                revision: state.conversationRevision, action: value)) {
             Text(label)
-                .font(.subheadline.weight(primary ? .bold : .semibold))
+                .font(.system(size: 15, weight: .semibold))
                 .lineLimit(1)
-                // Long translations ("Reactivează sunetul") shrink a little rather than cut off.
+                // Long translations shrink a little rather than cut off.
                 .minimumScaleFactor(0.8)
                 .frame(maxWidth: .infinity, minHeight: height)
-                .foregroundStyle(filled ? CapturePalette.ink : CapturePalette.label.opacity(available ? 1 : 0.5))
-                .background(filled ? CapturePalette.label : Color.white.opacity(secondaryFill), in: Capsule())
+                .foregroundStyle(filled ? ink.onFill : ink.primary.opacity(available ? 1 : 0.5))
+                .background(filled ? ink.fill : ink.tone, in: Capsule())
         }
         .buttonStyle(.plain)
         .disabled(!available)

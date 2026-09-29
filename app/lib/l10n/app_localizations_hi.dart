@@ -12751,4 +12751,57 @@ class AppLocalizationsHi extends AppLocalizations {
   String showAllPeople(int count) {
     return 'सभी $count लोग दिखाएँ';
   }
+
+  @override
+  String get lookingForYourPendant => 'आपका पेंडेंट खोजा जा रहा है';
+
+  @override
+  String get holdPendantClose => 'पेंडेंट को पास रखें। इसकी लाइट जलनी चाहिए।';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count मिले',
+      one: 'एक मिला',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'एक पल रुकें';
+
+  @override
+  String get pendantConnected => 'आपका पेंडेंट कनेक्ट हो गया';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, बैटरी $percent%. आपके कहने पर रिकॉर्डिंग शुरू होगी।';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. आपके कहने पर रिकॉर्डिंग शुरू होगी।';
+  }
+
+  @override
+  String get startRecordingV3 => 'रिकॉर्डिंग शुरू करें';
+
+  @override
+  String get otherDevicesV3 => 'अन्य डिवाइस';
+
+  @override
+  String get scanAgainV3 => 'फिर से खोजें';
+
+  @override
+  String get howToPairV3 => 'कैसे जोड़ें';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device रेंज में नहीं है। अभी के लिए यह फ़ोन इस्तेमाल करें?';
+  }
+
+  @override
+  String get usePhoneV3 => 'फ़ोन इस्तेमाल करें';
 }

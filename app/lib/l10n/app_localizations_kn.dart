@@ -12810,4 +12810,57 @@ class AppLocalizationsKn extends AppLocalizations {
   String showAllPeople(int count) {
     return 'ಎಲ್ಲಾ ($count) ಜನರನ್ನು ತೋರಿಸಿ';
   }
+
+  @override
+  String get lookingForYourPendant => 'ನಿಮ್ಮ ಪೆಂಡೆಂಟ್ ಹುಡುಕಲಾಗುತ್ತಿದೆ';
+
+  @override
+  String get holdPendantClose => 'ಪೆಂಡೆಂಟ್ ಅನ್ನು ಹತ್ತಿರ ಹಿಡಿಯಿರಿ. ಅದು ಬೆಳಗಬೇಕು.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ಸಿಕ್ಕಿವೆ',
+      one: 'ಒಂದು ಸಿಕ್ಕಿತು',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'ಸ್ವಲ್ಪ ಕಾಯಿರಿ';
+
+  @override
+  String get pendantConnected => 'ನಿಮ್ಮ ಪೆಂಡೆಂಟ್ ಸಂಪರ್ಕಗೊಂಡಿದೆ';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, ಬ್ಯಾಟರಿ $percent%. ನೀವು ಹೇಳಿದಾಗ ರೆಕಾರ್ಡ್ ಮಾಡಲು ಪ್ರಾರಂಭಿಸುತ್ತದೆ.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. ನೀವು ಹೇಳಿದಾಗ ರೆಕಾರ್ಡ್ ಮಾಡಲು ಪ್ರಾರಂಭಿಸುತ್ತದೆ.';
+  }
+
+  @override
+  String get startRecordingV3 => 'ರೆಕಾರ್ಡಿಂಗ್ ಪ್ರಾರಂಭಿಸಿ';
+
+  @override
+  String get otherDevicesV3 => 'ಇತರ ಸಾಧನಗಳು';
+
+  @override
+  String get scanAgainV3 => 'ಮತ್ತೆ ಹುಡುಕಿ';
+
+  @override
+  String get howToPairV3 => 'ಜೋಡಿಸುವುದು ಹೇಗೆ';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device ವ್ಯಾಪ್ತಿಯಲ್ಲಿಲ್ಲ. ಸದ್ಯಕ್ಕೆ ಈ ಫೋನ್ ಬಳಸುವುದೇ?';
+  }
+
+  @override
+  String get usePhoneV3 => 'ಫೋನ್ ಬಳಸಿ';
 }

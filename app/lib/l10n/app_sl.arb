@@ -11559,5 +11559,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "Iskanje oseb",
     "addQueryAsNewPerson": "Dodaj \"{query}\" kot novo osebo",
-    "showAllPeople": "Pokaži vse osebe ({count})"
+    "showAllPeople": "Pokaži vse osebe ({count})",
+    "lookingForYourPendant": "Iščemo vaš obesek",
+    "holdPendantClose": "Obesek držite blizu. Moral bi zasvetiti.",
+    "foundPendants": "{count, plural, =1{Najden en} other{Najdeno: {count}}}",
+    "holdOn": "Trenutek",
+    "pendantConnected": "Vaš obesek je povezan",
+    "pendantConnectedBody": "{device}, baterija {percent} %. Snemati bo začel, ko boste rekli.",
+    "pendantConnectedBodyNoBattery": "{device}. Snemati bo začel, ko boste rekli.",
+    "startRecordingV3": "Začni snemati",
+    "otherDevicesV3": "Druge naprave",
+    "scanAgainV3": "Išči znova",
+    "howToPairV3": "Kako seznaniti",
+    "omiNotInRangeUsePhone": "{device} ni v dosegu. Za zdaj uporabim ta telefon?",
+    "usePhoneV3": "Uporabi telefon"
 }

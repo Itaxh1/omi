@@ -37,6 +37,9 @@ class _SwipeToDeleteState extends State<SwipeToDelete> with TickerProviderStateM
   bool _dragging = false;
   bool _deleting = false;
 
+  /// Dragged past the point where letting go deletes (55 % of the row), felt as a tap each way.
+  bool _armed = false;
+
   @override
   void initState() {
     super.initState();
@@ -78,17 +81,26 @@ class _SwipeToDeleteState extends State<SwipeToDelete> with TickerProviderStateM
     setState(() => _dragging = true);
   }
 
-  void _update(DragUpdateDetails d) {
+  void _update(DragUpdateDetails d, double width) {
     if (_deleting) return;
     setState(() => _dx = (_dx + d.delta.dx).clamp(-MediaQuery.sizeOf(context).width, 0.0));
+    final armed = _dx < -width * 0.55;
+    if (armed != _armed) {
+      _armed = armed;
+      armed ? OmiHaptics.medium() : OmiHaptics.selection();
+    }
   }
 
   void _end(DragEndDetails d, double width) {
     if (_deleting) return;
     setState(() => _dragging = false);
+    final armed = _armed;
+    _armed = false;
     if (_dx < -width * 0.55) {
-      unawaited(_delete(width));
+      // The tap came as it armed; letting go only deletes.
+      unawaited(_delete(width, felt: armed));
     } else if (_dx < -44) {
+      if (_dx > -_openWidth) OmiHaptics.selection();
       _animateTo(-_openWidth);
     } else {
       _animateTo(0);
@@ -96,10 +108,10 @@ class _SwipeToDeleteState extends State<SwipeToDelete> with TickerProviderStateM
     }
   }
 
-  Future<void> _delete(double width) async {
+  Future<void> _delete(double width, {bool felt = false}) async {
     if (_deleting) return;
     _deleting = true;
-    OmiHaptics.medium();
+    if (!felt) OmiHaptics.medium();
     _animateTo(-width * 1.1);
     if (OmiMotion.of(context).standard != Duration.zero) await _collapse.forward();
     if (!mounted) return;
@@ -121,7 +133,7 @@ class _SwipeToDeleteState extends State<SwipeToDelete> with TickerProviderStateM
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onHorizontalDragStart: _start,
-        onHorizontalDragUpdate: _update,
+        onHorizontalDragUpdate: (d) => _update(d, width),
         onHorizontalDragEnd: (d) => _end(d, width),
         child: Stack(
           children: [

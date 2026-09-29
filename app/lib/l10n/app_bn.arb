@@ -11559,5 +11559,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "মানুষ খুঁজুন",
     "addQueryAsNewPerson": "\"{query}\"-কে নতুন ব্যক্তি হিসেবে যোগ করুন",
-    "showAllPeople": "সমস্ত ({count}) জনকে দেখান"
+    "showAllPeople": "সমস্ত ({count}) জনকে দেখান",
+    "lookingForYourPendant": "আপনার পেনডেন্ট খোঁজা হচ্ছে",
+    "holdPendantClose": "পেনডেন্টটি কাছে ধরুন। এটি জ্বলে ওঠা উচিত।",
+    "foundPendants": "{count, plural, =1{একটি পাওয়া গেছে} other{{count}টি পাওয়া গেছে}}",
+    "holdOn": "একটু অপেক্ষা করুন",
+    "pendantConnected": "আপনার পেনডেন্ট সংযুক্ত হয়েছে",
+    "pendantConnectedBody": "{device}, ব্যাটারি {percent}%। আপনি বললেই রেকর্ড শুরু করবে।",
+    "pendantConnectedBodyNoBattery": "{device}। আপনি বললেই রেকর্ড শুরু করবে।",
+    "startRecordingV3": "রেকর্ডিং শুরু করুন",
+    "otherDevicesV3": "অন্যান্য ডিভাইস",
+    "scanAgainV3": "আবার খুঁজুন",
+    "howToPairV3": "কীভাবে যুক্ত করবেন",
+    "omiNotInRangeUsePhone": "{device} সীমার বাইরে। আপাতত এই ফোন ব্যবহার করবেন?",
+    "usePhoneV3": "ফোন ব্যবহার করুন"
 }

@@ -119,7 +119,9 @@ class ConversationDetailPageState extends State<ConversationDetailPage> {
     _stopEditing();
     if (markdown.isEmpty || markdown == selection.content.trim()) return;
     await provider.saveEditingSummarySelection(selection, markdown);
-    if (mounted) OmiFeedback.confirm(context, context.l10n.summarySaved);
+    if (!mounted) return;
+    OmiHaptics.success();
+    OmiFeedback.confirm(context, context.l10n.summarySaved);
   }
 
   @override

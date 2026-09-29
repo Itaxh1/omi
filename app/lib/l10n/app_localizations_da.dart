@@ -12760,4 +12760,57 @@ class AppLocalizationsDa extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Vis alle $count personer';
   }
+
+  @override
+  String get lookingForYourPendant => 'Leder efter dit vedhæng';
+
+  @override
+  String get holdPendantClose => 'Hold vedhænget tæt på. Det burde lyse op.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Fandt $count',
+      one: 'Fandt én',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Et øjeblik';
+
+  @override
+  String get pendantConnected => 'Dit vedhæng er forbundet';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, $percent % batteri. Den begynder at optage, når du siger til.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Den begynder at optage, når du siger til.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Start optagelse';
+
+  @override
+  String get otherDevicesV3 => 'Andre enheder';
+
+  @override
+  String get scanAgainV3 => 'Søg igen';
+
+  @override
+  String get howToPairV3 => 'Sådan parrer du';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device er uden for rækkevidde. Vil du bruge denne telefon indtil videre?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Brug telefonen';
 }

@@ -12668,4 +12668,57 @@ class AppLocalizationsHe extends AppLocalizations {
   String showAllPeople(int count) {
     return 'הצג את כל האנשים ($count)';
   }
+
+  @override
+  String get lookingForYourPendant => 'מחפשים את התליון שלך';
+
+  @override
+  String get holdPendantClose => 'החזיקו את התליון קרוב. הוא אמור להידלק.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'נמצאו $count',
+      one: 'נמצא אחד',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'רגע אחד';
+
+  @override
+  String get pendantConnected => 'התליון שלך מחובר';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, סוללה $percent%. ההקלטה תתחיל כשתגידו.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. ההקלטה תתחיל כשתגידו.';
+  }
+
+  @override
+  String get startRecordingV3 => 'התחלת הקלטה';
+
+  @override
+  String get otherDevicesV3 => 'מכשירים אחרים';
+
+  @override
+  String get scanAgainV3 => 'חיפוש חוזר';
+
+  @override
+  String get howToPairV3 => 'איך מצמידים';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device מחוץ לטווח. להשתמש בטלפון הזה בינתיים?';
+  }
+
+  @override
+  String get usePhoneV3 => 'שימוש בטלפון';
 }

@@ -4034,5 +4034,18 @@
     "feedbackReasonRecordingOther": "Другое",
     "searchPeople": "Поиск людей",
     "addQueryAsNewPerson": "Добавить «{query}» как нового человека",
-    "showAllPeople": "Показать всех людей ({count})"
+    "showAllPeople": "Показать всех людей ({count})",
+    "lookingForYourPendant": "Ищем ваш кулон",
+    "holdPendantClose": "Держите кулон рядом. Он должен загореться.",
+    "foundPendants": "{count, plural, =1{Найден один} other{Найдено: {count}}}",
+    "holdOn": "Секунду",
+    "pendantConnected": "Ваш кулон подключён",
+    "pendantConnectedBody": "{device}, заряд {percent}%. Начнёт запись, когда вы скажете.",
+    "pendantConnectedBodyNoBattery": "{device}. Начнёт запись, когда вы скажете.",
+    "startRecordingV3": "Начать запись",
+    "otherDevicesV3": "Другие устройства",
+    "scanAgainV3": "Искать снова",
+    "howToPairV3": "Как подключить",
+    "omiNotInRangeUsePhone": "{device} вне зоны доступа. Пока использовать этот телефон?",
+    "usePhoneV3": "Использовать телефон"
 }

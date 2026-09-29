@@ -12758,4 +12758,57 @@ class AppLocalizationsEn extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Show all $count people';
   }
+
+  @override
+  String get lookingForYourPendant => 'Looking for your pendant';
+
+  @override
+  String get holdPendantClose => 'Hold the pendant close. It should light up.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Found $count',
+      one: 'Found one',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Hold on';
+
+  @override
+  String get pendantConnected => 'Your pendant’s connected';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, $percent% battery. It’ll start recording when you say so.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. It’ll start recording when you say so.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Start recording';
+
+  @override
+  String get otherDevicesV3 => 'Other devices';
+
+  @override
+  String get scanAgainV3 => 'Scan again';
+
+  @override
+  String get howToPairV3 => 'How to pair';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device isn’t in range. Use this phone for now?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Use phone';
 }

@@ -12771,4 +12771,57 @@ class AppLocalizationsNo extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Vis alle $count personer';
   }
+
+  @override
+  String get lookingForYourPendant => 'Leter etter anhenget ditt';
+
+  @override
+  String get holdPendantClose => 'Hold anhenget nær. Det skal lyse opp.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Fant $count',
+      one: 'Fant én',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Et øyeblikk';
+
+  @override
+  String get pendantConnected => 'Anhenget ditt er koblet til';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, $percent % batteri. Den begynner å ta opp når du sier fra.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Den begynner å ta opp når du sier fra.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Start opptak';
+
+  @override
+  String get otherDevicesV3 => 'Andre enheter';
+
+  @override
+  String get scanAgainV3 => 'Søk igjen';
+
+  @override
+  String get howToPairV3 => 'Slik parer du';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device er utenfor rekkevidde. Vil du bruke denne telefonen inntil videre?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Bruk telefonen';
 }

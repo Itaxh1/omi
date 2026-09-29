@@ -3999,5 +3999,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "Sök personer",
     "addQueryAsNewPerson": "Lägg till \"{query}\" som en ny person",
-    "showAllPeople": "Visa alla {count} personer"
+    "showAllPeople": "Visa alla {count} personer",
+    "lookingForYourPendant": "Letar efter ditt hänge",
+    "holdPendantClose": "Håll hänget nära. Det borde tändas.",
+    "foundPendants": "{count, plural, =1{Hittade en} other{Hittade {count}}}",
+    "holdOn": "Ett ögonblick",
+    "pendantConnected": "Ditt hänge är anslutet",
+    "pendantConnectedBody": "{device}, {percent} % batteri. Det börjar spela in när du säger till.",
+    "pendantConnectedBodyNoBattery": "{device}. Det börjar spela in när du säger till.",
+    "startRecordingV3": "Börja spela in",
+    "otherDevicesV3": "Andra enheter",
+    "scanAgainV3": "Sök igen",
+    "howToPairV3": "Så parkopplar du",
+    "omiNotInRangeUsePhone": "{device} är utom räckhåll. Använd den här telefonen så länge?",
+    "usePhoneV3": "Använd telefonen"
 }

@@ -11559,5 +11559,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "వ్యక్తులను వెతకండి",
     "addQueryAsNewPerson": "\"{query}\" ను కొత్త వ్యక్తిగా జోడించండి",
-    "showAllPeople": "అన్ని ({count}) మందిని చూపించు"
+    "showAllPeople": "అన్ని ({count}) మందిని చూపించు",
+    "lookingForYourPendant": "మీ పెండెంట్ కోసం వెతుకుతోంది",
+    "holdPendantClose": "పెండెంట్‌ను దగ్గరగా ఉంచండి. అది వెలగాలి.",
+    "foundPendants": "{count, plural, =1{ఒకటి దొరికింది} other{{count} దొరికాయి}}",
+    "holdOn": "ఒక్క క్షణం",
+    "pendantConnected": "మీ పెండెంట్ కనెక్ట్ అయింది",
+    "pendantConnectedBody": "{device}, బ్యాటరీ {percent}%. మీరు చెప్పినప్పుడు రికార్డింగ్ ప్రారంభిస్తుంది.",
+    "pendantConnectedBodyNoBattery": "{device}. మీరు చెప్పినప్పుడు రికార్డింగ్ ప్రారంభిస్తుంది.",
+    "startRecordingV3": "రికార్డింగ్ ప్రారంభించండి",
+    "otherDevicesV3": "ఇతర పరికరాలు",
+    "scanAgainV3": "మళ్లీ వెతకండి",
+    "howToPairV3": "జత చేయడం ఎలా",
+    "omiNotInRangeUsePhone": "{device} పరిధిలో లేదు. ప్రస్తుతానికి ఈ ఫోన్‌ని ఉపయోగించాలా?",
+    "usePhoneV3": "ఫోన్ ఉపయోగించండి"
 }

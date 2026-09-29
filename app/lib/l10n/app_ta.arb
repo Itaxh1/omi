@@ -11559,5 +11559,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "நபர்களைத் தேடு",
     "addQueryAsNewPerson": "\"{query}\" ஐ புதிய நபராகச் சேர்க்கவும்",
-    "showAllPeople": "அனைத்து ({count}) நபர்களையும் காட்டு"
+    "showAllPeople": "அனைத்து ({count}) நபர்களையும் காட்டு",
+    "lookingForYourPendant": "உங்கள் பதக்கத்தைத் தேடுகிறது",
+    "holdPendantClose": "பதக்கத்தை அருகில் வைத்திருங்கள். அது ஒளிர வேண்டும்.",
+    "foundPendants": "{count, plural, =1{ஒன்று கிடைத்தது} other{{count} கிடைத்தன}}",
+    "holdOn": "ஒரு நிமிடம்",
+    "pendantConnected": "உங்கள் பதக்கம் இணைக்கப்பட்டது",
+    "pendantConnectedBody": "{device}, பேட்டரி {percent}%. நீங்கள் சொல்லும்போது பதிவு செய்யத் தொடங்கும்.",
+    "pendantConnectedBodyNoBattery": "{device}. நீங்கள் சொல்லும்போது பதிவு செய்யத் தொடங்கும்.",
+    "startRecordingV3": "பதிவைத் தொடங்கு",
+    "otherDevicesV3": "பிற சாதனங்கள்",
+    "scanAgainV3": "மீண்டும் தேடு",
+    "howToPairV3": "இணைப்பது எப்படி",
+    "omiNotInRangeUsePhone": "{device} வரம்பில் இல்லை. தற்போதைக்கு இந்த ஃபோனைப் பயன்படுத்தவா?",
+    "usePhoneV3": "ஃபோனைப் பயன்படுத்து"
 }

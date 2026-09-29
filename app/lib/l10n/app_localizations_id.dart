@@ -12788,4 +12788,57 @@ class AppLocalizationsId extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Tampilkan semua $count orang';
   }
+
+  @override
+  String get lookingForYourPendant => 'Mencari liontin Anda';
+
+  @override
+  String get holdPendantClose => 'Dekatkan liontin. Lampunya seharusnya menyala.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Ditemukan $count',
+      one: 'Ditemukan satu',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Tunggu sebentar';
+
+  @override
+  String get pendantConnected => 'Liontin Anda terhubung';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, baterai $percent%. Akan mulai merekam saat Anda minta.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Akan mulai merekam saat Anda minta.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Mulai merekam';
+
+  @override
+  String get otherDevicesV3 => 'Perangkat lain';
+
+  @override
+  String get scanAgainV3 => 'Cari lagi';
+
+  @override
+  String get howToPairV3 => 'Cara memasangkan';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device di luar jangkauan. Gunakan ponsel ini untuk sementara?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Pakai ponsel';
 }

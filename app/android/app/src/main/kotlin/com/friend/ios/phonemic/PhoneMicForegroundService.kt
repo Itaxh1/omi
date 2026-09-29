@@ -12,6 +12,8 @@ import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import com.friend.ios.R
+import com.friend.ios.capture.CaptureLiveUpdate
 
 /**
  * Thin lifecycle shell that keeps native mic capture alive in the background. It
@@ -74,9 +76,11 @@ class PhoneMicForegroundService : Service() {
         try {
             startForeground(
                 NOTIFICATION_ID,
-                buildNotification(),
+                CaptureLiveUpdate.notificationFor(this, "phone", CHANNEL_ID) ?: buildNotification(),
                 ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE
             )
+            // While the recording is live its Live Update is this service's notification.
+            CaptureLiveUpdate.host(this, "phone", NOTIFICATION_ID, CHANNEL_ID) { buildNotification() }
         } catch (e: Exception) {
             Log.e(TAG, "startForeground failed; stopping service instead of crashing", e)
             stopSelf()
@@ -87,6 +91,11 @@ class PhoneMicForegroundService : Service() {
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
+
+    override fun onDestroy() {
+        CaptureLiveUpdate.unhost("phone")
+        super.onDestroy()
+    }
 
     private fun createNotificationChannel() {
         val channel = NotificationChannel(
@@ -108,7 +117,7 @@ class PhoneMicForegroundService : Service() {
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Omi")
             .setContentText("Recording in progress")
-            .setSmallIcon(applicationInfo.icon)
+            .setSmallIcon(R.drawable.ic_stat_omi)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setOngoing(true)
             .apply { if (pendingIntent != null) setContentIntent(pendingIntent) }

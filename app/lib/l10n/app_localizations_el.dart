@@ -12855,4 +12855,57 @@ class AppLocalizationsEl extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Εμφάνιση όλων των ατόμων ($count)';
   }
+
+  @override
+  String get lookingForYourPendant => 'Αναζήτηση του μενταγιόν σας';
+
+  @override
+  String get holdPendantClose => 'Κρατήστε το μενταγιόν κοντά. Θα πρέπει να ανάψει.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Βρέθηκαν $count',
+      one: 'Βρέθηκε ένα',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Μια στιγμή';
+
+  @override
+  String get pendantConnected => 'Το μενταγιόν σας συνδέθηκε';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, μπαταρία $percent%. Θα αρχίσει να ηχογραφεί όταν το πείτε.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Θα αρχίσει να ηχογραφεί όταν το πείτε.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Έναρξη εγγραφής';
+
+  @override
+  String get otherDevicesV3 => 'Άλλες συσκευές';
+
+  @override
+  String get scanAgainV3 => 'Νέα αναζήτηση';
+
+  @override
+  String get howToPairV3 => 'Πώς γίνεται η σύζευξη';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return 'Το $device είναι εκτός εμβέλειας. Να χρησιμοποιηθεί αυτό το τηλέφωνο προς το παρόν;';
+  }
+
+  @override
+  String get usePhoneV3 => 'Χρήση τηλεφώνου';
 }

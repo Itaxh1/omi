@@ -12766,4 +12766,57 @@ class AppLocalizationsFa extends AppLocalizations {
   String showAllPeople(int count) {
     return 'نمایش همه افراد ($count)';
   }
+
+  @override
+  String get lookingForYourPendant => 'در حال جستجوی آویز شما';
+
+  @override
+  String get holdPendantClose => 'آویز را نزدیک نگه دارید. باید روشن شود.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count مورد پیدا شد',
+      one: 'یکی پیدا شد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'لحظه‌ای صبر کنید';
+
+  @override
+  String get pendantConnected => 'آویز شما وصل شد';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device، باتری $percent٪. هر وقت بگویید ضبط را شروع می‌کند.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. هر وقت بگویید ضبط را شروع می‌کند.';
+  }
+
+  @override
+  String get startRecordingV3 => 'شروع ضبط';
+
+  @override
+  String get otherDevicesV3 => 'دستگاه‌های دیگر';
+
+  @override
+  String get scanAgainV3 => 'جستجوی دوباره';
+
+  @override
+  String get howToPairV3 => 'نحوه جفت کردن';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device در محدوده نیست. فعلاً از این تلفن استفاده شود؟';
+  }
+
+  @override
+  String get usePhoneV3 => 'استفاده از تلفن';
 }

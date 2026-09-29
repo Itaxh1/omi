@@ -15438,5 +15438,80 @@
                 "type": "int"
             }
         }
+    },
+    "lookingForYourPendant": "Looking for your pendant",
+    "@lookingForYourPendant": {
+        "description": "Add a device (v3 pair): the sheet's title while it searches"
+    },
+    "holdPendantClose": "Hold the pendant close. It should light up.",
+    "@holdPendantClose": {
+        "description": "Add a device (v3 pair): under the searching ring"
+    },
+    "foundPendants": "{count, plural, =1{Found one} other{Found {count}}}",
+    "@foundPendants": {
+        "description": "Add a device (v3 pair): the title once pendants are found nearby",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "holdOn": "Hold on",
+    "@holdOn": {
+        "description": "Add a device (v3 pair): under the ring while it pairs"
+    },
+    "pendantConnected": "Your pendant’s connected",
+    "@pendantConnected": {
+        "description": "Add a device (v3 pair): the last step's headline"
+    },
+    "pendantConnectedBody": "{device}, {percent}% battery. It’ll start recording when you say so.",
+    "@pendantConnectedBody": {
+        "description": "Add a device (v3 pair): under the headline, the pendant's name and charge",
+        "placeholders": {
+            "device": {
+                "type": "String"
+            },
+            "percent": {
+                "type": "int"
+            }
+        }
+    },
+    "pendantConnectedBodyNoBattery": "{device}. It’ll start recording when you say so.",
+    "@pendantConnectedBodyNoBattery": {
+        "description": "Add a device (v3 pair): under the headline when the charge isn't known yet",
+        "placeholders": {
+            "device": {
+                "type": "String"
+            }
+        }
+    },
+    "startRecordingV3": "Start recording",
+    "@startRecordingV3": {
+        "description": "Add a device (v3 pair): the last step's button"
+    },
+    "otherDevicesV3": "Other devices",
+    "@otherDevicesV3": {
+        "description": "Add a device (v3 pair): link to glasses, watches and other recorders"
+    },
+    "scanAgainV3": "Scan again",
+    "@scanAgainV3": {
+        "description": "Add a device (v3 pair): search again when nothing turned up"
+    },
+    "howToPairV3": "How to pair",
+    "@howToPairV3": {
+        "description": "Add a device (v3 pair): opens the pairing guide when nothing turned up"
+    },
+    "omiNotInRangeUsePhone": "{device} isn’t in range. Use this phone for now?",
+    "@omiNotInRangeUsePhone": {
+        "description": "Your Omi (v8 rpWarn): the pendant can't be found",
+        "placeholders": {
+            "device": {
+                "type": "String"
+            }
+        }
+    },
+    "usePhoneV3": "Use phone",
+    "@usePhoneV3": {
+        "description": "Your Omi (v8 rpWarn): record with this phone while the pendant is away"
     }
 }

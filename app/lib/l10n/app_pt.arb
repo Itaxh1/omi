@@ -4034,5 +4034,18 @@
     "feedbackReasonRecordingOther": "Outra coisa",
     "searchPeople": "Pesquisar pessoas",
     "addQueryAsNewPerson": "Adicionar \"{query}\" como nova pessoa",
-    "showAllPeople": "Mostrar todas as {count} pessoas"
+    "showAllPeople": "Mostrar todas as {count} pessoas",
+    "lookingForYourPendant": "Procurando seu pingente",
+    "holdPendantClose": "Mantenha o pingente por perto. Ele deve acender.",
+    "foundPendants": "{count, plural, =1{Encontramos um} other{Encontramos {count}}}",
+    "holdOn": "Um momento",
+    "pendantConnected": "Seu pingente está conectado",
+    "pendantConnectedBody": "{device}, {percent}% de bateria. Vai começar a gravar quando você mandar.",
+    "pendantConnectedBodyNoBattery": "{device}. Vai começar a gravar quando você mandar.",
+    "startRecordingV3": "Começar a gravar",
+    "otherDevicesV3": "Outros dispositivos",
+    "scanAgainV3": "Procurar de novo",
+    "howToPairV3": "Como parear",
+    "omiNotInRangeUsePhone": "{device} está fora de alcance. Usar este telefone por enquanto?",
+    "usePhoneV3": "Usar telefone"
 }

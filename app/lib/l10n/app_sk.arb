@@ -3999,5 +3999,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "Hľadať osoby",
     "addQueryAsNewPerson": "Pridať „{query}“ ako novú osobu",
-    "showAllPeople": "Zobraziť všetky osoby ({count})"
+    "showAllPeople": "Zobraziť všetky osoby ({count})",
+    "lookingForYourPendant": "Hľadáme váš prívesok",
+    "holdPendantClose": "Držte prívesok blízko. Mal by sa rozsvietiť.",
+    "foundPendants": "{count, plural, =1{Našiel sa jeden} other{Nájdené: {count}}}",
+    "holdOn": "Chvíľku",
+    "pendantConnected": "Váš prívesok je pripojený",
+    "pendantConnectedBody": "{device}, batéria {percent} %. Začne nahrávať, keď poviete.",
+    "pendantConnectedBodyNoBattery": "{device}. Začne nahrávať, keď poviete.",
+    "startRecordingV3": "Začať nahrávať",
+    "otherDevicesV3": "Iné zariadenia",
+    "scanAgainV3": "Hľadať znova",
+    "howToPairV3": "Ako spárovať",
+    "omiNotInRangeUsePhone": "{device} nie je v dosahu. Použiť zatiaľ tento telefón?",
+    "usePhoneV3": "Použiť telefón"
 }

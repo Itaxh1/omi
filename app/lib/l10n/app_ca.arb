@@ -3999,5 +3999,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "Cerca persones",
     "addQueryAsNewPerson": "Afegeix \"{query}\" com a persona nova",
-    "showAllPeople": "Mostra totes les persones ({count})"
+    "showAllPeople": "Mostra totes les persones ({count})",
+    "lookingForYourPendant": "Buscant el teu penjoll",
+    "holdPendantClose": "Mantén el penjoll a prop. S’hauria d’encendre.",
+    "foundPendants": "{count, plural, =1{N’hem trobat un} other{N’hem trobat {count}}}",
+    "holdOn": "Un moment",
+    "pendantConnected": "El teu penjoll està connectat",
+    "pendantConnectedBody": "{device}, bateria al {percent}%. Començarà a gravar quan ho diguis.",
+    "pendantConnectedBodyNoBattery": "{device}. Començarà a gravar quan ho diguis.",
+    "startRecordingV3": "Comença a gravar",
+    "otherDevicesV3": "Altres dispositius",
+    "scanAgainV3": "Torna a cercar",
+    "howToPairV3": "Com vincular-lo",
+    "omiNotInRangeUsePhone": "{device} no és a l’abast. Vols fer servir aquest telèfon de moment?",
+    "usePhoneV3": "Usa el telèfon"
 }

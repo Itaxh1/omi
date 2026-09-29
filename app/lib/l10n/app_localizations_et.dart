@@ -12766,4 +12766,57 @@ class AppLocalizationsEt extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Kuva kõik inimesed ($count)';
   }
+
+  @override
+  String get lookingForYourPendant => 'Otsime su ripatsit';
+
+  @override
+  String get holdPendantClose => 'Hoia ripatsit lähedal. See peaks süttima.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Leiti $count',
+      one: 'Leiti üks',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Üks hetk';
+
+  @override
+  String get pendantConnected => 'Su ripats on ühendatud';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, aku $percent%. Salvestamine algab, kui sa ütled.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Salvestamine algab, kui sa ütled.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Alusta salvestamist';
+
+  @override
+  String get otherDevicesV3 => 'Muud seadmed';
+
+  @override
+  String get scanAgainV3 => 'Otsi uuesti';
+
+  @override
+  String get howToPairV3 => 'Kuidas siduda';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device pole levialas. Kas kasutada praegu seda telefoni?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Kasuta telefoni';
 }

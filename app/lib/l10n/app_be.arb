@@ -11559,5 +11559,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "Пошук людзей",
     "addQueryAsNewPerson": "Дадаць «{query}» як новага чалавека",
-    "showAllPeople": "Паказаць усіх людзей ({count})"
+    "showAllPeople": "Паказаць усіх людзей ({count})",
+    "lookingForYourPendant": "Шукаем ваш кулон",
+    "holdPendantClose": "Трымайце кулон побач. Ён павінен загарэцца.",
+    "foundPendants": "{count, plural, =1{Знойдзена адна} other{Знойдзена: {count}}}",
+    "holdOn": "Хвілінку",
+    "pendantConnected": "Ваш кулон падключаны",
+    "pendantConnectedBody": "{device}, зарад {percent}%. Пачне запіс, калі вы скажаце.",
+    "pendantConnectedBodyNoBattery": "{device}. Пачне запіс, калі вы скажаце.",
+    "startRecordingV3": "Пачаць запіс",
+    "otherDevicesV3": "Іншыя прылады",
+    "scanAgainV3": "Шукаць зноў",
+    "howToPairV3": "Як спалучыць",
+    "omiNotInRangeUsePhone": "{device} па-за зонай дасяжнасці. Пакуль выкарыстоўваць гэты тэлефон?",
+    "usePhoneV3": "Выкарыстаць тэлефон"
 }

@@ -4034,5 +4034,18 @@
     "feedbackReasonRecordingOther": "Hal lain",
     "searchPeople": "Cari orang",
     "addQueryAsNewPerson": "Tambahkan \"{query}\" sebagai orang baru",
-    "showAllPeople": "Tampilkan semua {count} orang"
+    "showAllPeople": "Tampilkan semua {count} orang",
+    "lookingForYourPendant": "Mencari liontin Anda",
+    "holdPendantClose": "Dekatkan liontin. Lampunya seharusnya menyala.",
+    "foundPendants": "{count, plural, =1{Ditemukan satu} other{Ditemukan {count}}}",
+    "holdOn": "Tunggu sebentar",
+    "pendantConnected": "Liontin Anda terhubung",
+    "pendantConnectedBody": "{device}, baterai {percent}%. Akan mulai merekam saat Anda minta.",
+    "pendantConnectedBodyNoBattery": "{device}. Akan mulai merekam saat Anda minta.",
+    "startRecordingV3": "Mulai merekam",
+    "otherDevicesV3": "Perangkat lain",
+    "scanAgainV3": "Cari lagi",
+    "howToPairV3": "Cara memasangkan",
+    "omiNotInRangeUsePhone": "{device} di luar jangkauan. Gunakan ponsel ini untuk sementara?",
+    "usePhoneV3": "Pakai ponsel"
 }

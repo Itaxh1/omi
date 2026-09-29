@@ -12778,4 +12778,57 @@ class AppLocalizationsSv extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Visa alla $count personer';
   }
+
+  @override
+  String get lookingForYourPendant => 'Letar efter ditt hänge';
+
+  @override
+  String get holdPendantClose => 'Håll hänget nära. Det borde tändas.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Hittade $count',
+      one: 'Hittade en',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Ett ögonblick';
+
+  @override
+  String get pendantConnected => 'Ditt hänge är anslutet';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, $percent % batteri. Det börjar spela in när du säger till.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Det börjar spela in när du säger till.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Börja spela in';
+
+  @override
+  String get otherDevicesV3 => 'Andra enheter';
+
+  @override
+  String get scanAgainV3 => 'Sök igen';
+
+  @override
+  String get howToPairV3 => 'Så parkopplar du';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device är utom räckhåll. Använd den här telefonen så länge?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Använd telefonen';
 }

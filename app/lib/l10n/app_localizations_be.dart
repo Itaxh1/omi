@@ -12801,4 +12801,57 @@ class AppLocalizationsBe extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Паказаць усіх людзей ($count)';
   }
+
+  @override
+  String get lookingForYourPendant => 'Шукаем ваш кулон';
+
+  @override
+  String get holdPendantClose => 'Трымайце кулон побач. Ён павінен загарэцца.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Знойдзена: $count',
+      one: 'Знойдзена адна',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Хвілінку';
+
+  @override
+  String get pendantConnected => 'Ваш кулон падключаны';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, зарад $percent%. Пачне запіс, калі вы скажаце.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Пачне запіс, калі вы скажаце.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Пачаць запіс';
+
+  @override
+  String get otherDevicesV3 => 'Іншыя прылады';
+
+  @override
+  String get scanAgainV3 => 'Шукаць зноў';
+
+  @override
+  String get howToPairV3 => 'Як спалучыць';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device па-за зонай дасяжнасці. Пакуль выкарыстоўваць гэты тэлефон?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Выкарыстаць тэлефон';
 }

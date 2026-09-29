@@ -1,6 +1,8 @@
 package com.friend.ios.ble
 
 import com.friend.ios.BleDeviceDiagnostics
+import com.friend.ios.R
+import com.friend.ios.capture.CaptureLiveUpdate
 import com.friend.ios.BleDisconnectEvent
 import com.friend.ios.BleService
 
@@ -769,7 +771,12 @@ class OmiBleForegroundService : Service() {
         // a process kill with the screen locked, or a CompanionDeviceService callback. An uncaught throw
         // silently kills the whole process ("app just disappears"). Stop cleanly instead of crashing.
         try {
-            startForeground(NOTIFICATION_ID, buildNotification("Connecting to Omi..."))
+            startForeground(
+                NOTIFICATION_ID,
+                CaptureLiveUpdate.notificationFor(this, "pendant", CHANNEL_ID) ?: buildNotification(statusText)
+            )
+            // While a pendant recording is live its Live Update is this service's notification.
+            CaptureLiveUpdate.host(this, "pendant", NOTIFICATION_ID, CHANNEL_ID) { buildNotification(statusText) }
         } catch (e: Exception) {
             Log.e(TAG, "startForeground failed; stopping service instead of crashing", e)
             stopSelf()
@@ -815,6 +822,7 @@ class OmiBleForegroundService : Service() {
 
     override fun onDestroy() {
         Log.d(TAG, "Service destroying")
+        CaptureLiveUpdate.unhost("pendant")
         isDestroying = true
         backgroundAudioStreamer.stop("service_destroyed")
         batchAudioWriter.stop("service_destroyed")
@@ -1073,10 +1081,14 @@ class OmiBleForegroundService : Service() {
 
     // ── Notification ──
 
+    /** The connection line the notification shows when no recording is live. */
+    private var statusText = "Connecting to Omi..."
+
     private fun updateNotification(text: String) {
+        statusText = text
         try {
             val nm = getSystemService(NotificationManager::class.java)
-            nm.notify(NOTIFICATION_ID, buildNotification(text))
+            nm.notify(NOTIFICATION_ID, CaptureLiveUpdate.notificationFor(this, "pendant", CHANNEL_ID) ?: buildNotification(text))
         } catch (e: Exception) {
             Log.w(TAG, "updateNotification failed: ${e.message}")
         }
@@ -1103,7 +1115,7 @@ class OmiBleForegroundService : Service() {
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Omi")
             .setContentText(contentText)
-            .setSmallIcon(applicationInfo.icon)
+            .setSmallIcon(R.drawable.ic_stat_omi)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setOngoing(true)
             .apply { if (pendingIntent != null) setContentIntent(pendingIntent) }

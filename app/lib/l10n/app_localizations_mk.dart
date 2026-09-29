@@ -12835,4 +12835,57 @@ class AppLocalizationsMk extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Прикажи сите луѓе ($count)';
   }
+
+  @override
+  String get lookingForYourPendant => 'Го бараме вашиот приврзок';
+
+  @override
+  String get holdPendantClose => 'Држете го приврзокот блиску. Треба да светне.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Пронајдени: $count',
+      one: 'Пронајден е еден',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Момент';
+
+  @override
+  String get pendantConnected => 'Вашиот приврзок е поврзан';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, батерија $percent%. Ќе почне да снима кога ќе кажете.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Ќе почне да снима кога ќе кажете.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Започни снимање';
+
+  @override
+  String get otherDevicesV3 => 'Други уреди';
+
+  @override
+  String get scanAgainV3 => 'Барај повторно';
+
+  @override
+  String get howToPairV3 => 'Како да се спари';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device не е во опсег. Да се користи овој телефон засега?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Користи телефон';
 }

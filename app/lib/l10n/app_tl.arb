@@ -11559,5 +11559,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "Maghanap ng mga tao",
     "addQueryAsNewPerson": "Idagdag ang \"{query}\" bilang bagong tao",
-    "showAllPeople": "Ipakita ang lahat ng {count} na tao"
+    "showAllPeople": "Ipakita ang lahat ng {count} na tao",
+    "lookingForYourPendant": "Hinahanap ang iyong pendant",
+    "holdPendantClose": "Ilapit ang pendant. Dapat itong umilaw.",
+    "foundPendants": "{count, plural, =1{May nakitang isa} other{May nakitang {count}}}",
+    "holdOn": "Sandali lang",
+    "pendantConnected": "Nakakonekta na ang iyong pendant",
+    "pendantConnectedBody": "{device}, {percent}% baterya. Magsisimula itong mag-record kapag sinabi mo.",
+    "pendantConnectedBodyNoBattery": "{device}. Magsisimula itong mag-record kapag sinabi mo.",
+    "startRecordingV3": "Simulan ang pag-record",
+    "otherDevicesV3": "Ibang mga device",
+    "scanAgainV3": "Maghanap ulit",
+    "howToPairV3": "Paano i-pair",
+    "omiNotInRangeUsePhone": "Wala sa saklaw ang {device}. Gamitin muna ang phone na ito?",
+    "usePhoneV3": "Gamitin ang phone"
 }

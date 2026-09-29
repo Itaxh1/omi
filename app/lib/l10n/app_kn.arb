@@ -11559,5 +11559,18 @@
     "feedbackReasonRecordingOther": "Something else",
     "searchPeople": "ಜನರನ್ನು ಹುಡುಕಿ",
     "addQueryAsNewPerson": "\"{query}\" ಅವರನ್ನು ಹೊಸ ವ್ಯಕ್ತಿಯಾಗಿ ಸೇರಿಸಿ",
-    "showAllPeople": "ಎಲ್ಲಾ ({count}) ಜನರನ್ನು ತೋರಿಸಿ"
+    "showAllPeople": "ಎಲ್ಲಾ ({count}) ಜನರನ್ನು ತೋರಿಸಿ",
+    "lookingForYourPendant": "ನಿಮ್ಮ ಪೆಂಡೆಂಟ್ ಹುಡುಕಲಾಗುತ್ತಿದೆ",
+    "holdPendantClose": "ಪೆಂಡೆಂಟ್ ಅನ್ನು ಹತ್ತಿರ ಹಿಡಿಯಿರಿ. ಅದು ಬೆಳಗಬೇಕು.",
+    "foundPendants": "{count, plural, =1{ಒಂದು ಸಿಕ್ಕಿತು} other{{count} ಸಿಕ್ಕಿವೆ}}",
+    "holdOn": "ಸ್ವಲ್ಪ ಕಾಯಿರಿ",
+    "pendantConnected": "ನಿಮ್ಮ ಪೆಂಡೆಂಟ್ ಸಂಪರ್ಕಗೊಂಡಿದೆ",
+    "pendantConnectedBody": "{device}, ಬ್ಯಾಟರಿ {percent}%. ನೀವು ಹೇಳಿದಾಗ ರೆಕಾರ್ಡ್ ಮಾಡಲು ಪ್ರಾರಂಭಿಸುತ್ತದೆ.",
+    "pendantConnectedBodyNoBattery": "{device}. ನೀವು ಹೇಳಿದಾಗ ರೆಕಾರ್ಡ್ ಮಾಡಲು ಪ್ರಾರಂಭಿಸುತ್ತದೆ.",
+    "startRecordingV3": "ರೆಕಾರ್ಡಿಂಗ್ ಪ್ರಾರಂಭಿಸಿ",
+    "otherDevicesV3": "ಇತರ ಸಾಧನಗಳು",
+    "scanAgainV3": "ಮತ್ತೆ ಹುಡುಕಿ",
+    "howToPairV3": "ಜೋಡಿಸುವುದು ಹೇಗೆ",
+    "omiNotInRangeUsePhone": "{device} ವ್ಯಾಪ್ತಿಯಲ್ಲಿಲ್ಲ. ಸದ್ಯಕ್ಕೆ ಈ ಫೋನ್ ಬಳಸುವುದೇ?",
+    "usePhoneV3": "ಫೋನ್ ಬಳಸಿ"
 }

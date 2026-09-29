@@ -12696,4 +12696,57 @@ class AppLocalizationsTh extends AppLocalizations {
   String showAllPeople(int count) {
     return 'แสดงทั้งหมด $count คน';
   }
+
+  @override
+  String get lookingForYourPendant => 'กำลังค้นหาจี้ของคุณ';
+
+  @override
+  String get holdPendantClose => 'ถือจี้ไว้ใกล้ๆ ไฟควรติดขึ้น';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'พบ $count เครื่อง',
+      one: 'พบหนึ่งเครื่อง',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'รอสักครู่';
+
+  @override
+  String get pendantConnected => 'เชื่อมต่อจี้ของคุณแล้ว';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device แบตเตอรี่ $percent% จะเริ่มบันทึกเมื่อคุณสั่ง';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device จะเริ่มบันทึกเมื่อคุณสั่ง';
+  }
+
+  @override
+  String get startRecordingV3 => 'เริ่มบันทึก';
+
+  @override
+  String get otherDevicesV3 => 'อุปกรณ์อื่น';
+
+  @override
+  String get scanAgainV3 => 'ค้นหาอีกครั้ง';
+
+  @override
+  String get howToPairV3 => 'วิธีจับคู่';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device อยู่นอกระยะ ใช้โทรศัพท์เครื่องนี้ไปก่อนไหม';
+  }
+
+  @override
+  String get usePhoneV3 => 'ใช้โทรศัพท์';
 }

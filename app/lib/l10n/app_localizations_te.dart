@@ -12820,4 +12820,57 @@ class AppLocalizationsTe extends AppLocalizations {
   String showAllPeople(int count) {
     return 'అన్ని ($count) మందిని చూపించు';
   }
+
+  @override
+  String get lookingForYourPendant => 'మీ పెండెంట్ కోసం వెతుకుతోంది';
+
+  @override
+  String get holdPendantClose => 'పెండెంట్‌ను దగ్గరగా ఉంచండి. అది వెలగాలి.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count దొరికాయి',
+      one: 'ఒకటి దొరికింది',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'ఒక్క క్షణం';
+
+  @override
+  String get pendantConnected => 'మీ పెండెంట్ కనెక్ట్ అయింది';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, బ్యాటరీ $percent%. మీరు చెప్పినప్పుడు రికార్డింగ్ ప్రారంభిస్తుంది.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. మీరు చెప్పినప్పుడు రికార్డింగ్ ప్రారంభిస్తుంది.';
+  }
+
+  @override
+  String get startRecordingV3 => 'రికార్డింగ్ ప్రారంభించండి';
+
+  @override
+  String get otherDevicesV3 => 'ఇతర పరికరాలు';
+
+  @override
+  String get scanAgainV3 => 'మళ్లీ వెతకండి';
+
+  @override
+  String get howToPairV3 => 'జత చేయడం ఎలా';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device పరిధిలో లేదు. ప్రస్తుతానికి ఈ ఫోన్‌ని ఉపయోగించాలా?';
+  }
+
+  @override
+  String get usePhoneV3 => 'ఫోన్ ఉపయోగించండి';
 }

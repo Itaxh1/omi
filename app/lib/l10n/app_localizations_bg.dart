@@ -12815,4 +12815,57 @@ class AppLocalizationsBg extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Показване на всички хора ($count)';
   }
+
+  @override
+  String get lookingForYourPendant => 'Търсим висулката ви';
+
+  @override
+  String get holdPendantClose => 'Дръжте висулката близо. Трябва да светне.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Намерени: $count',
+      one: 'Намерена е една',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Момент';
+
+  @override
+  String get pendantConnected => 'Висулката ви е свързана';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, батерия $percent%. Ще започне да записва, когато кажете.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Ще започне да записва, когато кажете.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Започни запис';
+
+  @override
+  String get otherDevicesV3 => 'Други устройства';
+
+  @override
+  String get scanAgainV3 => 'Търси отново';
+
+  @override
+  String get howToPairV3 => 'Как се сдвоява';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device не е в обхват. Да използвате ли този телефон засега?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Използвай телефона';
 }

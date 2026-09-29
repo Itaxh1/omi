@@ -12766,4 +12766,57 @@ class AppLocalizationsVi extends AppLocalizations {
   String showAllPeople(int count) {
     return 'Hiển thị tất cả $count người';
   }
+
+  @override
+  String get lookingForYourPendant => 'Đang tìm mặt dây của bạn';
+
+  @override
+  String get holdPendantClose => 'Giữ mặt dây gần. Đèn sẽ sáng lên.';
+
+  @override
+  String foundPendants(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Đã tìm thấy $count',
+      one: 'Đã tìm thấy một',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holdOn => 'Chờ một chút';
+
+  @override
+  String get pendantConnected => 'Mặt dây của bạn đã kết nối';
+
+  @override
+  String pendantConnectedBody(String device, int percent) {
+    return '$device, pin $percent%. Sẽ bắt đầu ghi khi bạn yêu cầu.';
+  }
+
+  @override
+  String pendantConnectedBodyNoBattery(String device) {
+    return '$device. Sẽ bắt đầu ghi khi bạn yêu cầu.';
+  }
+
+  @override
+  String get startRecordingV3 => 'Bắt đầu ghi';
+
+  @override
+  String get otherDevicesV3 => 'Thiết bị khác';
+
+  @override
+  String get scanAgainV3 => 'Tìm lại';
+
+  @override
+  String get howToPairV3 => 'Cách ghép nối';
+
+  @override
+  String omiNotInRangeUsePhone(String device) {
+    return '$device ngoài vùng kết nối. Tạm dùng điện thoại này nhé?';
+  }
+
+  @override
+  String get usePhoneV3 => 'Dùng điện thoại';
 }

@@ -4034,5 +4034,18 @@
     "feedbackReasonRecordingOther": "Autre chose",
     "searchPeople": "Rechercher des personnes",
     "addQueryAsNewPerson": "Ajouter « {query} » comme nouvelle personne",
-    "showAllPeople": "Afficher les {count} personnes"
+    "showAllPeople": "Afficher les {count} personnes",
+    "lookingForYourPendant": "Recherche de votre pendentif",
+    "holdPendantClose": "Gardez le pendentif à proximité. Il devrait s’allumer.",
+    "foundPendants": "{count, plural, =1{Un trouvé} other{{count} trouvés}}",
+    "holdOn": "Un instant",
+    "pendantConnected": "Votre pendentif est connecté",
+    "pendantConnectedBody": "{device}, batterie à {percent} %. Il commencera à enregistrer quand vous le direz.",
+    "pendantConnectedBodyNoBattery": "{device}. Il commencera à enregistrer quand vous le direz.",
+    "startRecordingV3": "Commencer l’enregistrement",
+    "otherDevicesV3": "Autres appareils",
+    "scanAgainV3": "Rechercher à nouveau",
+    "howToPairV3": "Comment l’associer",
+    "omiNotInRangeUsePhone": "{device} est hors de portée. Utiliser ce téléphone pour l’instant ?",
+    "usePhoneV3": "Utiliser le téléphone"
 }
