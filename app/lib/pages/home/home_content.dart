@@ -14,7 +14,6 @@ import 'package:omi/pages/conversations/widgets/today_tasks_widget.dart';
 import 'package:omi/pages/conversations/daily_recaps_page.dart';
 import 'package:omi/pages/conversations/widgets/daily_summaries_list.dart';
 import 'package:omi/pages/home/widgets/daily_summary_card.dart';
-import 'package:omi/pages/memories/widgets/memory_graph_page.dart';
 import 'package:omi/pages/settings/daily_summary_detail_page.dart';
 import 'package:omi/providers/conversation_provider.dart';
 import 'package:omi/providers/home_provider.dart';
@@ -123,17 +122,6 @@ class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliv
                 ),
                 HomeConversationsPreview(conversationProvider: convoProvider),
 
-                // Mind Map section — only shown for users with enough activity.
-                SliverToBoxAdapter(
-                  child: _buildSectionHeader(
-                    context,
-                    context.l10n.mindMap,
-                    onViewAll: () => routeToPage(context, const MemoryGraphPage(trackOpenEvent: false)),
-                    buttonLabel: context.l10n.expand,
-                  ),
-                ),
-                SliverToBoxAdapter(child: _buildMindMapPreview(context)),
-
                 // Bottom padding so content isn't hidden behind chat bar + nav
                 SliverToBoxAdapter(child: SizedBox(height: homeChatBarClearance(context))),
               ] else if (convoProvider.isLoadingConversations || convoProvider.isFetchingConversations)
@@ -144,7 +132,7 @@ class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliv
                 const SliverFillRemaining(hasScrollBody: false, child: SizedBox.shrink())
               else
                 // For new users (< 3 non-discarded convos): hide the conversations
-                // preview AND the mind map. A quiet placeholder fills the space;
+                // preview. A quiet placeholder fills the space;
                 // the + button beside the chat bar is the recording entry point.
                 SliverFillRemaining(
                   hasScrollBody: false,
@@ -170,7 +158,7 @@ class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliv
     return provider.conversations.where((c) => !c.discarded).length;
   }
 
-  Widget _buildSectionHeader(BuildContext context, String title, {VoidCallback? onViewAll, String? buttonLabel}) {
+  Widget _buildSectionHeader(BuildContext context, String title, {VoidCallback? onViewAll}) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 20, 16, 8),
       child: Row(
@@ -184,7 +172,7 @@ class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliv
           ),
           if (onViewAll != null)
             OmiButton.secondary(
-              label: buttonLabel ?? context.l10n.viewAll,
+              label: context.l10n.viewAll,
               size: OmiButtonSize.compact,
               onPressed: onViewAll,
             ),
@@ -259,31 +247,6 @@ class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliv
       },
     );
   }
-
-  Widget _buildMindMapPreview(BuildContext context) {
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: () => routeToPage(context, const MemoryGraphPage(trackOpenEvent: false)),
-      child: const Padding(
-        padding: EdgeInsets.fromLTRB(16, 12, 16, 0),
-        child: ClipRRect(
-          borderRadius: OmiRadius.xlAll,
-          child: SizedBox(
-            height: 180,
-            child: IgnorePointer(
-              child: MemoryGraphPage(
-                embedded: true,
-                showAppBar: false,
-                showShareButton: false,
-                trackOpenEvent: false,
-                initialZoom: 0.6,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }
 
 /// The filtered recent-conversation preview shown on Home for established users.
@@ -322,30 +285,43 @@ class HomeConversationsPreview extends StatelessWidget {
       );
     }
 
-    final sortedDates = conversationProvider.groupedConversations.keys.toList()..sort((a, b) => b.compareTo(a));
-    final recent = <ServerConversation>[];
-    for (final date in sortedDates) {
-      final list = conversationProvider.groupedConversations[date] ?? const [];
-      for (final conversation in list) {
-        recent.add(conversation);
-        if (recent.length >= 3) break;
-      }
-      if (recent.length >= 3) break;
-    }
-    if (recent.isEmpty) return const SliverToBoxAdapter(child: SizedBox.shrink());
+    return SliverLayoutBuilder(
+      builder: (context, constraints) {
+        // Budget for card padding, spacing and scaled text. The list remains
+        // scrollable for unusually tall rows (for example, recovery actions).
+        final textScale = MediaQuery.textScalerOf(context).scale(16) / 16;
+        final rowBudget = 52 + 60 * (textScale < 1 ? 1 : textScale);
+        final availableHeight =
+            constraints.viewportMainAxisExtent - constraints.precedingScrollExtent - homeChatBarClearance(context);
+        // Use total preceding content, not the scroll offset, so scrolling
+        // cannot change the number of conversations in the preview.
+        final limit = availableHeight >= rowBudget * 5 ? 5 : 4;
+        final sortedDates = conversationProvider.groupedConversations.keys.toList()..sort((a, b) => b.compareTo(a));
+        final recent = <ServerConversation>[];
+        for (final date in sortedDates) {
+          final list = conversationProvider.groupedConversations[date] ?? const [];
+          for (final conversation in list) {
+            recent.add(conversation);
+            if (recent.length >= limit) break;
+          }
+          if (recent.length >= limit) break;
+        }
+        if (recent.isEmpty) return const SliverToBoxAdapter(child: SizedBox.shrink());
 
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(childCount: recent.length, (context, index) {
-        final conversation = recent[index];
-        final date = conversationLocalDayKey(conversation.startedAt ?? conversation.createdAt);
-        return ConversationListItem(
-          key: ValueKey(conversation.id),
-          conversation: conversation,
-          date: date,
-          conversationIdx: index,
-          allowSelection: false,
+        return SliverList(
+          delegate: SliverChildBuilderDelegate(childCount: recent.length, (context, index) {
+            final conversation = recent[index];
+            final date = conversationLocalDayKey(conversation.startedAt ?? conversation.createdAt);
+            return ConversationListItem(
+              key: ValueKey(conversation.id),
+              conversation: conversation,
+              date: date,
+              conversationIdx: index,
+              allowSelection: false,
+            );
+          }),
         );
-      }),
+      },
     );
   }
 }
