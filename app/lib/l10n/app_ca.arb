@@ -4012,5 +4012,6 @@
     "scanAgainV3": "Torna a cercar",
     "howToPairV3": "Com vincular-lo",
     "omiNotInRangeUsePhone": "{device} no és a l’abast. Vols fer servir aquest telèfon de moment?",
-    "usePhoneV3": "Usa el telèfon"
+    "usePhoneV3": "Usa el telèfon",
+    "welcomeNoteBody": "Gràcies per començar amb Omi! Les teves converses es converteixen en notes que pots tornar a consultar. Mentre es processa una nota, pots veure’n el progrés a l’inici. Uneix-te a nosaltres a Discord per rebre ajuda o compartir una idea.\n\nAmb agraïment,\nL’equip de desenvolupament d’Omi"
 }

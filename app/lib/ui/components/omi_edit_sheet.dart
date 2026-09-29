@@ -142,15 +142,18 @@ class _OmiEditSheetState extends State<OmiEditSheet> {
       onPopInvokedWithResult: (didPop, _) {
         if (!didPop) _onPopBlocked();
       },
-      child: Padding(
-        padding: EdgeInsets.only(bottom: keyboard),
-        child: ValueListenableBuilder<double>(
-          valueListenable: _dragOffset,
-          builder: (context, offset, child) => Transform.translate(offset: Offset(0, offset), child: child),
-          child: Material(
-            color: OmiColors.sheet,
-            shape: RoundedRectangleBorder(borderRadius: OmiRadius.sheetTopFor(Theme.of(context).platform)),
-            clipBehavior: Clip.antiAlias,
+      child: ValueListenableBuilder<double>(
+        valueListenable: _dragOffset,
+        builder: (context, offset, child) => Transform.translate(offset: Offset(0, offset), child: child),
+        child: Material(
+          key: const Key('omi_edit_sheet_surface'),
+          color: OmiColors.sheet,
+          shape: RoundedRectangleBorder(borderRadius: OmiRadius.sheetTopFor(Theme.of(context).platform)),
+          clipBehavior: Clip.antiAlias,
+          // Paint beneath the keyboard too: its rounded top corners must
+          // reveal the sheet surface, not a black route behind transparent padding.
+          child: Padding(
+            padding: EdgeInsets.only(bottom: keyboard),
             child: SafeArea(
               top: false,
               // The whole sheet drags down; scrollables and text fields inside keep their own

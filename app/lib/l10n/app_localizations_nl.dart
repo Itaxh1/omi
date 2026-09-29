@@ -12863,4 +12863,8 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get usePhoneV3 => 'Telefoon gebruiken';
+
+  @override
+  String get welcomeNoteBody =>
+      'Bedankt dat je met Omi begint! Je gesprekken worden notities die je later kunt teruglezen. Terwijl een notitie wordt verwerkt, zie je de voortgang op het startscherm. Sluit je bij ons aan op Discord voor hulp of om een idee te delen.\n\nMet dank,\nDe Omi-ontwikkelaars';
 }

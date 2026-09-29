@@ -4012,5 +4012,6 @@
     "scanAgainV3": "Meklēt vēlreiz",
     "howToPairV3": "Kā savienot pārī",
     "omiNotInRangeUsePhone": "{device} nav sasniedzamības zonā. Pagaidām izmantot šo tālruni?",
-    "usePhoneV3": "Izmantot tālruni"
+    "usePhoneV3": "Izmantot tālruni",
+    "welcomeNoteBody": "Paldies, ka sākāt lietot Omi! Jūsu sarunas kļūst par piezīmēm, pie kurām varat atgriezties. Piezīmes apstrādes gaitu varat redzēt sākuma ekrānā. Pievienojieties mums Discord, lai saņemtu palīdzību vai dalītos idejā.\n\nAr pateicību,\nOmi izstrādātāji"
 }

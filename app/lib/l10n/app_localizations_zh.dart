@@ -12595,4 +12595,8 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get usePhoneV3 => '使用手机';
+
+  @override
+  String get welcomeNoteBody =>
+      '感谢你开始使用 Omi！你的对话会变成可以随时回顾的笔记。笔记处理期间，你可以在首页查看进度。欢迎加入我们的 Discord，寻求帮助或分享想法。\n\n衷心感谢，\nOmi 开发团队';
 }

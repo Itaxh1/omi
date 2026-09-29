@@ -4012,5 +4012,6 @@
     "scanAgainV3": "重新搜索",
     "howToPairV3": "如何配对",
     "omiNotInRangeUsePhone": "{device} 不在范围内。先用这部手机吗？",
-    "usePhoneV3": "使用手机"
+    "usePhoneV3": "使用手机",
+    "welcomeNoteBody": "感谢你开始使用 Omi！你的对话会变成可以随时回顾的笔记。笔记处理期间，你可以在首页查看进度。欢迎加入我们的 Discord，寻求帮助或分享想法。\n\n衷心感谢，\nOmi 开发团队"
 }

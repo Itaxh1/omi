@@ -4012,5 +4012,6 @@
     "scanAgainV3": "Cari lagi",
     "howToPairV3": "Cara berpasangan",
     "omiNotInRangeUsePhone": "{device} di luar julat. Guna telefon ini buat masa ini?",
-    "usePhoneV3": "Guna telefon"
+    "usePhoneV3": "Guna telefon",
+    "welcomeNoteBody": "Terima kasih kerana mula menggunakan Omi! Perbualan anda menjadi nota yang boleh dibaca semula. Semasa nota diproses, anda boleh melihat kemajuannya di Utama. Sertai kami di Discord untuk bantuan atau berkongsi idea.\n\nDengan penghargaan,\nPembangun Omi"
 }

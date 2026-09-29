@@ -906,7 +906,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a sc# Type a script or drag a script file from your workspace to insert its path.\nDEV_GOOGLE_PLIST=\"${PROJECT_DIR}/Config/Dev\"\nPROD_GOOGLE_PLIST=\"${PROJECT_DIR}/Config/Prod\"\n\necho \"build config is ${CONFIGURATION}\"\n\ncase \"${CONFIGURATION}\" in\n\n   \"Debug-dev\" | \"AdHoc_Staging\" | \"Release-dev\" | \"Debug\" | \"Debug-raybanDat\" | \"Profile-raybanDat\" | \"Release-raybanDat\")\n        cp -r \"$DEV_GOOGLE_PLIST/GoogleService-Info.plist\" \"${PROJECT_DIR}/Runner/GoogleService-Info.plist\" ;;\n   \"Debug-prod\" | \"Profile\" |\"Release-prod\" |\"Release\")\n        cp -r \"$PROD_GOOGLE_PLIST/GoogleService-Info.plist\" \"${PROJECT_DIR}/Runner/GoogleService-Info.plist\" ;;\n\n    *)\n        ;;\nesac\n";
+			shellScript = "# Type a script or drag a sc# Type a script or drag a script file from your workspace to insert its path.\nDEV_GOOGLE_PLIST=\"${PROJECT_DIR}/Config/Dev\"\nPROD_GOOGLE_PLIST=\"${PROJECT_DIR}/Config/Prod\"\n\necho \"build config is ${CONFIGURATION}\"\n\ncase \"${CONFIGURATION}\" in\n\n   \"Debug-dev\" | \"Profile-dev\" | \"AdHoc_Staging\" | \"Release-dev\" | \"Debug\" | \"Debug-raybanDat\" | \"Profile-raybanDat\" | \"Release-raybanDat\")\n        cp -r \"$DEV_GOOGLE_PLIST/GoogleService-Info.plist\" \"${PROJECT_DIR}/Runner/GoogleService-Info.plist\" ;;\n   \"Debug-prod\" | \"Profile-prod\" | \"Profile\" |\"Release-prod\" |\"Release\")\n        cp -r \"$PROD_GOOGLE_PLIST/GoogleService-Info.plist\" \"${PROJECT_DIR}/Runner/GoogleService-Info.plist\" ;;\n\n    *)\n        ;;\nesac\n";
 		};
 		17C44C533F30F583ABA829D2 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -957,7 +957,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a sc# Type a script or drag a script file from your workspace to insert its path.\nDEV_GOOGLE_PLIST=\"${PROJECT_DIR}/Config/Dev\"\nPROD_GOOGLE_PLIST=\"${PROJECT_DIR}/Config/Prod\"\n\necho \"build config is ${CONFIGURATION}\"\n\ncase \"${CONFIGURATION}\" in\n\n   \"Debug-dev\" | \"AdHoc_Staging\" | \"Release-dev\" | \"Debug\")\n        cp -r \"$DEV_GOOGLE_PLIST/GoogleService-Info.plist\" \"${PROJECT_DIR}/Runner/GoogleService-Info.plist\" ;;\n   \"Debug-prod\" | \"Profile\" |\"Release-prod\" |\"Release\")\n        cp -r \"$PROD_GOOGLE_PLIST/GoogleService-Info.plist\" \"${PROJECT_DIR}/Runner/GoogleService-Info.plist\" ;;\n\n    *)\n        ;;\nesac\n";
+			shellScript = "# Type a script or drag a sc# Type a script or drag a script file from your workspace to insert its path.\nDEV_GOOGLE_PLIST=\"${PROJECT_DIR}/Config/Dev\"\nPROD_GOOGLE_PLIST=\"${PROJECT_DIR}/Config/Prod\"\n\necho \"build config is ${CONFIGURATION}\"\n\ncase \"${CONFIGURATION}\" in\n\n   \"Debug-dev\" | \"Profile-dev\" | \"AdHoc_Staging\" | \"Release-dev\" | \"Debug\")\n        cp -r \"$DEV_GOOGLE_PLIST/GoogleService-Info.plist\" \"${PROJECT_DIR}/Runner/GoogleService-Info.plist\" ;;\n   \"Debug-prod\" | \"Profile-prod\" | \"Profile\" |\"Release-prod\" |\"Release\")\n        cp -r \"$PROD_GOOGLE_PLIST/GoogleService-Info.plist\" \"${PROJECT_DIR}/Runner/GoogleService-Info.plist\" ;;\n\n    *)\n        ;;\nesac\n";
 		};
 		5E566183C4137FBADE4077BD /* Thin Binary */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -96,6 +96,25 @@ class BluetoothReadiness extends ChangeNotifier {
     }
   }
 
+  /// Observe readiness without opening a dialog or requesting permission. Refresh
+  /// on resume because Settings changes need not deliver a bridge event to Dart.
+  Future<void> refresh() async {
+    try {
+      final permission =
+          await (_permissionState?.call(BluetoothUse.connection) ?? _currentPermissionState(BluetoothUse.connection));
+      _applyState(permission ?? parse(await _readState()));
+    } catch (error) {
+      Logger.warning('Bluetooth readiness refresh failed: $error');
+      _applyState(BluetoothAdapterState.unknown);
+    }
+  }
+
+  /// A deliberate tap may show guidance again after its previous dismissal.
+  Future<bool> requestGuidance(BluetoothUse use) {
+    _dismissedBlockedState = null;
+    return ensureReady(use);
+  }
+
   Future<BluetoothAdapterState?> _currentPermissionState(BluetoothUse use) async {
     if (Platform.isIOS) {
       return await Permission.bluetooth.isGranted ? null : BluetoothAdapterState.unauthorized;

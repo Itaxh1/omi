@@ -12819,4 +12819,8 @@ class AppLocalizationsEt extends AppLocalizations {
 
   @override
   String get usePhoneV3 => 'Kasuta telefoni';
+
+  @override
+  String get welcomeNoteBody =>
+      'Aitäh, et alustasid Omi kasutamist! Sinu vestlustest saavad märkmed, mille juurde saad tagasi tulla. Märkme töötlemise edenemist näed avakuval. Liitu meiega Discordis, et saada abi või jagada ideid.\n\nTänuga,\nOmi arendajad';
 }

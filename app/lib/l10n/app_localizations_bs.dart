@@ -12848,4 +12848,8 @@ class AppLocalizationsBs extends AppLocalizations {
 
   @override
   String get usePhoneV3 => 'Koristi telefon';
+
+  @override
+  String get welcomeNoteBody =>
+      'Hvala što ste počeli koristiti Omi! Vaši razgovori postaju bilješke kojima se možete vratiti. Dok se bilješka obrađuje, napredak možete vidjeti na početnom ekranu. Pridružite nam se na Discordu za pomoć ili podijelite ideju.\n\nUz zahvalnost,\nOmi razvojni tim';
 }

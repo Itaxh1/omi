@@ -20,6 +20,9 @@ import 'package:omi/utils/platform/platform_manager.dart';
 /// otherwise the tap is recorded after the frame (as a search result while a search is showing)
 /// and the conversation is pushed.
 Future<void> openConversationDetail(BuildContext context, ServerConversation conversation, {int index = 0}) async {
+  // Processing rows are progress indicators. They become openable only when
+  // the server publishes the completed note, including on Home and in folders.
+  if (conversation.status != ConversationStatus.completed) return;
   if (conversation.isLocked) {
     if (!context.read<UsageProvider>().showSubscriptionUI) return;
     PlatformManager.instance.analytics.paywallOpened('Conversation List Item');

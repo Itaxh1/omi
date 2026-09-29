@@ -12835,4 +12835,8 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get usePhoneV3 => 'فون استعمال کریں';
+
+  @override
+  String get welcomeNoteBody =>
+      'Omi استعمال شروع کرنے کا شکریہ! آپ کی گفتگو نوٹس میں بدل جاتی ہے جنہیں بعد میں دوبارہ دیکھا جا سکتا ہے۔ نوٹ کی تیاری کے دوران ہوم پر اس کی پیش رفت دیکھ سکتے ہیں۔ مدد لینے یا کوئی خیال بانٹنے کے لیے Discord پر ہمارے ساتھ شامل ہوں۔\n\nشکریے کے ساتھ،\nOmi ڈیولپرز';
 }

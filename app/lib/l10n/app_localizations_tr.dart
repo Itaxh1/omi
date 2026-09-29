@@ -12838,4 +12838,8 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get usePhoneV3 => 'Telefonu kullan';
+
+  @override
+  String get welcomeNoteBody =>
+      'Omi kullanmaya başladığınız için teşekkürler! Konuşmalarınız daha sonra dönüp bakabileceğiniz notlara dönüşür. Bir not işlenirken ilerlemesini ana ekranda görebilirsiniz. Yardım almak veya bir fikir paylaşmak için Discord’da bize katılın.\n\nTeşekkürlerimizle,\nOmi geliştiricileri';
 }

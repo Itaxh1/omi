@@ -25,10 +25,10 @@ void main() {
     await SharedPreferencesUtil.init();
   });
 
-  test('the page follows a pull down fully to 90 pt, then a quarter as far', () {
+  test('the page follows the longer pull down with resistance after 126 pt', () {
     expect(HomePullGestures.easedDown(50), 30);
     expect(HomePullGestures.easedDown(90), 54);
-    expect(HomePullGestures.easedDown(130), 64);
+    expect(HomePullGestures.easedDown(130), closeTo(76.6, 0.001));
     expect(HomePullGestures.easedDown(-10), 0);
   });
 
@@ -52,14 +52,14 @@ void main() {
       )));
     }
 
-    testWidgets('down past 90 pt is ready, and letting go acts', (tester) async {
+    testWidgets('down past 126 pt is ready, and letting go acts', (tester) async {
       await pump(tester);
       final gesture = await tester.startGesture(const Offset(200, 200));
       await gesture.moveBy(const Offset(0, 20));
       await gesture.moveBy(const Offset(0, 30));
       await tester.pump();
       expect(down.value, HomePullPhase.pulling);
-      await gesture.moveBy(const Offset(0, 60));
+      await gesture.moveBy(const Offset(0, 80));
       await tester.pump();
       expect(down.value, HomePullPhase.ready);
       await gesture.up();
@@ -68,24 +68,24 @@ void main() {
       expect(down.value, HomePullPhase.none);
     });
 
-    testWidgets('down short of 90 pt springs back and does nothing', (tester) async {
+    testWidgets('the old 90 pt activation distance no longer acts', (tester) async {
       await pump(tester);
       final gesture = await tester.startGesture(const Offset(200, 200));
       await gesture.moveBy(const Offset(0, 20));
-      await gesture.moveBy(const Offset(0, 40));
+      await gesture.moveBy(const Offset(0, 80));
       await gesture.up();
       await tester.pumpAndSettle();
       expect(fired, isEmpty);
     });
 
-    testWidgets('up 150 pt fills the dots, and letting go opens Your Omi', (tester) async {
+    testWidgets('up needs 210 pt to fill the dots and open Your Omi', (tester) async {
       await pump(tester);
       final gesture = await tester.startGesture(const Offset(200, 500));
       await gesture.moveBy(const Offset(0, -20));
-      await gesture.moveBy(const Offset(0, -55));
+      await gesture.moveBy(const Offset(0, -85));
       await tester.pump();
       expect(up.value, closeTo(0.5, 0.01));
-      await gesture.moveBy(const Offset(0, -80));
+      await gesture.moveBy(const Offset(0, -110));
       await tester.pump();
       expect(up.value, 1);
       await gesture.up();

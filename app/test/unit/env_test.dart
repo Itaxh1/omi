@@ -6,8 +6,7 @@ import 'package:omi/startup_routing.dart';
 import 'dart:io';
 
 /// Minimal EnvFields stub for testing Env logic in isolation.
-/// Since Env._instance is late final (can only be set once per process),
-/// we test with a single init and exercise the override/flag mechanisms.
+/// Startup retries reinitialize these fields in the same process.
 class _TestEnvFields implements EnvFields {
   @override
   String? get posthogApiKey => null;
@@ -30,12 +29,16 @@ class _TestEnvFields implements EnvFields {
 }
 
 void main() {
-  // Init once for the entire test suite (late final constraint)
   setUpAll(() {
     Env.init(_TestEnvFields());
   });
 
   group('Env.isTestFlight', () {
+    test('startup can initialize the environment again after a transient failure', () {
+      expect(() => Env.init(_TestEnvFields()), returnsNormally);
+      expect(() => Env.init(_TestEnvFields()), returnsNormally);
+      expect(Env.useWebAuth, false);
+    });
     test('can be set to false', () {
       Env.isTestFlight = false;
       expect(Env.isTestFlight, isFalse);
@@ -272,7 +275,7 @@ void main() {
       matches(
         RegExp(
           r'projectIdOf:\s*\(app\)\s*=>\s*app\.options\.projectId,\s*'
-          r'validateProject:\s*\(projectId\)\s*=>\s*Env\.validateFirebaseProject\(projectId:\s*projectId\),',
+          r'validateProject:\s*\(projectId\)\s*\{\s*try\s*\{\s*Env\.validateFirebaseProject\(projectId:\s*projectId\);',
         ),
       ),
     );

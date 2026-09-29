@@ -9,6 +9,7 @@ import 'package:omi/backend/schema/message.dart';
 import 'package:omi/l10n/app_localizations.dart';
 import 'package:omi/pages/chat/page.dart';
 import 'package:omi/pages/chat/widgets/jump_to_latest_button.dart';
+import 'package:omi/pages/chat/widgets/voice_recorder_widget.dart';
 import 'package:omi/providers/app_provider.dart';
 import 'package:omi/providers/connectivity_provider.dart';
 import 'package:omi/providers/home_provider.dart';
@@ -32,6 +33,7 @@ class _VoiceState extends VoiceRecorderProvider {
   int transcriptions = 0;
   int sends = 0;
   int discards = 0;
+  int starts = 0;
 
   @override
   VoiceRecorderState get state => current;
@@ -42,7 +44,18 @@ class _VoiceState extends VoiceRecorderProvider {
   @override
   bool get hasPendingRecording => current == VoiceRecorderState.pendingRecovery;
   @override
-  Future<void> startRecording() async {}
+  Future<void> startRecording() async {
+    starts++;
+    current = VoiceRecorderState.recording;
+    notifyListeners();
+  }
+
+  @override
+  void close() {
+    current = VoiceRecorderState.idle;
+    notifyListeners();
+  }
+
   @override
   Future<void> processRecording() async {
     transcriptions++;
@@ -94,6 +107,23 @@ void main() {
     ));
     await tester.pump();
   }
+
+  testWidgets('Ask input starts dictation and appends the transcript to an editable draft', (tester) async {
+    final voice = _VoiceState(VoiceRecorderState.idle);
+    await pumpChat(tester, voice);
+    await tester.enterText(find.byKey(const ValueKey('omi.chat.input')), 'Please summarize');
+    expect(find.byKey(const ValueKey('omi.chat.voice.start')), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('omi.chat.voice.start')));
+    await tester.pump();
+    expect(voice.starts, 1);
+    expect(find.byKey(const ValueKey('omi.chat.voice.transcribe')), findsOneWidget);
+    tester.widget<VoiceRecorderWidget>(find.byType(VoiceRecorderWidget)).onTranscriptReady('my day', false);
+    await tester.pump();
+    final input = tester.widget<TextField>(find.byKey(const ValueKey('omi.chat.input')));
+    expect(input.controller!.text, 'Please summarize my day');
+    expect(voice.sends, 0);
+    expect(find.byKey(const ValueKey('omi.chat.voice.start')), findsOneWidget);
+  });
 
   testWidgets('voice composer offers separate discard, transcribe and send actions', (tester) async {
     final voice = _VoiceState(VoiceRecorderState.recording);

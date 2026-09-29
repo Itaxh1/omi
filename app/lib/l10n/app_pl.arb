@@ -4047,5 +4047,6 @@
     "scanAgainV3": "Szukaj ponownie",
     "howToPairV3": "Jak sparować",
     "omiNotInRangeUsePhone": "{device} jest poza zasięgiem. Użyć na razie tego telefonu?",
-    "usePhoneV3": "Użyj telefonu"
+    "usePhoneV3": "Użyj telefonu",
+    "welcomeNoteBody": "Dziękujemy za rozpoczęcie korzystania z Omi! Twoje rozmowy stają się notatkami, do których możesz wracać. Podczas przetwarzania notatki jej postęp jest widoczny na ekranie głównym. Dołącz do nas na Discordzie, aby uzyskać pomoc lub podzielić się pomysłem.\n\nZ podziękowaniami,\nTwórcy Omi"
 }

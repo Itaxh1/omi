@@ -106,6 +106,14 @@ class AuditDeviceProvider extends ChangeNotifier implements DeviceProvider {
   @override
   bool get isConnected => connected;
   @override
+  bool get isFirmwareUpdateInProgress => false;
+  @override
+  BtDevice? get capabilityNormalizedDevice => connectedDevice;
+  @override
+  void Function(BtDevice, int, int)? onOfflineDataDetected;
+  @override
+  void Function(BtDevice)? onDeviceConnected;
+  @override
   BtDevice? get connectedDevice => connected ? device : null;
   @override
   BtDevice? get pairedDevice => device;

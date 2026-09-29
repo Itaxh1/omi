@@ -120,55 +120,56 @@ class VoiceRecorderProvider extends ChangeNotifier {
     _transcript = '';
     _pcmBytesWritten = 0;
 
-    // Clean up any previous WAV file
-    await _cleanupWavFile();
-    if (generation != _recordingGeneration) return;
-
-    // Create a persisted PCM file for streaming audio to disk.
-    final recordingsDir = await _recordingsDirectory();
-    if (generation != _recordingGeneration) return;
-    _pcmFile = File('${recordingsDir.path}/voice_recording_${DateTime.now().millisecondsSinceEpoch}.pcm');
-    // Create the file before opening the sink. IOSink.openWrite() may defer
-    // file creation until the first event-loop turn, which can leave the
-    // recording session with no visible PCM file immediately after a
-    // successful start under load.
-    await _pcmFile!.create();
-    if (generation != _recordingGeneration) {
-      await _cleanupPcmFile();
-      return;
-    }
-    _pcmSink = _pcmFile!.openWrite();
-
-    // Reset audio levels
-    for (int i = 0; i < _audioLevels.length; i++) {
-      _audioLevels[i] = 0.1;
-    }
-    notifyListeners();
-
-    await Permission.microphone.request();
-    if (generation != _recordingGeneration) return;
-
-    // Configure audio session for Bluetooth before starting recorder.
-    if (Platform.isIOS) {
-      try {
-        await _audioSessionChannel.invokeMethod('configureForBluetooth');
-      } catch (e) {
-        Logger.debug('VoiceRecorderProvider: Failed to configure audio session for Bluetooth: $e');
-      }
-    }
-    if (generation != _recordingGeneration) return;
-
-    // Repaint at ~60Hz so the wave flows smoothly. Levels are shifted in
-    // onByteReceived (audio callback rate, much faster than the UI), but the
-    // canvas only re-renders on notifyListeners — so a slower timer made the
-    // wave appear frozen / laggy.
-    _waveformTimer = Timer.periodic(const Duration(milliseconds: 16), (_) {
-      if (_state == VoiceRecorderState.recording) {
-        notifyListeners();
-      }
-    });
-
     try {
+      // Clean up any previous WAV file
+      await _cleanupWavFile();
+      if (generation != _recordingGeneration) return;
+
+      // Create a persisted PCM file for streaming audio to disk.
+      final recordingsDir = await _recordingsDirectory();
+      if (generation != _recordingGeneration) return;
+      _pcmFile = File('${recordingsDir.path}/voice_recording_${DateTime.now().millisecondsSinceEpoch}.pcm');
+      // Create the file before opening the sink. IOSink.openWrite() may defer
+      // file creation until the first event-loop turn, which can leave the
+      // recording session with no visible PCM file immediately after a
+      // successful start under load.
+      await _pcmFile!.create();
+      if (generation != _recordingGeneration) {
+        await _cleanupPcmFile();
+        return;
+      }
+      _pcmSink = _pcmFile!.openWrite();
+
+      // Reset audio levels
+      for (int i = 0; i < _audioLevels.length; i++) {
+        _audioLevels[i] = 0.1;
+      }
+      notifyListeners();
+
+      final permission = await Permission.microphone.request();
+      if (!permission.isGranted) throw StateError('Microphone permission was not granted');
+      if (generation != _recordingGeneration) return;
+
+      // Configure audio session for Bluetooth before starting recorder.
+      if (Platform.isIOS) {
+        try {
+          await _audioSessionChannel.invokeMethod('configureForBluetooth');
+        } catch (e) {
+          Logger.debug('VoiceRecorderProvider: Failed to configure audio session for Bluetooth: $e');
+        }
+      }
+      if (generation != _recordingGeneration) return;
+
+      // Repaint at ~60Hz so the wave flows smoothly. Levels are shifted in
+      // onByteReceived (audio callback rate, much faster than the UI), but the
+      // canvas only re-renders on notifyListeners — so a slower timer made the
+      // wave appear frozen / laggy.
+      _waveformTimer = Timer.periodic(const Duration(milliseconds: 16), (_) {
+        if (_state == VoiceRecorderState.recording) {
+          notifyListeners();
+        }
+      });
+
       await _mic.start(
         onByteReceived: (bytes) {
           if (generation == _recordingGeneration && _state == VoiceRecorderState.recording) {

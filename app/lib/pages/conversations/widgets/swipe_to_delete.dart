@@ -8,9 +8,9 @@ import 'package:omi/pages/conversations/conversation_actions.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 
-/// Swipe a conversation left to delete it (v8.13 `.swp`). Dragged part way, a red Delete shows
+/// Swipe a conversation left to delete it (v8.13 `.swp`). Dragged part way, a monochrome Delete shows
 /// under it; let go past 44 pt and it stays open at 96 pt with Delete to tap; past 55 % of the row
-/// it goes: it slides off, the row closes up, and "Conversation deleted · Undo" follows. One row is
+/// it asks for confirmation, then slides off and shows "Conversation deleted · Undo". One row is
 /// open at a time; a tap on an open row closes it. Screen readers get Delete as an action.
 class SwipeToDelete extends StatefulWidget {
   const SwipeToDelete({super.key, required this.conversation, required this.child});
@@ -27,7 +27,6 @@ class SwipeToDelete extends StatefulWidget {
 
 class _SwipeToDeleteState extends State<SwipeToDelete> with TickerProviderStateMixin {
   static const double _openWidth = 96;
-  static const Color _red = Color(0xFFD92D20); // omi-ux-allow: color-literal -- the mock's swipe Delete red
 
   late final AnimationController _slide = AnimationController(vsync: this, duration: const Duration(milliseconds: 280));
   late final AnimationController _collapse =
@@ -97,7 +96,7 @@ class _SwipeToDeleteState extends State<SwipeToDelete> with TickerProviderStateM
     final armed = _armed;
     _armed = false;
     if (_dx < -width * 0.55) {
-      // The tap came as it armed; letting go only deletes.
+      // The tap came as it armed; letting go asks before deleting.
       unawaited(_delete(width, felt: armed));
     } else if (_dx < -44) {
       if (_dx > -_openWidth) OmiHaptics.selection();
@@ -111,6 +110,14 @@ class _SwipeToDeleteState extends State<SwipeToDelete> with TickerProviderStateM
   Future<void> _delete(double width, {bool felt = false}) async {
     if (_deleting) return;
     _deleting = true;
+    final confirmed = await confirmConversationDelete(context);
+    if (!mounted) return;
+    if (!confirmed) {
+      _deleting = false;
+      _animateTo(0);
+      if (SwipeToDelete._open.value == this) SwipeToDelete._open.value = null;
+      return;
+    }
     if (!felt) OmiHaptics.medium();
     _animateTo(-width * 1.1);
     if (OmiMotion.of(context).standard != Duration.zero) await _collapse.forward();
@@ -137,7 +144,7 @@ class _SwipeToDeleteState extends State<SwipeToDelete> with TickerProviderStateM
         onHorizontalDragEnd: (d) => _end(d, width),
         child: Stack(
           children: [
-            // The red Delete under the row.
+            // The monochrome Delete under the row.
             Positioned.fill(
               child: AnimatedOpacity(
                 opacity: showing ? 1 : 0,
@@ -147,18 +154,18 @@ class _SwipeToDeleteState extends State<SwipeToDelete> with TickerProviderStateM
                   behavior: HitTestBehavior.opaque,
                   onTap: showing ? () => unawaited(_delete(width)) : null,
                   child: Container(
-                    color: _red,
+                    color: OmiColors.accent,
                     alignment: AlignmentDirectional.centerEnd,
                     padding: const EdgeInsetsDirectional.only(end: 22),
                     child: ExcludeSemantics(
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const OmiGlyph(OmiGlyphs.trashLine, size: 18, color: Colors.white),
+                          OmiGlyph(OmiGlyphs.trashLine, size: 18, color: OmiColors.onAccent),
                           const SizedBox(width: 8),
                           Text(
                             l10n.delete,
-                            style: OmiType.subhead.copyWith(fontWeight: FontWeight.w600, color: Colors.white),
+                            style: OmiType.subhead.copyWith(fontWeight: FontWeight.w600, color: OmiColors.onAccent),
                           ),
                         ],
                       ),

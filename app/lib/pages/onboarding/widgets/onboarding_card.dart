@@ -396,7 +396,7 @@ class OnboardingBluetoothBanner extends StatelessWidget {
                       child: GestureDetector(
                         key: const Key('onboarding_bluetooth_turn_on'),
                         behavior: HitTestBehavior.opaque,
-                        onTap: onTurnOn ?? () => BluetoothReadiness.instance.ensureReady(BluetoothUse.discovery),
+                        onTap: onTurnOn ?? () => BluetoothReadiness.instance.requestGuidance(BluetoothUse.discovery),
                         // A 34 pt pill inside a 44 pt target.
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 5),

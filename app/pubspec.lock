@@ -583,12 +583,11 @@ packages:
     source: hosted
     version: "6.3.0"
   flutter_background_service_ios:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: flutter_background_service_ios
-      sha256: "6037ffd45c4d019dab0975c7feb1d31012dd697e25edc05505a4a9b0c7dc9fba"
-      url: "https://pub.dev"
-    source: hosted
+      path: "third_party/flutter_background_service_ios"
+      relative: true
+    source: path
     version: "5.0.3"
   flutter_background_service_platform_interface:
     dependency: "direct main"
@@ -630,10 +629,9 @@ packages:
   flutter_foreground_task:
     dependency: "direct main"
     description:
-      name: flutter_foreground_task
-      sha256: "0dad7e6a4ac57aeb0e680e35ec7ae997f1a2b8579fdb85b16dd16e299b634f4f"
-      url: "https://pub.dev"
-    source: hosted
+      path: "third_party/flutter_foreground_task"
+      relative: true
+    source: path
     version: "10.0.0"
   flutter_gen_core:
     dependency: transitive

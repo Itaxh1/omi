@@ -12891,4 +12891,8 @@ class AppLocalizationsCa extends AppLocalizations {
 
   @override
   String get usePhoneV3 => 'Usa el telèfon';
+
+  @override
+  String get welcomeNoteBody =>
+      'Gràcies per començar amb Omi! Les teves converses es converteixen en notes que pots tornar a consultar. Mentre es processa una nota, pots veure’n el progrés a l’inici. Uneix-te a nosaltres a Discord per rebre ajuda o compartir una idea.\n\nAmb agraïment,\nL’equip de desenvolupament d’Omi';
 }

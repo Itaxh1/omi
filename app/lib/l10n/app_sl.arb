@@ -11572,5 +11572,6 @@
     "scanAgainV3": "Išči znova",
     "howToPairV3": "Kako seznaniti",
     "omiNotInRangeUsePhone": "{device} ni v dosegu. Za zdaj uporabim ta telefon?",
-    "usePhoneV3": "Uporabi telefon"
+    "usePhoneV3": "Uporabi telefon",
+    "welcomeNoteBody": "Hvala, ker ste začeli uporabljati Omi! Vaši pogovori postanejo zapiski, h katerim se lahko vrnete. Med obdelavo zapiska lahko napredek spremljate na začetnem zaslonu. Pridružite se nam na Discordu za pomoč ali deljenje zamisli.\n\nS hvaležnostjo,\nRazvijalci Omi"
 }

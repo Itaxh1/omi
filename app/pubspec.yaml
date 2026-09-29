@@ -138,6 +138,12 @@ dependencies:
   in_app_review: ^2.0.12
 
 dependency_overrides:
+  # iOS refresh handlers must register once before UIScene creates Flutter engines.
+  # See third_party/README.md for the pinned upstream versions and local patches.
+  flutter_background_service_ios:
+    path: third_party/flutter_background_service_ios
+  flutter_foreground_task:
+    path: third_party/flutter_foreground_task
   js: ^0.7.1
   uuid: ^4.4.0
   opus_flutter_ios:

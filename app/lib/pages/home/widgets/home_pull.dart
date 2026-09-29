@@ -10,9 +10,9 @@ import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/widgets/bottom_nav_bar.dart';
 
 /// Home's two pulls (v8.6, v8.14). Pulled down from the top, the page follows the finger (fully to
-/// 90 pt, then a quarter as far) and the Listening label says "Pull to pause", then "Release to
-/// pause"; letting go past 90 pt acts ([onPullDown]). Pulled up from the bottom, the page rises up
-/// to 46 pt while eight dots fill over 150 pt ([up]); letting go once they are full opens Your Omi
+/// 126 pt, then a quarter as far) and the Listening label says "Pull to pause", then "Release to
+/// pause"; letting go past 126 pt acts ([onPullDown]). Pulled up from the bottom, the page rises up
+/// to 46 pt while eight dots fill over 210 pt ([up]); letting go once they are full opens Your Omi
 /// ([onPullUp]). Either way the page springs back (0.38 s). A tick of haptics marks the point where
 /// letting go will act.
 class HomePullGestures extends StatefulWidget {
@@ -37,10 +37,10 @@ class HomePullGestures extends StatefulWidget {
   final VoidCallback onPullUp;
 
   /// Past this (points of finger travel), letting go of a pull down acts.
-  static const double downThreshold = 90;
+  static const double downThreshold = 126;
 
   /// The finger travel that fills the pull up's dots.
-  static const double upDistance = 150;
+  static const double upDistance = 210;
 
   /// The page's travel for [finger] points pulled down: all of it to [downThreshold], then a
   /// quarter.

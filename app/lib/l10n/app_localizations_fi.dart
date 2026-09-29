@@ -12827,4 +12827,8 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get usePhoneV3 => 'Käytä puhelinta';
+
+  @override
+  String get welcomeNoteBody =>
+      'Kiitos, että aloitit Omin käytön! Keskusteluistasi tulee muistiinpanoja, joihin voit palata. Kun muistiinpanoa käsitellään, näet edistymisen aloitusnäytöllä. Liity seuraamme Discordissa, jos tarvitset apua tai haluat jakaa idean.\n\nKiittäen,\nOmin kehittäjät';
 }

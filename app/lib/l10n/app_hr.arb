@@ -11572,5 +11572,6 @@
     "scanAgainV3": "Traži ponovno",
     "howToPairV3": "Kako upariti",
     "omiNotInRangeUsePhone": "{device} nije u dometu. Koristiti ovaj telefon zasad?",
-    "usePhoneV3": "Koristi telefon"
+    "usePhoneV3": "Koristi telefon",
+    "welcomeNoteBody": "Hvala što ste počeli koristiti Omi! Vaši razgovori postaju bilješke kojima se možete vratiti. Dok se bilješka obrađuje, napredak možete vidjeti na početnom zaslonu. Pridružite nam se na Discordu za pomoć ili podijelite ideju.\n\nUz zahvalnost,\nRazvojni tim Omi"
 }

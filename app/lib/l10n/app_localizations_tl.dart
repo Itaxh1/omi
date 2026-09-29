@@ -12932,4 +12932,8 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get usePhoneV3 => 'Gamitin ang phone';
+
+  @override
+  String get welcomeNoteBody =>
+      'Salamat sa pagsisimula sa Omi! Ang mga pag-uusap mo ay nagiging mga tala na maaari mong balikan. Habang pinoproseso ang tala, makikita mo ang progreso sa Home. Sumali sa amin sa Discord para humingi ng tulong o magbahagi ng ideya.\n\nMaraming salamat,\nMga developer ng Omi';
 }

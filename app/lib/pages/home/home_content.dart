@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:omi/backend/schema/conversation.dart';
+import 'package:omi/backend/preferences.dart';
+import 'package:omi/pages/home/widgets/welcome_note.dart';
 import 'package:omi/pages/conversations/widgets/capture_recovery_banner.dart';
 import 'package:omi/pages/home/widgets/home_heard_today.dart';
 import 'package:omi/pages/home/widgets/home_todo_card.dart';
@@ -54,7 +56,7 @@ class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliv
         // While the first page is still loading an established account looks empty; wait before
         // showing first-day content so it never flashes.
         final settled = count > 0 || !(convoProvider.isLoadingConversations || convoProvider.isFetchingConversations);
-        final heard = HomeHeardToday.pick(convoProvider);
+        final heard = HomeHeardToday.pick(convoProvider, limit: HomeHeardToday.limitFor(MediaQuery.of(context)));
         final heardToday = heard.isNotEmpty && HomeHeardToday.isToday(heard.first);
         // The To-do card sits in the warm zone at the same height above the Ask bar on every phone;
         // when the page is taller than the screen (the first day) it follows the content instead.
@@ -62,6 +64,9 @@ class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliv
         final listening = HomeListeningLabel.watch(context) == HomeRecorderState.listening;
         // `.coach`: the first day, while Omi listens and at most one conversation is written up.
         final coach = settled && listening && count <= 1;
+        final welcome = settled &&
+            (count == 0 ||
+                (count < HomeHeardToday.limit && SharedPreferencesUtil().getBool(WelcomeNoteTile.preferenceKey)));
         return CustomScrollView(
           controller: _scrollController,
           // Clamped: pulling past the top or bottom moves the page by hand (HomePullGestures).
@@ -81,11 +86,12 @@ class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliv
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        if (heard.isNotEmpty || coach)
+                        if (heard.isNotEmpty || coach || welcome)
                           HomeHeardToday(
                             conversations: heard,
                             today: heardToday,
                             coach: coach,
+                            showWelcome: welcome,
                             onAll: () => context.read<HomeProvider>().setIndex(1),
                           ),
                       ],
@@ -144,6 +150,9 @@ abstract final class HomeTone {
   static const double cardAboveAsk = 109;
 
   static LinearGradient gradient() {
+    if (!OmiColors.isLight) {
+      return const LinearGradient(colors: [Colors.black, Colors.black]);
+    }
     final paper = OmiColors.surface0;
     final tone = OmiColors.tone;
     return LinearGradient(

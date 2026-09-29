@@ -40,6 +40,7 @@ class JourneyFixtureBackend {
   final List<Map<String, dynamic>> conversations = [];
   final List<Map<String, dynamic>> memories = [];
   final List<Map<String, dynamic>> actionItems = [];
+  bool onboardingCompleted = false;
 
   /// Request journal: method + path -> count. Journeys assert on it (e.g.
   /// "the send request actually reached the server") — the structural
@@ -145,6 +146,15 @@ class JourneyFixtureBackend {
     }
 
     switch ('$method $path') {
+      case 'PATCH /v1/users/onboarding':
+        final body = await _readBody(req);
+        onboardingCompleted = body['completed'] == true;
+        req.response.statusCode = 200;
+        req.response.headers.contentType = ContentType.json;
+        req.response.write(jsonEncode({'status': 'ok', 'completed': onboardingCompleted}));
+        await req.response.close();
+        return;
+
       case 'POST /v1/auth/local-dev/custom-token':
         final body = await _readBody(req);
         final uid = body['uid'] as String? ?? fixtureUid;

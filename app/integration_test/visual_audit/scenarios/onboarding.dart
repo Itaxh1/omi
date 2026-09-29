@@ -5,16 +5,24 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core_platform_interface/test.dart';
 import 'package:nested/nested.dart';
 import 'package:provider/provider.dart';
 
 import 'package:omi/backend/schema/bt_device/bt_device.dart';
+import 'package:omi/backend/preferences.dart';
 import 'package:omi/backend/schema/conversation.dart';
 import 'package:omi/backend/schema/structured.dart';
 import 'package:omi/backend/schema/transcript_segment.dart';
 import 'package:omi/pages/onboarding/guided_voice_controller.dart';
 import 'package:omi/providers/capture_provider.dart';
+import 'package:omi/providers/action_items_provider.dart';
+import 'package:omi/providers/announcement_provider.dart';
+import 'package:omi/providers/app_provider.dart';
+import 'package:omi/pages/apps/providers/add_app_provider.dart';
 import 'package:omi/providers/conversation_provider.dart';
 import 'package:omi/services/devices/bluetooth_readiness.dart';
 import 'package:omi/utils/enums.dart';
@@ -24,6 +32,7 @@ import 'package:omi/pages/onboarding/complete_screen.dart';
 import 'package:omi/pages/onboarding/find_device/page.dart';
 import 'package:omi/pages/capture/connect.dart';
 import 'package:omi/pages/onboarding/wrapper.dart';
+import 'package:omi/pages/home/page.dart';
 import 'package:omi/providers/home_provider.dart';
 import 'package:omi/providers/onboarding_provider.dart';
 
@@ -44,6 +53,104 @@ Future<void> _step(AuditRun a, int page, String action,
 }
 
 final onboardingScenarios = <AuditScenario>[
+  AuditScenario(
+    id: 'onboarding-first-run-journey',
+    title: 'First reminder, processed task, three voice lines, completion and Home',
+    page: 'lib/pages/onboarding/wrapper.dart (production navigation)',
+    state: 'Synthetic microphone and processed server response; real onboarding screens and callbacks',
+    run: (a) async {
+      setupFirebaseCoreMocks();
+      if (Firebase.apps.isEmpty) {
+        await Firebase.initializeApp(
+            options: const FirebaseOptions(
+          apiKey: 'fake',
+          appId: '1:1:ios:fake',
+          messagingSenderId: '1',
+          projectId: 'demo-omi-local',
+        ));
+      }
+      const permissionChannel = MethodChannel('flutter.baseflow.com/permissions/methods');
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(permissionChannel, (_) async => 0);
+      addTearDown(() => TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(permissionChannel, null));
+      final capture = _HearingCapture()..segments = [];
+      final conversations = _FirstConversationProvider();
+      final voice = _ReadingVoice();
+      await a.pump(
+        OnboardingWrapper(initialPage: OnboardingWrapper.firstPage, voiceIO: voice),
+        scaffold: false,
+        providers: [
+          ChangeNotifierProvider<HomeProvider>(create: (_) => _NoSpeakerCheckHomeProvider()),
+          ChangeNotifierProvider<CaptureProvider>.value(value: capture),
+          ChangeNotifierProvider<ConversationProvider>.value(value: conversations),
+          ChangeNotifierProvider<OnboardingProvider>.value(value: _NoDevicesOnboardingProvider()),
+          ChangeNotifierProvider(create: (_) => ActionItemsProvider()),
+          ChangeNotifierProvider(create: (_) => AnnouncementProvider()),
+          ChangeNotifierProxyProvider<AppProvider, AddAppProvider>(
+            create: (_) => AddAppProvider(),
+            update: (_, app, previous) => (previous?..setAppProvider(app)) ?? (AddAppProvider()..setAppProvider(app)),
+          ),
+        ],
+      );
+      await a.tap(find.byKey(const Key('onboarding_first_done')));
+      expect(capture.finished, 0, reason: 'showing the example alone must not create a recording or task');
+      capture.hearReminder();
+      await a.settle();
+      await a.shot('Actual transcript reaches the first recording screen', step: 'heard');
+      await a.tap(find.byKey(const Key('onboarding_first_done')));
+      expect(capture.finished, 1);
+      expect(find.text('Omi is writing it up…'), findsOneWidget);
+      await a.shot('Done waits for the processing response', step: 'processing');
+
+      conversations.arrive();
+      a.server.conversations.add(conversations.conversations.single.toJson());
+      a.server.actionItems.add({
+        'id': 'first-task',
+        'description': 'Call Sam',
+        'completed': false,
+        'conversation_id': 'first',
+        'created_at': DateTime.now().toUtc().toIso8601String(),
+        'due_at': DateTime.now().add(const Duration(days: 1)).toUtc().toIso8601String(),
+      });
+      await a.settle();
+      expect(find.text('Call Sam tomorrow'), findsOneWidget);
+      expect(find.text('Call Sam'), findsOneWidget);
+      expect(conversations.conversations.single.structured.actionItems.single.description, 'Call Sam');
+      await a.shot('Processed reminder includes its summary and extracted task', step: 'result');
+      await a.tap(find.byKey(const Key('onboarding_result_continue')));
+      expect(find.text('Teach Omi your voice'), findsOneWidget);
+      await a.shot('Continue opens the optional voice introduction', step: 'voice');
+      await a.tap(find.byKey(const Key('speech_profile_start')));
+      for (var line = 0; line < 3; line++) {
+        expect(find.byKey(const Key('onboarding_read_line')), findsOneWidget);
+        await a.shot('Read voice line ${line + 1}', step: 'line-${line + 1}');
+        voice.readLine();
+        await a.settle();
+      }
+      expect(voice.enrolled, 1);
+      expect(SharedPreferencesUtil().hasSpeakerProfile, isTrue);
+      expect(find.byType(OnboardingCompleteScreen), findsOneWidget);
+      await a.shot('All three lines finish at the completion screen', step: 'complete');
+      // Let the successful voice-enrollment toast leave the bottom button.
+      await a.tester.pump(const Duration(seconds: 4));
+      await a.settle();
+      await a.tap(find.byKey(const Key('onboarding_complete_start')));
+      expect(SharedPreferencesUtil().onboardingCompleted, isTrue);
+      expect(a.server.onboardingCompleted, isTrue);
+      expect(find.byType(HomePageWrapper), findsOneWidget);
+      expect(capture.phoneStarts, 1, reason: 'Open Omi restarts phone listening after the first recording finished');
+      await a.tap(find.byKey(const Key('home_teach_got_it')));
+      expect(find.text('Call Sam tomorrow'), findsOneWidget);
+      expect(find.byKey(const Key('home_welcome_note')), findsOneWidget);
+      final homeContext = a.tester.element(find.byType(HomePageWrapper));
+      final task = homeContext.read<ActionItemsProvider>().actionItems.single;
+      expect(task.description, 'Call Sam');
+      expect(task.conversationId, 'first');
+      expect(task.dueAt, isNotNull);
+      await a.shot('Open Omi reaches Home and starts listening', step: 'home');
+    },
+  ),
   AuditScenario(
     id: 'onboarding-welcome',
     title: 'Welcome (v3): the mark, what Omi does, Apple and Google',
@@ -288,11 +395,46 @@ class _HearingCapture extends CaptureProvider {
     ];
   }
 
-  @override
-  String? get liveCaptureSource => 'phone';
+  String? source = 'phone';
+  int finished = 0;
+  int phoneStarts = 0;
+
+  void hearReminder() {
+    segments = [
+      TranscriptSegment(
+        id: 'first',
+        text: 'Remind me to call Sam tomorrow.',
+        speaker: 'SPEAKER_00',
+        isUser: true,
+        personId: null,
+        start: 0,
+        end: 6,
+        translations: const [],
+      ),
+    ];
+    notifyListeners();
+  }
 
   @override
-  Future streamRecording({bool resumeCapture = true}) async {}
+  String? get liveCaptureSource => source;
+
+  @override
+  Future streamRecording({bool resumeCapture = true}) async {
+    phoneStarts++;
+    source = 'phone';
+    recordingState = RecordingState.record;
+    notifyListeners();
+  }
+
+  @override
+  Future<void> finishCapture() async {
+    finished++;
+    source = null;
+    notifyListeners();
+  }
+
+  @override
+  Future streamDeviceRecording({BtDevice? device}) async {}
 
   @override
   Future<bool> stopStreamRecording({String reason = 'user_stopped', bool resumeHandedOffPendant = true}) async => true;
@@ -323,7 +465,7 @@ class _FirstConversationProvider extends ConversationProvider {
           ..actionItems = [ActionItem('Call Sam')],
       ),
     ];
-    notifyListeners();
+    groupConversationsByDate();
   }
 }
 
@@ -347,4 +489,28 @@ class _QuietVoice implements GuidedVoiceIO {
   Future<bool> saveGoal(String text, String idempotencyKey) async => false;
   @override
   Future<void> close() async {}
+}
+
+class _ReadingVoice extends _QuietVoice {
+  void Function(Uint8List)? _onAudio;
+  int enrolled = 0;
+
+  @override
+  Future<void> start(void Function(Uint8List) onAudio, VoidCallback onInterrupted) async => _onAudio = onAudio;
+
+  void readLine() {
+    final speech = ByteData(2 * 32000);
+    for (var offset = 0; offset < speech.lengthInBytes; offset += 2) {
+      speech.setInt16(offset, 2000, Endian.little);
+    }
+    _onAudio!(speech.buffer.asUint8List());
+    _onAudio!(Uint8List(800 * 32));
+  }
+
+  @override
+  Future<bool> enroll(Uint8List pcm) async {
+    expect(pcm.length, greaterThanOrEqualTo(5 * 32000));
+    enrolled++;
+    return true;
+  }
 }

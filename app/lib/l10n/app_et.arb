@@ -4012,5 +4012,6 @@
     "scanAgainV3": "Otsi uuesti",
     "howToPairV3": "Kuidas siduda",
     "omiNotInRangeUsePhone": "{device} pole levialas. Kas kasutada praegu seda telefoni?",
-    "usePhoneV3": "Kasuta telefoni"
+    "usePhoneV3": "Kasuta telefoni",
+    "welcomeNoteBody": "Aitäh, et alustasid Omi kasutamist! Sinu vestlustest saavad märkmed, mille juurde saad tagasi tulla. Märkme töötlemise edenemist näed avakuval. Liitu meiega Discordis, et saada abi või jagada ideid.\n\nTänuga,\nOmi arendajad"
 }

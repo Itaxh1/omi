@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'package:omi/backend/schema/conversation.dart';
 import 'package:omi/pages/conversation_detail/conversation_summary_selection.dart';
@@ -11,8 +12,9 @@ import 'package:omi/pages/conversation_detail/widgets/summary_v3.dart';
 import 'package:omi/pages/onboarding/widgets/onboarding_card.dart';
 import 'package:omi/providers/capture_provider.dart';
 import 'package:omi/providers/conversation_provider.dart';
+import 'package:omi/providers/device_provider.dart';
+import 'package:omi/services/devices/bluetooth_readiness.dart';
 import 'package:omi/ui/ui.dart';
-import 'package:omi/utils/enums.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/utils/logger.dart';
 
@@ -27,11 +29,15 @@ class OnboardingFirstWordsStep extends StatefulWidget {
     required this.onDone,
     required this.onSkip,
     this.onFinishing,
+    this.onUsePhone,
+    this.onReconnect,
     this.quietFor = const Duration(seconds: 12),
   });
 
   /// Just before Done ends the recording (the flow notes which conversations already exist).
   final VoidCallback? onFinishing;
+  final VoidCallback? onUsePhone;
+  final VoidCallback? onReconnect;
 
   /// The pendant is listening (it already is, since it paired); otherwise this phone starts.
   final bool wearable;
@@ -60,6 +66,8 @@ class _OnboardingFirstWordsStepState extends State<OnboardingFirstWordsStep> {
   /// Words the pendant heard before this step (while pairing) stay out of the live words.
   int _baseline = 0;
   bool _startedPhone = false;
+  bool _startingPhone = false;
+  late bool _wearable = widget.wearable;
   bool _failed = false;
   bool _finishing = false;
   bool _finished = false;
@@ -75,13 +83,30 @@ class _OnboardingFirstWordsStepState extends State<OnboardingFirstWordsStep> {
   }
 
   Future<void> _startPhone() async {
-    if (_capture.liveCaptureSource == 'phone') return;
+    if (!mounted || _startingPhone) return;
+    setState(() {
+      _startingPhone = true;
+      _failed = false;
+    });
     try {
-      await _capture.streamRecording();
+      if (_capture.liveCaptureSource == 'phone') {
+        if (_capture.isPaused) await _capture.resumeCapture();
+      } else {
+        await _capture.streamRecording();
+        _baseline = 0;
+      }
       _startedPhone = true;
+      if (!mounted) {
+        await _capture.stopStreamRecording();
+        return;
+      }
+      setState(() => _wearable = false);
+      widget.onUsePhone?.call();
     } catch (e) {
       Logger.debug('Onboarding first recording did not start: $e');
       if (mounted) setState(() => _failed = true);
+    } finally {
+      if (mounted) setState(() => _startingPhone = false);
     }
   }
 
@@ -132,20 +157,38 @@ class _OnboardingFirstWordsStepState extends State<OnboardingFirstWordsStep> {
     final capture = context.watch<CaptureProvider>();
     final words = _words(capture);
     final elapsed = Duration(milliseconds: 500 * _ticks);
-    final quiet = words.isEmpty && (_failed || elapsed >= widget.quietFor);
-    final listening = widget.wearable || capture.recordingState == RecordingState.record || _startedPhone;
+    final device = context.watch<DeviceProvider>();
+    final bluetooth = BluetoothReadiness.instance.state;
+    final pendantAvailable =
+        device.isConnected && bluetooth != BluetoothAdapterState.off && bluetooth != BluetoothAdapterState.unauthorized;
+    final source = capture.liveCaptureSource;
+    final listening =
+        source != null && !capture.isPaused && !capture.isStopping && (source == 'phone' || pendantAvailable);
+    final interrupted = _wearable && source != 'phone' && !pendantAvailable;
+    final quiet = words.isEmpty && (_failed || interrupted || elapsed >= widget.quietFor);
     return OnboardingStep(
       card: OnboardingCard(
         content: [
-          if (widget.wearable) const OnboardingBluetoothBanner(),
           OnboardingHeader(title: l10n.sayAFewWords, subtitle: l10n.tryRemindSam),
           const SizedBox(height: 36),
-          if (listening || !_failed)
+          if (listening)
             OnboardingListeningRow(
               key: const Key('onboarding_first_listening'),
-              label: widget.wearable ? l10n.listeningOnYourOmi : l10n.listeningOnThisPhone,
+              label: source == 'phone' ? l10n.listeningOnThisPhone : l10n.listeningOnYourOmi,
               detail: OmiDuration.offset(elapsed.inSeconds),
             ),
+          if (!listening)
+            Text(
+              interrupted
+                  ? l10n.notConnectedV3
+                  : (capture.isPaused ? l10n.paused : (_failed ? l10n.somethingWentWrong : l10n.reconnecting)),
+              key: const Key('onboarding_first_interrupted'),
+              style: OnboardingHeader.bodyStyle,
+            ),
+          if (interrupted) ...[
+            const SizedBox(height: 12),
+            Text(l10n.mayNeedCharging, style: OnboardingHeader.bodyStyle),
+          ],
           // `.oblive`'s 14 pt, from the row's line box.
           const SizedBox(height: 12),
           // `.oblive`: the words at 26/500, each fading in as it arrives.
@@ -165,6 +208,22 @@ class _OnboardingFirstWordsStepState extends State<OnboardingFirstWordsStep> {
           ),
         ],
         footer: [
+          if (interrupted || (quiet && _wearable))
+            OmiButton.secondary(
+              key: const Key('onboarding_first_use_phone'),
+              label: l10n.useThisPhoneInstead,
+              expand: true,
+              isLoading: _startingPhone,
+              onPressed: _finishing || _startingPhone ? null : _startPhone,
+            ),
+          if (interrupted && widget.onReconnect != null)
+            OnboardingLink(label: l10n.tryAgain, onTap: widget.onReconnect!),
+          if (_failed) ...[
+            OnboardingLink(label: l10n.tryAgain, onTap: () => unawaited(_startPhone())),
+            OnboardingLink(label: l10n.openSettings, onTap: openAppSettings),
+          ],
+          if (capture.isPaused && !_finishing)
+            OnboardingLink(label: l10n.resume, onTap: () => unawaited(capture.resumeCapture())),
           OmiButton(
             key: const Key('onboarding_first_done'),
             label: l10n.done,
@@ -172,7 +231,7 @@ class _OnboardingFirstWordsStepState extends State<OnboardingFirstWordsStep> {
             isLoading: _finishing,
             onPressed: words.isEmpty || _finishing ? null : _done,
           ),
-          if (quiet)
+          if (quiet && !_finishing && !_startingPhone)
             OnboardingLink(
               key: const Key('onboarding_first_skip'),
               label: l10n.skipForNowV3,
@@ -304,11 +363,12 @@ class _OnboardingFirstResultStepState extends State<OnboardingFirstResultStep> {
       _settle?.cancel();
       return;
     }
-    // Nothing new and nothing in flight: wait a moment for the hand-over, then call it too short.
+    // A timeout or offline upload may not have published its processing row yet.
+    // Absence of a row is not evidence that the user's recording was too short.
     _settle ??= Timer(widget.settle, () {
       _settle = null;
       if (!mounted || _state != _Result.waiting) return;
-      if (_newest() == null && !_inFlight) setState(() => _state = _Result.tooShort);
+      if (_newest() == null && !_inFlight) setState(() => _state = _Result.stillWriting);
     });
   }
 
@@ -401,7 +461,6 @@ class _OnboardingFirstResultStepState extends State<OnboardingFirstResultStep> {
     return OnboardingStep(
       card: OnboardingCard(
         content: [
-          if (widget.wearable) const OnboardingBluetoothBanner(),
           // `obIn`: the written-up page slides in 16 pt from the side as it fades in.
           AnimatedSwitcher(
             // 380 ms (`obIn`); none under Reduce Motion.

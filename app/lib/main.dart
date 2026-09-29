@@ -122,7 +122,13 @@ Future<FirebaseApp> _ensureFirebaseApp() {
     configuredProjectId: options.projectId,
     initializeApp: () => Firebase.initializeApp(options: options),
     projectIdOf: (app) => app.options.projectId,
-    validateProject: (projectId) => Env.validateFirebaseProject(projectId: projectId),
+    validateProject: (projectId) {
+      try {
+        Env.validateFirebaseProject(projectId: projectId);
+      } catch (error) {
+        throw StartupConfigurationError(error);
+      }
+    },
   );
 }
 

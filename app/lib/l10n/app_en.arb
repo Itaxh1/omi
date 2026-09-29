@@ -15513,5 +15513,9 @@
     "usePhoneV3": "Use phone",
     "@usePhoneV3": {
         "description": "Your Omi (v8 rpWarn): record with this phone while the pendant is away"
+    },
+    "welcomeNoteBody": "Thanks for starting with Omi! Your conversations become notes you can return to. While a note is processing, you can see its progress on Home. Join us on Discord for help or to share an idea.\n\nWith thanks,\nThe Omi developers",
+    "@welcomeNoteBody": {
+        "description": "Local first-run welcome note signed by the developers; not a recorded conversation."
     }
 }

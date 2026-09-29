@@ -12820,4 +12820,8 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get usePhoneV3 => 'ফোন ব্যবহার করুন';
+
+  @override
+  String get welcomeNoteBody =>
+      'Omi ব্যবহার শুরু করার জন্য ধন্যবাদ! আপনার কথোপকথন নোটে পরিণত হয়, যা পরে আবার দেখতে পারবেন। নোট প্রক্রিয়াকরণের অগ্রগতি হোমে দেখতে পাবেন। সাহায্য পেতে বা কোনো ধারণা জানাতে Discord-এ আমাদের সঙ্গে যোগ দিন।\n\nধন্যবাদসহ,\nOmi ডেভেলপাররা';
 }

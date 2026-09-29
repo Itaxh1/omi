@@ -23264,6 +23264,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Use phone'**
   String get usePhoneV3;
+
+  /// Local first-run welcome note signed by the developers; not a recorded conversation.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks for starting with Omi! Your conversations become notes you can return to. While a note is processing, you can see its progress on Home. Join us on Discord for help or to share an idea.\n\nWith thanks,\nThe Omi developers'**
+  String get welcomeNoteBody;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

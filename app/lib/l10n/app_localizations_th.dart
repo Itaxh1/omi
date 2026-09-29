@@ -12749,4 +12749,8 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get usePhoneV3 => 'ใช้โทรศัพท์';
+
+  @override
+  String get welcomeNoteBody =>
+      'ขอบคุณที่เริ่มใช้งาน Omi! บทสนทนาของคุณจะกลายเป็นบันทึกที่กลับมาอ่านได้ ระหว่างประมวลผลบันทึก คุณดูความคืบหน้าได้ที่หน้าหลัก เข้าร่วมกับเราบน Discord เพื่อขอความช่วยเหลือหรือแบ่งปันไอเดีย\n\nด้วยความขอบคุณ\nทีมพัฒนา Omi';
 }

@@ -156,23 +156,16 @@ struct OmiCaptureLiveActivity: Widget {
                     }
                 }
             } compactLeading: {
-                // The pendant, its light breathing while the mic is on, and beside it the listening
-                // wave in miniature.
-                HStack(spacing: 5) {
-                    CapturePendant(active: snapshot.isReceivingAudio, size: 24, breath: snapshot.breath, phone: snapshot.isPhone)
-                    if snapshot.isReceivingAudio {
-                        CaptureMiniWave(tick: snapshot.rippleTick, height: 14)
-                    }
-                }
-                .padding(.leading, 2)
+                // Restore the early v2 live mark: five blue bars beside the camera.
+                CaptureMiniWave(snapshot: snapshot)
+                    .padding(.leading, 4)
             } compactTrailing: {
                 CaptureCompactClock(snapshot: snapshot)
             } minimal: {
-                // Minimal (another Live Activity is showing): the pendant alone, still breathing.
-                CapturePendant(active: snapshot.isReceivingAudio, size: 22, breath: snapshot.breath, phone: snapshot.isPhone)
+                CaptureMiniWave(snapshot: snapshot)
             }
             .widgetURL(captureURL(context.attributes.recordingId))
-            .keylineTint(Color.white.opacity(0.4))
+            .keylineTint(CapturePalette.led)
             // Default side margins leave ~100 pt beside the camera; 12 pt gives
             // the pendant and a short word room without shrinking text.
             if #available(iOS 17.0, *) {
@@ -211,7 +204,7 @@ struct CaptureLockScreenView: View {
                 CaptureClock(snapshot: snapshot, ink: ink, size: 30)
             }
             .frame(minHeight: 48)
-            CaptureWaveform(snapshot: snapshot, ink: ink, height: 24)
+            CaptureWaveform(snapshot: snapshot, ink: ink, height: 26)
             CaptureActions(snapshot: snapshot, ink: ink, height: 40)
         }
         .padding(.horizontal, 16)
@@ -430,24 +423,29 @@ struct CapturePendant: View {
     }
 }
 
-/// The listening wave in miniature for the compact island: five bars easing along each update
-/// while the mic is on.
+/// Early v2's five blue bars, with the taller centre and a soft ripple on each live update.
+/// Paused, disconnected and stale recordings keep five quiet grey marks.
 @available(iOS 16.1, *)
 private struct CaptureMiniWave: View {
-    let tick: Int
-    let height: CGFloat
+    let snapshot: CaptureSnapshot
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    private static let arch: [CGFloat] = [0.62, 0.86, 1, 0.86, 0.62]
 
     var body: some View {
-        HStack(alignment: .center, spacing: 2) {
+        let live = snapshot.isReceivingAudio
+        let tick = reduceMotion ? 0 : snapshot.rippleTick
+        HStack(alignment: .center, spacing: 2.2) {
             ForEach(0..<5, id: \.self) { index in
-                let base = CaptureRipple.levels[(index * 7 + 3) % CaptureRipple.levels.count]
+                let amplitude: CGFloat = snapshot.state.voice ? 1 : 0.7
                 Capsule()
-                    .fill(CapturePalette.island.primary.opacity(0.9))
-                    .frame(width: 2.5, height: max(3, height * CGFloat(base * CaptureRipple.pulse(index * 3, tick: tick))))
+                    .fill(live ? CapturePalette.led : CapturePalette.island.secondary.opacity(0.55))
+                    .frame(width: 2.6, height: live
+                        ? max(3, 18 * Self.arch[index] * amplitude * CGFloat(CaptureRipple.pulse(index * 3, tick: tick)))
+                        : 3)
             }
         }
-        .frame(height: height)
-        .animation(.easeInOut(duration: 1.0), value: tick)
+        .frame(width: 22, height: 18)
+        .animation(reduceMotion ? nil : .easeInOut(duration: 0.9), value: tick)
         .accessibilityHidden(true)
     }
 }
@@ -461,6 +459,7 @@ private struct CaptureWaveform: View {
     let snapshot: CaptureSnapshot
     let ink: CaptureInk
     let height: CGFloat
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     private static let barWidth: CGFloat = 2
     private static let gap: CGFloat = 2.2
 
@@ -470,38 +469,39 @@ private struct CaptureWaveform: View {
             // Never derive layout from an unbounded proposal; it cannot be placed.
             let width = geometry.size.width.isFinite ? max(0, geometry.size.width) : 0
             let count = max(1, Int((width + Self.gap) / (Self.barWidth + Self.gap)))
-            if !state.levels.isEmpty {
+            if !snapshot.isReceivingAudio || (state.metered && state.levels.isEmpty) {
+                // Retained meter samples must never make a paused/stale source look live.
+                Capsule()
+                    .fill(ink.primary.opacity(0.24))
+                    .frame(width: width, height: 1.5)
+                    .frame(width: width, height: height)
+            } else if !state.levels.isEmpty {
                 let amplitude = state.voice ? 1.0 : 0.62
                 HStack(alignment: .center, spacing: Self.gap) {
                     ForEach(0..<count, id: \.self) { index in
                         Capsule()
-                            .fill(ink.primary.opacity(0.9))
+                            .fill(ink.primary.opacity(0.92))
                             .frame(
                                 width: Self.barWidth,
-                                height: barHeight(index, amplitude: amplitude, tick: state.levelsEnd)
+                                height: barHeight(index, amplitude: amplitude, tick: reduceMotion ? 0 : state.levelsEnd)
                             )
                     }
                 }
                 .frame(width: width, height: height, alignment: .leading)
-                .animation(.easeInOut(duration: 1.0), value: state.levelsEnd)
-            } else if state.metered || state.paused {
-                // Nothing to draw: one hairline instead of a row of dots.
-                Capsule()
-                    .fill(ink.primary.opacity(0.2))
-                    .frame(width: width, height: 1.5)
-                    .frame(width: width, height: height)
+                .animation(reduceMotion ? nil : .easeInOut(duration: 1.0), value: state.levelsEnd)
             } else {
                 // Audio that cannot be measured still ripples while the mic is on (the app's wave does),
                 // one step a second; with the mic off it holds still and dim.
                 HStack(alignment: .center, spacing: Self.gap) {
                     ForEach(0..<count, id: \.self) { index in
                         Capsule()
-                            .fill(ink.primary.opacity(snapshot.isReceivingAudio ? 0.8 : 0.2))
-                            .frame(width: Self.barWidth, height: barHeight(index, amplitude: 0.8, tick: snapshot.rippleTick))
+                            .fill(ink.primary.opacity(0.55))
+                            .frame(width: Self.barWidth,
+                                   height: barHeight(index, amplitude: 0.8, tick: reduceMotion ? 0 : snapshot.rippleTick))
                     }
                 }
                 .frame(width: width, height: height, alignment: .leading)
-                .animation(.easeInOut(duration: 1.0), value: snapshot.rippleTick)
+                .animation(reduceMotion ? nil : .easeInOut(duration: 1.0), value: snapshot.rippleTick)
             }
         }
         .frame(height: height)

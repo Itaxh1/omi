@@ -12873,4 +12873,8 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get usePhoneV3 => 'ఫోన్ ఉపయోగించండి';
+
+  @override
+  String get welcomeNoteBody =>
+      'Omi ఉపయోగించడం ప్రారంభించినందుకు ధన్యవాదాలు! మీ సంభాషణలు తరువాత చూడగలిగే నోట్స్‌గా మారుతాయి. నోట్ ప్రాసెస్ అవుతున్నప్పుడు హోమ్‌లో దాని పురోగతిని చూడవచ్చు. సహాయం కోసం లేదా ఆలోచనను పంచుకోవడానికి Discordలో మాతో చేరండి.\n\nకృతజ్ఞతలతో,\nOmi డెవలపర్లు';
 }

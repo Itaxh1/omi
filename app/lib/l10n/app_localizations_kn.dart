@@ -12863,4 +12863,8 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get usePhoneV3 => 'ಫೋನ್ ಬಳಸಿ';
+
+  @override
+  String get welcomeNoteBody =>
+      'Omi ಬಳಸಲು ಪ್ರಾರಂಭಿಸಿದ್ದಕ್ಕಾಗಿ ಧನ್ಯವಾದಗಳು! ನಿಮ್ಮ ಸಂಭಾಷಣೆಗಳು ನಂತರ ಓದಬಹುದಾದ ಟಿಪ್ಪಣಿಗಳಾಗುತ್ತವೆ. ಟಿಪ್ಪಣಿಯ ಪ್ರಕ್ರಿಯೆಯ ಪ್ರಗತಿಯನ್ನು ಮುಖಪುಟದಲ್ಲಿ ನೋಡಬಹುದು. ಸಹಾಯಕ್ಕಾಗಿ ಅಥವಾ ಆಲೋಚನೆ ಹಂಚಿಕೊಳ್ಳಲು Discord ನಲ್ಲಿ ನಮ್ಮೊಂದಿಗೆ ಸೇರಿ.\n\nಧನ್ಯವಾದಗಳೊಂದಿಗೆ,\nOmi ಅಭಿವೃದ್ಧಿಕಾರರು';
 }

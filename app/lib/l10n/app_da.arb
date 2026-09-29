@@ -4054,5 +4054,6 @@
     "scanAgainV3": "Søg igen",
     "howToPairV3": "Sådan parrer du",
     "omiNotInRangeUsePhone": "{device} er uden for rækkevidde. Vil du bruge denne telefon indtil videre?",
-    "usePhoneV3": "Brug telefonen"
+    "usePhoneV3": "Brug telefonen",
+    "welcomeNoteBody": "Tak, fordi du er startet med Omi! Dine samtaler bliver til noter, du kan vende tilbage til. Mens en note behandles, kan du følge fremskridtet på startsiden. Mød os på Discord for hjælp eller for at dele en idé.\n\nMed tak,\nOmi-udviklerne"
 }

@@ -5,7 +5,6 @@ import 'package:share_plus/share_plus.dart';
 
 import 'package:omi/utils/logger.dart';
 import 'package:omi/backend/http/api/conversations.dart';
-import 'package:omi/backend/preferences.dart';
 import 'package:omi/backend/schema/conversation.dart';
 import 'package:omi/pages/conversation_detail/capture_group_separation.dart';
 import 'package:omi/pages/conversation_detail/conversation_summary_selection.dart';
@@ -25,8 +24,7 @@ import 'package:omi/utils/platform/platform_manager.dart';
 // The conversation actions every surface shares (docs/ux-contract.md §4, D5): one delete path for a
 // swiped row, the row's context menu, the selection bar and the detail page, and the row menu itself.
 
-/// Asks before deleting one conversation. The "Don't ask again" row is allowed because every
-/// conversation delete is backed by an Undo toast; once ticked, this returns `true` without asking.
+/// Always asks before deleting one conversation, including a full swipe.
 /// Offline it explains why the delete cannot happen and returns `false`.
 Future<bool> confirmConversationDelete(BuildContext context) async {
   final l10n = context.l10n;
@@ -38,17 +36,14 @@ Future<bool> confirmConversationDelete(BuildContext context) async {
     );
     return false;
   }
-  final prefs = SharedPreferencesUtil();
-  if (!prefs.showConversationDeleteConfirmation) return true;
-  final result = await showOmiConfirmWithOptOut(
+  return showOmiConfirm(
     context,
     title: l10n.deleteConversationTitle,
     message: l10n.deleteConversationMessage,
     confirmLabel: l10n.delete,
-    destructive: true,
+    // The requested monochrome confirmation; the verb still clearly names Delete.
+    destructive: false,
   );
-  if (result.confirmed && result.dontAskAgain) prefs.showConversationDeleteConfirmation = false;
-  return result.confirmed;
 }
 
 /// Removes [conversations] from the list now, offers Undo for 5 s, and sends the server DELETE when
@@ -99,7 +94,7 @@ Future<void> confirmAndDeleteSelectedConversations(BuildContext context) async {
     title: l10n.deleteConversationsTitle(selected.length),
     message: l10n.deleteConversationsMessage,
     confirmLabel: l10n.delete,
-    destructive: true,
+    destructive: false,
   );
   if (!confirmed || !context.mounted) return;
   provider.exitSelectionMode();

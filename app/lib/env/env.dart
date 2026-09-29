@@ -15,7 +15,8 @@ abstract class Env {
     'OMI_FIREBASE_AUTH_EMULATOR_PORT',
     defaultValue: '9099',
   );
-  static late final EnvFields _instance;
+  // Startup can be retried after a transient service failure in the same isolate.
+  static late EnvFields _instance;
   static String? _apiBaseUrlOverride;
   static bool isTestFlight = false;
 

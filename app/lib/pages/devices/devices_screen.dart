@@ -412,19 +412,21 @@ class _ValueRow extends StatelessWidget {
 
   final String title;
   final String value;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      button: true,
+      button: onTap != null,
       label: '$title, $value',
       excludeSemantics: true,
       child: InkWell(
-        onTap: () {
-          OmiHaptics.selection();
-          onTap();
-        },
+        onTap: onTap == null
+            ? null
+            : () {
+                OmiHaptics.selection();
+                onTap!();
+              },
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 14),
           decoration: BoxDecoration(border: Border(bottom: BorderSide(color: OmiColors.divider))),
@@ -434,7 +436,7 @@ class _ValueRow extends StatelessWidget {
               const SizedBox(width: 14),
               Text(value, style: OmiType.footnote.copyWith(height: 1.4, color: OmiColors.textSecondary)),
               // `#dtap .tm::after`: a quiet ›.
-              Text('  ›', style: OmiType.footnote.copyWith(height: 1.4, color: OmiColors.faint)),
+              if (onTap != null) Text('  ›', style: OmiType.footnote.copyWith(height: 1.4, color: OmiColors.faint)),
             ],
           ),
         ),
@@ -477,16 +479,17 @@ class _FirmwareRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final ready = devices.havingNewFirmware;
-    // v8.17 `.fw`: an outlined card.
+    if (!ready) {
+      return _ValueRow(
+        key: const Key('devices_firmware_status'),
+        title: l10n.upToDate,
+        value: l10n.firmwareVersionLine(devices.currentFirmwareVersion),
+        onTap: null,
+      );
+    }
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      decoration: BoxDecoration(
-        color: OmiColors.palette.isLight
-            ? OmiColors.surface0
-            : Color.alphaBlend(OmiColors.textPrimary.withValues(alpha: 0.06), OmiColors.surface0),
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
-        border: Border.all(color: OmiColors.textPrimary.withValues(alpha: 0.10)),
-      ),
+      padding: const EdgeInsets.symmetric(vertical: 14),
+      decoration: BoxDecoration(border: Border(bottom: BorderSide(color: OmiColors.divider))),
       child: Row(
         children: [
           Expanded(

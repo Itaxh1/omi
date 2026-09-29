@@ -7,7 +7,9 @@ import 'package:provider/provider.dart';
 
 import 'package:omi/backend/http/api/users.dart';
 import 'package:omi/backend/preferences.dart';
+import 'package:omi/backend/schema/conversation.dart';
 import 'package:omi/pages/home/page.dart';
+import 'package:omi/pages/home/widgets/welcome_note.dart';
 import 'package:omi/pages/onboarding/ai_consent_widget.dart';
 import 'package:omi/pages/onboarding/auth.dart';
 import 'package:omi/pages/onboarding/name/name_widget.dart';
@@ -19,6 +21,7 @@ import 'package:omi/pages/onboarding/first_conversation_steps.dart';
 import 'package:omi/pages/onboarding/guided_voice_controller.dart';
 import 'package:omi/pages/onboarding/pendant_steps.dart';
 import 'package:omi/pages/onboarding/voice_steps.dart';
+import 'package:omi/pages/onboarding/widgets/onboarding_connection_monitor.dart';
 import 'package:omi/providers/capture_provider.dart';
 import 'package:omi/providers/conversation_provider.dart';
 import 'package:omi/providers/home_provider.dart';
@@ -266,7 +269,18 @@ class _OnboardingWrapperState extends State<OnboardingWrapper> with TickerProvid
     _controller!.animateTo(previous);
   }
 
-  void _goTo(int page) => _controller!.animateTo(page);
+  void _goTo(int page) {
+    if (page == kFirstPage && _controller!.index != kFirstPage) {
+      // The pendant may already have an in-progress conversation from pairing.
+      // Only completed history is old; never exclude the recording being finished.
+      final conversations = context.read<ConversationProvider>();
+      _knownConversationIds = {
+        for (final c in conversations.conversations)
+          if (c.status == ConversationStatus.completed) c.id,
+      };
+    }
+    _controller!.animateTo(page);
+  }
 
   /// The phone path's microphone step, unless the microphone is already allowed.
   Future<void> _toPhoneRecording() async {
@@ -401,13 +415,8 @@ class _OnboardingWrapperState extends State<OnboardingWrapper> with TickerProvid
       index == kFirstPage
           ? OnboardingFirstWordsStep(
               wearable: _wearable,
-              onFinishing: () {
-                final conversations = context.read<ConversationProvider>();
-                _knownConversationIds = {
-                  for (final c in conversations.conversations) c.id,
-                  for (final c in conversations.processingConversations) c.id,
-                };
-              },
+              onUsePhone: () => setState(() => _wearable = false),
+              onReconnect: () => _goTo(kScanPage),
               onDone: () {
                 _firstSkipped = false;
                 _goTo(kResultPage);
@@ -445,6 +454,7 @@ class _OnboardingWrapperState extends State<OnboardingWrapper> with TickerProvid
           : const SizedBox.shrink(),
       OnboardingCompleteScreen(
         onComplete: () {
+          SharedPreferencesUtil().saveBool(WelcomeNoteTile.preferenceKey, true);
           SharedPreferencesUtil().onboardingCompleted = true;
           SharedPreferencesUtil().permissionsCompleted = true;
           SharedPreferencesUtil().remove(_resumeKey);
@@ -473,51 +483,54 @@ class _OnboardingWrapperState extends State<OnboardingWrapper> with TickerProvid
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
           backgroundColor: OmiColors.surface0,
-          body: Stack(
-            children: [
-              // v2: steps sit on the plain midnight page; Welcome and Complete draw the pendant.
-              // Page component (no transition for content)
-              pages[index],
-              // v3 `.obtop`: 7 pt under the status bar, the 50 pt glass back circle (v8.16), then the
-              // step bars on its centre line.
-              if (barIndex(index) != null || showsBack(index))
-                SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(OmiSize.screenMargin, 7, OmiSize.screenMargin, 0),
-                    child: Row(
-                      children: [
-                        // Back on every step (its room kept where it hides); on the first (consent)
-                        // it signs out to Welcome.
-                        Visibility(
-                          visible: showsBack(index),
-                          maintainSize: true,
-                          maintainAnimation: true,
-                          maintainState: true,
-                          child: OmiRingButton.glass(
-                            key: const Key('onboarding_back'),
-                            glyph: OmiGlyphs.back,
-                            label: MaterialLocalizations.of(context).backButtonTooltip,
-                            onPressed: index == kAiConsentPage
-                                ? () {
-                                    OmiHaptics.selection();
-                                    _useDifferentAccount();
-                                  }
-                                : _goBack,
+          body: OnboardingConnectionMonitor(
+            showBanner: index != kScanPage && index != kBluetoothPage,
+            child: Stack(
+              children: [
+                // v2: steps sit on the plain midnight page; Welcome and Complete draw the pendant.
+                // Page component (no transition for content)
+                pages[index],
+                // v3 `.obtop`: 7 pt under the status bar, the 50 pt glass back circle (v8.16), then the
+                // step bars on its centre line.
+                if (barIndex(index) != null || showsBack(index))
+                  SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(OmiSize.screenMargin, 7, OmiSize.screenMargin, 0),
+                      child: Row(
+                        children: [
+                          // Back on every step (its room kept where it hides); on the first (consent)
+                          // it signs out to Welcome.
+                          Visibility(
+                            visible: showsBack(index),
+                            maintainSize: true,
+                            maintainAnimation: true,
+                            maintainState: true,
+                            child: OmiRingButton.glass(
+                              key: const Key('onboarding_back'),
+                              glyph: OmiGlyphs.back,
+                              label: MaterialLocalizations.of(context).backButtonTooltip,
+                              onPressed: index == kAiConsentPage
+                                  ? () {
+                                      OmiHaptics.selection();
+                                      _useDifferentAccount();
+                                    }
+                                  : _goBack,
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 14),
-                        Expanded(
-                          child: barIndex(index) == null
-                              ? const SizedBox(height: 50)
-                              : OnboardingProgressDots(current: barIndex(index)!, total: kBarCount),
-                        ),
-                        // The bars sit centred: the back ring's room is kept on the right too.
-                        const SizedBox(width: 54),
-                      ],
+                          const SizedBox(width: 14),
+                          Expanded(
+                            child: barIndex(index) == null
+                                ? const SizedBox(height: 50)
+                                : OnboardingProgressDots(current: barIndex(index)!, total: kBarCount),
+                          ),
+                          // The bars sit centred: the back ring's room is kept on the right too.
+                          const SizedBox(width: 54),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -15,6 +15,8 @@ import 'package:omi/pages/conversations/conversation_actions.dart';
 import 'package:omi/pages/conversations/widgets/conversation_list_item.dart';
 import 'package:omi/pages/conversations/widgets/date_filter_chip.dart';
 import 'package:omi/pages/conversations/widgets/date_list_item.dart';
+import 'package:omi/pages/conversations/widgets/swipe_to_delete.dart';
+import 'package:omi/providers/connectivity_provider.dart';
 import 'package:omi/providers/conversation_provider.dart';
 import 'package:omi/ui/ui.dart';
 
@@ -39,11 +41,13 @@ ServerConversation _conversation(
 void main() {
   late List<String> deleted;
   late ConversationProvider provider;
+  late ConnectivityProvider connectivity;
 
   setUp(() async {
     SharedPreferences.setMockInitialValues({});
     await SharedPreferencesUtil.init();
     deleted = [];
+    connectivity = ConnectivityProvider();
     provider = ConversationProvider(
       conversationListFetcher: () async => (items: <ServerConversation>[], ok: true),
       isSignedIn: () => true,
@@ -54,12 +58,18 @@ void main() {
     };
   });
 
-  tearDown(() => provider.dispose());
+  tearDown(() {
+    provider.dispose();
+    connectivity.dispose();
+  });
 
   Future<void> pump(WidgetTester tester, Widget child) {
     return tester.pumpWidget(
-      ChangeNotifierProvider<ConversationProvider>.value(
-        value: provider,
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider<ConversationProvider>.value(value: provider),
+          ChangeNotifierProvider<ConnectivityProvider>.value(value: connectivity),
+        ],
         child: MaterialApp(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
@@ -77,6 +87,44 @@ void main() {
       );
 
   group('delete with Undo (D5)', () {
+    testWidgets('full swipe asks once; Cancel keeps the conversation and Undo restores a confirmed delete',
+        (tester) async {
+      final a = _conversation('a');
+      provider.conversations = [a];
+      await pump(
+          tester,
+          SwipeToDelete(
+              conversation: a, child: const SizedBox(width: double.infinity, height: 64, child: Text('Notes'))));
+
+      Future<void> swipe() async {
+        await tester.drag(find.byType(SwipeToDelete), const Offset(-600, 0));
+        await tester.pumpAndSettle();
+        expect(find.byType(OmiAlertDialog), findsOneWidget);
+        final dialog = tester.widget<OmiAlertDialog>(find.byType(OmiAlertDialog));
+        expect(dialog.actions.every((action) => !action.isDestructive), isTrue,
+            reason: 'the requested confirmation uses the monochrome palette');
+        expect(provider.conversations, [a]);
+        expect(deleted, isEmpty);
+      }
+
+      await swipe();
+      await tester.tap(find.widgetWithText(TextButton, 'Cancel'));
+      await tester.pumpAndSettle();
+      expect(provider.conversations, [a]);
+      expect(find.byType(OmiAlertDialog), findsNothing);
+
+      await swipe();
+      await tester.tap(find.widgetWithText(TextButton, 'Delete'));
+      await tester.pumpAndSettle();
+      expect(find.byType(OmiAlertDialog), findsNothing);
+      expect(provider.conversations, isEmpty);
+      await tester.tap(find.text('Undo'));
+      await tester.pumpAndSettle();
+      expect(provider.conversations, [a]);
+      await tester.pump(const Duration(seconds: 10));
+      expect(deleted, isEmpty);
+    });
+
     testWidgets('Undo restores the conversation and nothing is deleted on the server', (tester) async {
       final a = _conversation('a');
       provider.conversations = [a];

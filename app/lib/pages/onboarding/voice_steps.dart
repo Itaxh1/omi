@@ -110,7 +110,11 @@ class _OnboardingVoiceReadStepState extends State<OnboardingVoiceReadStep> {
       }
       await _io.prepare();
       if (_ended) return;
-      await _io.start(_onAudio, () {});
+      await _io.start(_onAudio, () {
+        if (!mounted || _ended) return;
+        OmiFeedback.info(context, context.l10n.voiceNotSavedV3);
+        _leave(save: false);
+      });
     } catch (e) {
       Logger.debug('Onboarding voice reading did not start: $e');
       if (mounted && !_ended) OmiFeedback.error(context, context.l10n.voiceNotSavedV3);

@@ -6,6 +6,7 @@ import 'package:omi/backend/schema/conversation.dart';
 import 'package:omi/backend/schema/structured.dart';
 import 'package:omi/l10n/app_localizations.dart';
 import 'package:omi/pages/home/widgets/home_heard_today.dart';
+import 'package:omi/pages/home/widgets/welcome_note.dart';
 import 'package:omi/providers/conversation_provider.dart';
 import 'package:omi/ui/ui.dart';
 
@@ -33,7 +34,7 @@ ConversationProvider _provider(List<ServerConversation> conversations) {
 }
 
 Future<void> _pump(WidgetTester tester, ConversationProvider provider, List<ServerConversation> rows,
-    {bool today = true, double width = 390, double textScale = 1}) async {
+    {bool today = true, double width = 390, double textScale = 1, bool welcome = false}) async {
   await tester.pumpWidget(
     MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -45,7 +46,7 @@ Future<void> _pump(WidgetTester tester, ConversationProvider provider, List<Serv
           child: Scaffold(
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: OmiSize.screenMargin),
-              child: HomeHeardToday(conversations: rows, today: today, onAll: () {}),
+              child: HomeHeardToday(conversations: rows, today: today, showWelcome: welcome, onAll: () {}),
             ),
           ),
         ),
@@ -61,12 +62,62 @@ void main() {
   final now = localCalendarDay(2026, 8, 12, 15);
   final yesterday = now.subtract(const Duration(days: 1));
 
+  test('roomy phones show five conversations; small screens and large text show three', () {
+    final provider = _provider([
+      for (var i = 0; i < 7; i++) _conversation('t$i', 'Today $i', now.subtract(Duration(minutes: i))),
+    ]);
+    addTearDown(provider.dispose);
+    for (final (media, expected) in [
+      (const MediaQueryData(size: Size(390, 844), padding: EdgeInsets.only(top: 47, bottom: 34)), 5),
+      (const MediaQueryData(size: Size(375, 667), padding: EdgeInsets.only(top: 20)), 3),
+      (const MediaQueryData(size: Size(320, 844)), 3),
+      (const MediaQueryData(size: Size(390, 844), textScaler: TextScaler.linear(1.5)), 3),
+    ]) {
+      final rows = HomeHeardToday.pick(provider, limit: HomeHeardToday.limitFor(media));
+      expect(rows.length, expected);
+      expect(rows.first.id, 't0');
+      expect(rows.last.id, 't${expected - 1}');
+    }
+  });
+
+  testWidgets('processing note is visible, cannot open or swipe away, then becomes ready', (tester) async {
+    final pending = _conversation('pending', '', now)..status = ConversationStatus.processing;
+    final provider = _provider([])..processingConversations = [pending];
+    final rows = HomeHeardToday.pick(provider);
+    expect(rows.map((c) => c.id), ['pending']);
+    await _pump(tester, provider, rows);
+    final l10n = AppLocalizations.of(tester.element(find.byType(HomeHeardToday)));
+    expect(find.text(l10n.transcribing), findsOneWidget);
+    expect(find.text('Omi is writing it up…'), findsOneWidget);
+    final row = tester.widget<OmiPressable>(find.byKey(const Key('home_heard_pending')));
+    expect(row.onTap, isNull);
+    expect(find.byKey(const Key('home_swipe_pending')), findsNothing);
+    final ready = _conversation('pending', 'My first note', now);
+    provider.groupedConversations = {
+      now: [ready]
+    };
+    final completed = HomeHeardToday.pick(provider);
+    expect(completed.length, 1, reason: 'stale processing rows must not duplicate completed notes');
+    await _pump(tester, provider, completed);
+    expect(find.text('My first note'), findsOneWidget);
+    expect(tester.widget<OmiPressable>(find.byKey(const Key('home_heard_pending'))).onTap, isNotNull);
+  });
+
+  testWidgets('first-day welcome opens without any recorded notes and offers Discord', (tester) async {
+    await _pump(tester, _provider([]), [], welcome: true);
+    await tester.tap(find.byKey(const Key('home_welcome_note')));
+    await tester.pumpAndSettle();
+    expect(find.byType(WelcomeNotePage), findsOneWidget);
+    expect(find.textContaining('The Omi developers'), findsOneWidget);
+    expect(find.byKey(const Key('welcome_note_discord')), findsOneWidget);
+  });
+
   test('pick takes today\'s conversations, newest first, up to three', () {
     final provider = _provider([
       for (var i = 0; i < 7; i++) _conversation('t$i', 'Today $i', now.subtract(Duration(minutes: 10 * i))),
       _conversation('y', 'Yesterday', yesterday),
     ]);
-    final picked = HomeHeardToday.pick(provider, now: now);
+    final picked = HomeHeardToday.pick(provider);
     expect(picked.map((c) => c.id), ['t0', 't1', 't2']);
     expect(HomeHeardToday.isToday(picked.first, now: now), isTrue);
   });
@@ -77,9 +128,18 @@ void main() {
       _conversation('y2', 'Yesterday 2', yesterday.subtract(const Duration(hours: 1))),
       _conversation('old', 'Older', yesterday.subtract(const Duration(days: 3))),
     ]);
-    final picked = HomeHeardToday.pick(provider, now: now);
+    final picked = HomeHeardToday.pick(provider);
     expect(picked.map((c) => c.id), ['y1', 'y2', 'old']);
     expect(HomeHeardToday.isToday(picked.first, now: now), isFalse);
+  });
+
+  test('five available rows are filled with earlier notes when only one is from today', () {
+    final provider = _provider([
+      _conversation('today', 'Today', now),
+      for (var i = 0; i < 5; i++) _conversation('old$i', 'Earlier $i', yesterday.subtract(Duration(minutes: i))),
+    ]);
+    addTearDown(provider.dispose);
+    expect(HomeHeardToday.pick(provider, limit: 5).map((c) => c.id), ['today', 'old0', 'old1', 'old2', 'old3']);
   });
 
   testWidgets('Conversations, See all and one row per conversation with its device tile', (tester) async {

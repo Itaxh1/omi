@@ -437,7 +437,6 @@ class OnboardingButtonsStep extends StatelessWidget {
     return OnboardingStep(
       card: OnboardingCard(
         content: [
-          const OnboardingBluetoothBanner(),
           OnboardingKicker(l10n.obStepYourOmi(3)),
           OnboardingHeader(title: l10n.oneButtonThreeMoves),
           // The title's 12 pt (the list's own 10 collapses into it).

@@ -4,13 +4,13 @@ import 'package:omi/pages/conversations/widgets/swipe_to_delete.dart';
 
 import 'package:omi/backend/schema/conversation.dart';
 import 'package:omi/pages/conversations/open_conversation.dart';
+import 'package:omi/pages/home/widgets/welcome_note.dart';
 import 'package:omi/providers/conversation_provider.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 
-/// Home's "Heard today" (v3): a 13 pt section label with an underlined "all" link, then up to three
-/// conversation rows with no dividers (three, so the To-do card and the Ask bar sit in the same
-/// place on every iPhone). Each row is a 42 pt tile holding the device's icon only, the title on
+/// Home's conversations: five rows on a roomy screen, three on smaller screens
+/// or at larger text sizes. Each row is a 42 pt tile holding the device's icon, the title on
 /// one line, and the time under it.
 ///
 /// The titles share one font size: it starts at 16.5 and steps down by 0.25 until every title
@@ -22,9 +22,10 @@ class HomeHeardToday extends StatelessWidget {
     required this.onAll,
     this.today = true,
     this.coach = false,
+    this.showWelcome = false,
   });
 
-  /// Up to three, newest first ([pick]).
+  /// Newest first ([pick]), bounded by [limitFor].
   final List<ServerConversation> conversations;
 
   /// Opens All conversations.
@@ -35,6 +36,7 @@ class HomeHeardToday extends StatelessWidget {
 
   /// Shows the first day's line under the label ("Omi is listening. Your first notes appear here…").
   final bool coach;
+  final bool showWelcome;
 
   /// `.coach`: at most 32ch of its 14 pt.
   static double _coachWidth(BuildContext context) {
@@ -49,6 +51,11 @@ class HomeHeardToday extends StatelessWidget {
   }
 
   static const int limit = 3;
+  static int limitFor(MediaQueryData media) {
+    final availableHeight = media.size.height - media.padding.vertical - media.viewInsets.bottom;
+    return media.size.width >= 360 && availableHeight / media.textScaler.scale(1) >= 740 ? 5 : 3;
+  }
+
   static const double tile = 42;
   static const double gap = 12;
   static const double maxTitle = 16.5;
@@ -59,13 +66,10 @@ class HomeHeardToday extends StatelessWidget {
   static const double labelTop = 22;
   static const double labelBottom = 10;
 
-  /// Today's conversations, newest first, up to [limit]; when there are none today, the latest
-  /// [limit] instead (the label then says Latest, see [isToday]).
-  static List<ServerConversation> pick(ConversationProvider provider,
-      {int limit = HomeHeardToday.limit, DateTime? now}) {
-    final all = _newestFirst(provider);
-    final todays = all.where((c) => isToday(c, now: now)).take(limit).toList();
-    return todays.isNotEmpty ? todays : all.take(limit).toList();
+  /// The latest conversations across days, up to [limit]. Fill spare rows with
+  /// earlier notes when there are fewer than [limit] today.
+  static List<ServerConversation> pick(ConversationProvider provider, {int limit = HomeHeardToday.limit}) {
+    return _newestFirst(provider).take(limit).toList();
   }
 
   /// Whether [conversation] started on the local calendar day of [now].
@@ -77,10 +81,14 @@ class HomeHeardToday extends StatelessWidget {
 
   static List<ServerConversation> _newestFirst(ConversationProvider provider) {
     final dates = provider.groupedConversations.keys.toList()..sort((a, b) => b.compareTo(a));
-    return [
+    final byId = <String, ServerConversation>{
+      for (final c in provider.processingConversations)
+        if (!c.discarded) c.id: c,
       for (final date in dates)
-        ...(provider.groupedConversations[date] ?? const <ServerConversation>[]).where((c) => !c.discarded),
-    ];
+        for (final c in provider.groupedConversations[date] ?? const <ServerConversation>[])
+          if (!c.discarded) c.id: c,
+    };
+    return byId.values.toList()..sort((a, b) => (b.startedAt ?? b.createdAt).compareTo(a.startedAt ?? a.createdAt));
   }
 
   /// The one title size at which every title in [titles] fits [width] on one line, from [maxTitle]
@@ -136,6 +144,7 @@ class HomeHeardToday extends StatelessWidget {
           top: labelTop,
           bottom: labelBottom,
         ),
+        if (showWelcome) const WelcomeNoteTile(),
         // `.coach` (v8.1): the first day, while Omi listens and nothing is written up yet.
         if (coach)
           Padding(
@@ -177,6 +186,7 @@ class HomeHeardToday extends StatelessWidget {
 
   static String _title(BuildContext context, ServerConversation c) {
     final title = c.structured.title.trim();
+    if (c.status != ConversationStatus.completed && title.isEmpty) return context.l10n.transcribing;
     return title.isEmpty ? context.l10n.untitledConversation : title;
   }
 }
@@ -192,6 +202,7 @@ class _HeardRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = conversation;
+    final ready = c.status == ConversationStatus.completed;
     final at = (c.startedAt ?? c.createdAt).toLocal();
     final title = HomeHeardToday._title(context, c);
     final scaler = MediaQuery.textScalerOf(context);
@@ -200,42 +211,42 @@ class _HeardRow extends StatelessWidget {
     final lines = scaler.scale(titleSize) * 1.15 + scaler.scale(13) * 1.15;
     final between = 1 + ((HomeHeardToday.tile - lines - 1) / 2).clamp(0.0, 20.0);
     // v8.13: swipe left to delete, with Undo.
-    return SwipeToDelete(
-      key: ValueKey('home_swipe_${c.id}'),
-      conversation: c,
-      child: Semantics(
-        button: true,
-        label: title,
-        hint: context.l10n.openConversation,
-        excludeSemantics: true,
-        child: OmiPressable(
-          key: ValueKey('home_heard_${c.id}'),
-          behavior: HitTestBehavior.opaque,
-          onTap: () => openConversationDetail(context, c, index: index),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 9),
-            child: Row(
-              children: [
-                OmiDeviceTile(icon: OmiGlyphs.forSource(c.source?.name)),
-                const SizedBox(width: HomeHeardToday.gap),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(title,
-                          maxLines: 1, overflow: TextOverflow.ellipsis, style: HomeHeardToday.titleStyle(titleSize)),
-                      SizedBox(height: between),
-                      Text(OmiDateFormat.of(context).time(at), maxLines: 1, style: HomeHeardToday.timeStyle),
-                    ],
-                  ),
+    final row = Semantics(
+      button: true,
+      enabled: ready,
+      label: title,
+      hint: ready ? context.l10n.openConversation : context.l10n.omiWritingItUp,
+      excludeSemantics: true,
+      child: OmiPressable(
+        key: ValueKey('home_heard_${c.id}'),
+        behavior: HitTestBehavior.opaque,
+        onTap: ready ? () => openConversationDetail(context, c, index: index) : null,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 9),
+          child: Row(
+            children: [
+              OmiDeviceTile(icon: OmiGlyphs.forSource(c.source?.name)),
+              const SizedBox(width: HomeHeardToday.gap),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(title,
+                        maxLines: 1, overflow: TextOverflow.ellipsis, style: HomeHeardToday.titleStyle(titleSize)),
+                    SizedBox(height: between),
+                    Text(ready ? OmiDateFormat.of(context).time(at) : context.l10n.omiWritingItUp,
+                        maxLines: 1, overflow: TextOverflow.ellipsis, style: HomeHeardToday.timeStyle),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
     );
+    if (!ready) return row;
+    return SwipeToDelete(key: ValueKey('home_swipe_${c.id}'), conversation: c, child: row);
   }
 }
 

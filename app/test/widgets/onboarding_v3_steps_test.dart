@@ -4,6 +4,7 @@
 library;
 
 import 'dart:typed_data';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -23,6 +24,8 @@ import 'package:omi/pages/onboarding/voice_steps.dart';
 import 'package:omi/providers/capture_provider.dart';
 import 'package:omi/providers/conversation_provider.dart';
 import 'package:omi/providers/onboarding_provider.dart';
+import 'package:omi/providers/device_provider.dart';
+import 'package:omi/services/devices/bluetooth_readiness.dart';
 import 'package:omi/services/services.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/enums.dart';
@@ -60,6 +63,8 @@ class _Capture extends CaptureProvider {
   int finished = 0;
   int stopped = 0;
   String? source;
+  Completer<void>? finishBarrier;
+  bool failStart = false;
 
   @override
   String? get liveCaptureSource => source;
@@ -67,13 +72,17 @@ class _Capture extends CaptureProvider {
   @override
   Future streamRecording({bool resumeCapture = true}) async {
     started++;
+    if (failStart) throw StateError('Microphone unavailable');
     source = 'phone';
     recordingState = RecordingState.record;
     notifyListeners();
   }
 
   @override
-  Future<void> finishCapture() async => finished++;
+  Future<void> finishCapture() async {
+    finished++;
+    await finishBarrier?.future;
+  }
 
   @override
   Future<bool> stopStreamRecording({String reason = 'user_stopped', bool resumeHandedOffPendant = true}) async {
@@ -100,6 +109,7 @@ class _Capture extends CaptureProvider {
 }
 
 class _Conversations extends ConversationProvider {
+  final toggled = <(String, String, bool)>[];
   void inFlight(String id) {
     processingConversations = [
       ServerConversation(
@@ -119,14 +129,20 @@ class _Conversations extends ConversationProvider {
   }
 
   @override
-  Future<void> updateGlobalActionItemState(ServerConversation conversation, String description, bool value) async {}
+  Future<void> updateGlobalActionItemState(ServerConversation conversation, String description, bool value) async {
+    toggled.add((conversation.id, description, value));
+    conversation.structured.actionItems.firstWhere((item) => item.description == description).completed = value;
+    notifyListeners();
+  }
 }
 
 class _VoiceIO implements GuidedVoiceIO {
   void Function(Uint8List)? onAudio;
+  VoidCallback? onInterrupted;
   int enrolled = 0;
   int closed = 0;
   bool enrollResult = true;
+  bool failStart = false;
 
   @override
   bool get livePreview => false;
@@ -135,7 +151,11 @@ class _VoiceIO implements GuidedVoiceIO {
   Future<void> prepare() async {}
 
   @override
-  Future<void> start(void Function(Uint8List) onAudio, VoidCallback onInterrupted) async => this.onAudio = onAudio;
+  Future<void> start(void Function(Uint8List) onAudio, VoidCallback onInterrupted) async {
+    if (failStart) throw StateError('Microphone unavailable');
+    this.onAudio = onAudio;
+    this.onInterrupted = onInterrupted;
+  }
 
   @override
   Future<void> stop() async {}
@@ -178,6 +198,7 @@ void main() {
   });
 
   setUp(() async {
+    BluetoothReadiness.instance.onNativeStateChangedForTesting('on');
     SharedPreferences.setMockInitialValues({});
     await SharedPreferencesUtil.init();
   });
@@ -187,12 +208,14 @@ void main() {
     OnboardingProvider? onboarding,
     CaptureProvider? capture,
     ConversationProvider? conversations,
+    DeviceProvider? device,
   }) =>
       MultiProvider(
         providers: [
           ChangeNotifierProvider<OnboardingProvider>.value(value: onboarding ?? _Onboarding()),
           ChangeNotifierProvider<CaptureProvider>.value(value: capture ?? _Capture()),
           ChangeNotifierProvider<ConversationProvider>.value(value: conversations ?? _Conversations()),
+          ChangeNotifierProvider<DeviceProvider>.value(value: device ?? (DeviceProvider()..isConnected = true)),
         ],
         child: MaterialApp(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -320,6 +343,65 @@ void main() {
   });
 
   group('Say a few words', () {
+    testWidgets('a dead pendant stops claiming to listen and offers phone capture immediately', (tester) async {
+      final capture = _Capture()..source = 'omi';
+      final device = DeviceProvider()..isConnected = true;
+      var switched = 0;
+      await tester.pumpWidget(app(
+        OnboardingFirstWordsStep(wearable: true, onDone: () {}, onSkip: () {}, onUsePhone: () => switched++),
+        capture: capture,
+        device: device,
+      ));
+      expect(find.text('Listening on your Omi'), findsOneWidget);
+      device.setIsConnected(false);
+      await tester.pump();
+      expect(find.text('Listening on your Omi'), findsNothing);
+      expect(find.byKey(const Key('onboarding_first_use_phone')), findsOneWidget);
+      expect(find.byKey(const Key('onboarding_first_skip')), findsOneWidget);
+      await tester.tap(find.byKey(const Key('onboarding_first_use_phone')));
+      await tester.pump();
+      expect(capture.started, 1);
+      expect(switched, 1);
+      expect(find.text('Listening on this phone'), findsOneWidget);
+      capture.hear('A first note');
+      await tester.pump();
+      expect(find.text('note '), findsOneWidget);
+    });
+
+    testWidgets('a refused phone fallback leaves retry, Settings and skip available', (tester) async {
+      final capture = _Capture()..failStart = true;
+      await tester.pumpWidget(app(
+        OnboardingFirstWordsStep(wearable: true, onDone: () {}, onSkip: () {}),
+        capture: capture,
+        device: DeviceProvider(),
+      ));
+      await tester.tap(find.byKey(const Key('onboarding_first_use_phone')));
+      await tester.pump();
+      expect(find.text('Listening on this phone'), findsNothing);
+      expect(find.text('Open Settings'), findsOneWidget);
+      expect(find.byKey(const Key('onboarding_first_skip')), findsOneWidget);
+    });
+
+    testWidgets('Done advances after twelve seconds even when finalization never returns', (tester) async {
+      final barrier = Completer<void>();
+      final capture = _Capture()..finishBarrier = barrier;
+      var done = 0;
+      await tester.pumpWidget(app(
+        OnboardingFirstWordsStep(wearable: false, onDone: () => done++, onSkip: () {}),
+        capture: capture,
+      ));
+      await tester.pump();
+      capture.hear('Keep these words');
+      await tester.pump();
+      await tester.tap(find.byKey(const Key('onboarding_first_done')));
+      await tester.pump(const Duration(seconds: 11));
+      expect(done, 0);
+      await tester.pump(const Duration(seconds: 1));
+      expect(done, 1);
+      barrier.complete();
+      await tester.pump();
+      expect(done, 1);
+    });
     testWidgets('this phone listens; the words show; Done ends the recording', (tester) async {
       final capture = _Capture();
       final order = <String>[];
@@ -350,7 +432,9 @@ void main() {
     });
 
     testWidgets('the pendant listens already; words heard while pairing stay out', (tester) async {
-      final capture = _Capture()..hear('pairing chatter');
+      final capture = _Capture()
+        ..source = 'omi'
+        ..hear('pairing chatter');
       await tester.pumpWidget(app(
         OnboardingFirstWordsStep(wearable: true, onDone: () {}, onSkip: () {}),
         capture: capture,
@@ -383,14 +467,15 @@ void main() {
   });
 
   group('Your first conversation', () {
-    ServerConversation written({bool discarded = false}) => ServerConversation(
+    ServerConversation written({bool discarded = false, Structured? structured}) => ServerConversation(
           id: 'first',
           createdAt: DateTime.now(),
           startedAt: DateTime.now().subtract(const Duration(seconds: 6)),
           finishedAt: DateTime.now(),
           discarded: discarded,
-          structured: Structured('Call Sam tomorrow', 'You want to call Sam tomorrow.')
-            ..actionItems = [ActionItem('Call Sam')],
+          structured: structured ??
+              (Structured('Call Sam tomorrow', 'You want to call Sam tomorrow.')
+                ..actionItems = [ActionItem('Call Sam')]),
         );
 
     testWidgets('writes it up, then shows the title, the summary and its to-dos', (tester) async {
@@ -415,11 +500,41 @@ void main() {
       expect(find.text('Summary'), findsOneWidget);
       expect(find.text('To do from this'), findsOneWidget);
       expect(find.text('Call Sam'), findsOneWidget);
+      await tester.tap(find.byType(OmiCheckRing));
+      await tester.pump();
+      expect(conversations.toggled, [('first', 'Call Sam', true)]);
       await tester.tap(find.byKey(const Key('onboarding_result_continue')));
       expect(next, 1);
     });
 
-    testWidgets('a recording too short to write up says so and moves on', (tester) async {
+    testWidgets('arbitrary reminder content comes from processing; ordinary speech creates no demo task',
+        (tester) async {
+      final conversations = _Conversations();
+      final result = written(
+          structured: Structured('Buy groceries', 'Pick up oat milk this evening.')
+            ..actionItems = [ActionItem('Buy oat milk')]);
+      conversations.arrive(result);
+      await tester.pumpWidget(app(
+        OnboardingFirstResultStep(knownIds: const {}, wearable: false, onContinue: () {}),
+        conversations: conversations,
+      ));
+      await tester.pump();
+      expect(find.text('Buy oat milk'), findsOneWidget);
+      expect(find.text('Call Sam'), findsNothing);
+      final plain = _Conversations()
+        ..arrive(written(structured: Structured('A first note', 'I enjoyed my walk today.')));
+      await tester.pumpWidget(app(
+        OnboardingFirstResultStep(
+            key: const Key('ordinary_speech'), knownIds: const {}, wearable: false, onContinue: () {}),
+        conversations: plain,
+      ));
+      await tester.pump();
+      expect(find.text('A first note'), findsOneWidget);
+      expect(find.byType(OmiCheckRing), findsNothing);
+      expect(find.text('Call Sam'), findsNothing);
+    });
+
+    testWidgets('missing upload stays pending; only a discarded result is too short', (tester) async {
       final conversations = _Conversations();
       await tester.pumpWidget(app(
         OnboardingFirstResultStep(
@@ -432,11 +547,13 @@ void main() {
       ));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 400));
-      expect(find.textContaining('too short'), findsOneWidget);
+      expect(find.textContaining('too short'), findsNothing);
+      expect(find.byKey(const ValueKey('still')), findsOneWidget);
 
       final discarded = _Conversations();
       await tester.pumpWidget(app(
-        OnboardingFirstResultStep(knownIds: const {}, wearable: true, onContinue: () {}),
+        OnboardingFirstResultStep(
+            key: const Key('discarded_result'), knownIds: const {}, wearable: true, onContinue: () {}),
         conversations: discarded,
       ));
       discarded.arrive(written(discarded: true));
@@ -461,6 +578,47 @@ void main() {
   });
 
   group('Teach Omi your voice', () {
+    testWidgets('microphone interruption exits reading without saving a partial voice profile', (tester) async {
+      final io = _VoiceIO();
+      var done = 0;
+      await tester.pumpWidget(app(OnboardingVoiceReadStep(io: io, onDone: () => done++)));
+      await tester.pump();
+      io.feed(1000, loud: true);
+      io.onInterrupted!();
+      await tester.pump();
+      expect(done, 1);
+      expect(io.enrolled, 0);
+      expect(io.closed, 1);
+    });
+
+    testWidgets('microphone start failure leaves onboarding available and saves no voice', (tester) async {
+      final io = _VoiceIO()..failStart = true;
+      var done = 0;
+      await tester.pumpWidget(app(OnboardingVoiceReadStep(io: io, onDone: () => done++)));
+      await tester.pump();
+      expect(done, 1);
+      expect(io.enrolled, 0);
+      expect(io.closed, 1);
+    });
+
+    testWidgets('rejected voice enrollment reports failure while completing the three-line flow', (tester) async {
+      final io = _VoiceIO()..enrollResult = false;
+      var done = 0;
+      bool? enrolled;
+      await tester
+          .pumpWidget(app(OnboardingVoiceReadStep(io: io, onDone: () => done++, onEnrolled: (ok) => enrolled = ok)));
+      await tester.pump();
+      for (var line = 0; line < 3; line++) {
+        io
+          ..feed(2000, loud: true)
+          ..feed(800, loud: false);
+        await tester.pump();
+      }
+      expect(done, 1);
+      expect(enrolled, isFalse);
+      expect(io.closed, 1);
+    });
+
     testWidgets('Start or Do this later', (tester) async {
       var started = 0;
       var later = 0;

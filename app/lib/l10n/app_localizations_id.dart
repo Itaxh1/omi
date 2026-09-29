@@ -12841,4 +12841,8 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get usePhoneV3 => 'Pakai ponsel';
+
+  @override
+  String get welcomeNoteBody =>
+      'Terima kasih telah mulai menggunakan Omi! Percakapanmu menjadi catatan yang dapat dibaca kembali. Saat catatan diproses, kamu dapat melihat progresnya di Beranda. Bergabunglah dengan kami di Discord untuk bantuan atau berbagi ide.\n\nDengan terima kasih,\nPengembang Omi';
 }

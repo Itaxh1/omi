@@ -17,6 +17,7 @@ import 'package:omi/backend/schema/app.dart';
 import 'package:omi/backend/schema/conversation.dart';
 import 'package:omi/backend/schema/message.dart';
 import 'package:omi/pages/chat/chat_scroll_policy.dart';
+import 'package:omi/pages/chat/chat_mic_handoff.dart';
 import 'package:omi/pages/chat/widgets/ai_message.dart';
 import 'package:omi/pages/chat/widgets/jump_to_latest_button.dart';
 import 'package:omi/pages/settings/widgets/plans_sheet.dart';
@@ -26,6 +27,7 @@ import 'package:omi/pages/settings/integrations_page.dart';
 import 'package:omi/providers/app_provider.dart';
 import 'package:omi/providers/connectivity_provider.dart';
 import 'package:omi/providers/conversation_provider.dart';
+import 'package:omi/providers/capture_provider.dart';
 import 'package:omi/providers/home_provider.dart';
 import 'package:omi/providers/integration_provider.dart';
 import 'package:omi/providers/message_provider.dart';
@@ -34,6 +36,7 @@ import 'package:omi/providers/usage_provider.dart';
 import 'package:omi/providers/voice_recorder_provider.dart';
 import 'package:omi/services/integrations/apple_health_service.dart';
 import 'package:omi/utils/l10n_extensions.dart';
+import 'package:omi/utils/logger.dart';
 import 'package:omi/utils/other/temp.dart';
 import 'package:omi/pages/chat/past_chats_page.dart';
 import 'package:omi/pages/chat/widgets/chat_apps_drawer.dart' show ChatAppAvatar;
@@ -111,6 +114,7 @@ class ChatPageState extends State<ChatPage>
 
   String? _selectedContext;
   bool _quotaSheetShown = false;
+  bool _startingVoice = false;
   ChatPageContext? _chatScope;
 
   @override
@@ -135,6 +139,7 @@ class ChatPageState extends State<ChatPage>
     });
 
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted) return;
       var provider = context.read<MessageProvider>();
       _messageProvider = provider;
       // Listen for quota exceeded from any send path (text or voice)
@@ -164,7 +169,7 @@ class ChatPageState extends State<ChatPage>
       // Auto-start voice recording if requested (e.g., from home chat bar mic button)
       if (widget.autoStartVoice && _isInitialLoad) {
         _runLater(const Duration(milliseconds: 300), () {
-          context.read<VoiceRecorderProvider>().startRecording();
+          _startVoiceRecording();
         });
       } else if (_isInitialLoad) {
         // Auto-focus the text field only on initial load, not on app switches
@@ -209,6 +214,23 @@ class ChatPageState extends State<ChatPage>
       _showPlansSheetOnQuotaExceeded();
     } else if (!provider.isChatQuotaExceeded) {
       _quotaSheetShown = false;
+    }
+  }
+
+  Future<void> _startVoiceRecording() async {
+    if (_startingVoice) return;
+    _startingVoice = true;
+    final voice = context.read<VoiceRecorderProvider>();
+    try {
+      await startChatDictation(voice, context.read<CaptureProvider?>(), canStart: () => mounted);
+      if (mounted && !voice.isActive) {
+        OmiFeedback.error(context, context.l10n.somethingWentWrong);
+      }
+    } catch (error) {
+      Logger.warning('Chat dictation did not start: $error');
+      if (mounted) OmiFeedback.error(context, context.l10n.somethingWentWrong);
+    } finally {
+      _startingVoice = false;
     }
   }
 
@@ -523,13 +545,22 @@ class ChatPageState extends State<ChatPage>
                                                       voiceRecorderProvider.isActive
                                                           ? VoiceRecorderWidget(
                                                               onTranscriptReady: (transcript, autoSend) {
-                                                                textController.text = transcript;
+                                                                if (!mounted) return;
+                                                                final draft = [
+                                                                  textController.text.trim(),
+                                                                  transcript.trim()
+                                                                ].where((part) => part.isNotEmpty).join(' ');
+                                                                textController.value = TextEditingValue(
+                                                                  text: draft,
+                                                                  selection:
+                                                                      TextSelection.collapsed(offset: draft.length),
+                                                                );
                                                                 voiceRecorderProvider.close();
                                                                 context
                                                                     .read<MessageProvider>()
                                                                     .setNextMessageOriginIsVoice(true);
                                                                 if (autoSend && transcript.trim().isNotEmpty) {
-                                                                  _sendMessageUtil(transcript.trim());
+                                                                  _sendMessageUtil(draft);
                                                                 }
                                                               },
                                                               onClose: () {
@@ -604,7 +635,20 @@ class ChatPageState extends State<ChatPage>
                                                       voiceRecorderProvider.processRecording();
                                                     },
                                                   ),
-                                                // v8.1: no mic in the field; Ask is typed.
+                                                if (!voiceRecorderProvider.isActive)
+                                                  ChatComposerRoundButton(
+                                                    buttonKey: const ValueKey('omi.chat.voice.start'),
+                                                    icon: const Icon(Icons.mic_none_rounded),
+                                                    label: context.l10n.startRecording,
+                                                    onPressed:
+                                                        provider.isUploadingFiles || !shouldShowSendButton(provider)
+                                                            ? null
+                                                            : () {
+                                                                FocusScope.of(context).unfocus();
+                                                                OmiHaptics.light();
+                                                                _startVoiceRecording();
+                                                              },
+                                                  ),
                                               ],
                                             ),
                                           ),

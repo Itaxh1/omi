@@ -16,6 +16,7 @@ import 'package:omi/providers/capture_provider.dart';
 import 'package:omi/providers/local_recordings_provider.dart';
 import 'package:omi/services/capture/capture_wedge_monitor.dart';
 import 'package:omi/services/devices.dart';
+import 'package:omi/services/devices/battery_alert_policy.dart';
 import 'package:omi/services/devices/connectors/device_connection.dart';
 import 'package:omi/services/devices/connectors/omi_connection.dart';
 import 'package:omi/services/bridges/ble_bridge.dart';
@@ -35,6 +36,7 @@ import 'package:omi/utils/other/debouncer.dart';
 import 'package:omi/utils/platform/platform_manager.dart';
 import 'package:omi/widgets/confirmation_dialog.dart';
 import 'package:omi/ui/feedback/omi_dialogs.dart';
+import 'package:omi/ui/feedback/omi_feedback.dart';
 
 typedef BleDiagnosticsLoader = Future<BleDeviceDiagnostics> Function(String deviceId);
 typedef FindDeviceRunner = Future<bool> Function(BtDevice device);
@@ -90,7 +92,7 @@ class DeviceProvider extends ChangeNotifier implements IDeviceServiceSubsciption
   bool isCharging = false;
   int _lastNotifiedBatteryLevel = -1;
   DateTime? _lastBatteryNotifyTime;
-  bool _hasLowBatteryAlerted = false;
+  final _batteryAlerts = BatteryAlertPolicy();
   bool _hasFullyChargedAlerted = false;
   bool _havingNewFirmware = false;
   bool get havingNewFirmware =>
@@ -465,16 +467,7 @@ class DeviceProvider extends ChangeNotifier implements IDeviceServiceSubsciption
           deviceType: connectedDevice?.type.name ?? 'omi',
           isConnected: true,
         );
-        if (batteryLevel < 20 && !_hasLowBatteryAlerted) {
-          _hasLowBatteryAlerted = true;
-          final ctx = globalNavigatorKey.currentContext;
-          NotificationService.instance.createNotification(
-            title: ctx?.l10n.lowBatteryAlertTitle ?? "Low Battery Alert",
-            body: ctx?.l10n.lowBatteryAlertBody(value) ?? "Your battery is at $value%. Time for a recharge! 🔋",
-          );
-        } else if (batteryLevel > 20) {
-          _hasLowBatteryAlerted = false;
-        }
+        _notifyLowBattery();
         if (isCharging && batteryLevel >= 100 && !_hasFullyChargedAlerted) {
           _hasFullyChargedAlerted = true;
           final ctx = globalNavigatorKey.currentContext;
@@ -491,8 +484,7 @@ class DeviceProvider extends ChangeNotifier implements IDeviceServiceSubsciption
         final elapsed = _lastBatteryNotifyTime == null
             ? const Duration(minutes: 999)
             : DateTime.now().difference(_lastBatteryNotifyTime!);
-        final crossedLowBatteryThreshold =
-            (value < 20 && _lastNotifiedBatteryLevel >= 20) || (value >= 20 && _lastNotifiedBatteryLevel < 20);
+        final crossedLowBatteryThreshold = BatteryAlertPolicy.crossedThreshold(_lastNotifiedBatteryLevel, value);
         final shouldNotify =
             _lastNotifiedBatteryLevel == -1 || delta >= 5 || elapsed.inMinutes >= 15 || crossedLowBatteryThreshold;
         if (shouldNotify) {
@@ -533,6 +525,7 @@ class DeviceProvider extends ChangeNotifier implements IDeviceServiceSubsciption
         if (!_isCurrent(generation)) return;
         if (isCharging != charging) {
           isCharging = charging;
+          _notifyLowBattery();
           BatteryWidgetService().updateChargingState(charging);
           if (!charging) {
             _hasFullyChargedAlerted = false;
@@ -554,6 +547,22 @@ class DeviceProvider extends ChangeNotifier implements IDeviceServiceSubsciption
     }
   }
 
+  void _notifyLowBattery() {
+    final deviceId = connectedDevice?.id;
+    if (deviceId == null ||
+        !_batteryAlerts.shouldAlert(deviceId: deviceId, level: batteryLevel, charging: isCharging)) {
+      return;
+    }
+    final ctx = globalNavigatorKey.currentContext;
+    if (batteryLevel <= 5 && ctx != null && ctx.mounted) {
+      OmiFeedback.info(ctx, ctx.l10n.lowBatteryAlertBody(batteryLevel));
+    }
+    NotificationService.instance.createNotification(
+      title: ctx?.l10n.lowBatteryAlertTitle ?? 'Low Battery Alert',
+      body: ctx?.l10n.lowBatteryAlertBody(batteryLevel) ?? 'Your battery is at $batteryLevel%. Time for a recharge! 🔋',
+    );
+  }
+
   /// Updates battery level with throttling logic. Returns true if notifyListeners was called.
   /// This method is exposed for testing the throttling behavior.
   @visibleForTesting
@@ -566,8 +575,7 @@ class DeviceProvider extends ChangeNotifier implements IDeviceServiceSubsciption
     final delta = (_lastNotifiedBatteryLevel - value).abs();
     final elapsed =
         _lastBatteryNotifyTime == null ? const Duration(minutes: 999) : currentTime.difference(_lastBatteryNotifyTime!);
-    final crossedLowBatteryThreshold =
-        (value < 20 && _lastNotifiedBatteryLevel >= 20) || (value >= 20 && _lastNotifiedBatteryLevel < 20);
+    final crossedLowBatteryThreshold = BatteryAlertPolicy.crossedThreshold(_lastNotifiedBatteryLevel, value);
     final shouldNotify =
         _lastNotifiedBatteryLevel == -1 || delta >= 5 || elapsed.inMinutes >= 15 || crossedLowBatteryThreshold;
     if (shouldNotify) {
@@ -842,9 +850,7 @@ class DeviceProvider extends ChangeNotifier implements IDeviceServiceSubsciption
     if (!_isCurrent(generation)) return;
     await initiateChargingStatusListener();
     if (!_isCurrent(generation)) return;
-    if (batteryLevel != -1 && batteryLevel < 20) {
-      _hasLowBatteryAlerted = false;
-    }
+    _notifyLowBattery();
     updateConnectingStatus(false);
     await captureProvider?.streamDeviceRecording(device: normalizedDevice);
     if (!_isCurrent(generation)) return;
