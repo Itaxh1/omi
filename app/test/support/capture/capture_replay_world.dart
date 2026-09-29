@@ -10,7 +10,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:omi/backend/schema/phone_call.dart';
 import 'package:omi/backend/preferences.dart';
 import 'package:omi/backend/schema/bt_device/bt_device.dart';
-import 'package:omi/backend/schema/conversation.dart' show SyncLocalFilesResponse;
+import 'package:omi/backend/schema/conversation.dart' show SyncLocalFilesResponse, CreateConversationResponse;
+import 'package:omi/services/capture/capture_external_actions.dart';
 import 'package:omi/backend/schema/geolocation.dart';
 import 'package:omi/gen/phone_mic_pigeon.g.dart';
 import 'package:omi/models/custom_stt_config.dart';
@@ -289,6 +290,7 @@ class CaptureReplayWorld {
 
   /// Runs when the controller asks the server to process the in-progress conversation.
   void Function()? onProcessInProgress;
+  Future<CreateConversationResponse?> Function()? processResult;
   int tokenRefreshCalls = 0;
   final List<String> timeline = [];
 
@@ -300,6 +302,7 @@ class CaptureReplayWorld {
 
   CaptureReplayWorld({required this.tempDir, required this.clock, required this.uploads, required this.pendantCodec});
 
+  CaptureExternalActions? draftActions;
   bool _disposed = false;
   bool _controllerDisposed = false;
 
@@ -311,6 +314,7 @@ class CaptureReplayWorld {
     bool initiallyConnected = true,
     bool supportsBatch = true,
     BleAudioCodec pendantCodec = BleAudioCodec.pcm16,
+    CaptureExternalActions? externalActions,
   }) async {
     TestWidgetsFlutterBinding.ensureInitialized();
     final start = startTime ?? defaultStart;
@@ -320,6 +324,7 @@ class CaptureReplayWorld {
       uploads: ScriptedUploads(VirtualClock(start)),
       pendantCodec: pendantCodec,
     );
+    world.draftActions = externalActions;
     world.connected = initiallyConnected;
     await world._bootGeneration(supportsBatch: supportsBatch, initialPrefs: initialPrefs, firstBoot: true);
     return world;
@@ -370,6 +375,7 @@ class CaptureReplayWorld {
     connectivityStream = StreamController<bool>.broadcast();
     _controller = _ReplayCaptureController(
       world: this,
+      externalActions: draftActions,
       walService: wal,
       phoneMicRecorder: mic,
       phoneMicBatchSupported: supportsBatch,
@@ -393,7 +399,7 @@ class CaptureReplayWorld {
       processInProgressConversation: () async {
         processCalls++;
         onProcessInProgress?.call();
-        return null;
+        return processResult?.call();
       },
       audioCodecLoader: (deviceId) async => pendantCodec,
       microphonePermissionRequester: () async => allowMic,
@@ -585,6 +591,7 @@ class _ReplayCaptureController extends CaptureController {
     super.deviceConnectionLoader,
     super.processInProgressConversation,
     super.omiCallState,
+    super.externalActions,
   });
 
   @override

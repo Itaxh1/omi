@@ -1,3 +1,5 @@
+import 'package:omi/services/capture/optimistic_processing.dart';
+
 /// When a homepage processing card should warn that work looks stuck (#5481).
 const Duration conversationProcessingTimeout = Duration(minutes: 2);
 
@@ -12,6 +14,6 @@ bool isConversationProcessingTimedOut({
   required DateTime now,
   Duration timeout = conversationProcessingTimeout,
 }) {
-  if (conversationId == '0') return false;
+  if (OptimisticProcessingPlaceholder.isLocal(conversationId)) return false;
   return !now.isBefore(processingStartedAt.add(timeout));
 }

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:omi/services/capture/optimistic_processing.dart';
 import 'package:omi/utils/platform/platform_manager.dart';
 import 'package:flutter/foundation.dart';
 
@@ -1200,7 +1201,7 @@ class ConversationProvider extends ChangeNotifier {
 
   Map<String, ServerConversation> _realProcessingConversationsById() => {
         for (final conversation in processingConversations)
-          if (conversation.id != '0') conversation.id: conversation,
+          if (!OptimisticProcessingPlaceholder.isLocal(conversation.id)) conversation.id: conversation,
       };
 
   Future<Map<String, ({ServerConversation? item, bool ok})>> _loadProcessingLifecycleResults(
@@ -1280,10 +1281,13 @@ class ConversationProvider extends ChangeNotifier {
     Map<String, int> processingRevisionsAtStart,
     Map<String, ServerConversation> processingRowsAtStart,
   ) {
-    final localPlaceholder = processingConversations.where((conversation) => conversation.id == '0').toList();
+    final localPlaceholder = processingConversations
+        .where((conversation) => OptimisticProcessingPlaceholder.isLocal(conversation.id))
+        .toList();
     final reconciled = <ServerConversation>[];
 
-    for (final existing in processingConversations.where((conversation) => conversation.id != '0')) {
+    for (final existing
+        in processingConversations.where((conversation) => !OptimisticProcessingPlaceholder.isLocal(conversation.id))) {
       // A row added or replaced by websocket after this refresh began is newer
       // than the page/detail snapshot. Preserve that live object for this pass;
       // unrelated websocket events must not block reconciliation of this ID.

@@ -500,6 +500,36 @@ class CaptureController extends ChangeNotifier
   /// conversation so the pipeline can be joined without timing heuristics.
   String? get activeRecordingId => _recordingTelemetry.recordingId;
 
+  ServerConversation? _liveDraft;
+  ServerConversation? _finishingDraft;
+  final Map<String, String> _processingDraftServerIds = {};
+
+  /// Presentation only: no empty conversation is written to the server. A pause
+  /// retains this identity; a new recording or automatic boundary gets a new one.
+  ServerConversation? get liveConversationDraft {
+    final recordingId = activeRecordingId;
+    final source = liveCaptureSource;
+    if (recordingId == null || source == null || isCaptureStopped || _finishingDraft != null) return null;
+    final id = 'local-draft-$recordingId-$_systemSurfaceConversationRevision';
+    if (_liveDraft?.id != id) {
+      _liveDraft = OptimisticProcessingPlaceholder.recording(
+        recordingId: recordingId,
+        revision: _systemSurfaceConversationRevision,
+        startedAt: liveCaptureStartedAt ?? _now(),
+        source: ConversationSource.values.where((s) => s.name == source).firstOrNull,
+      );
+    }
+    return _liveDraft;
+  }
+
+  void _acknowledgeProcessingDraft(String serverId) {
+    final drafts = _processingDraftServerIds.entries.where((e) => e.value == serverId).map((e) => e.key).toList();
+    for (final id in drafts) {
+      externalActions.removeProcessingConversation(id);
+      _processingDraftServerIds.remove(id);
+    }
+  }
+
   // Identifies a conversation boundary within a continuous recording. This is
   // presentation/action identity, not another capture authorization generation.
   int _systemSurfaceConversationRevision = 0;
@@ -2665,8 +2695,25 @@ class CaptureController extends ChangeNotifier
   /// recording is stopped and processed before a pendant it took over from resumes, so the
   /// processing request reaches the phone's conversation, not the pendant's next one.
   Future<void> finishCapture() async {
-    final outcome = await _capture.dispatch(const FinishRequested());
-    outcome.throwIfFailed();
+    // The phone's teardown clears its recording ID before the process stage.
+    // Retain the visible row across that await, so Stop never makes it disappear.
+    final draft = liveConversationDraft;
+    if (draft != null && !systemSurfaceBatchCapture) {
+      _finishingDraft = draft;
+      _processingDraftServerIds[draft.id] = _conversation?.id ?? activeRecordingId!;
+      externalActions.addProcessingConversation(OptimisticProcessingPlaceholder.generating(draft, _now()));
+    }
+    try {
+      final outcome = await _capture.dispatch(const FinishRequested());
+      outcome.throwIfFailed();
+    } finally {
+      if (draft != null && !lifetime.isClosed) {
+        externalActions.removeProcessingConversation(draft.id);
+        _processingDraftServerIds.remove(draft.id);
+      }
+      _finishingDraft = null;
+      if (!lifetime.isClosed) notifyListeners();
+    }
   }
 
   // -- Start / Stop / Mute: the reader's two controls ----------------------------------------------
@@ -2712,17 +2759,21 @@ class CaptureController extends ChangeNotifier
 
   Future<bool> _stopCapture() async {
     final heard = segments.isNotEmpty || photos.isNotEmpty;
+    // Final transcript callbacks may still be in flight when Stop is tapped.
+    // Ask the server to finish every admitted live recording; it remains the
+    // authority on whether speech exists. An empty result removes the draft.
+    final process = heard || (liveCaptureStartedAt != null && !systemSurfaceBatchCapture);
     final source = liveCaptureSource;
     if (source == null || source == ConversationSource.phone.name) {
       // Finishing is the phone's stop and processes what it heard; a silent one only stops.
-      if (heard) {
+      if (process) {
         await finishCapture();
       } else {
         await stopStreamRecording();
       }
       return heard;
     }
-    if (heard) await finishCapture();
+    if (process) await finishCapture();
     if (canMuteLiveSource) {
       if (!isPaused) await pauseCapture();
       await _markStopped();
@@ -3354,7 +3405,7 @@ class CaptureController extends ChangeNotifier
     if (event is ConversationProcessingStartedEvent) {
       // Replace the optimistic Process Now placeholder once the server confirms
       // a real processing row, so timeout/retry apply to the confirmed id.
-      externalActions.removeProcessingConversation(OptimisticProcessingPlaceholder.id);
+      _acknowledgeProcessingDraft(event.memory.id);
       externalActions.addProcessingConversation(event.memory);
       _pendingAutoSyncSessionStart = _sessionStartSeconds;
       _pendingAutoSyncConversationId = event.memory.id;
@@ -3384,7 +3435,7 @@ class CaptureController extends ChangeNotifier
 
     if (event is ConversationEvent) {
       event.memory.isNew = true;
-      externalActions.removeProcessingConversation(OptimisticProcessingPlaceholder.id);
+      _acknowledgeProcessingDraft(event.memory.id);
       externalActions.removeProcessingConversation(event.memory.id);
       _processConversationCreated(event.memory, event.messages.cast<ServerMessage>());
       _autoSyncFallbackTimer?.cancel();
@@ -3484,20 +3535,37 @@ class CaptureController extends ChangeNotifier
     final recordingId = activeRecordingId;
     final conversationRevision = _systemSurfaceConversationRevision;
     final recordingSessionId = activeRecordingId;
+    final draft = _finishingDraft ??
+        liveConversationDraft ??
+        OptimisticProcessingPlaceholder.recording(
+          recordingId: const Uuid().v4(),
+          revision: 0,
+          startedAt: _now(),
+        );
+    final placeholderId = draft.id;
+    final serverId = _conversation?.id ?? activeRecordingId;
+    if (serverId != null) _processingDraftServerIds[placeholderId] = serverId;
 
     final phoneSync = _wal.getSyncs().phone;
     // Show the Conversations-tab skeleton before the WAL drain. Awaiting
     // finalizeCurrentSession first is the 30–60s dead window users hit today.
     // Add the placeholder before reset so a concurrent rebuild cannot drop it.
-    externalActions.addProcessingConversation(OptimisticProcessingPlaceholder.conversation());
+    externalActions.addProcessingConversation(OptimisticProcessingPlaceholder.generating(draft, _now()));
 
-    await phoneSync.finalizeCurrentSession();
+    try {
+      await phoneSync.finalizeCurrentSession();
+    } catch (_) {
+      _processingDraftServerIds.remove(placeholderId);
+      if (!lifetime.isClosed) externalActions.removeProcessingConversation(placeholderId);
+      rethrow;
+    }
     if (lifetime.isClosed ||
         recordingId != activeRecordingId ||
         conversationRevision != _systemSurfaceConversationRevision) {
       // Another path finished this conversation during the drain; never reset
       // the next one, and never leave the skeleton stranded.
-      externalActions.removeProcessingConversation(OptimisticProcessingPlaceholder.id);
+      externalActions.removeProcessingConversation(placeholderId);
+      _processingDraftServerIds.remove(placeholderId);
       return;
     }
     _clearSessionLocation();
@@ -3505,21 +3573,30 @@ class CaptureController extends ChangeNotifier
     _resetStateVariables();
     final process = _processInProgressConversationOverride ?? processInProgressConversation;
     final request = process();
-    _processInFlight = request.then((_) {}, onError: (_) {});
-    request.then((result) async {
+    _processInFlight = request.then((result) async {
+      if (lifetime.isClosed) return;
       final conversationId = await OptimisticProcessingPlaceholder.applyProcessResult(
+        placeholderId: placeholderId,
         result: result,
         actions: externalActions,
         onCreated: _processConversationCreated,
       );
-      if (sessionStart > 0 && conversationId != null) {
+      if (!lifetime.isClosed && sessionStart > 0 && conversationId != null) {
         if (phoneSync is LocalWalSyncImpl) {
           phoneSync.prepareConversationStamp(recordingSessionId);
         }
         await phoneSync.stampConversationId(sessionStart, conversationId);
         _autoSyncSessionWals();
       }
+    }).whenComplete(() {
+      _processingDraftServerIds.remove(placeholderId);
+      if (!lifetime.isClosed) externalActions.removeProcessingConversation(placeholderId);
     });
+    // The coordinator awaits the failure. Direct Process Now callers return
+    // before HTTP completes, so also observe errors to avoid an unhandled future.
+    unawaited(_processInFlight!.then((_) {}, onError: (Object e) {
+      Logger.debug('Conversation generation failed: $e');
+    }));
   }
 
   /// Force-drain tail buffer and stamp all session WALs with conversation ID.

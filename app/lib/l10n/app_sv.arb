@@ -4013,5 +4013,7 @@
     "howToPairV3": "Så parkopplar du",
     "omiNotInRangeUsePhone": "{device} är utom räckhåll. Använd den här telefonen så länge?",
     "usePhoneV3": "Använd telefonen",
-    "welcomeNoteBody": "Tack för att du börjar använda Omi! Dina samtal blir anteckningar som du kan återvända till. Medan en anteckning bearbetas kan du följa förloppet på startsidan. Gå med oss på Discord för hjälp eller för att dela en idé.\n\nMed tack,\nOmi-utvecklarna"
+    "welcomeNoteBody": "Tack för att du börjar använda Omi! Dina samtal blir anteckningar som du kan återvända till. Medan en anteckning bearbetas kan du följa förloppet på startsidan. Gå med oss på Discord för hjälp eller för att dela en idé.\n\nMed tack,\nOmi-utvecklarna",
+    "conversationUntitledDraft": "Namnlöst utkast",
+    "conversationGenerating": "Genererar…"
 }

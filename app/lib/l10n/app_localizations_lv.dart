@@ -12853,4 +12853,10 @@ class AppLocalizationsLv extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Paldies, ka sākāt lietot Omi! Jūsu sarunas kļūst par piezīmēm, pie kurām varat atgriezties. Piezīmes apstrādes gaitu varat redzēt sākuma ekrānā. Pievienojieties mums Discord, lai saņemtu palīdzību vai dalītos idejā.\n\nAr pateicību,\nOmi izstrādātāji';
+
+  @override
+  String get conversationUntitledDraft => 'Melnraksts bez nosaukuma';
+
+  @override
+  String get conversationGenerating => 'Tiek veidots…';
 }

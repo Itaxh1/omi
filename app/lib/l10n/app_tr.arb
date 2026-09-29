@@ -4048,5 +4048,7 @@
     "howToPairV3": "Nasıl eşlenir",
     "omiNotInRangeUsePhone": "{device} kapsama alanı dışında. Şimdilik bu telefonu kullanalım mı?",
     "usePhoneV3": "Telefonu kullan",
-    "welcomeNoteBody": "Omi kullanmaya başladığınız için teşekkürler! Konuşmalarınız daha sonra dönüp bakabileceğiniz notlara dönüşür. Bir not işlenirken ilerlemesini ana ekranda görebilirsiniz. Yardım almak veya bir fikir paylaşmak için Discord’da bize katılın.\n\nTeşekkürlerimizle,\nOmi geliştiricileri"
+    "welcomeNoteBody": "Omi kullanmaya başladığınız için teşekkürler! Konuşmalarınız daha sonra dönüp bakabileceğiniz notlara dönüşür. Bir not işlenirken ilerlemesini ana ekranda görebilirsiniz. Yardım almak veya bir fikir paylaşmak için Discord’da bize katılın.\n\nTeşekkürlerimizle,\nOmi geliştiricileri",
+    "conversationUntitledDraft": "Adsız taslak",
+    "conversationGenerating": "Oluşturuluyor…"
 }

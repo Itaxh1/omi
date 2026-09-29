@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 import 'package:omi/ui/components/omi_surface.dart';
+import 'package:omi/ui/components/omi_glass_finish.dart';
 import 'package:omi/ui/omi_tokens.dart';
 
 /// The v2 floating material (tab bar, Ask button, header circles): a translucent fill (graphite,
@@ -170,6 +171,7 @@ class OmiPlainGlassButton extends StatelessWidget {
     required this.label,
     required this.onPressed,
     this.size = 50,
+    this.polished = false,
   });
 
   final Widget child;
@@ -178,20 +180,24 @@ class OmiPlainGlassButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
   final double size;
+  final bool polished;
 
   @override
   Widget build(BuildContext context) {
     final palette = OmiColors.palette;
+    final contents = IconTheme.merge(data: IconThemeData(color: OmiColors.textPrimary), child: child);
     Widget circle = Container(
       width: size,
       height: size,
-      alignment: Alignment.center,
       decoration: BoxDecoration(
         color: palette.glass,
         shape: BoxShape.circle,
         border: Border.all(color: palette.glassRim),
       ),
-      child: IconTheme.merge(data: IconThemeData(color: OmiColors.textPrimary), child: child),
+      child: polished && !MediaQuery.highContrastOf(context)
+          ? OmiGlassFinish(
+              radius: BorderRadius.circular(size / 2), light: palette.isLight, child: Center(child: contents))
+          : Center(child: contents),
     );
     if (OmiGlass._blurs(context)) {
       circle = ClipOval(
@@ -219,10 +225,11 @@ class OmiPlainGlassButton extends StatelessWidget {
 /// in Black) over a 30 pt saturated blur, a 1 pt bright edge, a 1 pt highlight along the top, a
 /// hairline ring and a soft shadow. Solid where blur is off (other platforms, more contrast).
 class OmiLiquidGlass extends StatelessWidget {
-  const OmiLiquidGlass({super.key, required this.borderRadius, required this.child});
+  const OmiLiquidGlass({super.key, required this.borderRadius, required this.child, this.polished = false});
 
   final BorderRadius borderRadius;
   final Widget child;
+  final bool polished;
 
   static const double _s = 1.8;
   static const ColorFilter _saturate = ColorFilter.matrix(<double>[
@@ -248,21 +255,24 @@ class OmiLiquidGlass extends StatelessWidget {
             BoxShadow(color: Color(0x1A000000), offset: Offset(0, 10), blurRadius: 30),
           ]
         : const [BoxShadow(color: Color(0x73000000), offset: Offset(0, 10), blurRadius: 30)];
+    final finish = polished && !MediaQuery.highContrastOf(context);
     final surface = DecoratedBox(
       decoration: BoxDecoration(color: fill, borderRadius: borderRadius, border: Border.all(color: edge)),
-      child: Stack(
-        children: [
-          child,
-          // `inset 0 1px 0`: the top highlight inside the edge.
-          Positioned(
-            left: 0,
-            right: 0,
-            top: 0,
-            height: 1,
-            child: IgnorePointer(child: ColoredBox(color: highlight)),
-          ),
-        ],
-      ),
+      child: finish
+          ? OmiGlassFinish(radius: borderRadius, light: light, child: child)
+          : Stack(
+              children: [
+                child,
+                // `inset 0 1px 0`: the top highlight inside the edge.
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  height: 1,
+                  child: IgnorePointer(child: ColoredBox(color: highlight)),
+                ),
+              ],
+            ),
     );
     return DecoratedBox(
       decoration: BoxDecoration(borderRadius: borderRadius, boxShadow: shadows),

@@ -12825,4 +12825,10 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Děkujeme, že začínáte s Omi! Vaše konverzace se mění v poznámky, ke kterým se můžete vracet. Průběh zpracování poznámky uvidíte na úvodní obrazovce. Přidejte se k nám na Discordu pro pomoc nebo sdílení nápadu.\n\nS poděkováním,\nVývojáři Omi';
+
+  @override
+  String get conversationUntitledDraft => 'Nepojmenovaný koncept';
+
+  @override
+  String get conversationGenerating => 'Generování…';
 }

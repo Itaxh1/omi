@@ -66,6 +66,7 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
           child: Row(
             children: [
               OmiPlainGlassButton(
+                polished: true,
                 key: const Key('home_folders_button'),
                 label: l10n.conversations,
                 onPressed: onFolders,
@@ -77,6 +78,7 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
               OmiPlainGlassButton(
+                polished: true,
                 key: const Key('home_you_button'),
                 label: l10n.you,
                 onPressed: onYou,

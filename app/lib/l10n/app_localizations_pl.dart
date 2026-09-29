@@ -12865,4 +12865,10 @@ class AppLocalizationsPl extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Dziękujemy za rozpoczęcie korzystania z Omi! Twoje rozmowy stają się notatkami, do których możesz wracać. Podczas przetwarzania notatki jej postęp jest widoczny na ekranie głównym. Dołącz do nas na Discordzie, aby uzyskać pomoc lub podzielić się pomysłem.\n\nZ podziękowaniami,\nTwórcy Omi';
+
+  @override
+  String get conversationUntitledDraft => 'Szkic bez tytułu';
+
+  @override
+  String get conversationGenerating => 'Generowanie…';
 }

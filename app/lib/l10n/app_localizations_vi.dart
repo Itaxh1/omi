@@ -12823,4 +12823,10 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Cảm ơn bạn đã bắt đầu với Omi! Các cuộc trò chuyện trở thành ghi chú để bạn xem lại. Khi ghi chú đang được xử lý, bạn có thể theo dõi tiến trình trên Trang chủ. Tham gia cùng chúng tôi trên Discord để được trợ giúp hoặc chia sẻ ý tưởng.\n\nTrân trọng cảm ơn,\nNhóm phát triển Omi';
+
+  @override
+  String get conversationUntitledDraft => 'Bản nháp chưa có tiêu đề';
+
+  @override
+  String get conversationGenerating => 'Đang tạo…';
 }

@@ -132,6 +132,22 @@ void main() {
     expect(provider.processingConversations.map((c) => c.id), ['0']);
   });
 
+  test('refresh neither fetches nor removes recording-specific local drafts', () async {
+    final provider = ConversationProvider(
+      conversationListFetcher: () async => (items: <ServerConversation>[], ok: true),
+      conversationLifecycleFetcher: (_) async => throw StateError('local IDs must never reach the API'),
+      isSignedIn: () => true,
+    );
+    addTearDown(provider.dispose);
+    for (final id in ['local-draft-first-0', 'local-draft-second-0']) {
+      provider.addProcessingConversation(_conversation(id, status: ConversationStatus.processing));
+    }
+    await provider.forceRefreshConversations();
+    expect(provider.processingConversations.map((c) => c.id), ['local-draft-first-0', 'local-draft-second-0']);
+    provider.clearUserData();
+    expect(provider.processingConversations, isEmpty);
+  });
+
   test('failed refresh leaves the processing card untouched', () async {
     final provider = ConversationProvider(
       conversationListFetcher: () async => (items: <ServerConversation>[], ok: false),

@@ -12868,4 +12868,10 @@ class AppLocalizationsMs extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Terima kasih kerana mula menggunakan Omi! Perbualan anda menjadi nota yang boleh dibaca semula. Semasa nota diproses, anda boleh melihat kemajuannya di Utama. Sertai kami di Discord untuk bantuan atau berkongsi idea.\n\nDengan penghargaan,\nPembangun Omi';
+
+  @override
+  String get conversationUntitledDraft => 'Draf tanpa tajuk';
+
+  @override
+  String get conversationGenerating => 'Sedang menjana…';
 }

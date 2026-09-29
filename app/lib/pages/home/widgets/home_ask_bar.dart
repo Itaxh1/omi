@@ -43,6 +43,7 @@ class HomeAskBar extends StatelessWidget {
           child: SizedBox(
             height: kAskBarHeight,
             child: OmiLiquidGlass(
+              polished: true,
               borderRadius: const BorderRadius.all(Radius.circular(30)),
               child: Center(
                 child: Padding(

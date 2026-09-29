@@ -87,8 +87,8 @@ void main() {
     expect(rows.map((c) => c.id), ['pending']);
     await _pump(tester, provider, rows);
     final l10n = AppLocalizations.of(tester.element(find.byType(HomeHeardToday)));
-    expect(find.text(l10n.transcribing), findsOneWidget);
-    expect(find.text('Omi is writing it up…'), findsOneWidget);
+    expect(find.text(l10n.conversationUntitledDraft), findsOneWidget);
+    expect(find.text(l10n.conversationGenerating), findsOneWidget);
     final row = tester.widget<OmiPressable>(find.byKey(const Key('home_heard_pending')));
     expect(row.onTap, isNull);
     expect(find.byKey(const Key('home_swipe_pending')), findsNothing);

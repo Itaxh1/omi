@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/ui/omi_tokens.dart';
+import 'package:omi/ui/components/omi_glyph.dart';
 
 /// The device vocabulary shared by the conversation list and the detail
 /// header: one icon and one name per capture surface (wire source string).
 abstract final class CaptureSources {
+  static Widget glyph(String? source, {double size = 14, Color? color}) => source == 'omi' || source == 'sdcard'
+      ? OmiGlyph(OmiGlyphs.deviceOmi, size: size, color: color)
+      : Icon(icon(source), size: size, color: color);
+
   static IconData icon(String? source) {
     switch (source) {
       case 'desktop':
@@ -94,7 +99,7 @@ class CaptureSourceIcons extends StatelessWidget {
         children: [
           for (final (index, source) in sources.indexed) ...[
             if (index > 0) const SizedBox(width: 3),
-            Icon(CaptureSources.icon(source), size: size, color: color ?? OmiColors.textSecondary),
+            CaptureSources.glyph(source, size: size, color: color ?? OmiColors.textSecondary),
           ],
         ],
       ),
@@ -132,7 +137,7 @@ class CaptureSourceStack extends StatelessWidget {
                   shape: BoxShape.circle,
                   border: Border.all(color: OmiColors.border, width: 1.5),
                 ),
-                child: Icon(CaptureSources.icon(source), size: 12, color: OmiColors.textPrimary),
+                child: CaptureSources.glyph(source, size: 12, color: OmiColors.textPrimary),
               ),
             ),
         ],

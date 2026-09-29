@@ -23270,6 +23270,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Thanks for starting with Omi! Your conversations become notes you can return to. While a note is processing, you can see its progress on Home. Join us on Discord for help or to share an idea.\n\nWith thanks,\nThe Omi developers'**
   String get welcomeNoteBody;
+
+  /// Conversation row title until a recording is processed.
+  ///
+  /// In en, this message translates to:
+  /// **'Untitled draft'**
+  String get conversationUntitledDraft;
+
+  /// A stopped recording is being processed into a conversation.
+  ///
+  /// In en, this message translates to:
+  /// **'Generating…'**
+  String get conversationGenerating;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

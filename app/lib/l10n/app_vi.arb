@@ -4013,5 +4013,7 @@
     "howToPairV3": "Cách ghép nối",
     "omiNotInRangeUsePhone": "{device} ngoài vùng kết nối. Tạm dùng điện thoại này nhé?",
     "usePhoneV3": "Dùng điện thoại",
-    "welcomeNoteBody": "Cảm ơn bạn đã bắt đầu với Omi! Các cuộc trò chuyện trở thành ghi chú để bạn xem lại. Khi ghi chú đang được xử lý, bạn có thể theo dõi tiến trình trên Trang chủ. Tham gia cùng chúng tôi trên Discord để được trợ giúp hoặc chia sẻ ý tưởng.\n\nTrân trọng cảm ơn,\nNhóm phát triển Omi"
+    "welcomeNoteBody": "Cảm ơn bạn đã bắt đầu với Omi! Các cuộc trò chuyện trở thành ghi chú để bạn xem lại. Khi ghi chú đang được xử lý, bạn có thể theo dõi tiến trình trên Trang chủ. Tham gia cùng chúng tôi trên Discord để được trợ giúp hoặc chia sẻ ý tưởng.\n\nTrân trọng cảm ơn,\nNhóm phát triển Omi",
+    "conversationUntitledDraft": "Bản nháp chưa có tiêu đề",
+    "conversationGenerating": "Đang tạo…"
 }

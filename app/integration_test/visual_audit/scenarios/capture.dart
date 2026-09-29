@@ -21,6 +21,7 @@ import 'package:omi/providers/device_provider.dart';
 import 'package:omi/providers/phone_call_provider.dart';
 import 'package:omi/services/wals/wal.dart';
 import 'package:omi/utils/enums.dart';
+import 'package:omi/services/capture/optimistic_processing.dart';
 import 'package:omi/pages/home/widgets/home_ask_bar.dart';
 
 import '../fakes.dart';
@@ -32,6 +33,14 @@ enum AuditLive { idle, pendant, pendantPaused, pendantStopped, phone, phonePause
 class AuditCaptureProvider extends ChangeNotifier implements CaptureProvider {
   AuditCaptureProvider(this.live);
   final AuditLive live;
+  @override
+  late final ServerConversation? liveConversationDraft = live == AuditLive.idle || isCaptureStopped
+      ? null
+      : OptimisticProcessingPlaceholder.recording(
+          recordingId: 'audit',
+          revision: 0,
+          startedAt: liveCaptureStartedAt!,
+          source: _phone ? ConversationSource.phone : ConversationSource.omi);
 
   bool get _pendant => live == AuditLive.pendant || live == AuditLive.pendantPaused || live == AuditLive.pendantStopped;
   bool get _phone => !_pendant && live != AuditLive.idle;

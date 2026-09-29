@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
+import 'package:omi/providers/capture_provider.dart';
 import 'package:omi/backend/schema/conversation.dart';
 import 'package:omi/backend/preferences.dart';
 import 'package:omi/pages/home/widgets/welcome_note.dart';
@@ -50,13 +51,14 @@ class HomeContentPageState extends State<HomeContentPage> with AutomaticKeepAliv
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Consumer<ConversationProvider>(
-      builder: (context, convoProvider, child) {
+    return Consumer2<ConversationProvider, CaptureProvider>(
+      builder: (context, convoProvider, captureProvider, child) {
         final count = _nonDiscardedConversationCount(convoProvider);
         // While the first page is still loading an established account looks empty; wait before
         // showing first-day content so it never flashes.
         final settled = count > 0 || !(convoProvider.isLoadingConversations || convoProvider.isFetchingConversations);
-        final heard = HomeHeardToday.pick(convoProvider, limit: HomeHeardToday.limitFor(MediaQuery.of(context)));
+        final heard = HomeHeardToday.pick(convoProvider,
+            liveDraft: captureProvider.liveConversationDraft, limit: HomeHeardToday.limitFor(MediaQuery.of(context)));
         final heardToday = heard.isNotEmpty && HomeHeardToday.isToday(heard.first);
         // The To-do card sits in the warm zone at the same height above the Ask bar on every phone;
         // when the page is taller than the screen (the first day) it follows the content instead.

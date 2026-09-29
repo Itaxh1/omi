@@ -12808,4 +12808,10 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Omi के साथ शुरुआत करने के लिए धन्यवाद! आपकी बातचीत नोट्स में बदल जाती है जिन्हें आप बाद में देख सकते हैं। नोट तैयार होते समय होम पर उसकी प्रगति देख सकते हैं। मदद पाने या कोई सुझाव साझा करने के लिए Discord पर हमसे जुड़ें।\n\nधन्यवाद सहित,\nOmi डेवलपर्स';
+
+  @override
+  String get conversationUntitledDraft => 'बिना शीर्षक का ड्राफ़्ट';
+
+  @override
+  String get conversationGenerating => 'तैयार हो रहा है…';
 }

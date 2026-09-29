@@ -12849,4 +12849,10 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Obrigado por começar com o Omi! Suas conversas se tornam notas que você pode consultar novamente. Enquanto uma nota é processada, você pode acompanhar o progresso na tela inicial. Junte-se a nós no Discord para obter ajuda ou compartilhar uma ideia.\n\nCom gratidão,\nOs desenvolvedores do Omi';
+
+  @override
+  String get conversationUntitledDraft => 'Rascunho sem título';
+
+  @override
+  String get conversationGenerating => 'A gerar…';
 }

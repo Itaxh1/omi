@@ -12823,4 +12823,10 @@ class AppLocalizationsEt extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Aitäh, et alustasid Omi kasutamist! Sinu vestlustest saavad märkmed, mille juurde saad tagasi tulla. Märkme töötlemise edenemist näed avakuval. Liitu meiega Discordis, et saada abi või jagada ideid.\n\nTänuga,\nOmi arendajad';
+
+  @override
+  String get conversationUntitledDraft => 'Pealkirjata mustand';
+
+  @override
+  String get conversationGenerating => 'Koostamine…';
 }

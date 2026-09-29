@@ -12834,4 +12834,10 @@ class AppLocalizationsMr extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Omi वापरण्यास सुरुवात केल्याबद्दल धन्यवाद! तुमच्या संभाषणांच्या नोंदी तयार होतात ज्या नंतर पुन्हा पाहता येतात. नोंद तयार होत असताना होमवर तिची प्रगती पाहू शकता. मदतीसाठी किंवा कल्पना सांगण्यासाठी Discord वर आमच्यात सामील व्हा.\n\nआभारांसह,\nOmi डेव्हलपर्स';
+
+  @override
+  String get conversationUntitledDraft => 'शीर्षक नसलेला मसुदा';
+
+  @override
+  String get conversationGenerating => 'तयार होत आहे…';
 }

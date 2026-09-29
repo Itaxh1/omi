@@ -42,10 +42,22 @@ working tree; physical-device verification is listed separately below.
   remove the black gap in `IMG_1215.PNG`.
 - [x] Compare and restore the earlier notification/Lock Screen and Dynamic Island
   waveform appearance and motion from the v2 history: `b7475aa32e` blue five-bar
-  compact/minimal indicator, 26-point Lock Screen wave and original ripple timing.
+  compact/minimal indicator and 26-point Lock Screen wave.
   Preserve the current monochrome card, source labels and working capture controls.
   Stale/paused sources stop looking live; Reduce Motion disables the ripple.
   The user explicitly selected this early v2 version.
+- [x] Follow-up reference: `omi-liquid-dock2.html` supplies the waveform motion.
+  Correct the native four-second cycle to its 1.6-second CSS ease-in-out pulse,
+  45% midpoint scale and 130 ms adjacent-bar stagger. Scale short bars after
+  clamping their base height, so they keep pulsing. Keep the blue compact mark.
+  Native Live Activities interpolate received updates; they do not run the
+  HTML's continuous animation clock. Phone motion comparison remains separate.
+- [x] Follow-up: show a distinct `Untitled draft` immediately for each recording;
+  when stopped show `Generating…`, keep it unavailable until ready, and replace
+  it with the completed conversation without duplicates.
+- [x] Improve the Omi pendant icon used in conversation list rows so it reads
+  clearly at its small size and suits both black and white themes.
+- [x] Home folder, account and Ask anything: neutral liquid-glass contour, soft reflection; existing colours, size, content and gestures preserved. High-contrast retains the plain finish.
 - [x] Finish focused regression, native build and visual checks.
 - Delivery requested: commit these fixes, push to `origin/design/v3-mono`, and
   open its GitHub link. The final handoff includes the pushed commit link.
@@ -83,7 +95,7 @@ working tree; physical-device verification is listed separately below.
   enrollment, completion, and Home. It checks that the first note, welcome entry,
   and dated task are still available after dismissing the first-day tip.
 - Native waveform checks compile the production Swift ripple and snapshot code;
-  paused/stale/reconnecting sources and the original ripple timing pass.
+  paused/stale/reconnecting sources and the HTML reference pulse samples pass.
 - Full branch `make preflight` reaches an existing product-file line-count ratchet
   failure involving 32 files grown since `origin/main`. Do not call this gate green.
 - The preflight metadata suggestion also identifies three pre-existing references
@@ -109,7 +121,7 @@ working tree; physical-device verification is listed separately below.
 | Home gestures and list | Old shorter pulls do nothing; 40% longer pulls activate; roomy screen returns five notes, short/narrow/large-text screen returns three |
 | Conversation delete | One monochrome confirmation on a full swipe; Cancel preserves item; confirmed delete offers Undo; Undo prevents server deletion |
 | Task editor | Sheet material extends to the screen bottom under a 320-point keyboard inset; controls remain above it; successful/failed save and dirty-dismiss behavior |
-| Native waveform | Compile production Swift ripple/snapshot code and check phase progression, original four-second period, adjacent bar phases, pause/stale/reconnect states and unmetered ticks |
+| Native waveform | Compile production Swift ripple/snapshot code; check the HTML reference's 1.6-second period, CSS ease samples, 130 ms staggering, 13-bar phase repetition, pause/stale/reconnect states and unmetered ticks |
 
 The reminder rule tests were run directly against the production module and the
 existing test functions. The normal backend pytest command is unavailable in this
@@ -122,3 +134,32 @@ Reproduce a pendant battery disconnect during onboarding, an actual 5% notificat
 Bluetooth off/on during validation, phone mic dictation handoff, and the native
 Lock Screen/Dynamic Island animation on a signed iPhone build. Automated tests
 and an unsigned build cannot establish these hardware results.
+
+
+## Follow-up verification — drafts, wave reference and glass
+
+- Live capture now projects one `Untitled draft` / `Recording` row into Home and
+  Conversations. Stop retains its identity as `Generating…` before microphone
+  teardown and before the final transcript arrives. Every pending recording is
+  shown in All conversations; Home retains its five/three-row limit.
+- Unique local IDs replace the shared production placeholder. Refresh never
+  sends them to the server. A confirmed result replaces only its draft; a late
+  processing response cannot revive an already completed note. Empty recordings
+  and failed processing remove their local placeholder. Local/offline audio
+  continues through the existing recordings/upload queue.
+- 112 focused Flutter tests passed, including six new recording lifecycle cases
+  and a local-ID refresh/account-clear case. The final follow-up run passed 17
+  tests, including Home's original blank-screen layout regression.
+- All 23 hermetic mobile journeys passed again. Analyzer ratchet and the native
+  Swift waveform assertions passed. Generated localization checks run after
+  Flutter's generation/format step.
+- Inspected light/dark renders of Home, the recording draft, header controls and
+  conversation rows. The generated raster icon lost definition at 25 points;
+  the shipped pendant is a simplified SVG with consistent strokes and tint.
+- `agent-flutter connect` could not find an active debug VM. Visual evidence here
+  comes from the production-widget audit harness; it is not device interaction.
+- `make preflight` again fails the branch-wide product-file size ratchet (32 files
+  against `origin/main`); PR metadata is unavailable because this fork branch has
+  no PR. This is not a green full preflight.
+- Pairing was reported as working by the user; no speculative pairing changes
+  were made in this follow-up.

@@ -68,8 +68,9 @@ class HomeHeardToday extends StatelessWidget {
 
   /// The latest conversations across days, up to [limit]. Fill spare rows with
   /// earlier notes when there are fewer than [limit] today.
-  static List<ServerConversation> pick(ConversationProvider provider, {int limit = HomeHeardToday.limit}) {
-    return _newestFirst(provider).take(limit).toList();
+  static List<ServerConversation> pick(ConversationProvider provider,
+      {int limit = HomeHeardToday.limit, ServerConversation? liveDraft}) {
+    return _newestFirst(provider, liveDraft).take(limit).toList();
   }
 
   /// Whether [conversation] started on the local calendar day of [now].
@@ -79,9 +80,10 @@ class HomeHeardToday extends StatelessWidget {
     return at.year == n.year && at.month == n.month && at.day == n.day;
   }
 
-  static List<ServerConversation> _newestFirst(ConversationProvider provider) {
+  static List<ServerConversation> _newestFirst(ConversationProvider provider, ServerConversation? liveDraft) {
     final dates = provider.groupedConversations.keys.toList()..sort((a, b) => b.compareTo(a));
     final byId = <String, ServerConversation>{
+      if (liveDraft != null) liveDraft.id: liveDraft,
       for (final c in provider.processingConversations)
         if (!c.discarded) c.id: c,
       for (final date in dates)
@@ -186,7 +188,7 @@ class HomeHeardToday extends StatelessWidget {
 
   static String _title(BuildContext context, ServerConversation c) {
     final title = c.structured.title.trim();
-    if (c.status != ConversationStatus.completed && title.isEmpty) return context.l10n.transcribing;
+    if (c.status != ConversationStatus.completed) return context.l10n.conversationUntitledDraft;
     return title.isEmpty ? context.l10n.untitledConversation : title;
   }
 }
@@ -215,7 +217,9 @@ class _HeardRow extends StatelessWidget {
       button: true,
       enabled: ready,
       label: title,
-      hint: ready ? context.l10n.openConversation : context.l10n.omiWritingItUp,
+      hint: ready
+          ? context.l10n.openConversation
+          : (c.status == ConversationStatus.in_progress ? context.l10n.recording : context.l10n.conversationGenerating),
       excludeSemantics: true,
       child: OmiPressable(
         key: ValueKey('home_heard_${c.id}'),
@@ -235,8 +239,15 @@ class _HeardRow extends StatelessWidget {
                     Text(title,
                         maxLines: 1, overflow: TextOverflow.ellipsis, style: HomeHeardToday.titleStyle(titleSize)),
                     SizedBox(height: between),
-                    Text(ready ? OmiDateFormat.of(context).time(at) : context.l10n.omiWritingItUp,
-                        maxLines: 1, overflow: TextOverflow.ellipsis, style: HomeHeardToday.timeStyle),
+                    Text(
+                        ready
+                            ? OmiDateFormat.of(context).time(at)
+                            : (c.status == ConversationStatus.in_progress
+                                ? context.l10n.recording
+                                : context.l10n.conversationGenerating),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: HomeHeardToday.timeStyle),
                   ],
                 ),
               ),

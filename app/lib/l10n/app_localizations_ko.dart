@@ -12624,4 +12624,10 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Omi를 시작해 주셔서 감사합니다! 대화가 나중에 다시 볼 수 있는 노트가 됩니다. 노트를 처리하는 동안 홈에서 진행 상황을 확인할 수 있습니다. 도움이 필요하거나 아이디어를 나누고 싶다면 Discord에 참여해 주세요.\n\n감사를 담아,\nOmi 개발팀';
+
+  @override
+  String get conversationUntitledDraft => '제목 없는 초안';
+
+  @override
+  String get conversationGenerating => '생성 중…';
 }

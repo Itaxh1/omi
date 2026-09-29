@@ -12842,4 +12842,10 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Omi kullanmaya başladığınız için teşekkürler! Konuşmalarınız daha sonra dönüp bakabileceğiniz notlara dönüşür. Bir not işlenirken ilerlemesini ana ekranda görebilirsiniz. Yardım almak veya bir fikir paylaşmak için Discord’da bize katılın.\n\nTeşekkürlerimizle,\nOmi geliştiricileri';
+
+  @override
+  String get conversationUntitledDraft => 'Adsız taslak';
+
+  @override
+  String get conversationGenerating => 'Oluşturuluyor…';
 }

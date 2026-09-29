@@ -306,3 +306,5 @@ guidance.
 Changing a rule here is a product decision: update the primitive, migrate its callers in the same PR,
 and add or tighten a rule in `check_mobile_ux_contract.py` (with a failing case in
 `test_check_mobile_ux_contract.py`) so the old pattern cannot come back.
+
+Home folder/account circles and Ask use the shared `polished` finish on `OmiPlainGlassButton` / `OmiLiquidGlass`. `OmiGlassFinish` draws neutral, still reflections along the existing contour; it does not change fill tokens, labels, hit targets or gestures. High-contrast uses the original plain finish.

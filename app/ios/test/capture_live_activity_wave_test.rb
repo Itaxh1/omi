@@ -5,7 +5,7 @@ require 'open3'
 require 'tmpdir'
 
 class CaptureLiveActivityWaveTest < Minitest::Test
-  def test_v2_ripple_and_live_state_from_the_actual_widget_source
+  def test_liquid_dock_reference_ripple_and_live_state_from_the_actual_widget_source
     source = File.read(File.expand_path('../BatteryWidget/OmiCaptureLiveActivity.swift', __dir__))
     attributes = File.read(File.expand_path('../LiveActivity/OmiCaptureAttributes.swift', __dir__))
     ripple = source[/enum CaptureRipple \{.*?(?=\/\/\/ Device scaling)/m]
@@ -24,15 +24,23 @@ class CaptureLiveActivityWaveTest < Minitest::Test
         #{ripple}
         #{snapshot}
 
-        for tick in 0..<64 {
+        for tick in 0..<640 {
+            let seconds = Double(tick) / 100
             for bar in 0..<50 {
-                let value = CaptureRipple.pulse(bar, tick: tick)
+                let value = CaptureRipple.pulse(bar, seconds: seconds)
                 precondition(value >= 0.45 - 0.000001 && value <= 1 + 0.000001)
-                precondition(abs(value - CaptureRipple.pulse(bar, tick: tick + 32)) < 0.000001)
+                precondition(abs(value - CaptureRipple.pulse(bar, seconds: seconds + 1.6)) < 0.000001)
+                precondition(abs(value - CaptureRipple.pulse(bar + 13, seconds: seconds)) < 0.000001)
             }
         }
-        precondition(CaptureRipple.pulse(0, tick: 0) != CaptureRipple.pulse(0, tick: 8))
-        precondition(CaptureRipple.pulse(0, tick: 8) != CaptureRipple.pulse(3, tick: 8))
+        // Independent reference samples: CSS lvl 1.6s ease-in-out, 50% scaleY(.45).
+        let reference: [(Double, Double)] = [
+            (0, 1), (0.2, 0.928960955), (0.4, 0.725), (0.6, 0.521039045),
+            (0.8, 0.45), (1.2, 0.725), (1.6, 1)]
+        for (seconds, expected) in reference {
+            precondition(abs(CaptureRipple.pulse(0, seconds: seconds) - expected) < 0.000001)
+        }
+        precondition(abs(CaptureRipple.pulse(1, seconds: 0) - CaptureRipple.pulse(0, seconds: 0.13)) < 0.000001)
         var state = OmiCaptureAttributes.ContentState(
             conversationRevision: 1, status: "listening", source: "phone", batch: false,
             startedAt: Date().timeIntervalSince1970 - 6, elapsed: 6, paused: false,

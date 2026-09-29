@@ -12882,4 +12882,10 @@ class AppLocalizationsRo extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Mulțumim că ai început să folosești Omi! Conversațiile tale devin notițe la care poți reveni. În timpul procesării unei notițe, poți vedea progresul pe ecranul principal. Alătură-te nouă pe Discord pentru ajutor sau pentru a împărtăși o idee.\n\nCu mulțumiri,\nDezvoltatorii Omi';
+
+  @override
+  String get conversationUntitledDraft => 'Ciornă fără titlu';
+
+  @override
+  String get conversationGenerating => 'Se generează…';
 }

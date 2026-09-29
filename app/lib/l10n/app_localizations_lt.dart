@@ -12844,4 +12844,10 @@ class AppLocalizationsLt extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Ačiū, kad pradėjote naudotis Omi! Jūsų pokalbiai tampa užrašais, prie kurių galite sugrįžti. Kol užrašas apdorojamas, eigą matysite pradžios ekrane. Prisijunkite prie mūsų Discord, jei reikia pagalbos ar norite pasidalyti idėja.\n\nSu padėka,\nOmi kūrėjai';
+
+  @override
+  String get conversationUntitledDraft => 'Juodraštis be pavadinimo';
+
+  @override
+  String get conversationGenerating => 'Kuriama…';
 }

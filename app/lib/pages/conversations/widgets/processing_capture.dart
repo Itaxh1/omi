@@ -14,7 +14,7 @@ import 'package:omi/backend/schema/conversation.dart';
 import 'package:omi/pages/conversation_capturing/page.dart';
 import 'package:omi/pages/capture/widgets/widgets.dart';
 import 'package:omi/pages/conversations/capture_state_labels.dart';
-import 'package:omi/pages/processing_conversations/page.dart';
+import 'package:omi/services/capture/optimistic_processing.dart';
 import 'package:omi/providers/capture_provider.dart';
 import 'package:omi/providers/conversation_provider.dart';
 import 'package:omi/providers/device_provider.dart';
@@ -720,19 +720,12 @@ getPhoneMicRecordingButton(
 }
 
 Widget getProcessingConversationsWidget(List<ServerConversation> conversations) {
-  // Only show at most 1 processing widget on homepage
-  if (conversations.isEmpty) {
-    return const SliverToBoxAdapter(child: SizedBox.shrink());
-  }
-  // Live events append new IDs; list position is not recency. Processing begins
-  // at capture end, while the optimistic Process Now row has only createdAt.
-  final newest = conversations.reduce((a, b) {
-    final aTime = a.finishedAt ?? a.createdAt;
-    final bTime = b.finishedAt ?? b.createdAt;
-    return bTime.isAfter(aTime) ? b : a;
-  });
-  return SliverToBoxAdapter(
-    child: ProcessingConversationWidget(key: ValueKey('processing_${newest.id}'), conversation: newest),
+  final sorted = [...conversations]
+    ..sort((a, b) => (b.finishedAt ?? b.createdAt).compareTo(a.finishedAt ?? a.createdAt));
+  return SliverList.builder(
+    itemCount: sorted.length,
+    itemBuilder: (context, index) =>
+        ProcessingConversationWidget(key: ValueKey('processing_${sorted[index].id}'), conversation: sorted[index]),
   );
 }
 
@@ -802,18 +795,19 @@ class _ProcessingConversationWidgetState extends State<ProcessingConversationWid
   }
 
   void _refreshTimeout() {
-    final timedOut = isConversationProcessingTimedOut(
-      conversationId: widget.conversation.id,
-      processingStartedAt: _processingStartedAt,
-      now: _now,
-    );
+    final timedOut = widget.conversation.status != ConversationStatus.in_progress &&
+        isConversationProcessingTimedOut(
+          conversationId: widget.conversation.id,
+          processingStartedAt: _processingStartedAt,
+          now: _now,
+        );
     if (timedOut != _timedOut) {
       setState(() => _timedOut = timedOut);
     }
   }
 
   Future<void> _onRetry() async {
-    if (_retrying || widget.conversation.id == '0') return;
+    if (_retrying || OptimisticProcessingPlaceholder.isLocal(widget.conversation.id)) return;
     setState(() => _retrying = true);
     try {
       final reprocess = widget.reprocess ?? reProcessConversationServer;
@@ -843,10 +837,8 @@ class _ProcessingConversationWidgetState extends State<ProcessingConversationWid
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        routeToPage(context, ProcessingConversationPage(conversation: widget.conversation));
-      },
+    return Semantics(
+      label: context.l10n.conversationUntitledDraft,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
         child: Container(
@@ -862,15 +854,7 @@ class _ProcessingConversationWidgetState extends State<ProcessingConversationWid
                 // Header row
                 Row(
                   children: [
-                    // Icon placeholder
-                    Container(
-                      width: 24,
-                      height: 24,
-                      decoration: BoxDecoration(
-                        color: OmiColors.surface2,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
+                    OmiGlyph(OmiGlyphs.forSource(widget.conversation.source?.name), size: 24),
                     const SizedBox(width: 8),
                     // Processing label
                     Container(
@@ -880,7 +864,9 @@ class _ProcessingConversationWidgetState extends State<ProcessingConversationWid
                       ),
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                       child: Text(
-                        captureStateLabel(context.l10n, CaptureDisplayState.processing),
+                        widget.conversation.status == ConversationStatus.in_progress
+                            ? context.l10n.recording
+                            : context.l10n.conversationGenerating,
                         style: OmiType.subhead.copyWith(fontWeight: FontWeight.w500),
                       ),
                     ),
@@ -893,12 +879,7 @@ class _ProcessingConversationWidgetState extends State<ProcessingConversationWid
                   ],
                 ),
                 const SizedBox(height: 12),
-                // Title placeholder
-                Container(
-                  width: double.maxFinite,
-                  height: 16,
-                  decoration: BoxDecoration(color: OmiColors.surface2, borderRadius: BorderRadius.circular(4)),
-                ),
+                Text(context.l10n.conversationUntitledDraft, style: OmiType.subhead),
                 if (_timedOut) ...[
                   const SizedBox(height: 12),
                   Text(

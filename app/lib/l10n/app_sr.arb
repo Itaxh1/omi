@@ -11573,5 +11573,7 @@
     "howToPairV3": "Kako uparati",
     "omiNotInRangeUsePhone": "{device} nije u dometu. Da li da za sada koristite ovaj telefon?",
     "usePhoneV3": "Koristi telefon",
-    "welcomeNoteBody": "Хвала што сте почели да користите Omi! Ваши разговори постају белешке којима можете да се вратите. Док се белешка обрађује, напредак можете видети на почетном екрану. Придружите нам се на Discord-у за помоћ или поделите идеју.\n\nУз захвалност,\nРазвојни тим Omi"
+    "welcomeNoteBody": "Хвала што сте почели да користите Omi! Ваши разговори постају белешке којима можете да се вратите. Док се белешка обрађује, напредак можете видети на почетном екрану. Придружите нам се на Discord-у за помоћ или поделите идеју.\n\nУз захвалност,\nРазвојни тим Omi",
+    "conversationUntitledDraft": "Нацрт без наслова",
+    "conversationGenerating": "Генерисање…"
 }

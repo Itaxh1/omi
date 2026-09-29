@@ -15517,5 +15517,13 @@
     "welcomeNoteBody": "Thanks for starting with Omi! Your conversations become notes you can return to. While a note is processing, you can see its progress on Home. Join us on Discord for help or to share an idea.\n\nWith thanks,\nThe Omi developers",
     "@welcomeNoteBody": {
         "description": "Local first-run welcome note signed by the developers; not a recorded conversation."
+    },
+    "conversationUntitledDraft": "Untitled draft",
+    "@conversationUntitledDraft": {
+        "description": "Conversation row title until a recording is processed."
+    },
+    "conversationGenerating": "Generating…",
+    "@conversationGenerating": {
+        "description": "A stopped recording is being processed into a conversation."
     }
 }

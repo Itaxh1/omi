@@ -4013,5 +4013,7 @@
     "howToPairV3": "Kaip susieti",
     "omiNotInRangeUsePhone": "{device} nepasiekiamas. Kol kas naudoti šį telefoną?",
     "usePhoneV3": "Naudoti telefoną",
-    "welcomeNoteBody": "Ačiū, kad pradėjote naudotis Omi! Jūsų pokalbiai tampa užrašais, prie kurių galite sugrįžti. Kol užrašas apdorojamas, eigą matysite pradžios ekrane. Prisijunkite prie mūsų Discord, jei reikia pagalbos ar norite pasidalyti idėja.\n\nSu padėka,\nOmi kūrėjai"
+    "welcomeNoteBody": "Ačiū, kad pradėjote naudotis Omi! Jūsų pokalbiai tampa užrašais, prie kurių galite sugrįžti. Kol užrašas apdorojamas, eigą matysite pradžios ekrane. Prisijunkite prie mūsų Discord, jei reikia pagalbos ar norite pasidalyti idėja.\n\nSu padėka,\nOmi kūrėjai",
+    "conversationUntitledDraft": "Juodraštis be pavadinimo",
+    "conversationGenerating": "Kuriama…"
 }

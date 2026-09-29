@@ -4013,5 +4013,7 @@
     "howToPairV3": "Näin paritat",
     "omiNotInRangeUsePhone": "{device} ei ole kantaman sisällä. Käytetäänkö toistaiseksi tätä puhelinta?",
     "usePhoneV3": "Käytä puhelinta",
-    "welcomeNoteBody": "Kiitos, että aloitit Omin käytön! Keskusteluistasi tulee muistiinpanoja, joihin voit palata. Kun muistiinpanoa käsitellään, näet edistymisen aloitusnäytöllä. Liity seuraamme Discordissa, jos tarvitset apua tai haluat jakaa idean.\n\nKiittäen,\nOmin kehittäjät"
+    "welcomeNoteBody": "Kiitos, että aloitit Omin käytön! Keskusteluistasi tulee muistiinpanoja, joihin voit palata. Kun muistiinpanoa käsitellään, näet edistymisen aloitusnäytöllä. Liity seuraamme Discordissa, jos tarvitset apua tai haluat jakaa idean.\n\nKiittäen,\nOmin kehittäjät",
+    "conversationUntitledDraft": "Nimetön luonnos",
+    "conversationGenerating": "Luodaan…"
 }

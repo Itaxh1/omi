@@ -12869,4 +12869,10 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Спасибо, что начали пользоваться Omi! Ваши разговоры становятся заметками, к которым можно вернуться. Пока заметка обрабатывается, её прогресс виден на главном экране. Присоединяйтесь к нам в Discord, чтобы получить помощь или поделиться идеей.\n\nС благодарностью,\nРазработчики Omi';
+
+  @override
+  String get conversationUntitledDraft => 'Черновик без названия';
+
+  @override
+  String get conversationGenerating => 'Создание…';
 }

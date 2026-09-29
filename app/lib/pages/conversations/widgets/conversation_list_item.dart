@@ -463,10 +463,10 @@ class _ConversationListItemState extends State<ConversationListItem> {
     final tasks = widget.conversation.structured.actionItems.length;
     final photos = widget.conversation.photos.length;
     final category = widget.conversation.structured.category.trim();
-    Widget part(IconData icon, String text) => Row(
+    Widget part(IconData icon, String text, {Widget? glyph}) => Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ExcludeSemantics(child: Icon(icon, size: 12, color: OmiColors.textTertiary)),
+            ExcludeSemantics(child: glyph ?? Icon(icon, size: 12, color: OmiColors.textTertiary)),
             const SizedBox(width: 3),
             Text(text, style: _metaStyle, maxLines: 1),
           ],
@@ -478,7 +478,9 @@ class _ConversationListItemState extends State<ConversationListItem> {
       // The category alone: the source has its own part (getTag names some devices instead).
       if (category.isNotEmpty && !widget.conversation.discarded)
         part(Icons.sell_outlined, category[0].toUpperCase() + category.substring(1)),
-      if (source != null) part(CaptureSources.icon(source), CaptureSources.label(context, source)),
+      if (source != null)
+        part(CaptureSources.icon(source), CaptureSources.label(context, source),
+            glyph: CaptureSources.glyph(source, size: 12, color: OmiColors.textTertiary)),
       if (duration.isNotEmpty) part(Icons.schedule_rounded, duration),
       if (photos > 0) part(Icons.photo_outlined, context.l10n.conversationPhotosCount(photos)),
       if (tasks > 0) part(Icons.checklist_rounded, context.l10n.tasksCountLabel(tasks)),

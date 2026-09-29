@@ -12620,4 +12620,10 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Omiを使い始めていただき、ありがとうございます！会話は後から振り返れるノートになります。ノートの処理中は、ホームで進行状況を確認できます。サポートが必要なときやアイデアを共有したいときは、Discordにご参加ください。\n\n感謝を込めて、\nOmi開発チーム';
+
+  @override
+  String get conversationUntitledDraft => '無題の下書き';
+
+  @override
+  String get conversationGenerating => '生成中…';
 }

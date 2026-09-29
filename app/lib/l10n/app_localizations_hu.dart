@@ -12876,4 +12876,10 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Köszönjük, hogy elkezdted használni az Omit! Beszélgetéseid jegyzetekké válnak, amelyekhez később visszatérhetsz. A jegyzet feldolgozását a kezdőképernyőn követheted. Csatlakozz hozzánk a Discordon, ha segítségre van szükséged vagy megosztanál egy ötletet.\n\nKöszönettel,\nAz Omi fejlesztői';
+
+  @override
+  String get conversationUntitledDraft => 'Névtelen piszkozat';
+
+  @override
+  String get conversationGenerating => 'Létrehozás…';
 }

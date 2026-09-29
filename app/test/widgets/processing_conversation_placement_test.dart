@@ -90,7 +90,7 @@ void main() {
     await tester.pumpWidget(const SizedBox.shrink());
   });
 
-  testWidgets('latest Process Now replaces the displayed older processing row', (tester) async {
+  testWidgets('every pending recording remains visible when a newer recording starts', (tester) async {
     final provider = ConversationProvider(isSignedIn: () => false);
     addTearDown(provider.dispose);
     await pumpPage(tester, provider);
@@ -101,8 +101,8 @@ void main() {
     provider.addProcessingConversation(OptimisticProcessingPlaceholder.conversation());
     await tester.pump();
     final processing = find.byType(ProcessingConversationWidget);
-    expect(processing, findsOneWidget);
-    expect(tester.widget<ProcessingConversationWidget>(processing).conversation.id, '0');
+    expect(processing, findsNWidgets(2));
+    expect(tester.widgetList<ProcessingConversationWidget>(processing).map((w) => w.conversation.id), ['0', 'older']);
 
     provider.removeProcessingConversation('0');
     provider.addProcessingConversation(
@@ -110,7 +110,7 @@ void main() {
         ..status = ConversationStatus.processing,
     );
     await tester.pump();
-    expect(tester.widget<ProcessingConversationWidget>(processing).conversation.id, 'new');
+    expect(tester.widgetList<ProcessingConversationWidget>(processing).map((w) => w.conversation.id), ['new', 'older']);
     provider.removeProcessingConversation('new');
     await provider.addConversation(completed('new'));
     await tester.pump();

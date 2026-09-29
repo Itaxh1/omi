@@ -119,11 +119,17 @@ String conversationLoadMoreFilterKey({
 _ConversationPageSnapshot _conversationPageSnapshot(
   ConversationProvider conversations,
   LocalRecordingsProvider recordings,
+  CaptureProvider capture,
 ) {
+  final draft = capture.liveConversationDraft;
+  final processing = <String, ServerConversation>{
+    if (draft != null) draft.id: draft,
+    for (final c in conversations.processingConversations) c.id: c,
+  }.values.toList();
   return (
     conversations: conversations.conversations,
     groupedConversations: conversations.groupedConversations,
-    processingConversations: conversations.processingConversations,
+    processingConversations: processing,
     recordings: recordings.recordings,
     previousQuery: conversations.previousQuery,
     selectedFolderId: conversations.selectedFolderId,
@@ -137,7 +143,7 @@ _ConversationPageSnapshot _conversationPageSnapshot(
     isAwaitingInitialFetchRetry: conversations.isAwaitingInitialFetchRetry,
     apiViewPhase: conversations.apiViewState.phase,
     conversationIdentitySignature: _identitySignature(conversations.conversations),
-    processingIdentitySignature: _identitySignature(conversations.processingConversations),
+    processingIdentitySignature: _identitySignature(processing),
     recordingIdentitySignature: _identitySignature(recordings.recordings),
     pendingDeleteCount: conversations.memoriesToDelete.length,
   );
@@ -514,9 +520,9 @@ class _ConversationsPageState extends State<ConversationsPage> with AutomaticKee
   Widget build(BuildContext context) {
     Logger.debug('building conversations page');
     super.build(context);
-    return Selector2<ConversationProvider, LocalRecordingsProvider, _ConversationPageSnapshot>(
-      selector: (_, conversationProvider, recordingsProvider) =>
-          _conversationPageSnapshot(conversationProvider, recordingsProvider),
+    return Selector3<ConversationProvider, LocalRecordingsProvider, CaptureProvider, _ConversationPageSnapshot>(
+      selector: (_, conversationProvider, recordingsProvider, captureProvider) =>
+          _conversationPageSnapshot(conversationProvider, recordingsProvider, captureProvider),
       builder: (context, snapshot, child) {
         final convoProvider = context.read<ConversationProvider>();
         // Unsynced local recordings (batch/offline mode) shown inline with conversations,

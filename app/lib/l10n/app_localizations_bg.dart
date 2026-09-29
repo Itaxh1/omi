@@ -12872,4 +12872,10 @@ class AppLocalizationsBg extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Благодарим ви, че започнахте с Omi! Разговорите ви се превръщат в бележки, към които можете да се връщате. Докато бележката се обработва, напредъкът е видим на началния екран. Присъединете се към нас в Discord за помощ или за да споделите идея.\n\nС благодарност,\nРазработчиците на Omi';
+
+  @override
+  String get conversationUntitledDraft => 'Чернова без заглавие';
+
+  @override
+  String get conversationGenerating => 'Генериране…';
 }

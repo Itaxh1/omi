@@ -7,6 +7,33 @@ import 'package:omi/services/capture/capture_external_actions.dart';
 class OptimisticProcessingPlaceholder {
   static const String id = '0';
 
+  static bool isLocal(String id) => id == '0' || id.startsWith('local-draft-');
+
+  static ServerConversation recording({
+    required String recordingId,
+    required int revision,
+    required DateTime startedAt,
+    ConversationSource? source,
+  }) =>
+      ServerConversation(
+        id: 'local-draft-$recordingId-$revision',
+        createdAt: startedAt,
+        startedAt: startedAt,
+        source: source,
+        structured: Structured('', ''),
+        status: ConversationStatus.in_progress,
+      );
+
+  static ServerConversation generating(ServerConversation draft, DateTime now) => ServerConversation(
+        id: draft.id,
+        createdAt: draft.createdAt,
+        startedAt: draft.startedAt,
+        finishedAt: now,
+        source: draft.source,
+        structured: Structured('', ''),
+        status: ConversationStatus.processing,
+      );
+
   static ServerConversation conversation() {
     return ServerConversation(
       id: id,
@@ -33,16 +60,19 @@ class OptimisticProcessingPlaceholder {
   /// A contentless or still-processing row stays on the processing skeleton
   /// until title + emoji arrive; a null result removes the placeholder.
   static Future<String?> applyProcessResult({
+    String placeholderId = id,
     required CreateConversationResponse? result,
     required CaptureExternalActions actions,
     required Future<void> Function(ServerConversation conversation, List<ServerMessage> messages) onCreated,
   }) async {
     if (result == null || result.conversation == null) {
-      actions.removeProcessingConversation(id);
+      actions.removeProcessingConversation(placeholderId);
       return null;
     }
     final conversation = result.conversation!;
-    actions.removeProcessingConversation(id);
+    actions.removeProcessingConversation(placeholderId);
+    // A websocket completion can beat the HTTP response. Never revive its draft.
+    if (actions.hasConversation(conversation.id)) return conversation.id;
     if (keepOnProcessingList(conversation)) {
       actions.addProcessingConversation(conversation);
       return conversation.id;

@@ -12858,4 +12858,10 @@ class AppLocalizationsBe extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Дзякуй, што пачалі карыстацца Omi! Вашы размовы становяцца нататкамі, да якіх можна вярнуцца. Пакуль нататка апрацоўваецца, яе стан бачны на галоўнай старонцы. Далучайцеся да нас у Discord па дапамогу або каб падзяліцца ідэяй.\n\nЗ удзячнасцю,\nРаспрацоўшчыкі Omi';
+
+  @override
+  String get conversationUntitledDraft => 'Чарнавік без назвы';
+
+  @override
+  String get conversationGenerating => 'Ствараецца…';
 }

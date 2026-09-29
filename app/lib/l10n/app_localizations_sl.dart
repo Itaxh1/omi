@@ -12854,4 +12854,10 @@ class AppLocalizationsSl extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Hvala, ker ste začeli uporabljati Omi! Vaši pogovori postanejo zapiski, h katerim se lahko vrnete. Med obdelavo zapiska lahko napredek spremljate na začetnem zaslonu. Pridružite se nam na Discordu za pomoč ali deljenje zamisli.\n\nS hvaležnostjo,\nRazvijalci Omi';
+
+  @override
+  String get conversationUntitledDraft => 'Osnutek brez naslova';
+
+  @override
+  String get conversationGenerating => 'Ustvarjanje…';
 }

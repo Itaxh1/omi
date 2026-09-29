@@ -12817,4 +12817,10 @@ class AppLocalizationsSk extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Ďakujeme, že začínate s Omi! Vaše rozhovory sa menia na poznámky, ku ktorým sa môžete vracať. Priebeh spracovania poznámky uvidíte na úvodnej obrazovke. Pridajte sa k nám na Discorde pre pomoc alebo zdieľanie nápadu.\n\nS poďakovaním,\nVývojári Omi';
+
+  @override
+  String get conversationUntitledDraft => 'Koncept bez názvu';
+
+  @override
+  String get conversationGenerating => 'Generovanie…';
 }

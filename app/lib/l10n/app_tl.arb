@@ -11573,5 +11573,7 @@
     "howToPairV3": "Paano i-pair",
     "omiNotInRangeUsePhone": "Wala sa saklaw ang {device}. Gamitin muna ang phone na ito?",
     "usePhoneV3": "Gamitin ang phone",
-    "welcomeNoteBody": "Salamat sa pagsisimula sa Omi! Ang mga pag-uusap mo ay nagiging mga tala na maaari mong balikan. Habang pinoproseso ang tala, makikita mo ang progreso sa Home. Sumali sa amin sa Discord para humingi ng tulong o magbahagi ng ideya.\n\nMaraming salamat,\nMga developer ng Omi"
+    "welcomeNoteBody": "Salamat sa pagsisimula sa Omi! Ang mga pag-uusap mo ay nagiging mga tala na maaari mong balikan. Habang pinoproseso ang tala, makikita mo ang progreso sa Home. Sumali sa amin sa Discord para humingi ng tulong o magbahagi ng ideya.\n\nMaraming salamat,\nMga developer ng Omi",
+    "conversationUntitledDraft": "Draft na walang pamagat",
+    "conversationGenerating": "Binubuo…"
 }

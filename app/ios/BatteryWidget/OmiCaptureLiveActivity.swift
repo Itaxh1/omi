@@ -47,21 +47,40 @@ struct CaptureInk {
     let onFill: Color
 }
 
-/// The app's listening wave (Liquid Dock): the prototype's bar heights, each easing down to 45 %
-/// and back, neighbours a beat apart. The OS cannot loop animations in a Live Activity, so every
-/// update (about once a second while audio flows) moves the ripple a quarter turn on and the
-/// view eases there across the second: one continuous ripple.
+/// `omi-liquid-dock2.html`: 1.6 s, CSS ease-in-out, scaleY(.45) at the midpoint,
+/// and a negative 130 ms delay per neighbouring bar (repeating every 13 bars).
+/// ActivityKit samples this curve when content updates arrive; it does not run
+/// the HTML's continuous animation clock between updates.
 enum CaptureRipple {
+    static let period = 1.6
+    static let stagger = 0.13
     static let levels: [Double] = [
         0.22, 0.35, 0.5, 0.3, 0.62, 0.8, 0.45, 0.28, 0.55, 0.9, 0.7, 0.38, 0.25, 0.42, 0.66, 0.52, 0.3, 0.2, 0.35, 0.58,
         0.76, 0.6, 0.4, 0.33, 0.48, 0.7, 0.85, 0.5, 0.3, 0.24, 0.4, 0.62, 0.45, 0.3, 0.52, 0.72, 0.56, 0.36, 0.28, 0.44,
         0.6, 0.8, 0.64, 0.4, 0.3, 0.5, 0.66, 0.42, 0.3, 0.26,
     ]
 
-    /// Height factor of bar [index] at update [tick] (bins of 125 ms: 8 a second).
-    static func pulse(_ index: Int, tick: Int) -> Double {
-        let phase = (Double(tick) / 32 + Double(index % 13) * 0.13 / 1.6).truncatingRemainder(dividingBy: 1)
-        return 1 - 0.55 * (0.5 - 0.5 * cos(2 * Double.pi * phase))
+    static func pulse(_ index: Int, seconds: Double) -> Double {
+        let phase = ((seconds + Double(index % 13) * stagger) / period)
+            .truncatingRemainder(dividingBy: 1)
+        let progress = phase <= 0.5 ? phase * 2 : (1 - phase) * 2
+        return 1 - 0.55 * easeInOut(progress)
+    }
+
+    /// CSS ease-in-out is cubic-bezier(.42, 0, .58, 1), not a cosine.
+    private static func easeInOut(_ progress: Double) -> Double {
+        if progress <= 0 { return 0 }
+        if progress >= 1 { return 1 }
+        var low = 0.0
+        var high = 1.0
+        for _ in 0..<24 {
+            let t = (low + high) / 2
+            let u = 1 - t
+            let x = 3 * u * u * t * 0.42 + 3 * u * t * t * 0.58 + t * t * t
+            if x < progress { low = t } else { high = t }
+        }
+        let t = (low + high) / 2
+        return 3 * (1 - t) * t * t + t * t * t
     }
 }
 
@@ -440,7 +459,7 @@ private struct CaptureMiniWave: View {
                 Capsule()
                     .fill(live ? CapturePalette.led : CapturePalette.island.secondary.opacity(0.55))
                     .frame(width: 2.6, height: live
-                        ? max(3, 18 * Self.arch[index] * amplitude * CGFloat(CaptureRipple.pulse(index * 3, tick: tick)))
+                        ? max(3, 18 * Self.arch[index] * amplitude) * CGFloat(CaptureRipple.pulse(index, seconds: Double(tick) / 8))
                         : 3)
             }
         }
@@ -511,8 +530,9 @@ private struct CaptureWaveform: View {
 
     private func barHeight(_ index: Int, amplitude: Double, tick: Int) -> CGFloat {
         let base = CaptureRipple.levels[index % CaptureRipple.levels.count]
-        let h = height * CGFloat(base * amplitude * CaptureRipple.pulse(index, tick: tick))
-        return max(3, h)
+        // The prototype clamps the unscaled bar first, then scales the entire
+        // shape. Clamping again afterwards makes short bars stop pulsing early.
+        return max(3, height * CGFloat(base * amplitude)) * CGFloat(CaptureRipple.pulse(index, seconds: Double(tick) / 8))
     }
 }
 

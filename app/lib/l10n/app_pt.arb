@@ -4048,5 +4048,7 @@
     "howToPairV3": "Como parear",
     "omiNotInRangeUsePhone": "{device} está fora de alcance. Usar este telefone por enquanto?",
     "usePhoneV3": "Usar telefone",
-    "welcomeNoteBody": "Obrigado por começar com o Omi! Suas conversas se tornam notas que você pode consultar novamente. Enquanto uma nota é processada, você pode acompanhar o progresso na tela inicial. Junte-se a nós no Discord para obter ajuda ou compartilhar uma ideia.\n\nCom gratidão,\nOs desenvolvedores do Omi"
+    "welcomeNoteBody": "Obrigado por começar com o Omi! Suas conversas se tornam notas que você pode consultar novamente. Enquanto uma nota é processada, você pode acompanhar o progresso na tela inicial. Junte-se a nós no Discord para obter ajuda ou compartilhar uma ideia.\n\nCom gratidão,\nOs desenvolvedores do Omi",
+    "conversationUntitledDraft": "Rascunho sem título",
+    "conversationGenerating": "A gerar…"
 }

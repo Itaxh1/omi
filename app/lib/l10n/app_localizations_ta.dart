@@ -12912,4 +12912,10 @@ class AppLocalizationsTa extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Omi பயன்படுத்தத் தொடங்கியதற்கு நன்றி! உங்கள் உரையாடல்கள் பின்னர் படிக்கக்கூடிய குறிப்புகளாக மாறும். குறிப்பு செயலாக்கப்படும்போது முகப்பில் அதன் முன்னேற்றத்தைக் காணலாம். உதவி பெற அல்லது யோசனையைப் பகிர Discord இல் எங்களுடன் இணையுங்கள்.\n\nநன்றியுடன்,\nOmi உருவாக்குநர்கள்';
+
+  @override
+  String get conversationUntitledDraft => 'தலைப்பில்லாத வரைவு';
+
+  @override
+  String get conversationGenerating => 'உருவாக்கப்படுகிறது…';
 }

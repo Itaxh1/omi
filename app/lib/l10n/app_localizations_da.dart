@@ -12817,4 +12817,10 @@ class AppLocalizationsDa extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'Tak, fordi du er startet med Omi! Dine samtaler bliver til noter, du kan vende tilbage til. Mens en note behandles, kan du følge fremskridtet på startsiden. Mød os på Discord for hjælp eller for at dele en idé.\n\nMed tak,\nOmi-udviklerne';
+
+  @override
+  String get conversationUntitledDraft => 'Kladde uden titel';
+
+  @override
+  String get conversationGenerating => 'Genererer…';
 }

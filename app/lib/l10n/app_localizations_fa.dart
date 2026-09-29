@@ -12823,4 +12823,10 @@ class AppLocalizationsFa extends AppLocalizations {
   @override
   String get welcomeNoteBody =>
       'از اینکه استفاده از Omi را شروع کردید سپاسگزاریم! گفتگوهای شما به یادداشت‌هایی تبدیل می‌شوند که می‌توانید دوباره به آن‌ها مراجعه کنید. هنگام پردازش یادداشت، پیشرفت آن را در صفحه اصلی می‌بینید. برای دریافت کمک یا به اشتراک گذاشتن ایده در Discord به ما بپیوندید.\n\nبا سپاس،\nتوسعه‌دهندگان Omi';
+
+  @override
+  String get conversationUntitledDraft => 'پیش‌نویس بدون عنوان';
+
+  @override
+  String get conversationGenerating => 'در حال ایجاد…';
 }
