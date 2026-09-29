@@ -43,6 +43,9 @@ class OnboardingFirstWordsStep extends StatefulWidget {
   /// How long nothing may be heard before "Skip for now" shows.
   final Duration quietFor;
 
+  /// How long Done waits for the recording to close before moving on anyway.
+  static const Duration finishWait = Duration(seconds: 12);
+
   @override
   State<OnboardingFirstWordsStep> createState() => _OnboardingFirstWordsStepState();
 }
@@ -109,7 +112,13 @@ class _OnboardingFirstWordsStepState extends State<OnboardingFirstWordsStep> {
     setState(() => _finishing = true);
     widget.onFinishing?.call();
     try {
-      await _capture.finishCapture();
+      // Finishing waits its turn behind other capture work and has no bound of its own. The
+      // recording carries on closing either way, and the next step already waits for the notes
+      // ("Omi is writing it up…"), so the reader is never left on a spinning Done.
+      await _capture.finishCapture().timeout(OnboardingFirstWordsStep.finishWait);
+      _finished = true;
+    } on TimeoutException {
+      Logger.debug('Onboarding first recording is still finishing; moving on');
       _finished = true;
     } catch (e) {
       Logger.debug('Onboarding first recording did not finish: $e');

@@ -76,6 +76,23 @@ void main() {
     expect(await journal.readAsString(), contains('quarantine:btDevice'));
   });
 
+  test('a saved string list, read back untyped, is kept (not quarantined)', () async {
+    // iOS and Android hand string lists back as List<Object?> until the first typed read.
+    SharedPreferences.setMockInitialValues({
+      'flash_page_pending_uploads': <Object?>['upload-1'],
+      'btDevices': <Object?>['{"id":"a"}'],
+      'cachedMessages': <Object?>[],
+    });
+    await SharedPreferencesUtil.init();
+    expect(SharedPreferencesUtil().getStringList('flash_page_pending_uploads'), ['upload-1']);
+    expect(SharedPreferencesUtil().getStringList('btDevices'), ['{"id":"a"}']);
+    expect(SharedPreferencesUtil().getStringList('cachedMessages'), isEmpty);
+    await Future<void>.delayed(Duration.zero);
+    final stored = await SharedPreferences.getInstance();
+    expect(stored.getKeys().where((key) => key.contains('.corrupt-')), isEmpty);
+    expect(stored.containsKey('btDevices'), isTrue);
+  });
+
   test('mixed-type list is archived as JSON before the original is removed', () async {
     const key = 'flash_page_pending_uploads';
     SharedPreferences.setMockInitialValues({

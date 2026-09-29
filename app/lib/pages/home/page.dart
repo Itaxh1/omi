@@ -671,7 +671,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
           child: Scaffold(
             backgroundColor: Colors.transparent,
             resizeToAvoidBottomInset: false,
+            // A Scaffold body gets loose constraints: the Stack must fill them itself, or one
+            // zero-size child shrinks it (and all of Home) to nothing.
             body: Stack(
+              fit: StackFit.expand,
               children: [
                 // The top bar and the page move together under a pull; the Ask bar stays.
                 Positioned.fill(
@@ -713,14 +716,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
                 // `.tip`: under the label, 82 pt from the top of the screen.
                 ValueListenableBuilder<bool>(
                   valueListenable: _teachTip,
-                  builder: (context, show, _) => show
-                      ? Positioned(
-                          top: MediaQuery.viewPaddingOf(context).top + 82,
-                          left: 0,
-                          right: 0,
-                          child: Center(child: HomeTeachTip(onDone: _teachDone)),
-                        )
-                      : const SizedBox.shrink(),
+                  builder: (context, show, _) => Positioned(
+                    top: MediaQuery.viewPaddingOf(context).top + 82,
+                    left: 0,
+                    right: 0,
+                    child: show ? Center(child: HomeTeachTip(onDone: _teachDone)) : const SizedBox.shrink(),
+                  ),
                 ),
               ],
             ),

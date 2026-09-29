@@ -79,6 +79,78 @@ final class QuickActionsIconPatcher: NSObject {
     deinit { stopObserving() }
 }
 
+// MARK: - Background task guard
+
+/// BackgroundTasks raises, and the app dies, when an identifier is registered twice or submitted
+/// without being registered. `flutter_background_service_ios` and `flutter_foreground_task` both do
+/// one or the other under the scene lifecycle: Flutter delivers each plugin's launch callback when
+/// the scene connects (and can deliver it more than once), and the plugins schedule their refresh
+/// task whenever the app goes to the background, registered or not. This turns those two fatal calls
+/// into no-ops for the identifiers those plugins use; every other call passes through untouched.
+enum BackgroundTaskGuard {
+    private static let lock = NSLock()
+    private static var installed = false
+    private static var registered = Set<String>()
+
+    /// The refresh identifiers the two plugins use (Info.plist permits both).
+    private static let pluginIdentifiers: Set<String> = [
+        "dev.flutter.background.refresh",
+        "com.pravera.flutter_foreground_task.refresh",
+    ]
+
+    private typealias RegisterFunction = @convention(c) (AnyObject, Selector, NSString, DispatchQueue?, AnyObject) -> Bool
+    private typealias SubmitFunction = @convention(c) (AnyObject, Selector, AnyObject, UnsafeMutableRawPointer?) -> Bool
+
+    /// Call before any plugin can register: first thing in `application(_:didFinishLaunchingWithOptions:)`.
+    static func install() {
+        lock.lock()
+        defer { lock.unlock() }
+        guard !installed else { return }
+        installed = true
+        swizzleRegister()
+        swizzleSubmit()
+    }
+
+    private static func swizzleRegister() {
+        let selector = NSSelectorFromString("registerForTaskWithIdentifier:usingQueue:launchHandler:")
+        guard let method = class_getInstanceMethod(BGTaskScheduler.self, selector) else { return }
+        let original = unsafeBitCast(method_getImplementation(method), to: RegisterFunction.self)
+        let replacement: @convention(block) (AnyObject, NSString, DispatchQueue?, AnyObject) -> Bool = { scheduler, identifier, queue, handler in
+            let id = identifier as String
+            lock.lock()
+            let first = registered.insert(id).inserted
+            lock.unlock()
+            // A second registration is fatal; the first one stands.
+            guard first else { return true }
+            let done = original(scheduler, selector, identifier, queue, handler)
+            if !done {
+                lock.lock()
+                registered.remove(id)
+                lock.unlock()
+            }
+            return done
+        }
+        method_setImplementation(method, imp_implementationWithBlock(replacement))
+    }
+
+    private static func swizzleSubmit() {
+        let selector = NSSelectorFromString("submitTaskRequest:error:")
+        guard let method = class_getInstanceMethod(BGTaskScheduler.self, selector) else { return }
+        let original = unsafeBitCast(method_getImplementation(method), to: SubmitFunction.self)
+        let replacement: @convention(block) (AnyObject, AnyObject, UnsafeMutableRawPointer?) -> Bool = { scheduler, request, error in
+            if let id = (request as? BGTaskRequest)?.identifier, pluginIdentifiers.contains(id) {
+                lock.lock()
+                let known = registered.contains(id)
+                lock.unlock()
+                // Submitting what was never registered is fatal; there is nothing to schedule.
+                guard known else { return true }
+            }
+            return original(scheduler, selector, request, error)
+        }
+        method_setImplementation(method, imp_implementationWithBlock(replacement))
+    }
+}
+
 @main
 @objc class AppDelegate: FlutterAppDelegate, FlutterImplicitEngineDelegate {
   private static let unusedForegroundTaskRefreshIdentifier = "com.pravera.flutter_foreground_task.refresh"
@@ -126,6 +198,8 @@ final class QuickActionsIconPatcher: NSObject {
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
+    // Before any plugin registers a BackgroundTasks identifier.
+    BackgroundTaskGuard.install()
     QuickActionsIconPatcher.shared.startObserving()
     SwiftFlutterForegroundTaskPlugin.setPluginRegistrantCallback { registry in
       GeneratedPluginRegistrant.register(with: registry)
