@@ -163,3 +163,18 @@ and an unsigned build cannot establish these hardware results.
   no PR. This is not a green full preflight.
 - Pairing was reported as working by the user; no speculative pairing changes
   were made in this follow-up.
+
+## Follow-up — limit pull hints and clean iPhone install
+
+- The pause and listening-again undo pop-ups share a three-display limit, saved
+  across launches. Subsequent pulls still operate normally. Failed actions keep
+  their error alert and do not consume the limit; calls do not consume it either.
+- All 20 focused gesture, listening-label and recorder-action tests pass,
+  including persistence across preferences reload and widget recreation.
+- Analyzer ratchet and localization consistency checks pass.
+- Requested installation procedure: clear only this preview app's local saved
+  credentials and shared widget data, uninstall its container/cache, then install
+  the freshly signed build. No cloud account or server conversations are deleted.
+  A clean local install resets the hint count and starts onboarding again.
+- Physical installation evidence is recorded separately after the signed build;
+  these notes do not claim an install before device verification.

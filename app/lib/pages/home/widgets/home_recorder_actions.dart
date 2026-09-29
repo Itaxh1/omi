@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
+import 'package:omi/backend/preferences.dart';
 import 'package:omi/backend/schema/phone_call.dart';
 import 'package:omi/pages/home/widgets/home_top_bar.dart';
 import 'package:omi/pages/home/widgets/idle_capture_card.dart';
@@ -14,9 +17,25 @@ import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 
 /// What Home's pull down and Your Omi's first button do (v8.6): pause while listening, resume
-/// while paused, otherwise start (a stopped wearable wakes; else this phone records). Each says what
-/// happened in a toast Home can undo with the same pull.
+/// while paused, otherwise start (a stopped wearable wakes; else this phone records). The first
+/// three successful actions teach the reader that another pull undoes the change.
 abstract final class HomeRecorderActions {
+  static const _pullHintCountKey = 'homePullUndoHintCount';
+  static const _pullHintLimit = 3;
+
+  /// Pause and resume share one teaching budget, persisted across app launches.
+  /// Only successful actions that can display the hint consume an appearance.
+  static void _showPullHint(BuildContext context, String message) {
+    if (!context.mounted || ScaffoldMessenger.maybeOf(context) == null) return;
+    final prefs = SharedPreferencesUtil();
+    final shown = prefs.getInt(_pullHintCountKey).clamp(0, _pullHintLimit);
+    if (shown >= _pullHintLimit) return;
+    OmiFeedback.info(context, message);
+    // SharedPreferences updates its in-memory value synchronously. A failed
+    // disk write must not turn a successful capture action into an error alert.
+    unawaited(prefs.saveInt(_pullHintCountKey, shown + 1).catchError((_) => false));
+  }
+
   /// The label's state, read once (no rebuild).
   static HomeRecorderState read(BuildContext context) {
     final device = context.read<DeviceProvider?>();
@@ -60,10 +79,10 @@ abstract final class HomeRecorderActions {
       switch (state) {
         case HomeRecorderState.listening:
           await capture.pauseCapture();
-          if (context.mounted) OmiFeedback.info(context, l10n.pausedPullToUndo);
+          if (context.mounted) _showPullHint(context, l10n.pausedPullToUndo);
         case HomeRecorderState.paused:
           await capture.resumeCapture();
-          if (context.mounted) OmiFeedback.info(context, l10n.listeningAgainPullToUndo);
+          if (context.mounted) _showPullHint(context, l10n.listeningAgainPullToUndo);
         case HomeRecorderState.reconnecting:
           // The pendant keeps recording while it reconnects: nothing to start or stop.
           return;
@@ -72,7 +91,7 @@ abstract final class HomeRecorderActions {
         case HomeRecorderState.notFound:
           await start(context);
           if (context.mounted && read(context) == HomeRecorderState.listening) {
-            OmiFeedback.info(context, l10n.listeningAgainPullToUndo);
+            _showPullHint(context, l10n.listeningAgainPullToUndo);
           }
       }
     } catch (_) {
