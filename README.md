@@ -9,3 +9,5 @@ Images referenced from BasedHardware/omi#19249 (Omi v2 restyle) and BasedHardwar
 - `pr-19252-iphone.png`: the widgets on an iPhone 15 Pro Max, from a build of this branch (cropped).
 - `issue-design-delete-swipe-IMG_1277.png`: iPhone screenshot (store build), swiping a Home conversation to delete; cropped to the swipe bar and the confirmation.
 - `issue-design-update-prompt-IMG_1281.png`: iPhone screenshot (store build 1.0.552), the update prompt; cropped to the dialog.
+- `issue-design-delete-swipe-full-IMG_1277.png`: the same screenshot, full screen (status bar cropped, the recap map blurred).
+- `issue-design-update-prompt-full-IMG_1281.png`: the same screenshot, full screen (status bar cropped).
