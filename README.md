@@ -7,3 +7,5 @@ Images referenced from BasedHardware/omi#19249 (Omi v2 restyle) and BasedHardwar
 - `pr-19252-widgets-v2.png`: the same views after the pendant-photo change (608c062ff8), rendered with the widget's compiled asset catalog so each device shows its own photo.
 - `pr-19252-battery-pictures.png`: the Battery widget's picture: the pendant connected, the pendant disconnected (its lights-off photo) and a DevKit disconnected.
 - `pr-19252-iphone.png`: the widgets on an iPhone 15 Pro Max, from a build of this branch (cropped).
+- `issue-design-delete-swipe-IMG_1277.png`: iPhone screenshot (store build), swiping a Home conversation to delete; cropped to the swipe bar and the confirmation.
+- `issue-design-update-prompt-IMG_1281.png`: iPhone screenshot (store build 1.0.552), the update prompt; cropped to the dialog.
