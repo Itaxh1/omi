@@ -882,7 +882,11 @@ class CaptureController extends ChangeNotifier
   /// like the first one's instead of staying unstamped and being uploaded again later.
   void _startNextConversationWindow() {
     if (_socket == null) return;
-    if (recordingState != RecordingState.deviceRecord && recordingState != RecordingState.record) return;
+    if (recordingState != RecordingState.deviceRecord &&
+        recordingState != RecordingState.record &&
+        recordingState != RecordingState.interrupted) {
+      return;
+    }
     _sessionStartSeconds = _now().millisecondsSinceEpoch ~/ 1000;
   }
 

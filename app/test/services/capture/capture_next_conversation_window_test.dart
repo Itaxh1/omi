@@ -168,4 +168,33 @@ void main() {
 
     expect(world.controller.activeCaptureSessionId, isNull, reason: 'nothing is recording, so no next conversation');
   });
+  test('phone mic: conversation closure during interruption preserves the next window on the live socket', () async {
+    final origin = world.clock.now();
+    await world.startLiveCapture();
+    final session = world.hostApi.lastStartSessionId!;
+    world.emitNativeState(PhoneMicCaptureState.running);
+    await world.settle();
+    final sockets = world.socketCreates;
+    for (var s = 0; s < 30; s++) {
+      world.injectAudioFrames(100, sessionId: session, firstFrameIndex: s * 100);
+      await world.elapse(const Duration(seconds: 1));
+    }
+    world.emitNativeState(PhoneMicCaptureState.interrupted);
+    await world.settle();
+    await serverCloses(conversation('c1', origin, 30));
+    expect(world.controller.activeCaptureSessionId, isNotNull,
+        reason: 'the interrupted source still owns a continuing conversation window');
+    world.emitNativeState(PhoneMicCaptureState.running);
+    await world.settle();
+    final nextStart = world.clock.now();
+    for (var s = 0; s < 30; s++) {
+      world.injectAudioFrames(100, sessionId: session, firstFrameIndex: (s + 30) * 100);
+      await world.elapse(const Duration(seconds: 1));
+    }
+    await serverCloses(conversation('c2', nextStart, 30));
+    expect(world.socketCreates, sockets, reason: 'native recovery keeps the existing socket');
+    expect(await world.wal.syncs.phone.getAllWals(), isEmpty,
+        reason: 'the resumed conversation must still be stamped and confirmed');
+    expect(world.uploads.attempts, isEmpty);
+  });
 }

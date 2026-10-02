@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": "FC-continuing-session-excluded-during-interruption",
+  "violated_contract": "A temporarily interrupted source retains its live session. Closing one conversation must establish the next capture window even while audio delivery is interrupted.",
+  "canonical_prevention": "Distinguish temporary source interruption from user stop when rolling conversation windows; exercise closure during interruption and resume on the same socket.",
+  "canonical_prevention_artifact": [
+    "app/test/services/capture/capture_next_conversation_window_test.dart"
+  ],
+  "evidence_prs": [],
+  "scope_hints": [
+    "app/lib/services/capture/capture_controller.dart"
+  ],
+  "status": "open"
+}
