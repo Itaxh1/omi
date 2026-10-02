@@ -587,6 +587,11 @@ class CaptureController extends ChangeNotifier
   /// Future tracking the in-progress _finalizeAndStampSession(), so the next
   /// coordinated transfer wake cannot run before the durable stamp is ready.
   Future<void>? _pendingFinalizeAndStamp;
+  Future<void> _transcriptConfirmation = Future<void>.value();
+
+  /// Completes after confirmation has persisted the resulting WAL inventory.
+  @visibleForTesting
+  Future<void> get transcriptConfirmationForTesting => _transcriptConfirmation;
 
   /// Set in onClosed() when the socket drops during active device recording.
   /// Consumed in _initiateWebsocket() to trigger onNetworkSocketReconnected()
@@ -3191,7 +3196,8 @@ class CaptureController extends ChangeNotifier
         _pendingAutoSyncConversationId = null;
         _pendingAutoSyncNeedsRepair = false;
         if (event.memory.transcriptSegments.isNotEmpty && !needsRepair) {
-          unawaited(_confirmSessionTranscript(sessionStart, event.memory.id));
+          _transcriptConfirmation = _confirmSessionTranscript(sessionStart, event.memory.id);
+          unawaited(_transcriptConfirmation);
         } else {
           _autoSyncSessionWals(trigger: WakeTrigger.dataStalled);
         }

@@ -1,7 +1,6 @@
 // A pendant socket stays open across the conversations the server closes on silence (#20365). These
 // scenarios drive the real CaptureController and LocalWalSyncImpl over the replay world and check
 // that every conversation's safety copy is stamped and released, not only the first one's.
-import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -13,7 +12,6 @@ import 'package:omi/backend/schema/structured.dart';
 import 'package:omi/backend/schema/transcript_segment.dart';
 import 'package:omi/gen/phone_mic_pigeon.g.dart';
 import 'package:omi/services/wals/recording_transfer_coordinator.dart';
-import 'package:omi/services/wals/wal.dart';
 
 import '../../support/capture/capture_replay_world.dart';
 import '../../support/capture/scripted_device_connection.dart';
@@ -75,7 +73,7 @@ void main() {
 
   /// Finalize, stamp and confirm write real files outside the virtual scheduler, so let real time
   /// pass until the WAL index stops changing.
-  Future<void> settleFiles({bool Function(List<Wal>)? completed}) async {
+  Future<void> settleFiles() async {
     var last = '';
     for (var i = 0; i < 40; i++) {
       await world.settle();
@@ -85,10 +83,9 @@ void main() {
         for (final wal in wals) '${wal.id}:${wal.status.name}:${wal.conversationId}',
         'uploads=${world.uploads.attempts.length}',
       ].join(',');
-      if (completed != null ? completed(wals) : now == last && i >= 3) return;
+      if (now == last && i >= 3) return;
       last = now;
     }
-    if (completed != null) throw TimeoutException('Transcript confirmation did not release its WALs');
   }
 
   /// The server closes [memory]: processing starts, then the conversation arrives with its transcript.
@@ -96,9 +93,10 @@ void main() {
     world.controller.onMessageEventReceived(ConversationProcessingStartedEvent(memory: memory));
     await settleFiles();
     world.controller.onMessageEventReceived(ConversationEvent(memory: memory, messages: []));
-    // Confirmation is unawaited by the socket callback. Wait for its actual
-    // observable result, not an unchanged index while a write is still pending.
-    await settleFiles(completed: (wals) => wals.isEmpty);
+    // An empty in-memory list precedes the final disk write. Await the actual
+    // production operation before the next conversation or directory teardown.
+    await world.controller.transcriptConfirmationForTesting.timeout(const Duration(seconds: 2));
+    expect(await world.wal.syncs.phone.getAllWals(), isEmpty);
   }
 
   /// The controller asks for recovery through its session owner; the replay world has none, so wake

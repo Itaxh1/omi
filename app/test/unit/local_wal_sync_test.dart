@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
 import 'dart:typed_data';
@@ -928,6 +929,40 @@ void main() {
       expect(local.testWals.map((wal) => wal.id), containsAll([unrelated.id, unstamped.id]));
       expect(persisted.map((wal) => wal.id), containsAll([unrelated.id, unstamped.id]));
     });
+  });
+
+  test('confirmation remains pending after WAL removal until its final persistence completes', () async {
+    final started = Completer<void>();
+    final release = Completer<void>();
+    final now = DateTime.fromMillisecondsSinceEpoch(1000000);
+    final local = LocalWalSyncImpl(
+      _MockListener(),
+      now: () => now,
+      loadWals: () async => <Wal>[],
+      persistWals: (_) async {
+        started.complete();
+        await release.future;
+      },
+    );
+    local.testWals = [
+      Wal(
+          timerStart: 500,
+          codec: BleAudioCodec.opus,
+          seconds: 60,
+          storage: WalStorage.disk,
+          status: WalStatus.miss,
+          conversationId: 'c1')
+    ];
+    var completed = false;
+    final confirmation = local.confirmSessionTranscription(500, 'c1').then((_) {
+      completed = true;
+    });
+    await started.future.timeout(const Duration(seconds: 2));
+    expect(await local.getAllWals(), isEmpty);
+    expect(completed, isFalse, reason: 'an empty list is not proof that disk persistence is finished');
+    release.complete();
+    await confirmation;
+    expect(completed, isTrue);
   });
 
   group('syncWal — orphan WAL guard', () {
