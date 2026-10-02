@@ -352,4 +352,23 @@ void main() {
       expect(expected, contains(glyph), reason: row.title);
     }
   });
+
+  testWidgets('the avatar initial is a whole character: an emoji sequence or an accented letter stays in one piece',
+      (tester) async {
+    // A woman and a girl joined into one family emoji, and an e followed by a combining acute accent.
+    const family = '\u{1F469}\u{200D}\u{1F467}';
+    const accentedE = 'e\u{0301}';
+    await tester.pumpWidget(const MaterialApp(
+      home: Column(children: [
+        OmiSettingsAvatar(name: '$family Mum'),
+        OmiSettingsAvatar(name: '${accentedE}lodie'),
+        OmiSettingsAvatar(name: '  '),
+      ]),
+    ));
+
+    expect(find.text(family), findsOneWidget);
+    expect(find.text(accentedE.toUpperCase()), findsOneWidget);
+    // A blank name shows the person glyph, not an empty letter.
+    expect(find.byType(OmiLineIcon), findsOneWidget);
+  });
 }

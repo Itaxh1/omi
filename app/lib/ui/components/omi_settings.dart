@@ -460,7 +460,9 @@ class OmiSettingsAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final trimmed = name.trim();
-    final initial = trimmed.isEmpty ? null : String.fromCharCodes(trimmed.runes.take(1)).toUpperCase();
+    // The first whole character as the reader sees it: a code point alone would split an emoji
+    // sequence or drop a combining accent.
+    final initial = trimmed.isEmpty ? null : trimmed.characters.first.toUpperCase();
     final size = this.size * OmiSettingsTypeface.scaleOf(context);
     return ExcludeSemantics(
       child: Container(
