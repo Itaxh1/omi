@@ -10600,9 +10600,6 @@ class AppLocalizationsTh extends AppLocalizations {
   String get deviceConnecting => 'กำลังเชื่อมต่อ…';
 
   @override
-  String get recordOptionsTip => 'เคล็ดลับ: แตะลูกศรบนปุ่มบันทึกเพื่อบันทึกการโทร';
-
-  @override
   String get firmwareUpdateFailedTitle => 'อัปเดตไม่สำเร็จ';
 
   @override
@@ -11144,9 +11141,6 @@ class AppLocalizationsTh extends AppLocalizations {
   String get recordWith => 'บันทึกด้วย';
 
   @override
-  String get moreWaysToRecord => 'วิธีบันทึกเพิ่มเติม';
-
-  @override
   String get openCall => 'เปิดการโทร';
 
   @override
@@ -11183,10 +11177,6 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get captureStorageAlmostFull => 'พื้นที่ใกล้เต็ม';
-
-  @override
-  String get capturePendantDisconnectedDetail =>
-      'จี้ของคุณขาดการเชื่อมต่อกับโทรศัพท์เครื่องนี้ Omi จะเชื่อมต่อใหม่เองเมื่อจี้เปิดอยู่และอยู่ใกล้ ทุกอย่างที่บันทึกไว้ก่อนหน้านี้ปลอดภัย';
 
   @override
   String participantsSummaryUncounted(String name) {
@@ -12161,4 +12151,16 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get settingsSectionSupport => 'ฝ่ายสนับสนุน';
+
+  @override
+  String get askAnythingButton => 'ถามอะไรก็ได้';
+
+  @override
+  String get pendantLostConnection => 'จี้ของคุณขาดการเชื่อมต่อกับโทรศัพท์เครื่องนี้';
+
+  @override
+  String get pendantReconnectsOnItsOwn => 'Omi จะเชื่อมต่อใหม่เองเมื่อจี้เปิดอยู่และอยู่ใกล้';
+
+  @override
+  String get pendantRecordingSafe => 'ทุกอย่างที่บันทึกไว้ก่อนหน้านี้ปลอดภัย';
 }
