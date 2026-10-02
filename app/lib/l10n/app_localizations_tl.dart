@@ -12327,4 +12327,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration ng boses na ito';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Hindi ma-load ang iba pang mga gawain. Hilahin pababa para subukang muli.';
+
+  @override
+  String get selectAllTasksPartial => 'Hindi ma-load ang lahat ng gawain. Ang mga na-load na gawain lang ang napili.';
 }

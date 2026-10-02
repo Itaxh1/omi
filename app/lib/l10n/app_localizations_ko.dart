@@ -12031,4 +12031,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '이 목소리 $duration';
   }
+
+  @override
+  String get tasksNextPageFailed => '작업을 더 불러오지 못했습니다. 아래로 당겨 다시 시도하세요.';
+
+  @override
+  String get selectAllTasksPartial => '모든 작업을 불러오지 못했습니다. 이미 불러온 작업만 선택되었습니다.';
 }

@@ -12259,4 +12259,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration de esta voz';
   }
+
+  @override
+  String get tasksNextPageFailed => 'No se pudieron cargar más tareas. Desliza hacia abajo para volver a intentarlo.';
+
+  @override
+  String get selectAllTasksPartial => 'No se pudieron cargar todas las tareas. Solo se seleccionaron las ya cargadas.';
 }

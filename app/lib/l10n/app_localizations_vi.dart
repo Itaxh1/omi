@@ -12216,4 +12216,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration từ giọng nói này';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Không thể tải thêm việc cần làm. Kéo xuống để thử lại.';
+
+  @override
+  String get selectAllTasksPartial => 'Không thể tải tất cả việc cần làm. Chỉ những việc đã tải được chọn.';
 }

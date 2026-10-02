@@ -12255,4 +12255,10 @@ class AppLocalizationsBe extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration гэтага голасу';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Не ўдалося загрузіць больш задач. Пацягніце ўніз, каб паўтарыць.';
+
+  @override
+  String get selectAllTasksPartial => 'Не ўдалося загрузіць усе задачы. Выбраны толькі ўжо загружаныя задачы.';
 }

@@ -12254,4 +12254,10 @@ class AppLocalizationsSl extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration tega glasu';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Več opravil ni bilo mogoče naložiti. Povlecite navzdol za ponovni poskus.';
+
+  @override
+  String get selectAllTasksPartial => 'Vseh opravil ni bilo mogoče naložiti. Izbrana so samo že naložena opravila.';
 }

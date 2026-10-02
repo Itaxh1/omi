@@ -12305,4 +12305,11 @@ class AppLocalizationsTa extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return 'இந்தக் குரலின் $duration';
   }
+
+  @override
+  String get tasksNextPageFailed => 'மேலும் பணிகளை ஏற்ற முடியவில்லை. மீண்டும் முயற்சிக்க கீழே இழுக்கவும்.';
+
+  @override
+  String get selectAllTasksPartial =>
+      'எல்லா பணிகளையும் ஏற்ற முடியவில்லை. ஏற்கனவே ஏற்றப்பட்ட பணிகள் மட்டுமே தேர்ந்தெடுக்கப்பட்டுள்ளன.';
 }

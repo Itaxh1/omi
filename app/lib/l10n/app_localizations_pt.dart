@@ -12241,4 +12241,11 @@ class AppLocalizationsPt extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration desta voz';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Não foi possível carregar mais tarefas. Puxe para baixo para tentar novamente.';
+
+  @override
+  String get selectAllTasksPartial =>
+      'Não foi possível carregar todas as tarefas. Só as tarefas já carregadas estão selecionadas.';
 }

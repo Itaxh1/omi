@@ -12223,4 +12223,11 @@ class AppLocalizationsNo extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration av denne stemmen';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Kunne ikke laste inn flere oppgaver. Dra ned for å prøve igjen.';
+
+  @override
+  String get selectAllTasksPartial =>
+      'Kunne ikke laste inn alle oppgaver. Bare de som allerede er lastet inn, er valgt.';
 }

@@ -12248,4 +12248,10 @@ class AppLocalizationsUk extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration цього голосу';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Не вдалося завантажити більше завдань. Потягніть вниз, щоб спробувати ще раз.';
+
+  @override
+  String get selectAllTasksPartial => 'Не вдалося завантажити всі завдання. Вибрано лише вже завантажені завдання.';
 }

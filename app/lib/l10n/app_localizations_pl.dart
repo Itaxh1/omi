@@ -12260,4 +12260,10 @@ class AppLocalizationsPl extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration tego głosu';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Nie udało się wczytać więcej zadań. Przeciągnij w dół, aby spróbować ponownie.';
+
+  @override
+  String get selectAllTasksPartial => 'Nie udało się wczytać wszystkich zadań. Zaznaczono tylko już wczytane zadania.';
 }

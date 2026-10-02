@@ -12221,4 +12221,11 @@ class AppLocalizationsEt extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration sellest häälest';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Rohkem ülesandeid ei õnnestunud laadida. Uuesti proovimiseks tõmba alla.';
+
+  @override
+  String get selectAllTasksPartial =>
+      'Kõiki ülesandeid ei õnnestunud laadida. Valitud on ainult juba laaditud ülesanded.';
 }

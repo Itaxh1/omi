@@ -12263,4 +12263,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration этого голоса';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Не удалось загрузить больше задач. Потяните вниз, чтобы попробовать снова.';
+
+  @override
+  String get selectAllTasksPartial => 'Не удалось загрузить все задачи. Выбраны только уже загруженные задачи.';
 }

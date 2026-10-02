@@ -12222,4 +12222,10 @@ class AppLocalizationsCs extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration tohoto hlasu';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Další úkoly se nepodařilo načíst. Přetažením dolů to zkuste znovu.';
+
+  @override
+  String get selectAllTasksPartial => 'Nepodařilo se načíst všechny úkoly. Vybrány jsou jen ty už načtené.';
 }

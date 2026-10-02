@@ -12277,4 +12277,11 @@ class AppLocalizationsRo extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration din această voce';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Nu s-au putut încărca mai multe sarcini. Trage în jos pentru a încerca din nou.';
+
+  @override
+  String get selectAllTasksPartial =>
+      'Nu s-au putut încărca toate sarcinile. Sunt selectate doar sarcinile deja încărcate.';
 }

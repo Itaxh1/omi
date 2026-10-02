@@ -12227,4 +12227,10 @@ class AppLocalizationsFi extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration tästä äänestä';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Tehtävien lataaminen ei onnistunut. Yritä uudelleen vetämällä alas.';
+
+  @override
+  String get selectAllTasksPartial => 'Kaikkia tehtäviä ei voitu ladata. Vain jo ladatut tehtävät on valittu.';
 }

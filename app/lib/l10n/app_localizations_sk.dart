@@ -12216,4 +12216,10 @@ class AppLocalizationsSk extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration tohto hlasu';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Ďalšie úlohy sa nepodarilo načítať. Potiahnutím nadol to skúste znova.';
+
+  @override
+  String get selectAllTasksPartial => 'Nepodarilo sa načítať všetky úlohy. Vybrané sú len už načítané úlohy.';
 }

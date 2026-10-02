@@ -12269,4 +12269,11 @@ class AppLocalizationsHu extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration ebből a hangból';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Nem sikerült több feladatot betölteni. Húzd le az újrapróbáláshoz.';
+
+  @override
+  String get selectAllTasksPartial =>
+      'Nem sikerült minden feladatot betölteni. Csak a már betöltött feladatok vannak kijelölve.';
 }

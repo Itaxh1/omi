@@ -12128,4 +12128,10 @@ class AppLocalizationsHe extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration מהקול הזה';
   }
+
+  @override
+  String get tasksNextPageFailed => 'לא ניתן לטעון משימות נוספות. משכו למטה כדי לנסות שוב.';
+
+  @override
+  String get selectAllTasksPartial => 'לא ניתן לטעון את כל המשימות. נבחרו רק המשימות שכבר נטענו.';
 }

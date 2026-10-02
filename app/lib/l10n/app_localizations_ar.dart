@@ -12150,4 +12150,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration من هذا الصوت';
   }
+
+  @override
+  String get tasksNextPageFailed => 'تعذر تحميل المزيد من المهام. اسحب للأسفل للمحاولة مرة أخرى.';
+
+  @override
+  String get selectAllTasksPartial => 'تعذر تحميل كل المهام. تم تحديد المهام المحمّلة فقط.';
 }

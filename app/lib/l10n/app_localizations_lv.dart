@@ -12249,4 +12249,10 @@ class AppLocalizationsLv extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration no šīs balss';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Neizdevās ielādēt vairāk uzdevumu. Pavelciet uz leju, lai mēģinātu vēlreiz.';
+
+  @override
+  String get selectAllTasksPartial => 'Neizdevās ielādēt visus uzdevumus. Atlasīti tikai jau ielādētie uzdevumi.';
 }

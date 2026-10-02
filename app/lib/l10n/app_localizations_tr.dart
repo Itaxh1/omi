@@ -12235,4 +12235,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return 'Bu sesten $duration';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Daha fazla görev yüklenemedi. Yeniden denemek için aşağı çekin.';
+
+  @override
+  String get selectAllTasksPartial => 'Tüm görevler yüklenemedi. Yalnızca zaten yüklenmiş görevler seçildi.';
 }

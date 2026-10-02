@@ -12155,4 +12155,10 @@ class AppLocalizationsTh extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration ของเสียงนี้';
   }
+
+  @override
+  String get tasksNextPageFailed => 'โหลดงานเพิ่มเติมไม่ได้ ดึงลงเพื่อลองอีกครั้ง';
+
+  @override
+  String get selectAllTasksPartial => 'โหลดงานทั้งหมดไม่ได้ เลือกเฉพาะงานที่โหลดแล้วเท่านั้น';
 }

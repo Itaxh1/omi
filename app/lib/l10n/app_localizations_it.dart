@@ -12292,4 +12292,11 @@ class AppLocalizationsIt extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration di questa voce';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Impossibile caricare altre attività. Trascina verso il basso per riprovare.';
+
+  @override
+  String get selectAllTasksPartial =>
+      'Impossibile caricare tutte le attività. Sono selezionate solo quelle già caricate.';
 }

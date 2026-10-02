@@ -12274,4 +12274,10 @@ class AppLocalizationsTe extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return 'ఈ వాయిస్ యొక్క $duration';
   }
+
+  @override
+  String get tasksNextPageFailed => 'మరిన్ని పనులను లోడ్ చేయలేకపోయాము. మళ్లీ ప్రయత్నించడానికి కిందికి లాగండి.';
+
+  @override
+  String get selectAllTasksPartial => 'అన్ని పనులను లోడ్ చేయలేకపోయాము. ఇప్పటికే లోడ్ అయిన పనులు మాత్రమే ఎంచుకోబడ్డాయి.';
 }

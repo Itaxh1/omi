@@ -12027,4 +12027,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return 'この声の$duration';
   }
+
+  @override
+  String get tasksNextPageFailed => 'タスクをさらに読み込めませんでした。下に引いて再試行してください。';
+
+  @override
+  String get selectAllTasksPartial => 'すべてのタスクを読み込めませんでした。読み込み済みのタスクのみ選択されています。';
 }

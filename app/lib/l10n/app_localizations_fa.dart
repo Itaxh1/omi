@@ -12222,4 +12222,10 @@ class AppLocalizationsFa extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration از این صدا';
   }
+
+  @override
+  String get tasksNextPageFailed => 'بارگیری وظایف بیشتر ممکن نشد. برای تلاش دوباره به پایین بکشید.';
+
+  @override
+  String get selectAllTasksPartial => 'بارگیری همه وظایف ممکن نشد. فقط وظایف بارگیری‌شده انتخاب شدند.';
 }

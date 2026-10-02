@@ -12256,4 +12256,11 @@ class AppLocalizationsMs extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration daripada suara ini';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Tidak dapat memuatkan lebih banyak tugasan. Tarik ke bawah untuk mencuba lagi.';
+
+  @override
+  String get selectAllTasksPartial =>
+      'Tidak dapat memuatkan semua tugasan. Hanya tugasan yang sudah dimuatkan dipilih.';
 }

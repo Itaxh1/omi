@@ -12209,4 +12209,10 @@ class AppLocalizationsDa extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration af denne stemme';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Kunne ikke indlæse flere opgaver. Træk ned for at prøve igen.';
+
+  @override
+  String get selectAllTasksPartial => 'Kunne ikke indlæse alle opgaver. Kun de allerede indlæste er valgt.';
 }

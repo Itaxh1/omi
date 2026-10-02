@@ -12238,4 +12238,10 @@ class AppLocalizationsSr extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration овог гласа';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Није могуће учитати више задатака. Повуците надоле да покушате поново.';
+
+  @override
+  String get selectAllTasksPartial => 'Није могуће учитати све задатке. Изабрани су само већ учитани задаци.';
 }

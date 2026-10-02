@@ -12232,4 +12232,10 @@ class AppLocalizationsMr extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return 'या आवाजाचे $duration';
   }
+
+  @override
+  String get tasksNextPageFailed => 'आणखी कामे लोड करता आली नाहीत. पुन्हा प्रयत्न करण्यासाठी खाली ओढा.';
+
+  @override
+  String get selectAllTasksPartial => 'सर्व कामे लोड करता आली नाहीत. फक्त आधीच लोड झालेली कामे निवडली आहेत.';
 }

@@ -12006,4 +12006,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '此声音共 $duration';
   }
+
+  @override
+  String get tasksNextPageFailed => '无法加载更多任务。下拉以重试。';
+
+  @override
+  String get selectAllTasksPartial => '无法加载全部任务。仅选中了已加载的任务。';
 }

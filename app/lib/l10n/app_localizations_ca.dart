@@ -12292,4 +12292,11 @@ class AppLocalizationsCa extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration d’aquesta veu';
   }
+
+  @override
+  String get tasksNextPageFailed => 'No s\'han pogut carregar més tasques. Arrossega cap avall per tornar-ho a provar.';
+
+  @override
+  String get selectAllTasksPartial =>
+      'No s\'han pogut carregar totes les tasques. Només s\'han seleccionat les ja carregades.';
 }

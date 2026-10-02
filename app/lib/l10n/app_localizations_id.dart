@@ -12235,4 +12235,10 @@ class AppLocalizationsId extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration dari suara ini';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Tidak dapat memuat tugas lainnya. Tarik ke bawah untuk mencoba lagi.';
+
+  @override
+  String get selectAllTasksPartial => 'Tidak dapat memuat semua tugas. Hanya tugas yang sudah dimuat yang dipilih.';
 }

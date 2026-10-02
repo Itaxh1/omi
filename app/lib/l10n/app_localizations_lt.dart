@@ -12243,4 +12243,10 @@ class AppLocalizationsLt extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration šio balso';
   }
+
+  @override
+  String get tasksNextPageFailed => 'Nepavyko įkelti daugiau užduočių. Patraukite žemyn, kad bandytumėte dar kartą.';
+
+  @override
+  String get selectAllTasksPartial => 'Nepavyko įkelti visų užduočių. Pasirinktos tik jau įkeltos užduotys.';
 }
