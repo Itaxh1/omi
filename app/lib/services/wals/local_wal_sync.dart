@@ -149,20 +149,22 @@ String? _walLocationBatchKey(Wal wal) {
 bool isAutoUploadEligible(Wal wal) =>
     wal.status == WalStatus.miss && wal.storage == WalStorage.disk && wal.retryCount < walMaxAutoRetries;
 
-/// Seconds of slack around each saved transcript segment when matching it to a WAL. It absorbs the
-/// drift between legacy segment offsets and the WAL's approximate start time.
-const walTranscriptSlackSeconds = 30;
-
-/// Whether the saved transcript shows the server heard [wal]: it overlaps a segment, or it ended
-/// before the conversation began. [transcriptSpans] are absolute epoch seconds.
+/// Release a whole WAL only when the union of saved transcript spans covers
+/// its entire interval. Partial overlap and timestamp slack cannot prove that
+/// untranscribed audio is safe to delete. Spans use absolute epoch seconds.
 @visibleForTesting
-bool walCoveredByTranscript(Wal wal, List<(int, int)> transcriptSpans, int conversationStartSeconds) {
-  final start = wal.timerStart;
+bool walCoveredByTranscript(Wal wal, List<(int, int)> transcriptSpans) {
   final end = wal.timerStart + wal.seconds;
-  if (end <= conversationStartSeconds - walTranscriptSlackSeconds) return true;
-  return transcriptSpans.any(
-    (span) => start < span.$2 + walTranscriptSlackSeconds && end > span.$1 - walTranscriptSlackSeconds,
-  );
+  if (wal.seconds <= 0) return false;
+  var coveredUntil = wal.timerStart;
+  final spans = transcriptSpans.where((span) => span.$2 > span.$1).toList()..sort((a, b) => a.$1.compareTo(b.$1));
+  for (final span in spans) {
+    if (span.$2 <= coveredUntil) continue;
+    if (span.$1 > coveredUntil) return false;
+    coveredUntil = span.$2;
+    if (coveredUntil >= end) return true;
+  }
+  return false;
 }
 
 const _kDefinitiveUploadRefusalStatusCodes = {400, 403, 413};
@@ -1008,7 +1010,6 @@ class LocalWalSyncImpl implements LocalWalSync {
     int sessionStartSeconds,
     String conversationId, {
     List<(int, int)>? transcriptSpans,
-    int? conversationStartSeconds,
   }) async {
     final generation = _sessionGeneration;
     final now = _now().millisecondsSinceEpoch ~/ 1000;
@@ -1024,8 +1025,7 @@ class LocalWalSyncImpl implements LocalWalSync {
     var released = 0;
     var kept = 0;
     for (final wal in stamped) {
-      if (transcriptSpans != null &&
-          !walCoveredByTranscript(wal, transcriptSpans, conversationStartSeconds ?? sessionStartSeconds)) {
+      if (transcriptSpans != null && !walCoveredByTranscript(wal, transcriptSpans)) {
         kept++;
         continue;
       }

@@ -50,10 +50,12 @@ void main() {
   }
 
   /// A conversation whose saved transcript has one segment per [spans] entry, in seconds from [startedAt].
-  ServerConversation conversation(String id, DateTime startedAt, List<(double, double)> spans) => ServerConversation(
+  ServerConversation conversation(String id, DateTime startedAt, List<(double, double)> spans,
+          {bool missingStart = false}) =>
+      ServerConversation(
         id: id,
-        createdAt: startedAt,
-        startedAt: startedAt,
+        createdAt: missingStart ? startedAt.add(const Duration(hours: 1)) : startedAt,
+        startedAt: missingStart ? null : startedAt,
         structured: Structured('fixture', 'fixture'),
         transcriptSegments: [
           for (final (i, span) in spans.indexed)
@@ -139,8 +141,8 @@ void main() {
     expect(kept, greaterThanOrEqualTo(120), reason: 'audio the transcript does not cover must not be deleted');
     expect(world.uploads.attempts, isNotEmpty, reason: 'the kept audio goes to the server for repair');
     expect(world.uploads.attempts.map((attempt) => attempt.conversationId).toSet(), {'c1'});
-    expect(await recoverableSecondsAfter(origin, 0) - kept, lessThan(60),
-        reason: 'the first minute, which the transcript covers, is released');
+    expect(await recoverableSecondsAfter(origin, 0) - kept, greaterThanOrEqualTo(60),
+        reason: 'partial coverage cannot release the rest of the first minute');
   });
 
   test('pendant: a gap in the middle of the transcript keeps that audio for repair', () async {
@@ -154,9 +156,10 @@ void main() {
 
     final wals = await world.wal.syncs.phone.getAllWals();
     printOnFailure(await describeWals(origin));
-    final originSeconds = origin.millisecondsSinceEpoch ~/ 1000;
-    expect(wals.map((wal) => wal.timerStart - originSeconds), [60], reason: 'only the uncovered middle minute stays');
-    expect(world.uploads.attempts, hasLength(1));
+    expect(wals, isNotEmpty);
+    expect(await recoverableSecondsAfter(origin, 0), greaterThanOrEqualTo(200),
+        reason: 'partial acknowledgements must leave all 200 seconds recoverable');
+    expect(world.uploads.attempts, isNotEmpty);
   });
 
   test('pendant: a transcript that covers the recording still releases every copy', () async {
@@ -164,7 +167,7 @@ void main() {
     final link = await connectPendant();
     await streamPendant(link, 200);
 
-    await serverCloses(conversation('c1', origin, [for (var t = 1.0; t < 190; t += 20) (t, t + 15)]));
+    await serverCloses(conversation('c1', origin, [(0, 200)]));
     await recoveryPass();
 
     printOnFailure(await describeWals(origin));
@@ -172,7 +175,7 @@ void main() {
     expect(world.uploads.attempts, isEmpty, reason: 'transcribed audio is not uploaded again');
   });
 
-  test('pendant: audio from before the conversation started is released, not uploaded', () async {
+  test('pendant: audio before the conversation remains available for repair', () async {
     final origin = world.clock.now();
     final link = await connectPendant();
     // Five quiet minutes, then a conversation that the transcript fully covers.
@@ -180,15 +183,15 @@ void main() {
     final talkStart = origin.add(const Duration(seconds: 300));
     await streamPendant(link, 140);
 
-    await serverCloses(conversation('c1', talkStart, [for (var t = 1.0; t < 130; t += 20) (t, t + 15)]));
+    await serverCloses(conversation('c1', talkStart, [(0, 140)]));
     await recoveryPass();
 
     printOnFailure(await describeWals(origin));
-    expect(await world.wal.syncs.phone.getAllWals(), isEmpty);
-    expect(world.uploads.attempts, isEmpty);
+    expect(await recoverableSecondsAfter(origin, 0), greaterThanOrEqualTo(300));
+    expect(world.uploads.attempts, isNotEmpty);
   });
 
-  test('pendant: a chunk backdated before the session start is judged by the transcript too', () async {
+  test('pendant: a partially covered backdated chunk stays recoverable', () async {
     final origin = world.clock.now();
     final link = await connectPendant();
     // The pendant flushes 30 s of buffered audio the moment it connects, so the first chunk's start is
@@ -198,11 +201,20 @@ void main() {
     }
     await streamPendant(link, 140);
 
-    await serverCloses(conversation('c1', origin, [for (var t = 1.0; t < 130; t += 20) (t, t + 15)]));
+    await serverCloses(conversation('c1', origin, [(0, 140)]));
     await recoveryPass();
 
     printOnFailure(await describeWals(origin));
+    expect(await world.wal.syncs.phone.getAllWals(), hasLength(1));
+    expect(world.uploads.attempts, isNotEmpty, reason: 'unconfirmed buffered audio stays recoverable');
+  });
+  test('pendant: a missing recording start uses the capture window rather than row creation time', () async {
+    final origin = world.clock.now();
+    final link = await connectPendant();
+    await streamPendant(link, 200);
+    await serverCloses(conversation('c1', origin, [(0, 200)], missingStart: true));
+    await recoveryPass();
     expect(await world.wal.syncs.phone.getAllWals(), isEmpty);
-    expect(world.uploads.attempts, isEmpty, reason: 'transcribed audio is not uploaded again');
+    expect(world.uploads.attempts, isEmpty, reason: 'row creation one hour later is not the audio origin');
   });
 }

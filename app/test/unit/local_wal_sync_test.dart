@@ -955,8 +955,7 @@ void main() {
       final outcome = await local.confirmSessionTranscription(
         500,
         'c1',
-        transcriptSpans: [(521, 540), (700, 705)],
-        conversationStartSeconds: 520,
+        transcriptSpans: [(470, 530), (530, 590), (650, 710)],
       );
 
       expect(outcome.released, 3);
@@ -965,29 +964,33 @@ void main() {
     });
   });
 
+  test('a tiny segment cannot release a minute of potentially lost audio', () {
+    final wal = Wal(timerStart: 100, codec: BleAudioCodec.opus, seconds: 60, storage: WalStorage.disk);
+    expect(walCoveredByTranscript(wal, [(129, 130)]), isFalse);
+  });
+
   group('walCoveredByTranscript', () {
     Wal wal(int timerStart, int seconds) =>
         Wal(timerStart: timerStart, codec: BleAudioCodec.opus, seconds: seconds, storage: WalStorage.disk);
 
-    test('a WAL a saved segment overlaps is covered', () {
-      expect(walCoveredByTranscript(wal(100, 60), [(120, 130)], 100), isTrue);
+    test('full coverage can be assembled from adjacent overlapping unsorted spans', () {
+      expect(walCoveredByTranscript(wal(100, 60), [(130, 160), (90, 135)]), isTrue);
+      expect(walCoveredByTranscript(wal(100, 60), [(100, 120), (120, 160)]), isTrue);
     });
 
-    test('slack reaches a segment just outside the WAL, and no further', () {
-      expect(walCoveredByTranscript(wal(100, 60), [(189, 195)], 100), isTrue);
-      expect(walCoveredByTranscript(wal(100, 60), [(190, 195)], 100), isFalse);
-      expect(walCoveredByTranscript(wal(100, 60), [(20, 71)], 0), isTrue);
-      expect(walCoveredByTranscript(wal(100, 60), [(20, 70)], 0), isFalse);
+    test('partial overlap and nearby spans do not acknowledge untranscribed audio', () {
+      expect(walCoveredByTranscript(wal(100, 60), [(120, 130)]), isFalse);
+      expect(walCoveredByTranscript(wal(100, 60), [(161, 180)]), isFalse);
+      expect(walCoveredByTranscript(wal(100, 60), [(100, 130), (131, 160)]), isFalse);
     });
 
-    test('a WAL that ended before the conversation started is covered', () {
-      // Ends at 160: covered when the conversation starts at least 30 s later.
-      expect(walCoveredByTranscript(wal(100, 60), [(400, 410)], 190), isTrue);
-      expect(walCoveredByTranscript(wal(100, 60), [(400, 410)], 189), isFalse);
+    test('audio before the first saved segment remains recoverable', () {
+      expect(walCoveredByTranscript(wal(100, 60), [(400, 410)]), isFalse);
     });
 
-    test('a WAL no segment reaches is not covered', () {
-      expect(walCoveredByTranscript(wal(300, 60), [(100, 120), (500, 510)], 100), isFalse);
+    test('zero-duration and reversed spans cannot cover a chunk', () {
+      expect(walCoveredByTranscript(wal(100, 60), [(100, 100), (160, 100)]), isFalse);
+      expect(walCoveredByTranscript(wal(100, 0), [(90, 200)]), isFalse);
     });
   });
 

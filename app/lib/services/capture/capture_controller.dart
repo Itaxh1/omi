@@ -3336,7 +3336,8 @@ class CaptureController extends ChangeNotifier
       _pendingFinalizeAndStamp = null;
     }
     // Live segment times are seconds from the conversation's start.
-    final origin = (conversation.startedAt ?? conversation.createdAt).millisecondsSinceEpoch ~/ 1000;
+    final startedAt = conversation.startedAt;
+    final origin = startedAt == null ? sessionStartSeconds : startedAt.millisecondsSinceEpoch ~/ 1000;
     final spans = [
       for (final segment in conversation.transcriptSegments)
         (origin + segment.start.floor(), origin + segment.end.ceil()),
@@ -3345,7 +3346,6 @@ class CaptureController extends ChangeNotifier
           sessionStartSeconds,
           conversation.id,
           transcriptSpans: spans,
-          conversationStartSeconds: origin,
         );
     if (outcome.kept > 0) _autoSyncSessionWals(trigger: WakeTrigger.dataStalled);
   }

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "FC-partial-acknowledgement-releases-whole-buffer",
+  "violated_contract": "A partial acknowledgement must not authorize deletion of an entire durable buffer containing unacknowledged data. Timestamp proximity and row creation time are not proof of full content delivery.",
+  "canonical_prevention": "Union validated acknowledgement intervals on the recording clock, release only wholly covered buffers, and retain partial or uncertain buffers for recovery. Use the capture origin when an explicit recording start is absent.",
+  "canonical_prevention_artifact": [
+    "app/test/unit/local_wal_sync_test.dart",
+    "app/test/services/capture/capture_transcript_coverage_test.dart"
+  ],
+  "evidence_prs": [],
+  "scope_hints": [
+    "app/lib/services/capture/capture_controller.dart"
+  ],
+  "status": "open"
+}
