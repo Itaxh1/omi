@@ -3820,5 +3820,7 @@
     "askAnythingButton": "Her şeyi sor",
     "pendantLostConnection": "Kolyenin bu telefonla bağlantısı kesildi.",
     "pendantReconnectsOnItsOwn": "Kolye açık ve yakındayken Omi kendiliğinden yeniden bağlanır.",
-    "pendantRecordingSafe": "Bundan önce kaydedilen her şey güvende."
+    "pendantRecordingSafe": "Bundan önce kaydedilen her şey güvende.",
+    "tasksNextPageFailed": "Daha fazla görev yüklenemedi. Yeniden denemek için aşağı çekin.",
+    "selectAllTasksPartial": "Tüm görevler yüklenemedi. Yalnızca zaten yüklenmiş görevler seçildi."
 }

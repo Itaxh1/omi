@@ -12230,4 +12230,10 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'هر آنچه پیش از این ضبط شده محفوظ است.';
+
+  @override
+  String get tasksNextPageFailed => 'بارگیری وظایف بیشتر ممکن نشد. برای تلاش دوباره به پایین بکشید.';
+
+  @override
+  String get selectAllTasksPartial => 'بارگیری همه وظایف ممکن نشد. فقط وظایف بارگیری‌شده انتخاب شدند.';
 }

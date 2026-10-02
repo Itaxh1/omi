@@ -12300,4 +12300,11 @@ class AppLocalizationsCa extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Tot el que s\'ha gravat abans és segur.';
+
+  @override
+  String get tasksNextPageFailed => 'No s\'han pogut carregar més tasques. Arrossega cap avall per tornar-ho a provar.';
+
+  @override
+  String get selectAllTasksPartial =>
+      'No s\'han pogut carregar totes les tasques. Només s\'han seleccionat les ja carregades.';
 }

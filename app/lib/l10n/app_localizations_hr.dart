@@ -12268,4 +12268,10 @@ class AppLocalizationsHr extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Sve dosad snimljeno je sigurno.';
+
+  @override
+  String get tasksNextPageFailed => 'Nije moguće učitati više zadataka. Povucite prema dolje da pokušate ponovno.';
+
+  @override
+  String get selectAllTasksPartial => 'Nije moguće učitati sve zadatke. Odabrani su samo već učitani zadaci.';
 }

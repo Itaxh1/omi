@@ -12271,4 +12271,10 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Alles wat eerder is opgenomen, is veilig.';
+
+  @override
+  String get tasksNextPageFailed => 'Kon geen taken meer laden. Trek omlaag om het opnieuw te proberen.';
+
+  @override
+  String get selectAllTasksPartial => 'Kon niet alle taken laden. Alleen de al geladen taken zijn geselecteerd.';
 }

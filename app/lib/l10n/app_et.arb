@@ -3785,5 +3785,7 @@
     "askAnythingButton": "Küsi mida tahes",
     "pendantLostConnection": "Ripats kaotas ühenduse selle telefoniga.",
     "pendantReconnectsOnItsOwn": "Omi loob ühenduse ise uuesti, kui ripats on sisse lülitatud ja lähedal.",
-    "pendantRecordingSafe": "Kõik varem salvestatu on alles."
+    "pendantRecordingSafe": "Kõik varem salvestatu on alles.",
+    "tasksNextPageFailed": "Rohkem ülesandeid ei õnnestunud laadida. Uuesti proovimiseks tõmba alla.",
+    "selectAllTasksPartial": "Kõiki ülesandeid ei õnnestunud laadida. Valitud on ainult juba laaditud ülesanded."
 }

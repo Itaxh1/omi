@@ -12285,4 +12285,11 @@ class AppLocalizationsRo extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Tot ce s-a înregistrat înainte este în siguranță.';
+
+  @override
+  String get tasksNextPageFailed => 'Nu s-au putut încărca mai multe sarcini. Trage în jos pentru a încerca din nou.';
+
+  @override
+  String get selectAllTasksPartial =>
+      'Nu s-au putut încărca toate sarcinile. Sunt selectate doar sarcinile deja încărcate.';
 }

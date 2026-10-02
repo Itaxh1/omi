@@ -12278,4 +12278,11 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Minden, amit eddig rögzített, biztonságban van.';
+
+  @override
+  String get tasksNextPageFailed => 'Nem sikerült több feladatot betölteni. Húzd le az újrapróbáláshoz.';
+
+  @override
+  String get selectAllTasksPartial =>
+      'Nem sikerült minden feladatot betölteni. Csak a már betöltött feladatok vannak kijelölve.';
 }

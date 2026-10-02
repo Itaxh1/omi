@@ -3827,5 +3827,7 @@
     "askAnythingButton": "Spørg om hvad som helst",
     "pendantLostConnection": "Dit vedhæng mistede forbindelsen til denne telefon.",
     "pendantReconnectsOnItsOwn": "Omi genopretter forbindelsen af sig selv, når vedhænget er tændt og i nærheden.",
-    "pendantRecordingSafe": "Alt optaget før dette er i sikkerhed."
+    "pendantRecordingSafe": "Alt optaget før dette er i sikkerhed.",
+    "tasksNextPageFailed": "Kunne ikke indlæse flere opgaver. Træk ned for at prøve igen.",
+    "selectAllTasksPartial": "Kunne ikke indlæse alle opgaver. Kun de allerede indlæste er valgt."
 }

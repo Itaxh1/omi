@@ -33,6 +33,21 @@ Future<ActionItemsResponse?> _twoPages({
   );
 }
 
+/// A first page that says more follow, then a page that never lands.
+Future<ActionItemsResponse?> _secondPageFails({
+  int limit = 100,
+  int offset = 0,
+  bool? completed,
+  String? conversationId,
+  DateTime? startDate,
+  DateTime? endDate,
+  DateTime? dueStartDate,
+  DateTime? dueEndDate,
+}) async {
+  if (offset == 0) return const ActionItemsResponse(actionItems: [_open, _locked], hasMore: true);
+  throw Exception('offline');
+}
+
 Future<ActionItemsResponse?> _onePage({
   int limit = 100,
   int offset = 0,
@@ -93,6 +108,92 @@ void main() {
     expect(provider.isItemSelected('page2'), isTrue);
     expect(provider.isItemSelected('locked'), isFalse);
     expect(provider.allSelectableSelected, isTrue);
+  });
+
+  test('selectAllTasks stops at a page that does not load and says the selection is partial', () async {
+    final provider = ActionItemsProvider(getActionItems: _secondPageFails);
+    addTearDown(provider.dispose);
+    await provider.ensureLoaded();
+
+    expect(await provider.selectAllTasks(), isFalse);
+
+    // What is loaded is selected; the unread page keeps "all" off, and nothing asks for it again.
+    expect(provider.isSelectionMode, isTrue);
+    expect(provider.selectedCount, 1);
+    expect(provider.isItemSelected('open'), isTrue);
+    expect(provider.hasMore, isTrue);
+    expect(provider.lastPageFailed, isTrue);
+    expect(provider.allSelectableSelected, isFalse);
+  });
+
+  test('selectAllTasks stops at the page cap and says the selection is partial', () async {
+    var requests = 0;
+    // Every page says more follow.
+    Future<ActionItemsResponse?> endless({
+      int limit = 100,
+      int offset = 0,
+      bool? completed,
+      String? conversationId,
+      DateTime? startDate,
+      DateTime? endDate,
+      DateTime? dueStartDate,
+      DateTime? dueEndDate,
+    }) async {
+      requests++;
+      return ActionItemsResponse(
+        actionItems: [ActionItemWithMetadata(id: 'task-$offset', description: 'Task $offset', completed: false)],
+        hasMore: true,
+      );
+    }
+
+    final provider = ActionItemsProvider(getActionItems: endless);
+    addTearDown(provider.dispose);
+    await provider.ensureLoaded();
+
+    expect(await provider.selectAllTasks(maxPages: 3), isFalse);
+
+    // The first page, then three more, and no page failed: the cap alone left tasks unread.
+    expect(requests, 4);
+    expect(provider.selectedCount, 4);
+    expect(provider.hasMore, isTrue);
+    expect(provider.lastPageFailed, isFalse);
+  });
+
+  test('a page that does not load stops paging until a fresh fetch, which starts it over', () async {
+    var offline = true;
+    Future<ActionItemsResponse?> flaky({
+      int limit = 100,
+      int offset = 0,
+      bool? completed,
+      String? conversationId,
+      DateTime? startDate,
+      DateTime? endDate,
+      DateTime? dueStartDate,
+      DateTime? dueEndDate,
+    }) async {
+      if (offset == 0) return const ActionItemsResponse(actionItems: [_open], hasMore: true);
+      if (offline) throw Exception('offline');
+      return const ActionItemsResponse(
+        actionItems: [ActionItemWithMetadata(id: 'page2', description: 'Renew the passport', completed: false)],
+        hasMore: false,
+      );
+    }
+
+    final provider = ActionItemsProvider(getActionItems: flaky);
+    addTearDown(provider.dispose);
+    await provider.ensureLoaded();
+
+    expect(await provider.loadMoreActionItems(), isFalse);
+    expect(provider.lastPageFailed, isTrue);
+    // The page is still there to load; only the automatic asking stops.
+    expect(provider.hasMore, isTrue);
+
+    offline = false;
+    await provider.fetchActionItems();
+    expect(provider.lastPageFailed, isFalse);
+    expect(await provider.loadMoreActionItems(), isTrue);
+    expect(provider.hasMore, isFalse);
+    expect(provider.actionItems.map((i) => i.id), containsAll(['open', 'page2']));
   });
 
   test('a task completed just now sorts first in the Completed section, before the server answers', () async {
@@ -163,6 +264,51 @@ void main() {
     // The late "completed" answer is stale and must not win over the restore.
     expect(item.completed, isFalse);
     expect(provider.completedItems, isEmpty);
+  });
+
+  test('an earlier toggle that fails late does not undo a newer one', () async {
+    Future<ActionItemsResponse?> items({
+      int limit = 100,
+      int offset = 0,
+      bool? completed,
+      String? conversationId,
+      DateTime? startDate,
+      DateTime? endDate,
+      DateTime? dueStartDate,
+      DateTime? dueEndDate,
+    }) async =>
+        const ActionItemsResponse(actionItems: [_open]);
+    // The first request times out late; every later one answers at once.
+    var requests = 0;
+    final provider = ActionItemsProvider(
+      getActionItems: items,
+      updateActionItemRequest: (id, {description, completed, dueAt}) {
+        requests++;
+        if (requests == 1) {
+          return Future.delayed(const Duration(milliseconds: 80), () => throw Exception('timeout'));
+        }
+        return Future.delayed(
+          const Duration(milliseconds: 1),
+          () => ActionItemWithMetadata(
+              id: id,
+              description: 'Draft the update',
+              completed: completed!,
+              completedAt: completed ? DateTime.now() : null),
+        );
+      },
+    );
+    addTearDown(provider.dispose);
+    await provider.ensureLoaded();
+
+    // Done (fails late), not done, done: the row ends as the last toggle left it.
+    final first = provider.updateActionItemState(_open, true);
+    final second = provider.updateActionItemState(_open, false);
+    final third = provider.updateActionItemState(_open, true);
+    expect(await Future.wait([first, second, third]), [false, true, true]);
+
+    // The stale failure's rollback must not land over the newer toggle.
+    expect(provider.actionItems.firstWhere((i) => i.id == 'open').completed, isTrue);
+    expect(provider.completedItems.map((i) => i.id), contains('open'));
   });
 
   testWidgets('two exports of the same task at once send it once', (tester) async {

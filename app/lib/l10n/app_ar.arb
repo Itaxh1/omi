@@ -3785,5 +3785,7 @@
     "askAnythingButton": "اسأل أي شيء",
     "pendantLostConnection": "فقد القلادة اتصالها بهذا الهاتف.",
     "pendantReconnectsOnItsOwn": "سيعيد Omi الاتصال تلقائيًا عندما تكون القلادة قيد التشغيل وقريبة.",
-    "pendantRecordingSafe": "كل ما سُجّل قبل ذلك محفوظ."
+    "pendantRecordingSafe": "كل ما سُجّل قبل ذلك محفوظ.",
+    "tasksNextPageFailed": "تعذر تحميل المزيد من المهام. اسحب للأسفل للمحاولة مرة أخرى.",
+    "selectAllTasksPartial": "تعذر تحميل كل المهام. تم تحديد المهام المحمّلة فقط."
 }

@@ -3785,5 +3785,7 @@
     "askAnythingButton": "Vraag wat je wilt",
     "pendantLostConnection": "Je hanger heeft de verbinding met deze telefoon verloren.",
     "pendantReconnectsOnItsOwn": "Omi maakt vanzelf opnieuw verbinding zodra de hanger aan staat en in de buurt is.",
-    "pendantRecordingSafe": "Alles wat eerder is opgenomen, is veilig."
+    "pendantRecordingSafe": "Alles wat eerder is opgenomen, is veilig.",
+    "tasksNextPageFailed": "Kon geen taken meer laden. Trek omlaag om het opnieuw te proberen.",
+    "selectAllTasksPartial": "Kon niet alle taken laden. Alleen de al geladen taken zijn geselecteerd."
 }

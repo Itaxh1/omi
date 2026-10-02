@@ -12230,4 +12230,10 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Vše nahrané předtím je v bezpečí.';
+
+  @override
+  String get tasksNextPageFailed => 'Další úkoly se nepodařilo načíst. Přetažením dolů to zkuste znovu.';
+
+  @override
+  String get selectAllTasksPartial => 'Nepodařilo se načíst všechny úkoly. Vybrány jsou jen ty už načtené.';
 }

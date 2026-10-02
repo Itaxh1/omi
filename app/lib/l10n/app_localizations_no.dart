@@ -12231,4 +12231,11 @@ class AppLocalizationsNo extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Alt som ble tatt opp før dette, er trygt.';
+
+  @override
+  String get tasksNextPageFailed => 'Kunne ikke laste inn flere oppgaver. Dra ned for å prøve igjen.';
+
+  @override
+  String get selectAllTasksPartial =>
+      'Kunne ikke laste inn alle oppgaver. Bare de som allerede er lastet inn, er valgt.';
 }

@@ -12269,4 +12269,11 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'ಇದಕ್ಕೂ ಮೊದಲು ರೆಕಾರ್ಡ್ ಆದದ್ದೆಲ್ಲ ಸುರಕ್ಷಿತವಾಗಿದೆ.';
+
+  @override
+  String get tasksNextPageFailed => 'ಇನ್ನಷ್ಟು ಕಾರ್ಯಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗಲಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಲು ಕೆಳಗೆ ಎಳೆಯಿರಿ.';
+
+  @override
+  String get selectAllTasksPartial =>
+      'ಎಲ್ಲಾ ಕಾರ್ಯಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗಲಿಲ್ಲ. ಈಗಾಗಲೇ ಲೋಡ್ ಆದ ಕಾರ್ಯಗಳನ್ನು ಮಾತ್ರ ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ.';
 }

@@ -12283,4 +12283,10 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'దీనికి ముందు రికార్డ్ అయినవన్నీ సురక్షితంగా ఉన్నాయి.';
+
+  @override
+  String get tasksNextPageFailed => 'మరిన్ని పనులను లోడ్ చేయలేకపోయాము. మళ్లీ ప్రయత్నించడానికి కిందికి లాగండి.';
+
+  @override
+  String get selectAllTasksPartial => 'అన్ని పనులను లోడ్ చేయలేకపోయాము. ఇప్పటికే లోడ్ అయిన పనులు మాత్రమే ఎంచుకోబడ్డాయి.';
 }

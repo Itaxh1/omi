@@ -12295,4 +12295,11 @@ class AppLocalizationsMk extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Сè што е снимено досега е безбедно.';
+
+  @override
+  String get tasksNextPageFailed =>
+      'Не можеше да се вчитаат повеќе задачи. Повлечете надолу за да се обидете повторно.';
+
+  @override
+  String get selectAllTasksPartial => 'Не можеше да се вчитаат сите задачи. Избрани се само веќе вчитаните задачи.';
 }

@@ -3785,5 +3785,7 @@
     "askAnythingButton": "ถามอะไรก็ได้",
     "pendantLostConnection": "จี้ของคุณขาดการเชื่อมต่อกับโทรศัพท์เครื่องนี้",
     "pendantReconnectsOnItsOwn": "Omi จะเชื่อมต่อใหม่เองเมื่อจี้เปิดอยู่และอยู่ใกล้",
-    "pendantRecordingSafe": "ทุกอย่างที่บันทึกไว้ก่อนหน้านี้ปลอดภัย"
+    "pendantRecordingSafe": "ทุกอย่างที่บันทึกไว้ก่อนหน้านี้ปลอดภัย",
+    "tasksNextPageFailed": "โหลดงานเพิ่มเติมไม่ได้ ดึงลงเพื่อลองอีกครั้ง",
+    "selectAllTasksPartial": "โหลดงานทั้งหมดไม่ได้ เลือกเฉพาะงานที่โหลดแล้วเท่านั้น"
 }

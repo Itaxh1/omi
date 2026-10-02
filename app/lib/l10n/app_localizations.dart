@@ -21902,6 +21902,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Everything recorded before this is safe.'**
   String get pendantRecordingSafe;
+
+  /// Toast on the Tasks list when the next page of tasks fails to load; pull-to-refresh retries.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load more tasks. Pull down to try again.'**
+  String get tasksNextPageFailed;
+
+  /// Toast after Select All on the Tasks list when some pages of tasks could not be loaded, so the selection is partial.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load every task. Only the tasks already loaded are selected.'**
+  String get selectAllTasksPartial;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

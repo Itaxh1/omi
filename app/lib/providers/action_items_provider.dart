@@ -94,6 +94,9 @@ class ActionItemsProvider extends ChangeNotifier {
   bool _isLoading = false;
   bool _isFetching = false;
   bool _hasMore = false;
+  // The last page request did not land (no response, or it threw). Automatic paging stops until a
+  // fresh fetch; [_hasMore] stays true so a refresh picks the set up again.
+  bool _lastPageFailed = false;
   bool _loadedPageSetComplete = false;
 
   bool _includeCompleted = true;
@@ -145,6 +148,9 @@ class ActionItemsProvider extends ChangeNotifier {
   /// The task list has loaded at least once (an empty list then really means none are open).
   bool get hasLoaded => _initialLoadCompleted;
   bool get hasMore => _hasMore;
+
+  /// The last page did not load; see [loadMoreActionItems].
+  bool get lastPageFailed => _lastPageFailed;
   bool get includeCompleted => _includeCompleted;
   bool get showCompletedView => _showCompletedView;
   DateTime? get startDate => _startDate;
@@ -384,6 +390,8 @@ class ActionItemsProvider extends ChangeNotifier {
     final generation = _sessionGeneration;
     var decodedPageIsComplete = true;
     var loaded = false;
+    // A fresh first page starts paging over: a page that failed before no longer holds it.
+    _lastPageFailed = false;
     if (showShimmer) {
       setLoading(true);
     } else {
@@ -472,9 +480,13 @@ class ActionItemsProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> loadMoreActionItems() async {
-    if (_isFetching || !_hasMore) return;
+  /// Loads the next page. Returns whether it landed. A page that does not (no response, or the
+  /// request threw) leaves [hasMore] true and sets [lastPageFailed], so nothing asks for it again
+  /// on its own; the next fresh fetch (a pull to refresh, a filter) starts paging over.
+  Future<bool> loadMoreActionItems() async {
+    if (_isFetching || !_hasMore) return false;
     final generation = _sessionGeneration;
+    var loaded = false;
 
     setFetching(true);
 
@@ -508,14 +520,18 @@ class ActionItemsProvider extends ChangeNotifier {
         } else {
           SiriIntegration.current.queueUpsertTasks(filtered);
         }
+        loaded = true;
       }
+      if (generation == _sessionGeneration) _lastPageFailed = response == null;
     } catch (e) {
       Logger.debug('Error loading more action items: $e');
+      if (generation == _sessionGeneration) _lastPageFailed = true;
     } finally {
       setFetching(false);
     }
 
     notifyListeners();
+    return loaded;
   }
 
   /// Returns whether the change reached the server; the caller decides what to tell the user.
@@ -578,8 +594,11 @@ class ActionItemsProvider extends ChangeNotifier {
         attempt.complete(ProductOutcome.cancelled);
         return false;
       }
-      _findAndUpdateItemState(item.id, !newState);
-      notifyListeners();
+      // A newer toggle owns the row now: its answer decides, not this stale failure.
+      if (isLatest()) {
+        _findAndUpdateItemState(item.id, !newState);
+        notifyListeners();
+      }
       Logger.debug('Error updating action item state: $e');
       attempt.complete(ProductOutcome.failure, failure: ProductFailure.network);
       return false;
@@ -1210,7 +1229,9 @@ class ActionItemsProvider extends ChangeNotifier {
 
   /// "Select All" for the whole task set, not just the loaded page: pulls the remaining pages
   /// first (bounded, so a runaway server can't spin this forever), then selects what can be acted on.
-  Future<void> selectAllTasks({int maxPages = 40}) async {
+  /// Returns whether that is every task: false when a page did not load, or the cap left pages
+  /// unread, so the caller can say the selection is partial.
+  Future<bool> selectAllTasks({int maxPages = 40}) async {
     if (!_isSelectionMode) startSelection();
     var pages = 0;
     while (_hasMore && pages < maxPages) {
@@ -1218,12 +1239,12 @@ class ActionItemsProvider extends ChangeNotifier {
         await Future<void>.delayed(const Duration(milliseconds: 50));
         continue;
       }
-      final before = _actionItems.length;
-      await loadMoreActionItems();
+      // The first page that does not land ends the walk: asking again would only fail the same way.
+      if (!await loadMoreActionItems()) break;
       pages++;
-      if (_actionItems.length == before && !_hasMore) break;
     }
     selectAllItems();
+    return !_hasMore;
   }
 
   void selectAllItemsFromTab(int tabIndex) {
@@ -1255,6 +1276,7 @@ class ActionItemsProvider extends ChangeNotifier {
     _sessionGeneration++;
     _actionItems = [];
     _loadedPageSetComplete = false;
+    _lastPageFailed = false;
     _homeDayItems = [];
     _homeDayLoaded = false;
     _homeTodayLoad = null;

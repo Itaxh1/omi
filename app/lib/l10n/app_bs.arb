@@ -11342,5 +11342,7 @@
     "askAnythingButton": "Pitaj šta god",
     "pendantLostConnection": "Privjesak je izgubio vezu s ovim telefonom.",
     "pendantReconnectsOnItsOwn": "Omi će se sam ponovo povezati kad je privjesak uključen i u blizini.",
-    "pendantRecordingSafe": "Sve snimljeno do sada je sačuvano."
+    "pendantRecordingSafe": "Sve snimljeno do sada je sačuvano.",
+    "tasksNextPageFailed": "Nije moguće učitati više zadataka. Povucite prema dolje da pokušate ponovo.",
+    "selectAllTasksPartial": "Nije moguće učitati sve zadatke. Odabrani su samo već učitani zadaci."
 }

@@ -12267,4 +12267,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Todo lo grabado antes está a salvo.';
+
+  @override
+  String get tasksNextPageFailed => 'No se pudieron cargar más tareas. Desliza hacia abajo para volver a intentarlo.';
+
+  @override
+  String get selectAllTasksPartial => 'No se pudieron cargar todas las tareas. Solo se seleccionaron las ya cargadas.';
 }

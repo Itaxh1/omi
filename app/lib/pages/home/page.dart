@@ -877,8 +877,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
                 if (allSelected) {
                   tasks.clearSelection();
                 } else {
-                  // Every page, not just the loaded one; paywalled tasks stay out.
-                  unawaited(tasks.selectAllTasks());
+                  // Every page, not just the loaded one; paywalled tasks stay out. A page that does
+                  // not load leaves the selection partial, and the toast says so.
+                  unawaited(tasks.selectAllTasks().then((complete) {
+                    if (!complete && context.mounted) {
+                      OmiFeedback.info(context, context.l10n.selectAllTasksPartial);
+                    }
+                  }));
                 }
               },
             ),

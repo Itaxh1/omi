@@ -12264,4 +12264,11 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Semua yang dirakam sebelum ini selamat.';
+
+  @override
+  String get tasksNextPageFailed => 'Tidak dapat memuatkan lebih banyak tugasan. Tarik ke bawah untuk mencuba lagi.';
+
+  @override
+  String get selectAllTasksPartial =>
+      'Tidak dapat memuatkan semua tugasan. Hanya tugasan yang sudah dimuatkan dipilih.';
 }

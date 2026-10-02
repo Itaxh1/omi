@@ -12015,4 +12015,10 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => '此前录下的内容都已保存。';
+
+  @override
+  String get tasksNextPageFailed => '无法加载更多任务。下拉以重试。';
+
+  @override
+  String get selectAllTasksPartial => '无法加载全部任务。仅选中了已加载的任务。';
 }

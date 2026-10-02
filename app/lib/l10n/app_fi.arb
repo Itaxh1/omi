@@ -3785,5 +3785,7 @@
     "askAnythingButton": "Kysy mitä tahansa",
     "pendantLostConnection": "Riipus menetti yhteyden tähän puhelimeen.",
     "pendantReconnectsOnItsOwn": "Omi yhdistää itsestään uudelleen, kun riipus on päällä ja lähellä.",
-    "pendantRecordingSafe": "Kaikki tätä ennen tallennettu on tallessa."
+    "pendantRecordingSafe": "Kaikki tätä ennen tallennettu on tallessa.",
+    "tasksNextPageFailed": "Tehtävien lataaminen ei onnistunut. Yritä uudelleen vetämällä alas.",
+    "selectAllTasksPartial": "Kaikkia tehtäviä ei voitu ladata. Vain jo ladatut tehtävät on valittu."
 }

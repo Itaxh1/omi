@@ -12136,4 +12136,10 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'כל מה שהוקלט עד עכשיו שמור.';
+
+  @override
+  String get tasksNextPageFailed => 'לא ניתן לטעון משימות נוספות. משכו למטה כדי לנסות שוב.';
+
+  @override
+  String get selectAllTasksPartial => 'לא ניתן לטעון את כל המשימות. נבחרו רק המשימות שכבר נטענו.';
 }

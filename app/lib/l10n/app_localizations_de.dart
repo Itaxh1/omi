@@ -12329,4 +12329,12 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Alles bisher Aufgenommene ist sicher.';
+
+  @override
+  String get tasksNextPageFailed =>
+      'Weitere Aufgaben konnten nicht geladen werden. Zum erneuten Versuch nach unten ziehen.';
+
+  @override
+  String get selectAllTasksPartial =>
+      'Nicht alle Aufgaben konnten geladen werden. Nur die bereits geladenen sind ausgewählt.';
 }

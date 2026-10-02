@@ -12257,4 +12257,10 @@ class AppLocalizationsLv extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Viss, kas ierakstīts līdz šim, ir drošībā.';
+
+  @override
+  String get tasksNextPageFailed => 'Neizdevās ielādēt vairāk uzdevumu. Pavelciet uz leju, lai mēģinātu vēlreiz.';
+
+  @override
+  String get selectAllTasksPartial => 'Neizdevās ielādēt visus uzdevumus. Atlasīti tikai jau ielādētie uzdevumi.';
 }

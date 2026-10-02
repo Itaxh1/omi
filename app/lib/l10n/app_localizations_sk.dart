@@ -12224,4 +12224,10 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Všetko nahraté predtým je v bezpečí.';
+
+  @override
+  String get tasksNextPageFailed => 'Ďalšie úlohy sa nepodarilo načítať. Potiahnutím nadol to skúste znova.';
+
+  @override
+  String get selectAllTasksPartial => 'Nepodarilo sa načítať všetky úlohy. Vybrané sú len už načítané úlohy.';
 }

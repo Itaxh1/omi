@@ -12335,4 +12335,10 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Ligtas ang lahat ng na-record bago nito.';
+
+  @override
+  String get tasksNextPageFailed => 'Hindi ma-load ang iba pang mga gawain. Hilahin pababa para subukang muli.';
+
+  @override
+  String get selectAllTasksPartial => 'Hindi ma-load ang lahat ng gawain. Ang mga na-load na gawain lang ang napili.';
 }

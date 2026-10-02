@@ -12263,4 +12263,10 @@ class AppLocalizationsBe extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Усё, што запісана да гэтага, захавана.';
+
+  @override
+  String get tasksNextPageFailed => 'Не ўдалося загрузіць больш задач. Пацягніце ўніз, каб паўтарыць.';
+
+  @override
+  String get selectAllTasksPartial => 'Не ўдалося загрузіць усе задачы. Выбраны толькі ўжо загружаныя задачы.';
 }

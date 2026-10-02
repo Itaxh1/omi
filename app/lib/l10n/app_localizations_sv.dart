@@ -12239,4 +12239,10 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Allt som spelats in innan är säkert.';
+
+  @override
+  String get tasksNextPageFailed => 'Kunde inte läsa in fler uppgifter. Dra nedåt för att försöka igen.';
+
+  @override
+  String get selectAllTasksPartial => 'Kunde inte läsa in alla uppgifter. Bara de redan inlästa uppgifterna är valda.';
 }

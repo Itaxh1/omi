@@ -12230,4 +12230,10 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'এর আগে যা রেকর্ড হয়েছে তা নিরাপদ।';
+
+  @override
+  String get tasksNextPageFailed => 'আরও কাজ লোড করা যায়নি। আবার চেষ্টা করতে নিচে টানুন।';
+
+  @override
+  String get selectAllTasksPartial => 'সব কাজ লোড করা যায়নি। শুধু ইতিমধ্যে লোড হওয়া কাজগুলো নির্বাচিত হয়েছে।';
 }

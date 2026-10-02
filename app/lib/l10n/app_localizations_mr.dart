@@ -12240,4 +12240,10 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'याआधी रेकॉर्ड झालेले सर्व सुरक्षित आहे.';
+
+  @override
+  String get tasksNextPageFailed => 'आणखी कामे लोड करता आली नाहीत. पुन्हा प्रयत्न करण्यासाठी खाली ओढा.';
+
+  @override
+  String get selectAllTasksPartial => 'सर्व कामे लोड करता आली नाहीत. फक्त आधीच लोड झालेली कामे निवडली आहेत.';
 }

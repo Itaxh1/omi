@@ -3820,5 +3820,7 @@
     "askAnythingButton": "Tanyakan apa saja",
     "pendantLostConnection": "Liontin kehilangan koneksi dengan ponsel ini.",
     "pendantReconnectsOnItsOwn": "Omi akan menyambung kembali sendiri saat liontin menyala dan berada di dekat Anda.",
-    "pendantRecordingSafe": "Semua yang direkam sebelumnya aman."
+    "pendantRecordingSafe": "Semua yang direkam sebelumnya aman.",
+    "tasksNextPageFailed": "Tidak dapat memuat tugas lainnya. Tarik ke bawah untuk mencoba lagi.",
+    "selectAllTasksPartial": "Tidak dapat memuat semua tugas. Hanya tugas yang sudah dimuat yang dipilih."
 }

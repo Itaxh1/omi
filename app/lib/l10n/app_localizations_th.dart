@@ -12163,4 +12163,10 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'ทุกอย่างที่บันทึกไว้ก่อนหน้านี้ปลอดภัย';
+
+  @override
+  String get tasksNextPageFailed => 'โหลดงานเพิ่มเติมไม่ได้ ดึงลงเพื่อลองอีกครั้ง';
+
+  @override
+  String get selectAllTasksPartial => 'โหลดงานทั้งหมดไม่ได้ เลือกเฉพาะงานที่โหลดแล้วเท่านั้น';
 }

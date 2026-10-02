@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:omi/utils/platform/platform_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -151,10 +153,17 @@ class _ActionItemsPageState extends State<ActionItemsPage> with AutomaticKeepAli
   void _onScroll() {
     final provider = Provider.of<ActionItemsProvider>(context, listen: false);
     if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200) {
-      if (!provider.isFetching && provider.hasMore) {
-        provider.loadMoreActionItems();
+      // After a page fails nothing asks again on its own: the toast says to pull down, and that
+      // refresh starts paging over.
+      if (!provider.isFetching && provider.hasMore && !provider.lastPageFailed) {
+        unawaited(_loadNextPage(provider));
       }
     }
+  }
+
+  Future<void> _loadNextPage(ActionItemsProvider provider) async {
+    if (await provider.loadMoreActionItems() || !provider.lastPageFailed || !mounted) return;
+    OmiFeedback.error(context, context.l10n.tasksNextPageFailed);
   }
 
   Future<void> _onActionItemCompleted() async {
@@ -400,8 +409,12 @@ class _ActionItemsPageState extends State<ActionItemsPage> with AutomaticKeepAli
         final completedItems = _withoutLocked(provider.completedItemsNewestFirst);
         final hasTasks = categorizedItems.values.any((l) => l.isNotEmpty) || completedItems.isNotEmpty;
         // Only a scroll asks for the next page, and with locked rows hidden what is left may be too
-        // short to scroll: check once this frame is laid out.
-        if (shownItems.length != provider.actionItems.length && provider.hasMore && !provider.isFetching) {
+        // short to scroll: check once this frame is laid out. Not after a page failed: this build
+        // runs again on every notification, and asking each time would loop while offline.
+        if (shownItems.length != provider.actionItems.length &&
+            provider.hasMore &&
+            !provider.isFetching &&
+            !provider.lastPageFailed) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (mounted && _scrollController.hasClients) _onScroll();
           });

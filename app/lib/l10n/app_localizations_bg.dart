@@ -12276,4 +12276,10 @@ class AppLocalizationsBg extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Всичко записано дотук е запазено.';
+
+  @override
+  String get tasksNextPageFailed => 'Не можахме да заредим още задачи. Дръпнете надолу, за да опитате отново.';
+
+  @override
+  String get selectAllTasksPartial => 'Не можахме да заредим всички задачи. Избрани са само вече заредените.';
 }

@@ -3881,5 +3881,7 @@
     "askAnythingButton": "Kérdezz bármit",
     "pendantLostConnection": "A medál elvesztette a kapcsolatot ezzel a telefonnal.",
     "pendantReconnectsOnItsOwn": "Az Omi magától újracsatlakozik, amikor a medál be van kapcsolva és a közelben van.",
-    "pendantRecordingSafe": "Minden, amit eddig rögzített, biztonságban van."
+    "pendantRecordingSafe": "Minden, amit eddig rögzített, biztonságban van.",
+    "tasksNextPageFailed": "Nem sikerült több feladatot betölteni. Húzd le az újrapróbáláshoz.",
+    "selectAllTasksPartial": "Nem sikerült minden feladatot betölteni. Csak a már betöltött feladatok vannak kijelölve."
 }

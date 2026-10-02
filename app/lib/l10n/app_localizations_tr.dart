@@ -12243,4 +12243,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Bundan önce kaydedilen her şey güvende.';
+
+  @override
+  String get tasksNextPageFailed => 'Daha fazla görev yüklenemedi. Yeniden denemek için aşağı çekin.';
+
+  @override
+  String get selectAllTasksPartial => 'Tüm görevler yüklenemedi. Yalnızca zaten yüklenmiş görevler seçildi.';
 }

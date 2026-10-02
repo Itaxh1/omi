@@ -12158,4 +12158,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'كل ما سُجّل قبل ذلك محفوظ.';
+
+  @override
+  String get tasksNextPageFailed => 'تعذر تحميل المزيد من المهام. اسحب للأسفل للمحاولة مرة أخرى.';
+
+  @override
+  String get selectAllTasksPartial => 'تعذر تحميل كل المهام. تم تحديد المهام المحمّلة فقط.';
 }

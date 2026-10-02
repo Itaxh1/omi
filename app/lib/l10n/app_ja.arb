@@ -3785,5 +3785,7 @@
     "askAnythingButton": "何でも聞いてください",
     "pendantLostConnection": "ペンダントとこのスマートフォンの接続が切れました。",
     "pendantReconnectsOnItsOwn": "ペンダントの電源が入っていて近くにあれば、Omiは自動で再接続します。",
-    "pendantRecordingSafe": "それまでに録音した内容は保存されています。"
+    "pendantRecordingSafe": "それまでに録音した内容は保存されています。",
+    "tasksNextPageFailed": "タスクをさらに読み込めませんでした。下に引いて再試行してください。",
+    "selectAllTasksPartial": "すべてのタスクを読み込めませんでした。読み込み済みのタスクのみ選択されています。"
 }

@@ -3785,5 +3785,7 @@
     "askAnythingButton": "Frag irgendetwas",
     "pendantLostConnection": "Dein Anhänger hat die Verbindung zu diesem Telefon verloren.",
     "pendantReconnectsOnItsOwn": "Omi verbindet sich von selbst neu, sobald der Anhänger eingeschaltet und in der Nähe ist.",
-    "pendantRecordingSafe": "Alles bisher Aufgenommene ist sicher."
+    "pendantRecordingSafe": "Alles bisher Aufgenommene ist sicher.",
+    "tasksNextPageFailed": "Weitere Aufgaben konnten nicht geladen werden. Zum erneuten Versuch nach unten ziehen.",
+    "selectAllTasksPartial": "Nicht alle Aufgaben konnten geladen werden. Nur die bereits geladenen sind ausgewählt."
 }

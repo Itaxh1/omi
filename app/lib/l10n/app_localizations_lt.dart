@@ -12251,4 +12251,10 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Viskas, kas įrašyta iki šiol, išsaugota.';
+
+  @override
+  String get tasksNextPageFailed => 'Nepavyko įkelti daugiau užduočių. Patraukite žemyn, kad bandytumėte dar kartą.';
+
+  @override
+  String get selectAllTasksPartial => 'Nepavyko įkelti visų užduočių. Pasirinktos tik jau įkeltos užduotys.';
 }

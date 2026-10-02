@@ -11342,5 +11342,7 @@
     "askAnythingButton": "שאל כל דבר",
     "pendantLostConnection": "התליון איבד את החיבור לטלפון הזה.",
     "pendantReconnectsOnItsOwn": "Omi יתחבר מחדש מעצמו כשהתליון דלוק וקרוב.",
-    "pendantRecordingSafe": "כל מה שהוקלט עד עכשיו שמור."
+    "pendantRecordingSafe": "כל מה שהוקלט עד עכשיו שמור.",
+    "tasksNextPageFailed": "לא ניתן לטעון משימות נוספות. משכו למטה כדי לנסות שוב.",
+    "selectAllTasksPartial": "לא ניתן לטעון את כל המשימות. נבחרו רק המשימות שכבר נטענו."
 }

@@ -12213,4 +12213,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'इससे पहले रिकॉर्ड की गई हर चीज़ सुरक्षित है।';
+
+  @override
+  String get tasksNextPageFailed => 'और कार्य लोड नहीं हो सके। फिर से कोशिश करने के लिए नीचे खींचें।';
+
+  @override
+  String get selectAllTasksPartial => 'सभी कार्य लोड नहीं हो सके। केवल पहले से लोड किए गए कार्य चुने गए हैं।';
 }

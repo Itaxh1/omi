@@ -12242,4 +12242,10 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'اس سے پہلے ریکارڈ ہونے والی ہر چیز محفوظ ہے۔';
+
+  @override
+  String get tasksNextPageFailed => 'مزید کام لوڈ نہیں ہو سکے۔ دوبارہ کوشش کرنے کے لیے نیچے کھینچیں۔';
+
+  @override
+  String get selectAllTasksPartial => 'تمام کام لوڈ نہیں ہو سکے۔ صرف پہلے سے لوڈ شدہ کام منتخب کیے گئے ہیں۔';
 }

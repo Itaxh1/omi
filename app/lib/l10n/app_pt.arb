@@ -3820,5 +3820,7 @@
     "askAnythingButton": "Pergunte qualquer coisa",
     "pendantLostConnection": "Seu pendente perdeu a conexão com este telefone.",
     "pendantReconnectsOnItsOwn": "O Omi se reconecta sozinho quando o pendente estiver ligado e por perto.",
-    "pendantRecordingSafe": "Tudo o que foi gravado antes está seguro."
+    "pendantRecordingSafe": "Tudo o que foi gravado antes está seguro.",
+    "tasksNextPageFailed": "Não foi possível carregar mais tarefas. Puxe para baixo para tentar novamente.",
+    "selectAllTasksPartial": "Não foi possível carregar todas as tarefas. Só as tarefas já carregadas estão selecionadas."
 }

@@ -12299,4 +12299,11 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Tutto ciò che è stato registrato prima è al sicuro.';
+
+  @override
+  String get tasksNextPageFailed => 'Impossibile caricare altre attività. Trascina verso il basso per riprovare.';
+
+  @override
+  String get selectAllTasksPartial =>
+      'Impossibile caricare tutte le attività. Sono selezionate solo quelle già caricate.';
 }

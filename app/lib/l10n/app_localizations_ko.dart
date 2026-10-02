@@ -12039,4 +12039,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => '그 전에 녹음된 내용은 안전하게 보관돼요.';
+
+  @override
+  String get tasksNextPageFailed => '작업을 더 불러오지 못했습니다. 아래로 당겨 다시 시도하세요.';
+
+  @override
+  String get selectAllTasksPartial => '모든 작업을 불러오지 못했습니다. 이미 불러온 작업만 선택되었습니다.';
 }

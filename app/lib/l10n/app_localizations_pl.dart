@@ -12267,4 +12267,10 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Wszystko nagrane wcześniej jest bezpieczne.';
+
+  @override
+  String get tasksNextPageFailed => 'Nie udało się wczytać więcej zadań. Przeciągnij w dół, aby spróbować ponownie.';
+
+  @override
+  String get selectAllTasksPartial => 'Nie udało się wczytać wszystkich zadań. Zaznaczono tylko już wczytane zadania.';
 }

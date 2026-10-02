@@ -3785,5 +3785,7 @@
     "askAnythingButton": "Chiedi qualsiasi cosa",
     "pendantLostConnection": "Il ciondolo ha perso la connessione con questo telefono.",
     "pendantReconnectsOnItsOwn": "Omi si riconnetterà da solo quando il ciondolo sarà acceso e vicino.",
-    "pendantRecordingSafe": "Tutto ciò che è stato registrato prima è al sicuro."
+    "pendantRecordingSafe": "Tutto ciò che è stato registrato prima è al sicuro.",
+    "tasksNextPageFailed": "Impossibile caricare altre attività. Trascina verso il basso per riprovare.",
+    "selectAllTasksPartial": "Impossibile caricare tutte le attività. Sono selezionate solo quelle già caricate."
 }

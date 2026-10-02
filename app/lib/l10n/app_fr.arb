@@ -3820,5 +3820,7 @@
     "askAnythingButton": "Demandez n'importe quoi",
     "pendantLostConnection": "Votre pendentif a perdu la connexion avec ce téléphone.",
     "pendantReconnectsOnItsOwn": "Omi se reconnectera tout seul quand le pendentif sera allumé et à proximité.",
-    "pendantRecordingSafe": "Tout ce qui a été enregistré avant est en sécurité."
+    "pendantRecordingSafe": "Tout ce qui a été enregistré avant est en sécurité.",
+    "tasksNextPageFailed": "Impossible de charger plus de tâches. Tirez vers le bas pour réessayer.",
+    "selectAllTasksPartial": "Impossible de charger toutes les tâches. Seules les tâches déjà chargées sont sélectionnées."
 }

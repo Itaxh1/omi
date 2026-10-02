@@ -12256,4 +12256,10 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Усе, що записано до цього, збережено.';
+
+  @override
+  String get tasksNextPageFailed => 'Не вдалося завантажити більше завдань. Потягніть вниз, щоб спробувати ще раз.';
+
+  @override
+  String get selectAllTasksPartial => 'Не вдалося завантажити всі завдання. Вибрано лише вже завантажені завдання.';
 }

@@ -12313,4 +12313,12 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Ό,τι ηχογραφήθηκε πριν είναι ασφαλές.';
+
+  @override
+  String get tasksNextPageFailed =>
+      'Δεν ήταν δυνατή η φόρτωση περισσότερων εργασιών. Τραβήξτε προς τα κάτω για να δοκιμάσετε ξανά.';
+
+  @override
+  String get selectAllTasksPartial =>
+      'Δεν ήταν δυνατή η φόρτωση όλων των εργασιών. Επιλέχθηκαν μόνο όσες έχουν ήδη φορτωθεί.';
 }

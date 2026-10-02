@@ -12224,4 +12224,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Mọi thứ đã ghi trước đó vẫn an toàn.';
+
+  @override
+  String get tasksNextPageFailed => 'Không thể tải thêm việc cần làm. Kéo xuống để thử lại.';
+
+  @override
+  String get selectAllTasksPartial => 'Không thể tải tất cả việc cần làm. Chỉ những việc đã tải được chọn.';
 }

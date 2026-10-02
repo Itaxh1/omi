@@ -12235,4 +12235,10 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Kaikki tätä ennen tallennettu on tallessa.';
+
+  @override
+  String get tasksNextPageFailed => 'Tehtävien lataaminen ei onnistunut. Yritä uudelleen vetämällä alas.';
+
+  @override
+  String get selectAllTasksPartial => 'Kaikkia tehtäviä ei voitu ladata. Vain jo ladatut tehtävät on valittu.';
 }

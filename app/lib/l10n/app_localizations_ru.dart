@@ -12271,4 +12271,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Всё, что записано до этого, сохранено.';
+
+  @override
+  String get tasksNextPageFailed => 'Не удалось загрузить больше задач. Потяните вниз, чтобы попробовать снова.';
+
+  @override
+  String get selectAllTasksPartial => 'Не удалось загрузить все задачи. Выбраны только уже загруженные задачи.';
 }

@@ -236,6 +236,45 @@ void main() {
     expect(find.byKey(const ValueKey('omi.action_items.empty')), findsNothing);
   });
 
+  testWidgets('a next page that does not load is asked for once, with a toast, not on every frame', (tester) async {
+    var requests = 0;
+    // A first page of locked tasks (so the list is too short to scroll and the page asks for the
+    // next one itself), then a page that never lands.
+    Future<ActionItemsResponse?> lockedThenOffline({
+      int limit = 100,
+      int offset = 0,
+      bool? completed,
+      String? conversationId,
+      DateTime? startDate,
+      DateTime? endDate,
+      DateTime? dueStartDate,
+      DateTime? dueEndDate,
+    }) async {
+      if (offset == 0) {
+        return const ActionItemsResponse(
+          actionItems: [
+            ActionItemWithMetadata(
+                id: 'locked', description: 'An older task behind the…', completed: false, isLocked: true),
+          ],
+          hasMore: true,
+        );
+      }
+      requests++;
+      throw Exception('offline');
+    }
+
+    final (provider, _) = await pumpPage(tester, getActionItems: lockedThenOffline);
+    // Every notification rebuilds the page; a few more frames must not ask again.
+    for (var i = 0; i < 5; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+
+    expect(requests, 1);
+    expect(provider.lastPageFailed, isTrue);
+    expect(provider.hasMore, isTrue);
+    expect(find.text("Couldn't load more tasks. Pull down to try again."), findsOneWidget);
+  });
+
   testWidgets('selecting a done task never selects the rows under it', (tester) async {
     final (provider, _) = await pumpPage(tester);
     await tester.tap(find.text('Completed'));

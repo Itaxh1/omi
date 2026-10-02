@@ -14587,5 +14587,13 @@
     "pendantRecordingSafe": "Everything recorded before this is safe.",
     "@pendantRecordingSafe": {
         "description": "Disconnected sheet: reassurance that nothing recorded is lost"
+    },
+    "tasksNextPageFailed": "Couldn't load more tasks. Pull down to try again.",
+    "@tasksNextPageFailed": {
+        "description": "Toast on the Tasks list when the next page of tasks fails to load; pull-to-refresh retries."
+    },
+    "selectAllTasksPartial": "Couldn't load every task. Only the tasks already loaded are selected.",
+    "@selectAllTasksPartial": {
+        "description": "Toast after Select All on the Tasks list when some pages of tasks could not be loaded, so the selection is partial."
     }
 }

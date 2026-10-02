@@ -3785,5 +3785,7 @@
     "askAnythingButton": "Pregunta qualsevol cosa",
     "pendantLostConnection": "El penjoll ha perdut la connexió amb aquest telèfon.",
     "pendantReconnectsOnItsOwn": "Omi es tornarà a connectar sol quan el penjoll estigui encès i a prop.",
-    "pendantRecordingSafe": "Tot el que s'ha gravat abans és segur."
+    "pendantRecordingSafe": "Tot el que s'ha gravat abans és segur.",
+    "tasksNextPageFailed": "No s'han pogut carregar més tasques. Arrossega cap avall per tornar-ho a provar.",
+    "selectAllTasksPartial": "No s'han pogut carregar totes les tasques. Només s'han seleccionat les ja carregades."
 }

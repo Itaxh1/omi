@@ -3785,5 +3785,7 @@
     "askAnythingButton": "Klauskite bet ko",
     "pendantLostConnection": "Pakabukas prarado ryšį su šiuo telefonu.",
     "pendantReconnectsOnItsOwn": "Omi pats vėl prisijungs, kai pakabukas bus įjungtas ir netoliese.",
-    "pendantRecordingSafe": "Viskas, kas įrašyta iki šiol, išsaugota."
+    "pendantRecordingSafe": "Viskas, kas įrašyta iki šiol, išsaugota.",
+    "tasksNextPageFailed": "Nepavyko įkelti daugiau užduočių. Patraukite žemyn, kad bandytumėte dar kartą.",
+    "selectAllTasksPartial": "Nepavyko įkelti visų užduočių. Pasirinktos tik jau įkeltos užduotys."
 }

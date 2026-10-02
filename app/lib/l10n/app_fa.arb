@@ -11342,5 +11342,7 @@
     "askAnythingButton": "هر چیزی بپرسید",
     "pendantLostConnection": "آویز شما اتصالش را با این تلفن از دست داد.",
     "pendantReconnectsOnItsOwn": "وقتی آویز روشن و نزدیک باشد، Omi خودش دوباره وصل می‌شود.",
-    "pendantRecordingSafe": "هر آنچه پیش از این ضبط شده محفوظ است."
+    "pendantRecordingSafe": "هر آنچه پیش از این ضبط شده محفوظ است.",
+    "tasksNextPageFailed": "بارگیری وظایف بیشتر ممکن نشد. برای تلاش دوباره به پایین بکشید.",
+    "selectAllTasksPartial": "بارگیری همه وظایف ممکن نشد. فقط وظایف بارگیری‌شده انتخاب شدند."
 }

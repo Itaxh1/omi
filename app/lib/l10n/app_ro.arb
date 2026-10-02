@@ -3785,5 +3785,7 @@
     "askAnythingButton": "Întreabă orice",
     "pendantLostConnection": "Pandantivul a pierdut conexiunea cu acest telefon.",
     "pendantReconnectsOnItsOwn": "Omi se va reconecta singur când pandantivul este pornit și în apropiere.",
-    "pendantRecordingSafe": "Tot ce s-a înregistrat înainte este în siguranță."
+    "pendantRecordingSafe": "Tot ce s-a înregistrat înainte este în siguranță.",
+    "tasksNextPageFailed": "Nu s-au putut încărca mai multe sarcini. Trage în jos pentru a încerca din nou.",
+    "selectAllTasksPartial": "Nu s-au putut încărca toate sarcinile. Sunt selectate doar sarcinile deja încărcate."
 }

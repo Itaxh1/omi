@@ -12218,4 +12218,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Everything recorded before this is safe.';
+
+  @override
+  String get tasksNextPageFailed => 'Couldn\'t load more tasks. Pull down to try again.';
+
+  @override
+  String get selectAllTasksPartial => 'Couldn\'t load every task. Only the tasks already loaded are selected.';
 }

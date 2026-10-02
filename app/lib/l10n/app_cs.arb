@@ -3785,5 +3785,7 @@
     "askAnythingButton": "Zeptejte se na cokoliv",
     "pendantLostConnection": "Přívěsek ztratil spojení s tímto telefonem.",
     "pendantReconnectsOnItsOwn": "Omi se znovu připojí sám, až bude přívěsek zapnutý a poblíž.",
-    "pendantRecordingSafe": "Vše nahrané předtím je v bezpečí."
+    "pendantRecordingSafe": "Vše nahrané předtím je v bezpečí.",
+    "tasksNextPageFailed": "Další úkoly se nepodařilo načíst. Přetažením dolů to zkuste znovu.",
+    "selectAllTasksPartial": "Nepodařilo se načíst všechny úkoly. Vybrány jsou jen ty už načtené."
 }

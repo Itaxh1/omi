@@ -3785,5 +3785,7 @@
     "askAnythingButton": "Tanya apa sahaja",
     "pendantLostConnection": "Loket anda terputus sambungan dengan telefon ini.",
     "pendantReconnectsOnItsOwn": "Omi akan bersambung semula sendiri apabila loket dihidupkan dan berdekatan.",
-    "pendantRecordingSafe": "Semua yang dirakam sebelum ini selamat."
+    "pendantRecordingSafe": "Semua yang dirakam sebelum ini selamat.",
+    "tasksNextPageFailed": "Tidak dapat memuatkan lebih banyak tugasan. Tarik ke bawah untuk mencuba lagi.",
+    "selectAllTasksPartial": "Tidak dapat memuatkan semua tugasan. Hanya tugasan yang sudah dimuatkan dipilih."
 }

@@ -12218,4 +12218,10 @@ class AppLocalizationsDa extends AppLocalizations {
 
   @override
   String get pendantRecordingSafe => 'Alt optaget før dette er i sikkerhed.';
+
+  @override
+  String get tasksNextPageFailed => 'Kunne ikke indlæse flere opgaver. Træk ned for at prøve igen.';
+
+  @override
+  String get selectAllTasksPartial => 'Kunne ikke indlæse alle opgaver. Kun de allerede indlæste er valgt.';
 }

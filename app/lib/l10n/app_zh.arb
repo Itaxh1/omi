@@ -3785,5 +3785,7 @@
     "askAnythingButton": "随便问问",
     "pendantLostConnection": "吊坠与这部手机的连接已断开。",
     "pendantReconnectsOnItsOwn": "吊坠开机并在附近时，Omi 会自动重新连接。",
-    "pendantRecordingSafe": "此前录下的内容都已保存。"
+    "pendantRecordingSafe": "此前录下的内容都已保存。",
+    "tasksNextPageFailed": "无法加载更多任务。下拉以重试。",
+    "selectAllTasksPartial": "无法加载全部任务。仅选中了已加载的任务。"
 }
