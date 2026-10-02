@@ -90,6 +90,7 @@ class OmiPalette {
   /// The warm tile behind a settings row's line glyph, and the glyph itself.
   final Color iconTile;
   final Color iconTileGlyph;
+
   /// The canvas page (Home, Tasks, a conversation) and a card on it: white with grouped-grey cards
   /// in light mode, the usual surfaces in dark. Read through `OmiCanvas`, never directly.
   final Color canvas;
