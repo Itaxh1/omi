@@ -12150,4 +12150,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration من هذا الصوت';
   }
+
+  @override
+  String get settingsSectionRecording => 'التسجيل';
+
+  @override
+  String get settingsSectionSupport => 'الدعم';
 }

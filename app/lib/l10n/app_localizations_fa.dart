@@ -12222,4 +12222,10 @@ class AppLocalizationsFa extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration از این صدا';
   }
+
+  @override
+  String get settingsSectionRecording => 'ضبط';
+
+  @override
+  String get settingsSectionSupport => 'پشتیبانی';
 }
