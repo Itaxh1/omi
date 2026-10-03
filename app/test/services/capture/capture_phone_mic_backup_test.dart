@@ -156,7 +156,9 @@ void main() {
     await recordOnline(130);
 
     await serverCloses(conversation('c1', origin, [for (var t = 1.0; t < 125; t += 20) (t, t + 15)]));
-    await walsReach('every copy released', (wals) => wals.isEmpty);
+    // A confirmed copy is released or kept on the phone as a synced copy, depending on the retention
+    // policy; neither is uploaded again.
+    await walsReach('every copy confirmed', (wals) => wals.every((wal) => wal.status == WalStatus.synced));
 
     await recoveryPass();
     expect(world.uploads.attempts, isEmpty, reason: 'transcribed audio is not uploaded again');
