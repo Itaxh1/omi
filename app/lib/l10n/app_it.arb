@@ -3782,5 +3782,11 @@
     "speakerLabelVoiceDetail": "{state, select, learned{Omi riconoscerà {name} la prossima volta.} pending{Ci vogliono pochi secondi.} disabled{Attiva il salvataggio delle voci nelle Impostazioni così Omi potrà riconoscere {name}.} other{Omi ha bisogno di più parlato chiaro da {name} e continuerà a provare.}}",
     "speakerLabelEarlierMatches": "Conversazioni precedenti con questa voce: {count}",
     "speakerLabelText": "{part, select, likely{Probabile} soundsLike{Somiglia a {name}} notPerson{Non è {name}} carried{È ancora {name}. Riportato dalla tua ultima conversazione.} change{Cambia} alsoTitle{È anche {name}?} alsoBody{Omi ha trovato la stessa voce in conversazioni precedenti.} confirmed{Hai confermato questa etichetta} other{Rivedi}}",
-    "speakerLabelTalkTime": "{duration} di questa voce"
+    "speakerLabelTalkTime": "{duration} di questa voce",
+    "transcriptOnly": "Solo trascrizione",
+    "summariesPaused": "I riepiloghi sono in pausa",
+    "freeMinutesBackOn": "Minuti gratuiti di nuovo dal {date}",
+    "noSummaryFreePlanTitle": "Nessun riepilogo per questa conversazione",
+    "noSummaryFreePlanBody": "Hai usato i minuti gratuiti di questo mese, quindi Omi ha salvato la trascrizione senza riepilogo. Riepiloghi, attività e ricordi sono inclusi nel piano illimitato.",
+    "readTheTranscript": "Leggi la trascrizione"
 }

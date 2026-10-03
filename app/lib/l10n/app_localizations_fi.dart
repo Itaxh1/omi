@@ -12227,4 +12227,25 @@ class AppLocalizationsFi extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration tästä äänestä';
   }
+
+  @override
+  String get transcriptOnly => 'Vain litterointi';
+
+  @override
+  String get summariesPaused => 'Yhteenvedot on keskeytetty';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Ilmaiset minuutit palaavat $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Tälle keskustelulle ei ole yhteenvetoa';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Olet käyttänyt tämän kuun ilmaiset minuutit, joten Omi tallensi litteroinnin ilman yhteenvetoa. Yhteenvedot, tehtävät ja muistot kuuluvat rajoittamattomaan pakettiin.';
+
+  @override
+  String get readTheTranscript => 'Lue litterointi';
 }

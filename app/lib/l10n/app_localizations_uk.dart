@@ -12248,4 +12248,25 @@ class AppLocalizationsUk extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration цього голосу';
   }
+
+  @override
+  String get transcriptOnly => 'Лише транскрипція';
+
+  @override
+  String get summariesPaused => 'Підсумки призупинено';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Безкоштовні хвилини повернуться $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Ця розмова не має підсумку';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Ви використали безкоштовні хвилини цього місяця, тому Omi зберіг транскрипцію без підсумку. Підсумки, завдання та спогади доступні в необмеженому плані.';
+
+  @override
+  String get readTheTranscript => 'Читати транскрипцію';
 }

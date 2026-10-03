@@ -12216,4 +12216,25 @@ class AppLocalizationsSk extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration tohto hlasu';
   }
+
+  @override
+  String get transcriptOnly => 'Iba prepis';
+
+  @override
+  String get summariesPaused => 'Zhrnutia sú pozastavené';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Bezplatné minúty sa vrátia $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Táto konverzácia nemá zhrnutie';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Minuli ste bezplatné minúty na tento mesiac, takže Omi uložil prepis bez zhrnutia. Zhrnutia, úlohy a spomienky sú súčasťou neobmedzeného plánu.';
+
+  @override
+  String get readTheTranscript => 'Prečítať prepis';
 }

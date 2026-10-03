@@ -12263,4 +12263,25 @@ class AppLocalizationsRu extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration этого голоса';
   }
+
+  @override
+  String get transcriptOnly => 'Только расшифровка';
+
+  @override
+  String get summariesPaused => 'Сводки приостановлены';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Бесплатные минуты вернутся $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'У этого разговора нет сводки';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Вы израсходовали бесплатные минуты этого месяца, поэтому Omi сохранил расшифровку без сводки. Сводки, задачи и воспоминания доступны в безлимитном тарифе.';
+
+  @override
+  String get readTheTranscript => 'Читать расшифровку';
 }

@@ -12223,4 +12223,25 @@ class AppLocalizationsNo extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration av denne stemmen';
   }
+
+  @override
+  String get transcriptOnly => 'Kun transkripsjon';
+
+  @override
+  String get summariesPaused => 'Sammendrag er satt på pause';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Gratisminutter er tilbake $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Ingen sammendrag for denne samtalen';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Du har brukt denne månedens gratisminutter, så Omi lagret transkripsjonen uten sammendrag. Sammendrag, oppgaver og minner følger med det ubegrensede abonnementet.';
+
+  @override
+  String get readTheTranscript => 'Les transkripsjonen';
 }

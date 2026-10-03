@@ -12255,4 +12255,25 @@ class AppLocalizationsBe extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration гэтага голасу';
   }
+
+  @override
+  String get transcriptOnly => 'Толькі транскрыпцыя';
+
+  @override
+  String get summariesPaused => 'Зводкі прыпынены';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Бясплатныя хвіліны вернуцца $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Няма зводкі для гэтай размовы';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Вы выкарысталі бясплатныя хвіліны за гэты месяц, таму Omi захаваў транскрыпцыю без зводкі. Зводкі, задачы і ўспаміны даступныя ў неабмежаваным плане.';
+
+  @override
+  String get readTheTranscript => 'Чытаць транскрыпцыю';
 }

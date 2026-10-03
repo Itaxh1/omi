@@ -12305,4 +12305,25 @@ class AppLocalizationsTa extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return 'இந்தக் குரலின் $duration';
   }
+
+  @override
+  String get transcriptOnly => 'எழுத்துப்படி மட்டும்';
+
+  @override
+  String get summariesPaused => 'சுருக்கங்கள் இடைநிறுத்தப்பட்டுள்ளன';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'இலவச நிமிடங்கள் $date அன்று திரும்பும்';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'இந்த உரையாடலுக்குச் சுருக்கம் இல்லை';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'இந்த மாதத்தின் இலவச நிமிடங்களைப் பயன்படுத்திவிட்டீர்கள், அதனால் Omi எழுத்துப்படியை வைத்து சுருக்கத்தைத் தவிர்த்தது. சுருக்கங்கள், பணிகள், நினைவுகள் வரம்பற்ற திட்டத்தில் கிடைக்கும்.';
+
+  @override
+  String get readTheTranscript => 'எழுத்துப்படியைப் படிக்கவும்';
 }

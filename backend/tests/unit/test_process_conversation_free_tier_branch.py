@@ -496,8 +496,35 @@ def test_custom_stt_skip_still_blocks_omi_paid_llm_after_unpaid_path(monkeypatch
     result = pc.process_conversation('paid-uid', 'en', _desktop_custom_stt('desktop-custom-stt-paid'))
 
     spies['get_structured'].assert_not_called()
-    assert not payloads, 'Omi-paid persist must not run when the custom-STT processing gate skips'
+    spies['extract_memories'].assert_not_called()
+    spies['extract_memories_inner'].assert_not_called()
+    spies['trigger_apps'].assert_not_called()
+    spies['assign_folder'].assert_not_called()
     assert result.status == ConversationStatus.completed
+
+
+# red-proof: restore `report_persistence(False); return conversation` in the custom-STT
+# skip (the row is never persisted and stays on processing).
+def test_custom_stt_skip_persists_the_deterministic_minimum(monkeypatch, pc) -> None:
+    """An exhausted custom-STT phone session keeps its transcript at the no-LLM minimum."""
+    spies = _spy_managed_effects(monkeypatch, pc)
+    payloads = _capture_all_persists(monkeypatch, pc)
+    monkeypatch.setattr(pc, 'should_skip_omi_paid_postprocessing', lambda *args, **kwargs: True)
+    conversation = _desktop_custom_stt('phone-custom-stt')
+    conversation.source = ConversationSource.phone
+
+    result = pc.process_conversation('basic-uid', 'en', conversation)
+
+    spies['get_structured'].assert_not_called()
+    spies['extract_memories'].assert_not_called()
+    spies['trigger_apps'].assert_not_called()
+    assert len(payloads) == 1, 'the skip must persist exactly one terminal row'
+    stored = payloads[0]
+    assert stored['status'] == ConversationStatus.completed.value
+    assert stored['processing_state'] == ConversationProcessingState.none.value
+    assert stored['structured']['overview'] == ''
+    assert result.status == ConversationStatus.completed
+    assert result.processing_state == ConversationProcessingState.none
 
 
 # red-proof: skip `_get_structured` on process_normally (paid desktop would not enrich)

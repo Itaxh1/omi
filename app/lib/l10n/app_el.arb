@@ -3782,5 +3782,11 @@
     "speakerLabelVoiceDetail": "{state, select, learned{Το Omi θα αναγνωρίσει το άτομο {name} την επόμενη φορά.} pending{Αυτό διαρκεί λίγα δευτερόλεπτα.} disabled{Ενεργοποιήστε την αποθήκευση φωνών στις Ρυθμίσεις, ώστε το Omi να αναγνωρίζει το άτομο {name}.} other{Το Omi χρειάζεται πιο καθαρή ομιλία από το άτομο {name} και θα συνεχίσει να προσπαθεί.}}",
     "speakerLabelEarlierMatches": "Προηγούμενες συζητήσεις με αυτή τη φωνή: {count}",
     "speakerLabelText": "{part, select, likely{Πιθανό} soundsLike{Ακούγεται σαν {name}} notPerson{Όχι {name}} carried{Εξακολουθεί να είναι {name}. Μεταφέρθηκε από την τελευταία σας συζήτηση.} change{Αλλαγή} alsoTitle{Είναι και αυτό το άτομο {name};} alsoBody{Το Omi βρήκε την ίδια φωνή σε προηγούμενες συζητήσεις.} confirmed{Επιβεβαιώσατε αυτή την ετικέτα} other{Έλεγχος}}",
-    "speakerLabelTalkTime": "{duration} αυτής της φωνής"
+    "speakerLabelTalkTime": "{duration} αυτής της φωνής",
+    "transcriptOnly": "Μόνο απομαγνητοφώνηση",
+    "summariesPaused": "Οι περιλήψεις είναι σε παύση",
+    "freeMinutesBackOn": "Τα δωρεάν λεπτά επιστρέφουν στις {date}",
+    "noSummaryFreePlanTitle": "Δεν υπάρχει περίληψη για αυτή τη συνομιλία",
+    "noSummaryFreePlanBody": "Χρησιμοποιήσατε τα δωρεάν λεπτά αυτού του μήνα, οπότε το Omi κράτησε την απομαγνητοφώνηση χωρίς περίληψη. Οι περιλήψεις, οι εργασίες και οι αναμνήσεις περιλαμβάνονται στο απεριόριστο πρόγραμμα.",
+    "readTheTranscript": "Διαβάστε την απομαγνητοφώνηση"
 }

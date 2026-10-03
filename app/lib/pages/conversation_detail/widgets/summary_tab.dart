@@ -28,12 +28,16 @@ class SummaryTab extends StatefulWidget {
   final int currentResultIndex;
   final VoidCallback? onTapWhenSearchEmpty;
 
+  /// Switches to Transcript, from a conversation kept without a summary.
+  final VoidCallback? onReadTranscript;
+
   const SummaryTab(
       {super.key,
       this.reviewEnabled = false,
       this.searchQuery = '',
       this.currentResultIndex = -1,
-      this.onTapWhenSearchEmpty});
+      this.onTapWhenSearchEmpty,
+      this.onReadTranscript});
 
   @override
   State<SummaryTab> createState() => _SummaryTabState();
@@ -105,6 +109,7 @@ class _SummaryTabState extends State<SummaryTab> with AutomaticKeepAliveClientMi
                         discarded
                             ? const SliverToBoxAdapter(child: ReprocessDiscardedWidget())
                             : GetAppsWidgets(
+                                onReadTranscript: widget.onReadTranscript,
                                 searchQuery: widget.searchQuery,
                                 currentResultIndex: widget.currentResultIndex,
                                 canStartEditing: () {

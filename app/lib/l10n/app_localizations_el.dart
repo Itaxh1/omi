@@ -12304,4 +12304,25 @@ class AppLocalizationsEl extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration αυτής της φωνής';
   }
+
+  @override
+  String get transcriptOnly => 'Μόνο απομαγνητοφώνηση';
+
+  @override
+  String get summariesPaused => 'Οι περιλήψεις είναι σε παύση';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Τα δωρεάν λεπτά επιστρέφουν στις $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Δεν υπάρχει περίληψη για αυτή τη συνομιλία';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Χρησιμοποιήσατε τα δωρεάν λεπτά αυτού του μήνα, οπότε το Omi κράτησε την απομαγνητοφώνηση χωρίς περίληψη. Οι περιλήψεις, οι εργασίες και οι αναμνήσεις περιλαμβάνονται στο απεριόριστο πρόγραμμα.';
+
+  @override
+  String get readTheTranscript => 'Διαβάστε την απομαγνητοφώνηση';
 }

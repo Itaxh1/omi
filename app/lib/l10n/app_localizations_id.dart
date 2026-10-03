@@ -12235,4 +12235,25 @@ class AppLocalizationsId extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration dari suara ini';
   }
+
+  @override
+  String get transcriptOnly => 'Hanya transkrip';
+
+  @override
+  String get summariesPaused => 'Ringkasan dijeda';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Menit gratis kembali $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Tidak ada ringkasan untuk percakapan ini';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Anda sudah memakai menit gratis bulan ini, jadi Omi menyimpan transkrip tanpa ringkasan. Ringkasan, tugas, dan kenangan tersedia dengan Paket Tanpa Batas.';
+
+  @override
+  String get readTheTranscript => 'Baca transkrip';
 }

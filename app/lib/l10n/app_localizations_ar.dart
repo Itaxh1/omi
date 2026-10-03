@@ -12150,4 +12150,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration من هذا الصوت';
   }
+
+  @override
+  String get transcriptOnly => 'نص فقط';
+
+  @override
+  String get summariesPaused => 'الملخصات متوقفة مؤقتًا';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'تعود الدقائق المجانية في $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'لا يوجد ملخص لهذه المحادثة';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'لقد استخدمت الدقائق المجانية لهذا الشهر، لذلك احتفظ Omi بالنص وتخطى الملخص. الملخصات والمهام والذكريات متاحة مع الخطة غير المحدودة.';
+
+  @override
+  String get readTheTranscript => 'اقرأ النص';
 }

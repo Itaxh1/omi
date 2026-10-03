@@ -25,6 +25,7 @@ import 'package:omi/pages/conversations/widgets/conversations_group_widget.dart'
 import 'package:omi/pages/conversations/widgets/conversation_list_item.dart';
 import 'package:omi/pages/conversations/widgets/date_list_item.dart';
 import 'package:omi/pages/conversations/widgets/empty_conversations.dart';
+import 'package:omi/pages/conversations/widgets/free_plan_summary.dart';
 import 'package:omi/pages/conversations/widgets/recording_list_item.dart';
 import 'package:omi/pages/home/widgets/home_daily_recaps.dart';
 import 'package:omi/ui/ui.dart';
@@ -33,6 +34,7 @@ import 'package:omi/widgets/home_bottom_bar.dart';
 enum _ConversationListRowKind {
   topSpacer,
   dateHeader,
+  summariesPaused,
   processing,
   captureGapHeader,
   captureGap,
@@ -178,6 +180,19 @@ List<_ConversationListRow> _buildConversationListRows({
       captureGap: null,
       conversationIndex: -1,
     ));
+
+    // Once, under the newest day: why its conversations have transcripts but no summaries.
+    if (!hasRenderedDate && showsSummariesPausedRow(conversations)) {
+      rows.add((
+        kind: _ConversationListRowKind.summariesPaused,
+        date: date,
+        isFirst: false,
+        conversation: null,
+        recording: null,
+        captureGap: null,
+        conversationIndex: -1,
+      ));
+    }
 
     // Process Now belongs to the list, above the day where the completed conversation lands.
     if (processing != null) {
@@ -656,6 +671,8 @@ class _ConversationsPageState extends State<ConversationsPage> with AutomaticKee
                           date: row.date,
                           isFirst: row.isFirst,
                         );
+                      case _ConversationListRowKind.summariesPaused:
+                        return const SummariesPausedRow(key: ValueKey('summaries_paused'));
                       case _ConversationListRowKind.processing:
                         return ProcessingConversationWidget(
                           key: ValueKey('processing_${row.conversation!.id}'),

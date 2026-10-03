@@ -12209,4 +12209,25 @@ class AppLocalizationsDa extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration af denne stemme';
   }
+
+  @override
+  String get transcriptOnly => 'Kun udskrift';
+
+  @override
+  String get summariesPaused => 'Resuméer er sat på pause';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Gratis minutter er tilbage $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Intet resumé for denne samtale';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Du har brugt denne måneds gratis minutter, så Omi gemte udskriften uden resumé. Resuméer, opgaver og minder følger med den ubegrænsede plan.';
+
+  @override
+  String get readTheTranscript => 'Læs udskriften';
 }

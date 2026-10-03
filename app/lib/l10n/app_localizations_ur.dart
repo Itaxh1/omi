@@ -12234,4 +12234,25 @@ class AppLocalizationsUr extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return 'اس آواز کا $duration';
   }
+
+  @override
+  String get transcriptOnly => 'صرف ٹرانسکرپٹ';
+
+  @override
+  String get summariesPaused => 'خلاصے روک دیے گئے ہیں';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'مفت منٹ $date کو واپس آئیں گے';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'اس گفتگو کا کوئی خلاصہ نہیں';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'آپ اس مہینے کے مفت منٹ استعمال کر چکے ہیں، اس لیے Omi نے ٹرانسکرپٹ رکھ لیا اور خلاصہ چھوڑ دیا۔ خلاصے، کام اور یادیں غیر محدود منصوبے کے ساتھ ملتی ہیں۔';
+
+  @override
+  String get readTheTranscript => 'ٹرانسکرپٹ پڑھیں';
 }

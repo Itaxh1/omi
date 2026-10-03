@@ -12249,4 +12249,25 @@ class AppLocalizationsLv extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration no šīs balss';
   }
+
+  @override
+  String get transcriptOnly => 'Tikai transkripcija';
+
+  @override
+  String get summariesPaused => 'Kopsavilkumi ir apturēti';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Bezmaksas minūtes atgriezīsies $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Šai sarunai nav kopsavilkuma';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Jūs esat izmantojis šī mēneša bezmaksas minūtes, tāpēc Omi saglabāja transkripciju bez kopsavilkuma. Kopsavilkumi, uzdevumi un atmiņas ir pieejami neierobežotajā plānā.';
+
+  @override
+  String get readTheTranscript => 'Lasīt transkripciju';
 }

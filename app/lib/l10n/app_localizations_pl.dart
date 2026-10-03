@@ -12260,4 +12260,25 @@ class AppLocalizationsPl extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration tego głosu';
   }
+
+  @override
+  String get transcriptOnly => 'Tylko transkrypcja';
+
+  @override
+  String get summariesPaused => 'Podsumowania są wstrzymane';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Darmowe minuty wrócą $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Brak podsumowania tej rozmowy';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Wykorzystano darmowe minuty na ten miesiąc, więc Omi zapisał transkrypcję bez podsumowania. Podsumowania, zadania i wspomnienia są dostępne w planie nieograniczonym.';
+
+  @override
+  String get readTheTranscript => 'Przeczytaj transkrypcję';
 }

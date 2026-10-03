@@ -67,6 +67,10 @@ class OmiDateFormat {
   /// A date standing alone: "Sep 23, 2026".
   String date(DateTime value) => DateFormat.yMMMd(localeName).format(value);
 
+  /// A day named in a sentence: "Nov 1", with the year only when it is not the current one.
+  String day(DateTime value) =>
+      (value.year == _clock().year ? DateFormat.MMMd(localeName) : DateFormat.yMMMd(localeName)).format(value);
+
   /// An absolute moment: "Sep 23, 2026 10:43 AM" (locale order and separators).
   String dateTime(DateTime value) {
     final format = DateFormat.yMMMd(localeName);

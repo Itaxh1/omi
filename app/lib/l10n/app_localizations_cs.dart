@@ -12222,4 +12222,25 @@ class AppLocalizationsCs extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration tohoto hlasu';
   }
+
+  @override
+  String get transcriptOnly => 'Jen přepis';
+
+  @override
+  String get summariesPaused => 'Shrnutí jsou pozastavena';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Minuty zdarma se vrátí $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Tato konverzace nemá shrnutí';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Vyčerpali jste minuty zdarma pro tento měsíc, takže Omi uložil přepis bez shrnutí. Shrnutí, úkoly a vzpomínky jsou součástí neomezeného plánu.';
+
+  @override
+  String get readTheTranscript => 'Přečíst přepis';
 }

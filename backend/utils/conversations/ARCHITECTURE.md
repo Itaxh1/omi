@@ -20,7 +20,9 @@ and background processing.
   persists the completed conversation and delegates expensive child work to the
   named executor lanes. Custom-STT conversations skip managed-STT credits but
   still consult `should_skip_omi_paid_postprocessing` before Omi-paid
-  structuring, summary, and memory work (#7690). That gate sits after the
+  structuring, summary, and memory work (#7690); a skipped conversation is stored
+  at the no-LLM deterministic minimum with `processing_state` `none`, so it keeps
+  its transcript and does not stay `processing`. That gate sits after the
   unpaid desktop on-device / `store_projection` path (#14513) so it cannot
   strip a local summary.
 - `processing_trigger.py` owns *why* a conversation is processed. Every caller

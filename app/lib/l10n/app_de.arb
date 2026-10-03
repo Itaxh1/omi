@@ -3782,5 +3782,11 @@
     "speakerLabelVoiceDetail": "{state, select, learned{Omi erkennt {name} beim nächsten Mal.} pending{Das dauert ein paar Sekunden.} disabled{Aktiviere in den Einstellungen das Speichern von Stimmen, damit Omi {name} erkennen kann.} other{Omi braucht mehr klare Sprache von {name} und versucht es weiter.}}",
     "speakerLabelEarlierMatches": "Frühere Gespräche mit dieser Stimme: {count}",
     "speakerLabelText": "{part, select, likely{Wahrscheinlich} soundsLike{Klingt wie {name}} notPerson{Nicht {name}} carried{Weiterhin {name}. Aus deinem letzten Gespräch übernommen.} change{Ändern} alsoTitle{Ist das auch {name}?} alsoBody{Omi hat dieselbe Stimme in früheren Gesprächen gefunden.} confirmed{Du hast dieses Label bestätigt} other{Prüfen}}",
-    "speakerLabelTalkTime": "{duration} dieser Stimme"
+    "speakerLabelTalkTime": "{duration} dieser Stimme",
+    "transcriptOnly": "Nur Transkript",
+    "summariesPaused": "Zusammenfassungen pausiert",
+    "freeMinutesBackOn": "Freie Minuten ab {date} wieder verfügbar",
+    "noSummaryFreePlanTitle": "Keine Zusammenfassung für dieses Gespräch",
+    "noSummaryFreePlanBody": "Du hast die freien Minuten für diesen Monat aufgebraucht, daher hat Omi das Transkript ohne Zusammenfassung gespeichert. Zusammenfassungen, Aufgaben und Erinnerungen gibt es mit dem unbegrenzten Plan.",
+    "readTheTranscript": "Transkript lesen"
 }

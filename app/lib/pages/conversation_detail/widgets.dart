@@ -14,6 +14,8 @@ import 'package:omi/pages/conversation_detail/conversation_detail_provider.dart'
 import 'package:omi/pages/conversation_detail/conversation_summary_selection.dart';
 import 'package:omi/pages/conversation_detail/widgets/conversation_markdown_widget.dart';
 import 'package:omi/pages/conversation_detail/widgets/summarized_apps_sheet.dart';
+import 'package:omi/pages/conversations/widgets/free_plan_summary.dart';
+import 'package:omi/providers/usage_provider.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/other/temp.dart';
 import 'package:omi/widgets/extensions/string.dart';
@@ -168,6 +170,59 @@ class SummaryRetryWidget extends StatelessWidget {
           onPressed: () => provider.reprocessConversation(),
         );
       },
+    );
+  }
+}
+
+/// Summary of a conversation the server kept without one because the free plan's minutes are used
+/// up: what is missing and why, one way to Unlimited, the way to the transcript, and when the
+/// minutes come back. Nothing stands in for a summary.
+class FreePlanSummaryNotice extends StatelessWidget {
+  const FreePlanSummaryNotice({super.key, this.onReadTranscript, this.now});
+
+  final VoidCallback? onReadTranscript;
+
+  /// Today, for tests.
+  final DateTime? now;
+
+  @override
+  Widget build(BuildContext context) {
+    final canUpgrade = context.select<UsageProvider, bool>((usage) => usage.showSubscriptionUI);
+    final resetDay = OmiDateFormat.of(context).day(freePlanMinutesResetDay(now ?? DateTime.now()));
+    return Padding(
+      key: const Key('conversation_detail_free_plan_summary'),
+      padding: const EdgeInsets.only(top: OmiSpacing.xxs, bottom: OmiSpacing.xl),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(context.l10n.noSummaryFreePlanTitle, style: OmiType.title3),
+          const SizedBox(height: OmiSpacing.xs),
+          Text(context.l10n.noSummaryFreePlanBody, style: OmiType.body.copyWith(color: OmiColors.textSecondary)),
+          const SizedBox(height: OmiSpacing.xl),
+          if (canUpgrade)
+            OmiButton(
+              key: const Key('free_plan_summary_upgrade'),
+              label: context.l10n.upgradeToUnlimited,
+              expand: true,
+              onPressed: () => openUnlimitedPlan(context, source: 'Conversation Summary'),
+            ),
+          if (onReadTranscript != null) ...[
+            const SizedBox(height: OmiSpacing.xs),
+            OmiButton.tertiary(
+              key: const Key('free_plan_summary_read_transcript'),
+              label: context.l10n.readTheTranscript,
+              expand: true,
+              onPressed: onReadTranscript!,
+            ),
+          ],
+          const SizedBox(height: OmiSpacing.sm),
+          Text(
+            context.l10n.freeMinutesBackOn(resetDay),
+            style: OmiType.footnote.copyWith(color: OmiColors.textTertiary),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -377,8 +432,10 @@ class GetAppsWidgets extends StatelessWidget {
   final void Function(ConversationSummarySelection selection)? onEditStarted;
   final void Function(ConversationSummarySelection selection)? onEditCancelled;
   final bool Function()? canStartEditing;
+  final VoidCallback? onReadTranscript;
   const GetAppsWidgets({
     super.key,
+    this.onReadTranscript,
     this.searchQuery = '',
     this.currentResultIndex = -1,
     this.onSaveSummarySelection,
@@ -393,6 +450,9 @@ class GetAppsWidgets extends StatelessWidget {
       builder: (context, provider, child) {
         final selection = provider.getSummarySelection();
         if (selection.kind == ConversationSummaryKind.empty) {
+          if (provider.conversation.summaryUnavailableOnFreePlan) {
+            return SliverToBoxAdapter(child: FreePlanSummaryNotice(onReadTranscript: onReadTranscript));
+          }
           if (provider.conversation.showsSummaryRetry) {
             return const SliverToBoxAdapter(child: SummaryRetryWidget());
           }

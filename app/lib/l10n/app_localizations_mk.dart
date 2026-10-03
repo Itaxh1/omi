@@ -12287,4 +12287,25 @@ class AppLocalizationsMk extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration од овој глас';
   }
+
+  @override
+  String get transcriptOnly => 'Само транскрипт';
+
+  @override
+  String get summariesPaused => 'Резимеата се паузирани';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Бесплатните минути се враќаат на $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Нема резиме за овој разговор';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Ги искористивте бесплатните минути за овој месец, па Omi го зачува транскриптот без резиме. Резимеата, задачите и спомените доаѓаат со неограничениот план.';
+
+  @override
+  String get readTheTranscript => 'Прочитајте го транскриптот';
 }

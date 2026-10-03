@@ -12216,4 +12216,25 @@ class AppLocalizationsVi extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration từ giọng nói này';
   }
+
+  @override
+  String get transcriptOnly => 'Chỉ có bản ghi';
+
+  @override
+  String get summariesPaused => 'Tóm tắt đang tạm dừng';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Số phút miễn phí trở lại vào $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Cuộc trò chuyện này không có tóm tắt';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Bạn đã dùng hết số phút miễn phí của tháng này, nên Omi giữ bản ghi và bỏ qua tóm tắt. Tóm tắt, công việc và ký ức có trong Gói không giới hạn.';
+
+  @override
+  String get readTheTranscript => 'Đọc bản ghi';
 }

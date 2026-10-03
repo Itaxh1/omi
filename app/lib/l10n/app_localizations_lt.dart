@@ -12243,4 +12243,25 @@ class AppLocalizationsLt extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration šio balso';
   }
+
+  @override
+  String get transcriptOnly => 'Tik transkripcija';
+
+  @override
+  String get summariesPaused => 'Santraukos pristabdytos';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Nemokamos minutės grįš $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Šis pokalbis neturi santraukos';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Išnaudojote šio mėnesio nemokamas minutes, todėl Omi išsaugojo transkripciją be santraukos. Santraukos, užduotys ir prisiminimai yra neribojamame plane.';
+
+  @override
+  String get readTheTranscript => 'Skaityti transkripciją';
 }

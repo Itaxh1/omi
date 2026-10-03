@@ -12292,4 +12292,25 @@ class AppLocalizationsCa extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration d’aquesta veu';
   }
+
+  @override
+  String get transcriptOnly => 'Només transcripció';
+
+  @override
+  String get summariesPaused => 'Els resums estan en pausa';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Els minuts gratuïts tornen el $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'No hi ha resum per a aquesta conversa';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Has fet servir els minuts gratuïts d’aquest mes, així que Omi ha desat la transcripció sense resum. Els resums, les tasques i els records vénen amb el pla il·limitat.';
+
+  @override
+  String get readTheTranscript => 'Llegeix la transcripció';
 }

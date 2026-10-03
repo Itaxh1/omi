@@ -11339,5 +11339,11 @@
     "speakerLabelVoiceDetail": "{state, select, learned{Makikilala ni Omi si {name} sa susunod.} pending{Tatagal ito ng ilang segundo.} disabled{I-on ang pag-save ng mga boses sa Settings para makilala ni Omi si {name}.} other{Kailangan ni Omi ng mas malinaw na pananalita mula kay {name} at patuloy itong susubok.}}",
     "speakerLabelEarlierMatches": "Mga naunang usapan na may ganitong boses: {count}",
     "speakerLabelText": "{part, select, likely{Posible} soundsLike{Parang si {name}} notPerson{Hindi si {name}} carried{Si {name} pa rin. Dinala mula sa huli mong usapan.} change{Baguhin} alsoTitle{Si {name} rin ba ito?} alsoBody{Nahanap ni Omi ang parehong boses sa mga naunang usapan.} confirmed{Kinumpirma mo ang label na ito} other{Suriin}}",
-    "speakerLabelTalkTime": "{duration} ng boses na ito"
+    "speakerLabelTalkTime": "{duration} ng boses na ito",
+    "transcriptOnly": "Transcript lang",
+    "summariesPaused": "Naka-pause ang mga buod",
+    "freeMinutesBackOn": "Babalik ang libreng minuto sa {date}",
+    "noSummaryFreePlanTitle": "Walang buod ang usapang ito",
+    "noSummaryFreePlanBody": "Nagamit mo na ang libreng minuto ngayong buwan, kaya itinago ng Omi ang transcript at nilaktawan ang buod. Kasama sa Unlimited ang mga buod, gawain at alaala.",
+    "readTheTranscript": "Basahin ang transcript"
 }

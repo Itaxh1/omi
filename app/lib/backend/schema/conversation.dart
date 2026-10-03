@@ -463,6 +463,11 @@ class ServerConversation {
   /// model ran and found nothing to summarize.
   final bool summaryRetryable;
 
+  /// Server-authored why [structured] holds the no-AI minimum: `none` means no summary is coming
+  /// (the free plan's minutes are used up), `local_pending` that a desktop client will send one.
+  /// Absent on every conversation the server summarized.
+  final String? processingState;
+
   // local label
   bool isNew = false;
 
@@ -495,6 +500,7 @@ class ServerConversation {
     this.captureGroup,
     this.speakerResolution,
     this.summaryRetryable = false,
+    this.processingState,
   });
 
   factory ServerConversation.fromJson(Map<String, dynamic> json) {
@@ -581,6 +587,7 @@ class ServerConversation {
       speakerResolution:
           generated.speakerResolution == null ? null : ConversationSpeakers.fromGenerated(generated.speakerResolution!),
       summaryRetryable: generated.summaryRetryable == true,
+      processingState: generated.processingState,
     );
   }
 
@@ -616,6 +623,7 @@ class ServerConversation {
       'capture_group': captureGroup?.toJson(),
       'speaker_resolution': speakerResolution?.toJson(),
       if (summaryRetryable) 'summary_retryable': true,
+      if (processingState != null) 'processing_state': processingState,
     };
   }
 
@@ -648,6 +656,7 @@ class ServerConversation {
       captureGroup: captureGroup?.toGenerated(),
       speakerResolution: speakerResolution?.toGenerated(),
       summaryRetryable: summaryRetryable ? true : null,
+      processingState: processingState,
     );
   }
 
@@ -750,6 +759,10 @@ class ServerConversation {
     if (status != ConversationStatus.completed) return false;
     return summaryRetryable;
   }
+
+  /// The free plan's minutes were used up, so the server kept the transcript without a summary
+  /// (`processing_state: none`). Rows say "Transcript only" and Summary explains the plan.
+  bool get summaryUnavailableOnFreePlan => processingState == 'none' && !discarded && !isLocked;
 
   /// Check if this conversation has audio files available
   bool hasAudio() => audioFiles.isNotEmpty;

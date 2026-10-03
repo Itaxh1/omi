@@ -12260,4 +12260,25 @@ class AppLocalizationsHr extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration ovog glasa';
   }
+
+  @override
+  String get transcriptOnly => 'Samo transkripcija';
+
+  @override
+  String get summariesPaused => 'Sažeci su pauzirani';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Besplatne minute vraćaju se $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Nema sažetka za ovaj razgovor';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Iskoristili ste besplatne minute za ovaj mjesec, pa je Omi spremio transkripciju bez sažetka. Sažeci, zadaci i sjećanja dolaze s neograničenim planom.';
+
+  @override
+  String get readTheTranscript => 'Pročitajte transkripciju';
 }

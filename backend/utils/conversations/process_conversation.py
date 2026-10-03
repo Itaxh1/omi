@@ -3042,6 +3042,11 @@ def process_conversation(
     # never consult this gate — they are already bounded by STT credits at
     # listen connect. Keep that contract at the call site so a stubbed/truthy
     # helper cannot abort memory/task/goal fan-out.
+    #
+    # A skipped session still finishes: it lands at the same no-LLM
+    # deterministic minimum as the free desktop path (transcript-derived title,
+    # empty overview, processing_state ``none``), so the user keeps the
+    # transcript. Returning without a persist left the row on ``processing``.
     custom_stt = bool(getattr(conversation, 'uses_custom_stt', False))
     source_token = getattr(getattr(conversation, 'source', None), 'value', getattr(conversation, 'source', None))
     if custom_stt and should_skip_omi_paid_postprocessing(
@@ -3050,17 +3055,25 @@ def process_conversation(
         source=source_token if isinstance(source_token, str) else None,
     ):
         logger.info(
-            "custom-STT processing budget exhausted: skipping Omi-paid post-processing uid=%s conv=%s",
+            "custom-STT processing budget exhausted: storing the transcript without Omi-paid post-processing uid=%s conv=%s",
             uid,
             getattr(conversation, 'id', '?'),
         )
-        if isinstance(conversation, Conversation):
-            try:
-                conversation.status = ConversationStatus.completed
-            except Exception:
-                pass
-        report_persistence(False)
-        return cast(Conversation, conversation)
+        stored, persisted = _store_deterministic_minimum(
+            uid,
+            conversation,
+            FreeTierProcessingPlan(mode='deterministic_minimum', reason='basic_not_entitled', decision=None),
+            trigger=trigger,
+            user_kept=user_kept,
+        )
+        report_persistence(
+            persisted,
+            completed=stored,
+            derived_effects=(
+                DerivedEffectsDisposition.TERMINAL_NO_DERIVED_EFFECTS if persisted else DerivedEffectsDisposition.RUN
+            ),
+        )
+        return stored
 
     _enrich_meeting_context(uid, conversation)
     # Everything below reads speaker_id as one voice; capture only guarantees that per piece.

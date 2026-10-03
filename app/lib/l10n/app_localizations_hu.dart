@@ -12269,4 +12269,25 @@ class AppLocalizationsHu extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration ebből a hangból';
   }
+
+  @override
+  String get transcriptOnly => 'Csak átirat';
+
+  @override
+  String get summariesPaused => 'Az összefoglalók szünetelnek';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Az ingyenes percek $date napon térnek vissza';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Ehhez a beszélgetéshez nincs összefoglaló';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Elhasználtad a hónap ingyenes perceit, ezért az Omi összefoglaló nélkül mentette az átiratot. Az összefoglalók, a feladatok és az emlékek a korlátlan csomag részei.';
+
+  @override
+  String get readTheTranscript => 'Átirat olvasása';
 }

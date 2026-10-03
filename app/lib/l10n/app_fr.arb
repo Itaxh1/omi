@@ -3817,5 +3817,11 @@
     "speakerLabelVoiceDetail": "{state, select, learned{Omi reconnaîtra {name} la prochaine fois.} pending{Cela prend quelques secondes.} disabled{Activez l’enregistrement des voix dans les Réglages pour qu’Omi puisse reconnaître {name}.} other{Omi a besoin d’une parole plus claire de {name} et continuera d’essayer.}}",
     "speakerLabelEarlierMatches": "Conversations précédentes avec cette voix : {count}",
     "speakerLabelText": "{part, select, likely{Probable} soundsLike{Ressemble à {name}} notPerson{Pas {name}} carried{Toujours {name}. Repris de votre dernière conversation.} change{Modifier} alsoTitle{Est-ce aussi {name} ?} alsoBody{Omi a retrouvé la même voix dans des conversations précédentes.} confirmed{Vous avez confirmé cette étiquette} other{Vérifier}}",
-    "speakerLabelTalkTime": "{duration} de cette voix"
+    "speakerLabelTalkTime": "{duration} de cette voix",
+    "transcriptOnly": "Transcription seule",
+    "summariesPaused": "Les résumés sont en pause",
+    "freeMinutesBackOn": "Minutes gratuites de retour le {date}",
+    "noSummaryFreePlanTitle": "Pas de résumé pour cette conversation",
+    "noSummaryFreePlanBody": "Vous avez utilisé les minutes gratuites de ce mois, donc Omi a gardé la transcription sans résumé. Les résumés, les tâches et les souvenirs sont inclus dans le forfait illimité.",
+    "readTheTranscript": "Lire la transcription"
 }

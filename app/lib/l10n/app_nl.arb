@@ -3782,5 +3782,11 @@
     "speakerLabelVoiceDetail": "{state, select, learned{Omi herkent {name} de volgende keer.} pending{Dit duurt een paar seconden.} disabled{Zet stemmen opslaan aan in Instellingen zodat Omi {name} kan herkennen.} other{Omi heeft meer duidelijke spraak van {name} nodig en blijft het proberen.}}",
     "speakerLabelEarlierMatches": "Eerdere gesprekken met deze stem: {count}",
     "speakerLabelText": "{part, select, likely{Waarschijnlijk} soundsLike{Klinkt als {name}} notPerson{Niet {name}} carried{Nog steeds {name}. Overgenomen uit je laatste gesprek.} change{Wijzigen} alsoTitle{Is dit ook {name}?} alsoBody{Omi heeft dezelfde stem in eerdere gesprekken gevonden.} confirmed{Je hebt dit label bevestigd} other{Bekijken}}",
-    "speakerLabelTalkTime": "{duration} van deze stem"
+    "speakerLabelTalkTime": "{duration} van deze stem",
+    "transcriptOnly": "Alleen transcriptie",
+    "summariesPaused": "Samenvattingen zijn gepauzeerd",
+    "freeMinutesBackOn": "Gratis minuten terug op {date}",
+    "noSummaryFreePlanTitle": "Geen samenvatting voor dit gesprek",
+    "noSummaryFreePlanBody": "Je hebt de gratis minuten van deze maand gebruikt, dus Omi heeft de transcriptie zonder samenvatting bewaard. Samenvattingen, taken en herinneringen horen bij het onbeperkte abonnement.",
+    "readTheTranscript": "Lees de transcriptie"
 }

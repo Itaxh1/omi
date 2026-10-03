@@ -21884,6 +21884,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{duration} of this voice'**
   String speakerLabelTalkTime(String duration);
+
+  /// Label after the time and length of a conversation row saved without an AI summary because the free plan minutes are used up
+  ///
+  /// In en, this message translates to:
+  /// **'Transcript only'**
+  String get transcriptOnly;
+
+  /// Title of the Home row shown when new conversations are saved without AI summaries because the free plan minutes are used up
+  ///
+  /// In en, this message translates to:
+  /// **'Summaries are paused'**
+  String get summariesPaused;
+
+  /// When the free plan minutes reset, shown under Summaries are paused and on a conversation without a summary. date is a short day such as Nov 1
+  ///
+  /// In en, this message translates to:
+  /// **'Free minutes back {date}'**
+  String freeMinutesBackOn(String date);
+
+  /// Heading on the Summary tab of a conversation saved without an AI summary because the free plan minutes are used up
+  ///
+  /// In en, this message translates to:
+  /// **'No summary for this conversation'**
+  String get noSummaryFreePlanTitle;
+
+  /// Explains, on the Summary tab, why a conversation has a transcript but no AI summary: the free plan minutes for this month are used up. Unlimited is the paid plan
+  ///
+  /// In en, this message translates to:
+  /// **'You’ve used this month’s free minutes, so Omi kept the transcript and skipped the summary. Summaries, tasks and memories come with Unlimited.'**
+  String get noSummaryFreePlanBody;
+
+  /// Button on the Summary tab of a conversation without a summary that switches to the Transcript tab
+  ///
+  /// In en, this message translates to:
+  /// **'Read the transcript'**
+  String get readTheTranscript;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

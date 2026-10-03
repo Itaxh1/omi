@@ -12277,4 +12277,25 @@ class AppLocalizationsRo extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration din această voce';
   }
+
+  @override
+  String get transcriptOnly => 'Doar transcriere';
+
+  @override
+  String get summariesPaused => 'Rezumatele sunt în pauză';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Minutele gratuite revin pe $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Nu există rezumat pentru această conversație';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Ai folosit minutele gratuite din această lună, așa că Omi a păstrat transcrierea fără rezumat. Rezumatele, sarcinile și amintirile vin cu planul nelimitat.';
+
+  @override
+  String get readTheTranscript => 'Citește transcrierea';
 }

@@ -12232,4 +12232,25 @@ class AppLocalizationsMr extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return 'या आवाजाचे $duration';
   }
+
+  @override
+  String get transcriptOnly => 'फक्त प्रतिलेख';
+
+  @override
+  String get summariesPaused => 'सारांश थांबवले आहेत';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'मोफत मिनिटे $date रोजी परत येतील';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'या संभाषणाचा सारांश नाही';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'तुम्ही या महिन्याची मोफत मिनिटे वापरली आहेत, म्हणून Omi ने प्रतिलेख ठेवला आणि सारांश वगळला. सारांश, कामे आणि आठवणी अमर्यादित योजनेसह मिळतात.';
+
+  @override
+  String get readTheTranscript => 'प्रतिलेख वाचा';
 }

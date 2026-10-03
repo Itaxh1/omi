@@ -3782,5 +3782,11 @@
     "speakerLabelVoiceDetail": "{state, select, learned{Omi tunneb {name} järgmisel korral ära.} pending{See võtab mõne sekundi.} disabled{Lülita seadetes sisse häälte salvestamine, et Omi saaks {name} ära tunda.} other{Omi vajab inimeselt {name} rohkem selget kõnet ja proovib edasi.}}",
     "speakerLabelEarlierMatches": "Varasemad vestlused selle häälega: {count}",
     "speakerLabelText": "{part, select, likely{Tõenäoline} soundsLike{Kõlab nagu {name}} notPerson{Pole {name}} carried{Endiselt {name}. Üle võetud sinu viimasest vestlusest.} change{Muuda} alsoTitle{Kas see on ka {name}?} alsoBody{Omi leidis sama hääle varasematest vestlustest.} confirmed{Kinnitasid selle sildi} other{Vaata üle}}",
-    "speakerLabelTalkTime": "{duration} sellest häälest"
+    "speakerLabelTalkTime": "{duration} sellest häälest",
+    "transcriptOnly": "Ainult transkriptsioon",
+    "summariesPaused": "Kokkuvõtted on peatatud",
+    "freeMinutesBackOn": "Tasuta minutid tagasi {date}",
+    "noSummaryFreePlanTitle": "Sellel vestlusel pole kokkuvõtet",
+    "noSummaryFreePlanBody": "Oled selle kuu tasuta minutid ära kasutanud, seega salvestas Omi transkriptsiooni ilma kokkuvõtteta. Kokkuvõtted, ülesanded ja mälestused kuuluvad piiramatu plaani juurde.",
+    "readTheTranscript": "Loe transkriptsiooni"
 }

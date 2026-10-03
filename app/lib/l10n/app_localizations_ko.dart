@@ -12031,4 +12031,24 @@ class AppLocalizationsKo extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '이 목소리 $duration';
   }
+
+  @override
+  String get transcriptOnly => '녹취록만';
+
+  @override
+  String get summariesPaused => '요약이 일시 중지됨';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return '무료 시간은 $date에 다시 제공됩니다';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => '이 대화에는 요약이 없습니다';
+
+  @override
+  String get noSummaryFreePlanBody => '이번 달 무료 시간을 모두 사용해서 Omi가 요약 없이 녹취록만 저장했습니다. 요약, 할 일, 메모리는 무제한 플랜에서 제공됩니다.';
+
+  @override
+  String get readTheTranscript => '녹취록 읽기';
 }

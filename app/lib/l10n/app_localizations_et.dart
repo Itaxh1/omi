@@ -12221,4 +12221,25 @@ class AppLocalizationsEt extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration sellest häälest';
   }
+
+  @override
+  String get transcriptOnly => 'Ainult transkriptsioon';
+
+  @override
+  String get summariesPaused => 'Kokkuvõtted on peatatud';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Tasuta minutid tagasi $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Sellel vestlusel pole kokkuvõtet';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Oled selle kuu tasuta minutid ära kasutanud, seega salvestas Omi transkriptsiooni ilma kokkuvõtteta. Kokkuvõtted, ülesanded ja mälestused kuuluvad piiramatu plaani juurde.';
+
+  @override
+  String get readTheTranscript => 'Loe transkriptsiooni';
 }

@@ -1054,6 +1054,11 @@ class ConversationDetailPageState extends State<ConversationDetailPage> with Tic
                           searchQuery: _searchQuery,
                           currentResultIndex: getCurrentResultIndexForHighlighting(),
                           onTapWhenSearchEmpty: _closeSearchIfEmpty,
+                          onReadTranscript: () {
+                            _hasExplicitTabSelection = true;
+                            setState(() => selectedTab = ConversationTab.transcript);
+                            _controller!.animateTo(_transcriptTabIndex);
+                          },
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: OmiSpacing.md),

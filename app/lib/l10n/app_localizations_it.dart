@@ -12292,4 +12292,25 @@ class AppLocalizationsIt extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration di questa voce';
   }
+
+  @override
+  String get transcriptOnly => 'Solo trascrizione';
+
+  @override
+  String get summariesPaused => 'I riepiloghi sono in pausa';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Minuti gratuiti di nuovo dal $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Nessun riepilogo per questa conversazione';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Hai usato i minuti gratuiti di questo mese, quindi Omi ha salvato la trascrizione senza riepilogo. Riepiloghi, attività e ricordi sono inclusi nel piano illimitato.';
+
+  @override
+  String get readTheTranscript => 'Leggi la trascrizione';
 }

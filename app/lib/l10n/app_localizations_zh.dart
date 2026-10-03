@@ -12006,4 +12006,24 @@ class AppLocalizationsZh extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '此声音共 $duration';
   }
+
+  @override
+  String get transcriptOnly => '仅文字记录';
+
+  @override
+  String get summariesPaused => '摘要已暂停';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return '免费时长将于$date恢复';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => '此对话没有摘要';
+
+  @override
+  String get noSummaryFreePlanBody => '你已用完本月的免费时长，因此 Omi 保留了文字记录，没有生成摘要。摘要、任务和记忆包含在无限套餐中。';
+
+  @override
+  String get readTheTranscript => '查看文字记录';
 }

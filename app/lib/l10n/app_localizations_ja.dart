@@ -12027,4 +12027,24 @@ class AppLocalizationsJa extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return 'この声の$duration';
   }
+
+  @override
+  String get transcriptOnly => '文字起こしのみ';
+
+  @override
+  String get summariesPaused => '要約は一時停止中です';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return '無料の時間は$dateに戻ります';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'この会話には要約がありません';
+
+  @override
+  String get noSummaryFreePlanBody => '今月の無料時間を使い切ったため、Omiは要約を作らずに文字起こしを保存しました。要約、タスク、メモリーは無制限プランで利用できます。';
+
+  @override
+  String get readTheTranscript => '文字起こしを読む';
 }

@@ -14575,5 +14575,35 @@
                 "type": "String"
             }
         }
+    },
+    "transcriptOnly": "Transcript only",
+    "@transcriptOnly": {
+        "description": "Label after the time and length of a conversation row saved without an AI summary because the free plan minutes are used up"
+    },
+    "summariesPaused": "Summaries are paused",
+    "@summariesPaused": {
+        "description": "Title of the Home row shown when new conversations are saved without AI summaries because the free plan minutes are used up"
+    },
+    "freeMinutesBackOn": "Free minutes back {date}",
+    "@freeMinutesBackOn": {
+        "description": "When the free plan minutes reset, shown under Summaries are paused and on a conversation without a summary. date is a short day such as Nov 1",
+        "placeholders": {
+            "date": {
+                "type": "String",
+                "example": "Nov 1"
+            }
+        }
+    },
+    "noSummaryFreePlanTitle": "No summary for this conversation",
+    "@noSummaryFreePlanTitle": {
+        "description": "Heading on the Summary tab of a conversation saved without an AI summary because the free plan minutes are used up"
+    },
+    "noSummaryFreePlanBody": "You’ve used this month’s free minutes, so Omi kept the transcript and skipped the summary. Summaries, tasks and memories come with Unlimited.",
+    "@noSummaryFreePlanBody": {
+        "description": "Explains, on the Summary tab, why a conversation has a transcript but no AI summary: the free plan minutes for this month are used up. Unlimited is the paid plan"
+    },
+    "readTheTranscript": "Read the transcript",
+    "@readTheTranscript": {
+        "description": "Button on the Summary tab of a conversation without a summary that switches to the Transcript tab"
     }
 }

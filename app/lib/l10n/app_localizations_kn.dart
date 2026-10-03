@@ -12261,4 +12261,25 @@ class AppLocalizationsKn extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return 'ಈ ಧ್ವನಿಯ $duration';
   }
+
+  @override
+  String get transcriptOnly => 'ಪ್ರತಿಲಿಪಿ ಮಾತ್ರ';
+
+  @override
+  String get summariesPaused => 'ಸಾರಾಂಶಗಳನ್ನು ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'ಉಚಿತ ನಿಮಿಷಗಳು $date ರಂದು ಮರಳುತ್ತವೆ';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'ಈ ಸಂಭಾಷಣೆಗೆ ಸಾರಾಂಶವಿಲ್ಲ';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'ನೀವು ಈ ತಿಂಗಳ ಉಚಿತ ನಿಮಿಷಗಳನ್ನು ಬಳಸಿದ್ದೀರಿ, ಆದ್ದರಿಂದ Omi ಪ್ರತಿಲಿಪಿಯನ್ನು ಉಳಿಸಿ ಸಾರಾಂಶವನ್ನು ಬಿಟ್ಟಿದೆ. ಸಾರಾಂಶಗಳು, ಕಾರ್ಯಗಳು ಮತ್ತು ನೆನಪುಗಳು ಸೀಮಾ ರಹಿತ ಯೋಜನೆಯೊಂದಿಗೆ ಬರುತ್ತವೆ.';
+
+  @override
+  String get readTheTranscript => 'ಪ್ರತಿಲಿಪಿ ಓದಿ';
 }

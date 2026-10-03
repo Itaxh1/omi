@@ -12274,4 +12274,25 @@ class AppLocalizationsTe extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return 'ఈ వాయిస్ యొక్క $duration';
   }
+
+  @override
+  String get transcriptOnly => 'ట్రాన్‌స్క్రిప్ట్ మాత్రమే';
+
+  @override
+  String get summariesPaused => 'సారాంశాలు పాజ్ చేయబడ్డాయి';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'ఉచిత నిమిషాలు $dateన తిరిగి వస్తాయి';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'ఈ సంభాషణకు సారాంశం లేదు';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'మీరు ఈ నెల ఉచిత నిమిషాలను ఉపయోగించారు, కాబట్టి Omi ట్రాన్‌స్క్రిప్ట్‌ను ఉంచి సారాంశాన్ని దాటవేసింది. సారాంశాలు, పనులు మరియు జ్ఞాపకాలు అపరిమిత ప్లాన్‌తో వస్తాయి.';
+
+  @override
+  String get readTheTranscript => 'ట్రాన్‌స్క్రిప్ట్ చదవండి';
 }

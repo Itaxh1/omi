@@ -11339,5 +11339,11 @@
     "speakerLabelVoiceDetail": "{state, select, learned{Omi পরের বার {name}-কে চিনতে পারবে।} pending{এতে কয়েক সেকেন্ড লাগবে।} disabled{Omi যাতে {name}-কে চিনতে পারে, সেজন্য সেটিংসে ভয়েস সংরক্ষণ চালু করুন।} other{Omi-র {name}-এর আরও স্পষ্ট কথা দরকার এবং সে চেষ্টা চালিয়ে যাবে।}}",
     "speakerLabelEarlierMatches": "এই ভয়েসের আগের কথোপকথন: {count}",
     "speakerLabelText": "{part, select, likely{সম্ভাব্য} soundsLike{{name}-এর মতো শোনাচ্ছে} notPerson{{name} নয়} carried{এখনও {name}। আপনার আগের কথোপকথন থেকে নেওয়া হয়েছে।} change{পরিবর্তন} alsoTitle{এটিও কি {name}?} alsoBody{Omi আগের কথোপকথনগুলোতে একই ভয়েস খুঁজে পেয়েছে।} confirmed{আপনি এই লেবেল নিশ্চিত করেছেন} other{পর্যালোচনা}}",
-    "speakerLabelTalkTime": "এই ভয়েসের {duration}"
+    "speakerLabelTalkTime": "এই ভয়েসের {duration}",
+    "transcriptOnly": "শুধু প্রতিলিপি",
+    "summariesPaused": "সারাংশ বিরতিতে আছে",
+    "freeMinutesBackOn": "বিনামূল্যের মিনিট ফিরবে {date}",
+    "noSummaryFreePlanTitle": "এই কথোপকথনের কোনো সারাংশ নেই",
+    "noSummaryFreePlanBody": "আপনি এই মাসের বিনামূল্যের মিনিট ব্যবহার করে ফেলেছেন, তাই Omi প্রতিলিপি রেখেছে এবং সারাংশ বাদ দিয়েছে। সারাংশ, কাজ এবং স্মৃতি আনলিমিটেড প্ল্যানে পাওয়া যায়।",
+    "readTheTranscript": "প্রতিলিপি পড়ুন"
 }

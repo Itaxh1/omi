@@ -3782,5 +3782,11 @@
     "speakerLabelVoiceDetail": "{state, select, learned{下次 Omi 就能认出 {name}。} pending{这需要几秒钟。} disabled{请在设置中开启声音保存，以便 Omi 能认出 {name}。} other{Omi 需要 {name} 更清晰的语音，并会继续尝试。}}",
     "speakerLabelEarlierMatches": "与此声音的过往对话：{count}",
     "speakerLabelText": "{part, select, likely{可能} soundsLike{听起来像 {name}} notPerson{不是 {name}} carried{仍是 {name}。沿用自你的上一段对话。} change{更改} alsoTitle{这也是 {name} 吗？} alsoBody{Omi 在之前的对话中发现了相同的声音。} confirmed{你已确认此标签} other{查看}}",
-    "speakerLabelTalkTime": "此声音共 {duration}"
+    "speakerLabelTalkTime": "此声音共 {duration}",
+    "transcriptOnly": "仅文字记录",
+    "summariesPaused": "摘要已暂停",
+    "freeMinutesBackOn": "免费时长将于{date}恢复",
+    "noSummaryFreePlanTitle": "此对话没有摘要",
+    "noSummaryFreePlanBody": "你已用完本月的免费时长，因此 Omi 保留了文字记录，没有生成摘要。摘要、任务和记忆包含在无限套餐中。",
+    "readTheTranscript": "查看文字记录"
 }

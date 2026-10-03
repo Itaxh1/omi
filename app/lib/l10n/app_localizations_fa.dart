@@ -12222,4 +12222,25 @@ class AppLocalizationsFa extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration از این صدا';
   }
+
+  @override
+  String get transcriptOnly => 'فقط متن';
+
+  @override
+  String get summariesPaused => 'خلاصه‌ها متوقف شده‌اند';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'دقیقه‌های رایگان در $date برمی‌گردند';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'این گفتگو خلاصه ندارد';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'دقیقه‌های رایگان این ماه را استفاده کرده‌اید، بنابراین Omi متن را نگه داشت و خلاصه را رد کرد. خلاصه‌ها، کارها و خاطره‌ها در طرح نامحدود ارائه می‌شوند.';
+
+  @override
+  String get readTheTranscript => 'خواندن متن';
 }

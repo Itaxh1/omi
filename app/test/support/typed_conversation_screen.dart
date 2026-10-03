@@ -17,6 +17,7 @@ import 'package:omi/providers/home_provider.dart';
 import 'package:omi/providers/local_recordings_provider.dart';
 import 'package:omi/providers/phone_call_provider.dart';
 import 'package:omi/providers/speaker_tag_prompts_provider.dart';
+import 'package:omi/providers/usage_provider.dart';
 import 'package:omi/services/capture/capture_external_actions.dart';
 import 'package:omi/services/capture/local_segment_store.dart';
 import 'package:provider/provider.dart';
@@ -82,6 +83,8 @@ Future<Widget> buildTypedConversationScreen(ConversationProvider provider) async
   final speakerTagPrompts = SpeakerTagPromptsProvider(
     fetchPrompts: () async => const ApiSuccess(GeneratedSpeakerTagPromptsResponse()),
   );
+  // Plan state for rows that open the plan page (locked rows, Summaries are paused); no I/O until asked.
+  final usage = UsageProvider();
   final capture = CaptureProvider(
     externalActions: const NoopCaptureExternalActions(),
     inProgressConversationLoader: () async {},
@@ -101,6 +104,7 @@ Future<Widget> buildTypedConversationScreen(ConversationProvider provider) async
         ChangeNotifierProvider<PhoneCallProvider>.value(value: phone),
         ChangeNotifierProvider<CaptureProvider>.value(value: capture),
         ChangeNotifierProvider<SpeakerTagPromptsProvider>.value(value: speakerTagPrompts),
+        ChangeNotifierProvider<UsageProvider>.value(value: usage),
       ],
       child: const Scaffold(
         body: ConversationsPage(requestInitialLoad: false, loadRecaps: _noRecaps),

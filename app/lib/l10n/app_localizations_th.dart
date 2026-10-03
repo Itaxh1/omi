@@ -12155,4 +12155,25 @@ class AppLocalizationsTh extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration ของเสียงนี้';
   }
+
+  @override
+  String get transcriptOnly => 'บันทึกเสียงเท่านั้น';
+
+  @override
+  String get summariesPaused => 'หยุดสรุปชั่วคราว';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'นาทีฟรีกลับมาวันที่ $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'ไม่มีสรุปสำหรับการสนทนานี้';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'คุณใช้นาทีฟรีของเดือนนี้หมดแล้ว Omi จึงเก็บบันทึกเสียงไว้โดยไม่สรุป สรุป งาน และความทรงจำมีให้ในแผนไม่จำกัด';
+
+  @override
+  String get readTheTranscript => 'อ่านบันทึกเสียง';
 }

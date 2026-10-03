@@ -456,7 +456,21 @@ class _ConversationListItemState extends State<ConversationListItem> {
           const SizedBox(width: OmiSpacing.xs),
           ConversationNewStatusIndicator(text: context.l10n.conversationNewIndicator),
         ],
-        const Spacer(),
+        // Kept without a summary on the free plan; the row's title comes from the transcript. It
+        // takes the room the spacer would, so it only shortens when the row runs out of width.
+        if (widget.conversation.summaryUnavailableOnFreePlan) ...[
+          Text(' • ', style: _metaStyle),
+          Expanded(
+            child: Text(
+              context.l10n.transcriptOnly,
+              key: const Key('conversation_row_transcript_only'),
+              style: _metaStyle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ] else
+          const Spacer(),
         if (widget.conversation.starred)
           Padding(
             padding: const EdgeInsets.only(right: 4.0),

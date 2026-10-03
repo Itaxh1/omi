@@ -12235,4 +12235,25 @@ class AppLocalizationsTr extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return 'Bu sesten $duration';
   }
+
+  @override
+  String get transcriptOnly => 'Yalnızca transkript';
+
+  @override
+  String get summariesPaused => 'Özetler duraklatıldı';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Ücretsiz dakikalar $date tarihinde geri gelir';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Bu konuşmanın özeti yok';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Bu ayın ücretsiz dakikalarını kullandınız, bu yüzden Omi transkripti özetsiz kaydetti. Özetler, görevler ve anılar Sınırsız Plan ile gelir.';
+
+  @override
+  String get readTheTranscript => 'Transkripti oku';
 }

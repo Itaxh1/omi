@@ -12254,4 +12254,25 @@ class AppLocalizationsBs extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration ovog glasa';
   }
+
+  @override
+  String get transcriptOnly => 'Samo prepis';
+
+  @override
+  String get summariesPaused => 'Sažeci su pauzirani';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Besplatne minute se vraćaju $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Nema sažetka za ovaj razgovor';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Iskoristili ste besplatne minute za ovaj mjesec, pa je Omi sačuvao prepis bez sažetka. Sažeci, zadaci i sjećanja dolaze uz neograničeni plan.';
+
+  @override
+  String get readTheTranscript => 'Pročitajte prepis';
 }

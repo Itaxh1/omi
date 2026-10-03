@@ -12325,4 +12325,25 @@ class AppLocalizationsFr extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration de cette voix';
   }
+
+  @override
+  String get transcriptOnly => 'Transcription seule';
+
+  @override
+  String get summariesPaused => 'Les résumés sont en pause';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Minutes gratuites de retour le $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Pas de résumé pour cette conversation';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Vous avez utilisé les minutes gratuites de ce mois, donc Omi a gardé la transcription sans résumé. Les résumés, les tâches et les souvenirs sont inclus dans le forfait illimité.';
+
+  @override
+  String get readTheTranscript => 'Lire la transcription';
 }

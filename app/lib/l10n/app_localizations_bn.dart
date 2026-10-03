@@ -12222,4 +12222,25 @@ class AppLocalizationsBn extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return 'এই ভয়েসের $duration';
   }
+
+  @override
+  String get transcriptOnly => 'শুধু প্রতিলিপি';
+
+  @override
+  String get summariesPaused => 'সারাংশ বিরতিতে আছে';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'বিনামূল্যের মিনিট ফিরবে $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'এই কথোপকথনের কোনো সারাংশ নেই';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'আপনি এই মাসের বিনামূল্যের মিনিট ব্যবহার করে ফেলেছেন, তাই Omi প্রতিলিপি রেখেছে এবং সারাংশ বাদ দিয়েছে। সারাংশ, কাজ এবং স্মৃতি আনলিমিটেড প্ল্যানে পাওয়া যায়।';
+
+  @override
+  String get readTheTranscript => 'প্রতিলিপি পড়ুন';
 }

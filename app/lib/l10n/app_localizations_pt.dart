@@ -12241,4 +12241,25 @@ class AppLocalizationsPt extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration desta voz';
   }
+
+  @override
+  String get transcriptOnly => 'Só transcrição';
+
+  @override
+  String get summariesPaused => 'Os resumos estão em pausa';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Os minutos grátis voltam em $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Esta conversa não tem resumo';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Você usou os minutos grátis deste mês, então o Omi guardou a transcrição sem resumo. Resumos, tarefas e memórias vêm com o Plano Ilimitado.';
+
+  @override
+  String get readTheTranscript => 'Ler a transcrição';
 }

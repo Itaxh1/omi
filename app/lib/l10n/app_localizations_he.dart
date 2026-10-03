@@ -12128,4 +12128,25 @@ class AppLocalizationsHe extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration מהקול הזה';
   }
+
+  @override
+  String get transcriptOnly => 'תמלול בלבד';
+
+  @override
+  String get summariesPaused => 'הסיכומים מושהים';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'הדקות החינמיות חוזרות ב-$date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'אין סיכום לשיחה הזו';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'השתמשת בדקות החינמיות של החודש, ולכן Omi שמר את התמלול בלי סיכום. סיכומים, משימות וזיכרונות כלולים בתוכנית הבלתי מוגבלת.';
+
+  @override
+  String get readTheTranscript => 'קריאת התמלול';
 }

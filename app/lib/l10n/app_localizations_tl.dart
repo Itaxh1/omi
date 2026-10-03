@@ -12327,4 +12327,25 @@ class AppLocalizationsTl extends AppLocalizations {
   String speakerLabelTalkTime(String duration) {
     return '$duration ng boses na ito';
   }
+
+  @override
+  String get transcriptOnly => 'Transcript lang';
+
+  @override
+  String get summariesPaused => 'Naka-pause ang mga buod';
+
+  @override
+  String freeMinutesBackOn(String date) {
+    return 'Babalik ang libreng minuto sa $date';
+  }
+
+  @override
+  String get noSummaryFreePlanTitle => 'Walang buod ang usapang ito';
+
+  @override
+  String get noSummaryFreePlanBody =>
+      'Nagamit mo na ang libreng minuto ngayong buwan, kaya itinago ng Omi ang transcript at nilaktawan ang buod. Kasama sa Unlimited ang mga buod, gawain at alaala.';
+
+  @override
+  String get readTheTranscript => 'Basahin ang transcript';
 }
