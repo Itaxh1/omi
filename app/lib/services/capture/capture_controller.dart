@@ -588,6 +588,14 @@ class CaptureController extends ChangeNotifier
   /// coordinated transfer wake cannot run before the durable stamp is ready.
   Future<void>? _pendingFinalizeAndStamp;
 
+  /// When each live segment of the open conversation last arrived, in phone seconds. The saved
+  /// transcript counts from the server's start, so these anchor it to the phone's own clock.
+  final Map<String, int> _segmentArrivals = {};
+
+  /// [_segmentArrivals] of each conversation whose processing started, by id, until its ConversationEvent
+  /// arrives. The next conversation can close before that event does, so each close keeps its own.
+  final Map<String, Map<String, int>> _closingSegmentArrivals = {};
+
   /// Set in onClosed() when the socket drops during active device recording.
   /// Consumed in _initiateWebsocket() to trigger onNetworkSocketReconnected()
   /// on the device connection (e.g. Limitless re-sends enable-data-stream).
@@ -866,6 +874,7 @@ class CaptureController extends ChangeNotifier
   Future _resetStateVariables() async {
     _stopInProgressConversationRefresh();
     segments = [];
+    _segmentArrivals.clear();
     photos = [];
     hasTranscripts = false;
     suggestionsBySegmentId = {};
@@ -3134,6 +3143,9 @@ class CaptureController extends ChangeNotifier
   @override
   void onMessageEventReceived(MessageEvent event) {
     if (event is ConversationProcessingStartedEvent) {
+      _closingSegmentArrivals[event.memory.id] = Map.of(_segmentArrivals);
+      // An event that never arrives leaves its entry behind, and a few closes back are plenty.
+      if (_closingSegmentArrivals.length > 8) _closingSegmentArrivals.remove(_closingSegmentArrivals.keys.first);
       // Replace the optimistic Process Now placeholder once the server confirms
       // a real processing row, so timeout/retry apply to the confirmed id.
       externalActions.removeProcessingConversation(OptimisticProcessingPlaceholder.id);
@@ -3165,6 +3177,7 @@ class CaptureController extends ChangeNotifier
     }
 
     if (event is ConversationEvent) {
+      final segmentArrivals = _closingSegmentArrivals.remove(event.memory.id) ?? const <String, int>{};
       event.memory.isNew = true;
       externalActions.removeProcessingConversation(OptimisticProcessingPlaceholder.id);
       externalActions.removeProcessingConversation(event.memory.id);
@@ -3177,7 +3190,7 @@ class CaptureController extends ChangeNotifier
         _pendingAutoSyncConversationId = null;
         _pendingAutoSyncNeedsRepair = false;
         if (event.memory.transcriptSegments.isNotEmpty && !needsRepair) {
-          unawaited(_confirmSessionTranscript(sessionStart, event.memory.id));
+          unawaited(_confirmSessionTranscript(sessionStart, event.memory, segmentArrivals));
         } else {
           _autoSyncSessionWals(trigger: WakeTrigger.dataStalled);
         }
@@ -3328,12 +3341,37 @@ class CaptureController extends ChangeNotifier
     }
   }
 
-  Future<void> _confirmSessionTranscript(int sessionStartSeconds, String conversationId) async {
+  /// Releases the safety copy of the audio [conversation]'s saved transcript covers, and uploads the
+  /// rest so the server can transcribe what it lost.
+  Future<void> _confirmSessionTranscript(
+    int sessionStartSeconds,
+    ServerConversation conversation,
+    Map<String, int> segmentArrivals,
+  ) async {
     if (_pendingFinalizeAndStamp != null) {
       await _pendingFinalizeAndStamp;
       _pendingFinalizeAndStamp = null;
     }
-    await _wal.getSyncs().phone.confirmSessionTranscription(sessionStartSeconds, conversationId);
+    // Live segment times are seconds from the conversation's start on the server's clock, while the
+    // copies carry the phone's. Anchor that start to the phone through the moments the live segments
+    // arrived; without any, use the server's start, or this session's when the row has none.
+    final startedAt = conversation.startedAt;
+    final origin = transcriptStartOnDevice(
+          [for (final segment in conversation.transcriptSegments) (segment.id, segment.end)],
+          segmentArrivals,
+        ) ??
+        (startedAt == null ? sessionStartSeconds : startedAt.millisecondsSinceEpoch ~/ 1000);
+    final spans = [
+      for (final segment in conversation.transcriptSegments)
+        (origin + segment.start.floor(), origin + segment.end.ceil()),
+    ];
+    final outcome = await _wal.getSyncs().phone.confirmSessionTranscription(
+          sessionStartSeconds,
+          conversation.id,
+          transcriptSpans: spans,
+          conversationStartSeconds: origin,
+        );
+    if (outcome.kept > 0) _autoSyncSessionWals(trigger: WakeTrigger.dataStalled);
   }
 
   Future<void> _autoSyncSessionWals({WakeTrigger trigger = WakeTrigger.cooldownElapsed}) async {
@@ -3520,6 +3558,10 @@ class CaptureController extends ChangeNotifier
 
   Future<void> _processNewSegmentReceived(List<TranscriptSegment> newSegments) async {
     if (newSegments.isEmpty) return;
+    final arrivedAt = _nowSeconds;
+    for (final segment in newSegments) {
+      _segmentArrivals[segment.id] = arrivedAt;
+    }
     _recordingTelemetry.observeTranscript();
     final deviceId = _recordingDevice?.id;
     if (deviceId != null) _wedgeMonitor.onTranscriptObserved(deviceId);

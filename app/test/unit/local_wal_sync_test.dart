@@ -922,11 +922,90 @@ void main() {
       );
       local.testWals = [confirmed, unrelated, unstamped];
 
-      expect(await local.confirmSessionTranscription(400, 'confirmed-conversation'), 1);
+      expect((await local.confirmSessionTranscription(400, 'confirmed-conversation')).released, 1);
 
       expect(local.testWals.map((wal) => wal.id), isNot(contains(confirmed.id)));
       expect(local.testWals.map((wal) => wal.id), containsAll([unrelated.id, unstamped.id]));
       expect(persisted.map((wal) => wal.id), containsAll([unrelated.id, unstamped.id]));
+    });
+
+    test('transcript confirmation releases only the WALs the saved transcript covers', () async {
+      final now = DateTime.fromMillisecondsSinceEpoch(1000 * 1000);
+      final local = LocalWalSyncImpl(
+        listener,
+        now: () => now,
+        persistWals: (wals) async {},
+        loadWals: () async => <Wal>[],
+      );
+      Wal stamped(int timerStart) => Wal(
+            timerStart: timerStart,
+            codec: BleAudioCodec.opus,
+            seconds: 60,
+            storage: WalStorage.disk,
+            status: WalStatus.miss,
+            conversationId: 'c1',
+          );
+      // Session window starts at 500; the conversation starts at 520.
+      final backdated = stamped(470);
+      final spoken = stamped(530);
+      final lost = stamped(590);
+      final ending = stamped(650);
+      local.testWals = [backdated, spoken, lost, ending];
+
+      final outcome = await local.confirmSessionTranscription(
+        500,
+        'c1',
+        transcriptSpans: [(521, 540), (700, 705)],
+        conversationStartSeconds: 520,
+      );
+
+      expect(outcome.released, 3);
+      expect(outcome.kept, 1);
+      expect(local.testWals.map((wal) => wal.id), [lost.id]);
+    });
+  });
+
+  group('walCoveredByTranscript', () {
+    Wal wal(int timerStart, int seconds) =>
+        Wal(timerStart: timerStart, codec: BleAudioCodec.opus, seconds: seconds, storage: WalStorage.disk);
+
+    test('a WAL a saved segment overlaps is covered', () {
+      expect(walCoveredByTranscript(wal(100, 60), [(120, 130)], 100), isTrue);
+    });
+
+    test('slack reaches a segment just outside the WAL, and no further', () {
+      expect(walCoveredByTranscript(wal(100, 60), [(189, 195)], 100), isTrue);
+      expect(walCoveredByTranscript(wal(100, 60), [(190, 195)], 100), isFalse);
+      expect(walCoveredByTranscript(wal(100, 60), [(20, 71)], 0), isTrue);
+      expect(walCoveredByTranscript(wal(100, 60), [(20, 70)], 0), isFalse);
+    });
+
+    test('a WAL that ended before the conversation started is covered', () {
+      // Ends at 160: covered when the conversation starts at least 30 s later.
+      expect(walCoveredByTranscript(wal(100, 60), [(400, 410)], 190), isTrue);
+      expect(walCoveredByTranscript(wal(100, 60), [(400, 410)], 189), isFalse);
+    });
+
+    test('a WAL no segment reaches is not covered', () {
+      expect(walCoveredByTranscript(wal(300, 60), [(100, 120), (500, 510)], 100), isFalse);
+    });
+  });
+
+  group('transcriptStartOnDevice', () {
+    test('is when the live segments arrived, less their end', () {
+      // Segments ending 20 s and 40 s into the conversation arrived at phone seconds 1022 and 1042.
+      expect(transcriptStartOnDevice([('a', 19.5), ('b', 40)], {'a': 1022, 'b': 1042}), 1002);
+    });
+
+    test('takes the median, so one stray arrival does not move it', () {
+      final ends = [('a', 10.0), ('b', 20.0), ('c', 30.0)];
+      expect(transcriptStartOnDevice(ends, {'a': 1012, 'b': 1022, 'c': 1900}), 1002);
+    });
+
+    test('ignores segments that never arrived live, and is null when none did', () {
+      expect(transcriptStartOnDevice([('a', 10), ('b', 20)], {'b': 1023}), 1003);
+      expect(transcriptStartOnDevice([('a', 10)], {'other': 1023}), isNull);
+      expect(transcriptStartOnDevice(const [], const {}), isNull);
     });
   });
 
