@@ -125,6 +125,11 @@ void main() {
     expect(wals.where((wal) => wal.timerStart >= fromSeconds), isNotEmpty, reason: reason);
   }
 
+  /// Whether no copy from [fromSeconds] on is left to upload. A confirmed copy is released or kept on
+  /// the phone as a synced copy, depending on the retention policy, and neither uploads again.
+  bool nothingPending(List<Wal> wals, {int fromSeconds = 0}) =>
+      wals.where((wal) => wal.timerStart >= fromSeconds).every((wal) => wal.status == WalStatus.synced);
+
   /// The controller asks for recovery through its session owner; the replay world has none, so wake
   /// the world's coordinator the way that request would.
   Future<void> recoveryPass() async {
@@ -138,10 +143,11 @@ void main() {
 
     for (final id in ['c1', 'c2', 'c3']) {
       final start = world.clock.now();
+      final startSeconds = start.millisecondsSinceEpoch ~/ 1000;
       await streamPendant(link, 140);
-      await expectCopies('$id streamed into a copy before it closed');
+      await expectCopies('$id streamed into a copy before it closed', fromSeconds: startSeconds);
       await serverCloses(conversation(id, start, 140));
-      await walsReach('$id released like the first conversation', (wals) => wals.isEmpty);
+      await walsReach('$id confirmed like the first conversation', (wals) => nothingPending(wals));
     }
 
     await recoveryPass();
@@ -170,10 +176,11 @@ void main() {
     expect(firstCopies.map((wal) => wal.geolocation?.latitude), everyElement(37.77),
         reason: "c1's copies carry the location captured when the recording started");
     await serverCloses(conversation('c1', firstStart, 140));
-    await walsReach('c1 released', (wals) => wals.isEmpty);
+    await walsReach('c1 confirmed', (wals) => nothingPending(wals));
 
+    final secondSeconds = world.clock.now().millisecondsSinceEpoch ~/ 1000;
     await streamPendant(link, 140);
-    final secondCopies = await world.wal.syncs.phone.getAllWals();
+    final secondCopies = (await world.wal.syncs.phone.getAllWals()).where((wal) => wal.timerStart >= secondSeconds);
     expect(secondCopies, isNotEmpty, reason: 'c2 streamed into a copy');
     expect(secondCopies.map((wal) => wal.geolocation?.latitude), everyElement(37.77),
         reason: "the recording goes on into c2, so c2's copies keep its location");
@@ -188,7 +195,7 @@ void main() {
     await streamPendant(link, 135);
     await expectCopies('c1 streamed into a copy before it closed');
     await serverCloses(conversation('c1', world.clock.now().subtract(const Duration(seconds: 140)), 140));
-    await walsReach('c1 released', (wals) => wals.isEmpty);
+    await walsReach('c1 confirmed', (wals) => nothingPending(wals));
     await streamPendant(link, 5);
 
     final second = world.controller.activeCaptureSessionId;
@@ -205,15 +212,16 @@ void main() {
     await world.controller.pauseDeviceRecording();
     await world.settle();
     await serverCloses(conversation('c1', origin, 140));
-    await walsReach('the muted conversation released', (wals) => wals.isEmpty);
+    await walsReach('the muted conversation confirmed', (wals) => nothingPending(wals));
 
     await world.controller.resumeDeviceRecording();
     await world.settle();
     final start = world.clock.now();
+    final startSeconds = start.millisecondsSinceEpoch ~/ 1000;
     await streamPendant(link, 140);
-    await expectCopies('audio after the unmute is in a copy before c2 closes');
+    await expectCopies('audio after the unmute is in a copy before c2 closes', fromSeconds: startSeconds);
     await serverCloses(conversation('c2', start, 140));
-    await walsReach('audio after the unmute released with the next conversation', (wals) => wals.isEmpty);
+    await walsReach('audio after the unmute confirmed with the next conversation', (wals) => nothingPending(wals));
 
     await recoveryPass();
     expect(world.uploads.attempts, isEmpty, reason: 'audio the server already transcribed is not uploaded again');
@@ -232,7 +240,7 @@ void main() {
     await streamPendant(link, 140);
     await expectCopies('the next conversation streamed into its own copy', fromSeconds: startSeconds);
     await serverCloses(conversation('c2', start, 140));
-    await walsReach('the next conversation released', (wals) => wals.every((wal) => wal.timerStart < startSeconds));
+    await walsReach('the next conversation confirmed', (wals) => nothingPending(wals, fromSeconds: startSeconds));
   });
 
   test('pendant: a late conversation event leaves the next close to its own event', () async {
@@ -259,7 +267,7 @@ void main() {
         reason: "c1's late event leaves c2's close, and its copies, alone");
     world.controller.onMessageEventReceived(ConversationEvent(memory: c2, messages: []));
 
-    await walsReach('c2 released by its own event', (wals) => wals.every((wal) => wal.timerStart < secondSeconds));
+    await walsReach('c2 confirmed by its own event', (wals) => nothingPending(wals, fromSeconds: secondSeconds));
   });
 
   test('pendant: closes that come back to back stamp in close order', () async {
@@ -343,7 +351,7 @@ void main() {
     processed.complete(CreateConversationResponse(messages: [], conversation: conversation('p1', origin, 140)));
 
     await walsReach(
-        "c2's copies released by its own event", (wals) => wals.every((wal) => wal.timerStart < secondSeconds));
+        "c2's copies confirmed by its own event", (wals) => nothingPending(wals, fromSeconds: secondSeconds));
     expect(beforeProcessNow.map((wal) => wal.conversationId), everyElement('p1'),
         reason: 'the audio before Process now goes with the conversation it made, not the close after it');
   });
