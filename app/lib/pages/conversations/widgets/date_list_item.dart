@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:omi/pages/conversations/widgets/conversation_list_item.dart';
 import 'package:omi/ui/ui.dart';
 
 /// A day group header in the conversation list: "Today", "Yesterday", "Wed, Sep 23", and the year
@@ -18,7 +19,8 @@ class DateListItem extends StatelessWidget {
         header: true,
         child: Text(
           OmiDateFormat.of(context).dayHeader(date),
-          style: OmiType.subhead.copyWith(fontWeight: FontWeight.w600, color: OmiColors.textSecondary),
+          style: conversationListText(OmiType.subhead)
+              .copyWith(fontWeight: FontWeight.w600, color: OmiColors.textSecondary),
         ),
       ),
     );

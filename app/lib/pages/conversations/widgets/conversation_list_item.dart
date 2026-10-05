@@ -30,6 +30,14 @@ import 'package:omi/widgets/capture_sources.dart';
 import 'package:omi/widgets/device_tile.dart';
 import 'package:omi/widgets/extensions/string.dart';
 
+/// The conversation list's text runs 10% larger than the app's type scale: row titles, the time
+/// line and snippets, and the day headers.
+const double kConversationListTextScale = 1.1;
+
+/// [style] at the conversation list's size.
+TextStyle conversationListText(TextStyle style) =>
+    style.copyWith(fontSize: style.fontSize! * kConversationListTextScale);
+
 /// The row title for a conversation (hub audit #21): its title, else its transcript text (legacy
 /// rows the server left untitled), "Untitled Conversation" only when neither exists, and
 /// "Discarded · 12s" for a discarded one (its words go in [conversationSnippet]).
@@ -144,7 +152,8 @@ class _ConversationListItemState extends State<ConversationListItem> {
           child: Text(
             context.l10n.conversationSummaryFailed,
             key: const Key('conversation_summary_failed_indicator'),
-            style: OmiType.footnote.copyWith(color: OmiColors.textSecondary, fontWeight: FontWeight.w500),
+            style: conversationListText(OmiType.footnote)
+                .copyWith(color: OmiColors.textSecondary, fontWeight: FontWeight.w500),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
@@ -415,7 +424,7 @@ class _ConversationListItemState extends State<ConversationListItem> {
   /// keeps to the gutter, in line with the day labels.
   static const double _rowInset = OmiSpacing.xxs;
 
-  static TextStyle get _metaStyle => OmiType.footnote.copyWith(color: OmiColors.textSecondary);
+  static TextStyle get _metaStyle => conversationListText(OmiType.footnote).copyWith(color: OmiColors.textSecondary);
 
   Widget _buildCardContent(BuildContext context, Future<void> Function() onTap) {
     final content = Padding(
@@ -483,7 +492,7 @@ class _ConversationListItemState extends State<ConversationListItem> {
                     children: [
                       Text(
                         conversationRowTitle(context, widget.conversation),
-                        style: OmiType.callout.copyWith(fontWeight: FontWeight.w500),
+                        style: conversationListText(OmiType.callout).copyWith(fontWeight: FontWeight.w500),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -491,7 +500,8 @@ class _ConversationListItemState extends State<ConversationListItem> {
                         const SizedBox(height: 4),
                         Text(
                           discardedSnippet,
-                          style: OmiType.footnote.copyWith(color: OmiColors.textSecondary, height: 1.35),
+                          style: conversationListText(OmiType.footnote)
+                              .copyWith(color: OmiColors.textSecondary, height: 1.35),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -515,7 +525,7 @@ class _ConversationListItemState extends State<ConversationListItem> {
                             Expanded(
                               child: Text(
                                 _searchSnippetText()!,
-                                style: OmiType.footnote.copyWith(
+                                style: conversationListText(OmiType.footnote).copyWith(
                                   color: OmiColors.textSecondary,
                                   height: 1.35,
                                   fontStyle: FontStyle.italic,
