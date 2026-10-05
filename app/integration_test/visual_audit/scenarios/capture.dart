@@ -245,6 +245,7 @@ Future<void> _runHome(
   bool pendantConnected = false,
   bool call = false,
   Finder? tap,
+  Finder? longPress,
   String action = 'Home',
 }) async {
   await a.pump(const HomeFrame(), scaffold: false, providers: [
@@ -256,6 +257,7 @@ Future<void> _runHome(
     if (call) ChangeNotifierProvider<PhoneCallProvider>.value(value: _CallInProgress()),
   ]);
   if (tap != null) await a.tap(tap);
+  if (longPress != null) await a.longPress(longPress);
   await a.shot(action);
 }
 
@@ -406,8 +408,10 @@ final captureScenarios = <AuditScenario>[
     id: 'home-capture-options',
     title: 'Other ways to record',
     page: _home,
-    state: 'Nothing recording; the record button is tapped',
-    run: (a) => _runHome(a, AuditLive.idle, tap: find.byType(HomeRecordButton), action: 'Tap the record button'),
+    state: 'Nothing recording; the record button is held (the ⌄ badge opens the same sheet)',
+    run: (a) async {
+      await _runHome(a, AuditLive.idle, longPress: find.byType(HomeRecordButton), action: 'Hold the record button');
+    },
   ),
   AuditScenario(
     id: 'conversation-live-pendant',
