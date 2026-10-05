@@ -12,7 +12,7 @@ import 'package:omi/utils/other/temp.dart';
 
 /// Exports one task to the connected task app, the way the selection bar exports several: the same
 /// provider path, so the connect nudge, skip-if-exported and the outcome snackbar behave the same.
-/// Used by the row's long-press menu and by the task page.
+/// Used by the row's long-press menu.
 Future<void> exportTaskToConnectedApp(BuildContext context, ActionItemWithMetadata item) async {
   OmiHaptics.light();
   final integrations = context.read<TaskIntegrationProvider>();
