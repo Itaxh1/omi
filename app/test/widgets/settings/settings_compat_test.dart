@@ -9,6 +9,7 @@ import 'package:omi/backend/preferences.dart';
 import 'package:omi/l10n/app_localizations.dart';
 import 'package:omi/models/subscription.dart';
 import 'package:omi/pages/settings/settings_drawer.dart';
+import 'package:omi/pages/settings/settings_groups.dart';
 import 'package:omi/providers/appearance_provider.dart';
 import 'package:omi/providers/capture_provider.dart';
 import 'package:omi/providers/device_provider.dart';
@@ -164,6 +165,36 @@ void main() {
     await tester.tap(find.byKey(const ValueKey('settings_group_recording')));
     await tester.pumpAndSettle();
     expect(familyOf(find.text(en.language)), OmiSettingsTypeface.family);
+  });
+
+  testWidgets('the Appearance and Voice Response sheets are set in Instrument Sans on an outlined card',
+      (tester) async {
+    String? familyOf(Finder text) => tester.renderObject<RenderParagraph>(text).text.style?.fontFamily;
+    final en = lookupAppLocalizations(const Locale('en'));
+
+    await pumpSettings(tester, size: _iPhoneSE, home: const NotificationsDisplayGroupPage());
+    await tester.tap(find.byKey(const ValueKey('settings_row_appearance')));
+    await tester.pumpAndSettle();
+    // The sheet's own title and options, not the row underneath.
+    expect(familyOf(find.text(en.appearance).last), OmiSettingsTypeface.family);
+    expect(familyOf(find.text(en.appearanceDark)), OmiSettingsTypeface.family);
+    expect(
+        find
+            .ancestor(of: find.text(en.appearanceDark), matching: find.byType(OmiSettingsGroup))
+            .evaluate()
+            .map((e) => e.widget),
+        everyElement(isA<OmiSettingsGroup>().having((g) => g.style, 'style', OmiSettingsGroupStyle.outlined)));
+
+    // Picking an option closes the sheet, and the row shows it.
+    await tester.tap(find.text(en.appearanceDark));
+    await tester.pumpAndSettle();
+    expect(find.text(en.appearanceSystem), findsNothing);
+    expect(find.text(en.appearanceDark), findsOneWidget);
+
+    await pumpSettings(tester, size: _iPhoneSE, home: const RecordingGroupPage());
+    await tester.tap(find.byKey(const ValueKey('settings_row_voiceResponseMode')));
+    await tester.pumpAndSettle();
+    expect(familyOf(find.text(en.voiceResponseModeTitle)), OmiSettingsTypeface.family);
   });
 
   testWidgets('Instrument Sans stays inside Settings', (tester) async {

@@ -60,6 +60,39 @@ class _GroupPage extends StatelessWidget {
   }
 }
 
+/// A choice of a few options opened from a group page, drawn like the page under it: Instrument
+/// Sans, and an outlined card on the Settings page colour with a check on the current option.
+/// [context] has to be inside the page's [OmiGroupedPage] (a row's own), or the sheet would open
+/// in the app font: the page's State sits above the typeface.
+Future<T?> _showSettingsPicker<T>(
+  BuildContext context, {
+  required String title,
+  required List<T> options,
+  required T current,
+  required String Function(T) label,
+}) {
+  return showOmiSheet<T>(
+    context: context,
+    title: title,
+    surface: () => OmiColors.groupedPage,
+    builder: (sheetContext) => Padding(
+      padding: const EdgeInsets.only(top: OmiSpacing.xs, bottom: OmiSpacing.sm),
+      child: OmiSettingsGroup(
+        style: OmiSettingsGroupStyle.outlined,
+        children: [
+          for (final option in options)
+            OmiSettingsRow(
+              title: label(option),
+              trailing: option == current ? Icon(Icons.check, color: OmiColors.textPrimary, size: 20) : null,
+              showChevron: false,
+              onTap: () => Navigator.of(sheetContext).pop(option),
+            ),
+        ],
+      ),
+    ),
+  );
+}
+
 /// Opening a row from a group page, then redrawing it: row values (transcription provider, voice
 /// response) may have changed on the page just closed.
 mixin _GroupRows<T extends StatefulWidget> on State<T> {
@@ -152,22 +185,15 @@ class _RecordingGroupPageState extends State<RecordingGroupPage> with _GroupRows
     }
   }
 
-  Future<void> _showVoiceResponseModeSheet() async {
+  /// [rowContext] is the row's own, inside the page's typeface, so the sheet is set in it too.
+  Future<void> _showVoiceResponseModeSheet(BuildContext rowContext) async {
     final current = _prefs.voiceResponseMode;
-    final picked = await showOmiSheet<int>(
-      context: context,
+    final picked = await _showSettingsPicker<int>(
+      rowContext,
       title: context.l10n.voiceResponseModeTitle,
-      builder: (sheetContext) => OmiSettingsGroup(
-        children: [
-          for (final mode in const [0, 1, 2])
-            OmiSettingsRow(
-              title: _voiceResponseModeLabel(mode),
-              trailing: mode == current ? Icon(Icons.check, color: OmiColors.textPrimary, size: 20) : null,
-              showChevron: false,
-              onTap: () => Navigator.of(sheetContext).pop(mode),
-            ),
-        ],
-      ),
+      options: const [0, 1, 2],
+      current: current,
+      label: _voiceResponseModeLabel,
     );
     if (picked == null || picked == current || !mounted) return;
     setState(() => _prefs.voiceResponseMode = picked);
@@ -211,14 +237,16 @@ class _RecordingGroupPageState extends State<RecordingGroupPage> with _GroupRows
           children: [
             row(SettingsDestination.voiceProfile, icon: FontAwesomeIcons.waveSquare, title: l10n.speechProfile),
             row(SettingsDestination.people, icon: FontAwesomeIcons.users, title: l10n.identifyingOthers),
-            OmiSettingsRow(
-              key: const ValueKey('settings_row_voiceResponseMode'),
-              leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.volumeHigh)),
-              title: l10n.voiceResponseMode,
-              // A subtitle, not a trailing value: "Headphones only" next to the tile would wrap the title.
-              subtitle: _voiceResponseModeLabel(_prefs.voiceResponseMode),
-              showChevron: true,
-              onTap: _showVoiceResponseModeSheet,
+            Builder(
+              builder: (rowContext) => OmiSettingsRow(
+                key: const ValueKey('settings_row_voiceResponseMode'),
+                leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.volumeHigh)),
+                title: l10n.voiceResponseMode,
+                // A subtitle, not a trailing value: "Headphones only" next to the tile would wrap the title.
+                subtitle: _voiceResponseModeLabel(_prefs.voiceResponseMode),
+                showChevron: true,
+                onTap: () => _showVoiceResponseModeSheet(rowContext),
+              ),
             ),
           ],
         ),
@@ -282,22 +310,15 @@ class _NotificationsDisplayGroupPageState extends State<NotificationsDisplayGrou
         ThemeMode.dark => context.l10n.appearanceDark,
       };
 
-  Future<void> _showAppearancePicker() async {
+  /// [rowContext] is the row's own, inside the page's typeface, so the sheet is set in it too.
+  Future<void> _showAppearancePicker(BuildContext rowContext) async {
     final provider = context.read<AppearanceProvider>();
-    final picked = await showOmiSheet<ThemeMode>(
-      context: context,
+    final picked = await _showSettingsPicker<ThemeMode>(
+      rowContext,
       title: context.l10n.appearance,
-      builder: (sheetContext) => OmiSettingsGroup(
-        children: [
-          for (final mode in ThemeMode.values)
-            OmiSettingsRow(
-              title: _appearanceLabel(mode),
-              trailing: mode == provider.mode ? Icon(Icons.check, color: OmiColors.textPrimary, size: 20) : null,
-              showChevron: false,
-              onTap: () => Navigator.of(sheetContext).pop(mode),
-            ),
-        ],
-      ),
+      options: ThemeMode.values,
+      current: provider.mode,
+      label: _appearanceLabel,
     );
     if (picked != null && mounted) await provider.setMode(picked);
   }
@@ -314,12 +335,14 @@ class _NotificationsDisplayGroupPageState extends State<NotificationsDisplayGrou
           children: [
             row(SettingsDestination.notifications, icon: FontAwesomeIcons.solidBell, title: l10n.notifications),
             row(SettingsDestination.conversationDisplay, icon: FontAwesomeIcons.list, title: l10n.conversationDisplay),
-            OmiSettingsRow(
-              key: const ValueKey('settings_row_appearance'),
-              leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.circleHalfStroke)),
-              title: l10n.appearance,
-              value: _appearanceLabel(appearance),
-              onTap: _showAppearancePicker,
+            Builder(
+              builder: (rowContext) => OmiSettingsRow(
+                key: const ValueKey('settings_row_appearance'),
+                leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.circleHalfStroke)),
+                title: l10n.appearance,
+                value: _appearanceLabel(appearance),
+                onTap: () => _showAppearancePicker(rowContext),
+              ),
             ),
           ],
         ),

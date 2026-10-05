@@ -77,6 +77,8 @@ final settingsScenarios = <AuditScenario>[
     run: (a) async {
       await a.pump(const NotificationsDisplayGroupPage());
       await a.scrollSeries('Open Notifications & Display');
+      await a.tap(find.byKey(const ValueKey('settings_row_appearance')));
+      await a.shot('Tap Appearance', step: 'appearance');
     },
   ),
   AuditScenario(
