@@ -421,7 +421,7 @@ class _IntegrationsPageState extends State<IntegrationsPage> with WidgetsBinding
 
   Widget _buildCreateYourOwnAppTile() {
     return _buildRow(
-      leading: const OmiSettingsIconTile(OmiLineGlyph.plus),
+      leading: const OmiSettingsIconTile(Icon(Icons.add_circle_outline)),
       title: context.l10n.createYourOwnApp,
       trailing: Icon(Icons.chevron_right, color: OmiColors.textTertiary, size: 20),
       onTap: () => routeToPage(context, const AddAppPage(presetExternalIntegration: true)),
@@ -430,7 +430,7 @@ class _IntegrationsPageState extends State<IntegrationsPage> with WidgetsBinding
 
   Widget _buildAddMcpServerTile() {
     return _buildRow(
-      leading: const OmiSettingsIconTile(OmiLineGlyph.integrations),
+      leading: const OmiSettingsIconTile(Icon(Icons.cable_rounded)),
       title: context.l10n.addMcpServer,
       trailing: Icon(Icons.chevron_right, color: OmiColors.textTertiary, size: 20),
       onTap: () {

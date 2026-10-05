@@ -85,6 +85,14 @@ class DeviceBatteryGroup extends StatelessWidget {
   final int batteryLevel;
   final bool isCharging;
 
+  FaIconData get _icon {
+    if (batteryLevel > 75) return FontAwesomeIcons.batteryFull;
+    if (batteryLevel > 50) return FontAwesomeIcons.batteryThreeQuarters;
+    if (batteryLevel > 25) return FontAwesomeIcons.batteryHalf;
+    if (batteryLevel > 10) return FontAwesomeIcons.batteryQuarter;
+    return FontAwesomeIcons.batteryEmpty;
+  }
+
   @override
   Widget build(BuildContext context) {
     // Neutral until the battery is low; low is the only state worth a colour.
@@ -92,12 +100,8 @@ class DeviceBatteryGroup extends StatelessWidget {
     return OmiSettingsGroup(
       children: [
         OmiSettingsRow(
-          leading: OmiSettingsIconTile.custom(
-            child: OmiBatteryIcon(
-              level: batteryLevel,
-              charging: isCharging,
-              color: low ? OmiColors.danger : OmiColors.iconTileGlyph,
-            ),
+          leading: OmiSettingsIconTile(
+            FaIcon(isCharging ? FontAwesomeIcons.chargingStation : _icon, color: low ? OmiColors.danger : null),
           ),
           title: isCharging ? context.l10n.charging : context.l10n.batteryLevel,
           value: '$batteryLevel%',

@@ -1,3 +1,4 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart' show CustomSemanticsAction;
 
@@ -72,9 +73,9 @@ class _SyncedConversationListItemState extends State<SyncedConversationListItem>
     return OmiSettingsGroup(
       children: [
         OmiSettingsRow(
-          leading: OmiSettingsIconTile.custom(
-            child: conversation.discarded
-                ? const OmiLineIcon(OmiLineGlyph.wave)
+          leading: OmiSettingsIconTile(
+            conversation.discarded
+                ? const FaIcon(FontAwesomeIcons.waveSquare)
                 : Text(conversation.structured.getEmoji(), style: OmiType.title3),
           ),
           title: title,

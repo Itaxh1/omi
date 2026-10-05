@@ -378,7 +378,7 @@ class _CleanUpBanner extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const OmiSettingsIconTile(OmiLineGlyph.people),
+            const OmiSettingsIconTile(Icon(Icons.people_outline)),
             const SizedBox(width: OmiSpacing.sm),
             Expanded(
               child: Column(

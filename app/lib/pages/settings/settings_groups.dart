@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 
 import 'package:device_info_plus/device_info_plus.dart';
@@ -69,14 +70,14 @@ mixin _GroupRows<T extends StatefulWidget> on State<T> {
 
   Widget row(
     SettingsDestination destination, {
-    required OmiLineGlyph glyph,
+    required FaIconData icon,
     required String title,
     String? subtitle,
     String? value,
   }) {
     return OmiSettingsRow(
       key: settingsRowKey(destination),
-      leading: OmiSettingsIconTile(glyph),
+      leading: OmiSettingsIconTile(FaIcon(icon)),
       title: title,
       subtitle: subtitle,
       value: value,
@@ -108,11 +109,11 @@ class _DeviceGroupPageState extends State<DeviceGroupPage> with _GroupRows {
         OmiSettingsGroup(
           children: [
             if (deviceConnected)
-              row(SettingsDestination.device, glyph: OmiLineGlyph.bluetooth, title: l10n.deviceSettings),
-            row(SettingsDestination.offlineSync, glyph: OmiLineGlyph.cloud, title: l10n.offlineSync),
-            row(SettingsDestination.phoneCalls, glyph: OmiLineGlyph.phone, title: l10n.phoneCalls),
+              row(SettingsDestination.device, icon: FontAwesomeIcons.bluetooth, title: l10n.deviceSettings),
+            row(SettingsDestination.offlineSync, icon: FontAwesomeIcons.solidCloud, title: l10n.offlineSync),
+            row(SettingsDestination.phoneCalls, icon: FontAwesomeIcons.phone, title: l10n.phoneCalls),
             // Most-opened Settings item: people come here to fix microphone, Bluetooth and notifications.
-            row(SettingsDestination.permissions, glyph: OmiLineGlyph.key, title: l10n.permissions),
+            row(SettingsDestination.permissions, icon: FontAwesomeIcons.shieldHalved, title: l10n.permissions),
           ],
         ),
       ],
@@ -200,19 +201,19 @@ class _RecordingGroupPageState extends State<RecordingGroupPage> with _GroupRows
         OmiSettingsGroup(
           children: [
             row(SettingsDestination.transcription,
-                glyph: OmiLineGlyph.microphone, title: l10n.transcription, value: _transcriptionValue()),
-            row(SettingsDestination.language, glyph: OmiLineGlyph.globe, title: l10n.language),
-            row(SettingsDestination.customVocabulary, glyph: OmiLineGlyph.book, title: l10n.customVocabulary),
+                icon: FontAwesomeIcons.microphone, title: l10n.transcription, value: _transcriptionValue()),
+            row(SettingsDestination.language, icon: FontAwesomeIcons.globe, title: l10n.language),
+            row(SettingsDestination.customVocabulary, icon: FontAwesomeIcons.book, title: l10n.customVocabulary),
           ],
         ),
         const SizedBox(height: OmiSpacing.xl),
         OmiSettingsGroup(
           children: [
-            row(SettingsDestination.voiceProfile, glyph: OmiLineGlyph.wave, title: l10n.speechProfile),
-            row(SettingsDestination.people, glyph: OmiLineGlyph.people, title: l10n.identifyingOthers),
+            row(SettingsDestination.voiceProfile, icon: FontAwesomeIcons.waveSquare, title: l10n.speechProfile),
+            row(SettingsDestination.people, icon: FontAwesomeIcons.users, title: l10n.identifyingOthers),
             OmiSettingsRow(
               key: const ValueKey('settings_row_voiceResponseMode'),
-              leading: const OmiSettingsIconTile(OmiLineGlyph.speaker),
+              leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.volumeHigh)),
               title: l10n.voiceResponseMode,
               // A subtitle, not a trailing value: "Headphones only" next to the tile would wrap the title.
               subtitle: _voiceResponseModeLabel(_prefs.voiceResponseMode),
@@ -225,7 +226,9 @@ class _RecordingGroupPageState extends State<RecordingGroupPage> with _GroupRows
         OmiSettingsGroup(
           children: [
             row(SettingsDestination.conversationTimeout,
-                glyph: OmiLineGlyph.clock, title: l10n.conversationTimeout, subtitle: l10n.setWhenConversationsAutoEnd),
+                icon: FontAwesomeIcons.clock,
+                title: l10n.conversationTimeout,
+                subtitle: l10n.setWhenConversationsAutoEnd),
           ],
         ),
         const SizedBox(height: OmiSpacing.xl),
@@ -237,7 +240,7 @@ class _RecordingGroupPageState extends State<RecordingGroupPage> with _GroupRows
           children: [
             OmiSettingsRow.toggle(
               key: const ValueKey('settings_row_transcribeLater'),
-              leading: const OmiSettingsIconTile(OmiLineGlyph.save),
+              leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.floppyDisk)),
               title: l10n.transcribeLaterTitle,
               subtitle: batchStorageFull ? l10n.transcribeLaterStorageFull : l10n.transcribeLaterDescription,
               value: _prefs.batchModeEnabled,
@@ -246,7 +249,7 @@ class _RecordingGroupPageState extends State<RecordingGroupPage> with _GroupRows
             if (PlatformService.isAndroid)
               OmiSettingsRow.toggle(
                 key: const ValueKey('settings_row_backgroundMode'),
-                leading: const OmiSettingsIconTile(OmiLineGlyph.broadcast),
+                leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.towerBroadcast)),
                 title: l10n.backgroundModeTitle,
                 subtitle: canEnableBackground || backgroundEnabled
                     ? l10n.backgroundModeDescription
@@ -309,11 +312,11 @@ class _NotificationsDisplayGroupPageState extends State<NotificationsDisplayGrou
       children: [
         OmiSettingsGroup(
           children: [
-            row(SettingsDestination.notifications, glyph: OmiLineGlyph.bell, title: l10n.notifications),
-            row(SettingsDestination.conversationDisplay, glyph: OmiLineGlyph.list, title: l10n.conversationDisplay),
+            row(SettingsDestination.notifications, icon: FontAwesomeIcons.solidBell, title: l10n.notifications),
+            row(SettingsDestination.conversationDisplay, icon: FontAwesomeIcons.list, title: l10n.conversationDisplay),
             OmiSettingsRow(
               key: const ValueKey('settings_row_appearance'),
-              leading: const OmiSettingsIconTile(OmiLineGlyph.contrast),
+              leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.circleHalfStroke)),
               title: l10n.appearance,
               value: _appearanceLabel(appearance),
               onTap: _showAppearancePicker,
@@ -346,12 +349,12 @@ class _PrivacyDataGroupPageState extends State<PrivacyDataGroupPage> with _Group
       children: [
         OmiSettingsGroup(
           children: [
-            row(SettingsDestination.dataPrivacy, glyph: OmiLineGlyph.shield, title: l10n.dataProtection),
+            row(SettingsDestination.dataPrivacy, icon: FontAwesomeIcons.shield, title: l10n.dataProtection),
             ValueListenableBuilder<bool>(
               valueListenable: DataExport.exportInProgress,
               builder: (context, exporting, _) => OmiSettingsRow(
                 key: settingsRowKey(SettingsDestination.exportData),
-                leading: const OmiSettingsIconTile(OmiLineGlyph.export),
+                leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.fileExport)),
                 title: l10n.exportAllData,
                 subtitle: l10n.exportConversationsToJson,
                 trailing: exporting ? const OmiSpinner(size: OmiSpinnerSize.small) : null,
@@ -360,7 +363,7 @@ class _PrivacyDataGroupPageState extends State<PrivacyDataGroupPage> with _Group
               ),
             ),
             row(SettingsDestination.importData,
-                glyph: OmiLineGlyph.import, title: l10n.importData, subtitle: l10n.importDataFromOtherSources),
+                icon: FontAwesomeIcons.fileImport, title: l10n.importData, subtitle: l10n.importDataFromOtherSources),
           ],
         ),
       ],
@@ -452,8 +455,8 @@ class _HelpAboutGroupPageState extends State<HelpAboutGroupPage> with _GroupRows
         OmiSettingsGroup(
           children: [
             if (PlatformService.isIntercomSupported)
-              row(SettingsDestination.helpCenter, glyph: OmiLineGlyph.help, title: l10n.helpCenter),
-            row(SettingsDestination.whatsNew, glyph: OmiLineGlyph.star, title: l10n.whatsNew),
+              row(SettingsDestination.helpCenter, icon: FontAwesomeIcons.book, title: l10n.helpCenter),
+            row(SettingsDestination.whatsNew, icon: FontAwesomeIcons.solidStar, title: l10n.whatsNew),
           ],
         ),
         const SizedBox(height: OmiSpacing.xl),

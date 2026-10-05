@@ -1,3 +1,4 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 
 import 'package:omi/ui/ui.dart';
@@ -23,7 +24,7 @@ class SyncErrorCard extends StatelessWidget {
         // large accessibility text scales).
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          OmiSettingsIconTile.custom(child: OmiLineIcon(OmiLineGlyph.info, color: OmiColors.danger)),
+          OmiSettingsIconTile(FaIcon(FontAwesomeIcons.circleExclamation, color: OmiColors.danger)),
           const SizedBox(width: OmiSpacing.md),
           Expanded(
             child: Padding(

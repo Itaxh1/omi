@@ -1,3 +1,4 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:omi/utils/platform/platform_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,7 @@ class _LanguageSettingsPageState extends State<LanguageSettingsPage> {
       header: context.l10n.appInterfaceSectionTitle,
       children: [
         OmiSettingsRow(
-          leading: const OmiSettingsIconTile(OmiLineGlyph.globe),
+          leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.textHeight)),
           title: context.l10n.appLanguage,
           value: localeProvider.locale != null
               ? LocaleProvider.getDisplayName(localeProvider.locale!)
@@ -59,7 +60,7 @@ class _LanguageSettingsPageState extends State<LanguageSettingsPage> {
       footer: context.l10n.languageSettingsHelperText,
       children: [
         OmiSettingsRow(
-          leading: const OmiSettingsIconTile(OmiLineGlyph.microphone),
+          leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.microphone)),
           title: context.l10n.primaryLanguage,
           value: languageName,
           trailing: _isUpdatingLanguage ? const OmiSpinner(size: OmiSpinnerSize.small) : null,
@@ -68,14 +69,14 @@ class _LanguageSettingsPageState extends State<LanguageSettingsPage> {
         ),
         if (isUpdatingTranslation)
           OmiSettingsRow(
-            leading: const OmiSettingsIconTile(OmiLineGlyph.translate),
+            leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.language)),
             title: context.l10n.automaticTranslation,
             subtitle: context.l10n.detectLanguages,
             trailing: const OmiSpinner(size: OmiSpinnerSize.small),
           )
         else
           OmiSettingsRow.toggle(
-            leading: const OmiSettingsIconTile(OmiLineGlyph.translate),
+            leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.language)),
             title: context.l10n.automaticTranslation,
             subtitle: context.l10n.detectLanguages,
             value: isAutoTranslationEnabled,

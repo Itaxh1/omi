@@ -1,3 +1,4 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -245,7 +246,7 @@ class _SyncPageState extends State<SyncPage> {
       child: OmiSettingsGroup(
         children: [
           OmiSettingsRow(
-            leading: const OmiSettingsIconTile(OmiLineGlyph.check),
+            leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.circleCheck)),
             title: context.l10n.conversationsCreated(syncProvider.syncedConversationsPointers.length),
             onTap: () => routeToPage(context, const SyncedConversationsPage()),
           ),
@@ -264,14 +265,14 @@ class _SyncPageState extends State<SyncPage> {
           header: l.storageSection,
           children: [
             OmiSettingsRow(
-              leading: const OmiSettingsIconTile(OmiLineGlyph.smartphone),
+              leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.mobile)),
               title: l.storeAudioOnPhone,
               value: isPhoneStorageOn ? l.on : l.off,
               showChevron: true,
               onTap: () => routeToPage(context, const LocalStoragePage()).then((_) => setState(() {})),
             ),
             OmiSettingsRow(
-              leading: const OmiSettingsIconTile(OmiLineGlyph.cloud),
+              leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.cloud)),
               title: l.storeAudioOnCloud,
               value: userProvider.privateCloudSyncEnabled ? l.on : l.off,
               showChevron: true,
@@ -413,7 +414,7 @@ class _SyncPageState extends State<SyncPage> {
     String? subtitle;
     // Black and white like the rest of Settings; amber only when something is held up.
     var warning = false;
-    var glyph = OmiLineGlyph.check;
+    var icon = FontAwesomeIcons.circleCheck;
     Widget? action;
     Widget cancelAction() => OmiButton.secondary(
           label: l.cancel,
@@ -442,7 +443,7 @@ class _SyncPageState extends State<SyncPage> {
         case SyncPhase.waitingForInternet:
           title = l.syncCardWaitingInternet;
           warning = true;
-          glyph = OmiLineGlyph.clock;
+          icon = FontAwesomeIcons.clock;
           break;
         case SyncPhase.idle:
           title = l.syncCardUploadingTitle;
@@ -453,7 +454,7 @@ class _SyncPageState extends State<SyncPage> {
     } else if (syncProvider.isRateLimited) {
       title = syncCooldownTitle(syncProvider.rateLimitReason, l);
       warning = true;
-      glyph = OmiLineGlyph.clock;
+      icon = FontAwesomeIcons.clock;
     } else if (uploaded > 0) {
       title = l.syncCardProcessing;
       final counts = syncProvider.offlineServerProcessingCounts;
@@ -465,7 +466,7 @@ class _SyncPageState extends State<SyncPage> {
           l.syncProcessingBackgroundHint;
     } else if (readyToSync > 0) {
       title = l.syncCardReadyCount(readyToSync);
-      glyph = OmiLineGlyph.cloud;
+      icon = FontAwesomeIcons.cloudArrowUp;
       action = OmiButton(
         label: l.sync,
         size: OmiButtonSize.compact,
@@ -485,10 +486,10 @@ class _SyncPageState extends State<SyncPage> {
       padding: const EdgeInsets.symmetric(horizontal: OmiSpacing.md, vertical: OmiSpacing.sm),
       child: Row(
         children: [
-          OmiSettingsIconTile.custom(
-            child: showSpinner
+          OmiSettingsIconTile(
+            showSpinner
                 ? const OmiSpinner(size: OmiSpinnerSize.small)
-                : OmiLineIcon(glyph, color: warning ? OmiColors.warning : OmiColors.iconTileGlyph),
+                : FaIcon(icon, color: warning ? OmiColors.warning : null),
           ),
           const SizedBox(width: OmiSpacing.md),
           Expanded(
@@ -855,7 +856,7 @@ class _ManageStorageSheet extends StatelessWidget {
         children: [
           // Synced row
           _StorageRow(
-            glyph: OmiLineGlyph.check,
+            icon: FontAwesomeIcons.circleCheck,
             title: context.l10n.synced,
             subtitle: context.l10n.safelyBackedUp,
             count: syncedCount,
@@ -865,7 +866,7 @@ class _ManageStorageSheet extends StatelessWidget {
           const SizedBox(height: OmiSpacing.sm),
           // Pending row
           _StorageRow(
-            glyph: OmiLineGlyph.clock,
+            icon: FontAwesomeIcons.clockRotateLeft,
             title: context.l10n.pending,
             subtitle: context.l10n.notYetSynced,
             count: pendingCount,
@@ -883,7 +884,7 @@ class _ManageStorageSheet extends StatelessWidget {
 }
 
 class _StorageRow extends StatelessWidget {
-  final OmiLineGlyph glyph;
+  final FaIconData icon;
   final String title;
   final String subtitle;
   final int count;
@@ -891,7 +892,7 @@ class _StorageRow extends StatelessWidget {
   final String clearLabel;
 
   const _StorageRow({
-    required this.glyph,
+    required this.icon,
     required this.title,
     required this.subtitle,
     required this.count,
@@ -906,7 +907,7 @@ class _StorageRow extends StatelessWidget {
       decoration: BoxDecoration(color: OmiColors.surface2, borderRadius: OmiRadius.lgAll),
       child: Row(
         children: [
-          OmiSettingsIconTile(glyph),
+          OmiSettingsIconTile(FaIcon(icon)),
           const SizedBox(width: OmiSpacing.md),
           Expanded(
             child: Column(

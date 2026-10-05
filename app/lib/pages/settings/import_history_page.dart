@@ -222,8 +222,8 @@ class _ImportHistoryPageState extends State<ImportHistoryPage> {
       child: OmiSettingsGroup(
         children: [
           OmiSettingsRow(
-            leading: OmiSettingsIconTile.custom(
-              child: ClipRRect(
+            leading: OmiSettingsIconTile(
+              ClipRRect(
                 borderRadius: OmiRadius.mdAll,
                 child: Image.asset(
                   'assets/competitor-logos/limitless-logo.jpg',
@@ -231,7 +231,7 @@ class _ImportHistoryPageState extends State<ImportHistoryPage> {
                   height: kOmiSettingsIconTileSize,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) =>
-                      OmiLineIcon(OmiLineGlyph.import, size: 22, color: OmiColors.iconTileGlyph),
+                      Icon(Icons.device_unknown, color: OmiColors.iconTileGlyph),
                 ),
               ),
             ),
@@ -242,7 +242,7 @@ class _ImportHistoryPageState extends State<ImportHistoryPage> {
             onTap: _isUploading ? null : _startLimitlessImport,
           ),
           OmiSettingsRow(
-            leading: const OmiSettingsIconTile(OmiLineGlyph.smartphone),
+            leading: const OmiSettingsIconTile(Icon(Icons.devices_other)),
             title: context.l10n.otherDevicesComingSoon,
             titleStyle: OmiType.body.copyWith(color: OmiColors.textSecondary),
           ),

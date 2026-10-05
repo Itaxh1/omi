@@ -1,3 +1,4 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -82,7 +83,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
   }) {
     return OmiSettingsRow(
       key: ValueKey(key),
-      leading: OmiSettingsIconTile(settingsGlyph(destination)),
+      leading: OmiSettingsIconTile(FaIcon(settingsIcon(destination))),
       title: title,
       subtitle: subtitle,
       value: value,
@@ -216,11 +217,10 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
   Widget _searchResultRow(BuildContext context, SettingsSearchEntry entry) {
     // Sign out reads red here too, as it does on Account: title and glyph.
     final destructive = entry.destination == SettingsDestination.signOut;
-    final glyph = settingsGlyph(entry.destination);
     return OmiSettingsRow(
-      leading: destructive
-          ? OmiSettingsIconTile.custom(child: OmiLineIcon(glyph, color: OmiColors.danger))
-          : OmiSettingsIconTile(glyph),
+      leading: OmiSettingsIconTile(
+        FaIcon(settingsIcon(entry.destination), color: destructive ? OmiColors.danger : null),
+      ),
       title: entry.title(context.l10n),
       isDestructive: destructive,
       onTap: () => _open(entry.destination),
@@ -310,19 +310,19 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
 /// The icon of the top-level Settings row a destination sits under: the row's own icon, and the
 /// icon a search result for anything below that row leads with (Sign out → Account, Language →
 /// Recording). Exhaustive, so a new destination has to pick its row.
-OmiLineGlyph settingsGlyph(SettingsDestination destination) => switch (destination) {
+FaIconData settingsIcon(SettingsDestination destination) => switch (destination) {
       SettingsDestination.profile ||
       SettingsDestination.signOut ||
       SettingsDestination.deleteAccount =>
-        OmiLineGlyph.person,
-      SettingsDestination.planAndUsage => OmiLineGlyph.chart,
-      SettingsDestination.referral => OmiLineGlyph.gift,
+        FontAwesomeIcons.solidUser,
+      SettingsDestination.planAndUsage => FontAwesomeIcons.chartLine,
+      SettingsDestination.referral => FontAwesomeIcons.gift,
       SettingsDestination.deviceGroup ||
       SettingsDestination.device ||
       SettingsDestination.offlineSync ||
       SettingsDestination.phoneCalls ||
       SettingsDestination.permissions =>
-        OmiLineGlyph.bluetooth,
+        FontAwesomeIcons.bluetooth,
       SettingsDestination.recordingGroup ||
       SettingsDestination.transcription ||
       SettingsDestination.language ||
@@ -330,23 +330,23 @@ OmiLineGlyph settingsGlyph(SettingsDestination destination) => switch (destinati
       SettingsDestination.voiceProfile ||
       SettingsDestination.people ||
       SettingsDestination.conversationTimeout =>
-        OmiLineGlyph.microphone,
-      SettingsDestination.memories => OmiLineGlyph.memories,
-      SettingsDestination.goals => OmiLineGlyph.goals,
-      SettingsDestination.integrations => OmiLineGlyph.integrations,
+        FontAwesomeIcons.microphone,
+      SettingsDestination.memories => FontAwesomeIcons.brain,
+      SettingsDestination.goals => FontAwesomeIcons.bullseye,
+      SettingsDestination.integrations => FontAwesomeIcons.networkWired,
       SettingsDestination.notificationsGroup ||
       SettingsDestination.notifications ||
       SettingsDestination.conversationDisplay =>
-        OmiLineGlyph.bell,
+        FontAwesomeIcons.solidBell,
       SettingsDestination.privacyGroup ||
       SettingsDestination.dataPrivacy ||
       SettingsDestination.exportData ||
       SettingsDestination.importData =>
-        OmiLineGlyph.shield,
+        FontAwesomeIcons.shield,
       SettingsDestination.helpGroup ||
       SettingsDestination.helpCenter ||
       SettingsDestination.whatsNew =>
-        OmiLineGlyph.help,
-      SettingsDestination.feedback => OmiLineGlyph.chat,
-      SettingsDestination.developer || SettingsDestination.creatorPayouts => OmiLineGlyph.code,
+        FontAwesomeIcons.circleQuestion,
+      SettingsDestination.feedback => FontAwesomeIcons.solidEnvelope,
+      SettingsDestination.developer || SettingsDestination.creatorPayouts => FontAwesomeIcons.code,
     };

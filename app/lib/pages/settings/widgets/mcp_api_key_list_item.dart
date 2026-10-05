@@ -1,3 +1,4 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -15,7 +16,7 @@ class McpApiKeyListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OmiSettingsRow(
-      leading: const OmiSettingsIconTile(OmiLineGlyph.key),
+      leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.key)),
       title: apiKey.name,
       subtitle: apiKey.keyPrefix,
       // An identifier, so its characters line up and stay distinct (0/O, 1/l).

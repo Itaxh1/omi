@@ -46,7 +46,7 @@ class _CustomVocabularyPageState extends State<CustomVocabularyPage> {
           // Header row with icon
           Row(
             children: [
-              const OmiSettingsIconTile(OmiLineGlyph.book),
+              const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.book)),
               const SizedBox(width: OmiSpacing.sm),
               Expanded(
                 child: Column(

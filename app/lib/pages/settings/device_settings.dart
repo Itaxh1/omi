@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -412,6 +413,7 @@ class _DeviceSettingsState extends State<DeviceSettings> {
     final isOmi = device?.type == DeviceType.omi;
     final supportsFind = isOmi && !FirmwareUpdateBuildPolicy.current.isOpenGlassDevice(device);
     final doubleTapRow = OmiSettingsRow(
+      leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.handPointer)),
       title: l10n.doubleTap,
       value: _doubleTapActionLabel(SharedPreferencesUtil().doubleTapAction),
       onTap: _pickDoubleTapAction,
@@ -423,6 +425,7 @@ class _DeviceSettingsState extends State<DeviceSettings> {
         if (supportsFind)
           OmiSettingsRow(
             key: const Key('find_device_button'),
+            leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.bullseye)),
             title: l10n.findDevice,
             showChevron: false,
             trailing: _isFindingDevice ? const OmiSpinner(size: OmiSpinnerSize.small) : null,
@@ -431,6 +434,7 @@ class _DeviceSettingsState extends State<DeviceSettings> {
         if (isOmi) ...[
           OmiSettingsRow.toggle(
             key: const Key('omi_button_actions_toggle'),
+            leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.handPointer)),
             title: l10n.omiButtonActions,
             value: _omiButtonActionsEnabled,
             onChanged: (value) {
@@ -449,6 +453,7 @@ class _DeviceSettingsState extends State<DeviceSettings> {
           doubleTapRow,
         if (_isDimRatioLoaded && _hasDimmingFeature == true)
           OmiSettingsRow(
+            leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.lightbulb)),
             title: l10n.ledBrightness,
             value: '${_dimRatio.round()}%',
             onTap: _showBrightnessSheet,
@@ -456,6 +461,7 @@ class _DeviceSettingsState extends State<DeviceSettings> {
           ),
         if (_isMicGainLoaded && _hasMicGainFeature == true)
           OmiSettingsRow(
+            leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.microphone)),
             title: l10n.micGain,
             value: micGainLevelLabel(context, _micGain.round()),
             onTap: _showMicGainSheet,
@@ -482,6 +488,7 @@ class _DeviceSettingsState extends State<DeviceSettings> {
         if (connected?.type == DeviceType.omi &&
             DeviceUtils.isOmiCv1(modelNumber: paired?.modelNumber, deviceName: connected?.name))
           OmiSettingsRow(
+            leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.graduationCap)),
             title: l10n.deviceTutorial,
             onTap: () => routeToPage(context, const InteractiveDeviceOnboardingWrapper(allowExit: true)),
           ),
@@ -489,11 +496,13 @@ class _DeviceSettingsState extends State<DeviceSettings> {
         // update rows are hidden for it.
         if (isRayBan)
           OmiSettingsRow(
+            leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.camera)),
             title: l10n.raybanMetaCapturePhoto,
             onTap: connected != null ? _captureRayBanMetaPhoto : null,
           ),
         if (!isRayBan && firmwarePolicy.allowsFirmwareUpdateForDevice(paired))
           OmiSettingsRow(
+            leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.download)),
             title: l10n.productUpdate,
             // An update needs the device itself, so without it the row says so and is inert.
             value: connected == null
@@ -510,10 +519,12 @@ class _DeviceSettingsState extends State<DeviceSettings> {
             provider.latestStableFirmwareVersion.isNotEmpty &&
             paired?.firmwareRevision != provider.latestStableFirmwareVersion)
           OmiSettingsRow(
+            leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.rotateLeft)),
             title: l10n.rollbackToStableFirmware,
             onTap: () => _confirmRollback(provider),
           ),
         OmiSettingsRow(
+          leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.sdCard)),
           title: l10n.offlineSync,
           trailing: pendingSeconds > 0 ? _PendingSyncChip(seconds: pendingSeconds) : null,
           showChevron: true,
@@ -522,6 +533,7 @@ class _DeviceSettingsState extends State<DeviceSettings> {
         // Omi devices only: opt out of syncing offline recordings automatically on connect.
         if (paired?.type == DeviceType.omi)
           OmiSettingsRow.toggle(
+            leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.arrowsRotate)),
             title: l10n.autoSync,
             subtitle: l10n.autoSyncDescription,
             value: _autoSyncOfflineRecordings,
@@ -532,10 +544,12 @@ class _DeviceSettingsState extends State<DeviceSettings> {
           ),
         if (provider.isConnected && diagnosticsId != null)
           OmiSettingsRow(
+            leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.stethoscope)),
             title: l10n.diagnostics,
             onTap: () => routeToPage(context, DeviceDiagnostics(deviceId: diagnosticsId)),
           ),
         OmiSettingsRow(
+          leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.circleQuestion)),
           title: l10n.chargingIssues,
           onTap: () => _openChargingHelp(provider),
         ),
@@ -549,6 +563,7 @@ class _DeviceSettingsState extends State<DeviceSettings> {
       children: [
         OmiSettingsRow(
           key: const Key('forget_device_button'),
+          leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.linkSlash)),
           title: l10n.forgetDevice,
           isDestructive: true,
           showChevron: false,
@@ -557,6 +572,7 @@ class _DeviceSettingsState extends State<DeviceSettings> {
         // Limitless pendants also need a BLE unpair so another phone can take them.
         if (provider.isConnected && provider.connectedDevice?.type == DeviceType.limitless)
           OmiSettingsRow(
+            leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.ban)),
             title: l10n.unpairAndForget,
             isDestructive: true,
             showChevron: false,

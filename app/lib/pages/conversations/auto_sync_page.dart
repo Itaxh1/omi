@@ -1,3 +1,4 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -177,7 +178,7 @@ class _AutoSyncPageState extends State<AutoSyncPage> {
     String? progressText;
     // Black and white like the rest of Settings; amber only when something is held up.
     var warning = false;
-    var glyph = OmiLineGlyph.check;
+    var icon = FontAwesomeIcons.circleCheck;
     Widget? action;
 
     Widget syncAction() => OmiButton(
@@ -226,7 +227,7 @@ class _AutoSyncPageState extends State<AutoSyncPage> {
     } else if (p.isRateLimited) {
       title = syncCooldownTitle(p.rateLimitReason, l);
       warning = true;
-      glyph = OmiLineGlyph.clock;
+      icon = FontAwesomeIcons.clock;
     } else if (uploaded > 0) {
       // Uploads finished, reconciler is resolving jobs in the background.
       title = l.syncCardProcessing;
@@ -240,11 +241,11 @@ class _AutoSyncPageState extends State<AutoSyncPage> {
     } else if (attention > 0) {
       title = l.syncCardNeedsAttention(attention);
       warning = true;
-      glyph = OmiLineGlyph.info;
+      icon = FontAwesomeIcons.circleExclamation;
       action = syncAction();
     } else if (readyToBackUp > 0) {
       title = l.syncCardReadyCount(readyToBackUp);
-      glyph = OmiLineGlyph.cloud;
+      icon = FontAwesomeIcons.cloudArrowUp;
       action = syncAction();
     } else {
       // All backed up, or no recordings yet: the same calm baseline, so the card never pops in/out.
@@ -255,10 +256,10 @@ class _AutoSyncPageState extends State<AutoSyncPage> {
       padding: const EdgeInsets.symmetric(horizontal: OmiSpacing.md, vertical: OmiSpacing.sm),
       child: Row(
         children: [
-          OmiSettingsIconTile.custom(
-            child: showSpinner
+          OmiSettingsIconTile(
+            showSpinner
                 ? const OmiSpinner(size: OmiSpinnerSize.small)
-                : OmiLineIcon(glyph, color: warning ? OmiColors.warning : OmiColors.iconTileGlyph),
+                : FaIcon(icon, color: warning ? OmiColors.warning : null),
           ),
           const SizedBox(width: OmiSpacing.md),
           Expanded(
@@ -298,7 +299,7 @@ class _AutoSyncPageState extends State<AutoSyncPage> {
     return OmiSettingsGroup(
       children: [
         OmiSettingsRow(
-          leading: const OmiSettingsIconTile(OmiLineGlyph.check),
+          leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.check)),
           title: context.l10n.nConversationsCreated(syncProvider.syncedConversationsPointers.length),
           onTap: () => routeToPage(context, const SyncedConversationsPage()),
         ),
@@ -337,14 +338,14 @@ class _AutoSyncPageState extends State<AutoSyncPage> {
           header: l.storageSection,
           children: [
             OmiSettingsRow(
-              leading: const OmiSettingsIconTile(OmiLineGlyph.smartphone),
+              leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.mobile)),
               title: l.storeAudioOnPhone,
               value: isPhoneOn ? l.on : l.off,
               showChevron: true,
               onTap: () => routeToPage(context, const LocalStoragePage()).then((_) => setState(() {})),
             ),
             OmiSettingsRow(
-              leading: const OmiSettingsIconTile(OmiLineGlyph.cloud),
+              leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.cloud)),
               title: l.storeAudioOnCloud,
               value: isCloudOn ? l.on : l.off,
               showChevron: true,
@@ -357,7 +358,7 @@ class _AutoSyncPageState extends State<AutoSyncPage> {
           header: l.localCopiesSection,
           children: [
             OmiSettingsRow.toggle(
-              leading: const OmiSettingsIconTile(OmiLineGlyph.trash),
+              leading: const OmiSettingsIconTile(Icon(Icons.auto_delete)),
               title: l.autoRemoveSyncedCopiesTitle,
               subtitle: l.autoRemoveSyncedCopiesDescription(autoRemoveDays),
               value: autoRemoveOn,
@@ -798,7 +799,7 @@ class _ManageStorageSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           _StorageRow(
-            glyph: OmiLineGlyph.check,
+            icon: FontAwesomeIcons.circleCheck,
             title: context.l10n.synced,
             subtitle: context.l10n.safelyBackedUp,
             count: syncedCount,
@@ -807,7 +808,7 @@ class _ManageStorageSheet extends StatelessWidget {
           ),
           const SizedBox(height: OmiSpacing.sm),
           _StorageRow(
-            glyph: OmiLineGlyph.clock,
+            icon: FontAwesomeIcons.clockRotateLeft,
             title: context.l10n.pending,
             subtitle: context.l10n.notYetSynced,
             count: pendingCount,
@@ -858,7 +859,7 @@ class _AutoRemoveRowState extends State<_AutoRemoveRow> {
       child: Material(
         color: OmiColors.surface2,
         child: OmiSettingsRow.toggle(
-          leading: const OmiSettingsIconTile(OmiLineGlyph.trash),
+          leading: const OmiSettingsIconTile(Icon(Icons.auto_delete)),
           title: context.l10n.autoRemoveSyncedCopiesTitle,
           subtitle: context.l10n.autoRemoveSyncedCopiesDays(days),
           value: _value,
@@ -873,7 +874,7 @@ class _AutoRemoveRowState extends State<_AutoRemoveRow> {
 }
 
 class _StorageRow extends StatelessWidget {
-  final OmiLineGlyph glyph;
+  final FaIconData icon;
   final String title;
   final String subtitle;
   final int count;
@@ -881,7 +882,7 @@ class _StorageRow extends StatelessWidget {
   final String clearLabel;
 
   const _StorageRow({
-    required this.glyph,
+    required this.icon,
     required this.title,
     required this.subtitle,
     required this.count,
@@ -896,7 +897,7 @@ class _StorageRow extends StatelessWidget {
       decoration: BoxDecoration(color: OmiColors.surface2, borderRadius: OmiRadius.lgAll),
       child: Row(
         children: [
-          OmiSettingsIconTile(glyph),
+          OmiSettingsIconTile(FaIcon(icon)),
           const SizedBox(width: OmiSpacing.md),
           Expanded(
             child: Column(

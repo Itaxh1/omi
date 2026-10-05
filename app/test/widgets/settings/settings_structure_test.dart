@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -330,29 +331,28 @@ void main() {
     final results = _rowsOnScreen(tester);
     expect(results.length, greaterThan(10));
     expect(find.byType(OmiSettingsIconTile), findsNWidgets(results.length));
-    OmiLineGlyph? glyphOf(String title) => tester
-        .widget<OmiSettingsIconTile>(
-            find.descendant(of: find.widgetWithText(OmiSettingsRow, title), matching: find.byType(OmiSettingsIconTile)))
-        .glyph;
-    expect(glyphOf(en.deleteAccountTitle), OmiLineGlyph.person);
-    expect(glyphOf(en.language), OmiLineGlyph.microphone);
-    expect(glyphOf(en.dataProtection), OmiLineGlyph.shield);
+    // Main's icon for the row, drawn in the tile (Sign out's in red).
+    FaIcon iconIn(Finder row) => tester.widget<FaIcon>(find.descendant(
+        of: row, matching: find.descendant(of: find.byType(OmiSettingsIconTile), matching: find.byType(FaIcon))));
+    IconData? iconOf(String title) => iconIn(find.widgetWithText(OmiSettingsRow, title)).icon;
+    expect(iconOf(en.deleteAccountTitle), FontAwesomeIcons.solidUser.data);
+    expect(iconOf(en.language), FontAwesomeIcons.microphone.data);
+    expect(iconOf(en.dataProtection), FontAwesomeIcons.shield.data);
 
-    // Every result, not only the three above, shows its destination's glyph.
+    // Every result, not only the three above, shows its destination's icon.
     for (final row in results) {
-      final tile = tester.widget<OmiSettingsIconTile>(
-          find.descendant(of: find.byWidget(row), matching: find.byType(OmiSettingsIconTile)));
-      // A custom tile (Sign out, in red) draws the same glyph itself.
-      final glyph = tile.glyph ??
-          tester
-              .widget<OmiLineIcon>(find.descendant(of: find.byWidget(tile), matching: find.byType(OmiLineIcon)))
-              .glyph;
+      final glyph = iconIn(find.byWidget(row)).icon;
       final expected = {
         for (final entry in settingsSearchEntries)
-          if (entry.title(en) == row.title) settingsGlyph(entry.destination),
+          if (entry.title(en) == row.title) settingsIcon(entry.destination).data,
       };
       expect(expected, contains(glyph), reason: row.title);
     }
+
+    // Sign out reads red here too, icon and all.
+    await tester.enterText(find.byType(TextField), en.signOut);
+    await tester.pumpAndSettle();
+    expect(iconIn(find.widgetWithText(OmiSettingsRow, en.signOut)).color, OmiColors.danger);
   });
 
   testWidgets('the avatar initial is a whole character: an emoji sequence or an accented letter stays in one piece',
@@ -370,7 +370,7 @@ void main() {
 
     expect(find.text(family), findsOneWidget);
     expect(find.text(accentedE.toUpperCase()), findsOneWidget);
-    // A blank name shows the person glyph, not an empty letter.
-    expect(find.byType(OmiLineIcon), findsOneWidget);
+    // A blank name shows main's person icon, not an empty letter.
+    expect(find.byWidgetPredicate((w) => w is FaIcon && w.icon == FontAwesomeIcons.solidUser.data), findsOneWidget);
   });
 }

@@ -707,7 +707,7 @@ class _TranscriptionSettingsPageState extends State<TranscriptionSettingsPage> {
                     OmiSettingsGroup(
                       children: [
                         OmiSettingsRow.toggle(
-                          leading: const OmiSettingsIconTile(OmiLineGlyph.cloud),
+                          leading: const OmiSettingsIconTile(Icon(Icons.cloud_upload_outlined)),
                           title: context.l10n.sendRawAudioToOmi,
                           subtitle: context.l10n.sendRawAudioToOmiDescription,
                           value: _sendRawAudioToOmi,

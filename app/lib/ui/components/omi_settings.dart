@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:omi/gen/fonts.gen.dart';
 
-import 'package:omi/ui/components/omi_line_icon.dart';
 import 'package:omi/ui/omi_tokens.dart';
 
 /// The on/off control for a setting. Neutral colours (INV-UI-1): on uses the palette accent.
@@ -423,21 +424,20 @@ class _SlicePainter extends CustomPainter {
       old.first != first || old.last != last || old.color != color || old.stroke != stroke;
 }
 
-/// The 44 pt warm tile a row in an [OmiSettingsGroupStyle.outlined] group leads with.
+/// The 44 pt warm tile a row in an [OmiSettingsGroupStyle.outlined] group leads with, around the
+/// row's icon: main's FontAwesome or Material icon, a spinner, a logo or an emoji. An icon with no
+/// size or colour of its own takes the tile's; a warning or error icon sets its colour itself.
 class OmiSettingsIconTile extends StatelessWidget {
-  const OmiSettingsIconTile(OmiLineGlyph this.glyph, {super.key}) : child = null;
+  const OmiSettingsIconTile(this.icon, {super.key});
 
-  /// The same tile around something the row draws itself: a spinner, or a glyph in a warning or
-  /// error colour.
-  const OmiSettingsIconTile.custom({super.key, required Widget this.child}) : glyph = null;
-
-  final OmiLineGlyph? glyph;
-  final Widget? child;
+  final Widget icon;
 
   @override
   Widget build(BuildContext context) {
     final scale = OmiSettingsTypeface.scaleOf(context);
     final side = kOmiSettingsIconTileSize * scale;
+    // A destructive row's red (Sign out, Unpair) carries into the tile.
+    final destructive = IconTheme.of(context).color == OmiColors.danger;
     return Container(
       width: side,
       height: side,
@@ -448,10 +448,10 @@ class OmiSettingsIconTile extends StatelessWidget {
         borderRadius: OmiRadius.mdAll,
         border: Border.all(color: OmiColors.groupedBorder),
       ),
-      // A custom child sized by the icon theme (no size of its own) scales with the tile.
+      // 20 pt, the size main's rows drew these icons at.
       child: IconTheme.merge(
-        data: IconThemeData(size: 24 * scale, color: OmiColors.iconTileGlyph),
-        child: child ?? OmiLineIcon(glyph!),
+        data: IconThemeData(size: 20 * scale, color: destructive ? OmiColors.danger : OmiColors.iconTileGlyph),
+        child: icon,
       ),
     );
   }
@@ -485,7 +485,7 @@ class OmiSettingsAvatar extends StatelessWidget {
           border: Border.all(color: OmiColors.groupedBorder),
         ),
         child: initial == null
-            ? OmiLineIcon(OmiLineGlyph.person, size: size * 0.45, color: OmiColors.iconTileGlyph)
+            ? FaIcon(FontAwesomeIcons.solidUser, size: size * 0.38, color: OmiColors.iconTileGlyph)
             : Text(initial,
                 style: OmiType.title1.copyWith(fontSize: size * 0.4, height: 1, color: OmiColors.textPrimary)),
       ),

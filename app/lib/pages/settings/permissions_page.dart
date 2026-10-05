@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:omi/utils/platform/platform_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -154,33 +155,33 @@ class _PermissionsPageState extends State<PermissionsPage> with WidgetsBindingOb
                   children: [
                     _buildPermissionRow(
                       title: context.l10n.notifications,
-                      glyph: OmiLineGlyph.bell,
+                      icon: FontAwesomeIcons.solidBell,
                       isGranted: _notificationsGranted,
                       onTap: () =>
                           _handlePermissionTap(Permission.notification, _notificationsGranted, 'notifications'),
                     ),
                     _buildPermissionRow(
                       title: context.l10n.location,
-                      glyph: OmiLineGlyph.location,
+                      icon: FontAwesomeIcons.locationArrow,
                       isGranted: _locationGranted,
                       onTap: _handleLocationTap,
                     ),
                     _buildPermissionRow(
                       title: context.l10n.bluetooth,
-                      glyph: OmiLineGlyph.bluetooth,
+                      icon: FontAwesomeIcons.bluetooth,
                       isGranted: _bluetoothGranted,
                       onTap: _handleBluetoothTap,
                     ),
                     _buildPermissionRow(
                       title: context.l10n.microphone,
-                      glyph: OmiLineGlyph.microphone,
+                      icon: FontAwesomeIcons.microphone,
                       isGranted: _microphoneGranted,
                       onTap: () => _handlePermissionTap(Permission.microphone, _microphoneGranted, 'microphone'),
                     ),
                     if (Platform.isAndroid)
                       _buildPermissionRow(
                         title: context.l10n.backgroundActivity,
-                        glyph: OmiLineGlyph.broadcast,
+                        icon: FontAwesomeIcons.batteryFull,
                         isGranted: _backgroundGranted,
                         onTap: _handleBackgroundTap,
                       ),
@@ -193,12 +194,12 @@ class _PermissionsPageState extends State<PermissionsPage> with WidgetsBindingOb
 
   Widget _buildPermissionRow({
     required String title,
-    required OmiLineGlyph glyph,
+    required FaIconData icon,
     required bool isGranted,
     required VoidCallback onTap,
   }) {
     return OmiSettingsRow(
-      leading: OmiSettingsIconTile(glyph),
+      leading: OmiSettingsIconTile(FaIcon(icon)),
       title: title,
       onTap: onTap,
       showChevron: true,

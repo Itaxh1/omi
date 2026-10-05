@@ -32,7 +32,7 @@ class DevApiKeyListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OmiSettingsRow(
-      leading: const OmiSettingsIconTile(OmiLineGlyph.key),
+      leading: const OmiSettingsIconTile(Icon(Icons.key)),
       title: apiKey.name,
       subtitle: '${apiKey.keyPrefix}*** · ${OmiDateFormat.of(context).date(apiKey.createdAt)}\n'
           '${_scopeLabel(context, apiKey.scopes)}',

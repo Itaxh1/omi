@@ -61,7 +61,7 @@ class _DeveloperFirmwareFlashPageState extends State<DeveloperFirmwareFlashPage>
                 OmiSettingsGroup(
                   children: [
                     OmiSettingsRow(
-                      leading: const OmiSettingsIconTile(OmiLineGlyph.file),
+                      leading: const OmiSettingsIconTile(Icon(Icons.insert_drive_file_outlined)),
                       title: widget.fileName,
                       subtitle: l10n.firmwareFlashTarget(widget.device.name),
                     ),

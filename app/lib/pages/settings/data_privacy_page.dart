@@ -80,7 +80,7 @@ class _DataPrivacyPageState extends State<DataPrivacyPage> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const OmiSettingsIconTile(OmiLineGlyph.lock),
+          const OmiSettingsIconTile(Icon(Icons.lock_outline)),
           const SizedBox(width: OmiSpacing.sm),
           Expanded(
             child: RichText(
