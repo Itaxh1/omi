@@ -170,10 +170,10 @@ Home (home/page.dart) — main app after auth, 4-slot bottom nav
     └── Top-bar "+" on this slot → Add App / Add MCP Server
 
 Settings (settings_drawer.dart) — a full-screen page pushed from the gear: back + title + search header,
-then a profile card (Account) and six labelled groups whose rows lead with an icon tile and have no
-dividers: Account (Plan & Usage, Referral Program) · Recording (Device, Recording & Transcription) · Features (Memories, Goals,
-Integrations) · Preferences (Notifications & Display, Data & Privacy) · Support (Help & About, Feedback) ·
-Developer (Developer Settings).
+then a profile card (Account) and seven labelled groups whose rows lead with an icon tile and have no
+dividers: Account (Plan & Usage, Referral Program) · Recording (Device, Recording & Transcription, Voice) ·
+Personalization (Memories, Goals) · Connected Apps (Integrations) · Preferences (Notifications & Display,
+Data & Privacy) · Support (Help & About, Feedback) · Developer (Developer Settings).
 Every top-level row has a ValueKey (`settings_account`, `settings_group_<group>`, or
 `settings_row_<SettingsDestination>` for the direct rows Plan, Referral and Feedback); each page has a
 Scaffold key (`settings_page_<page>`); rows on group/Account pages are `settings_row_<SettingsDestination>`
