@@ -12230,4 +12230,16 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'Nepodarilo sa načítať všetky úlohy. Vybrané sú len už načítané úlohy.';
+
+  @override
+  String get settingsSectionPersonalization => 'Prispôsobenie';
+
+  @override
+  String get settingsSectionConnectedApps => 'Pripojené aplikácie';
+
+  @override
+  String get recordOptionsTip => 'Tip: klepnutím na šípku na tlačidle nahrávania nahráte telefonický hovor.';
+
+  @override
+  String get moreWaysToRecord => 'Ďalšie spôsoby nahrávania';
 }

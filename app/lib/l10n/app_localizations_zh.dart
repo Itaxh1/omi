@@ -12021,4 +12021,16 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => '无法加载全部任务。仅选中了已加载的任务。';
+
+  @override
+  String get settingsSectionPersonalization => '个性化';
+
+  @override
+  String get settingsSectionConnectedApps => '已连接的应用';
+
+  @override
+  String get recordOptionsTip => '提示：点按录音按钮上的箭头即可录制电话通话。';
+
+  @override
+  String get moreWaysToRecord => '更多录音方式';
 }

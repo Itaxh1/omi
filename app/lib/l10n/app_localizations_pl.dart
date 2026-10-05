@@ -12273,4 +12273,17 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'Nie udało się wczytać wszystkich zadań. Zaznaczono tylko już wczytane zadania.';
+
+  @override
+  String get settingsSectionPersonalization => 'Personalizacja';
+
+  @override
+  String get settingsSectionConnectedApps => 'Połączone aplikacje';
+
+  @override
+  String get recordOptionsTip =>
+      'Wskazówka: stuknij strzałkę na przycisku nagrywania, aby nagrać rozmowę telefoniczną.';
+
+  @override
+  String get moreWaysToRecord => 'Więcej sposobów nagrywania';
 }

@@ -3787,5 +3787,9 @@
     "pendantReconnectsOnItsOwn": "Omi sa znova pripojí sám, keď bude prívesok zapnutý a nablízku.",
     "pendantRecordingSafe": "Všetko nahraté predtým je v bezpečí.",
     "tasksNextPageFailed": "Ďalšie úlohy sa nepodarilo načítať. Potiahnutím nadol to skúste znova.",
-    "selectAllTasksPartial": "Nepodarilo sa načítať všetky úlohy. Vybrané sú len už načítané úlohy."
+    "selectAllTasksPartial": "Nepodarilo sa načítať všetky úlohy. Vybrané sú len už načítané úlohy.",
+    "settingsSectionPersonalization": "Prispôsobenie",
+    "settingsSectionConnectedApps": "Pripojené aplikácie",
+    "recordOptionsTip": "Tip: klepnutím na šípku na tlačidle nahrávania nahráte telefonický hovor.",
+    "moreWaysToRecord": "Ďalšie spôsoby nahrávania"
 }

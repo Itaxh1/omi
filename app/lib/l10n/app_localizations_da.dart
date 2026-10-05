@@ -12224,4 +12224,16 @@ class AppLocalizationsDa extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'Kunne ikke indlæse alle opgaver. Kun de allerede indlæste er valgt.';
+
+  @override
+  String get settingsSectionPersonalization => 'Personalisering';
+
+  @override
+  String get settingsSectionConnectedApps => 'Forbundne apps';
+
+  @override
+  String get recordOptionsTip => 'Tip: tryk på pilen på optageknappen for at optage et telefonopkald.';
+
+  @override
+  String get moreWaysToRecord => 'Flere måder at optage på';
 }

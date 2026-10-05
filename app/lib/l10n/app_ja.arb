@@ -3787,5 +3787,9 @@
     "pendantReconnectsOnItsOwn": "ペンダントの電源が入っていて近くにあれば、Omiは自動で再接続します。",
     "pendantRecordingSafe": "それまでに録音した内容は保存されています。",
     "tasksNextPageFailed": "タスクをさらに読み込めませんでした。下に引いて再試行してください。",
-    "selectAllTasksPartial": "すべてのタスクを読み込めませんでした。読み込み済みのタスクのみ選択されています。"
+    "selectAllTasksPartial": "すべてのタスクを読み込めませんでした。読み込み済みのタスクのみ選択されています。",
+    "settingsSectionPersonalization": "パーソナライズ",
+    "settingsSectionConnectedApps": "連携アプリ",
+    "recordOptionsTip": "ヒント：録音ボタンの矢印をタップすると通話を録音できます。",
+    "moreWaysToRecord": "その他の録音方法"
 }

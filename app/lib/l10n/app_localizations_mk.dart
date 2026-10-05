@@ -12302,4 +12302,16 @@ class AppLocalizationsMk extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'Не можеше да се вчитаат сите задачи. Избрани се само веќе вчитаните задачи.';
+
+  @override
+  String get settingsSectionPersonalization => 'Персонализација';
+
+  @override
+  String get settingsSectionConnectedApps => 'Поврзани апликации';
+
+  @override
+  String get recordOptionsTip => 'Совет: допрете ја стрелката на копчето за снимање за да снимите телефонски повик.';
+
+  @override
+  String get moreWaysToRecord => 'Повеќе начини за снимање';
 }

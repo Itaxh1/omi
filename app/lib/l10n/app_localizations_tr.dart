@@ -12249,4 +12249,16 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'Tüm görevler yüklenemedi. Yalnızca zaten yüklenmiş görevler seçildi.';
+
+  @override
+  String get settingsSectionPersonalization => 'Kişiselleştirme';
+
+  @override
+  String get settingsSectionConnectedApps => 'Bağlı uygulamalar';
+
+  @override
+  String get recordOptionsTip => 'İpucu: telefon görüşmesi kaydetmek için kayıt düğmesindeki oka dokunun.';
+
+  @override
+  String get moreWaysToRecord => 'Diğer kayıt yöntemleri';
 }

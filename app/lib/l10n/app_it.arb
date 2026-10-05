@@ -3787,5 +3787,9 @@
     "pendantReconnectsOnItsOwn": "Omi si riconnetterà da solo quando il ciondolo sarà acceso e vicino.",
     "pendantRecordingSafe": "Tutto ciò che è stato registrato prima è al sicuro.",
     "tasksNextPageFailed": "Impossibile caricare altre attività. Trascina verso il basso per riprovare.",
-    "selectAllTasksPartial": "Impossibile caricare tutte le attività. Sono selezionate solo quelle già caricate."
+    "selectAllTasksPartial": "Impossibile caricare tutte le attività. Sono selezionate solo quelle già caricate.",
+    "settingsSectionPersonalization": "Personalizzazione",
+    "settingsSectionConnectedApps": "App collegate",
+    "recordOptionsTip": "Suggerimento: tocca la freccia sul pulsante di registrazione per registrare una telefonata.",
+    "moreWaysToRecord": "Altri modi per registrare"
 }

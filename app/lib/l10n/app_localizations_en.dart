@@ -12224,4 +12224,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'Couldn\'t load every task. Only the tasks already loaded are selected.';
+
+  @override
+  String get settingsSectionPersonalization => 'Personalization';
+
+  @override
+  String get settingsSectionConnectedApps => 'Connected Apps';
+
+  @override
+  String get recordOptionsTip => 'Tip: tap the arrow on the record button to record a phone call.';
+
+  @override
+  String get moreWaysToRecord => 'More ways to record';
 }

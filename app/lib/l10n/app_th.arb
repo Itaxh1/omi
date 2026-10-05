@@ -3787,5 +3787,9 @@
     "pendantReconnectsOnItsOwn": "Omi จะเชื่อมต่อใหม่เองเมื่อจี้เปิดอยู่และอยู่ใกล้",
     "pendantRecordingSafe": "ทุกอย่างที่บันทึกไว้ก่อนหน้านี้ปลอดภัย",
     "tasksNextPageFailed": "โหลดงานเพิ่มเติมไม่ได้ ดึงลงเพื่อลองอีกครั้ง",
-    "selectAllTasksPartial": "โหลดงานทั้งหมดไม่ได้ เลือกเฉพาะงานที่โหลดแล้วเท่านั้น"
+    "selectAllTasksPartial": "โหลดงานทั้งหมดไม่ได้ เลือกเฉพาะงานที่โหลดแล้วเท่านั้น",
+    "settingsSectionPersonalization": "การปรับให้เป็นส่วนตัว",
+    "settingsSectionConnectedApps": "แอปที่เชื่อมต่อ",
+    "recordOptionsTip": "เคล็ดลับ: แตะลูกศรบนปุ่มบันทึกเพื่อบันทึกการโทร",
+    "moreWaysToRecord": "วิธีบันทึกเพิ่มเติม"
 }

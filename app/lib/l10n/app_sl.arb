@@ -11344,5 +11344,9 @@
     "pendantReconnectsOnItsOwn": "Omi se bo sam znova povezal, ko bo obesek vklopljen in v bližini.",
     "pendantRecordingSafe": "Vse, kar je bilo posneto prej, je varno.",
     "tasksNextPageFailed": "Več opravil ni bilo mogoče naložiti. Povlecite navzdol za ponovni poskus.",
-    "selectAllTasksPartial": "Vseh opravil ni bilo mogoče naložiti. Izbrana so samo že naložena opravila."
+    "selectAllTasksPartial": "Vseh opravil ni bilo mogoče naložiti. Izbrana so samo že naložena opravila.",
+    "settingsSectionPersonalization": "Prilagajanje",
+    "settingsSectionConnectedApps": "Povezane aplikacije",
+    "recordOptionsTip": "Namig: tapnite puščico na gumbu za snemanje, da posnamete telefonski klic.",
+    "moreWaysToRecord": "Več načinov snemanja"
 }

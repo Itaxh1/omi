@@ -12248,4 +12248,16 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'تمام کام لوڈ نہیں ہو سکے۔ صرف پہلے سے لوڈ شدہ کام منتخب کیے گئے ہیں۔';
+
+  @override
+  String get settingsSectionPersonalization => 'ذاتی نوعیت';
+
+  @override
+  String get settingsSectionConnectedApps => 'منسلک ایپس';
+
+  @override
+  String get recordOptionsTip => 'مشورہ: فون کال ریکارڈ کرنے کے لیے ریکارڈ بٹن پر تیر کو ٹیپ کریں۔';
+
+  @override
+  String get moreWaysToRecord => 'ریکارڈ کرنے کے مزید طریقے';
 }

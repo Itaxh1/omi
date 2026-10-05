@@ -12245,4 +12245,16 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'Kunde inte läsa in alla uppgifter. Bara de redan inlästa uppgifterna är valda.';
+
+  @override
+  String get settingsSectionPersonalization => 'Anpassning';
+
+  @override
+  String get settingsSectionConnectedApps => 'Anslutna appar';
+
+  @override
+  String get recordOptionsTip => 'Tips: tryck på pilen på inspelningsknappen för att spela in ett telefonsamtal.';
+
+  @override
+  String get moreWaysToRecord => 'Fler sätt att spela in';
 }

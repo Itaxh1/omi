@@ -12256,4 +12256,16 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get selectAllTasksPartial =>
       'Não foi possível carregar todas as tarefas. Só as tarefas já carregadas estão selecionadas.';
+
+  @override
+  String get settingsSectionPersonalization => 'Personalização';
+
+  @override
+  String get settingsSectionConnectedApps => 'Apps conectados';
+
+  @override
+  String get recordOptionsTip => 'Dica: toque na seta do botão de gravar para gravar uma ligação.';
+
+  @override
+  String get moreWaysToRecord => 'Mais formas de gravar';
 }

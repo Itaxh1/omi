@@ -3822,5 +3822,9 @@
     "pendantReconnectsOnItsOwn": "Omi połączy się ponownie samo, gdy wisiorek będzie włączony i w pobliżu.",
     "pendantRecordingSafe": "Wszystko nagrane wcześniej jest bezpieczne.",
     "tasksNextPageFailed": "Nie udało się wczytać więcej zadań. Przeciągnij w dół, aby spróbować ponownie.",
-    "selectAllTasksPartial": "Nie udało się wczytać wszystkich zadań. Zaznaczono tylko już wczytane zadania."
+    "selectAllTasksPartial": "Nie udało się wczytać wszystkich zadań. Zaznaczono tylko już wczytane zadania.",
+    "settingsSectionPersonalization": "Personalizacja",
+    "settingsSectionConnectedApps": "Połączone aplikacje",
+    "recordOptionsTip": "Wskazówka: stuknij strzałkę na przycisku nagrywania, aby nagrać rozmowę telefoniczną.",
+    "moreWaysToRecord": "Więcej sposobów nagrywania"
 }

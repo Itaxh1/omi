@@ -12252,4 +12252,16 @@ class AppLocalizationsSr extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'Није могуће учитати све задатке. Изабрани су само већ учитани задаци.';
+
+  @override
+  String get settingsSectionPersonalization => 'Персонализација';
+
+  @override
+  String get settingsSectionConnectedApps => 'Повезане апликације';
+
+  @override
+  String get recordOptionsTip => 'Савет: додирните стрелицу на дугмету за снимање да бисте снимили телефонски позив.';
+
+  @override
+  String get moreWaysToRecord => 'Више начина снимања';
 }

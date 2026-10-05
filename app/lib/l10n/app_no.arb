@@ -3787,5 +3787,9 @@
     "pendantReconnectsOnItsOwn": "Omi kobler til igjen av seg selv når anhenget er på og i nærheten.",
     "pendantRecordingSafe": "Alt som ble tatt opp før dette, er trygt.",
     "tasksNextPageFailed": "Kunne ikke laste inn flere oppgaver. Dra ned for å prøve igjen.",
-    "selectAllTasksPartial": "Kunne ikke laste inn alle oppgaver. Bare de som allerede er lastet inn, er valgt."
+    "selectAllTasksPartial": "Kunne ikke laste inn alle oppgaver. Bare de som allerede er lastet inn, er valgt.",
+    "settingsSectionPersonalization": "Tilpasning",
+    "settingsSectionConnectedApps": "Tilkoblede apper",
+    "recordOptionsTip": "Tips: trykk på pilen på opptaksknappen for å ta opp en telefonsamtale.",
+    "moreWaysToRecord": "Flere måter å ta opp på"
 }

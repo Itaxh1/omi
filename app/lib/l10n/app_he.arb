@@ -11344,5 +11344,9 @@
     "pendantReconnectsOnItsOwn": "Omi יתחבר מחדש מעצמו כשהתליון דלוק וקרוב.",
     "pendantRecordingSafe": "כל מה שהוקלט עד עכשיו שמור.",
     "tasksNextPageFailed": "לא ניתן לטעון משימות נוספות. משכו למטה כדי לנסות שוב.",
-    "selectAllTasksPartial": "לא ניתן לטעון את כל המשימות. נבחרו רק המשימות שכבר נטענו."
+    "selectAllTasksPartial": "לא ניתן לטעון את כל המשימות. נבחרו רק המשימות שכבר נטענו.",
+    "settingsSectionPersonalization": "התאמה אישית",
+    "settingsSectionConnectedApps": "אפליקציות מחוברות",
+    "recordOptionsTip": "טיפ: הקישו על החץ בכפתור ההקלטה כדי להקליט שיחת טלפון.",
+    "moreWaysToRecord": "דרכים נוספות להקליט"
 }

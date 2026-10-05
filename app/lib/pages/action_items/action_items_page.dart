@@ -24,7 +24,6 @@ import 'package:omi/widgets/home_bottom_bar.dart';
 import 'task_categorization.dart';
 import 'task_delete_undo.dart';
 import 'task_export.dart';
-import 'task_page.dart';
 import 'widgets/action_item_form_sheet.dart';
 import 'widgets/action_item_shimmer_widget.dart';
 import 'widgets/task_row_parts.dart';
@@ -1140,7 +1139,8 @@ class _ActionItemsPageState extends State<ActionItemsPage> with AutomaticKeepAli
       context: context,
       position: position,
       items: [
-        PullDownMenuItem(title: l10n.open, icon: Icons.open_in_full_rounded, onTap: () => openTaskPage(context, item)),
+        PullDownMenuItem(
+            title: l10n.open, icon: Icons.open_in_full_rounded, onTap: () => openTaskEditor(context, item)),
         PullDownMenuItem(
           title: item.completed ? l10n.markIncomplete : l10n.markComplete,
           icon: item.completed ? Icons.undo_rounded : Icons.check_circle_outline,
@@ -1360,7 +1360,7 @@ class _ActionItemsPageState extends State<ActionItemsPage> with AutomaticKeepAli
   }
 
   void _showEditSheet(ActionItemWithMetadata item) {
-    openTaskPage(context, item);
+    openTaskEditor(context, item);
   }
 
   /// Where a paywalled task's tap goes, the same as a locked conversation's.

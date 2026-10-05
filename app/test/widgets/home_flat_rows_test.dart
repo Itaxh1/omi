@@ -138,18 +138,33 @@ void main() {
     expect(find.byIcon(Icons.warning_amber_rounded), findsOneWidget, reason: 'the warning sits beside the word');
   });
 
-  testWidgets('Ask anything is plain text in sentence case on the glass, no icon', (tester) async {
+  testWidgets('Ask anything opens chat to type, and its mic opens it listening, on one glass bar', (tester) async {
+    var typed = 0, voiced = 0;
     await tester.pumpWidget(MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: Scaffold(body: OmiCanvas(child: Center(child: HomeAskOmiButton(onTap: () {})))),
+      home: Scaffold(
+        body: OmiCanvas(
+          child: Center(child: HomeAskOmiButton(onTap: () => typed++, onVoice: () => voiced++)),
+        ),
+      ),
     ));
     final label = tester.widget<Text>(find.text('Ask anything'));
     expect(label.style!.fontSize, OmiType.callout.fontSize);
     expect(label.style!.fontWeight, FontWeight.w500, reason: 'medium, as in Omi v8');
     expect(label.maxLines, 1);
-    expect(find.descendant(of: find.byType(HomeAskOmiButton), matching: find.byType(Icon)), findsNothing);
     expect(find.descendant(of: find.byType(HomeAskOmiButton), matching: find.byType(OmiGlass)), findsOneWidget);
+    final mic = find.descendant(of: find.byType(HomeAskOmiButton), matching: find.byType(OmiLineIcon));
+    expect(tester.widget<OmiLineIcon>(mic).glyph, OmiLineGlyph.voice, reason: 'a plain mic, no inner detail');
+
+    await tester.tap(find.text('Ask anything'));
+    await tester.tap(find.byKey(const ValueKey('home_ask_omi_voice')));
+    expect((typed, voiced), (1, 1));
+
+    // A near miss at the rounded end still talks: the mic owns the bar's full height there.
+    final bar = tester.getRect(find.byType(HomeAskOmiButton));
+    await tester.tapAt(Offset(bar.right - 3, bar.top + 3));
+    expect(voiced, 2);
   });
 
   testWidgets('light Home blends into a warm white toward the bottom; dark has no blend', (tester) async {
@@ -200,7 +215,7 @@ void main() {
                           left: 16,
                           right: 16,
                           bottom: homeChatBarOffset(context),
-                          child: Row(children: [Expanded(child: HomeAskOmiButton(onTap: () {}))]),
+                          child: Row(children: [Expanded(child: HomeAskOmiButton(onTap: () {}, onVoice: () {}))]),
                         ),
                       ],
                     ),

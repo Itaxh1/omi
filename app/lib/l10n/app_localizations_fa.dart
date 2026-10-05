@@ -12236,4 +12236,16 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'بارگیری همه وظایف ممکن نشد. فقط وظایف بارگیری‌شده انتخاب شدند.';
+
+  @override
+  String get settingsSectionPersonalization => 'شخصی‌سازی';
+
+  @override
+  String get settingsSectionConnectedApps => 'برنامه‌های متصل';
+
+  @override
+  String get recordOptionsTip => 'نکته: برای ضبط تماس تلفنی، روی فلش دکمه ضبط بزنید.';
+
+  @override
+  String get moreWaysToRecord => 'روش‌های دیگر ضبط';
 }

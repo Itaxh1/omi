@@ -11344,5 +11344,9 @@
     "pendantReconnectsOnItsOwn": "Omi će se sam ponovo povezati kad je privjesak uključen i u blizini.",
     "pendantRecordingSafe": "Sve snimljeno do sada je sačuvano.",
     "tasksNextPageFailed": "Nije moguće učitati više zadataka. Povucite prema dolje da pokušate ponovo.",
-    "selectAllTasksPartial": "Nije moguće učitati sve zadatke. Odabrani su samo već učitani zadaci."
+    "selectAllTasksPartial": "Nije moguće učitati sve zadatke. Odabrani su samo već učitani zadaci.",
+    "settingsSectionPersonalization": "Personalizacija",
+    "settingsSectionConnectedApps": "Povezane aplikacije",
+    "recordOptionsTip": "Savjet: dodirnite strelicu na dugmetu za snimanje da snimite telefonski poziv.",
+    "moreWaysToRecord": "Više načina snimanja"
 }

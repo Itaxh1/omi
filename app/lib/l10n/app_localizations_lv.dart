@@ -12263,4 +12263,16 @@ class AppLocalizationsLv extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'Neizdevās ielādēt visus uzdevumus. Atlasīti tikai jau ielādētie uzdevumi.';
+
+  @override
+  String get settingsSectionPersonalization => 'Personalizācija';
+
+  @override
+  String get settingsSectionConnectedApps => 'Pievienotās lietotnes';
+
+  @override
+  String get recordOptionsTip => 'Padoms: lai ierakstītu tālruņa zvanu, pieskarieties bultiņai uz ieraksta pogas.';
+
+  @override
+  String get moreWaysToRecord => 'Citi ierakstīšanas veidi';
 }

@@ -12238,4 +12238,16 @@ class AppLocalizationsNo extends AppLocalizations {
   @override
   String get selectAllTasksPartial =>
       'Kunne ikke laste inn alle oppgaver. Bare de som allerede er lastet inn, er valgt.';
+
+  @override
+  String get settingsSectionPersonalization => 'Tilpasning';
+
+  @override
+  String get settingsSectionConnectedApps => 'Tilkoblede apper';
+
+  @override
+  String get recordOptionsTip => 'Tips: trykk på pilen på opptaksknappen for å ta opp en telefonsamtale.';
+
+  @override
+  String get moreWaysToRecord => 'Flere måter å ta opp på';
 }

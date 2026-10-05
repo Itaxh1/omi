@@ -12282,4 +12282,16 @@ class AppLocalizationsBg extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'Не можахме да заредим всички задачи. Избрани са само вече заредените.';
+
+  @override
+  String get settingsSectionPersonalization => 'Персонализиране';
+
+  @override
+  String get settingsSectionConnectedApps => 'Свързани приложения';
+
+  @override
+  String get recordOptionsTip => 'Съвет: докоснете стрелката на бутона за запис, за да запишете телефонно обаждане.';
+
+  @override
+  String get moreWaysToRecord => 'Още начини за запис';
 }

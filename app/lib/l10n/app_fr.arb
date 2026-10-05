@@ -3822,5 +3822,9 @@
     "pendantReconnectsOnItsOwn": "Omi se reconnectera tout seul quand le pendentif sera allumé et à proximité.",
     "pendantRecordingSafe": "Tout ce qui a été enregistré avant est en sécurité.",
     "tasksNextPageFailed": "Impossible de charger plus de tâches. Tirez vers le bas pour réessayer.",
-    "selectAllTasksPartial": "Impossible de charger toutes les tâches. Seules les tâches déjà chargées sont sélectionnées."
+    "selectAllTasksPartial": "Impossible de charger toutes les tâches. Seules les tâches déjà chargées sont sélectionnées.",
+    "settingsSectionPersonalization": "Personnalisation",
+    "settingsSectionConnectedApps": "Apps connectées",
+    "recordOptionsTip": "Astuce : touchez la flèche du bouton d'enregistrement pour enregistrer un appel.",
+    "moreWaysToRecord": "Autres façons d'enregistrer"
 }

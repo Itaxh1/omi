@@ -12250,4 +12250,16 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'Tidak dapat memuat semua tugas. Hanya tugas yang sudah dimuat yang dipilih.';
+
+  @override
+  String get settingsSectionPersonalization => 'Personalisasi';
+
+  @override
+  String get settingsSectionConnectedApps => 'Aplikasi terhubung';
+
+  @override
+  String get recordOptionsTip => 'Tips: ketuk panah pada tombol rekam untuk merekam panggilan telepon.';
+
+  @override
+  String get moreWaysToRecord => 'Cara lain untuk merekam';
 }

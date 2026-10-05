@@ -12341,4 +12341,16 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get selectAllTasksPartial =>
       'Impossible de charger toutes les tâches. Seules les tâches déjà chargées sont sélectionnées.';
+
+  @override
+  String get settingsSectionPersonalization => 'Personnalisation';
+
+  @override
+  String get settingsSectionConnectedApps => 'Apps connectées';
+
+  @override
+  String get recordOptionsTip => 'Astuce : touchez la flèche du bouton d\'enregistrement pour enregistrer un appel.';
+
+  @override
+  String get moreWaysToRecord => 'Autres façons d\'enregistrer';
 }

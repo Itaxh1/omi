@@ -12306,4 +12306,17 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get selectAllTasksPartial =>
       'Impossibile caricare tutte le attività. Sono selezionate solo quelle già caricate.';
+
+  @override
+  String get settingsSectionPersonalization => 'Personalizzazione';
+
+  @override
+  String get settingsSectionConnectedApps => 'App collegate';
+
+  @override
+  String get recordOptionsTip =>
+      'Suggerimento: tocca la freccia sul pulsante di registrazione per registrare una telefonata.';
+
+  @override
+  String get moreWaysToRecord => 'Altri modi per registrare';
 }

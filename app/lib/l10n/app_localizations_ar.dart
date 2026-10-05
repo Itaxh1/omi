@@ -12164,4 +12164,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'تعذر تحميل كل المهام. تم تحديد المهام المحمّلة فقط.';
+
+  @override
+  String get settingsSectionPersonalization => 'التخصيص';
+
+  @override
+  String get settingsSectionConnectedApps => 'التطبيقات المتصلة';
+
+  @override
+  String get recordOptionsTip => 'نصيحة: اضغط على السهم في زر التسجيل لتسجيل مكالمة هاتفية.';
+
+  @override
+  String get moreWaysToRecord => 'طرق أخرى للتسجيل';
 }

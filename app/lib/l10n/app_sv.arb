@@ -3787,5 +3787,9 @@
     "pendantReconnectsOnItsOwn": "Omi ansluter igen av sig själv när hängsmycket är på och i närheten.",
     "pendantRecordingSafe": "Allt som spelats in innan är säkert.",
     "tasksNextPageFailed": "Kunde inte läsa in fler uppgifter. Dra nedåt för att försöka igen.",
-    "selectAllTasksPartial": "Kunde inte läsa in alla uppgifter. Bara de redan inlästa uppgifterna är valda."
+    "selectAllTasksPartial": "Kunde inte läsa in alla uppgifter. Bara de redan inlästa uppgifterna är valda.",
+    "settingsSectionPersonalization": "Anpassning",
+    "settingsSectionConnectedApps": "Anslutna appar",
+    "recordOptionsTip": "Tips: tryck på pilen på inspelningsknappen för att spela in ett telefonsamtal.",
+    "moreWaysToRecord": "Fler sätt att spela in"
 }

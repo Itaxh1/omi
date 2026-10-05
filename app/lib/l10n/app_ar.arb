@@ -3787,5 +3787,9 @@
     "pendantReconnectsOnItsOwn": "سيعيد Omi الاتصال تلقائيًا عندما تكون القلادة قيد التشغيل وقريبة.",
     "pendantRecordingSafe": "كل ما سُجّل قبل ذلك محفوظ.",
     "tasksNextPageFailed": "تعذر تحميل المزيد من المهام. اسحب للأسفل للمحاولة مرة أخرى.",
-    "selectAllTasksPartial": "تعذر تحميل كل المهام. تم تحديد المهام المحمّلة فقط."
+    "selectAllTasksPartial": "تعذر تحميل كل المهام. تم تحديد المهام المحمّلة فقط.",
+    "settingsSectionPersonalization": "التخصيص",
+    "settingsSectionConnectedApps": "التطبيقات المتصلة",
+    "recordOptionsTip": "نصيحة: اضغط على السهم في زر التسجيل لتسجيل مكالمة هاتفية.",
+    "moreWaysToRecord": "طرق أخرى للتسجيل"
 }

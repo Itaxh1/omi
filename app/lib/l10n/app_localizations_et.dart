@@ -12236,4 +12236,16 @@ class AppLocalizationsEt extends AppLocalizations {
   @override
   String get selectAllTasksPartial =>
       'Kõiki ülesandeid ei õnnestunud laadida. Valitud on ainult juba laaditud ülesanded.';
+
+  @override
+  String get settingsSectionPersonalization => 'Isikupärastamine';
+
+  @override
+  String get settingsSectionConnectedApps => 'Ühendatud rakendused';
+
+  @override
+  String get recordOptionsTip => 'Nõuanne: telefonikõne salvestamiseks puuduta salvestusnupul olevat noolt.';
+
+  @override
+  String get moreWaysToRecord => 'Rohkem salvestusviise';
 }

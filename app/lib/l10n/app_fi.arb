@@ -3787,5 +3787,9 @@
     "pendantReconnectsOnItsOwn": "Omi yhdistää itsestään uudelleen, kun riipus on päällä ja lähellä.",
     "pendantRecordingSafe": "Kaikki tätä ennen tallennettu on tallessa.",
     "tasksNextPageFailed": "Tehtävien lataaminen ei onnistunut. Yritä uudelleen vetämällä alas.",
-    "selectAllTasksPartial": "Kaikkia tehtäviä ei voitu ladata. Vain jo ladatut tehtävät on valittu."
+    "selectAllTasksPartial": "Kaikkia tehtäviä ei voitu ladata. Vain jo ladatut tehtävät on valittu.",
+    "settingsSectionPersonalization": "Personointi",
+    "settingsSectionConnectedApps": "Yhdistetyt sovellukset",
+    "recordOptionsTip": "Vinkki: tallenna puhelu napauttamalla tallennuspainikkeen nuolta.",
+    "moreWaysToRecord": "Lisää tallennustapoja"
 }

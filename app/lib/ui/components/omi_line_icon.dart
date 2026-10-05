@@ -12,6 +12,9 @@ enum OmiLineGlyph {
   gift,
   bluetooth,
   microphone,
+
+  /// The microphone without its inner detail, for talking to Omi from Home's Ask bar.
+  voice,
   bell,
   integrations,
   shield,
@@ -74,6 +77,8 @@ const _paths = <OmiLineGlyph, String>{
       '<path $_fine d="M7.2 9.9l4.6 4.2-2.3 2.1V7.8l2.3 2.1-4.6 4.2"/><path d="M18.2 9.6a3.4 3.4 0 0 1 0 4.8M20.5 7.3a6.6 6.6 0 0 1 0 9.4"/>',
   OmiLineGlyph.microphone: '<rect x="8.5" y="2.8" width="7" height="11.4" rx="3.5"/>'
       '<path $_fine d="M10.7 6.6h2.6M10.7 9.2h2.6"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5v3M9 20.8h6"/>',
+  OmiLineGlyph.voice:
+      '<rect x="8.5" y="2.8" width="7" height="11.4" rx="3.5"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5v3"/>',
   OmiLineGlyph.bell: '<path d="M6 16.3v-4.8a6 6 0 0 1 12 0v4.8l1.5 1.9h-15z"/>'
       '<path d="M12 3.6v1.8M10 20.8a2 2 0 0 0 4 0"/><path $_fine d="M3.3 8.6a9 9 0 0 1 2.1-3.4M20.7 8.6a9 9 0 0 0-2.1-3.4"/>',
   // Integrations: a puzzle piece.

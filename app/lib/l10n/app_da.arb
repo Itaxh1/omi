@@ -3829,5 +3829,9 @@
     "pendantReconnectsOnItsOwn": "Omi genopretter forbindelsen af sig selv, når vedhænget er tændt og i nærheden.",
     "pendantRecordingSafe": "Alt optaget før dette er i sikkerhed.",
     "tasksNextPageFailed": "Kunne ikke indlæse flere opgaver. Træk ned for at prøve igen.",
-    "selectAllTasksPartial": "Kunne ikke indlæse alle opgaver. Kun de allerede indlæste er valgt."
+    "selectAllTasksPartial": "Kunne ikke indlæse alle opgaver. Kun de allerede indlæste er valgt.",
+    "settingsSectionPersonalization": "Personalisering",
+    "settingsSectionConnectedApps": "Forbundne apps",
+    "recordOptionsTip": "Tip: tryk på pilen på optageknappen for at optage et telefonopkald.",
+    "moreWaysToRecord": "Flere måder at optage på"
 }

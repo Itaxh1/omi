@@ -12236,4 +12236,16 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'Nepodařilo se načíst všechny úkoly. Vybrány jsou jen ty už načtené.';
+
+  @override
+  String get settingsSectionPersonalization => 'Přizpůsobení';
+
+  @override
+  String get settingsSectionConnectedApps => 'Připojené aplikace';
+
+  @override
+  String get recordOptionsTip => 'Tip: klepnutím na šipku na tlačítku nahrávání nahrajete telefonní hovor.';
+
+  @override
+  String get moreWaysToRecord => 'Další způsoby nahrávání';
 }

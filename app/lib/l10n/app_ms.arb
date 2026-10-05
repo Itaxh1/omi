@@ -3787,5 +3787,9 @@
     "pendantReconnectsOnItsOwn": "Omi akan bersambung semula sendiri apabila loket dihidupkan dan berdekatan.",
     "pendantRecordingSafe": "Semua yang dirakam sebelum ini selamat.",
     "tasksNextPageFailed": "Tidak dapat memuatkan lebih banyak tugasan. Tarik ke bawah untuk mencuba lagi.",
-    "selectAllTasksPartial": "Tidak dapat memuatkan semua tugasan. Hanya tugasan yang sudah dimuatkan dipilih."
+    "selectAllTasksPartial": "Tidak dapat memuatkan semua tugasan. Hanya tugasan yang sudah dimuatkan dipilih.",
+    "settingsSectionPersonalization": "Pemperibadian",
+    "settingsSectionConnectedApps": "Apl yang disambungkan",
+    "recordOptionsTip": "Petua: ketik anak panah pada butang rakam untuk merakam panggilan telefon.",
+    "moreWaysToRecord": "Lebih banyak cara merakam"
 }

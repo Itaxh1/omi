@@ -8,7 +8,6 @@ import 'package:omi/providers/device_provider.dart';
 import 'package:omi/providers/home_provider.dart';
 import 'package:omi/backend/schema/schema.dart';
 import 'package:omi/pages/action_items/action_items_page.dart';
-import 'package:omi/pages/action_items/task_page.dart';
 import 'package:omi/pages/action_items/widgets/action_item_form_sheet.dart';
 import 'package:omi/providers/action_items_provider.dart';
 
@@ -56,9 +55,9 @@ final tasksScenarios = <AuditScenario>[
   ),
   AuditScenario(
     id: 'tasks-edit',
-    title: 'A task on its own page',
-    page: 'lib/pages/action_items/task_page.dart (TaskPage)',
-    state: 'One open task due tomorrow at 9:00, opened from a neutral host through openTaskPage',
+    title: 'Task form editing an existing task heard in a conversation',
+    page: 'lib/pages/action_items/widgets/action_item_form_sheet.dart (ActionItemFormSheet)',
+    state: 'One open task due tomorrow at 9:00, from a conversation, opened for editing through openTaskEditor',
     run: (a) async {
       final tomorrow = DateTime.now().add(const Duration(days: 1));
       final item = ActionItemWithMetadata(
@@ -66,9 +65,10 @@ final tasksScenarios = <AuditScenario>[
         description: 'Book the venue for the launch',
         completed: false,
         dueAt: DateTime(tomorrow.year, tomorrow.month, tomorrow.day, 9),
+        conversationId: 'conversation-1',
       );
-      await a.pumpHost((context) => openTaskPage(context, item));
-      await a.shot('Open an existing task: its own page');
+      await a.pumpHost((context) => openTaskEditor(context, item));
+      await a.shot('Open an existing task for editing, with Open conversation');
     },
   ),
   AuditScenario(

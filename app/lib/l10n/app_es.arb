@@ -3787,5 +3787,9 @@
     "pendantReconnectsOnItsOwn": "Omi se volverá a conectar solo cuando el colgante esté encendido y cerca.",
     "pendantRecordingSafe": "Todo lo grabado antes está a salvo.",
     "tasksNextPageFailed": "No se pudieron cargar más tareas. Desliza hacia abajo para volver a intentarlo.",
-    "selectAllTasksPartial": "No se pudieron cargar todas las tareas. Solo se seleccionaron las ya cargadas."
+    "selectAllTasksPartial": "No se pudieron cargar todas las tareas. Solo se seleccionaron las ya cargadas.",
+    "settingsSectionPersonalization": "Personalización",
+    "settingsSectionConnectedApps": "Apps conectadas",
+    "recordOptionsTip": "Consejo: toca la flecha del botón de grabar para grabar una llamada.",
+    "moreWaysToRecord": "Más formas de grabar"
 }

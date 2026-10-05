@@ -3787,5 +3787,9 @@
     "pendantReconnectsOnItsOwn": "吊坠开机并在附近时，Omi 会自动重新连接。",
     "pendantRecordingSafe": "此前录下的内容都已保存。",
     "tasksNextPageFailed": "无法加载更多任务。下拉以重试。",
-    "selectAllTasksPartial": "无法加载全部任务。仅选中了已加载的任务。"
+    "selectAllTasksPartial": "无法加载全部任务。仅选中了已加载的任务。",
+    "settingsSectionPersonalization": "个性化",
+    "settingsSectionConnectedApps": "已连接的应用",
+    "recordOptionsTip": "提示：点按录音按钮上的箭头即可录制电话通话。",
+    "moreWaysToRecord": "更多录音方式"
 }

@@ -12219,4 +12219,16 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'सभी कार्य लोड नहीं हो सके। केवल पहले से लोड किए गए कार्य चुने गए हैं।';
+
+  @override
+  String get settingsSectionPersonalization => 'वैयक्तिकरण';
+
+  @override
+  String get settingsSectionConnectedApps => 'कनेक्टेड ऐप्स';
+
+  @override
+  String get recordOptionsTip => 'सुझाव: फ़ोन कॉल रिकॉर्ड करने के लिए रिकॉर्ड बटन पर तीर टैप करें।';
+
+  @override
+  String get moreWaysToRecord => 'रिकॉर्ड करने के और तरीके';
 }

@@ -12321,4 +12321,16 @@ class AppLocalizationsEl extends AppLocalizations {
   @override
   String get selectAllTasksPartial =>
       'Δεν ήταν δυνατή η φόρτωση όλων των εργασιών. Επιλέχθηκαν μόνο όσες έχουν ήδη φορτωθεί.';
+
+  @override
+  String get settingsSectionPersonalization => 'Εξατομίκευση';
+
+  @override
+  String get settingsSectionConnectedApps => 'Συνδεδεμένες εφαρμογές';
+
+  @override
+  String get recordOptionsTip => 'Συμβουλή: πατήστε το βέλος στο κουμπί εγγραφής για να καταγράψετε μια κλήση.';
+
+  @override
+  String get moreWaysToRecord => 'Περισσότεροι τρόποι εγγραφής';
 }

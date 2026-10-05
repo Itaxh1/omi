@@ -11344,5 +11344,9 @@
     "pendantReconnectsOnItsOwn": "पेंडंट चालू आणि जवळ असल्यावर Omi आपोआप पुन्हा कनेक्ट होईल.",
     "pendantRecordingSafe": "याआधी रेकॉर्ड झालेले सर्व सुरक्षित आहे.",
     "tasksNextPageFailed": "आणखी कामे लोड करता आली नाहीत. पुन्हा प्रयत्न करण्यासाठी खाली ओढा.",
-    "selectAllTasksPartial": "सर्व कामे लोड करता आली नाहीत. फक्त आधीच लोड झालेली कामे निवडली आहेत."
+    "selectAllTasksPartial": "सर्व कामे लोड करता आली नाहीत. फक्त आधीच लोड झालेली कामे निवडली आहेत.",
+    "settingsSectionPersonalization": "वैयक्तिकरण",
+    "settingsSectionConnectedApps": "कनेक्ट केलेले ॲप्स",
+    "recordOptionsTip": "टीप: फोन कॉल रेकॉर्ड करण्यासाठी रेकॉर्ड बटणावरील बाण टॅप करा.",
+    "moreWaysToRecord": "रेकॉर्ड करण्याचे आणखी मार्ग"
 }

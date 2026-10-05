@@ -11344,5 +11344,9 @@
     "pendantReconnectsOnItsOwn": "Kusang kokonekta muli ang Omi kapag naka-on at malapit ang pendant.",
     "pendantRecordingSafe": "Ligtas ang lahat ng na-record bago nito.",
     "tasksNextPageFailed": "Hindi ma-load ang iba pang mga gawain. Hilahin pababa para subukang muli.",
-    "selectAllTasksPartial": "Hindi ma-load ang lahat ng gawain. Ang mga na-load na gawain lang ang napili."
+    "selectAllTasksPartial": "Hindi ma-load ang lahat ng gawain. Ang mga na-load na gawain lang ang napili.",
+    "settingsSectionPersonalization": "Pag-personalize",
+    "settingsSectionConnectedApps": "Mga konektadong app",
+    "recordOptionsTip": "Tip: i-tap ang arrow sa record button para mag-record ng tawag.",
+    "moreWaysToRecord": "Iba pang paraan ng pag-record"
 }

@@ -12273,4 +12273,16 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'No se pudieron cargar todas las tareas. Solo se seleccionaron las ya cargadas.';
+
+  @override
+  String get settingsSectionPersonalization => 'Personalización';
+
+  @override
+  String get settingsSectionConnectedApps => 'Apps conectadas';
+
+  @override
+  String get recordOptionsTip => 'Consejo: toca la flecha del botón de grabar para grabar una llamada.';
+
+  @override
+  String get moreWaysToRecord => 'Más formas de grabar';
 }

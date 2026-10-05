@@ -11344,5 +11344,9 @@
     "pendantReconnectsOnItsOwn": "وقتی آویز روشن و نزدیک باشد، Omi خودش دوباره وصل می‌شود.",
     "pendantRecordingSafe": "هر آنچه پیش از این ضبط شده محفوظ است.",
     "tasksNextPageFailed": "بارگیری وظایف بیشتر ممکن نشد. برای تلاش دوباره به پایین بکشید.",
-    "selectAllTasksPartial": "بارگیری همه وظایف ممکن نشد. فقط وظایف بارگیری‌شده انتخاب شدند."
+    "selectAllTasksPartial": "بارگیری همه وظایف ممکن نشد. فقط وظایف بارگیری‌شده انتخاب شدند.",
+    "settingsSectionPersonalization": "شخصی‌سازی",
+    "settingsSectionConnectedApps": "برنامه‌های متصل",
+    "recordOptionsTip": "نکته: برای ضبط تماس تلفنی، روی فلش دکمه ضبط بزنید.",
+    "moreWaysToRecord": "روش‌های دیگر ضبط"
 }

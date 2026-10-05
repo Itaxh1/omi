@@ -100,8 +100,9 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('Settings is six labelled groups: Account, Recording, Features, Preferences, Support, Developer',
-      (tester) async {
+  testWidgets(
+      'Settings is seven labelled groups: Account, Recording, Personalization, Connected Apps, Preferences, Support, '
+      'Developer', (tester) async {
     await pumpSheet(tester);
     final rows = _rowsOnScreen(tester);
     expect(rows.map(_keyOf).toList(), [
@@ -137,7 +138,7 @@ void main() {
       en.developerSettings,
     ]);
     final groups = tester.widgetList<OmiSettingsGroup>(find.byType(OmiSettingsGroup)).toList();
-    // First the profile card on its own (no label), then the six labelled groups.
+    // First the profile card on its own (no label), then the seven labelled groups.
     expect(groups.first.header, isNull);
     expect(
         find.descendant(of: find.byKey(const ValueKey('settings_account')), matching: find.byType(OmiSettingsAvatar)),
@@ -145,7 +146,8 @@ void main() {
     expect(groups.skip(1).map((g) => g.header).toList(), [
       en.account,
       en.settingsSectionRecording,
-      en.features,
+      en.settingsSectionPersonalization,
+      en.settingsSectionConnectedApps,
       en.preferences,
       en.settingsSectionSupport,
       en.developer,

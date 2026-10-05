@@ -3787,5 +3787,9 @@
     "pendantReconnectsOnItsOwn": "Omi loob ühenduse ise uuesti, kui ripats on sisse lülitatud ja lähedal.",
     "pendantRecordingSafe": "Kõik varem salvestatu on alles.",
     "tasksNextPageFailed": "Rohkem ülesandeid ei õnnestunud laadida. Uuesti proovimiseks tõmba alla.",
-    "selectAllTasksPartial": "Kõiki ülesandeid ei õnnestunud laadida. Valitud on ainult juba laaditud ülesanded."
+    "selectAllTasksPartial": "Kõiki ülesandeid ei õnnestunud laadida. Valitud on ainult juba laaditud ülesanded.",
+    "settingsSectionPersonalization": "Isikupärastamine",
+    "settingsSectionConnectedApps": "Ühendatud rakendused",
+    "recordOptionsTip": "Nõuanne: telefonikõne salvestamiseks puuduta salvestusnupul olevat noolt.",
+    "moreWaysToRecord": "Rohkem salvestusviise"
 }

@@ -3787,5 +3787,9 @@
     "pendantReconnectsOnItsOwn": "Omi verbindet sich von selbst neu, sobald der Anhänger eingeschaltet und in der Nähe ist.",
     "pendantRecordingSafe": "Alles bisher Aufgenommene ist sicher.",
     "tasksNextPageFailed": "Weitere Aufgaben konnten nicht geladen werden. Zum erneuten Versuch nach unten ziehen.",
-    "selectAllTasksPartial": "Nicht alle Aufgaben konnten geladen werden. Nur die bereits geladenen sind ausgewählt."
+    "selectAllTasksPartial": "Nicht alle Aufgaben konnten geladen werden. Nur die bereits geladenen sind ausgewählt.",
+    "settingsSectionPersonalization": "Personalisierung",
+    "settingsSectionConnectedApps": "Verbundene Apps",
+    "recordOptionsTip": "Tipp: Tippe auf den Pfeil an der Aufnahmetaste, um ein Telefonat aufzunehmen.",
+    "moreWaysToRecord": "Weitere Aufnahmeoptionen"
 }

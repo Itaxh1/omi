@@ -3822,5 +3822,9 @@
     "pendantReconnectsOnItsOwn": "Kolye açık ve yakındayken Omi kendiliğinden yeniden bağlanır.",
     "pendantRecordingSafe": "Bundan önce kaydedilen her şey güvende.",
     "tasksNextPageFailed": "Daha fazla görev yüklenemedi. Yeniden denemek için aşağı çekin.",
-    "selectAllTasksPartial": "Tüm görevler yüklenemedi. Yalnızca zaten yüklenmiş görevler seçildi."
+    "selectAllTasksPartial": "Tüm görevler yüklenemedi. Yalnızca zaten yüklenmiş görevler seçildi.",
+    "settingsSectionPersonalization": "Kişiselleştirme",
+    "settingsSectionConnectedApps": "Bağlı uygulamalar",
+    "recordOptionsTip": "İpucu: telefon görüşmesi kaydetmek için kayıt düğmesindeki oka dokunun.",
+    "moreWaysToRecord": "Diğer kayıt yöntemleri"
 }

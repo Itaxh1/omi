@@ -12236,4 +12236,16 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'সব কাজ লোড করা যায়নি। শুধু ইতিমধ্যে লোড হওয়া কাজগুলো নির্বাচিত হয়েছে।';
+
+  @override
+  String get settingsSectionPersonalization => 'ব্যক্তিগতকরণ';
+
+  @override
+  String get settingsSectionConnectedApps => 'সংযুক্ত অ্যাপ';
+
+  @override
+  String get recordOptionsTip => 'টিপ: ফোন কল রেকর্ড করতে রেকর্ড বোতামের তীর চিহ্নে চাপুন।';
+
+  @override
+  String get moreWaysToRecord => 'রেকর্ড করার আরও উপায়';
 }

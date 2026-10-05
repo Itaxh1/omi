@@ -12045,4 +12045,16 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => '모든 작업을 불러오지 못했습니다. 이미 불러온 작업만 선택되었습니다.';
+
+  @override
+  String get settingsSectionPersonalization => '맞춤 설정';
+
+  @override
+  String get settingsSectionConnectedApps => '연결된 앱';
+
+  @override
+  String get recordOptionsTip => '팁: 녹음 버튼의 화살표를 누르면 전화 통화를 녹음할 수 있습니다.';
+
+  @override
+  String get moreWaysToRecord => '다른 녹음 방법';
 }

@@ -12285,4 +12285,16 @@ class AppLocalizationsHu extends AppLocalizations {
   @override
   String get selectAllTasksPartial =>
       'Nem sikerült minden feladatot betölteni. Csak a már betöltött feladatok vannak kijelölve.';
+
+  @override
+  String get settingsSectionPersonalization => 'Személyre szabás';
+
+  @override
+  String get settingsSectionConnectedApps => 'Csatlakoztatott alkalmazások';
+
+  @override
+  String get recordOptionsTip => 'Tipp: telefonhívás rögzítéséhez koppints a felvétel gomb nyilára.';
+
+  @override
+  String get moreWaysToRecord => 'További rögzítési módok';
 }

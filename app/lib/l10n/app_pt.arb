@@ -3822,5 +3822,9 @@
     "pendantReconnectsOnItsOwn": "O Omi se reconecta sozinho quando o pendente estiver ligado e por perto.",
     "pendantRecordingSafe": "Tudo o que foi gravado antes está seguro.",
     "tasksNextPageFailed": "Não foi possível carregar mais tarefas. Puxe para baixo para tentar novamente.",
-    "selectAllTasksPartial": "Não foi possível carregar todas as tarefas. Só as tarefas já carregadas estão selecionadas."
+    "selectAllTasksPartial": "Não foi possível carregar todas as tarefas. Só as tarefas já carregadas estão selecionadas.",
+    "settingsSectionPersonalization": "Personalização",
+    "settingsSectionConnectedApps": "Apps conectados",
+    "recordOptionsTip": "Dica: toque na seta do botão de gravar para gravar uma ligação.",
+    "moreWaysToRecord": "Mais formas de gravar"
 }

@@ -3787,5 +3787,9 @@
     "pendantReconnectsOnItsOwn": "Omi maakt vanzelf opnieuw verbinding zodra de hanger aan staat en in de buurt is.",
     "pendantRecordingSafe": "Alles wat eerder is opgenomen, is veilig.",
     "tasksNextPageFailed": "Kon geen taken meer laden. Trek omlaag om het opnieuw te proberen.",
-    "selectAllTasksPartial": "Kon niet alle taken laden. Alleen de al geladen taken zijn geselecteerd."
+    "selectAllTasksPartial": "Kon niet alle taken laden. Alleen de al geladen taken zijn geselecteerd.",
+    "settingsSectionPersonalization": "Personalisatie",
+    "settingsSectionConnectedApps": "Gekoppelde apps",
+    "recordOptionsTip": "Tip: tik op de pijl op de opnameknop om een telefoongesprek op te nemen.",
+    "moreWaysToRecord": "Meer manieren om op te nemen"
 }

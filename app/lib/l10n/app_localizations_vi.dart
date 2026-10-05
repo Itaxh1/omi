@@ -12230,4 +12230,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'Không thể tải tất cả việc cần làm. Chỉ những việc đã tải được chọn.';
+
+  @override
+  String get settingsSectionPersonalization => 'Cá nhân hóa';
+
+  @override
+  String get settingsSectionConnectedApps => 'Ứng dụng đã kết nối';
+
+  @override
+  String get recordOptionsTip => 'Mẹo: nhấn vào mũi tên trên nút ghi âm để ghi âm cuộc gọi điện thoại.';
+
+  @override
+  String get moreWaysToRecord => 'Thêm cách ghi âm';
 }

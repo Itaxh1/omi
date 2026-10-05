@@ -12320,4 +12320,17 @@ class AppLocalizationsTa extends AppLocalizations {
   @override
   String get selectAllTasksPartial =>
       'எல்லா பணிகளையும் ஏற்ற முடியவில்லை. ஏற்கனவே ஏற்றப்பட்ட பணிகள் மட்டுமே தேர்ந்தெடுக்கப்பட்டுள்ளன.';
+
+  @override
+  String get settingsSectionPersonalization => 'தனிப்பயனாக்கம்';
+
+  @override
+  String get settingsSectionConnectedApps => 'இணைக்கப்பட்ட ஆப்ஸ்';
+
+  @override
+  String get recordOptionsTip =>
+      'குறிப்பு: தொலைபேசி அழைப்பைப் பதிவுசெய்ய பதிவு பொத்தானில் உள்ள அம்புக்குறியைத் தட்டவும்.';
+
+  @override
+  String get moreWaysToRecord => 'பதிவுசெய்ய மேலும் வழிகள்';
 }

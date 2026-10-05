@@ -806,7 +806,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
                                 bottom: homeChatBarOffset(context),
                                 child: Row(
                                   children: [
-                                    Expanded(child: HomeAskOmiButton(onTap: _openChat)),
+                                    Expanded(
+                                        child:
+                                            HomeAskOmiButton(onTap: _openChat, onVoice: () => _openChat(voice: true))),
                                     const SizedBox(width: 10),
                                     const HomeRecordButton(),
                                   ],
@@ -830,11 +832,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver, Ticker
     );
   }
 
-  /// Chat opens as a sheet that rises over Home (see chat_route.dart).
-  void _openChat() {
+  /// Chat opens as a sheet that rises over Home (see chat_route.dart); the mic opens it listening.
+  void _openChat({bool voice = false}) {
     OmiHaptics.selection();
-    PlatformManager.instance.analytics.bottomNavigationTabClicked('Chat');
-    openChatSheet(context, const ChatPage(isPivotBottom: false));
+    PlatformManager.instance.analytics.bottomNavigationTabClicked(voice ? 'Chat Voice' : 'Chat');
+    openChatSheet(context, ChatPage(isPivotBottom: false, autoStartVoice: voice));
   }
 
   /// One ⋯ beside the switcher while Tasks is showing: the same anchored menu as the conversation

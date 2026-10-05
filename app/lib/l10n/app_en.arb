@@ -14595,5 +14595,21 @@
     "selectAllTasksPartial": "Couldn't load every task. Only the tasks already loaded are selected.",
     "@selectAllTasksPartial": {
         "description": "Toast after Select All on the Tasks list when some pages of tasks could not be loaded, so the selection is partial."
+    },
+    "settingsSectionPersonalization": "Personalization",
+    "@settingsSectionPersonalization": {
+        "description": "Settings group header above Memories and Goals"
+    },
+    "settingsSectionConnectedApps": "Connected Apps",
+    "@settingsSectionConnectedApps": {
+        "description": "Settings group header above Integrations"
+    },
+    "recordOptionsTip": "Tip: tap the arrow on the record button to record a phone call.",
+    "@recordOptionsTip": {
+        "description": "One-time hint after the first phone-mic recording"
+    },
+    "moreWaysToRecord": "More ways to record",
+    "@moreWaysToRecord": {
+        "description": "Accessibility label of the small arrow badge on the record button that opens the 'Record with' sheet."
     }
 }

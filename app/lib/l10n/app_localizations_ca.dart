@@ -12307,4 +12307,16 @@ class AppLocalizationsCa extends AppLocalizations {
   @override
   String get selectAllTasksPartial =>
       'No s\'han pogut carregar totes les tasques. Només s\'han seleccionat les ja carregades.';
+
+  @override
+  String get settingsSectionPersonalization => 'Personalització';
+
+  @override
+  String get settingsSectionConnectedApps => 'Aplicacions connectades';
+
+  @override
+  String get recordOptionsTip => 'Consell: toca la fletxa del botó de gravació per gravar una trucada.';
+
+  @override
+  String get moreWaysToRecord => 'Més maneres de gravar';
 }

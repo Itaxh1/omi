@@ -12277,4 +12277,16 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'Kon niet alle taken laden. Alleen de al geladen taken zijn geselecteerd.';
+
+  @override
+  String get settingsSectionPersonalization => 'Personalisatie';
+
+  @override
+  String get settingsSectionConnectedApps => 'Gekoppelde apps';
+
+  @override
+  String get recordOptionsTip => 'Tip: tik op de pijl op de opnameknop om een telefoongesprek op te nemen.';
+
+  @override
+  String get moreWaysToRecord => 'Meer manieren om op te nemen';
 }

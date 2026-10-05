@@ -3822,5 +3822,9 @@
     "pendantReconnectsOnItsOwn": "Omi akan menyambung kembali sendiri saat liontin menyala dan berada di dekat Anda.",
     "pendantRecordingSafe": "Semua yang direkam sebelumnya aman.",
     "tasksNextPageFailed": "Tidak dapat memuat tugas lainnya. Tarik ke bawah untuk mencoba lagi.",
-    "selectAllTasksPartial": "Tidak dapat memuat semua tugas. Hanya tugas yang sudah dimuat yang dipilih."
+    "selectAllTasksPartial": "Tidak dapat memuat semua tugas. Hanya tugas yang sudah dimuat yang dipilih.",
+    "settingsSectionPersonalization": "Personalisasi",
+    "settingsSectionConnectedApps": "Aplikasi terhubung",
+    "recordOptionsTip": "Tips: ketuk panah pada tombol rekam untuk merekam panggilan telepon.",
+    "moreWaysToRecord": "Cara lain untuk merekam"
 }

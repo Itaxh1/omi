@@ -12241,4 +12241,16 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'Kaikkia tehtäviä ei voitu ladata. Vain jo ladatut tehtävät on valittu.';
+
+  @override
+  String get settingsSectionPersonalization => 'Personointi';
+
+  @override
+  String get settingsSectionConnectedApps => 'Yhdistetyt sovellukset';
+
+  @override
+  String get recordOptionsTip => 'Vinkki: tallenna puhelu napauttamalla tallennuspainikkeen nuolta.';
+
+  @override
+  String get moreWaysToRecord => 'Lisää tallennustapoja';
 }

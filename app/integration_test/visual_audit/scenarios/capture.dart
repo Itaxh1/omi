@@ -226,7 +226,7 @@ class HomeFrame extends StatelessWidget {
             right: 16,
             bottom: homeChatBarOffset(context),
             child: Row(children: [
-              Expanded(child: HomeAskOmiButton(onTap: () {})),
+              Expanded(child: HomeAskOmiButton(onTap: () {}, onVoice: () {})),
               const SizedBox(width: 10),
               const HomeRecordButton(),
             ]),

@@ -12169,4 +12169,16 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'โหลดงานทั้งหมดไม่ได้ เลือกเฉพาะงานที่โหลดแล้วเท่านั้น';
+
+  @override
+  String get settingsSectionPersonalization => 'การปรับให้เป็นส่วนตัว';
+
+  @override
+  String get settingsSectionConnectedApps => 'แอปที่เชื่อมต่อ';
+
+  @override
+  String get recordOptionsTip => 'เคล็ดลับ: แตะลูกศรบนปุ่มบันทึกเพื่อบันทึกการโทร';
+
+  @override
+  String get moreWaysToRecord => 'วิธีบันทึกเพิ่มเติม';
 }

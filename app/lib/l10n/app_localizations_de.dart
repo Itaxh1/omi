@@ -12337,4 +12337,16 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get selectAllTasksPartial =>
       'Nicht alle Aufgaben konnten geladen werden. Nur die bereits geladenen sind ausgewählt.';
+
+  @override
+  String get settingsSectionPersonalization => 'Personalisierung';
+
+  @override
+  String get settingsSectionConnectedApps => 'Verbundene Apps';
+
+  @override
+  String get recordOptionsTip => 'Tipp: Tippe auf den Pfeil an der Aufnahmetaste, um ein Telefonat aufzunehmen.';
+
+  @override
+  String get moreWaysToRecord => 'Weitere Aufnahmeoptionen';
 }

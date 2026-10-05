@@ -12246,4 +12246,16 @@ class AppLocalizationsMr extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'सर्व कामे लोड करता आली नाहीत. फक्त आधीच लोड झालेली कामे निवडली आहेत.';
+
+  @override
+  String get settingsSectionPersonalization => 'वैयक्तिकरण';
+
+  @override
+  String get settingsSectionConnectedApps => 'कनेक्ट केलेले ॲप्स';
+
+  @override
+  String get recordOptionsTip => 'टीप: फोन कॉल रेकॉर्ड करण्यासाठी रेकॉर्ड बटणावरील बाण टॅप करा.';
+
+  @override
+  String get moreWaysToRecord => 'रेकॉर्ड करण्याचे आणखी मार्ग';
 }

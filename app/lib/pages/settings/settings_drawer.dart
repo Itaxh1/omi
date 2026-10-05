@@ -149,13 +149,21 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
           ],
         ),
         gap,
-        // Memories and Goals left the Home tabs (David, 2026-09-29): one tap from Settings.
+        // Memories and Goals left the Home tabs (David, 2026-09-29): one tap from Settings. Each group is
+        // named for what it holds, not "Features" (David, 2026-10-03).
         OmiSettingsGroup(
           style: outlined,
-          header: l10n.features,
+          header: l10n.settingsSectionPersonalization,
           children: [
             _row(SettingsDestination.memories, key: 'settings_row_memories', title: l10n.memories),
             _row(SettingsDestination.goals, key: 'settings_row_goals', title: l10n.goals),
+          ],
+        ),
+        gap,
+        OmiSettingsGroup(
+          style: outlined,
+          header: l10n.settingsSectionConnectedApps,
+          children: [
             _row(SettingsDestination.integrations, key: 'settings_group_integrations', title: l10n.integrations),
           ],
         ),

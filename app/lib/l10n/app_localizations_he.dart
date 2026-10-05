@@ -12142,4 +12142,16 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'לא ניתן לטעון את כל המשימות. נבחרו רק המשימות שכבר נטענו.';
+
+  @override
+  String get settingsSectionPersonalization => 'התאמה אישית';
+
+  @override
+  String get settingsSectionConnectedApps => 'אפליקציות מחוברות';
+
+  @override
+  String get recordOptionsTip => 'טיפ: הקישו על החץ בכפתור ההקלטה כדי להקליט שיחת טלפון.';
+
+  @override
+  String get moreWaysToRecord => 'דרכים נוספות להקליט';
 }

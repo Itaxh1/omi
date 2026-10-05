@@ -3787,5 +3787,9 @@
     "pendantReconnectsOnItsOwn": "Omi es tornarà a connectar sol quan el penjoll estigui encès i a prop.",
     "pendantRecordingSafe": "Tot el que s'ha gravat abans és segur.",
     "tasksNextPageFailed": "No s'han pogut carregar més tasques. Arrossega cap avall per tornar-ho a provar.",
-    "selectAllTasksPartial": "No s'han pogut carregar totes les tasques. Només s'han seleccionat les ja carregades."
+    "selectAllTasksPartial": "No s'han pogut carregar totes les tasques. Només s'han seleccionat les ja carregades.",
+    "settingsSectionPersonalization": "Personalització",
+    "settingsSectionConnectedApps": "Aplicacions connectades",
+    "recordOptionsTip": "Consell: toca la fletxa del botó de gravació per gravar una trucada.",
+    "moreWaysToRecord": "Més maneres de gravar"
 }

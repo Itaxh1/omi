@@ -12277,4 +12277,16 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'Не удалось загрузить все задачи. Выбраны только уже загруженные задачи.';
+
+  @override
+  String get settingsSectionPersonalization => 'Персонализация';
+
+  @override
+  String get settingsSectionConnectedApps => 'Подключённые приложения';
+
+  @override
+  String get recordOptionsTip => 'Совет: нажмите стрелку на кнопке записи, чтобы записать телефонный звонок.';
+
+  @override
+  String get moreWaysToRecord => 'Другие способы записи';
 }

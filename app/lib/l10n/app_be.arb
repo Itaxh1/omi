@@ -11344,5 +11344,9 @@
     "pendantReconnectsOnItsOwn": "Omi перападключыцца сам, калі кулон уключаны і побач.",
     "pendantRecordingSafe": "Усё, што запісана да гэтага, захавана.",
     "tasksNextPageFailed": "Не ўдалося загрузіць больш задач. Пацягніце ўніз, каб паўтарыць.",
-    "selectAllTasksPartial": "Не ўдалося загрузіць усе задачы. Выбраны толькі ўжо загружаныя задачы."
+    "selectAllTasksPartial": "Не ўдалося загрузіць усе задачы. Выбраны толькі ўжо загружаныя задачы.",
+    "settingsSectionPersonalization": "Персаналізацыя",
+    "settingsSectionConnectedApps": "Падключаныя праграмы",
+    "recordOptionsTip": "Парада: націсніце стрэлку на кнопцы запісу, каб запісаць тэлефонны званок.",
+    "moreWaysToRecord": "Іншыя спосабы запісу"
 }

@@ -3787,5 +3787,9 @@
     "pendantReconnectsOnItsOwn": "Omi ще се свърже отново сам, когато висулката е включена и наблизо.",
     "pendantRecordingSafe": "Всичко записано дотук е запазено.",
     "tasksNextPageFailed": "Не можахме да заредим още задачи. Дръпнете надолу, за да опитате отново.",
-    "selectAllTasksPartial": "Не можахме да заредим всички задачи. Избрани са само вече заредените."
+    "selectAllTasksPartial": "Не можахме да заредим всички задачи. Избрани са само вече заредените.",
+    "settingsSectionPersonalization": "Персонализиране",
+    "settingsSectionConnectedApps": "Свързани приложения",
+    "recordOptionsTip": "Съвет: докоснете стрелката на бутона за запис, за да запишете телефонно обаждане.",
+    "moreWaysToRecord": "Още начини за запис"
 }

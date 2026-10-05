@@ -12341,4 +12341,16 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'Hindi ma-load ang lahat ng gawain. Ang mga na-load na gawain lang ang napili.';
+
+  @override
+  String get settingsSectionPersonalization => 'Pag-personalize';
+
+  @override
+  String get settingsSectionConnectedApps => 'Mga konektadong app';
+
+  @override
+  String get recordOptionsTip => 'Tip: i-tap ang arrow sa record button para mag-record ng tawag.';
+
+  @override
+  String get moreWaysToRecord => 'Iba pang paraan ng pag-record';
 }

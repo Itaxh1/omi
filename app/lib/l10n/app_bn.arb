@@ -11344,5 +11344,9 @@
     "pendantReconnectsOnItsOwn": "পেনড্যান্ট চালু ও কাছে থাকলে Omi নিজে থেকেই আবার সংযোগ করবে।",
     "pendantRecordingSafe": "এর আগে যা রেকর্ড হয়েছে তা নিরাপদ।",
     "tasksNextPageFailed": "আরও কাজ লোড করা যায়নি। আবার চেষ্টা করতে নিচে টানুন।",
-    "selectAllTasksPartial": "সব কাজ লোড করা যায়নি। শুধু ইতিমধ্যে লোড হওয়া কাজগুলো নির্বাচিত হয়েছে।"
+    "selectAllTasksPartial": "সব কাজ লোড করা যায়নি। শুধু ইতিমধ্যে লোড হওয়া কাজগুলো নির্বাচিত হয়েছে।",
+    "settingsSectionPersonalization": "ব্যক্তিগতকরণ",
+    "settingsSectionConnectedApps": "সংযুক্ত অ্যাপ",
+    "recordOptionsTip": "টিপ: ফোন কল রেকর্ড করতে রেকর্ড বোতামের তীর চিহ্নে চাপুন।",
+    "moreWaysToRecord": "রেকর্ড করার আরও উপায়"
 }

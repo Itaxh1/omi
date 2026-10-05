@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:omi/backend/schema/schema.dart';
 import 'package:omi/env/env.dart';
 import 'package:omi/pages/action_items/action_items_page.dart';
-import 'package:omi/pages/action_items/task_page.dart';
+import 'package:omi/pages/action_items/widgets/action_item_form_sheet.dart';
 import 'package:omi/pages/action_items/widgets/task_row_parts.dart';
 import 'package:omi/providers/goals_provider.dart';
 import 'package:omi/providers/task_integration_provider.dart';
@@ -13,7 +12,6 @@ import 'package:omi/providers/usage_provider.dart';
 import 'package:omi/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:omi/providers/action_items_provider.dart';
-import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/platform/platform_manager.dart';
 
 import '../support/typed_action_items_screen.dart';
@@ -322,86 +320,15 @@ void main() {
     expect(find.text('Indent'), findsNothing);
   });
 
-  testWidgets('the task page rows stay activatable for assistive tech', (tester) async {
-    final handle = tester.ensureSemantics();
-    await pumpPage(tester);
-    await tester.tap(find.text('Draft the update'));
-    await tester.pumpAndSettle();
-
-    // The merged nodes keep their tap action: a screen reader can open the conversation and the rows.
-    bool tappable(String label) =>
-        tester.getSemantics(find.bySemanticsLabel(label)).getSemanticsData().hasAction(SemanticsAction.tap);
-    expect(tappable('Open conversation'), isTrue);
-    expect(tappable('Mark Complete'), isTrue);
-    handle.dispose();
-  });
-
-  testWidgets('the page sends one completion toggle at a time', (tester) async {
-    // A slow server: the second tap lands while the first toggle is still in flight.
-    final (_, completions) = await pumpApp(tester, updateDelay: const Duration(milliseconds: 300));
-    await tester.tap(find.text('Draft the update'));
-    await tester.pumpAndSettle();
-
-    final toggle = find.byKey(const Key('task_completed_toggle'));
-    await tester.tap(toggle);
-    await tester.pump();
-    await tester.tap(toggle);
-    await tester.pump(const Duration(seconds: 1));
-    await tester.pumpAndSettle();
-    expect(completions, [true]);
-    expect(find.text('Completed'), findsOneWidget);
-  });
-
-  testWidgets('the page shows the provider\'s state when another surface toggles the task meanwhile', (tester) async {
-    final (provider, completions) = await pumpApp(tester, updateDelay: const Duration(milliseconds: 300));
-    await tester.tap(find.text('Draft the update'));
-    await tester.pumpAndSettle();
-
-    await tester.tap(find.byKey(const Key('task_completed_toggle')));
-    await tester.pump();
-    // The list (or Home) restores the same task while the page's request is still in flight.
-    final open = provider.actionItems.firstWhere((i) => i.id == 'open');
-    final restore = provider.updateActionItemState(open, false);
-    await tester.pump(const Duration(seconds: 1));
-    await restore;
-    await tester.pumpAndSettle();
-
-    expect(completions, [true, false]);
-    expect(find.text('Mark Complete'), findsOneWidget);
-    expect(find.text('Completed'), findsNothing);
-  });
-
-  testWidgets('the completion row is disabled while a save is in flight', (tester) async {
-    final (_, completions) = await pumpApp(tester, updateDelay: const Duration(milliseconds: 300));
-    await tester.tap(find.text('Draft the update'));
-    await tester.pumpAndSettle();
-
-    await tester.enterText(find.byKey(const Key('task_description')), 'Draft the investor update');
-    await tester.pump();
-    await tester.tap(find.byKey(const Key('task_save_button')));
-    await tester.pump();
-    // While the description update is in flight the toggle does nothing.
-    await tester.tap(find.byKey(const Key('task_completed_toggle')));
-    await tester.pump(const Duration(seconds: 1));
-    await tester.pumpAndSettle();
-
-    expect(completions, isEmpty);
-  });
-
-  testWidgets('tapping a task opens its page with the conversation line, and Save wakes up on an edit', (tester) async {
+  testWidgets('tapping a task heard in a conversation opens the edit sheet with Open conversation', (tester) async {
     await pumpPage(tester);
 
     await tester.tap(find.text('Draft the update'));
     await tester.pumpAndSettle();
-    expect(find.byType(TaskPage), findsOneWidget);
+    expect(find.byType(ActionItemFormSheet), findsOneWidget);
+    expect(find.byKey(const Key('task_open_conversation')), findsOneWidget);
     expect(find.text('Open conversation'), findsOneWidget);
     expect(find.text('Mark Complete'), findsOneWidget);
-    expect(find.text('Delete Task'), findsOneWidget);
-    final save = find.byKey(const Key('task_save_button'));
-    expect(tester.widget<OmiButton>(save).onPressed, isNull);
-
-    await tester.enterText(find.byKey(const Key('task_description')), 'Draft the investor update');
-    await tester.pump();
-    expect(tester.widget<OmiButton>(save).onPressed, isNotNull);
+    expect(find.byKey(const Key('task_save_button')), findsOneWidget);
   });
 }

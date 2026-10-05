@@ -3787,5 +3787,9 @@
     "pendantReconnectsOnItsOwn": "Omi pats vėl prisijungs, kai pakabukas bus įjungtas ir netoliese.",
     "pendantRecordingSafe": "Viskas, kas įrašyta iki šiol, išsaugota.",
     "tasksNextPageFailed": "Nepavyko įkelti daugiau užduočių. Patraukite žemyn, kad bandytumėte dar kartą.",
-    "selectAllTasksPartial": "Nepavyko įkelti visų užduočių. Pasirinktos tik jau įkeltos užduotys."
+    "selectAllTasksPartial": "Nepavyko įkelti visų užduočių. Pasirinktos tik jau įkeltos užduotys.",
+    "settingsSectionPersonalization": "Personalizavimas",
+    "settingsSectionConnectedApps": "Prijungtos programėlės",
+    "recordOptionsTip": "Patarimas: norėdami įrašyti skambutį, bakstelėkite rodyklę ant įrašymo mygtuko.",
+    "moreWaysToRecord": "Daugiau įrašymo būdų"
 }

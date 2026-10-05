@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:omi/ui/components/omi_glass.dart';
+import 'package:omi/ui/components/omi_line_icon.dart';
 import 'package:omi/ui/omi_canvas.dart';
 import 'package:omi/ui/omi_tokens.dart';
 import 'package:omi/utils/l10n_extensions.dart';
@@ -112,43 +113,82 @@ class HomeChatBarBackdrop extends StatelessWidget {
   }
 }
 
-/// Home's text-only "Ask anything" button, left of the record button in the floating row. The same
-/// height and glass as the record button, so the pair reads as one set. Voice lives in the chat
-/// composer.
+/// Home's "Ask anything" bar, left of the record button in the floating row: the same height and
+/// glass as the record button, so the pair reads as one set. The label opens the chat to type; the
+/// round mic at the end opens it already listening, as main's Home mic does (David, 2026-10-03).
 class HomeAskOmiButton extends StatelessWidget {
-  const HomeAskOmiButton({super.key, required this.onTap});
+  const HomeAskOmiButton({super.key, required this.onTap, required this.onVoice});
 
   final VoidCallback onTap;
+  final VoidCallback onVoice;
 
   @override
   Widget build(BuildContext context) {
-    final label = context.l10n.askAnythingButton;
-    return Semantics(
-      container: true,
-      button: true,
-      label: label,
-      onTap: onTap,
-      child: GestureDetector(
-        key: const ValueKey('home_ask_omi_bar'),
-        behavior: HitTestBehavior.opaque,
-        onTap: onTap,
-        child: OmiGlass(
-          shape: const StadiumBorder(),
-          blur: true,
-          child: Container(
-            height: kHomeChatBarHeight,
-            padding: const EdgeInsets.symmetric(horizontal: OmiSpacing.md),
-            alignment: Alignment.center,
-            child: ExcludeSemantics(
-              child: Text(
-                label,
-                style: OmiType.callout.copyWith(color: OmiColors.textPrimary, fontWeight: FontWeight.w500),
-                textAlign: TextAlign.center,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+    final l10n = context.l10n;
+    final label = l10n.askAnythingButton;
+    return OmiGlass(
+      shape: const StadiumBorder(),
+      blur: true,
+      child: SizedBox(
+        height: kHomeChatBarHeight,
+        child: Row(
+          children: [
+            Expanded(
+              child: Semantics(
+                container: true,
+                button: true,
+                label: label,
+                onTap: onTap,
+                excludeSemantics: true,
+                child: GestureDetector(
+                  key: const ValueKey('home_ask_omi_bar'),
+                  behavior: HitTestBehavior.opaque,
+                  onTap: onTap,
+                  child: Padding(
+                    padding: const EdgeInsetsDirectional.only(start: 22),
+                    child: Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Text(
+                        label,
+                        style: OmiType.callout.copyWith(color: OmiColors.textSecondary, fontWeight: FontWeight.w500),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
-          ),
+            // The mic owns the bar's full height and its rounded end, not just the circle, so a near
+            // miss still talks instead of opening text chat.
+            Semantics(
+              container: true,
+              button: true,
+              label: l10n.voiceMode,
+              onTap: onVoice,
+              excludeSemantics: true,
+              child: GestureDetector(
+                key: const ValueKey('home_ask_omi_voice'),
+                behavior: HitTestBehavior.opaque,
+                onTap: onVoice,
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.only(start: 8, end: 6),
+                  child: Center(
+                    child: Container(
+                      width: 46,
+                      height: 46,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: OmiColors.textPrimary.withValues(alpha: 0.07),
+                        shape: BoxShape.circle,
+                      ),
+                      child: OmiLineIcon(OmiLineGlyph.voice, size: 21, color: OmiColors.textPrimary),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

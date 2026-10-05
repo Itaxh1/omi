@@ -12276,4 +12276,16 @@ class AppLocalizationsKn extends AppLocalizations {
   @override
   String get selectAllTasksPartial =>
       'ಎಲ್ಲಾ ಕಾರ್ಯಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗಲಿಲ್ಲ. ಈಗಾಗಲೇ ಲೋಡ್ ಆದ ಕಾರ್ಯಗಳನ್ನು ಮಾತ್ರ ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ.';
+
+  @override
+  String get settingsSectionPersonalization => 'ವೈಯಕ್ತೀಕರಣ';
+
+  @override
+  String get settingsSectionConnectedApps => 'ಸಂಪರ್ಕಿತ ಆ್ಯಪ್‌ಗಳು';
+
+  @override
+  String get recordOptionsTip => 'ಸಲಹೆ: ಫೋನ್ ಕರೆ ರೆಕಾರ್ಡ್ ಮಾಡಲು ರೆಕಾರ್ಡ್ ಬಟನ್‌ನಲ್ಲಿರುವ ಬಾಣದ ಗುರುತನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ.';
+
+  @override
+  String get moreWaysToRecord => 'ರೆಕಾರ್ಡ್ ಮಾಡಲು ಇನ್ನಷ್ಟು ಮಾರ್ಗಗಳು';
 }

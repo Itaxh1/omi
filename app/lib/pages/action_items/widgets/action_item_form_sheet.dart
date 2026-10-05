@@ -11,10 +11,13 @@ import 'package:share_plus/share_plus.dart';
 
 import 'package:omi/backend/http/api/action_items.dart' as action_items_api;
 import 'package:omi/backend/schema/schema.dart';
+import 'package:omi/pages/chat/widgets/content_blocks/conversation_link_blocks.dart' show openChatBlockConversation;
+import 'package:omi/pages/settings/usage_page.dart';
 import 'package:omi/pages/action_items/task_delete_undo.dart';
 import 'package:omi/providers/action_items_provider.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/l10n_extensions.dart';
+import 'package:omi/utils/other/temp.dart';
 import 'package:omi/utils/share_links.dart';
 import 'package:omi/widgets/calendar_date_picker_sheet.dart';
 import 'package:omi/utils/share_sheet.dart';
@@ -32,6 +35,16 @@ Future<void> showActionItemFormSheet(
     context: context,
     builder: (_) => ActionItemFormSheet(actionItem: actionItem, defaultDueDate: defaultDueDate, onRefresh: onRefresh),
   );
+}
+
+/// Opens an existing [item] in the task sheet, so several tasks can be edited in a row from the list
+/// (David, 2026-10-03).
+///
+/// A paywalled task can't be read in full or changed (the backend answers 402 to every edit), so
+/// it goes to the plan page instead, like a locked conversation.
+Future<void> openTaskEditor(BuildContext context, ActionItemWithMetadata item) {
+  if (item.isLocked) return routeToPage(context, const UsagePage(showUpgradeDialog: true));
+  return showActionItemFormSheet(context, actionItem: item);
 }
 
 /// Creates or edits one task. Explicit Cancel and Save; completion (edit mode) applies the moment
@@ -166,6 +179,15 @@ class _ActionItemFormSheetState extends State<ActionItemFormSheet> {
     final date = DateTime(now.year, now.month, now.day + days, 18);
     OmiHaptics.selection();
     setState(() => _selectedDueDate = date.isBefore(now) ? DateTime(now.year, now.month, now.day, 23, 59, 59) : date);
+  }
+
+  /// The conversation the task was heard in, over the sheet: back returns to the sheet with its edits.
+  Future<void> _openConversation() async {
+    final id = widget.actionItem?.conversationId;
+    if (id == null) return;
+    OmiHaptics.selection();
+    final opened = await openChatBlockConversation(context, conversationId: id);
+    if (!opened && mounted) OmiFeedback.info(context, context.l10n.conversationNotFoundOrDeleted);
   }
 
   void _deleteActionItem() {
@@ -340,6 +362,22 @@ class _ActionItemFormSheetState extends State<ActionItemFormSheet> {
                   side: BorderSide(color: OmiColors.border),
                 ),
             ]),
+            if (widget.isEditing && widget.actionItem!.conversationId != null)
+              InkWell(
+                key: const Key('task_open_conversation'),
+                onTap: _isSaving ? null : _openConversation,
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(minHeight: kOmiMinTapTarget),
+                  child: Row(
+                    children: [
+                      Icon(Icons.chat_bubble_outline_rounded, size: 20, color: OmiColors.textSecondary),
+                      const SizedBox(width: OmiSpacing.md),
+                      Expanded(child: Text(l10n.openConversation, style: OmiType.callout)),
+                      Icon(Icons.chevron_right_rounded, size: 20, color: OmiColors.textTertiary),
+                    ],
+                  ),
+                ),
+              ),
             Align(
               alignment: AlignmentDirectional.centerEnd,
               child: Text(

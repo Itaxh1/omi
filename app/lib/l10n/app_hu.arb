@@ -3883,5 +3883,9 @@
     "pendantReconnectsOnItsOwn": "Az Omi magától újracsatlakozik, amikor a medál be van kapcsolva és a közelben van.",
     "pendantRecordingSafe": "Minden, amit eddig rögzített, biztonságban van.",
     "tasksNextPageFailed": "Nem sikerült több feladatot betölteni. Húzd le az újrapróbáláshoz.",
-    "selectAllTasksPartial": "Nem sikerült minden feladatot betölteni. Csak a már betöltött feladatok vannak kijelölve."
+    "selectAllTasksPartial": "Nem sikerült minden feladatot betölteni. Csak a már betöltött feladatok vannak kijelölve.",
+    "settingsSectionPersonalization": "Személyre szabás",
+    "settingsSectionConnectedApps": "Csatlakoztatott alkalmazások",
+    "recordOptionsTip": "Tipp: telefonhívás rögzítéséhez koppints a felvétel gomb nyilára.",
+    "moreWaysToRecord": "További rögzítési módok"
 }

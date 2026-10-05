@@ -12041,4 +12041,16 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'すべてのタスクを読み込めませんでした。読み込み済みのタスクのみ選択されています。';
+
+  @override
+  String get settingsSectionPersonalization => 'パーソナライズ';
+
+  @override
+  String get settingsSectionConnectedApps => '連携アプリ';
+
+  @override
+  String get recordOptionsTip => 'ヒント：録音ボタンの矢印をタップすると通話を録音できます。';
+
+  @override
+  String get moreWaysToRecord => 'その他の録音方法';
 }

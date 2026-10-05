@@ -12289,4 +12289,16 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'అన్ని పనులను లోడ్ చేయలేకపోయాము. ఇప్పటికే లోడ్ అయిన పనులు మాత్రమే ఎంచుకోబడ్డాయి.';
+
+  @override
+  String get settingsSectionPersonalization => 'వ్యక్తిగతీకరణ';
+
+  @override
+  String get settingsSectionConnectedApps => 'కనెక్ట్ చేసిన యాప్‌లు';
+
+  @override
+  String get recordOptionsTip => 'చిట్కా: ఫోన్ కాల్ రికార్డ్ చేయడానికి రికార్డ్ బటన్‌పై ఉన్న బాణం గుర్తును నొక్కండి.';
+
+  @override
+  String get moreWaysToRecord => 'రికార్డ్ చేయడానికి మరిన్ని మార్గాలు';
 }

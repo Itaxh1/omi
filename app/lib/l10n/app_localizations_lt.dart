@@ -12257,4 +12257,16 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'Nepavyko įkelti visų užduočių. Pasirinktos tik jau įkeltos užduotys.';
+
+  @override
+  String get settingsSectionPersonalization => 'Personalizavimas';
+
+  @override
+  String get settingsSectionConnectedApps => 'Prijungtos programėlės';
+
+  @override
+  String get recordOptionsTip => 'Patarimas: norėdami įrašyti skambutį, bakstelėkite rodyklę ant įrašymo mygtuko.';
+
+  @override
+  String get moreWaysToRecord => 'Daugiau įrašymo būdų';
 }

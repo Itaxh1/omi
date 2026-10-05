@@ -12271,4 +12271,16 @@ class AppLocalizationsMs extends AppLocalizations {
   @override
   String get selectAllTasksPartial =>
       'Tidak dapat memuatkan semua tugasan. Hanya tugasan yang sudah dimuatkan dipilih.';
+
+  @override
+  String get settingsSectionPersonalization => 'Pemperibadian';
+
+  @override
+  String get settingsSectionConnectedApps => 'Apl yang disambungkan';
+
+  @override
+  String get recordOptionsTip => 'Petua: ketik anak panah pada butang rakam untuk merakam panggilan telefon.';
+
+  @override
+  String get moreWaysToRecord => 'Lebih banyak cara merakam';
 }

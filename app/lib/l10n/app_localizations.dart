@@ -21914,6 +21914,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t load every task. Only the tasks already loaded are selected.'**
   String get selectAllTasksPartial;
+
+  /// Settings group header above Memories and Goals
+  ///
+  /// In en, this message translates to:
+  /// **'Personalization'**
+  String get settingsSectionPersonalization;
+
+  /// Settings group header above Integrations
+  ///
+  /// In en, this message translates to:
+  /// **'Connected Apps'**
+  String get settingsSectionConnectedApps;
+
+  /// One-time hint after the first phone-mic recording
+  ///
+  /// In en, this message translates to:
+  /// **'Tip: tap the arrow on the record button to record a phone call.'**
+  String get recordOptionsTip;
+
+  /// Accessibility label of the small arrow badge on the record button that opens the 'Record with' sheet.
+  ///
+  /// In en, this message translates to:
+  /// **'More ways to record'**
+  String get moreWaysToRecord;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

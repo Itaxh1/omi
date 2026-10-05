@@ -12262,4 +12262,16 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'Не вдалося завантажити всі завдання. Вибрано лише вже завантажені завдання.';
+
+  @override
+  String get settingsSectionPersonalization => 'Персоналізація';
+
+  @override
+  String get settingsSectionConnectedApps => 'Підключені застосунки';
+
+  @override
+  String get recordOptionsTip => 'Порада: торкніться стрілки на кнопці запису, щоб записати телефонний дзвінок.';
+
+  @override
+  String get moreWaysToRecord => 'Інші способи запису';
 }

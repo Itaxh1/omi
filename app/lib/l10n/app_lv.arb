@@ -3787,5 +3787,9 @@
     "pendantReconnectsOnItsOwn": "Omi pats atjaunos savienojumu, kad kulons būs ieslēgts un tuvumā.",
     "pendantRecordingSafe": "Viss, kas ierakstīts līdz šim, ir drošībā.",
     "tasksNextPageFailed": "Neizdevās ielādēt vairāk uzdevumu. Pavelciet uz leju, lai mēģinātu vēlreiz.",
-    "selectAllTasksPartial": "Neizdevās ielādēt visus uzdevumus. Atlasīti tikai jau ielādētie uzdevumi."
+    "selectAllTasksPartial": "Neizdevās ielādēt visus uzdevumus. Atlasīti tikai jau ielādētie uzdevumi.",
+    "settingsSectionPersonalization": "Personalizācija",
+    "settingsSectionConnectedApps": "Pievienotās lietotnes",
+    "recordOptionsTip": "Padoms: lai ierakstītu tālruņa zvanu, pieskarieties bultiņai uz ieraksta pogas.",
+    "moreWaysToRecord": "Citi ierakstīšanas veidi"
 }

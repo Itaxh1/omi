@@ -222,9 +222,10 @@ class _DevicePill extends StatelessWidget {
   }
 }
 
-/// The record button beside Home's Ask Anything. Idle, a tap asks how to record (this phone or a
-/// phone call); while the phone records it is the stop. An Omi call, a listening pendant and a
-/// Transcribe Later pendant each keep their own answer to a tap.
+/// The record button beside Home's Ask Anything. A tap starts or stops a phone recording, as on main;
+/// holding it, or its ⌄ badge, opens the other ways to record (David, 2026-10-03). The options are
+/// announced as the long-press action, and a one-time tip points them out after the first recording.
+/// An Omi call, a listening pendant and a Transcribe Later pendant each keep their own answer to a tap.
 class HomeRecordButton extends StatefulWidget {
   const HomeRecordButton({super.key});
 
@@ -233,19 +234,11 @@ class HomeRecordButton extends StatefulWidget {
 }
 
 class _HomeRecordButtonState extends State<HomeRecordButton> {
-  void _onTap(BuildContext context) {
-    final capture = context.read<CaptureProvider>();
-    if (capture.recordingState == RecordingState.initialising) return;
-    final ownsRecording = _phoneOwnsCapture(capture);
-    if (ownsRecording || _callInProgress(context) || _pendantHasCapture(capture) || capture.isPendantBatchRecording) {
-      _startRecording(context);
-      return;
-    }
-    _showRecordOptions(context);
-  }
+  static const _optionsTipKey = 'v2/homeRecordOptionsTipShown';
 
   void _showRecordOptions(BuildContext context) {
     OmiHaptics.light();
+    SharedPreferencesUtil().saveBool(_optionsTipKey, true);
     showOmiSheet<void>(
       context: context,
       title: context.l10n.recordWith,
@@ -261,6 +254,14 @@ class _HomeRecordButtonState extends State<HomeRecordButton> {
         },
       ),
     );
+  }
+
+  /// Once, after the first recording stops: say that the arrow offers more ways to record.
+  void _maybeShowOptionsTip(BuildContext context) {
+    final prefs = SharedPreferencesUtil();
+    if (prefs.getBool(_optionsTipKey)) return;
+    prefs.saveBool(_optionsTipKey, true);
+    OmiFeedback.info(context, context.l10n.recordOptionsTip);
   }
 
   /// The phone capture is this button's own: live, paused, or interrupted while transcription
@@ -328,6 +329,7 @@ class _HomeRecordButtonState extends State<HomeRecordButton> {
       // whose local file is finalized on stop), then any pendant it paused resumes.
       await captureProvider.finishCapture();
       PlatformManager.instance.analytics.phoneMicRecordingStopped();
+      if (context.mounted) _maybeShowOptionsTip(context);
       return;
     }
     if (captureProvider.isPendantBatchRecording) {
@@ -366,24 +368,22 @@ class _HomeRecordButtonState extends State<HomeRecordButton> {
         // The phone recording is this button's own (live or paused); anything else is idle here.
         final isRecording = _phoneOwnsCapture(captureProvider);
         final isInitialising = captureProvider.recordingState == RecordingState.initialising;
+        final canShowOptions = !isRecording && !isInitialising;
         final l10n = context.l10n;
-        // Idle with nothing to take over, a tap opens the Record with chooser rather than recording,
-        // so a screen reader hears what it opens.
-        final callInProgress = context.select<PhoneCallProvider, bool>((p) => _isCallLive(p.callState));
-        final opensChooser = !isRecording &&
-            !isInitialising &&
-            !callInProgress &&
-            !_pendantHasCapture(captureProvider) &&
-            !captureProvider.isPendantBatchRecording;
-        return Semantics(
+        final circle = Semantics(
           button: true,
-          label: isRecording ? l10n.stopRecording : (opensChooser ? l10n.recordWith : l10n.startRecording),
+          label: isRecording ? l10n.stopRecording : l10n.startRecording,
           enabled: !isInitialising,
-          onTap: isInitialising ? null : () => _onTap(context),
+          // The child's gestures are excluded below, so the actions (tap, and long-press for the
+          // record options) are declared here where assistive tech can reach them.
+          onTap: isInitialising ? null : () => _startRecording(context),
+          onLongPress: canShowOptions ? () => _showRecordOptions(context) : null,
+          onLongPressHint: canShowOptions ? l10n.moreOptions : null,
           excludeSemantics: true,
           child: GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onTap: () => _onTap(context),
+            onTap: () => _startRecording(context),
+            onLongPress: canShowOptions ? () => _showRecordOptions(context) : null,
             // A glass circle floating over the list: a dot, a stop square while the phone records.
             child: OmiGlass(
               shape: const CircleBorder(),
@@ -408,6 +408,44 @@ class _HomeRecordButtonState extends State<HomeRecordButton> {
               ),
             ),
           ),
+        );
+        // The badge is its own control (and its own accessibility node) beside the circle's.
+        return SizedBox(
+          width: 62,
+          height: 62,
+          child: Stack(clipBehavior: Clip.none, children: [
+            circle,
+            if (canShowOptions)
+              Positioned(
+                right: 0,
+                bottom: 0,
+                child: Semantics(
+                  button: true,
+                  label: l10n.moreWaysToRecord,
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => _showRecordOptions(context),
+                    // A 30pt hit area around the 22pt badge, inside the button's 62pt box (a Stack
+                    // does not hit-test outside its bounds, and 44pt would cover the circle's
+                    // centre). Screen readers also get the options as the circle's long-press action.
+                    child: Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: Container(
+                        width: 22,
+                        height: 22,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: OmiColors.surface3,
+                          shape: BoxShape.circle,
+                          border: Border.all(color: OmiColors.surface0, width: 2),
+                        ),
+                        child: Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: OmiColors.textPrimary),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+          ]),
         );
       },
     );
@@ -447,7 +485,8 @@ class SlashLinePainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
-/// Ways to record, opened by tapping the home record button. Shown in the shared sheet shell.
+/// Ways to record, opened by holding the home record button or tapping its ⌄ badge. Shown in the shared
+/// sheet shell.
 class RecordOptionsSheet extends StatelessWidget {
   final VoidCallback onPickPhoneMic;
   final VoidCallback onPickPhoneCall;

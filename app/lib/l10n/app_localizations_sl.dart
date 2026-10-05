@@ -12268,4 +12268,16 @@ class AppLocalizationsSl extends AppLocalizations {
 
   @override
   String get selectAllTasksPartial => 'Vseh opravil ni bilo mogoče naložiti. Izbrana so samo že naložena opravila.';
+
+  @override
+  String get settingsSectionPersonalization => 'Prilagajanje';
+
+  @override
+  String get settingsSectionConnectedApps => 'Povezane aplikacije';
+
+  @override
+  String get recordOptionsTip => 'Namig: tapnite puščico na gumbu za snemanje, da posnamete telefonski klic.';
+
+  @override
+  String get moreWaysToRecord => 'Več načinov snemanja';
 }

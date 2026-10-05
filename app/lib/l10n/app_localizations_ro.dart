@@ -12292,4 +12292,16 @@ class AppLocalizationsRo extends AppLocalizations {
   @override
   String get selectAllTasksPartial =>
       'Nu s-au putut încărca toate sarcinile. Sunt selectate doar sarcinile deja încărcate.';
+
+  @override
+  String get settingsSectionPersonalization => 'Personalizare';
+
+  @override
+  String get settingsSectionConnectedApps => 'Aplicații conectate';
+
+  @override
+  String get recordOptionsTip => 'Sfat: atinge săgeata de pe butonul de înregistrare pentru a înregistra un apel.';
+
+  @override
+  String get moreWaysToRecord => 'Mai multe moduri de înregistrare';
 }
