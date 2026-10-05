@@ -15,6 +15,7 @@ import 'package:omi/pages/conversation_detail/page.dart';
 import 'package:omi/widgets/conversation_bottom_bar.dart' show ConversationTab;
 import 'package:omi/pages/conversations/conversation_action_analytics.dart';
 import 'package:omi/pages/conversations/conversation_actions.dart';
+import 'package:omi/pages/conversations/widgets/list_row_retry_button.dart';
 import 'package:omi/pages/settings/usage_page.dart';
 import 'package:omi/providers/conversation_provider.dart';
 import 'package:omi/providers/usage_provider.dart';
@@ -148,7 +149,7 @@ class _ConversationListItemState extends State<ConversationListItem> {
   Widget _buildSummaryRetry(BuildContext context) {
     return Row(
       children: [
-        Flexible(
+        Expanded(
           child: Text(
             context.l10n.conversationSummaryFailed,
             key: const Key('conversation_summary_failed_indicator'),
@@ -158,19 +159,12 @@ class _ConversationListItemState extends State<ConversationListItem> {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        GestureDetector(
-          onTap: () {}, // absorb so the card's open-on-tap does not fire
-          child: TextButton(
-            key: const Key('conversation_summary_retry_button'),
-            onPressed: _reprocessing ? null : _onReprocess,
-            style: TextButton.styleFrom(
-              foregroundColor: OmiColors.textPrimary,
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              minimumSize: const Size(44, 44),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            child: _reprocessing ? const OmiSpinner(size: OmiSpinnerSize.small) : Text(context.l10n.retry),
-          ),
+        // At the row's end, level with "Summary failed".
+        ListRowRetryButton(
+          key: const Key('conversation_summary_retry_button'),
+          label: context.l10n.retry,
+          busy: _reprocessing,
+          onPressed: _onReprocess,
         ),
       ],
     );

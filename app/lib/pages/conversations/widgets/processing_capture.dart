@@ -24,6 +24,8 @@ import 'package:omi/utils/other/temp.dart';
 import 'package:omi/utils/processing_timeout.dart';
 import 'package:omi/backend/schema/phone_call.dart';
 import 'package:omi/providers/phone_call_provider.dart';
+import 'package:omi/pages/conversations/widgets/conversation_list_item.dart' show conversationListText;
+import 'package:omi/pages/conversations/widgets/list_row_retry_button.dart';
 import 'package:omi/pages/conversations/widgets/live_capture_card.dart';
 import 'package:omi/pages/conversations/widgets/pendant_dropped_sheet.dart';
 import 'package:omi/pages/phone_calls/active_call_page.dart';
@@ -787,44 +789,32 @@ class _ProcessingConversationWidgetState extends State<ProcessingConversationWid
                     children: [
                       Text(
                         captureStateLabel(context.l10n, CaptureDisplayState.processing),
-                        style: OmiType.callout.copyWith(fontWeight: FontWeight.w500),
+                        style: conversationListText(OmiType.callout).copyWith(fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(height: 3),
                       Text(
                         OmiDateFormat.of(context).time(widget.conversation.startedAt ?? widget.conversation.createdAt),
-                        style: OmiType.footnote.copyWith(color: OmiColors.textSecondary),
+                        style: conversationListText(OmiType.footnote).copyWith(color: OmiColors.textSecondary),
                       ),
                     ],
                   ),
                 ),
+                // Level with "Processing", at the row's end, never on a line of its own.
+                if (_timedOut)
+                  ListRowRetryButton(
+                    key: const Key('processing_conversation_retry_button'),
+                    label: context.l10n.tryAgain,
+                    busy: _retrying,
+                    onPressed: _onRetry,
+                  ),
               ],
             ),
             if (_timedOut)
               Padding(
                 padding: const EdgeInsetsDirectional.only(start: DeviceTile.size + OmiSpacing.sm, top: OmiSpacing.xs),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      context.l10n.processingTakingLonger,
-                      style: OmiType.footnote.copyWith(color: OmiColors.textTertiary, height: 1.3),
-                    ),
-                    const SizedBox(height: 10),
-                    GestureDetector(
-                      onTap: () {}, // absorb so the row's open-on-tap does not fire
-                      child: TextButton(
-                        key: const Key('processing_conversation_retry_button'),
-                        onPressed: _retrying ? null : _onRetry,
-                        style: TextButton.styleFrom(
-                          foregroundColor: OmiColors.textPrimary,
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                          minimumSize: const Size(44, 44),
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        ),
-                        child: _retrying ? const OmiSpinner(size: OmiSpinnerSize.small) : Text(context.l10n.tryAgain),
-                      ),
-                    ),
-                  ],
+                child: Text(
+                  context.l10n.processingTakingLonger,
+                  style: conversationListText(OmiType.footnote).copyWith(color: OmiColors.textTertiary, height: 1.3),
                 ),
               ),
           ],
