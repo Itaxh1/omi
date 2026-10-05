@@ -13,9 +13,9 @@ import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/utils/other/temp.dart';
 import 'package:omi/utils/platform/platform_service.dart';
 
-/// Settings, a full-screen page pushed from Home: six labelled groups (Account, Recording, Features,
-/// Preferences, Support, Developer) of rows that lead with an icon tile, plus search over every row
-/// in Settings and its pages ([settingsSearchEntries]).
+/// Settings, a full-screen page pushed from Home: seven labelled groups (Account, Recording,
+/// Personalization, Connected Apps, Preferences, Support, Developer) of rows that lead with an icon
+/// tile, plus search over every row in Settings and its pages ([settingsSearchEntries]).
 ///
 /// Every setting is at most one tap below this page: a group row opens its group page
 /// (settings_groups.dart), whose rows open the settings pages themselves. Developer Settings keeps
@@ -147,6 +147,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
             _row(SettingsDestination.deviceGroup, key: 'settings_group_device', title: l10n.device),
             _row(SettingsDestination.recordingGroup,
                 key: 'settings_group_recording', title: l10n.recordingAndTranscription),
+            _row(SettingsDestination.voice, key: 'settings_group_voice', title: l10n.assistantVoiceSettingsTitle),
           ],
         ),
         gap,
@@ -331,6 +332,7 @@ FaIconData settingsIcon(SettingsDestination destination) => switch (destination)
       SettingsDestination.people ||
       SettingsDestination.conversationTimeout =>
         FontAwesomeIcons.microphone,
+      SettingsDestination.voice => FontAwesomeIcons.volumeHigh,
       SettingsDestination.memories => FontAwesomeIcons.brain,
       SettingsDestination.goals => FontAwesomeIcons.bullseye,
       SettingsDestination.integrations => FontAwesomeIcons.networkWired,

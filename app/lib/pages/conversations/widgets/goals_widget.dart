@@ -29,12 +29,15 @@ int? goalSliderDivisions(double targetValue) {
 
 /// Multi-goal widget supporting up to 3 goals with minimalistic UI
 class GoalsWidget extends StatefulWidget {
-  const GoalsWidget({super.key, this.onRefresh});
+  const GoalsWidget({super.key, this.onRefresh, this.showHeader = true});
 
   /// How many goals a person can keep at once.
   static const int maxGoals = 4;
 
   final VoidCallback? onRefresh;
+
+  /// False when the host page's app bar already carries the "Goals" title and the add action.
+  final bool showHeader;
 
   @override
   State<GoalsWidget> createState() => GoalsWidgetState();

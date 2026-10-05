@@ -7,6 +7,7 @@ import 'package:omi/models/sync_state.dart';
 import 'package:omi/pages/conversations/local_storage_page.dart';
 import 'package:omi/pages/conversations/sync_cooldown_copy.dart';
 import 'package:omi/pages/conversations/private_cloud_sync_page.dart';
+import 'package:omi/pages/conversations/widgets/device_download_meter.dart';
 import 'package:omi/pages/conversations/widgets/device_storage_card.dart';
 import 'package:omi/pages/conversations/widgets/sync_error_card.dart';
 import 'package:omi/pages/conversations/widgets/sync_list_header.dart';
@@ -193,12 +194,8 @@ class _AutoSyncPageState extends State<AutoSyncPage> {
       switch (s.phase) {
         case SyncPhase.downloadingFromDevice:
           title = l.syncCardDownloadingTitle;
-          progressText = SyncCardProgressLine.subtitle(
-            phase: s.phase,
-            currentFile: s.currentFile,
-            totalFiles: s.totalFiles,
-            counterLabel: (processed, total) => l.syncCardProgressOf(processed, total),
-          );
+          // Percent and speed live on [DeviceDownloadMeter], not the file-count line.
+          // A ring download has no file index, so the old subtitle stayed blank.
           break;
         case SyncPhase.waitingForInternet:
           title = l.syncCardWaitingInternet;
@@ -252,40 +249,53 @@ class _AutoSyncPageState extends State<AutoSyncPage> {
       title = l.syncCardAllBackedUp;
     }
 
+    final downloading = isActive && s.phase == SyncPhase.downloadingFromDevice;
+
     return OmiGroupedCard(
       padding: const EdgeInsets.symmetric(horizontal: OmiSpacing.md, vertical: OmiSpacing.sm),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          OmiSettingsIconTile(
-            showSpinner
-                ? const OmiSpinner(size: OmiSpinnerSize.small)
-                : FaIcon(icon, color: warning ? OmiColors.warning : null),
-          ),
-          const SizedBox(width: OmiSpacing.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  title,
-                  style: OmiType.body.copyWith(color: warning ? OmiColors.warning : OmiColors.textPrimary),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+          Row(
+            children: [
+              OmiSettingsIconTile(
+                showSpinner
+                    ? const OmiSpinner(size: OmiSpinnerSize.small)
+                    : FaIcon(icon, color: warning ? OmiColors.warning : null),
+              ),
+              const SizedBox(width: OmiSpacing.md),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      title,
+                      style: OmiType.body.copyWith(color: warning ? OmiColors.warning : OmiColors.textPrimary),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    if (progressText != null) ...[
+                      const SizedBox(height: 2),
+                      Text(
+                        progressText,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: OmiType.footnote.copyWith(color: OmiColors.textTertiary),
+                      ),
+                    ],
+                  ],
                 ),
-                if (progressText != null) ...[
-                  const SizedBox(height: 2),
-                  Text(
-                    progressText,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: OmiType.footnote.copyWith(color: OmiColors.textTertiary),
-                  ),
-                ],
-              ],
-            ),
+              ),
+              if (action != null) ...[const SizedBox(width: OmiSpacing.sm), action],
+            ],
           ),
-          if (action != null) ...[const SizedBox(width: OmiSpacing.sm), action],
+          // Main's meter while the pendant's files come down, under the status.
+          if (downloading) ...[
+            const SizedBox(height: OmiSpacing.sm),
+            DeviceDownloadMeter(fraction: s.progress, speedKBps: s.speedKBps),
+          ],
         ],
       ),
     );
@@ -510,6 +520,24 @@ class _AutoSyncPageState extends State<AutoSyncPage> {
     );
   }
 
+  /// Bar fraction for the recording that is actually leaving the device.
+  /// Phone-local "Waiting to sync" rows stay null so they do not grow a bar.
+  /// Percent and speed are not returned here; those stay on the status card.
+  double? _rowDownloadFraction(Wal wal) {
+    final sync = context.read<SyncProvider>();
+    if (!sync.syncState.isSyncing || sync.syncState.phase != SyncPhase.downloadingFromDevice) return null;
+    final onDevice = wal.storage == WalStorage.sdcard || wal.storage == WalStorage.flashPage;
+    if (!onDevice || wal.status != WalStatus.miss) return null;
+    if (wal.deviceDownloadFraction != null) return wal.deviceDownloadFraction;
+    if (wal.isSyncing) return sync.syncState.progress;
+    if (wal.syncDisplayState != WalSyncDisplayState.waiting) return null;
+    final peers = sync.allWals.where(
+      (w) => (w.storage == WalStorage.sdcard || w.storage == WalStorage.flashPage) && w.status == WalStatus.miss,
+    );
+    if (peers.length == 1 && peers.first.id == wal.id) return sync.syncState.progress;
+    return null;
+  }
+
   Widget _walRow(Wal wal) {
     final date = DateTime.fromMillisecondsSinceEpoch(wal.timerStart * 1000).toLocal();
     final dates = OmiDateFormat.of(context);
@@ -529,7 +557,8 @@ class _AutoSyncPageState extends State<AutoSyncPage> {
           : context.l10n.syncStatusOnDevice;
     }
 
-    return OmiSettingsRow(
+    final fraction = _rowDownloadFraction(wal);
+    final row = OmiSettingsRow(
       // The day is the label above; the row only needs the time.
       title: '$timeStr${duration != null ? ' · $duration' : ''}',
       // Backed-up recordings step back; the ones still to sync read first.
@@ -545,6 +574,19 @@ class _AutoSyncPageState extends State<AutoSyncPage> {
         }
         routeToPage(context, WalItemDetailPage(wal: wal));
       },
+    );
+    if (fraction == null) return row;
+    // While this recording comes down from the device, a slim meter under its text.
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        row,
+        Padding(
+          padding: const EdgeInsets.fromLTRB(OmiSpacing.md, 0, OmiSpacing.md, OmiSpacing.sm),
+          child: DeviceDownloadMeter(fraction: fraction, showReadout: false, barHeight: 4),
+        ),
+      ],
     );
   }
 

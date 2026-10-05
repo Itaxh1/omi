@@ -167,8 +167,7 @@ void main() {
     expect(familyOf(find.text(en.language)), OmiSettingsTypeface.family);
   });
 
-  testWidgets('the Appearance and Voice Response sheets are set in Instrument Sans on an outlined card',
-      (tester) async {
+  testWidgets('the Appearance sheet is set in Instrument Sans on an outlined card', (tester) async {
     String? familyOf(Finder text) => tester.renderObject<RenderParagraph>(text).text.style?.fontFamily;
     final en = lookupAppLocalizations(const Locale('en'));
 
@@ -190,11 +189,6 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text(en.appearanceSystem), findsNothing);
     expect(find.text(en.appearanceDark), findsOneWidget);
-
-    await pumpSettings(tester, size: _iPhoneSE, home: const RecordingGroupPage());
-    await tester.tap(find.byKey(const ValueKey('settings_row_voiceResponseMode')));
-    await tester.pumpAndSettle();
-    expect(familyOf(find.text(en.voiceResponseModeTitle)), OmiSettingsTypeface.family);
   });
 
   testWidgets('Instrument Sans stays inside Settings', (tester) async {

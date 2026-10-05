@@ -10,7 +10,10 @@ import 'package:omi/backend/http/api/conversations.dart' as conversations_api;
 import 'package:omi/backend/http/api/users.dart'
     show deleteDailySummary, getDailySummary, regenerateDailySummary, setDailySummaryVisibility;
 import 'package:omi/backend/schema/daily_summary.dart';
+import 'package:omi/pages/action_items/day_tasks_page.dart';
 import 'package:omi/pages/conversation_detail/maps_util.dart';
+import 'package:omi/pages/conversations/day_conversations_page.dart';
+import 'package:omi/pages/conversations/widgets/daily_summaries_list.dart' show parseRecapDate;
 import 'package:omi/pages/conversation_detail/page.dart';
 import 'package:omi/utils/daily_summary_journey.dart';
 import 'package:omi/utils/l10n_extensions.dart';
@@ -26,7 +29,16 @@ class DailySummaryDetailPage extends StatefulWidget {
   final String summaryId;
   final DailySummary? summary; // Can pass directly if already loaded
 
-  const DailySummaryDetailPage({super.key, required this.summaryId, this.summary});
+  final DayConversationsFetcher? dayConversationsFetcher;
+  final DayTasksFetcher? dayTasksFetcher;
+
+  const DailySummaryDetailPage({
+    super.key,
+    required this.summaryId,
+    this.summary,
+    this.dayConversationsFetcher,
+    this.dayTasksFetcher,
+  });
 
   @override
   State<DailySummaryDetailPage> createState() => _DailySummaryDetailPageState();
@@ -376,19 +388,64 @@ class _DailySummaryDetailPageState extends State<DailySummaryDetailPage> with Si
     );
   }
 
-  /// The day's emoji in a tile, the date, the headline, and one line of counts ("3 conversations · 1h 23m
-  /// · 2 tasks"), where the stat boxes were; desktop watching time and proactive moments follow with
-  /// their glyphs when there are any.
+  /// The day's emoji in a tile, the date, the headline, and one line of counts ("3 conversations ›
+  /// · 1h 23m · 2 tasks ›"), where the stat boxes were. The conversation and task counts open that
+  /// day's conversations and tasks; desktop watching time and proactive moments follow with their
+  /// glyphs when there are any.
   Widget _buildTitle(DailySummary summary) {
     final l10n = context.l10n;
     final stats = summary.stats;
-    final counts = [
-      if (stats.totalConversations > 0) l10n.conversationCount(stats.totalConversations),
-      if (stats.totalDurationMinutes > 0) stats.formattedDuration,
-      if (stats.actionItemsCount > 0) l10n.taskCount(stats.actionItemsCount),
-    ].join(' · ');
+    final recapDay = parseRecapDate(summary.date);
     final secondary = OmiType.footnote.copyWith(color: OmiColors.textSecondary);
     final figures = secondary.copyWith(fontFeatures: const [FontFeature.tabularFigures()]);
+    // A count that opens its day page: the count in ink and a chevron, on a 44 pt target.
+    Widget link(String text, {required Key key, VoidCallback? onTap}) => Semantics(
+          key: key,
+          button: onTap != null,
+          label: text,
+          excludeSemantics: true,
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: onTap,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: kOmiMinTapTarget),
+              child: Row(mainAxisSize: MainAxisSize.min, children: [
+                Text(text,
+                    style: onTap == null
+                        ? figures
+                        : figures.copyWith(color: OmiColors.textPrimary, fontWeight: FontWeight.w500)),
+                if (onTap != null) Icon(Icons.chevron_right_rounded, size: 14, color: OmiColors.textTertiary),
+              ]),
+            ),
+          ),
+        );
+    final dot = ExcludeSemantics(child: Text('·', style: secondary));
+    final counts = <Widget>[
+      link(
+        l10n.conversationCount(stats.totalConversations),
+        key: const ValueKey('recap_conversations_stat'),
+        onTap: recapDay == null
+            ? null
+            : () => routeToPage(
+                context, DayConversationsPage(date: recapDay, fetchConversations: widget.dayConversationsFetcher)),
+      ),
+      if (stats.totalDurationMinutes > 0) ...[
+        dot,
+        Semantics(
+          label: '${l10n.durationLabel}, ${stats.formattedDuration}',
+          excludeSemantics: true,
+          child: Text(stats.formattedDuration, style: figures),
+        ),
+      ],
+      dot,
+      link(
+        l10n.tasksCountLabel(stats.actionItemsCount),
+        key: const ValueKey('recap_tasks_stat'),
+        onTap: recapDay == null
+            ? null
+            : () => routeToPage(context, DayTasksPage(date: recapDay, fetchTasks: widget.dayTasksFetcher)),
+      ),
+    ];
     Widget extra(FaIconData icon, String value) => Row(mainAxisSize: MainAxisSize.min, children: [
           FaIcon(icon, size: 11, color: OmiColors.textSecondary),
           const SizedBox(width: 4),
@@ -410,18 +467,13 @@ class _DailySummaryDetailPageState extends State<DailySummaryDetailPage> with Si
               Text(summary.formattedDate, style: secondary.copyWith(fontWeight: FontWeight.w500)),
               const SizedBox(height: 2),
               Text(summary.headline, style: OmiType.title3.copyWith(fontWeight: FontWeight.w700, height: 1.22)),
-              if (counts.isNotEmpty || extras.isNotEmpty) ...[
-                const SizedBox(height: 6),
-                Wrap(
-                  spacing: OmiSpacing.sm,
-                  runSpacing: 2,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    if (counts.isNotEmpty) Text(counts, key: const ValueKey('daily_summary_counts'), style: figures),
-                    ...extras,
-                  ],
-                ),
-              ],
+              // The counts' 44 pt targets give the line its own air under the headline.
+              Wrap(
+                key: const ValueKey('daily_summary_counts'),
+                spacing: 6,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [...counts, ...extras],
+              ),
             ],
           ),
         ),

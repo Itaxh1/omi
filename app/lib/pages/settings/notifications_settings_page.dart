@@ -1,11 +1,13 @@
 import 'package:omi/utils/platform/platform_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:omi/backend/http/api/users.dart';
 import 'package:omi/backend/preferences.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/widgets/shimmer_with_timeout.dart';
 import 'package:omi/ui/ui.dart';
+import 'package:omi/pages/settings/widgets/live_activity_settings.dart';
 
 class NotificationsSettingsPage extends StatefulWidget {
   const NotificationsSettingsPage({super.key});
@@ -227,6 +229,7 @@ class _NotificationsSettingsPageState extends State<NotificationsSettingsPage> {
           : ListView(
               padding: OmiGroupedPage.padding,
               children: [
+                const LiveActivitySettings(),
                 OmiSectionHeader(
                   context.l10n.notificationFrequency,
                   subtitle: context.l10n.notificationFrequencyDescription,
@@ -243,49 +246,18 @@ class _NotificationsSettingsPageState extends State<NotificationsSettingsPage> {
     final isOff = _notificationFrequency == 0;
     return OmiGroupedCard(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Current value display
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(_getFrequencyLabel(context, _notificationFrequency), style: OmiType.headline),
-                    const SizedBox(height: OmiSpacing.xxs),
-                    Text(
-                      _getFrequencyDescription(context, _notificationFrequency),
-                      style: OmiType.subhead.copyWith(color: OmiColors.textSecondary),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: OmiSpacing.sm),
-              ExcludeSemantics(
-                child: Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: OmiColors.iconTile,
-                    borderRadius: OmiRadius.mdAll,
-                  ),
-                  child: Center(
-                    child: Text(
-                      '$_notificationFrequency',
-                      style: OmiType.title3.copyWith(
-                        color: isOff ? OmiColors.textTertiary : OmiColors.textPrimary,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-
-          const SizedBox(height: OmiSpacing.lg),
-
-          // Slider
+          // One value label: the level's name, plus what it means once it is on.
+          Text(_getFrequencyLabel(context, _notificationFrequency), style: OmiType.headline),
+          if (!isOff) ...[
+            const SizedBox(height: OmiSpacing.xxs),
+            Text(
+              _getFrequencyDescription(context, _notificationFrequency),
+              style: OmiType.subhead.copyWith(color: OmiColors.textSecondary),
+            ),
+          ],
+          const SizedBox(height: OmiSpacing.sm),
           SliderTheme(
             data: SliderTheme.of(context).copyWith(
               activeTrackColor: OmiColors.accent,
@@ -305,32 +277,19 @@ class _NotificationsSettingsPageState extends State<NotificationsSettingsPage> {
               onChanged: (value) => _updateNotificationFrequency(value.round()),
             ),
           ),
-
-          // Labels
-          ExcludeSemantics(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: OmiSpacing.xs),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(context.l10n.sliderOff, style: OmiType.footnote.copyWith(color: OmiColors.textTertiary)),
-                  Text(context.l10n.sliderMax, style: OmiType.footnote.copyWith(color: OmiColors.textTertiary)),
-                ],
-              ),
-            ),
-          ),
         ],
       ),
     );
   }
 
   Widget _buildDailySummaryGroup() {
+    // The toggle row names the feature, so the group needs no header or explainer of its own.
     return OmiSettingsGroup(
-      header: context.l10n.dailySummary,
-      headerSubtitle: context.l10n.dailySummaryDescription,
       children: [
         OmiSettingsRow.toggle(
-          title: context.l10n.enable,
+          key: const Key('daily_summary_toggle'),
+          leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.bell)),
+          title: context.l10n.dailySummary,
           value: _dailySummaryEnabled,
           onChanged: _updateDailySummaryEnabled,
         ),
@@ -338,6 +297,7 @@ class _NotificationsSettingsPageState extends State<NotificationsSettingsPage> {
           opacity: _dailySummaryEnabled ? 1.0 : 0.4,
           duration: OmiMotion.of(context).standard,
           child: OmiSettingsRow(
+            leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.clock)),
             title: context.l10n.deliveryTime,
             value: _formatHourDisplay(context, _dailySummaryHour),
             showChevron: true,

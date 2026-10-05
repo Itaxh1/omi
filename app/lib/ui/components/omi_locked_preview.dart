@@ -14,11 +14,16 @@ class OmiLockedPreview extends StatelessWidget {
     required this.child,
     required this.label,
     required this.onPressed,
+    this.interactive = false,
   });
 
   final Widget child;
   final String label;
   final FutureOr<void> Function() onPressed;
+
+  /// Lets gestures reach the obscured [child] (for example a row's long-press menu or swipe). The
+  /// content stays blurred and hidden from semantics; only the tint stops absorbing touches.
+  final bool interactive;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +34,7 @@ class OmiLockedPreview extends StatelessWidget {
         children: [
           ExcludeSemantics(
             child: IgnorePointer(
+              ignoring: !interactive,
               // Filter only this card's content, not the scrolling backdrop.
               child: ImageFiltered(
                 imageFilter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
@@ -39,10 +45,13 @@ class OmiLockedPreview extends StatelessWidget {
             ),
           ),
           Positioned.fill(
-            child: ColoredBox(
-              key: const Key('locked_preview_tint'),
-              // On the canvas the row is flat, so the veil is the page colour and no card shows.
-              color: (OmiCanvas.isOn(context) ? OmiColors.canvas : OmiColors.surface1).withValues(alpha: 0.65),
+            child: IgnorePointer(
+              ignoring: interactive,
+              child: ColoredBox(
+                key: const Key('locked_preview_tint'),
+                // On the canvas the row is flat, so the veil is the page colour and no card shows.
+                color: (OmiCanvas.isOn(context) ? OmiColors.canvas : OmiColors.surface1).withValues(alpha: 0.65),
+              ),
             ),
           ),
           // Non-positioned so the action can also determine the card's height.

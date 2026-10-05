@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import 'package:omi/backend/http/api/users.dart';
 import 'package:omi/backend/http/api/goals.dart';
 import 'package:omi/backend/schema/bt_device/bt_device.dart';
 import 'package:omi/backend/schema/person.dart';
@@ -528,11 +529,11 @@ final _moreEdgeScenarios = <AuditScenario>[
       final people = PeopleProvider(
         setPinned: (_, __) async => true,
         deletePersonById: (_) async => true,
-        loadPeople: () async => [
+        loadPeople: () async => PeopleListResponse(people: [
           _person('p1', 'Dr. Alexandria Montgomery-Featherstonehaugh III', 41),
           _person('p2', 'María José Carolina de los Ángeles Fernández', 3),
           _person('p3', 'Bo', 1),
-        ],
+        ]),
       );
       await a.pump(const UserPeoplePage(), providers: [ChangeNotifierProvider<PeopleProvider>.value(value: people)]);
       await a.shot('Open People with long names');
@@ -545,7 +546,8 @@ final _moreEdgeScenarios = <AuditScenario>[
     state: 'An account that has not named anyone',
     run: (a) async {
       await a.pump(const UserPeoplePage(), providers: [
-        ChangeNotifierProvider<PeopleProvider>.value(value: PeopleProvider(loadPeople: () async => const []))
+        ChangeNotifierProvider<PeopleProvider>.value(
+            value: PeopleProvider(loadPeople: () async => const PeopleListResponse(people: [])))
       ]);
       await a.shot('Open People with nobody yet');
     },

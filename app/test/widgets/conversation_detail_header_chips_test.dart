@@ -67,9 +67,25 @@ void main() {
     expect(tester.takeException(), isNull);
   }
 
+  // Only a filed conversation shows its folder chip, so the one-line cases file it.
+  Folder workFolder() {
+    return Folder(
+      id: 'f1',
+      name: 'Work',
+      color: '#6B7280',
+      icon: 'folder',
+      createdAt: DateTime(2026),
+      updatedAt: DateTime(2026),
+      order: 0,
+      isDefault: false,
+      isSystem: false,
+      conversationCount: 1,
+    );
+  }
+
   testWidgets('the time and the folder stay on one line with large text on a small phone', (tester) async {
-    // The case that wrapped: "Yesterday 7:50 PM · 2m 42s" and "No Folder" at a large text size.
-    await pumpHeader(tester, width: 375, textScale: 1.35);
+    // The case that wrapped: "Yesterday 7:50 PM · 2m 42s" and its folder at a large text size.
+    await pumpHeader(tester, width: 375, textScale: 1.35, folder: workFolder());
     expectOneLine(tester, 375);
     final when = find.byKey(const Key('conversation_when'));
     expect(tester.getRect(when).width, lessThan(tester.getSize(when).width), reason: 'the pair shrank to fit');
@@ -77,7 +93,7 @@ void main() {
 
   testWidgets('when the pair fits, nothing shrinks', (tester) async {
     // Test text is Ahem, a square per glyph, so "fits" needs more room than SF Pro would.
-    await pumpHeader(tester, width: 1000);
+    await pumpHeader(tester, width: 1000, folder: workFolder());
     expectOneLine(tester, 1000);
     final when = find.byKey(const Key('conversation_when'));
     expect(tester.getRect(when).width, closeTo(tester.getSize(when).width, 0.01), reason: 'drawn at its own size');

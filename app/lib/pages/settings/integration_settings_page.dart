@@ -90,46 +90,36 @@ class _IntegrationSettingsPageState extends State<IntegrationSettingsPage> {
           OmiIconButton(icon: const Icon(Icons.refresh), label: context.l10n.refresh, onPressed: widget.onRefresh),
       ],
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(OmiSpacing.md, OmiSpacing.sm, OmiSpacing.md, OmiSpacing.md),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Connected: a quiet ink check in an outlined card, not a green banner.
-              OmiGroupedCard(
-                padding: const EdgeInsets.symmetric(horizontal: OmiSpacing.md, vertical: OmiSpacing.sm),
-                child: Row(
-                  children: [
-                    Icon(Icons.check_circle, color: OmiColors.textPrimary, size: 18),
-                    const SizedBox(width: OmiSpacing.xs),
-                    Expanded(child: Text(context.l10n.connectedToApp(widget.appName), style: OmiType.subhead)),
-                  ],
+        child: ListView(
+          padding: OmiGroupedPage.padding,
+          children: [
+            // Status and what the connection does, in one row; Disconnect follows the content
+            // instead of sitting at the bottom of an otherwise empty screen. A quiet ink check,
+            // not a green banner.
+            OmiSettingsGroup(
+              children: [
+                OmiSettingsRow(
+                  leading: const OmiSettingsIconTile(Icon(Icons.check_circle)),
+                  title: context.l10n.connectedToApp(widget.appName),
+                  subtitle: widget.infoText ?? context.l10n.actionItemsSyncedTo(widget.appName),
                 ),
-              ),
+              ],
+            ),
+            if (widget.children.isNotEmpty) ...[
               const SizedBox(height: OmiSpacing.xl),
-              OmiSettingsGroup(
-                header: context.l10n.account,
-                children: [OmiSettingsRow(title: widget.infoText ?? context.l10n.actionItemsSyncedTo(widget.appName))],
-              ),
-              const SizedBox(height: OmiSpacing.xl),
-              // Wrap children in Expanded with SingleChildScrollView to handle overflow
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: widget.children),
-                ),
-              ),
-              const SizedBox(height: OmiSpacing.md),
-              OmiButton.destructive(
-                label: context.l10n.disconnect,
-                icon: Icons.logout,
-                // Not the future: the button spins only while the disconnect runs, not while the
-                // confirm dialog is open.
-                onPressed: () => unawaited(_disconnect()),
-                isLoading: _disconnecting,
-                expand: true,
-              ),
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: widget.children),
             ],
-          ),
+            const SizedBox(height: OmiSpacing.xl),
+            OmiButton.destructive(
+              label: context.l10n.disconnect,
+              icon: Icons.logout,
+              // Not the future: the button spins only while the disconnect runs, not while the
+              // confirm dialog is open.
+              onPressed: () => unawaited(_disconnect()),
+              isLoading: _disconnecting,
+              expand: true,
+            ),
+          ],
         ),
       ),
     );

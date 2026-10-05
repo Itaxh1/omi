@@ -37,6 +37,11 @@ Future<void> showActionItemFormSheet(
   );
 }
 
+const int _kTaskMaxLength = 4096;
+
+/// The character counter appears in the last 10% before [_kTaskMaxLength].
+const int _kTaskCounterThreshold = _kTaskMaxLength * 9 ~/ 10;
+
 /// Opens an existing [item] in the task sheet, so several tasks can be edited in a row from the list
 /// (David, 2026-10-03).
 ///
@@ -209,7 +214,10 @@ class _ActionItemFormSheetState extends State<ActionItemFormSheet> {
       final sid = newShareId();
       OmiHaptics.light();
       final outcome = await SharePlus.instance.share(
-        ShareParams(text: tagShareUrl(url, sid: sid), sharePositionOrigin: shareSheetOrigin()),
+        ShareParams(
+          text: tagShareUrl(url, sid: sid),
+          sharePositionOrigin: shareSheetOrigin(),
+        ),
       );
       final targetApp = outcome.status == ShareResultStatus.success ? shareTargetApp(outcome.raw) : null;
       PlatformManager.instance.analytics.track(
@@ -300,7 +308,7 @@ class _ActionItemFormSheetState extends State<ActionItemFormSheet> {
               autofocus: true,
               maxLines: 5,
               minLines: 2,
-              maxLength: 4096,
+              maxLength: _kTaskMaxLength,
               textInputAction: TextInputAction.done,
               style: OmiType.callout.copyWith(height: 1.4),
               cursorColor: OmiColors.accent,
@@ -347,21 +355,26 @@ class _ActionItemFormSheetState extends State<ActionItemFormSheet> {
                 ),
               ),
             ),
-            Wrap(spacing: OmiSpacing.xs, children: [
-              for (final days in [0, 1, 7])
-                ActionChip(
-                  key: ValueKey('task_quick_date_$days'),
-                  label: Text(days == 0
-                      ? l10n.today
-                      : days == 1
-                          ? l10n.tomorrow
-                          : l10n.nextWeek),
-                  onPressed: _isSaving ? null : () => _selectQuickDate(days),
-                  backgroundColor: OmiColors.surface2,
-                  labelStyle: OmiType.footnote,
-                  side: BorderSide(color: OmiColors.border),
-                ),
-            ]),
+            Wrap(
+              spacing: OmiSpacing.xs,
+              children: [
+                for (final days in [0, 1, 7])
+                  ActionChip(
+                    key: ValueKey('task_quick_date_$days'),
+                    label: Text(
+                      days == 0
+                          ? l10n.today
+                          : days == 1
+                              ? l10n.tomorrow
+                              : l10n.nextWeek,
+                    ),
+                    onPressed: _isSaving ? null : () => _selectQuickDate(days),
+                    backgroundColor: OmiColors.surface2,
+                    labelStyle: OmiType.footnote,
+                    side: BorderSide(color: OmiColors.border),
+                  ),
+              ],
+            ),
             if (widget.isEditing && widget.actionItem!.conversationId != null)
               InkWell(
                 key: const Key('task_open_conversation'),
@@ -378,14 +391,16 @@ class _ActionItemFormSheetState extends State<ActionItemFormSheet> {
                   ),
                 ),
               ),
-            Align(
-              alignment: AlignmentDirectional.centerEnd,
-              child: Text(
-                '${_textController.text.characters.length}/4096',
-                key: const Key('task_character_count'),
-                style: OmiType.caption.copyWith(color: OmiColors.textTertiary),
+            // The counter only matters near the limit: it shows in the last 10%.
+            if (_textController.text.characters.length >= _kTaskCounterThreshold)
+              Align(
+                alignment: AlignmentDirectional.centerEnd,
+                child: Text(
+                  '${_textController.text.characters.length}/$_kTaskMaxLength',
+                  key: const Key('task_character_count'),
+                  style: OmiType.caption.copyWith(color: OmiColors.textTertiary),
+                ),
               ),
-            ),
             const SizedBox(height: OmiSpacing.sm),
             if (_saveFailed) ...[
               Semantics(

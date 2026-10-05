@@ -18,6 +18,7 @@ import 'package:omi/utils/other/temp.dart';
 import 'package:omi/utils/sync/sync_card_progress_line.dart';
 import 'package:omi/utils/sync_confirmation.dart';
 import 'widgets/sync_error_card.dart';
+import 'widgets/offline_sync_storage_sheet.dart';
 import 'widgets/sync_list_header.dart';
 import 'local_storage_page.dart';
 import 'private_cloud_sync_page.dart';
@@ -303,8 +304,10 @@ class _SyncPageState extends State<SyncPage> {
       context: context,
       title: context.l10n.manageStorage,
       padding: const EdgeInsets.fromLTRB(OmiSpacing.xl, OmiSpacing.xs, OmiSpacing.xl, OmiSpacing.xl),
-      builder: (sheetContext) => _ManageStorageSheet(
-        provider: provider,
+      builder: (sheetContext) => OfflineSyncStorageSheet(
+        syncedCount: provider.syncedWals.length,
+        pendingCount: provider.pendingDeletableWals.length,
+        totalCount: provider.clearableWalsCount,
         onClearSynced: () async {
           Navigator.of(sheetContext).pop();
           final confirmed = await showOmiConfirm(
@@ -829,108 +832,4 @@ class _PendingListItem {
       : isHeader = false,
         label = null,
         count = null;
-}
-
-class _ManageStorageSheet extends StatelessWidget {
-  final SyncProvider provider;
-  final VoidCallback onClearSynced;
-  final VoidCallback onClearPending;
-  final VoidCallback onClearAll;
-
-  const _ManageStorageSheet({
-    required this.provider,
-    required this.onClearSynced,
-    required this.onClearPending,
-    required this.onClearAll,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final syncedCount = provider.syncedWals.length;
-    final pendingCount = provider.pendingDeletableWals.length;
-    final totalCount = provider.clearableWalsCount;
-
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Synced row
-          _StorageRow(
-            icon: FontAwesomeIcons.circleCheck,
-            title: context.l10n.synced,
-            subtitle: context.l10n.safelyBackedUp,
-            count: syncedCount,
-            onClear: syncedCount > 0 ? onClearSynced : null,
-            clearLabel: context.l10n.clear,
-          ),
-          const SizedBox(height: OmiSpacing.sm),
-          // Pending row
-          _StorageRow(
-            icon: FontAwesomeIcons.clockRotateLeft,
-            title: context.l10n.pending,
-            subtitle: context.l10n.notYetSynced,
-            count: pendingCount,
-            onClear: pendingCount > 0 ? onClearPending : null,
-            clearLabel: context.l10n.clear,
-          ),
-          if (totalCount > 0) ...[
-            const SizedBox(height: OmiSpacing.lg),
-            OmiButton.destructive(label: context.l10n.clearAll, expand: true, onPressed: onClearAll),
-          ],
-        ],
-      ),
-    );
-  }
-}
-
-class _StorageRow extends StatelessWidget {
-  final FaIconData icon;
-  final String title;
-  final String subtitle;
-  final int count;
-  final VoidCallback? onClear;
-  final String clearLabel;
-
-  const _StorageRow({
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-    required this.count,
-    required this.onClear,
-    required this.clearLabel,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(OmiSpacing.md),
-      decoration: BoxDecoration(color: OmiColors.surface2, borderRadius: OmiRadius.lgAll),
-      child: Row(
-        children: [
-          OmiSettingsIconTile(FaIcon(icon)),
-          const SizedBox(width: OmiSpacing.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Flexible(child: Text(title, style: OmiType.body.copyWith(fontWeight: FontWeight.w500))),
-                    const SizedBox(width: OmiSpacing.xs),
-                    Text('$count', style: OmiType.subhead.copyWith(color: OmiColors.textTertiary)),
-                  ],
-                ),
-                const SizedBox(height: 2),
-                Text(subtitle, style: OmiType.footnote.copyWith(color: OmiColors.textTertiary)),
-              ],
-            ),
-          ),
-          if (onClear != null) ...[
-            const SizedBox(width: OmiSpacing.sm),
-            OmiButton.destructive(label: clearLabel, size: OmiButtonSize.compact, onPressed: onClear),
-          ],
-        ],
-      ),
-    );
-  }
 }

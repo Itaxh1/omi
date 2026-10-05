@@ -33,19 +33,19 @@ class _GoalsPageState extends State<GoalsPage> {
     return OmiGroupedPage(
       title: context.l10n.goals,
       actions: [
-        if (!goals.isLoading && goals.goals.isNotEmpty && goals.goals.length < GoalsWidget.maxGoals)
-          OmiIconButton.filled(
-            icon: const OmiLineIcon(OmiLineGlyph.plus, size: 20),
-            label: context.l10n.addGoal,
-            onPressed: () => _goalsKey.currentState?.addGoal(),
-          ),
+        OmiIconButton.filled(
+          key: const Key('goals_add'),
+          icon: const OmiLineIcon(OmiLineGlyph.plus, size: 20),
+          label: context.l10n.addGoal,
+          onPressed: () => _goalsKey.currentState?.addGoal(),
+        ),
       ],
       body: RefreshIndicator(
         onRefresh: () => context.read<GoalsProvider>().refresh(),
         child: ListView(
           padding: const EdgeInsets.only(bottom: OmiSpacing.xl),
           children: [
-            GoalsWidget(key: _goalsKey),
+            GoalsWidget(key: _goalsKey, showHeader: false),
             if (!goals.isLoading && goals.goals.isEmpty)
               Padding(
                 padding: const EdgeInsets.only(top: 120),

@@ -17,7 +17,6 @@ import 'package:omi/providers/appearance_provider.dart';
 import 'package:omi/providers/device_provider.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/l10n_extensions.dart';
-import 'package:omi/utils/platform/platform_manager.dart';
 import 'package:omi/utils/platform/platform_service.dart';
 
 /// The Settings group pages. The Settings sheet shows Account, the five groups here, Integrations
@@ -185,21 +184,6 @@ class _RecordingGroupPageState extends State<RecordingGroupPage> with _GroupRows
     }
   }
 
-  /// [rowContext] is the row's own, inside the page's typeface, so the sheet is set in it too.
-  Future<void> _showVoiceResponseModeSheet(BuildContext rowContext) async {
-    final current = _prefs.voiceResponseMode;
-    final picked = await _showSettingsPicker<int>(
-      rowContext,
-      title: context.l10n.voiceResponseModeTitle,
-      options: const [0, 1, 2],
-      current: current,
-      label: _voiceResponseModeLabel,
-    );
-    if (picked == null || picked == current || !mounted) return;
-    setState(() => _prefs.voiceResponseMode = picked);
-    PlatformManager.instance.analytics.voiceResponseModeChanged(picked);
-  }
-
   Future<void> _setBackgroundMode(bool value) async {
     final accepted = await context.read<CaptureProvider>().setBackgroundModeEnabled(value);
     if (accepted && mounted) setState(() {});
@@ -226,8 +210,12 @@ class _RecordingGroupPageState extends State<RecordingGroupPage> with _GroupRows
       children: [
         OmiSettingsGroup(
           children: [
-            row(SettingsDestination.transcription,
-                icon: FontAwesomeIcons.microphone, title: l10n.transcription, value: _transcriptionValue()),
+            row(
+              SettingsDestination.transcription,
+              icon: FontAwesomeIcons.microphone,
+              title: l10n.transcription,
+              value: _transcriptionValue(),
+            ),
             row(SettingsDestination.language, icon: FontAwesomeIcons.globe, title: l10n.language),
             row(SettingsDestination.customVocabulary, icon: FontAwesomeIcons.book, title: l10n.customVocabulary),
           ],
@@ -237,26 +225,26 @@ class _RecordingGroupPageState extends State<RecordingGroupPage> with _GroupRows
           children: [
             row(SettingsDestination.voiceProfile, icon: FontAwesomeIcons.waveSquare, title: l10n.speechProfile),
             row(SettingsDestination.people, icon: FontAwesomeIcons.users, title: l10n.identifyingOthers),
-            Builder(
-              builder: (rowContext) => OmiSettingsRow(
-                key: const ValueKey('settings_row_voiceResponseMode'),
-                leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.volumeHigh)),
-                title: l10n.voiceResponseMode,
-                // A subtitle, not a trailing value: "Headphones only" next to the tile would wrap the title.
-                subtitle: _voiceResponseModeLabel(_prefs.voiceResponseMode),
-                showChevron: true,
-                onTap: () => _showVoiceResponseModeSheet(rowContext),
-              ),
+            OmiSettingsRow(
+              key: const ValueKey('settings_row_voiceResponseMode'),
+              leading: const OmiSettingsIconTile(FaIcon(FontAwesomeIcons.volumeHigh)),
+              title: l10n.voiceResponseMode,
+              // A subtitle, not a trailing value: "Headphones only" next to the tile would wrap the title.
+              subtitle: _voiceResponseModeLabel(_prefs.voiceResponseMode),
+              showChevron: true,
+              onTap: () => open(SettingsDestination.voice),
             ),
           ],
         ),
         const SizedBox(height: OmiSpacing.xl),
         OmiSettingsGroup(
           children: [
-            row(SettingsDestination.conversationTimeout,
-                icon: FontAwesomeIcons.clock,
-                title: l10n.conversationTimeout,
-                subtitle: l10n.setWhenConversationsAutoEnd),
+            row(
+              SettingsDestination.conversationTimeout,
+              icon: FontAwesomeIcons.clock,
+              title: l10n.conversationTimeout,
+              subtitle: l10n.setWhenConversationsAutoEnd,
+            ),
           ],
         ),
         const SizedBox(height: OmiSpacing.xl),
@@ -264,7 +252,6 @@ class _RecordingGroupPageState extends State<RecordingGroupPage> with _GroupRows
         // Capture modes: two-state settings, so inline switches that apply immediately.
         OmiSectionHeader(l10n.recording, trailing: SettingsTag(l10n.beta)),
         OmiSettingsGroup(
-          footer: l10n.transcribeLaterNote,
           children: [
             OmiSettingsRow.toggle(
               key: const ValueKey('settings_row_transcribeLater'),
@@ -385,8 +372,12 @@ class _PrivacyDataGroupPageState extends State<PrivacyDataGroupPage> with _Group
                 onTap: exporting ? null : () => open(SettingsDestination.exportData),
               ),
             ),
-            row(SettingsDestination.importData,
-                icon: FontAwesomeIcons.fileImport, title: l10n.importData, subtitle: l10n.importDataFromOtherSources),
+            row(
+              SettingsDestination.importData,
+              icon: FontAwesomeIcons.fileImport,
+              title: l10n.importData,
+              subtitle: l10n.importDataFromOtherSources,
+            ),
           ],
         ),
       ],

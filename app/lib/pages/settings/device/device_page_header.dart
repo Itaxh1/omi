@@ -25,7 +25,7 @@ class DevicePageHeader extends StatelessWidget {
         Semantics(
           header: true,
           child: Text(
-            pairedDevice?.name ?? l10n.unknownDevice,
+            _displayName(pairedDevice?.name, l10n.omiAppName),
             style: OmiType.title1,
             textAlign: TextAlign.center,
             // A long user-given name stays a title, not a paragraph; the full name is in Device Information.
@@ -172,3 +172,8 @@ class DeviceStreamingMetrics extends StatelessWidget {
     );
   }
 }
+
+/// The device's own name, or "Omi" while none is cached (BtDevice reports a missing name as the
+/// English word 'Unknown').
+String _displayName(String? name, String fallback) =>
+    name == null || name.trim().isEmpty || name == 'Unknown' ? fallback : name;
