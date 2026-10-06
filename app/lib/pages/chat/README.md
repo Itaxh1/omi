@@ -48,17 +48,20 @@ When the keyboard leaves less than 400 points of visible height, it uses one lin
 Generated whitespace is collapsed for display; tapping still sends the complete original
 question. Text scaling remains enabled. The greeting can scroll independently above the composer.
 
-Each turn has a shape. The user's message is a solid round pill at the right: the accent in
-light mode, a lifted grey in dark, with quoted context inside it above the words. Omi's answer is
-a round white card with a hairline edge and a small lift, like Home's glass controls; a task
-card, a chart or a failed reply inside it stays white behind a warm hairline instead of taking
-a fill. The conversations an answer came from sit in a second card under it as numbered rows,
-title over date, the number matching the answer's `[n]` marker; there is no emoji or chevron.
-An answer from a chat app carries the app's avatar and name above its card, and the app sits in
-a glass capsule in the header that opens Chat Apps, the same as the app pill in the composer.
-Follow-up suggestions match the starter questions: a hairline pill with the reply arrow and
-regular callout text. They retain a 44-point minimum touch target and the existing send
-callback and analytics.
+Chat is drawn in two colours, the ink and the canvas. The user's message is a solid pill at
+the right in the accent (black in light, white in dark) with the Messages tail at its bottom
+corner, and quoted context inside it above the words. Omi's answer is text on the page with no
+box. Everything else is the ink at an opacity, the way iOS draws fills, never an outline: a task
+card, a chart or a failed reply inside an answer is a filled inset; the starters, the follow-up
+and the app pill in the composer are filled pills; the close circle and, when a chat app is
+chosen, the app's capsule in the header (which opens Chat Apps, like the composer pill) are
+filled too. An app's answer carries the app's avatar and name above it. The conversations an
+answer came from are a plain list under it: numbered rows, title over date, hairlines between,
+the number matching the answer's `[n]` marker; no emoji, no chevron. The composer is a filled
+field at the live edge; once the thread scrolls up under it, it turns solid (the page colour,
+a hairline and a lift) so nothing reads through. Follow-up suggestions match the starter
+questions: a filled pill with the reply arrow and regular callout text. They retain a 44-point
+minimum touch target and the existing send callback and analytics.
 Only the latest completed AI reply can supply that suggestion, in the fixed area above the
 composer and keyboard. Historical answers never render their own chips. Sending a new turn
 hides the old suggestion immediately; a newer answer without one leaves the area empty.

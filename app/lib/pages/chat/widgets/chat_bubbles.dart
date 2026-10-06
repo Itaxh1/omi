@@ -2,44 +2,30 @@ import 'package:flutter/material.dart';
 
 import 'package:omi/ui/ui.dart';
 
-// The two shapes a chat turn takes: the user's solid pill (see `user_message.dart`) and Omi's
-// answer card, a white card with a hairline and a soft shadow, the way Home's glass controls sit
-// on the canvas. Cards inside an answer (a task, a chart, a failed reply) stay white and take a
-// warm hairline instead of a fill, so the answer reads as one surface.
+// Chat is drawn in two colours: the ink and the canvas. The user's message is a solid pill in the
+// accent (see `user_message.dart`); Omi's answer is text on the page with no box; everything else
+// (a control, a card inside an answer, a hairline) is the ink at an opacity, the way iOS draws its
+// fills, never an outline.
 
-/// The warm hairline around a card that sits inside an answer card.
-BorderSide chatInnerCardSide() => BorderSide(color: OmiColors.deviceTileInk.withValues(alpha: 0.28));
+/// The chat's materials: the ink at an opacity.
+abstract final class ChatInk {
+  static bool get _dark => OmiColors.active == OmiPalette.dark;
 
-/// Omi's answer: a round white card with a hairline edge and a small lift.
-class ChatAnswerCard extends StatelessWidget {
-  const ChatAnswerCard({super.key, required this.child, this.padding = contentPadding});
+  /// A control or a card inside an answer, with no edge.
+  static Color get fill => OmiColors.textPrimary.withValues(alpha: _dark ? 0.10 : 0.055);
 
-  final Widget child;
-  final EdgeInsetsGeometry padding;
+  /// A control that sits on [fill] (the app pill in the composer).
+  static Color get fill2 => OmiColors.textPrimary.withValues(alpha: _dark ? 0.16 : 0.09);
 
-  /// Room for 17 pt text to sit inside the 24 pt corners.
-  static const EdgeInsets contentPadding = EdgeInsets.symmetric(horizontal: 17, vertical: 13);
+  /// The hairline around the composer once the thread has scrolled under it.
+  static Color get hair => OmiColors.textPrimary.withValues(alpha: _dark ? 0.20 : 0.14);
 
-  /// The card's look, shared with the starters and the failed-reply box so they match.
-  static BoxDecoration decoration() => BoxDecoration(
-        color: OmiColors.surface1,
-        borderRadius: OmiRadius.xlAll,
-        border: Border.all(color: OmiColors.glassEdge),
-        boxShadow: OmiGlass.shadows,
-      );
+  /// The line between source rows.
+  static Color get sep => OmiColors.textPrimary.withValues(alpha: _dark ? 0.12 : 0.09);
+}
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      // The card stops short of the trailing edge, as the user's pill stops short of the leading one.
-      padding: const EdgeInsetsDirectional.only(end: OmiSpacing.xl),
-      child: Container(
-        key: const Key('chat_answer_card'),
-        width: double.infinity,
-        decoration: decoration(),
-        padding: padding,
-        child: child,
-      ),
-    );
-  }
+/// The look of a card inside an answer (a task, a chart, a failed reply) and of the starters.
+abstract final class ChatInsetCard {
+  static BoxDecoration decoration({BorderRadius radius = OmiRadius.lgAll}) =>
+      BoxDecoration(color: ChatInk.fill, borderRadius: radius);
 }

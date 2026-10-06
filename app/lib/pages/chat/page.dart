@@ -39,6 +39,7 @@ import 'package:omi/utils/l10n_extensions.dart';
 import 'package:omi/utils/other/temp.dart';
 import 'package:omi/pages/apps/widgets/app_actions.dart';
 import 'package:omi/pages/chat/widgets/chat_apps_drawer.dart';
+import 'package:omi/pages/chat/widgets/chat_bubbles.dart';
 import 'package:omi/pages/chat/widgets/chat_composer_parts.dart';
 import 'package:omi/pages/chat/widgets/chat_chrome.dart';
 import 'package:omi/pages/chat/widgets/chat_entrance.dart';
@@ -77,6 +78,9 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
 
   ChatScrollMode _chatScrollMode = ChatScrollMode.followingBottom;
   bool _showLatestJump = false;
+
+  /// The thread has scrolled up under the composer, which then turns solid.
+  bool _composerSolid = false;
   Timer? _latestJumpIdleTimer;
   final List<Timer> _pendingScrollTimers = [];
   final List<Timer> _ownedLifecycleTimers = [];
@@ -516,14 +520,17 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
             ChatComposerEntrance(
               bottom: true,
               maintainBottomViewPadding: false,
-              child: Container(
+              // A filled field at the live edge; once the thread scrolls up under it, a solid card
+              // with a hairline and a lift, so nothing reads through it.
+              child: AnimatedContainer(
+                duration: OmiMotion.of(context).quick,
                 margin: EdgeInsets.fromLTRB(10, provider.selectedFiles.isNotEmpty ? 0 : 8, 10, 10),
                 padding: const EdgeInsets.fromLTRB(16, 8, 6, 4),
                 decoration: BoxDecoration(
-                  color: OmiColors.surface1,
+                  color: _composerSolid ? OmiCanvas.pageOf(context) : ChatInk.fill,
                   borderRadius: OmiRadius.xlAll,
-                  border: Border.all(color: OmiColors.glassEdge),
-                  boxShadow: kChatComposerShadow,
+                  border: Border.all(color: _composerSolid ? ChatInk.hair : Colors.transparent),
+                  boxShadow: _composerSolid ? kChatComposerShadow : null,
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -842,6 +849,10 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
 
   bool _handleScrollNotification(ScrollNotification notification) {
     if (notification.depth != 0) return false;
+
+    final metrics = notification.metrics;
+    final scrolledUp = metrics.maxScrollExtent > 0 && !ChatScrollPolicy.atLiveEdge(metrics);
+    if (scrolledUp != _composerSolid && mounted) setState(() => _composerSolid = scrolledUp);
 
     final isUserScroll = notification is UserScrollNotification && notification.direction != ScrollDirection.idle;
     final isDragScroll = notification is ScrollUpdateNotification && notification.dragDetails != null;
