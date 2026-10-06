@@ -6,11 +6,16 @@ import 'package:omi/ui/ui.dart';
 import 'package:omi/widgets/extensions/string.dart';
 import 'package:omi/widgets/text_selection_controls.dart';
 
+/// The user's message (Omi v8 `.me`): their words in a hairline outline at the right, the corner
+/// nearest the composer squared off, so a question reads apart from Omi's unboxed answer.
 class HumanMessage extends StatelessWidget {
   final ServerMessage message;
   final Function(String)? onAskOmi;
 
   const HumanMessage({super.key, required this.message, this.onAskOmi});
+
+  /// The squared-off corner, nearest the composer.
+  static const Radius _tailCorner = Radius.circular(4);
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +64,17 @@ class HumanMessage extends StatelessWidget {
             alignment: WrapAlignment.end,
             children: [
               Container(
-                decoration: BoxDecoration(color: OmiColors.messageSurface, borderRadius: OmiRadius.lgAll),
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                key: const Key('chat_user_message'),
+                decoration: BoxDecoration(
+                  border: Border.all(color: OmiColors.border),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(OmiRadius.lg),
+                    topRight: Radius.circular(OmiRadius.lg),
+                    bottomLeft: Radius.circular(OmiRadius.lg),
+                    bottomRight: _tailCorner,
+                  ),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                 child: SelectableText(
                   messageText.trimRight(),
                   style: OmiType.callout.copyWith(height: 1.4),

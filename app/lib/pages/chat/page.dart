@@ -255,7 +255,11 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    // Chat paints the canvas: a white page in light mode, as Home and the conversation page do.
+    return OmiCanvas(child: _buildChat());
+  }
 
+  Widget _buildChat() {
     return ChatEntrance(
       child: Consumer2<MessageProvider, ConnectivityProvider>(
         builder: (context, provider, connectivityProvider, child) {
@@ -266,7 +270,7 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
           return AnimatedContainer(
             duration: const Duration(milliseconds: 260),
             curve: Curves.easeOut,
-            color: isGlass ? Colors.transparent : OmiColors.surface0,
+            color: isGlass ? Colors.transparent : OmiCanvas.pageOf(context),
             child: Scaffold(
               key: scaffoldKey,
               backgroundColor: Colors.transparent,
@@ -372,7 +376,8 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
                         }
 
                         final message = provider.messages[chatIndex];
-                        double topPadding = chatIndex == provider.messages.length - 1 ? 8 : 16;
+                        // A question opens a turn with room above it; the answer sits closer under it.
+                        final topPadding = message.sender == MessageSender.ai ? 10.0 : 24.0;
                         double bottomPadding = chatIndex == 0 ? 16 : 0;
 
                         final messageBody = message.sender == MessageSender.ai
