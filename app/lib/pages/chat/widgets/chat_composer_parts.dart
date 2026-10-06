@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'package:omi/providers/message_provider.dart';
+import 'package:omi/pages/chat/widgets/chat_bubbles.dart';
 import 'package:omi/ui/ui.dart';
 import 'package:omi/utils/l10n_extensions.dart';
 
@@ -91,7 +92,7 @@ class ChatAppChip extends StatelessWidget {
           child: Center(
             child: Container(
               padding: const EdgeInsets.fromLTRB(4, 4, 10, 4),
-              decoration: BoxDecoration(color: OmiCanvas.cardOf(context), borderRadius: OmiRadius.pillAll),
+              decoration: BoxDecoration(color: ChatInk.fill2, borderRadius: OmiRadius.pillAll),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [

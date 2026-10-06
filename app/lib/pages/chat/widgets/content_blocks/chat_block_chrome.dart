@@ -27,9 +27,8 @@ class ChatBlockCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: OmiSpacing.sm, vertical: 10),
       decoration: BoxDecoration(
-        color: OmiColors.surface1,
+        color: ChatInk.fill,
         borderRadius: radius,
-        border: Border.fromBorderSide(chatInnerCardSide()),
       ),
       child: child,
     );

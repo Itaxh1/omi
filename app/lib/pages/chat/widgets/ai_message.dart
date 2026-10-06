@@ -441,7 +441,8 @@ class InitialMessageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ChatAnswerCard(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: OmiSpacing.xxs),
           child:
               showTypingIndicator ? const _TypingDots() : getMarkdownWidget(context, messageText, onAskOmi: onAskOmi),
         ),
@@ -612,7 +613,8 @@ class _NormalMessageWidgetState extends State<NormalMessageWidget> {
       mainAxisSize: MainAxisSize.min,
       children: [
         FilesHandlerWidget(message: widget.message),
-        ChatAnswerCard(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: OmiSpacing.xxs, vertical: OmiSpacing.xxs),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -748,7 +750,8 @@ class _MemoriesMessageWidgetState extends State<MemoriesMessageWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ChatAnswerCard(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: OmiSpacing.xxs, vertical: OmiSpacing.xxs),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -794,18 +797,18 @@ class _MemoriesMessageWidgetState extends State<MemoriesMessageWidget> {
             ],
           ),
         ),
-        // The conversations the answer came from, numbered to match its [n] markers.
+        // The conversations the answer came from: a plain list, numbered to match its [n] markers.
         if (widget.messageMemories.isNotEmpty) ...[
           const SizedBox(height: OmiSpacing.xs),
-          ChatAnswerCard(
+          Padding(
             key: const ValueKey('chat-citation-list'),
-            padding: const EdgeInsets.symmetric(horizontal: 17, vertical: OmiSpacing.xxs),
+            padding: const EdgeInsets.symmetric(horizontal: OmiSpacing.xxs),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
                 for (var data in widget.messageMemories.indexed) ...[
-                  if (data.$1 > 0) Divider(height: 1, thickness: 1, color: OmiColors.glassEdge),
+                  if (data.$1 > 0) Divider(height: 1, thickness: 1, color: ChatInk.sep),
                   _CitedConversationRow(
                     key: ValueKey('chat-citation-${data.$2.id}'),
                     number: data.$1 + 1,
@@ -893,7 +896,7 @@ class _MemoriesMessageWidgetState extends State<MemoriesMessageWidget> {
   }
 }
 
-/// The typing dots, at the start of an answer card.
+/// The typing dots, at the start of an answer.
 class _TypingDots extends StatelessWidget {
   const _TypingDots();
 
@@ -1161,9 +1164,8 @@ class _ChartShimmer extends StatelessWidget {
         child: Container(
           height: 236,
           decoration: BoxDecoration(
-            color: OmiColors.surface1,
+            color: ChatInk.fill,
             borderRadius: OmiRadius.lgAll,
-            border: Border.fromBorderSide(chatInnerCardSide()),
           ),
         ),
       ),
@@ -1186,7 +1188,7 @@ class InitialOptionWidget extends StatelessWidget {
           constraints: const BoxConstraints(minHeight: kOmiMinTapTarget),
           padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 11),
           width: double.maxFinite,
-          decoration: ChatAnswerCard.decoration(),
+          decoration: ChatInsetCard.decoration(radius: OmiRadius.xlAll),
           child: Text(optionText, style: OmiType.body),
         ),
         onTap: () {
@@ -1221,7 +1223,7 @@ class ChatReplyError extends StatelessWidget {
       liveRegion: true,
       child: Container(
         padding: const EdgeInsets.all(OmiSpacing.sm),
-        decoration: ChatAnswerCard.decoration(),
+        decoration: ChatInsetCard.decoration(),
         child: Row(
           children: [
             ExcludeSemantics(child: Icon(Icons.error_outline_rounded, size: 20, color: OmiColors.danger)),
@@ -1288,7 +1290,7 @@ class _CitedConversationRow extends StatelessWidget {
                     children: [
                       Text(
                         citation.structured.title.trim(),
-                        style: OmiType.callout,
+                        style: OmiType.body,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:omi/backend/schema/app.dart';
 import 'package:omi/pages/chat/chat_route.dart';
 import 'package:omi/pages/chat/widgets/chat_apps_drawer.dart';
+import 'package:omi/pages/chat/widgets/chat_bubbles.dart';
 import 'package:omi/providers/app_provider.dart';
 import 'package:omi/providers/message_provider.dart';
 import 'package:omi/ui/ui.dart';
@@ -26,7 +27,7 @@ class ChatHeader extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       surfaceTintColor: Colors.transparent,
       automaticallyImplyLeading: false,
-      leading: const Center(child: OmiCloseButton.circled(key: Key('chat_close'))),
+      leading: Center(child: OmiCloseButton.circled(key: const Key('chat_close'), fillColor: ChatInk.fill)),
       centerTitle: true,
       title: _ChatDismissRegion(
           child: app == null
@@ -56,7 +57,7 @@ class ChatHeader extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
-/// The chat app answering this thread, in a glass capsule like Home's controls. Tapping it opens
+/// The chat app answering this thread, in a filled capsule. Tapping it opens
 /// Chat Apps, the same as the app pill in the composer.
 class _AppCapsule extends StatelessWidget {
   const _AppCapsule({required this.app});
@@ -78,8 +79,8 @@ class _AppCapsule extends StatelessWidget {
           OmiHaptics.selection();
           Scaffold.maybeOf(context)?.openEndDrawer();
         },
-        child: OmiGlass(
-          shape: const StadiumBorder(),
+        child: Container(
+          decoration: BoxDecoration(color: ChatInk.fill, borderRadius: OmiRadius.pillAll),
           child: Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(6, 6, OmiSpacing.sm, 6),
             child: Row(mainAxisSize: MainAxisSize.min, children: [

@@ -27,9 +27,8 @@ class ChartMessageWidget extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 8),
       padding: const EdgeInsets.fromLTRB(12, 16, 16, 12),
       decoration: BoxDecoration(
-        color: OmiColors.surface1,
+        color: ChatInk.fill,
         borderRadius: OmiRadius.lgAll,
-        border: Border.fromBorderSide(chatInnerCardSide()),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

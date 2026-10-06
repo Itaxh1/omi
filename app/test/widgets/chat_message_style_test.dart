@@ -47,7 +47,7 @@ void main() {
         setMessageNps: (int value, {String? reason}) {},
       );
 
-  testWidgets('the question sits in a solid round pill', (tester) async {
+  testWidgets('the question sits in a solid accent pill with the Messages tail', (tester) async {
     final message = ServerMessage(
       'q1',
       DateTime.utc(2026),
@@ -64,25 +64,24 @@ void main() {
 
     final box = tester.widget<Container>(find.byKey(const Key('chat_user_message')));
     final decoration = box.decoration! as BoxDecoration;
-    expect(decoration.color, HumanMessage.fill, reason: 'a solid pill, not an outline');
-    expect(decoration.border, isNull);
-    expect(decoration.borderRadius, OmiRadius.xlAll, reason: 'round on every corner');
+    expect(decoration.color, OmiColors.accent, reason: 'the accent: black in light, white in dark');
+    expect(decoration.border, isNull, reason: 'a fill, not an outline');
+    expect(decoration.borderRadius, OmiRadius.lgAll);
+    expect(find.byKey(const Key('chat_user_message_tail')), findsOneWidget);
     final words = tester.widget<SelectableText>(find.byType(SelectableText));
-    expect(words.style!.color, HumanMessage.ink, reason: 'the words read on the fill');
+    expect(words.style!.color, OmiColors.onAccent, reason: 'the words read on the fill');
     expect(words.style!.fontSize, OmiType.body.fontSize);
     expect(find.text('Did Dan send the model link?'), findsOneWidget);
   });
 
-  testWidgets("Omi's answer sits in a round white card with a hairline edge", (tester) async {
+  testWidgets("Omi's answer is text on the page, with no box around it", (tester) async {
     await pump(tester, answer(aiMessage('Not sure. Nothing about that today.')));
 
-    final card = tester.widget<Container>(
-      find.descendant(of: find.byType(ChatAnswerCard), matching: find.byType(Container)).first,
+    final boxed = find.ancestor(
+      of: find.byType(MarkdownBody),
+      matching: find.byWidgetPredicate((widget) => widget is Container && widget.decoration != null),
     );
-    final decoration = card.decoration! as BoxDecoration;
-    expect(decoration.color, OmiColors.surface1, reason: 'white, not the grouped grey');
-    expect(decoration.borderRadius, OmiRadius.xlAll);
-    expect((decoration.border! as Border).top.color, OmiColors.glassEdge, reason: 'a hairline, not an ink outline');
+    expect(boxed, findsNothing, reason: 'no card, no fill, no outline behind the words');
     expect(find.text('Not sure. Nothing about that today.'), findsOneWidget);
     expect(find.byType(MessageActionBar), findsOneWidget);
   });
@@ -125,7 +124,7 @@ void main() {
     expect(paragraph.text.toPlainText(), contains('the doc'), reason: 'a real link is untouched');
   });
 
-  testWidgets('the sources are numbered rows in their own card: no emoji, the number matching the marker',
+  testWidgets('the sources are a plain numbered list under the answer: no emoji, no card, hairlines between',
       (tester) async {
     final when = DateTime.parse('2026-10-02T19:12:00Z');
     final message = aiMessage('Not about the V2 yet. [1]', memories: [
@@ -149,24 +148,37 @@ void main() {
       ),
     );
 
-    expect(find.byType(ChatAnswerCard), findsNWidgets(2), reason: 'the answer, then the sources');
+    final list = find.byKey(const ValueKey('chat-citation-list'));
+    expect(list, findsOneWidget);
+    expect(tester.widget(list), isA<Padding>(), reason: 'a list on the page, not a card');
     expect(find.byKey(const ValueKey('chat-citation-c1')), findsOneWidget);
     expect(find.text('1'), findsOneWidget);
     expect(find.text('2'), findsOneWidget);
     expect(find.text('Testing Omi Offline Speech'), findsOneWidget);
     expect(find.textContaining('🎙️'), findsNothing, reason: 'no emoji tiles');
     expect(find.textContaining('📱'), findsNothing);
+    final separator = tester.widget<Divider>(find.byType(Divider));
+    expect(separator.color, ChatInk.sep, reason: 'one hairline between the two rows');
     final number = tester.widget<Text>(find.byKey(const Key('chat_citation_number')).first);
     expect(number.style!.color, OmiColors.textTertiary);
   });
 
-  testWidgets('the follow-up is a hairline pill with the reply arrow', (tester) async {
+  testWidgets('the follow-up is a filled pill with the reply arrow, and a failed reply a filled box', (tester) async {
     await pump(tester, ChatFollowUpChip(question: 'Which one is due first?', onSend: (_) {}));
 
     expect(find.byIcon(Icons.subdirectory_arrow_right), findsOneWidget);
     final button = tester.widget<OutlinedButton>(find.byKey(const Key('chat_followup_chip')));
-    expect(button.style!.side!.resolve({})!.color, OmiColors.border, reason: 'a hairline, not ink');
+    expect(button.style!.backgroundColor!.resolve({}), ChatInk.fill, reason: 'the ink at an opacity');
+    expect(button.style!.side!.resolve({})!.style, BorderStyle.none, reason: 'no outline');
     expect(find.text('Which one is due first?'), findsOneWidget);
+
+    await pump(tester, ChatReplyError(onRetry: () {}));
+    final box = tester.widget<Container>(
+      find.ancestor(of: find.text('Try Again'), matching: find.byType(Container)).first,
+    );
+    final decoration = box.decoration! as BoxDecoration;
+    expect(decoration.color, ChatInk.fill);
+    expect(decoration.border, isNull);
   });
 
   testWidgets('Copy, Helpful, Not Helpful and Share are small quiet glyphs on 44 pt targets', (tester) async {
