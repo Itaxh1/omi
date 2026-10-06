@@ -80,7 +80,11 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
   bool _showLatestJump = false;
 
   /// The thread has scrolled up under the composer, which then turns solid.
-  bool _composerSolid = false;
+  /// The composer turns solid only once the user has scrolled the thread up under it. It follows
+  /// the scroll *mode*, not the metrics: while Omi's reply grows (each tool call adds a block) the
+  /// list is briefly behind its live edge before the follow-up scroll lands, and reading the
+  /// metrics made the composer blink on every step.
+  bool get _composerSolid => _chatScrollMode == ChatScrollMode.freeScrolling;
   Timer? _latestJumpIdleTimer;
   final List<Timer> _pendingScrollTimers = [];
   final List<Timer> _ownedLifecycleTimers = [];
@@ -453,6 +457,10 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
       builder: (context, voiceRecorderProvider, child) {
         final voiceActive = voiceRecorderProvider.isActive;
         final recording = voiceRecorderProvider.state == VoiceRecorderState.recording;
+        // A recording that failed to transcribe, or one found from last time: kept, waiting on
+        // Try Again.
+        final voiceWaiting = voiceRecorderProvider.state == VoiceRecorderState.transcribeFailed ||
+            voiceRecorderProvider.state == VoiceRecorderState.pendingRecovery;
         final latest = provider.messages.isEmpty ? null : provider.messages.last;
         final followUp = latest != null &&
                 latest.sender == MessageSender.ai &&
@@ -523,6 +531,7 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
               // A filled field at the live edge; once the thread scrolls up under it, a solid card
               // with a hairline and a lift, so nothing reads through it.
               child: AnimatedContainer(
+                key: const Key('chat_composer_card'),
                 duration: OmiMotion.of(context).quick,
                 margin: EdgeInsets.fromLTRB(10, provider.selectedFiles.isNotEmpty ? 0 : 8, 10, 10),
                 padding: const EdgeInsets.fromLTRB(16, 8, 6, 4),
@@ -629,6 +638,17 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
                               OmiHaptics.medium();
                               voiceRecorderProvider.requestAutoSendOnNextTranscript();
                               voiceRecorderProvider.processRecording();
+                            },
+                          ),
+                        // Try Again takes Send's place: the one action a kept recording wants.
+                        if (voiceWaiting)
+                          ChatComposerRoundButton(
+                            buttonKey: const ValueKey('omi.chat.voice.retry'),
+                            icon: const FaIcon(FontAwesomeIcons.arrowsRotate),
+                            label: context.l10n.tryAgain,
+                            onPressed: () {
+                              OmiHaptics.light();
+                              voiceRecorderProvider.retry();
                             },
                           ),
                         if (!voiceActive && textController.text.isEmpty)
@@ -849,10 +869,6 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
 
   bool _handleScrollNotification(ScrollNotification notification) {
     if (notification.depth != 0) return false;
-
-    final metrics = notification.metrics;
-    final scrolledUp = metrics.maxScrollExtent > 0 && !ChatScrollPolicy.atLiveEdge(metrics);
-    if (scrolledUp != _composerSolid && mounted) setState(() => _composerSolid = scrolledUp);
 
     final isUserScroll = notification is UserScrollNotification && notification.direction != ScrollDirection.idle;
     final isDragScroll = notification is ScrollUpdateNotification && notification.dragDetails != null;
