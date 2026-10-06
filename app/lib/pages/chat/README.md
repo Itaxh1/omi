@@ -48,9 +48,17 @@ When the keyboard leaves less than 400 points of visible height, it uses one lin
 Generated whitespace is collapsed for display; tapping still sends the complete original
 question. Text scaling remains enabled. The greeting can scroll independently above the composer.
 
-Follow-up suggestions match the starter questions: an unfilled, rounded outline and regular
-callout text, distinct from the user's message, a rounded rectangle with one squared corner. They retain a
-44-point minimum touch target and the existing send callback and analytics.
+Each turn has a shape. The user's message is a solid round pill at the right: the accent in
+light mode, a lifted grey in dark, with quoted context inside it above the words. Omi's answer is
+a round white card with a hairline edge and a small lift, like Home's glass controls; a task
+card, a chart or a failed reply inside it stays white behind a warm hairline instead of taking
+a fill. The conversations an answer came from sit in a second card under it as numbered rows,
+title over date, the number matching the answer's `[n]` marker; there is no emoji or chevron.
+An answer from a chat app carries the app's avatar and name above its card, and the app sits in
+a glass capsule in the header that opens Chat Apps, the same as the app pill in the composer.
+Follow-up suggestions match the starter questions: a hairline pill with the reply arrow and
+regular callout text. They retain a 44-point minimum touch target and the existing send
+callback and analytics.
 Only the latest completed AI reply can supply that suggestion, in the fixed area above the
 composer and keyboard. Historical answers never render their own chips. Sending a new turn
 hides the old suggestion immediately; a newer answer without one leaves the area empty.

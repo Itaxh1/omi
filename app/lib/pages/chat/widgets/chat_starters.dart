@@ -141,6 +141,7 @@ class ChatSuggestions extends StatelessWidget {
                     key: ValueKey('chat_starter_${prompt.key}'),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: OmiColors.textPrimary,
+                      backgroundColor: OmiColors.surface1,
                       minimumSize: const Size(44, 44),
                       maximumSize: Size(constraints.maxWidth - OmiSpacing.md * 2, double.infinity),
                       side: BorderSide(color: OmiColors.border),

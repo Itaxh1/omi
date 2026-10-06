@@ -19,8 +19,8 @@ List<BoxShadow> get kChatComposerShadow => OmiColors.active == OmiPalette.dark
       ]
     : const [BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.08), blurRadius: 16, offset: Offset(0, -4))];
 
-/// The quiet round button at the composer card's leading edge: Attach (idle) or Discard (recording),
-/// a 36 pt circle in a 44 pt target.
+/// The quiet glyph at the composer card's leading edge: Attach (idle) or Discard (recording), in a
+/// 44 pt target.
 ///
 /// Labelled for screen readers and long-press; [onPressed] null draws it disabled.
 class ChatComposerSideButton extends StatelessWidget {
@@ -46,14 +46,13 @@ class ChatComposerSideButton extends StatelessWidget {
           child: SizedBox.square(
             dimension: kOmiMinTapTarget,
             child: Center(
-              child: Container(
+              child: SizedBox(
                 height: 36,
                 width: 36,
-                decoration: BoxDecoration(color: OmiColors.surface2, shape: BoxShape.circle),
                 child: Center(
                   child: ExcludeSemantics(
                     child: IconTheme.merge(
-                      data: IconThemeData(color: enabled ? OmiColors.textSecondary : OmiColors.textDisabled, size: 16),
+                      data: IconThemeData(color: enabled ? OmiColors.textSecondary : OmiColors.textDisabled, size: 18),
                       child: icon,
                     ),
                   ),
@@ -92,11 +91,7 @@ class ChatAppChip extends StatelessWidget {
           child: Center(
             child: Container(
               padding: const EdgeInsets.fromLTRB(4, 4, 10, 4),
-              decoration: BoxDecoration(
-                color: OmiColors.surface2,
-                borderRadius: OmiRadius.pillAll,
-                border: Border.all(color: OmiColors.border),
-              ),
+              decoration: BoxDecoration(color: OmiCanvas.cardOf(context), borderRadius: OmiRadius.pillAll),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
