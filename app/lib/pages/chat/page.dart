@@ -372,7 +372,8 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
                         }
 
                         final message = provider.messages[chatIndex];
-                        double topPadding = chatIndex == provider.messages.length - 1 ? 8 : 16;
+                        // A question opens a turn with room above it; the answer sits closer under it.
+                        final topPadding = message.sender == MessageSender.ai ? 10.0 : 24.0;
                         double bottomPadding = chatIndex == 0 ? 16 : 0;
 
                         final messageBody = message.sender == MessageSender.ai
