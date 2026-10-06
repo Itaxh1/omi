@@ -521,8 +521,8 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
                 padding: const EdgeInsets.fromLTRB(16, 8, 6, 4),
                 decoration: BoxDecoration(
                   color: OmiColors.surface1,
-                  borderRadius: const BorderRadius.all(Radius.circular(24)),
-                  border: Border.all(color: OmiColors.border),
+                  borderRadius: OmiRadius.xlAll,
+                  border: Border.all(color: OmiColors.glassEdge),
                   boxShadow: kChatComposerShadow,
                 ),
                 child: Column(
@@ -703,7 +703,7 @@ class ChatPageState extends State<ChatPage> with AutomaticKeepAliveClientMixin, 
       ],
       position: PullDownMenuPosition.automatic,
       buttonBuilder: (context, showMenu) => ChatComposerSideButton(
-        icon: const FaIcon(FontAwesomeIcons.paperclip),
+        icon: const FaIcon(FontAwesomeIcons.plus),
         label: context.l10n.chatAddAttachment,
         onPressed: () async {
           OmiHaptics.light();
