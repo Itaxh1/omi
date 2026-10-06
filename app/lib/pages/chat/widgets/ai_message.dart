@@ -810,39 +810,17 @@ class _MemoriesMessageWidgetState extends State<MemoriesMessageWidget> {
           )
         else if (widget.showTypingIndicator && widget.message.thinkings.any((t) => t.toLowerCase().contains('chart')))
           const _ChartShimmer(),
-        const SizedBox(height: 16),
+        const SizedBox(height: OmiSpacing.xs),
         Column(
           key: const ValueKey('chat-citation-list'),
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             for (var data in widget.messageMemories.indexed)
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 4.0),
-                child: GestureDetector(
-                  key: ValueKey('chat-citation-${data.$2.id}'),
-                  onTap: () => _openCitedConversation(data.$1, data.$2),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
-                    width: double.maxFinite,
-                    decoration: BoxDecoration(color: OmiColors.surface1, borderRadius: OmiRadius.lgAll),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            '${tryDecodeText(data.$2.structured.emoji)} ${data.$2.structured.title}',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        conversationDetailLoading[data.$1]
-                            ? OmiSpinner(size: OmiSpinnerSize.small, color: OmiColors.textSecondary)
-                            : FaIcon(FontAwesomeIcons.chevronRight, size: 16, color: OmiColors.textTertiary),
-                      ],
-                    ),
-                  ),
-                ),
+              _CitedConversationRow(
+                key: ValueKey('chat-citation-${data.$2.id}'),
+                citation: data.$2,
+                opening: conversationDetailLoading[data.$1],
+                onTap: () => _openCitedConversation(data.$1, data.$2),
               ),
           ],
         ),
@@ -1158,7 +1136,7 @@ class InitialOptionWidget extends StatelessWidget {
           constraints: const BoxConstraints(minHeight: kOmiMinTapTarget),
           padding: const EdgeInsets.symmetric(horizontal: OmiSpacing.sm, vertical: 10),
           width: double.maxFinite,
-          decoration: BoxDecoration(color: OmiColors.surface1, borderRadius: OmiRadius.mdAll),
+          decoration: BoxDecoration(color: OmiCanvas.cardOf(context), borderRadius: OmiRadius.mdAll),
           child: Text(optionText, style: Theme.of(context).textTheme.bodyMedium),
         ),
         onTap: () {
@@ -1193,7 +1171,7 @@ class ChatReplyError extends StatelessWidget {
       liveRegion: true,
       child: Container(
         padding: const EdgeInsets.all(OmiSpacing.sm),
-        decoration: BoxDecoration(color: OmiColors.surface1, borderRadius: OmiRadius.mdAll),
+        decoration: BoxDecoration(color: OmiCanvas.cardOf(context), borderRadius: OmiRadius.mdAll),
         child: Row(
           children: [
             ExcludeSemantics(child: Icon(Icons.error_outline_rounded, size: 20, color: OmiColors.danger)),
@@ -1207,6 +1185,67 @@ class ChatReplyError extends StatelessWidget {
                 child: OmiButton.secondary(label: l10n.tryAgain, size: OmiButtonSize.compact, onPressed: onRetry),
               ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// A conversation an answer drew on (Omi v8 `.heard`): its title over when it happened, behind a
+/// hairline on the left, with no card. Tapping it opens the conversation.
+class _CitedConversationRow extends StatelessWidget {
+  const _CitedConversationRow({super.key, required this.citation, required this.opening, required this.onTap});
+
+  final MessageConversation citation;
+  final bool opening;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final dates = OmiDateFormat.of(context);
+    final when = citation.createdAt.toLocal();
+    return Semantics(
+      button: true,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: onTap,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 44),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: OmiSpacing.xxs),
+            child: Container(
+              padding: const EdgeInsetsDirectional.only(start: OmiSpacing.sm),
+              decoration: BoxDecoration(
+                border: BorderDirectional(start: BorderSide(color: OmiColors.border, width: 2)),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          citation.structured.title.trim(),
+                          style: OmiType.subhead.copyWith(color: OmiColors.textSecondary),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          '${dates.dayHeader(when)} ${dates.time(when)}',
+                          style: OmiType.footnote.copyWith(color: OmiColors.textTertiary),
+                          maxLines: 1,
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (opening) ...[
+                    const SizedBox(width: OmiSpacing.xs),
+                    OmiSpinner(size: OmiSpinnerSize.small, color: OmiColors.textSecondary),
+                  ],
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );

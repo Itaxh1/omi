@@ -49,7 +49,7 @@ Generated whitespace is collapsed for display; tapping still sends the complete 
 question. Text scaling remains enabled. The greeting can scroll independently above the composer.
 
 Follow-up suggestions match the starter questions: an unfilled, rounded outline and regular
-callout text, distinct from the user's filled message bubble. They retain a
+callout text, distinct from the user's message, a rounded rectangle with one squared corner. They retain a
 44-point minimum touch target and the existing send callback and analytics.
 Only the latest completed AI reply can supply that suggestion, in the fixed area above the
 composer and keyboard. Historical answers never render their own chips. Sending a new turn
